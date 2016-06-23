@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -43,7 +44,7 @@ public class EventPlayerInteract
 	public void interaction(
 			final LeftClickBlock event )
 	{
-		if ( event.getEntityPlayer() != null )
+		if ( event.getEntityPlayer() != null && event.getUseItem() != Result.DENY)
 		{
 			final ItemStack is = event.getItemStack();
 			if ( is != null && ( is.getItem() instanceof ItemChisel || is.getItem() instanceof ItemChiseledBit ) )
@@ -64,7 +65,7 @@ public class EventPlayerInteract
 	public void interaction(
 			final RightClickBlock event )
 	{
-		if ( event.getEntityPlayer() != null )
+		if ( event.getEntityPlayer() != null && event.getUseItem() != Result.DENY)
 		{
 			final ItemStack is = event.getItemStack();
 			if ( is != null && ( is.getItem() instanceof ItemChisel || is.getItem() instanceof ItemChiseledBit ) )
