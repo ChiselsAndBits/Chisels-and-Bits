@@ -15,6 +15,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 group= "mod.chiselsandbits"
 archivesBaseName = "chiselsandbits"
+if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of the version string if on a build server
+    project.version += ".${System.getenv().BUILD_NUMBER}"
+}
 
 repositories {
 	maven { url "http://dvs1.progwml6.com/files/maven" }
@@ -44,15 +47,32 @@ task apiJar(type: Jar) {
 
     classifier = 'api'
 }
+// prevent java 8's strict doclint for javadocs from failing builds
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
 
 jar {
 	manifest {
 		attributes 'FMLAT': 'chiselsandbits_at.cfg'
 	}
 }
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
 
 artifacts {
-    archives apiJar
+   archives javadocJar
+   archives sourcesJar
+   archives apiJar
 }
 
 processResources
@@ -76,4 +96,18 @@ processResources
     
     // Move access transformers to META-INF
     rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+task("uploadJars", dependsOn:"build") {
+    description = "uploads JARs"
+    if (project.hasProperty("local_maven")) {
+        apply plugin: 'maven'
+            uploadArchives {
+                repositories {
+                    mavenDeployer {
+                        repository(url: "file://${local_maven}")
+                }
+            }
+        }
+    }
 }
