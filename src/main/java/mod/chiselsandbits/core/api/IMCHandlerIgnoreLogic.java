@@ -33,7 +33,7 @@ public class IMCHandlerIgnoreLogic implements IMCMessageHandler
 					blk = Block.REGISTRY.getObject( new ResourceLocation( message.getSender(), name ) );
 				}
 			}
-			else if ( message.getMessageType() == ResourceLocation.class )
+			else if ( message.isResourceLocationMessage() )
 			{
 				errorName = message.getResourceLocationValue().toString();
 				blk = Block.REGISTRY.getObject( message.getResourceLocationValue() );

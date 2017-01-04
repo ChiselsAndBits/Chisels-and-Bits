@@ -3,6 +3,7 @@ package mod.chiselsandbits.core.api;
 import java.util.HashMap;
 import java.util.Map;
 
+import mod.chiselsandbits.client.ModConflictContext;
 import mod.chiselsandbits.core.Log;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
@@ -18,6 +19,10 @@ public class IMCHandler
 		processors.put( "forcestatecompatibility", new IMCHandlerForceState() );
 		processors.put( "ignoreblocklogic", new IMCHandlerIgnoreLogic() );
 		processors.put( "materialequivilancy", new IMCHandlerMaterialEquivilancy() );
+		for ( ModConflictContext conflictContext : ModConflictContext.values() )
+		{
+			processors.put( conflictContext.getName(), new IMCHandlerKeyBinding() );
+		}
 	}
 
 	public void handleIMCEvent(

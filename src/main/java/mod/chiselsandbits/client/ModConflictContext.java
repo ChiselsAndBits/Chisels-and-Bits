@@ -1,8 +1,15 @@
 package mod.chiselsandbits.client;
 
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+
+import mod.chiselsandbits.api.KeyBindingContext;
 import mod.chiselsandbits.core.ClientSide;
 import mod.chiselsandbits.helpers.ChiselToolType;
+import mod.chiselsandbits.helpers.ModUtil;
 import mod.chiselsandbits.interfaces.IVoxelBlobItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.client.settings.IKeyConflictContext;
@@ -16,8 +23,13 @@ public enum ModConflictContext implements IKeyConflictContext
 		@Override
 		public boolean isActive()
 		{
+			if ( super.isActive() )
+			{
+				return true;
+			}
+
 			final ItemStack held = ClientSide.instance.getPlayer().getHeldItemMainhand();
-			return held != null && held.getItem() instanceof IVoxelBlobItem;
+			return !ModUtil.isEmpty( held ) && held.getItem() instanceof IVoxelBlobItem;
 		}
 
 		@Override
@@ -33,6 +45,11 @@ public enum ModConflictContext implements IKeyConflictContext
 		@Override
 		public boolean isActive()
 		{
+			if ( super.isActive() )
+			{
+				return true;
+			}
+
 			final ChiselToolType tool = ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND );
 			return tool != null && tool.hasMenu();
 		}
@@ -49,7 +66,7 @@ public enum ModConflictContext implements IKeyConflictContext
 		@Override
 		public boolean isActive()
 		{
-			return ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND ) == ChiselToolType.TAPEMEASURE;
+			return super.isActive() || ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND ) == ChiselToolType.TAPEMEASURE;
 		}
 
 		@Override
@@ -65,7 +82,7 @@ public enum ModConflictContext implements IKeyConflictContext
 		@Override
 		public boolean isActive()
 		{
-			return ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND ) == ChiselToolType.POSITIVEPATTERN;
+			return super.isActive() || ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND ) == ChiselToolType.POSITIVEPATTERN;
 		}
 
 		@Override
@@ -81,6 +98,11 @@ public enum ModConflictContext implements IKeyConflictContext
 		@Override
 		public boolean isActive()
 		{
+			if ( super.isActive() )
+			{
+				return true;
+			}
+
 			final ChiselToolType tool = ClientSide.instance.getHeldToolType( EnumHand.MAIN_HAND );
 			return tool != null && tool.isBitOrChisel();
 		}
@@ -92,5 +114,57 @@ public enum ModConflictContext implements IKeyConflictContext
 			return this == other || other == KeyConflictContext.IN_GAME;
 		}
 	};
+
+	private List<Class<? extends Item>> activeItemClasses = new ArrayList<Class<? extends Item>>();
+
+	public void setItemActive(
+			final Item item )
+	{
+		activeItemClasses.add( item.getClass() );
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		final ItemStack held = ClientSide.instance.getPlayer().getHeldItemMainhand();
+
+		if ( ModUtil.isEmpty( held ) )
+		{
+			return false;
+		}
+
+		for ( Class<? extends Item> itemClass : activeItemClasses )
+		{
+			if ( itemClass.isInstance( held.getItem() ) )
+			{
+				return true;
+			}
+		}
+
+		if ( held.getItem().getClass().isAnnotationPresent( KeyBindingContext.class ) )
+		{
+			final Annotation annotation = held.getItem().getClass().getAnnotation( KeyBindingContext.class );
+
+			if (annotation instanceof KeyBindingContext)
+			{
+				final KeyBindingContext context = (KeyBindingContext) annotation;
+
+				for ( String name : context.value() )
+				{
+					if ( name.equals(getName()) )
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public String getName()
+	{
+		return toString().toLowerCase().replace( "holding_", "" );
+	}
 
 }

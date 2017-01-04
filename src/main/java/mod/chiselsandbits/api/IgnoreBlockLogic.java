@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
  * Put this on the block, or use the IMC,
  *
  * FMLInterModComms.sendMessage( "chiselsandbits", "ignoreblocklogic",
- * "myBlockName" );
+ * [myBlockName] );
  * 
  * If you wish to make a single state compatible, or incompatible you must use
  * "forcestatecompatibility" instead, if your entire block is intended to be
