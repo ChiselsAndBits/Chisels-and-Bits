@@ -335,14 +335,48 @@ public class ChiselAndBitsAPI implements IChiselAndBitsAPI
 	public KeyBinding getKeyBinding(
 			ModKeyBinding modKeyBinding )
 	{
-		switch ( modKeyBinding.type )
+		switch ( modKeyBinding )
 		{
-			case CHISEL_MODE:
-				return (KeyBinding) ChiselMode.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
-			case POSITIVE_PATTERN_MODE:
-				return (KeyBinding) PositivePatternMode.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
-			case TAPE_MEASURES_MODE:
-				return (KeyBinding) TapeMeasureModes.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
+			case SINGLE:
+				return (KeyBinding) ChiselMode.SINGLE.binding;
+			case SNAP2:
+				return (KeyBinding) ChiselMode.SNAP2.binding;
+			case SNAP4:
+				return (KeyBinding) ChiselMode.SNAP4.binding;
+			case SNAP8:
+				return (KeyBinding) ChiselMode.SNAP8.binding;
+			case LINE:
+				return (KeyBinding) ChiselMode.LINE.binding;
+			case PLANE:
+				return (KeyBinding) ChiselMode.PLANE.binding;
+			case CONNECTED_PLANE:
+				return (KeyBinding) ChiselMode.CONNECTED_PLANE.binding;
+			case CUBE_SMALL:
+				return (KeyBinding) ChiselMode.CUBE_SMALL.binding;
+			case CUBE_MEDIUM:
+				return (KeyBinding) ChiselMode.CUBE_MEDIUM.binding;
+			case CUBE_LARGE:
+				return (KeyBinding) ChiselMode.CUBE_LARGE.binding;
+			case SAME_MATERIAL:
+				return (KeyBinding) ChiselMode.SAME_MATERIAL.binding;
+			case DRAWN_REGION:
+				return (KeyBinding) ChiselMode.DRAWN_REGION.binding;
+			case CONNECTED_MATERIAL:
+				return (KeyBinding) ChiselMode.CONNECTED_MATERIAL.binding;
+			case REPLACE:
+				return (KeyBinding) PositivePatternMode.REPLACE.binding;
+			case ADDITIVE:
+				return (KeyBinding) PositivePatternMode.ADDITIVE.binding;
+			case PLACEMENT:
+				return (KeyBinding) PositivePatternMode.PLACEMENT.binding;
+			case IMPOSE:
+				return (KeyBinding) PositivePatternMode.IMPOSE.binding;
+			case BIT:
+				return (KeyBinding) TapeMeasureModes.BIT.binding;
+			case BLOCK:
+				return (KeyBinding) TapeMeasureModes.BLOCK.binding;
+			case DISTANCE:
+				return (KeyBinding) TapeMeasureModes.DISTANCE.binding;
 			default:
 				return ClientSide.instance.getKeyBinding( modKeyBinding );
 		}
