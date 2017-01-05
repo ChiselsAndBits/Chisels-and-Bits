@@ -18,6 +18,7 @@ import mod.chiselsandbits.api.APIExceptions.CannotBeChiseled;
 import mod.chiselsandbits.api.IBitAccess;
 import mod.chiselsandbits.api.IBitBrush;
 import mod.chiselsandbits.api.ItemType;
+import mod.chiselsandbits.api.ModKeyBinding;
 import mod.chiselsandbits.bittank.BlockBitTank;
 import mod.chiselsandbits.bittank.TileEntityBitTank;
 import mod.chiselsandbits.bittank.TileEntitySpecialRenderBitTank;
@@ -140,6 +141,28 @@ public class ClientSide
 	private Stopwatch rotateTimer;
 
 	final public TapeMeasures tapeMeasures = new TapeMeasures();
+
+	public KeyBinding getKeyBinding(
+			ModKeyBinding modKeyBinding )
+	{
+		switch ( modKeyBinding )
+		{
+			case ROTATE_CCW:
+				return rotateCCW;
+			case ROTATE_CW:
+				return rotateCW;
+			case UNDO:
+				return undo;
+			case REDO:
+				return redo;
+			case ADD_TO_CLIPBOARD:
+				return addToClipboard;
+			case PICK_BIT:
+				return pickBit;
+			default:
+				return modeMenu;
+		}
+	}
 
 	public void preinit(
 			final ChiselsAndBits mod )

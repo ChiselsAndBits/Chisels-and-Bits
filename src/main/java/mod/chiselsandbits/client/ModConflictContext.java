@@ -145,13 +145,13 @@ public enum ModConflictContext implements IKeyConflictContext
 		{
 			final Annotation annotation = held.getItem().getClass().getAnnotation( KeyBindingContext.class );
 
-			if (annotation instanceof KeyBindingContext)
+			if ( annotation instanceof KeyBindingContext )
 			{
 				final KeyBindingContext context = (KeyBindingContext) annotation;
 
 				for ( String name : context.value() )
 				{
-					if ( name.equals(getName()) )
+					if ( name.equals( getName() ) )
 					{
 						return true;
 					}

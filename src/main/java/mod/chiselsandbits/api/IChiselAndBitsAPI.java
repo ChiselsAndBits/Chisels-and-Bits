@@ -6,12 +6,15 @@ import mod.chiselsandbits.api.APIExceptions.CannotBeChiseled;
 import mod.chiselsandbits.api.APIExceptions.InvalidBitItem;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 
 /**
@@ -198,5 +201,17 @@ public interface IChiselAndBitsAPI
 			Material newMaterial,
 			Material target ); // this should be a material C&B understands,
 								// other wise you'll get stone anyway.
+
+	/**
+	 * Get a C&B key binding.
+	 *
+	 * @param modKeyBinding
+	 *            the {@link ModKeyBinding} value that denotes the C&B key
+	 *            binding to return.
+	 * @return a C&B {@link KeyBinding}.
+	 */
+	@SideOnly( Side.CLIENT )
+	KeyBinding getKeyBinding(
+			ModKeyBinding modKeyBinding );
 
 }

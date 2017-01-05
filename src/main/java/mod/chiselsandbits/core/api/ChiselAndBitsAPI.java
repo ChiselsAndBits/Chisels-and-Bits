@@ -8,6 +8,7 @@ import mod.chiselsandbits.api.IBitBrush;
 import mod.chiselsandbits.api.IBitLocation;
 import mod.chiselsandbits.api.IChiselAndBitsAPI;
 import mod.chiselsandbits.api.ItemType;
+import mod.chiselsandbits.api.ModKeyBinding;
 import mod.chiselsandbits.chiseledblock.BlockBitInfo;
 import mod.chiselsandbits.chiseledblock.ItemBlockChiseled;
 import mod.chiselsandbits.chiseledblock.TileEntityBlockChiseled;
@@ -15,6 +16,7 @@ import mod.chiselsandbits.chiseledblock.data.BitLocation;
 import mod.chiselsandbits.chiseledblock.data.VoxelBlob;
 import mod.chiselsandbits.client.UndoTracker;
 import mod.chiselsandbits.core.ChiselsAndBits;
+import mod.chiselsandbits.core.ClientSide;
 import mod.chiselsandbits.helpers.BitOperation;
 import mod.chiselsandbits.helpers.DeprecationHelper;
 import mod.chiselsandbits.helpers.ModUtil;
@@ -26,8 +28,12 @@ import mod.chiselsandbits.items.ItemMirrorPrint;
 import mod.chiselsandbits.items.ItemNegativePrint;
 import mod.chiselsandbits.items.ItemPositivePrint;
 import mod.chiselsandbits.items.ItemWrench;
+import mod.chiselsandbits.modes.ChiselMode;
+import mod.chiselsandbits.modes.PositivePatternMode;
+import mod.chiselsandbits.modes.TapeMeasureModes;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,6 +44,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class ChiselAndBitsAPI implements IChiselAndBitsAPI
@@ -320,6 +328,24 @@ public class ChiselAndBitsAPI implements IChiselAndBitsAPI
 			final EntityPlayer player )
 	{
 		UndoTracker.getInstance().endGroup( player );
+	}
+
+	@Override
+	@SideOnly( Side.CLIENT )
+	public KeyBinding getKeyBinding(
+			ModKeyBinding modKeyBinding )
+	{
+		switch ( modKeyBinding.type )
+		{
+			case CHISEL_MODE:
+				return (KeyBinding) ChiselMode.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
+			case POSITIVE_PATTERN_MODE:
+				return (KeyBinding) PositivePatternMode.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
+			case TAPE_MEASURES_MODE:
+				return (KeyBinding) TapeMeasureModes.values()[ modKeyBinding.getOffsetOrdinal() ].binding;
+			default:
+				return ClientSide.instance.getKeyBinding( modKeyBinding );
+		}
 	}
 
 }
