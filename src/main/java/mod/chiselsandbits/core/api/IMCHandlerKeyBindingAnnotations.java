@@ -21,19 +21,21 @@ public class IMCHandlerKeyBindingAnnotations implements IMCMessageHandler
 		try
 		{
 			boolean found = false;
+			Class<?> itemClass;
+			Annotation annotation;
+			List<String> conflictContextNames;
+			ResourceLocation regName;
 
 			for ( Item item : Item.REGISTRY )
 			{
-				ResourceLocation regName = item.getRegistryName();
+				regName = item.getRegistryName();
 
 				if ( regName == null || !regName.getResourceDomain().equals( message.getSender() ) )
 				{
 					continue;
 				}
 
-				Class<?> itemClass = item.getClass();
-				Annotation annotation;
-				List<String> conflictContextNames;
+				itemClass = item.getClass();
 
 				while ( itemClass != Item.class )
 				{
