@@ -1,8 +1,8 @@
 package mod.chiselsandbits.client;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import mod.chiselsandbits.api.KeyBindingContext;
 import mod.chiselsandbits.core.ClientSide;
@@ -115,7 +115,7 @@ public enum ModConflictContext implements IKeyConflictContext
 		}
 	};
 
-	private List<Class<? extends Item>> activeItemClasses = new ArrayList<Class<? extends Item>>();
+	private Set<Class<? extends Item>> activeItemClasses = new HashSet<Class<? extends Item>>();
 
 	public void setItemActive(
 			final Item item )
@@ -147,9 +147,7 @@ public enum ModConflictContext implements IKeyConflictContext
 
 			if ( annotation instanceof KeyBindingContext )
 			{
-				final KeyBindingContext context = (KeyBindingContext) annotation;
-
-				for ( String name : context.value() )
+				for ( String name : ( (KeyBindingContext) annotation ).value() )
 				{
 					if ( name.equals( getName() ) )
 					{

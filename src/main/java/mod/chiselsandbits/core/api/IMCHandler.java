@@ -19,10 +19,13 @@ public class IMCHandler
 		processors.put( "forcestatecompatibility", new IMCHandlerForceState() );
 		processors.put( "ignoreblocklogic", new IMCHandlerIgnoreLogic() );
 		processors.put( "materialequivilancy", new IMCHandlerMaterialEquivilancy() );
+
 		for ( ModConflictContext conflictContext : ModConflictContext.values() )
 		{
 			processors.put( conflictContext.getName(), new IMCHandlerKeyBinding() );
 		}
+
+		processors.put( "initkeybindingannotations", new IMCHandlerKeyBindingAnnotations() );
 	}
 
 	public void handleIMCEvent(
