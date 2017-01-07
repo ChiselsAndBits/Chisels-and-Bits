@@ -30,7 +30,7 @@ public class IMCHandlerKeyBindingAnnotations implements IMCMessageHandler
 			{
 				regName = item.getRegistryName();
 
-				if ( regName == null || !regName.getResourceDomain().equals( message.getSender() ) )
+				if ( regName == null || !regName.getResourceDomain().equals( message.getSender().toLowerCase() ) )
 				{
 					continue;
 				}
