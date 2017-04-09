@@ -208,6 +208,13 @@ public class NBTBlobConverter
 			formatChanged = true;
 			v = voxelBlobRef.getVoxelBlob().blobToBytes( preferedFormat );
 			voxelBlobRef = new VoxelBlobStateReference( v, 0 );
+
+			// When reading from the cross-world format, the primary state needs to also be converted.
+			if ( format == VoxelBlob.VERSION_CROSSWORLD )
+			{
+				primaryBlockState = voxelBlobRef.getVoxelBlob().getVoxelStats().mostCommonState;
+			}
+
 			format = voxelBlobRef.getFormat();
 		}
 
