@@ -49,8 +49,7 @@ public interface IBitAccess
 			int z );
 
 	/**
-	 * Sets the bit at the specific location, if you pass null it will use use
-	 * air.
+	 * Sets the bit at the specific location, if you pass null it will use air.
 	 *
 	 * @param x
 	 * @param y
