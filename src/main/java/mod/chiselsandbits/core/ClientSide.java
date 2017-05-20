@@ -75,6 +75,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.GlStateManager;
@@ -555,6 +556,10 @@ public class ClientSide
 
 				if ( wasVisible == false )
 				{
+					if ( ChiselsAndBits.getConfig().enableVivecraftCompatibility )
+					{
+						ChiselsAndBitsMenu.instance.mc.currentScreen = (GuiScreen)ChiselsAndBitsMenu.instance;
+					}
 					ChiselsAndBitsMenu.instance.mc.inGameHasFocus = false;
 					ChiselsAndBitsMenu.instance.mc.mouseHelper.ungrabMouseCursor();
 				}

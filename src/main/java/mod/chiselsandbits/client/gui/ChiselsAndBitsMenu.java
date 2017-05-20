@@ -1,5 +1,6 @@
 package mod.chiselsandbits.client.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -14,12 +15,14 @@ import mod.chiselsandbits.helpers.DeprecationHelper;
 import mod.chiselsandbits.helpers.LocalStrings;
 import mod.chiselsandbits.modes.IToolMode;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -454,4 +457,23 @@ public class ChiselsAndBitsMenu extends GuiScreen
 	{
 		return n > 0 ? 1 : -1;
 	}
+
+    /**
+     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+     */
+    protected void mouseClicked(
+    		int mouseX,
+    		int mouseY,
+    		int mouseButton ) throws IOException
+    {
+        if ( mouseButton == 0 && ChiselsAndBits.getConfig().enableVivecraftCompatibility )
+        {
+            this.mc.displayGuiScreen( (GuiScreen) null );
+
+            if ( this.mc.currentScreen == null )
+            {
+                this.mc.setIngameFocus();
+            }
+        }
+    }
 }
