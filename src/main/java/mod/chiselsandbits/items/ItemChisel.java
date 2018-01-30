@@ -301,7 +301,7 @@ public class ItemChisel extends ItemTool implements IItemScrollWheel, IChiselMod
 		final BitLocation location = new BitLocation( new RayTraceResult( RayTraceResult.Type.BLOCK, new Vec3d( hitX, hitY, hitZ ), side, pos ), false, BitOperation.CHISEL );
 
 		final PacketChisel pc = new PacketChisel( BitOperation.CHISEL, location, side, mode, hand );
-		
+
 		final int extractedState = pc.doAction( player );
 		if ( extractedState != 0 )
 		{

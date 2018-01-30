@@ -371,7 +371,7 @@ public class ModUtil
 		ItemStack is = ModUtil.nonNull( ei.getEntityItem() );
 
 		final List<BagPos> bags = ItemBitBag.getBags( player.inventory );
-		
+
 		if ( !containsAtLeastOneOf( player.inventory, is ) )
 		{
 			final ItemStack minSize = is.copy();

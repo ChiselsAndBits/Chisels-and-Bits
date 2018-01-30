@@ -275,7 +275,7 @@ public class ModConfig extends Configuration
 
 	@Configured( category = "Balance Settings" )
 	public int bagStackSize;
-	
+
 	@Configured( category = "Balance Settings" )
 	public int stoneChiselUses;
 
