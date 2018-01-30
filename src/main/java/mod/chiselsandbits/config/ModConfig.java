@@ -275,7 +275,7 @@ public class ModConfig extends Configuration
 
 	@Configured( category = "Balance Settings" )
 	public int bagStackSize;
-
+	
 	@Configured( category = "Balance Settings" )
 	public int stoneChiselUses;
 
@@ -299,6 +299,12 @@ public class ModConfig extends Configuration
 
 	@Configured( category = "Balance Settings" )
 	public boolean fullBlockCrafting;
+		
+	@Configured( category = "Balance Settings" )
+	public boolean requireBagSpace;
+	
+	@Configured( category = "Balance Settings" )
+	public boolean voidExcessBits;
 
 	// in game state
 	public boolean replaceingBits = false;
@@ -360,6 +366,8 @@ public class ModConfig extends Configuration
 		compatabilityMode = true;
 		maxDrawnRegionSize = 4;
 		bagStackSize = 512;
+		requireBagSpace = false;
+		voidExcessBits = false;
 		maxUndoLevel = 32;
 		maxTapeMeasures = 5;
 
