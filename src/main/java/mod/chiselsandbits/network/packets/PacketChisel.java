@@ -22,7 +22,6 @@ import mod.chiselsandbits.integration.mcmultipart.MCMultipartProxy;
 import mod.chiselsandbits.items.ItemBitBag;
 import mod.chiselsandbits.items.ItemChisel;
 import mod.chiselsandbits.items.ItemChiseledBit;
-import mod.chiselsandbits.items.ItemBitBag.BagPos;
 import mod.chiselsandbits.modes.ChiselMode;
 import mod.chiselsandbits.network.ModPacket;
 import net.minecraft.block.Block;
@@ -209,36 +208,22 @@ public class PacketChisel extends ModPacket
 				}
 			}
 			
-			//A list of all types of items in spawnlist. (should be 1)
-			ArrayList<Integer> stackStates = new ArrayList<>();
+			//The state id of the last item in spawnlist.
+			int entityItemState = 0;
 			
 			for ( final EntityItem ei : spawnlist )
 			{
 				ModUtil.feedPlayer( world, who, ei );
 				ItemBitBag.cleanupInventory( who, ei.getEntityItem() );
-				stackStates.add( ItemChiseledBit.getStackState( ei.getEntityItem() ) );
+				entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
 			}
 
-			final List<BagPos> bags = ItemBitBag.getBags( who.inventory );
-			
-			if( world.isRemote && ( ChiselsAndBits.getConfig().requireBagSpace || ChiselsAndBits.getConfig().voidExcessBits ) )
+			if ( world.isRemote && ( ChiselsAndBits.getConfig().requireBagSpace || ChiselsAndBits.getConfig().voidExcessBits ) )
 			{
 				//Test if the fed items fill up the bag, then notify the player to make sure they don't waste
 				//resources.
 				//Only send messages on client side.
-				boolean noAvailableBagSpace = true;
-				for ( final BagPos bp : bags )
-				{
-					for ( int x = 0; x < bp.inv.getSizeInventory(); x++ )
-					{
-						final ItemStack is = bp.inv.getStackInSlot( x );
-						if( ( stackStates.contains( ItemChiseledBit.getStackState( is ) ) && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) ) {
-							noAvailableBagSpace = false;
-							break;
-						}
-					}
-				}
-				if( noAvailableBagSpace )
+				if ( !ItemBitBag.hasBagSpace( who, entityItemState ) )
 				{
 					if( ChiselsAndBits.getConfig().voidExcessBits )
 					{

@@ -319,4 +319,24 @@ public class ItemBitBag extends Item
 		return 0;
 	}
 
+	public static boolean hasBagSpace(
+			final EntityPlayer player,
+			final int stateId )
+	{
+		boolean ret = false;
+		final List<BagPos> bags = getBags( player.inventory );
+		for ( final BagPos bp : bags )
+		{
+			for ( int x = 0; x < bp.inv.getSizeInventory(); x++ )
+			{
+				final ItemStack is = bp.inv.getStackInSlot( x );
+				if( ( ItemChiseledBit.getStackState( is ) == stateId && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) ) {
+					ret = true;
+					break;
+				}
+			}
+		}
+		return ret;
+	}
+
 }

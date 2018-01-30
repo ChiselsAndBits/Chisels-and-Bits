@@ -70,7 +70,7 @@ mod.chiselsandbits.result.has_changed=Block has changed
 mod.chiselsandbits.result.missing_bits=Not enough bits or chisel durability!
 mod.chiselsandbits.result.nothing_to_undo=Nothing to Undo
 mod.chiselsandbits.result.nothing_to_redo=Nothing to Redo
-mod.chiselsandbits.result.require_bag=You need more bag space before you can chisel!
+mod.chiselsandbits.result.require_bag=You need a bag which isn't full before you can use the chisel!
 mod.chiselsandbits.result.require_bag_full=Your bag has filled up!
 mod.chiselsandbits.result.void_excess=Your inventory has filled up, any excess bits have been voided!
 
