@@ -218,20 +218,21 @@ public class PacketChisel extends ModPacket
 				entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
 			}
 
-			if ( world.isRemote && ( ChiselsAndBits.getConfig().requireBagSpace || ChiselsAndBits.getConfig().voidExcessBits ) )
+			//entityItemState is always 0 when remote
+			if ( !world.isRemote && entityItemState != 0 )
 			{
-				//Test if the fed items fill up the bag, then notify the player to make sure they don't waste
-				//resources.
-				//Only send messages on client side.
-				if ( !ItemBitBag.hasBagSpace( who, entityItemState ) )
+				if( ChiselsAndBits.getConfig().requireBagSpace )
 				{
-					if( ChiselsAndBits.getConfig().voidExcessBits )
-					{
-						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
-					}
-					else
+					if ( !ItemBitBag.hasBagSpace( who, entityItemState ) )
 					{
 						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag_full" ) );
+					}
+				}
+				else if( ChiselsAndBits.getConfig().voidExcessBits )
+				{
+					if( !ItemChiseledBit.hasInventorySpace( who, entityItemState ) )
+					{
+						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
 					}
 				}
 			}

@@ -143,7 +143,7 @@ public class ItemChisel extends ItemTool implements IItemScrollWheel, IChiselMod
 		{
 			//Cycle every item in any bag, if the player can't store the clicked block then
 			//send them a message.
-			final int stateId = ModUtil.getStateId( player.worldObj.getBlockState( pos ) );
+			final int stateId = ModUtil.getStateId( state );
 			if ( !ItemBitBag.hasBagSpace( player, stateId ) )
 			{
 				if( player.worldObj.isRemote && !pos.equals( lastPos ) )

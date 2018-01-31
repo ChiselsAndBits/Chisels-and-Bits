@@ -458,4 +458,18 @@ public class ItemChiseledBit extends Item implements IItemScrollWheel, IChiselMo
 
 		return false;
 	}
+
+	public static boolean hasInventorySpace(
+			final EntityPlayer player,
+			final int blk )
+	{
+		for ( int x = 0; x < 36; x++ )
+		{
+			final ItemStack is = player.inventory.getStackInSlot( x );
+			if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < is.getMaxStackSize() ) || ModUtil.isEmpty( is ) ) {
+				return true;
+			}
+		}
+		return ItemBitBag.hasBagSpace( player, blk );
+	}
 }
