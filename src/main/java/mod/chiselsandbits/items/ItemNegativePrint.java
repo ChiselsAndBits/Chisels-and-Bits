@@ -38,6 +38,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -299,9 +300,32 @@ public class ItemNegativePrint extends Item implements IVoxelBlobItem, IItemScro
 			}
 		}
 
+		//The state id of the last item in spawnlist.
+		int entityItemState = 0;
+
 		for ( final EntityItem ei : spawnlist )
 		{
 			ModUtil.feedPlayer( world, who, ei );
+			entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
+		}
+
+		//entityItemState is always 0 when remote
+		if ( !world.isRemote && entityItemState != 0 )
+		{
+			if( ChiselsAndBits.getConfig().requireBagSpace )
+			{
+				if ( !ItemBitBag.hasBagSpace( who, entityItemState ) )
+				{
+					who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag_full" ) );
+				}
+			}
+			else if( ChiselsAndBits.getConfig().voidExcessBits )
+			{
+				if( !ItemChiseledBit.hasInventorySpace( who, entityItemState ) )
+				{
+					who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
+				}
+			}
 		}
 	}
 

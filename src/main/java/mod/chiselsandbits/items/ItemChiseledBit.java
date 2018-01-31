@@ -466,7 +466,8 @@ public class ItemChiseledBit extends Item implements IItemScrollWheel, IChiselMo
 		for ( int x = 0; x < 36; x++ )
 		{
 			final ItemStack is = player.inventory.getStackInSlot( x );
-			if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < is.getMaxStackSize() ) || ModUtil.isEmpty( is ) ) {
+			if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < is.getMaxStackSize() ) || ModUtil.isEmpty( is ) )
+			{
 				return true;
 			}
 		}

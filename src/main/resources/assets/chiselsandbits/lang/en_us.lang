@@ -261,4 +261,4 @@ mod.chiselsandbits.config.dynamicRenderFullChunksOnly.tooltip=Prevents Subdividi
 mod.chiselsandbits.config.requireBagSpace=Require Bag Space
 mod.chiselsandbits.config.requireBagSpace.tooltip=Requires there to be an empty slot in a bag in the player's inventory before allowing them to use the chisel.
 mod.chiselsandbits.config.voidExcessBits=Void Excess Bits
-mod.chiselsandbits.config.voidExcessBits.tooltip=Voids any bits that couldn't be fit into a bag or your inventory. Improves server performance.
+mod.chiselsandbits.config.voidExcessBits.tooltip=Voids any bits that couldn't be fit into a bag or your inventory. Improves server performance. The undo action could have issues as some bits are voided.

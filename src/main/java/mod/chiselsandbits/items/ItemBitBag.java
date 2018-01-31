@@ -329,7 +329,8 @@ public class ItemBitBag extends Item
 			for ( int x = 0; x < bp.inv.getSizeInventory(); x++ )
 			{
 				final ItemStack is = bp.inv.getStackInSlot( x );
-				if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) ) {
+				if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) )
+				{
 					return true;
 				}
 			}
