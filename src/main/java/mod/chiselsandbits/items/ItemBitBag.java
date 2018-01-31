@@ -323,7 +323,6 @@ public class ItemBitBag extends Item
 			final EntityPlayer player,
 			final int stateId )
 	{
-		boolean ret = false;
 		final List<BagPos> bags = getBags( player.inventory );
 		for ( final BagPos bp : bags )
 		{
@@ -331,12 +330,11 @@ public class ItemBitBag extends Item
 			{
 				final ItemStack is = bp.inv.getStackInSlot( x );
 				if( ( ItemChiseledBit.getStackState( is ) == stateId && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) ) {
-					ret = true;
-					break;
+					return true;
 				}
 			}
 		}
-		return ret;
+		return false;
 	}
 
 }
