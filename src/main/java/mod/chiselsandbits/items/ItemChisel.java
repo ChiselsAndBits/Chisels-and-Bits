@@ -129,7 +129,7 @@ public class ItemChisel extends ItemTool implements IItemScrollWheel, IChiselMod
 	}
 
 	//The previous stateId, avoids spamming the require_bag message.
-	private static BlockPos lastPos = new BlockPos(0, -1, 0);
+	private static BlockPos lastPos = new BlockPos( 0, -1, 0 );
 
 	static public boolean fromBreakToChisel(
 			final ChiselMode mode,
@@ -153,6 +153,10 @@ public class ItemChisel extends ItemTool implements IItemScrollWheel, IChiselMod
 					lastPos = pos;
 				}
 				return false;
+			}
+			else
+			{
+				lastPos = new BlockPos( 0, -1, 0 ); //re-send message after not stopping you from chiselling, otherwise you get no notification and it no longer works randomly
 			}
 		}
 		if ( BlockBitInfo.canChisel( state ) || MCMultipartProxy.proxyMCMultiPart.isMultiPartTileEntity( player.getEntityWorld(), pos ) || LittleTiles.isLittleTilesBlock( player.getEntityWorld().getTileEntity( pos ) ) )

@@ -29,6 +29,7 @@ import mod.chiselsandbits.helpers.ModUtil;
 import mod.chiselsandbits.interfaces.ICacheClearable;
 import mod.chiselsandbits.interfaces.IChiselModeItem;
 import mod.chiselsandbits.interfaces.IItemScrollWheel;
+import mod.chiselsandbits.items.ItemBitBag.BagPos;
 import mod.chiselsandbits.modes.ChiselMode;
 import mod.chiselsandbits.modes.IToolMode;
 import mod.chiselsandbits.network.NetworkRouter;
@@ -459,7 +460,7 @@ public class ItemChiseledBit extends Item implements IItemScrollWheel, IChiselMo
 		return false;
 	}
 
-	public static boolean hasInventorySpace(
+	public static boolean hasBitSpace(
 			final EntityPlayer player,
 			final int blk )
 	{
@@ -471,6 +472,18 @@ public class ItemChiseledBit extends Item implements IItemScrollWheel, IChiselMo
 				return true;
 			}
 		}
-		return ItemBitBag.hasBagSpace( player, blk );
+		final List<BagPos> bags = ItemBitBag.getBags( player.inventory );
+		for ( final BagPos bp : bags )
+		{
+			for ( int x = 0; x < bp.inv.getSizeInventory(); x++ )
+			{
+				final ItemStack is = bp.inv.getStackInSlot( x );
+				if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < bp.inv.getInventoryStackLimit() ) || ModUtil.isEmpty( is ) )
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

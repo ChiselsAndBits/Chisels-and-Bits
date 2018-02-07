@@ -221,16 +221,9 @@ public class PacketChisel extends ModPacket
 			//entityItemState is always 0 when remote
 			if ( !world.isRemote && entityItemState != 0 )
 			{
-				if( ChiselsAndBits.getConfig().requireBagSpace )
+				if( ChiselsAndBits.getConfig().voidExcessBits )
 				{
-					if ( !ItemBitBag.hasBagSpace( who, entityItemState ) )
-					{
-						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag_full" ) );
-					}
-				}
-				else if( ChiselsAndBits.getConfig().voidExcessBits )
-				{
-					if( !ItemChiseledBit.hasInventorySpace( who, entityItemState ) )
+					if( !ItemChiseledBit.hasBitSpace( who, entityItemState ) )
 					{
 						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
 					}
