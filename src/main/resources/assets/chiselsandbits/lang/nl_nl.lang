@@ -1,0 +1,263 @@
+
+itemGroup.chiselsandbits=Chisels & Bits
+itemGroup.chiselsandbits.Clipboard=Chisels & Bits Clipboard
+
+tile.mod.chiselsandbits.chiseled_wood.name=Gebeiteld Hout
+tile.mod.chiselsandbits.chiseled_rock.name=Gebeiteld Steen
+tile.mod.chiselsandbits.chiseled_iron.name=Gebeiteld Metaal
+tile.mod.chiselsandbits.chiseled_cloth.name=Gebeiteld Doek
+tile.mod.chiselsandbits.chiseled_glass.name=Gebeiteld Glas
+tile.mod.chiselsandbits.chiseled_ice.name=Gebeiteld Ijs
+tile.mod.chiselsandbits.chiseled_packedIce.name=Gebeiteld Pakijs
+tile.mod.chiselsandbits.chiseled_clay.name=Gebeiteld Klei
+tile.mod.chiselsandbits.chiseled_sand.name=Gebeiteld Zand
+tile.mod.chiselsandbits.chiseled_ground.name=Gebeitelde Grond
+tile.mod.chiselsandbits.chiseled_grass.name=Gebeiteld Gras
+tile.mod.chiselsandbits.chiseled_snow.name=Gebeitelde Sneeuw
+tile.mod.chiselsandbits.chiseled_fluid.name=Gebeitelde Vloeisof
+tile.mod.chiselsandbits.chiseled_leaves.name=Gebeitelde Bladeren
+
+tile.mod.chiselsandbits.bittank.name=Bitbak
+
+item.mod.chiselsandbits.block_bit.name=Gebeitelde Bit
+item.mod.chiselsandbits.bit_bag.name=Bitzak
+item.mod.chiselsandbits.wrench_wood.name=Houten Moersleutel
+
+item.mod.chiselsandbits.positiveprint.name=Positief Beitelontwerp
+item.mod.chiselsandbits.positiveprint_written.name=Positief Beitelontwerp - Beschreven
+item.mod.chiselsandbits.negativeprint.name=Negatief Beitelontwerp
+item.mod.chiselsandbits.negativeprint_written.name=Negatief Beitelontwerp - Beschreven
+item.mod.chiselsandbits.mirrorprint.name=Gespiegeld Beitelontwerp
+item.mod.chiselsandbits.mirrorprint_written.name=Gespiegeld Beitelontwerp - Beschreven
+
+item.mod.chiselsandbits.chisel_stone.name=Stenen Beitel
+item.mod.chiselsandbits.chisel_iron.name=Iijzeren Beitel
+item.mod.chiselsandbits.chisel_gold.name=Gouden Beitel
+item.mod.chiselsandbits.chisel_diamond.name=Diamanten Beitel
+
+item.mod.chiselsandbits.bitsaw_diamond.name=Diamanten Bitzaag
+item.mod.chiselsandbits.tape_measure.name=Rolmaat
+
+mod.chiselsandbits.chiselmode.single=Enkele Bit
+mod.chiselsandbits.chiselmode.snap2=Raster Gebonden 1/8 Grootte Kubus
+mod.chiselsandbits.chiselmode.snap4=Raster Gebonden 1/4 Grootte Kubus
+mod.chiselsandbits.chiselmode.snap8=Raster Gebonden 1/2 Grootte Kubus
+mod.chiselsandbits.chiselmode.line=Lijn
+mod.chiselsandbits.chiselmode.plane=Vlak
+mod.chiselsandbits.chiselmode.connected_plane=Verbonden vlak
+mod.chiselsandbits.chiselmode.connected_material=Verbonden materiaal
+mod.chiselsandbits.chiselmode.cube_small=Kleine Kubus
+mod.chiselsandbits.chiselmode.cube_medium=Middelmatige Kubus
+mod.chiselsandbits.chiselmode.cube_large=Grote kubus
+mod.chiselsandbits.chiselmode.drawn_region=Teken regio
+mod.chiselsandbits.chiselmode.same_material=Zelfde materiaal
+
+mod.chiselsandbits.bitoption.place=Plaats
+mod.chiselsandbits.bitoption.replace=Vervang
+
+mod.chiselsandbits.positivepatternmode.replace=Vervang
+mod.chiselsandbits.positivepatternmode.additive=Voeg toe
+mod.chiselsandbits.positivepatternmode.placement=Plaatsen
+mod.chiselsandbits.positivepatternmode.impose=Opleggen
+
+mod.chiselsandbits.tapemeasure.chatmsg=x: %s,  y: %s,  z: %s
+mod.chiselsandbits.tapemeasure.bit=Bit
+mod.chiselsandbits.tapemeasure.block=Blok
+mod.chiselsandbits.tapemeasure.distance=Afstand
+
+mod.chiselsandbits.result.out_of_range=Te ver weg
+mod.chiselsandbits.result.has_changed=Het blok is veranderd
+mod.chiselsandbits.result.missing_bits=Niet genoeg bits of beitel duurzaamheid.
+mod.chiselsandbits.result.nothing_to_undo=Niks om terug te draaien
+mod.chiselsandbits.result.nothing_to_redo=Niks om opnieuw te doen
+mod.chiselsandbits.result.require_bag=Je hebt lege plekken nodig in jou invetaris of een bitzak om de beitel te kunnen gebruiken!
+mod.chiselsandbits.result.void_excess=Je invetaris is vol, enige bits die niet erin pastte zijn mogelijk verdwenen.
+
+mod.chiselsandbits.other.rotate.ccw=Roteer met de klok mee
+mod.chiselsandbits.other.rotate.cw=Roteer tegen de klok in
+mod.chiselsandbits.other.mode=Radiaal Menu
+mod.chiselsandbits.other.undo=Ongedaan maken
+mod.chiselsandbits.other.redo=Opnieuw doen
+mod.chiselsandbits.other.pickbit=Kies een bit
+mod.chiselsandbits.other.add_to_clipboard=Zet blok op Clipboard
+
+mod.chiselsandbits.help.shiftdetails=<Houd Shift ingedrukt voor details>
+mod.chiselsandbits.help.empty=Leeg
+mod.chiselsandbits.help.filled=Gevuld
+
+mod.chiselsandbits.help.chiseled_block={} om te plaatsen;{} om het raster te negeren;Scrol met het muiswiel om de rotatie te veranderen.
+mod.chiselsandbits.help.bit_bag=Slaat bits op en vult deze automatisch aan in je invetaris
+mod.chiselsandbits.help.wrench={} om blokken te roteren.
+mod.chiselsandbits.help.bit={} om weg te halen;{} om te plaatsen;Gebruik {} om het menu te openen.
+mod.chiselsandbits.help.positiveprint={} om te beschrijven;{} om te beitelen/plaatsen of te maken.;Scrol met het muiswiel om de rotatie te veranderen.;Gebruik {} om het menu te openen.
+mod.chiselsandbits.help.negativeprint={} om te beschrijven;{} om te beitelen.;Scrol met het muiswiel om de rotatie te veranderen.
+mod.chiselsandbits.help.mirrorprint={} de kant die je wilt spiegelen;Vervaardig met een positief/negatief ontwerp om over te zetten.
+mod.chiselsandbits.help.chisel={} om te beitelen;Gebruik {} om het menu te openen.
+mod.chiselsandbits.help.bitsaw=Vervaardig met blokken of gebeitelde blokken;Zaag met een van de 3 assen.
+mod.chiselsandbits.help.bittank=Vul met een vloeistof en haal bits eruit.
+mod.chiselsandbits.help.tape_measure=Druk op {} en sleep om te meten;{} + {} om te wissen;Gebruik {} om het menu te openen.
+
+mod.chiselsandbits.help.chiseled_block.long=Linkermuisklik om een blok te plaatsen. Sluip terwijl je een blok plaatst om het raster te negeren. Shift + Muiswiel om te wisselen tussen de mogelijke rotaties.
+mod.chiselsandbits.help.bit_bag.long=Vult automatisch bits in je invetaris bij, slaat bits op wanneer er al een stack in je invetaris zitten.
+mod.chiselsandbits.help.wrench.long=Klik met de rechtermuisknop op een blok om hem te draaien rond de as waarnaar je kijkt op het blok.
+mod.chiselsandbits.help.tape_measure.long=Druk op de linkermuisknop en sleep om plekken te meten. Sluip terwijl je hem gebruikt om vorige metingen te verwijderen. Gebruik het menu om te wisselen tussen verschillende modussen.
+mod.chiselsandbits.help.bit.long=Klik op de linkermuisknop om een gebied te beitelen. Rechtermuisknop om daar te plaatsen.
+mod.chiselsandbits.help.positiveprint.long=Rechtermuisklik op een blok om het ontwerp daar te schrijven. Rechtermuisknop op een blok om het te beitelen en bits te plaatsen/verwijderen om het ontwerp na te bootsen. Je kunt het ook vervaardigen met bits/bitzakken. Shift + Muiswiel om de rotatie te veranderen zonder te bewegen.
+mod.chiselsandbits.help.negativeprint.long=Rechtermuisklik op een blok om het ontwerp daar te schrijven. Rechtermuisknop op een blok om het te beitelen en bits te verwijderen om het ontwerp na te bootsen. Je kunt het ook vervaardigen met bits/bitzakken. Shift + Muiswiel om de rotatie te veranderen zonder te bewegen.
+mod.chiselsandbits.help.mirrorprint.long=Rechtermuisklik op een blokzijde om te spiegelen. Bijvoorbeeld, de oostkant zal hem spiegelen volgens de oost->west as. Vervaardig beschreven ontwerpen met een positief of negatief ontwerp om het gespiegelde plaatje te verplaatsen naar het soort ontwerp dat je wil.
+mod.chiselsandbits.help.chisel.long=Linkermuisklik met enige compatibel blok om te beitelen. Rechtermuisklik om door de modussen te wisselen, je kunt ook met Shift + Muiswiel wisselen.
+mod.chiselsandbits.help.bitsaw.long=Vervaardig deze zaag met compatibele blokken of symmetrische gebeitelde blokken om ze te halveren. De as waarop je zaagt hangt af van de relatieve plek in het vervaardigingsmenu. De X as is ernaast, de Y as erboven of onder en de Z as diagonaal.
+mod.chiselsandbits.help.bittank.long=Rechtermuisklik met een emmer om vloeistoffen erin te doen of eruit te halen. Rechtermuisklik zonder een emmer om bits eruit te halen, Shift + Rechermuisklik doet bits in je hand, met een lege hand worden zoveel mogelijk bits erin gedaan. Je kunt automatisch met onder andere trechters bits eruit halen.
+
+mod.chiselsandbits.help.nobind=Geen toets gebonden
+mod.chiselsandbits.help.leftshift=Linker Shift
+mod.chiselsandbits.help.rightshift=Rechter Shift
+mod.chiselsandbits.help.leftalt=Linker Alt
+mod.chiselsandbits.help.rightalt=Rechter Alt
+mod.chiselsandbits.help.trash=Verwijder inhoud van bitzak, houd een item vast om te filteren.
+mod.chiselsandbits.help.trashitem=Verwijder alleen %s
+mod.chiselsandbits.help.reallytrash=Klik nogmaals om te laten weten dat je zeker bent dat alles weg mag.
+mod.chiselsandbits.help.reallytrash_blank=Klik nogmaals om te laten weten dat je zeker bent dat %s weg mag.
+mod.chiselsandbits.help.trash.invalid=%s kan niet verwijderd worden.
+
+mod.chiselsandbits.pretty.axis-y=Omhoog/omlaag
+mod.chiselsandbits.pretty.axis-x=Oost/West
+mod.chiselsandbits.pretty.axis-z=Noord/Zuid
+
+mod.chiselsandbits.pretty.facing-up=Omhoog
+mod.chiselsandbits.pretty.facing-down=Omlaag
+mod.chiselsandbits.pretty.facing-east=Oost
+mod.chiselsandbits.pretty.facing-west=West
+mod.chiselsandbits.pretty.facing-north=Noord
+mod.chiselsandbits.pretty.facing-south=Zuid
+
+chiselsandbits.color.white=Wit
+chiselsandbits.color.orange=Oranje
+chiselsandbits.color.magenta=Magenta
+chiselsandbits.color.lightBlue=Licht Blauw
+chiselsandbits.color.yellow=Geel
+chiselsandbits.color.lime=Limoen
+chiselsandbits.color.pink=Roze
+chiselsandbits.color.gray=Grijs
+chiselsandbits.color.silver=Zilver
+chiselsandbits.color.cyan=Cyaan
+chiselsandbits.color.purple=Paars
+chiselsandbits.color.blue=Blauw
+chiselsandbits.color.brown=Bruin
+chiselsandbits.color.green=Groen
+chiselsandbits.color.red=Rood
+chiselsandbits.color.black=Zwart
+
+commands.setbit.usage=/setbit <x> <y> <z> <bitx> <bity> <bitz> <TileName> [dataValue]
+commands.setbit.outOfWorld=Blok kan niet geplaatst buiten de wereld
+commands.setbit.noChange=Bit kon niet geplaatst worden
+commands.setbit.success=Bit geplaatst
+commands.setbit.cannotChiselBlock=Blok kan niet worden gebeiteld
+commands.setbit.invalidState=Verkeerde bit type
+commands.setbit.spaceOccupied=Bit kon niet worden geplaatst, de ruimte is bezet
+
+mod.chiselsandbits.config.maxUndoLevel=Maximaal Undo niveau
+mod.chiselsandbits.config.persistCreativeClipboard=Sla op/Laad Creative Clipboard Inhoud
+mod.chiselsandbits.config.fluidBitsAreClickThrough=Klik door vloeistof bits.
+mod.chiselsandbits.config.addBrokenBlocksToCreativeClipboard=Voeg gebroken bits toe aan Creative Clipboard
+mod.chiselsandbits.config.creativeClipboardSize=Creative Clipboard Grootte
+mod.chiselsandbits.config.creativeClipboardSize.tooltip=Aantal items dat in het creative clipboardk kan voordat ze verwijderd worden, 0 zet het uit.
+mod.chiselsandbits.config.ShowBitsInJEI=Maak bits zichtbaar in JEI
+mod.chiselsandbits.config.maxDrawnRegionSize=Maximale grootte voor getekende regios
+mod.chiselsandbits.config.showUsage=Voeg hulpteksten toe aan de beschrijving van items
+mod.chiselsandbits.config.invertBitBagFullness=Keer damage op de bitzak om.
+mod.chiselsandbits.config.enableChiselMode_Plane=Zet modus aan - Vlak
+mod.chiselsandbits.config.enableChiselMode_ConnectedPlane=Zet modus aan - Verbonden vlak
+mod.chiselsandbits.config.enableChiselMode_ConnectedMaterial=Zet modus aan - Verbonden materiaal
+mod.chiselsandbits.config.enableChiselMode_SameMaterial=Zet modus aan - Zelfde materiaal
+mod.chiselsandbits.config.enableChiselMode_Line=Zet modus aan - Lijn
+mod.chiselsandbits.config.enableChiselMode_SmallCube=Zet modus aan - Kleine Kubus
+mod.chiselsandbits.config.enableChiselMode_LargeCube=Zet modus aan - Grote kubus
+mod.chiselsandbits.config.enableChiselMode_MediumCube=Zet modus aan - Middelmatige Kubus
+mod.chiselsandbits.config.enableChiselMode_DrawnRegion=Zet modus aan - Teken regio
+mod.chiselsandbits.config.enableChiselMode_Snap2=Zet modus aan - Raster Gebonden 1/8 Grootte Kubus
+mod.chiselsandbits.config.enableChiselMode_Snap4=Zet modus aan - Raster Gebonden 1/4 Grootte Kubus
+mod.chiselsandbits.config.enableChiselMode_Snap8=Zet modus aan - Raster Gebonden 1/2 Grootte Kubus
+
+mod.chiselsandbits.config.enablePositivePatternMode_Additive=Zet modus aan - Voeg toe
+mod.chiselsandbits.config.enablePositivePatternMode_Impose=Zet modus aan - Opleggen
+mod.chiselsandbits.config.enablePositivePatternMode_Placement=Zet modus aan - Plaatsen
+mod.chiselsandbits.config.enablePositivePatternMode_Replace=Zet modus aan - Vervang
+
+mod.chiselsandbits.config.enableTapeMeasure_Bit=Zet modus aan - Bit
+mod.chiselsandbits.config.enableTapeMeasure_Block=Zet modus aan - Blok
+mod.chiselsandbits.config.enableTapeMeasure_Distance=Zet modus aan - Afstand
+
+mod.chiselsandbits.config.enableToolbarIcons=Laat modus icoon voor de beitel zien in de toolbar
+mod.chiselsandbits.config.perChiselMode=Sla geselecteerde modus op per beitel
+mod.chiselsandbits.config.chatModeNotification=Laat modus veranderingen zien in de chat
+mod.chiselsandbits.config.itemNameModeDisplay=Laat modus veranderingen zien met gereedschapsaanduiding
+mod.chiselsandbits.config.dynamicModelFaceCount=Maximale aantal kanten voor statisch renderen
+mod.chiselsandbits.config.dynamicModelFaceCount.tooltip=Modellen die complexer zijn dan dit zullen dynamisch worden gerenderd.
+mod.chiselsandbits.config.dynamicModelRange=Maximale afstand voor dynamisch renderen
+mod.chiselsandbits.config.dynamicModelRange.tooltip=Dynamisch gerenderde blokken buiten deze radius zullen niet gerenderd worden.
+mod.chiselsandbits.config.dynamicModelMinimizeLatancy=Maak wachttijden voor dynamisch laden zo klein mogelijk
+mod.chiselsandbits.config.dynamicModelMinimizeLatancy.tooltip=Uitzetten kan prestatie verbeteren maar verlaagt responsiviteit. 
+mod.chiselsandbits.config.dynamicMaxConcurrentTessalators=Maximaal nummer van gelijktijdige updates
+mod.chiselsandbits.config.dynamicMaxConcurrentTessalators.tooltip=Als dit nummer wordt overschreden worden updates gepauseerd.
+mod.chiselsandbits.config.damageTools=Gereedschappen verliezen duurzaamheid
+mod.chiselsandbits.config.enablePositivePrintCrafting=Vervaardigen met positief ontwerp
+mod.chiselsandbits.config.enablePositivePrintCrafting.tooltip=Het vervaaridgen van positieve ontwerpen met bits/zakken laat je blokken vervaardigen.
+mod.chiselsandbits.config.enableStackableCrafting=Vervaardig gebeitelde blokken om rotatie te verwijderen
+mod.chiselsandbits.config.enableStackableCrafting.tooltip=Je kunt dit gebruiken om hetzelfde ontwerp meerdere malen te plaatsen zonder de rotatie te verliezen.
+mod.chiselsandbits.config.enableNegativePrintInversionCrafting=Keer negatieve ontwerpen om
+mod.chiselsandbits.config.enableNegativePrintInversionCrafting.tooltip=Vervaardig een gevuld negatief design met een lege.
+mod.chiselsandbits.config.enableBitBag=Zet Bitzak aan
+mod.chiselsandbits.config.enableNegativePrint=Zet negatieve ontwerpen aan
+mod.chiselsandbits.config.enablePositivePrint=Zet positeve ontwerpen aan
+mod.chiselsandbits.config.enableMirrorPrint=Zet gespiegelde ontwerpen aan
+mod.chiselsandbits.config.enableChisledBits=Zet gebeitelde bits aan
+mod.chiselsandbits.config.enableStoneChisel=Zet steenen beitel aan
+mod.chiselsandbits.config.enableIronChisel=Zet ijzeren beitel aan
+mod.chiselsandbits.config.enableGoldChisel=Zet gouden beitel aan
+mod.chiselsandbits.config.enableDiamondChisel=Zet diamanten beitel aan
+mod.chiselsandbits.config.enableWoodenWrench=Zet houten moersleutel aan
+mod.chiselsandbits.config.enableChiselToolHarvestCheck=Controleer gereedschapsniveau voor beitels
+mod.chiselsandbits.config.enableChiselToolHarvestCheck.tooltip=Bijvoorbeeld, om obisidan te beitelen moet je beitel van diamant zijn.
+mod.chiselsandbits.config.enableChiselToolHarvestCheckTools=Gereedschap types worden nagedaan door beitels
+mod.chiselsandbits.config.enableToolHarvestLevels=Controleer gereedschapsniveau voor beitels bij het breken van het blok
+mod.chiselsandbits.config.enableToolHarvestLevels.tooltip=Bijvoorbeeld, alleen voor het beitelen van het eerste stukje van een obsidian blok is een diamnten beitel nodig.
+mod.chiselsandbits.config.enableBitLightSource=Gebeitelde blokken kunnen licht uitstralen
+mod.chiselsandbits.config.enableBitLightSource.tooltip=Wanneer dit uit staat zullen gebeitelde blokken wel gloeien maar niet echt licht uistralen.
+mod.chiselsandbits.config.bitLightPercentage=Percentage van blok voor maximale lichtsterkte
+mod.chiselsandbits.config.compatabilityMode=Verbeter mod compatibilitieit
+mod.chiselsandbits.config.enableAPITestingItem=Zet API testitem aan
+mod.chiselsandbits.config.bagStackSize=Bitzak - Stapelgrootte
+mod.chiselsandbits.config.bagStackSize.tooltip=Grootte van stacks in de bitzak: Minimaal 64, maximaal 99,999
+mod.chiselsandbits.config.stoneChiselUses=Stenen Beitel Duurzaamheid
+mod.chiselsandbits.config.ironChiselUses=Ijzeren Beitel Duurzaamheid
+mod.chiselsandbits.config.diamondChiselUses=Diamanten Beitel Duurzaamheid
+mod.chiselsandbits.config.goldChiselUses=Gouden Beitel Duurzaamheid
+mod.chiselsandbits.config.wrenchUses=Moersleutel Duurzaamheid
+mod.chiselsandbits.config.disableCustomVertexFormats=Zet zelfgemaakte Vertex Formaten uit
+mod.chiselsandbits.config.enableModelCompression=Druk Vertex data in het geheugen samen.
+mod.chiselsandbits.config.useGetLightValue=Gebruik Get Light Value om de lichtsterkte van blokken te krijgen.
+mod.chiselsandbits.config.enableFaceLightmapExtraction=Gebruik modelanalyse om de lichtsterkte van een blok te bepalen
+mod.chiselsandbits.config.enableRightClickModeChange=Verander beitelmodus bij rechtermuisklik
+mod.chiselsandbits.config.enableSetBitCommand=Zet /setbit commando aan
+mod.chiselsandbits.config.maxMillisecondsPerBlock=Maximaal aantal milliseconden per blok
+mod.chiselsandbits.config.maxMillisecondsUploadingPerFrame=Maximaal aantal milliseconden Uploading/Cycle
+mod.chiselsandbits.config.maxTapeMeasures=Maximaal gebruiken van rolmaat
+mod.chiselsandbits.config.displayMeasuringTapeInChat=Laat rolmaat in chat zien
+mod.chiselsandbits.config.defaultToDynamicRenderer=Gebruik automatische dynamisch renderen
+mod.chiselsandbits.config.forceDynamicRenderer=Zet statisch renderen uit
+mod.chiselsandbits.config.useVBO=Gebruik VBOs
+mod.chiselsandbits.config.defaultToDynamicRenderer.tooltip=Standaard gebruikt C&B de statische renderer en wisselt hij bij het updaten naar de dynamische renderer. Deze optie draait dat om; Na het uitrekenen van het detail van het model kan het wisselen naar de statische renderer, dit helpt bij complexe scenes die vastlopen met de statische renderer.
+mod.chiselsandbits.config.forceDynamicRenderer.tooltip=Debug optie, zet de statische renderer helemaal uit.
+mod.chiselsandbits.config.useVBO.tooltip=Gebruikt automatisch hetzelfde als Minecraft, maar kan worden veranderd.
+mod.chiselsandbits.config.blacklistTickingBlocks=Zet tikkende blokken op de blacklist
+mod.chiselsandbits.config.radialMenuVolume='Klik' volume voor radiaal menu.
+mod.chiselsandbits.config.radialMenuVolume.tooltip=Als je dit naar 0 zet gaat het uit.
+mod.chiselsandbits.config.enableVivecraftCompatibility=Zet Vivecraft compatibiliteit aan.
+mod.chiselsandbits.config.enableChiselCrafting=Laat toe om blokken te beitelen in het vervaardigingsmenu
+mod.chiselsandbits.config.dynamicRenderFullChunksOnly=Render alleen volledige chunks dynamisch
+mod.chiselsandbits.config.dynamicRenderFullChunksOnly.tooltip=Zorgt ervoor dat dynamisch gerenderde chunks niet worden opverdeeld in enkele blokken. Dit verbeterd prestatie in de meeste gevallen ( chunks met slechts een paar complexe blokken ), maar verminderd prestatie in andere gevallen ( chunks met heel veel complexe blokken ).
+mod.chiselsandbits.config.requireBagSpace=Vereis opslag ruimte voor bits
+mod.chiselsandbits.config.requireBagSpace.tooltip=Met deze optie aan kun je alleen beitelen als je in je invetaris of bitzakken ruimte hebt voor de blokken die je aan het beitelen bent.
+mod.chiselsandbits.config.voidExcessBits=Vernietig extra bits
+mod.chiselsandbits.config.voidExcessBits.tooltip=Vernietigd enige bits die niet meer in je invetaris of bitzakken passen waardoor er nooit grote hopen met bits op de vloer komen. Verbeterd server prestatie. Kan problemen hebben met 'ongedaan maken' omdat bits worden vernietigd.
