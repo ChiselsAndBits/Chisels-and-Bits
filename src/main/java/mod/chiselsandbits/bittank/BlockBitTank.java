@@ -1,6 +1,5 @@
 package mod.chiselsandbits.bittank;
 
-
 import com.google.common.base.Predicate;
 
 import mod.chiselsandbits.core.Log;
