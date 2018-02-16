@@ -1,10 +1,15 @@
 package mod.chiselsandbits.bittank;
 
-import com.google.common.base.Predicate;
+import java.util.concurrent.TimeUnit;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Stopwatch;
+
+import mod.chiselsandbits.core.ChiselsAndBits;
 import mod.chiselsandbits.core.Log;
 import mod.chiselsandbits.helpers.ExceptionNoTileEntity;
 import mod.chiselsandbits.helpers.ModUtil;
+import mod.chiselsandbits.items.ItemChiseledBit;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -20,6 +25,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
@@ -177,6 +183,8 @@ public class BlockBitTank extends Block implements ITileEntityProvider
 		return getTileEntity( world.getTileEntity( pos ) );
 	}
 
+	private static Stopwatch timer;
+
 	@Override
 	public boolean onBlockActivated(
 			final World worldIn,
@@ -193,6 +201,23 @@ public class BlockBitTank extends Block implements ITileEntityProvider
 		{
 			final TileEntityBitTank tank = getTileEntity( worldIn, pos );
 			final ItemStack current = ModUtil.nonNull( playerIn.inventory.getCurrentItem() );
+			final IBlockState blkstate = worldIn.getBlockState( pos );
+
+			if ( hand.equals( EnumHand.MAIN_HAND ) && ChiselsAndBits.getConfig().requireBagSpace && !playerIn.isCreative() )
+			{
+				//Cycle every item in any bag, if the player can't store the clicked block then
+				//send them a message.
+				final int stateId = ModUtil.getStateId( blkstate );
+				if ( !ItemChiseledBit.hasBitSpace( playerIn, stateId ) )
+				{
+					if( playerIn.worldObj.isRemote && ( timer == null || timer.elapsed( TimeUnit.MILLISECONDS ) > 1000 ) )
+					{
+						//Only client should handle messaging.
+						playerIn.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag" ) );
+					}
+					return false;
+				}
+			}
 
 			if ( !ModUtil.isEmpty( current ) )
 			{
