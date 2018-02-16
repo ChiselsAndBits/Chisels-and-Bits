@@ -37,6 +37,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -119,7 +120,23 @@ public class ItemPositivePrint extends ItemNegativePrint implements IChiselModeI
 			final float hitZ )
 	{
 		final ItemStack stack = player.getHeldItem( hand );
+		final IBlockState blkstate = world.getBlockState( pos );
 
+		if ( ChiselsAndBits.getConfig().requireBagSpace && !player.isCreative() )
+		{
+			//Cycle every item in any bag, if the player can't store the clicked block then
+			//send them a message.
+			final int stateId = ModUtil.getStateId( blkstate );
+			if ( !ItemChiseledBit.hasBitSpace( player, stateId ) )
+			{
+				if( player.worldObj.isRemote )
+				{
+					//Only client should handle messaging.
+					player.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag" ) );
+				}
+				return EnumActionResult.FAIL;
+			}
+		}
 		if ( PositivePatternMode.getMode( stack ) == PositivePatternMode.PLACEMENT )
 		{
 			if ( player.isSneaking() )
@@ -303,10 +320,25 @@ public class ItemPositivePrint extends ItemNegativePrint implements IChiselModeI
 			}
 		}
 
+		//The state id of the last item in spawnlist.
+		int entityItemState = 0;
+
 		for ( final EntityItem ei : spawnlist )
 		{
 			ModUtil.feedPlayer( world, who, ei );
 			ItemBitBag.cleanupInventory( who, ei.getEntityItem() );
+			entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
+		}
+		//entityItemState is always 0 when remote
+		if ( !world.isRemote && entityItemState != 0 )
+		{
+			if( ChiselsAndBits.getConfig().voidExcessBits )
+			{
+				if( !ItemChiseledBit.hasBitSpace( who, entityItemState ) )
+				{
+					who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
+				}
+			}
 		}
 
 	}

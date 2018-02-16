@@ -151,6 +151,22 @@ public class ItemNegativePrint extends Item implements IVoxelBlobItem, IItemScro
 		final ItemStack stack = player.getHeldItem( hand );
 		final IBlockState blkstate = world.getBlockState( pos );
 
+		if ( ChiselsAndBits.getConfig().requireBagSpace && !player.isCreative() )
+		{
+			//Cycle every item in any bag, if the player can't store the clicked block then
+			//send them a message.
+			final int stateId = ModUtil.getStateId( blkstate );
+			if ( !ItemChiseledBit.hasBitSpace( player, stateId ) )
+			{
+				if( player.worldObj.isRemote )
+				{
+					//Only client should handle messaging.
+					player.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag" ) );
+				}
+				return EnumActionResult.FAIL;
+			}
+		}
+
 		if ( !player.canPlayerEdit( pos, side, stack ) || !world.isBlockModifiable( player, pos ) )
 		{
 			return EnumActionResult.FAIL;
