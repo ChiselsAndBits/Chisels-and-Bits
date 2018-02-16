@@ -17,6 +17,7 @@ import mod.chiselsandbits.helpers.IContinuousInventory;
 import mod.chiselsandbits.helpers.IItemInInventory;
 import mod.chiselsandbits.helpers.InventoryBackup;
 import mod.chiselsandbits.helpers.ModUtil;
+import mod.chiselsandbits.helpers.BitInventoryFeeder;
 import mod.chiselsandbits.items.ItemBitBag;
 import mod.chiselsandbits.items.ItemChisel;
 import mod.chiselsandbits.network.ModPacket;
@@ -201,9 +202,10 @@ public class PacketUndo extends ModPacket
 					if ( spawnItemsAndCommitWorldChanges )
 					{
 						ba.commitChanges( true );
+						BitInventoryFeeder feeder = new BitInventoryFeeder( player.getPlayer(), player.getWorld() );
 						for ( final EntityItem ei : spawnlist )
 						{
-							ModUtil.feedPlayer( player.getWorld(), player.getPlayer(), ei );
+							feeder.addItem(ei);
 							ItemBitBag.cleanupInventory( player.getPlayer(), ei.getEntityItem() );
 						}
 					}

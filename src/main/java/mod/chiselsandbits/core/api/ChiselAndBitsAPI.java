@@ -25,6 +25,7 @@ import mod.chiselsandbits.core.ClientSide;
 import mod.chiselsandbits.helpers.BitOperation;
 import mod.chiselsandbits.helpers.DeprecationHelper;
 import mod.chiselsandbits.helpers.ModUtil;
+import mod.chiselsandbits.helpers.BitInventoryFeeder;
 import mod.chiselsandbits.integration.mcmultipart.MCMultipartProxy;
 import mod.chiselsandbits.items.ItemBitBag;
 import mod.chiselsandbits.items.ItemChisel;
@@ -48,7 +49,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -296,20 +296,8 @@ public class ChiselAndBitsAPI implements IChiselAndBitsAPI
 				return;
 			}
 
-			ModUtil.feedPlayer( player.getEntityWorld(), player, ei );
-
-			final int entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
-			//entityItemState is always 0 when remote
-			if ( !player.getEntityWorld().isRemote && entityItemState != 0 )
-			{
-				if( ChiselsAndBits.getConfig().voidExcessBits )
-				{
-					if( !ItemChiseledBit.hasBitSpace( player, entityItemState ) )
-					{
-						player.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
-					}
-				}
-			}
+			BitInventoryFeeder feeder = new BitInventoryFeeder( player, player.getEntityWorld() );
+			feeder.addItem(ei);
 			return;
 		}
 		else if ( !player.inventory.addItemStackToInventory( stack ) )

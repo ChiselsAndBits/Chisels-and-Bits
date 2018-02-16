@@ -19,18 +19,15 @@ import mod.chiselsandbits.helpers.StateLookup.CachedStateLookup;
 import mod.chiselsandbits.integration.mcmultipart.MCMultipartProxy;
 import mod.chiselsandbits.integration.mods.LittleTiles;
 import mod.chiselsandbits.items.ItemBitBag;
-import mod.chiselsandbits.items.ItemBitBag.BagPos;
 import mod.chiselsandbits.items.ItemChiseledBit;
 import mod.chiselsandbits.items.ItemNegativePrint;
 import mod.chiselsandbits.items.ItemPositivePrint;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -39,7 +36,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -47,9 +43,6 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
 public class ModUtil
 {
@@ -359,94 +352,6 @@ public class ModUtil
 
 		MCMultipartProxy.proxyMCMultiPart.removeChisledBlock( te );
 		world.markBlockRangeForRenderUpdate( pos, pos );
-	}
-
-	private final static Random itemRand = new Random();
-
-	public static void feedPlayer(
-			final World world,
-			final EntityPlayer player,
-			final EntityItem ei )
-	{
-		ItemStack is = ModUtil.nonNull( ei.getEntityItem() );
-
-		final List<BagPos> bags = ItemBitBag.getBags( player.inventory );
-
-		if ( !containsAtLeastOneOf( player.inventory, is ) )
-		{
-			final ItemStack minSize = is.copy();
-
-			if ( getStackSize( minSize ) > minSize.getMaxStackSize() )
-			{
-				setStackSize( minSize, minSize.getMaxStackSize() );
-			}
-
-			adjustStackSize( is, -getStackSize( minSize ) );
-			player.inventory.addItemStackToInventory( minSize );
-			adjustStackSize( is, getStackSize( minSize ) );
-		}
-
-		for ( final BagPos bp : bags )
-		{
-			is = bp.inv.insertItem( is );
-		}
-
-		if ( ModUtil.isEmpty( is ) )
-			return;
-
-		ei.setEntityItemStack( is );
-		EntityItemPickupEvent event = new EntityItemPickupEvent( player, ei );
-
-		if ( MinecraftForge.EVENT_BUS.post( event ) )
-		{
-			// canceled...
-			spawnItem( world, ei );
-		}
-		else
-		{
-			if ( event.getResult() != Result.DENY )
-			{
-				is = ei.getEntityItem();
-
-				if ( is != null && !player.inventory.addItemStackToInventory( is ) )
-				{
-					ei.setEntityItemStack( is );
-					//Never spawn the items for dropped excess items if setting is enabled.
-					if ( !ChiselsAndBits.getConfig().voidExcessBits )
-					{
-						spawnItem( world, ei );
-					}
-				}
-				else
-				{
-					if ( !ei.isSilent() )
-					{
-						ei.worldObj.playSound( (EntityPlayer) null, ei.posX, ei.posY, ei.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ( ( itemRand.nextFloat() - itemRand.nextFloat() ) * 0.7F + 1.0F ) * 2.0F );
-					}
-				}
-
-				player.inventory.markDirty();
-
-				if ( player.inventoryContainer != null )
-				{
-					player.inventoryContainer.detectAndSendChanges();
-				}
-
-			}
-			else
-				spawnItem( world, ei );
-		}
-
-	}
-
-	private static void spawnItem(
-			World world,
-			EntityItem ei )
-	{
-		if ( world.isRemote ) // no spawning items on the client.
-			return;
-
-		world.spawnEntityInWorld( ei );
 	}
 
 	public static boolean containsAtLeastOneOf(

@@ -5,8 +5,11 @@ import java.util.BitSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
+
+import com.google.common.base.Stopwatch;
 
 import mod.chiselsandbits.bittank.BlockBitTank;
 import mod.chiselsandbits.chiseledblock.BlockBitInfo;
@@ -52,6 +55,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -481,6 +485,31 @@ public class ItemChiseledBit extends Item implements IItemScrollWheel, IChiselMo
 			final ItemStack is = player.inventory.getStackInSlot( x );
 			if( ( ItemChiseledBit.sameBit( is, blk ) && ModUtil.getStackSize( is ) < is.getMaxStackSize() ) || ModUtil.isEmpty( is ) )
 			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static Stopwatch timer;
+
+	public static boolean checkRequiredSpace(
+			final EntityPlayer player,
+			final IBlockState blkstate) {
+		if ( ChiselsAndBits.getConfig().requireBagSpace && !player.isCreative() )
+		{
+			//Cycle every item in any bag, if the player can't store the clicked block then
+			//send them a message.
+			final int stateId = ModUtil.getStateId( blkstate );
+			if ( !ItemChiseledBit.hasBitSpace( player, stateId ) )
+			{
+				if( player.worldObj.isRemote && ( timer == null || timer.elapsed( TimeUnit.MILLISECONDS ) > 1000 ) )
+				{
+					//Timer is client-sided so it doesn't have to be made player-specific
+					timer = Stopwatch.createStarted();
+					//Only client should handle messaging.
+					player.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag" ) );
+				}
 				return true;
 			}
 		}

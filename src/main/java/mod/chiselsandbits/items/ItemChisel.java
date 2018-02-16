@@ -136,21 +136,8 @@ public class ItemChisel extends ItemTool implements IItemScrollWheel, IChiselMod
 			final EnumHand hand )
 	{
 		final IBlockState state = player.getEntityWorld().getBlockState( pos );
-		if ( ChiselsAndBits.getConfig().requireBagSpace && !player.isCreative() )
-		{
-			//Cycle every item in any bag, if the player can't store the clicked block then
-			//send them a message.
-			final int stateId = ModUtil.getStateId( state );
-			if ( !ItemChiseledBit.hasBitSpace( player, stateId ) )
-			{
-				if( player.worldObj.isRemote && ( timer == null || timer.elapsed( TimeUnit.MILLISECONDS ) > 1000 ) )
-				{
-					timer = Stopwatch.createStarted();
-					//Only client should handle messaging.
-					player.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.require_bag" ) );
-				}
-				return false;
-			}
+		if ( ItemChiseledBit.checkRequiredSpace( player, state ) ) {
+			return false;
 		}
 		if ( BlockBitInfo.canChisel( state ) || MCMultipartProxy.proxyMCMultiPart.isMultiPartTileEntity( player.getEntityWorld(), pos ) || LittleTiles.isLittleTilesBlock( player.getEntityWorld().getTileEntity( pos ) ) )
 		{

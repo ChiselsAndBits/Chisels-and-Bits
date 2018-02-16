@@ -12,6 +12,7 @@ import mod.chiselsandbits.chiseledblock.iterators.ChiselTypeIterator;
 import mod.chiselsandbits.client.UndoTracker;
 import mod.chiselsandbits.core.ChiselsAndBits;
 import mod.chiselsandbits.helpers.ActingPlayer;
+import mod.chiselsandbits.helpers.BitInventoryFeeder;
 import mod.chiselsandbits.helpers.BitOperation;
 import mod.chiselsandbits.helpers.ContinousBits;
 import mod.chiselsandbits.helpers.ContinousChisels;
@@ -35,7 +36,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -207,27 +207,12 @@ public class PacketChisel extends ModPacket
 					}
 				}
 			}
-			
-			//The state id of the last item in spawnlist.
-			int entityItemState = 0;
-			
+
+			BitInventoryFeeder feeder = new BitInventoryFeeder( who, world );
 			for ( final EntityItem ei : spawnlist )
 			{
-				ModUtil.feedPlayer( world, who, ei );
+				feeder.addItem(ei);
 				ItemBitBag.cleanupInventory( who, ei.getEntityItem() );
-				entityItemState = ItemChiseledBit.getStackState( ei.getEntityItem() );
-			}
-
-			//entityItemState is always 0 when remote
-			if ( !world.isRemote && entityItemState != 0 )
-			{
-				if( ChiselsAndBits.getConfig().voidExcessBits )
-				{
-					if( !ItemChiseledBit.hasBitSpace( who, entityItemState ) )
-					{
-						who.addChatMessage( new TextComponentTranslation( "mod.chiselsandbits.result.void_excess" ) );
-					}
-				}
 			}
 			
 			if ( place.usesBits() )
