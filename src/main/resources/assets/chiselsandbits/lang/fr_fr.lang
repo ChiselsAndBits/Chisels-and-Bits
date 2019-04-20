@@ -1,0 +1,269 @@
+
+itemGroup.chiselsandbits=Chisels & Bits
+itemGroup.chiselsandbits.Clipboard=Presse-papiers Chisels & Bits
+
+tile.mod.chiselsandbits.chiseled_wood.name=Bois ciselé
+tile.mod.chiselsandbits.chiseled_rock.name=Roche ciselée
+tile.mod.chiselsandbits.chiseled_iron.name=Métal ciselé
+tile.mod.chiselsandbits.chiseled_cloth.name=Tissu ciselé
+tile.mod.chiselsandbits.chiseled_glass.name=Verre ciselé
+tile.mod.chiselsandbits.chiseled_ice.name=Glace ciselée
+tile.mod.chiselsandbits.chiseled_packedIce.name=Glace compactée ciselée
+tile.mod.chiselsandbits.chiseled_clay.name=Argile ciselée
+tile.mod.chiselsandbits.chiseled_sand.name=Sable ciselé
+tile.mod.chiselsandbits.chiseled_ground.name=Terre ciselée
+tile.mod.chiselsandbits.chiseled_grass.name=Herbe ciselée
+tile.mod.chiselsandbits.chiseled_snow.name=Neige ciselée
+tile.mod.chiselsandbits.chiseled_fluid.name=Fluide ciselé
+tile.mod.chiselsandbits.chiseled_leaves.name=Feuilles ciselées
+
+tile.mod.chiselsandbits.bittank.name=Tank à fluide ciselé pour fragments
+
+item.mod.chiselsandbits.block_bit.name=Fragment ciselé
+item.mod.chiselsandbits.bit_bag.name=Sac de fragments ciselés
+item.mod.chiselsandbits.wrench_wood.name=Clé en bois
+
+item.mod.chiselsandbits.positiveprint.name=Plan positif 
+item.mod.chiselsandbits.positiveprint_written.name=Plan positif - Écrit
+item.mod.chiselsandbits.negativeprint.name=Plan négatif
+item.mod.chiselsandbits.negativeprint_written.name=Plan négatif - Écrit
+item.mod.chiselsandbits.mirrorprint.name=Plan miroir
+item.mod.chiselsandbits.mirrorprint_written.name=Plan miroir - Écrit
+
+item.mod.chiselsandbits.chisel_stone.name=Ciseau en pierre
+item.mod.chiselsandbits.chisel_iron.name=Ciseau en fer
+item.mod.chiselsandbits.chisel_gold.name=Ciseau en or
+item.mod.chiselsandbits.chisel_diamond.name=Ciseau en diamant
+
+item.mod.chiselsandbits.bitsaw_diamond.name=Scie à fragments en diamant
+item.mod.chiselsandbits.tape_measure.name=Mètre à ruban
+
+mod.chiselsandbits.chiselmode.single=Fragment unique
+mod.chiselsandbits.chiselmode.snap2=Grille, 1/8 de la taille d'un cube
+mod.chiselsandbits.chiselmode.snap4=Grille, 1/4 de la taille d'un cube
+mod.chiselsandbits.chiselmode.snap8=Grille, 1/2 de la taille d'un cube
+mod.chiselsandbits.chiselmode.line=Ligne
+mod.chiselsandbits.chiselmode.plane=Plan
+mod.chiselsandbits.chiselmode.connected_plane=Plan connecté
+mod.chiselsandbits.chiselmode.connected_material=Matériau connecté
+mod.chiselsandbits.chiselmode.cube_small=Petit cube
+mod.chiselsandbits.chiselmode.cube_medium=Cube moyen
+mod.chiselsandbits.chiselmode.cube_large=Grand cube
+mod.chiselsandbits.chiselmode.drawn_region=Région dessinée
+mod.chiselsandbits.chiselmode.same_material=Même matériau
+
+mod.chiselsandbits.bitoption.place=Placer
+mod.chiselsandbits.bitoption.replace=Remplacer
+
+mod.chiselsandbits.positivepatternmode.replace=Remplacer
+mod.chiselsandbits.positivepatternmode.additive=Additif
+mod.chiselsandbits.positivepatternmode.placement=Placement
+mod.chiselsandbits.positivepatternmode.impose=Imposer
+
+mod.chiselsandbits.tapemeasure.chatmsg=x: %s,  y: %s,  z: %s
+mod.chiselsandbits.tapemeasure.bit=Fragment
+mod.chiselsandbits.tapemeasure.block=Bloc
+mod.chiselsandbits.tapemeasure.distance=Distance
+
+mod.chiselsandbits.result.out_of_range=Pas assez près
+mod.chiselsandbits.result.has_changed=Le bloc a changé
+mod.chiselsandbits.result.missing_bits=Pas assez de fragments ou de durabilité sur le ciseau !
+mod.chiselsandbits.result.nothing_to_undo=Il n'y a rien à annuler (undo)
+mod.chiselsandbits.result.nothing_to_redo=Il n'y a rien à refaire (redo)
+mod.chiselsandbits.result.require_bag=Vous avez besoin d'espaces vides dans votre inventaire ou un sac avant de pouvoir utiliser cet objet !
+mod.chiselsandbits.result.void_excess=Votre inventaire est rempli, les fragments en excès ont été automatiquement supprimés !
+
+mod.chiselsandbits.other.rotate.ccw=Tourner dans le sens anti-horaire
+mod.chiselsandbits.other.rotate.cw=Tourner dans le sens des aiguilles d'une montre
+mod.chiselsandbits.other.mode=Menu radial
+mod.chiselsandbits.other.undo=Annuler (undo)
+mod.chiselsandbits.other.redo=Défaire (redo)
+mod.chiselsandbits.other.pickbit=Choisir un fragment
+mod.chiselsandbits.other.offgrid=Placer hors de la grille
+mod.chiselsandbits.other.add_to_clipboard=Choisir un bloc du presse-papiers
+
+mod.chiselsandbits.other.roll_x=Pivoter X dans le sens horaire
+mod.chiselsandbits.other.roll_z=Pivoter Z dans le sens horaire
+
+mod.chiselsandbits.help.shiftdetails=<Maintenir Shift pour afficher les détails>
+mod.chiselsandbits.help.empty=Vide
+mod.chiselsandbits.help.filled=Rempli
+
+mod.chiselsandbits.help.chiseled_block={} pour placer;{} pour ignorer la grille de bloc;Roulette de la souris pour choisir la méthode de placement.
+mod.chiselsandbits.help.bit_bag=Restocke et stocke les fragements automatiquement.
+mod.chiselsandbits.help.wrench={} pour pivoter.
+mod.chiselsandbits.help.bit={} pour ciseler;{} pour placer;Utiliser {} pour afficher le menu.
+mod.chiselsandbits.help.positiveprint={} pour écrire;{} pour ciseler/placer ou fabriquer avec des fragments/sacs.;Roulette de la souris pour choisir la rotation;Utiliser {} pour afficher le menu.
+mod.chiselsandbits.help.negativeprint={} pour écrire;{} pour ciseler.;Roulette de la souris pour choisir la rotation.
+mod.chiselsandbits.help.mirrorprint={} sur la face que vous souhaitez copier en miroir;Assembler dans un établi avec des plans positifs/négatifs pour transférer.
+mod.chiselsandbits.help.chisel={} pour ciseler;Utiliser {} pour afficher le menu.
+mod.chiselsandbits.help.bitsaw=Assember dans un établi avec des blocs ou des blocs ciselés;Coupe en deux un des trois axes.
+mod.chiselsandbits.help.bittank=Remplir avec un fluide et en extraire des fragments.
+mod.chiselsandbits.help.tape_measure={} et tirer pour mesurer;{} + {} pour effacer;Utiliser {} pour afficher le menu.
+
+mod.chiselsandbits.help.chiseled_block.long=Clic-gauche pour placer le bloc. S'accroupir en plaçant pour ignorer la grille de bloc. Shift + Roulette de la souris pour choisir la rotation de placement.
+mod.chiselsandbits.help.bit_bag.long=Restocke et stocke automatiquement les fragments quand vous êtes plein.\n\nAssembler avec un colorant dans l'établi pour colorer.
+mod.chiselsandbits.help.wrench.long=Clic-droit sur les blocs pour les pivoter autour de l'axe sur lequel vous cliquez.
+mod.chiselsandbits.help.tape_measure.long=Clic-gauche et tirer pour mesurer les espaces. S'accroupir et cliquer droit pour annuler. Utiliser le menu pour basculer entre les différents modes.
+mod.chiselsandbits.help.bit.long=Clic-gauche pour ciseler les zones en surbrillance. Clic-droit pour placer dans la zone désignée.
+mod.chiselsandbits.help.positiveprint.long=Clic-droit sur un bloc ciselé pour écrire un plan. Clic-droit sur un bloc pour le ciseler, ajoutant et supprimant tous les fragments qui ne correspondent pas au plan. Vous pouvez aussi assembler le plan dans un établi avec des fragments/sacs. Shift + Roulette de la souris peut-être utilisé pour choisir la rotation sans bouger.
+mod.chiselsandbits.help.negativeprint.long=Clic-droit sur un bloc ciselé pour écrire un plan. Clic-droit sur un bloc pour le ciseler et supprimer tous les fragments qui ne correspondent pas au plan. Shift + Roulette de la souris peut-être utilisé pour choisir la rotation sans bouger.
+mod.chiselsandbits.help.mirrorprint.long=Clic-droit sur la face d'un bloc ciselé que vous souhaitez copier en miroir, cliquer sur face orientée vers l'est copiera en miroir le long de l'axe est->ouest. Assembler dans un établi avec un plan positif/négatif pour transférer le plan.
+mod.chiselsandbits.help.chisel.long=Clic-gauche avec n'importe quel bloc compatible pour le ciseler. Clic-droit pour basculer entre les différents modes, vous pouvez aussi utiliser Shift + Roulette de la souris pour cela.
+mod.chiselsandbits.help.bitsaw.long=Assembler cette scie avec des blocs compatibles, ou avec des blocs ciselés symétriques pour les couper en deux. Cette axe de coupe est détermién par la position de la scie par rapport au bloc, coupe l'axe X si la scie à gauche/droit du bloc, coupe l'axe Y si la scie est en-dessous ou au-dessus du bloc, coupe l'axe Z si la scie est en diagonale.
+mod.chiselsandbits.help.bittank.long=Clic-droit avec un seau pour insérer/extraire un fluide. Clic-droit sans seau pour extraires des fragments du tank, Shift + Clic-droit insert les fragments de votre main dans le tank, Shift + Clic-droit avec une main vide permet d'insérer le plus possible de fragments d'une traite. Vous pouvez utiliser les automatisations tel que l'entonnoir pour extraire des fragments d'un tank contenant un fluide.
+
+mod.chiselsandbits.help.nobind=Aucun raccourci défini
+mod.chiselsandbits.help.leftshift=Shift gauche
+mod.chiselsandbits.help.rightshift=Shift droit
+mod.chiselsandbits.help.leftalt=Alt gauche
+mod.chiselsandbits.help.rightalt=Alt droit
+mod.chiselsandbits.help.trash=Supprime le contenu du sac, glisser un bloc spécifique ici pour le supprimer.
+mod.chiselsandbits.help.sort=Condenser et combiner 
+mod.chiselsandbits.help.trashitem=Supprimer uniquement %s
+mod.chiselsandbits.help.reallytrash=Cliquer une seconde fois pour confirmer la suppression du contenu
+mod.chiselsandbits.help.reallytrash_blank=Cliquer à nouveau pour confirmer la suppression de %s
+mod.chiselsandbits.help.trash.invalid=Impossible de supprimer %s
+
+mod.chiselsandbits.pretty.axis-y=En-haut/En-bas
+mod.chiselsandbits.pretty.axis-x=Est/Ouest
+mod.chiselsandbits.pretty.axis-z=Nord/Sud
+
+mod.chiselsandbits.pretty.facing-up=En-haut
+mod.chiselsandbits.pretty.facing-down=En-bas
+mod.chiselsandbits.pretty.facing-east=Est
+mod.chiselsandbits.pretty.facing-west=Ouest
+mod.chiselsandbits.pretty.facing-north=Nord
+mod.chiselsandbits.pretty.facing-south=Sud
+
+chiselsandbits.color.white=Blanc
+chiselsandbits.color.orange=Orange
+chiselsandbits.color.magenta=Magenta
+chiselsandbits.color.lightBlue=Bleu clair
+chiselsandbits.color.yellow=Jaune
+chiselsandbits.color.lime=Vert citron
+chiselsandbits.color.pink=Rose
+chiselsandbits.color.gray=Gris
+chiselsandbits.color.silver=Gris clair
+chiselsandbits.color.cyan=Cyan
+chiselsandbits.color.purple=Violet
+chiselsandbits.color.blue=Bleu
+chiselsandbits.color.brown=Marron
+chiselsandbits.color.green=Vert
+chiselsandbits.color.red=Rouge
+chiselsandbits.color.black=Noir
+
+commands.setbit.usage=/setbit <x> <y> <z> <bitx> <bity> <bitz> <TileName> [dataValue]
+commands.setbit.outOfWorld=Ne peut pas être placé en-dehors du monde
+commands.setbit.noChange=Le fragment n'a pas pu être placé
+commands.setbit.success=Fragment placé
+commands.setbit.cannotChiselBlock=Le bloc ne peut pas être ciselé.
+commands.setbit.invalidState=Type de fragment invalide
+commands.setbit.spaceOccupied=Le fragment ne peut pas être placé si l'espace est occupé
+
+mod.chiselsandbits.config.maxUndoLevel=Niveau maximum d'annulation (undo)
+mod.chiselsandbits.config.persistCreativeClipboard=Sauvegarder/Charger le contenu du presse-papiers créatif
+mod.chiselsandbits.config.fluidBitsAreClickThrough=Cliquer à travers les fragements.
+mod.chiselsandbits.config.addBrokenBlocksToCreativeClipboard=Ajouter les blocs casssés au presse-papiers créatif
+mod.chiselsandbits.config.creativeClipboardSize=Taille du presse-papiers créatif
+mod.chiselsandbits.config.creativeClipboardSize.tooltip=Nombre d'objets qui peuvent être sauvegardés dans le presse-papiers créatif avant qu'ils ne soient supprimés, 0 désactivera cela
+mod.chiselsandbits.config.ShowBitsInJEI=Afficher les fragments dans JEI
+mod.chiselsandbits.config.maxDrawnRegionSize=Taille maximale de la région
+mod.chiselsandbits.config.showUsage=Ajoute des textes d'aide dans les descriptions des objets
+mod.chiselsandbits.config.invertBitBagFullness=Inverser la barre de durabilité des sacs à fragements
+mod.chiselsandbits.config.enableChiselMode_Plane=Activer le mode - Plan
+mod.chiselsandbits.config.enableChiselMode_ConnectedPlane=Activer le mode - Plan connecté
+mod.chiselsandbits.config.enableChiselMode_ConnectedMaterial=Activer le mode - Matériau connecté
+mod.chiselsandbits.config.enableChiselMode_SameMaterial=Activer le mode - Même matériau
+mod.chiselsandbits.config.enableChiselMode_Line=Activer le mode - Ligne
+mod.chiselsandbits.config.enableChiselMode_SmallCube=Activer le mode - Petit cube
+mod.chiselsandbits.config.enableChiselMode_LargeCube=Activer le mode - Grand cube
+mod.chiselsandbits.config.enableChiselMode_MediumCube=Activer le mode - Cube moyen
+mod.chiselsandbits.config.enableChiselMode_DrawnRegion=Activer le mode - Région dessinée
+mod.chiselsandbits.config.enableChiselMode_Snap2=Activer le mode - Grille, 1/8 de la taille d'un cube
+mod.chiselsandbits.config.enableChiselMode_Snap4=Activer le mode - Grille, 1/4 de la taille d'un cube
+mod.chiselsandbits.config.enableChiselMode_Snap8=Activer le mode - Grille, 1/2 de la taille d'un cube
+
+mod.chiselsandbits.config.enablePositivePatternMode_Additive=Activer le mode - Additif
+mod.chiselsandbits.config.enablePositivePatternMode_Impose=Activer le mode - Imposer
+mod.chiselsandbits.config.enablePositivePatternMode_Placement=Activer le mode - Placement
+mod.chiselsandbits.config.enablePositivePatternMode_Replace=Activer le mode - Remplacer
+
+mod.chiselsandbits.config.enableTapeMeasure_Bit=Activer le mode - Fragment
+mod.chiselsandbits.config.enableTapeMeasure_Block=Activer le mode - Bloc
+mod.chiselsandbits.config.enableTapeMeasure_Distance=Activer le mode - Distance
+
+mod.chiselsandbits.config.enableToolbarIcons=Afficher l'icône du mode dans la barre d'outils
+mod.chiselsandbits.config.perChiselMode=Sauvegarder le mode sélectionné pour chaque ciseau
+mod.chiselsandbits.config.chatModeNotification=Notifier les changements de modes dans le chat
+mod.chiselsandbits.config.itemNameModeDisplay=Notifier les changements de modes sur la barre d'outils
+mod.chiselsandbits.config.dynamicModelFaceCount=Faces maximales pour rendu statique
+mod.chiselsandbits.config.dynamicModelFaceCount.tooltip=Les modèles plus compliqués que cela utiliseront un rendu dynamique.
+mod.chiselsandbits.config.dynamicModelRange=Distance maximale pour rendu dynamique
+mod.chiselsandbits.config.dynamicModelRange.tooltip=Les blocs rendus dynamiquement ne seront pas rendus en-dehors de cette portée.
+mod.chiselsandbits.config.dynamicModelMinimizeLatancy=Réduire la latence pour les rendys dynamiques
+mod.chiselsandbits.config.dynamicModelMinimizeLatancy.tooltip=Désactiver cela peut améliorer les performances au détriment de la réactivité.
+mod.chiselsandbits.config.dynamicMaxConcurrentTessalators=Nombre maximal de mises à jour simultanées
+mod.chiselsandbits.config.dynamicMaxConcurrentTessalators.tooltip=Lorsque ce nombre est excédé, les mises à jour commenceront à s'interrompre pour éviter la saturation de la mémoire.
+mod.chiselsandbits.config.damageTools=Les outils s'abîment
+mod.chiselsandbits.config.enablePositivePrintCrafting=Fabriquer avec un plan positif
+mod.chiselsandbits.config.enablePositivePrintCrafting.tooltip=Assembler un plan positif avec des fragments/sacs vous laissera fabriquer le bloc.
+mod.chiselsandbits.config.enableStackableCrafting=Fabriquer des blocs ciselés pour supprimer la rotation
+mod.chiselsandbits.config.enableStackableCrafting.tooltip=Vous pouvez utiliser cette fonctionnalité pour stocker le même plan en supprimant la rotation.
+mod.chiselsandbits.config.enableNegativePrintInversionCrafting=Inverser les plans négatifs
+mod.chiselsandbits.config.enableNegativePrintInversionCrafting.tooltip=Assembler un plan négatif dessiné avec un plan négatif vierge.
+mod.chiselsandbits.config.enableBitBag=Activer les sacs de fragments
+mod.chiselsandbits.config.enableNegativePrint=Activer les plans négatifs
+mod.chiselsandbits.config.enablePositivePrint=Activer les plans positifs
+mod.chiselsandbits.config.enableMirrorPrint=Activer les plans miroir
+mod.chiselsandbits.config.enableChisledBits=Activer les fragments ciselés
+mod.chiselsandbits.config.enableStoneChisel=Activer le ciseau en pierre
+mod.chiselsandbits.config.enableIronChisel=Activer le ciseau en fer
+mod.chiselsandbits.config.enableGoldChisel=Activer le ciseau en or
+mod.chiselsandbits.config.enableDiamondChisel=Activer le ciseau en diamant
+mod.chiselsandbits.config.enableWoodenWrench=Activer le clé en bois
+mod.chiselsandbits.config.enableChiselToolHarvestCheck=Vérifier les types d'outils / niveaux des outils
+mod.chiselsandbits.config.enableChiselToolHarvestCheck.tooltip=Récolter de l'obsidienne, nécessitera un ciseau en diamant.
+mod.chiselsandbits.config.enableChiselToolHarvestCheckTools=Niveaux d'outils imités par les ciseaux
+mod.chiselsandbits.config.enableToolHarvestLevels=Vérifier le niveau de l'outil lorsque du cassage de bloc
+mod.chiselsandbits.config.enableToolHarvestLevels.tooltip=Casser un bloc ciselé primairement d'obsidienne nécessitera un outil en diamant.
+mod.chiselsandbits.config.enableBitLightSource=Les blocs ciselés peuvent émettre de la lumière
+mod.chiselsandbits.config.enableBitLightSource.tooltip=Lorsque désactivé, les fragments lumieux vont seulement briller et le bloc n'émettra pas de niveaux de lumière.
+mod.chiselsandbits.config.bitLightPercentage=Pourcentage de fragments pour le niveau d'éclairage max.
+mod.chiselsandbits.config.compatabilityMode=Améliorer la compatibilité des mods
+mod.chiselsandbits.config.enableAPITestingItem=Activer l'élément de test de l'API
+mod.chiselsandbits.config.bagStackSize=Sac à fragments - Taille des stacks
+mod.chiselsandbits.config.bagStackSize.tooltip=Taille des stacks de fragments dans le sac : au minimum 64 au maximum 99,999.
+mod.chiselsandbits.config.stoneChiselUses=Utilisations du ciseau en pierre
+mod.chiselsandbits.config.ironChiselUses=Utilisations du ciseau en fer
+mod.chiselsandbits.config.diamondChiselUses=Utilisations du ciseau en diamant
+mod.chiselsandbits.config.goldChiselUses=Utilisations du ciseau en or
+mod.chiselsandbits.config.wrenchUses=Utilisations de la clé en bois
+mod.chiselsandbits.config.logEligibilityErrors=Problèmes de log lors du calcul de l'éligibilité
+mod.chiselsandbits.config.disableCustomVertexFormats=Désactiver l'utilisation de formats de vertex personnalisés
+mod.chiselsandbits.config.enableModelCompression=Compresser les données vertex dans la mémoire
+mod.chiselsandbits.config.useGetLightValue=Utiliser Get Light Value pour obtenir la valeur de luminosité d'un bloc.
+mod.chiselsandbits.config.enableFaceLightmapExtraction=Utiliser le Model Analysis pour obtenir les données Lightmap.
+mod.chiselsandbits.config.enableRightClickModeChange=Changer de mode avec clic-droit avec le ciseau
+mod.chiselsandbits.config.enableSetBitCommand=Activer la commande /setbit
+mod.chiselsandbits.config.maxMillisecondsPerBlock=Nombre maximal de millisecondes par bloc
+mod.chiselsandbits.config.maxMillisecondsUploadingPerFrame=Max Milliseconds Uploading/Cycle
+mod.chiselsandbits.config.maxTapeMeasures=Mesures maximales du mètre à ruban
+mod.chiselsandbits.config.displayMeasuringTapeInChat=Afficher les mesures dans le chat
+mod.chiselsandbits.config.defaultToDynamicRenderer=Valeur par défaut pour le rendu dynamique
+mod.chiselsandbits.config.forceDynamicRenderer=Désactiver le rendu statique
+mod.chiselsandbits.config.useVBO=Utiliser les VBO
+mod.chiselsandbits.config.defaultToDynamicRenderer.tooltip=Par défaut C&B utilise le rendu statique et passe en rendu dynamique lors des mises à jour, Cette option inverse cela; Après avoir déterminé les détails d'un bloc, il décidera de revenir en rendu statique, utile pour les scènes complexes qui causent des décrochages lors de l'utilisation du rendu statique.
+mod.chiselsandbits.config.forceDynamicRenderer.tooltip=Paramètre de débug, qui désactive complètement le rendu statique.
+mod.chiselsandbits.config.useVBO.tooltip=Utilise par défaut les mêmes paramètres que MC, mais ils peuvent être outrepassés.
+mod.chiselsandbits.config.blacklistTickingBlocks=Mettre dans la liste noir les blocs à ticks
+mod.chiselsandbits.config.radialMenuVolume=Volume du 'clic' pour le menu radial.
+mod.chiselsandbits.config.radialMenuVolume.tooltip=Pour désactiver, fixer à zéro.
+mod.chiselsandbits.config.enableVivecraftCompatibility=Activer la compatibilité Vivecraft
+mod.chiselsandbits.config.enableChiselCrafting=Activer les blocs ciselés dans l'établi
+mod.chiselsandbits.config.dynamicRenderFullChunksOnly=Rendu dynamique pour les chunks complets seulement
+mod.chiselsandbits.config.dynamicRenderFullChunksOnly.tooltip=Empêche la subdivision des chunks rendus dynamiquement en blocs simples. Cela augmente les performances dans la plupart des cas ( chunks avec beaucoup de blocs complexes ), mais diminue les performances dans les pires situations ( chunks remplis de blocs super-complexes ).
+mod.chiselsandbits.config.requireBagSpace=Exiger de l'espace d'inventaire/Espace dans le sac
+mod.chiselsandbits.config.requireBagSpace.tooltip=Exige qu'il y ait un emplacement vide dans le sac ou dans l'inventaire du joueur avant de l'autoriser à ciseler.
+mod.chiselsandbits.config.voidExcessBits=Supprimer les fragments en excès
+mod.chiselsandbits.config.voidExcessBits.tooltip=Supprime les fragments qui ne passent pas dans le sac ou dans l'inventaire du joueur. Améliore les performances du serveur. L'action d'annulation (undo) pourrait avoir des problèmes puisque les fragments sont éliminés.
