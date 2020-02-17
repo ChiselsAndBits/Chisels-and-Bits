@@ -135,6 +135,11 @@ public class TileEntityBitTank extends TileEntity implements IItemHandler, IFlui
 		{
 			return true;
 		}
+		
+		if ( capability == net.minecraftforge.fluids.capability.CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY )
+		{
+			return true;
+		}
 
 		return super.hasCapability( capability, facing );
 	}
