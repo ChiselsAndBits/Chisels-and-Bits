@@ -32,6 +32,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +129,12 @@ public class PacketChisel extends ModPacket
 
 						BlockState blkstate = world.getBlockState( pos );
 						Block blkObj = blkstate.getBlock();
+
+						BlockSnapshot blocksnapshot = BlockSnapshot.create(world.getDimensionKey(), world, pos);
+
+						if (ForgeEventFactory.onBlockPlace(player.getPlayer(), blocksnapshot, Direction.UP)) {
+							return 0;
+						}
 
 						if ( place.usesChisels() )
 						{
