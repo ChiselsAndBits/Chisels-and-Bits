@@ -1,6 +1,21 @@
-![Logo](https://raw.githubusercontent.com/ChiselsAndBits/Assets/main/Logos/logo.png "Logo")
 
-| [Discord](https://discord.chisels-and-bits.com) | [Wiki](https://wiki.chisels-and-bits.com)  | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/chisels-bits)  | [Releases](https://www.curseforge.com/minecraft/mc-mods/chisels-bits/files) | [Code](https://github.com/ChiselsAndBits/Chisels-and-Bits/) | [Issues](https://github.com/ChiselsAndBits/Chisels-and-Bits/issues) | [Pull Requests](https://github.com/ChiselsAndBits/Chisels-and-Bits/pulls) | [Patreon](https://www.patreon.com/chisels_and_bits) |
+<div align = center>
+
+![Logo]
+
+<br>
+
+[![Button Releases]][Releases]   
+[![Button CurseForge]][CurseForge]   
+[![Button Wiki]][Wiki]   
+[![Button Discord]][Discord]   
+[![Button Patreon]][Patreon]
+
+</div>
+
+<br>
+<br>
+
 
 ### Minecraft mod:
 Chisels and Bits is a Minecraft Mod which allows you to cut up the large blocks that make up your world, and place the little cuts back down.
@@ -28,3 +43,25 @@ Additionally, this means that older versions of the mod are not supported anymor
 Sadly we do not have the time or energy to support all the versions we would want.
 
 If you are missing a feature on the new rebuild version, please open a support ticket, after you have searched the already existing issues. Thanks. 
+
+
+
+<!----------------------------------------------------------------------------->
+
+[Logo]: https://raw.githubusercontent.com/ChiselsAndBits/Assets/main/Logos/logo.png 'Chisels & Bits Logo'
+
+[CurseForge]: https://www.curseforge.com/minecraft/mc-mods/chisels-bits
+[Releases]: https://www.curseforge.com/minecraft/mc-mods/chisels-bits/files
+[Patreon]: https://www.patreon.com/chisels_and_bits
+[Discord]: https://discord.chisels-and-bits.com
+[Wiki]: https://wiki.chisels-and-bits.com
+
+
+<!---------------------------------[ Buttons ]--------------------------------->
+
+[Button CurseForge]: https://img.shields.io/badge/CurseForge-6441A4?style=for-the-badge&logoColor=white&logo=CurseForge
+[Button Releases]: https://img.shields.io/badge/Releases-428813?style=for-the-badge&logoColor=white&logo=AzureArtifacts
+[Button Patreon]: https://img.shields.io/badge/Patreon-FF424D?style=for-the-badge&logoColor=white&logo=Patreon
+[Button Discord]: https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logoColor=white&logo=Discord
+[Button Wiki]: https://img.shields.io/badge/Wiki-2396F3?style=for-the-badge&logoColor=white&logo=Wikipedia
+
