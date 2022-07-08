@@ -19,6 +19,8 @@ blocks into small bits of whatever shape you can imagine.
 
 Create new blocks from mixing & matching bits of your world!
 
+<br>
+
 *Want smoother stairs?* ***Go for it!*** <br>
 *Want better looking roofs or pillars?* <br>
 **It is all possible now.**
@@ -29,6 +31,8 @@ Create new blocks from mixing & matching bits of your world!
 <br>
 
 ## Compatibility
+
+<br>
 
 ### Vanilla
 
