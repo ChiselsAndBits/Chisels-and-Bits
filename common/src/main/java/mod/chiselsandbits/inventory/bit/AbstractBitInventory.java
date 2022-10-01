@@ -169,10 +169,10 @@ public abstract class AbstractBitInventory implements IBitInventory
     @Override
     public int getMaxInsertAmount(final BlockInformation blockInformation)
     {
-        return IntStream.range(0, getInventorySize())
+        final long maxInsertAmount = IntStream.range(0, getInventorySize())
                  .mapToObj(this::getItem)
                  .filter(stack -> stack.getItem() instanceof IBitItem || stack.getItem() instanceof IBitInventoryItem || stack.isEmpty())
-                 .mapToInt(stack -> {
+                 .mapToLong(stack -> {
                      if (stack.isEmpty())
                          return getMaxBitsForSlot();
 
@@ -191,6 +191,8 @@ public abstract class AbstractBitInventory implements IBitInventory
                      return 0;
                  })
                  .sum();
+
+        return (int)Math.min(maxInsertAmount, Integer.MAX_VALUE);
     }
 
     /**
