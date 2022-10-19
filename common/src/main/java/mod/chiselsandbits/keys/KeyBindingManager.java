@@ -75,8 +75,7 @@ public class KeyBindingManager
         IKeyBindingManager.getInstance().register(resetMeasuringTapeKeyBinding =
                                                     IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.measuring-tape.reset",
                                                       HoldsSpecificItemInHandKeyConflictContext.MEASURING_TAPE,
-                                                      KeyModifier.SHIFT,
-                                                      InputConstants.Type.MOUSE,
+                                                      InputConstants.Type.KEYSYM,
                                                       1,
                                                       "mod.chiselsandbits.keys.category"));
 
