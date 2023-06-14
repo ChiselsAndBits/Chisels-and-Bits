@@ -18,7 +18,7 @@ pluginManagement.resolutionStrategy.eachPlugin {
     }
 }
 
-rootProject.name = "chisels-and-bits"
+rootProject.name = "Chisels-and-Bits"
 
 include("common")
 include("api")
