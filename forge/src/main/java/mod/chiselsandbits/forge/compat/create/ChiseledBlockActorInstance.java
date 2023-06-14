@@ -2,8 +2,8 @@ package mod.chiselsandbits.forge.compat.create;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
-import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
-import com.simibubi.create.content.contraptions.components.structureMovement.render.ActorInstance;
+import com.simibubi.create.content.contraptions.behaviour.MovementContext;
+import com.simibubi.create.content.contraptions.render.ActorInstance;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.model.data.ChiseledBlockModelDataManager;
@@ -22,7 +22,7 @@ public class ChiseledBlockActorInstance extends ActorInstance {
             final ChiseledBlockOnContraptionModelCache modelUpdateHolder = new ChiseledBlockOnContraptionModelCache(IAreaShapeIdentifier.DUMMY);
             context.temporaryData = modelUpdateHolder;
 
-            chiseledBlockEntity.deserializeNBT(context.tileData, () -> ChiseledBlockModelDataManager.getInstance().updateModelData(
+            chiseledBlockEntity.deserializeNBT(context.blockEntityData, () -> ChiseledBlockModelDataManager.getInstance().updateModelData(
                     chiseledBlockEntity,
                     () -> modelUpdateHolder.setModelData(chiseledBlockEntity.createNewShapeIdentifier(), chiseledBlockEntity.getBlockModelData()),
                     true

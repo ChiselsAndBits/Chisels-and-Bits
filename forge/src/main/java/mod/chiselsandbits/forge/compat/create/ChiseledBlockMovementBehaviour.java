@@ -2,9 +2,9 @@ package mod.chiselsandbits.forge.compat.create;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
-import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
-import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
-import com.simibubi.create.content.contraptions.components.structureMovement.render.ActorInstance;
+import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
+import com.simibubi.create.content.contraptions.behaviour.MovementContext;
+import com.simibubi.create.content.contraptions.render.ActorInstance;
 import org.jetbrains.annotations.Nullable;
 
 public class ChiseledBlockMovementBehaviour implements MovementBehaviour {

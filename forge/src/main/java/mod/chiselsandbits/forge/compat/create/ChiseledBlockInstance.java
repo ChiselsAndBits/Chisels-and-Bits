@@ -8,7 +8,7 @@ import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.util.Color;
-import com.simibubi.create.content.contraptions.components.actors.PortableStorageInterfaceRenderer;
+import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceRenderer;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.client.model.baked.simple.NullBakedModel;
 import mod.chiselsandbits.registrars.ModModelProperties;

@@ -1,7 +1,7 @@
 package mod.chiselsandbits.forge.compat.create;
 
 import com.simibubi.create.AllMovementBehaviours;
-import com.simibubi.create.content.contraptions.components.structureMovement.BlockMovementChecks;
+import com.simibubi.create.content.contraptions.BlockMovementChecks;
 import mod.chiselsandbits.api.plugin.ChiselsAndBitsPlugin;
 import mod.chiselsandbits.api.plugin.IChiselsAndBitsPlugin;
 import mod.chiselsandbits.block.ChiseledBlock;
