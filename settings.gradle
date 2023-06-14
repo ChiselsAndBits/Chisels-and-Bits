@@ -9,7 +9,7 @@ pluginManagement.repositories.mavenCentral()
 
 pluginManagement.resolutionStrategy.setDefaultPluginVersion(DefaultPluginId.of("net.minecraftforge.gradle"), "5.1.+")
 pluginManagement.resolutionStrategy.setDefaultPluginVersion(DefaultPluginId.of("org.parchmentmc.librarian.forgegradle"), "1.+")
-pluginManagement.resolutionStrategy.setDefaultPluginVersion(DefaultPluginId.of("fabric-loom"), "1.+")
+pluginManagement.resolutionStrategy.setDefaultPluginVersion(DefaultPluginId.of("fabric-loom"), "1.1.+")
 pluginManagement.resolutionStrategy.setDefaultPluginVersion(DefaultPluginId.of("com.matthewprenger.cursegradle"), "1.4.0")
 
 pluginManagement.resolutionStrategy.eachPlugin {
