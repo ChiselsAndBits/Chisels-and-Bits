@@ -18,18 +18,19 @@ public class CreateCandBPlugin implements IChiselsAndBitsPlugin {
     public void onInitialize() {
         ModBlocks.MATERIAL_TO_BLOCK_CONVERSIONS.values().forEach(blockRegistration -> {
             AllMovementBehaviours.registerBehaviour(blockRegistration.get(), new ChiseledBlockMovementBehaviour());
-            BlockMovementChecks.registerMovementAllowedCheck((state, world, pos) -> {
-                if (state.getBlock() instanceof ChiseledBlock)
-                    return BlockMovementChecks.CheckResult.SUCCESS;
+        });
+        AllMovementBehaviours.registerBehaviour(ModBlocks.CHISELED_BLOCK.get(), new ChiseledBlockMovementBehaviour());
+        BlockMovementChecks.registerMovementAllowedCheck((state, world, pos) -> {
+            if (state.getBlock() instanceof ChiseledBlock)
+                return BlockMovementChecks.CheckResult.SUCCESS;
 
-                return BlockMovementChecks.CheckResult.PASS;
-            });
-            BlockMovementChecks.registerMovementNecessaryCheck((state, world, pos) -> {
-                if (state.getBlock() instanceof ChiseledBlock)
-                    return BlockMovementChecks.CheckResult.SUCCESS;
+            return BlockMovementChecks.CheckResult.PASS;
+        });
+        BlockMovementChecks.registerMovementNecessaryCheck((state, world, pos) -> {
+            if (state.getBlock() instanceof ChiseledBlock)
+                return BlockMovementChecks.CheckResult.SUCCESS;
 
-                return BlockMovementChecks.CheckResult.PASS;
-            });
+            return BlockMovementChecks.CheckResult.PASS;
         });
     }
 }
