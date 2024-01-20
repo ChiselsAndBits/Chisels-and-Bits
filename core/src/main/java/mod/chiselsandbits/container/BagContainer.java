@@ -370,4 +370,10 @@ public class BagContainer extends AbstractContainerMenu
         bagInv.sort();
         transferState(this);
     }
+
+    public void convert(Player player)
+    {
+        bagInv.convert(player);
+        transferState(this);
+    }
 }

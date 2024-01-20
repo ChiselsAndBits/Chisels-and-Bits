@@ -11,6 +11,7 @@ import mod.chiselsandbits.container.BagContainer;
 import mod.chiselsandbits.inventory.wrapping.WrappingInventory;
 import mod.chiselsandbits.network.packets.BagGuiPacket;
 import mod.chiselsandbits.network.packets.ClearBagGuiPacket;
+import mod.chiselsandbits.network.packets.ConvertBagGuiPacket;
 import mod.chiselsandbits.network.packets.SortBagGuiPacket;
 import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.client.Minecraft;
@@ -37,6 +38,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
     boolean dontThrow = false;
     private GuiIconButton trashBtn;
     private GuiIconButton sortBtn;
+    private GuiIconButton convertBtn;
     private Slot hoveredBitSlot = null;
 
     public BitBagScreen(
@@ -75,6 +77,15 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
                     packet.execute(Minecraft.getInstance().player);
                 },
                 Tooltip.create(LocalStrings.Sort.getText())));
+
+        convertBtn = addRenderableWidget(new GuiIconButton(leftPos - 20, topPos + 42, LocalStrings.Convert.getText(), IconManager.getInstance().getPlaceIcon(),
+                button -> {
+                    final ConvertBagGuiPacket packet = new ConvertBagGuiPacket();
+                    ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+                    packet.execute(Minecraft.getInstance().player);
+                },
+                Tooltip.create(LocalStrings.Convert.getText())
+                ));
     }
 
     BagContainer getBagContainer() {

@@ -198,6 +198,7 @@
   "mod.chiselsandbits.help.rightalt": "Right Alt",
   "mod.chiselsandbits.help.trash": "Delete Bag Contents, Hold Item to filter.",
   "mod.chiselsandbits.help.sort": "Condense and Combine",
+  "mod.chiselsandbits.help.convert": "Combine bits into full blocks",
   "mod.chiselsandbits.help.trashitem": "Delete only %s",
   "mod.chiselsandbits.help.reallytrash": "Click again to confirm deletion of all",
   "mod.chiselsandbits.help.reallytrash_blank": "Click again to confirm deletion of %s",
@@ -398,5 +399,6 @@
   "mod.chiselsandbits.patterns.import.failed.file-not-found": "Could not read the pattern, the file could not be found.",
   "mod.chiselsandbits.patterns.import.failed.invalid-chisel-data": "Could not read the pattern, the chisel data is invalid.",
   "mod.chiselsandbits.patterns.import.failed.unknown-version": "Could not read the pattern, the version is unknown.",
-  "mod.chiselsandbits.patterns.import.invoked-from-the-server": "Could not read the pattern, this command can only be invoked from the client."
+  "mod.chiselsandbits.patterns.import.invoked-from-the-server": "Could not read the pattern, this command can only be invoked from the client.",
+  "chiselsandbits.bitbag.contents.enum.entry": "s"
 }

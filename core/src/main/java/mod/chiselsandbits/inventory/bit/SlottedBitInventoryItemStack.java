@@ -70,6 +70,55 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
             }
         }
     }
+    @Override
+    public void convert(Player player) {
+        // Get counts of all the bits present in the bag and clear it.
+        final Map<IBlockInformation, Integer> contentMap = Maps.newHashMap();
+        this.slotMap.values().forEach(bitSlot -> {
+                    contentMap.putIfAbsent(bitSlot.getBlockInformation(), 0);
+                    contentMap.compute(bitSlot.getBlockInformation(), (s, c) -> (c == null ? 0 : c) + bitSlot.getCount());
+                }
+        );
+        this.slotMap.clear();
+
+
+
+        List<Map.Entry<IBlockInformation, Integer>> toSort = new ArrayList<>(contentMap.entrySet());
+        toSort.sort(Map.Entry.<IBlockInformation, Integer>comparingByValue().reversed());
+
+        int slotIndex = 0;
+        for (Map.Entry<IBlockInformation, Integer> e : toSort)
+        {
+            int count = e.getValue();
+            if (count == 0) {
+                continue;
+            }
+
+            // Give player items for each 4096 bits they have (full block) 16^3
+            while (count >= 4096) {
+                // Give the block to the player
+                ItemStack block = new ItemStack(e.getKey().getBlockState().getBlock().asItem());
+                if (player.getInventory().add(block)) {
+                    count -= 4096;
+                } else {
+                    // The player has run out of space!
+                    break;
+                }
+            }
+            // Sort the remaining bits into stacks.
+            while (count > IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
+                this.slotMap.put(slotIndex, new BitSlot(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
+                slotIndex++;
+                count -= IServerConfiguration.getInstance().getBagStackSize().get();
+            }
+
+            if (count > 0) {
+                this.slotMap.put(slotIndex, new BitSlot(e.getKey(), count));
+                slotIndex++;
+            }
+        }
+
+    }
 
     @Override
     public void sort()

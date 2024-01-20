@@ -2,6 +2,7 @@ package mod.chiselsandbits.api.inventory.bit;
 
 import mod.chiselsandbits.api.blockinformation.IBlockInformation;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
 
@@ -46,4 +47,9 @@ public interface IBitInventoryItemStack extends IBitInventory, Container
      * Sorts the bit inventory.
      */
     void sort();
+
+    /**
+     * Converts the inventory into blocks
+     */
+    void convert(Player player);
 }

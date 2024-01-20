@@ -116,6 +116,7 @@ public enum LocalStrings
     ReallyTrash("help.reallytrash"),
     ReallyTrashItem("help.reallytrash_blank"),
     TrashInvalidItem("help.trash.invalid"),
+    Convert("help.convert"),
 
     PositivePatternReplace("positivepatternmode.replace"),
     PositivePatternAdditive("positivepatternmode.additive"),
