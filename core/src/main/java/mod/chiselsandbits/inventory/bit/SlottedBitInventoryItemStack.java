@@ -95,11 +95,11 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
             }
 
             // Give player items for each 4096 bits they have (full block) 16^3
-            while (count >= 4096) {
+            while (count >= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock()) {
                 // Give the block to the player
                 ItemStack block = new ItemStack(e.getKey().getBlockState().getBlock().asItem());
                 if (player.getInventory().add(block)) {
-                    count -= 4096;
+                    count -= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock();
                 } else {
                     // The player has run out of space!
                     break;
