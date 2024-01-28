@@ -4,13 +4,9 @@ import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
 import com.google.common.collect.Maps;
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.RenderLayer;
-import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.core.model.BlockModel;
-import com.jozufozu.flywheel.util.Color;
-import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceRenderer;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
-import mod.chiselsandbits.client.model.baked.simple.NullBakedModel;
 import mod.chiselsandbits.registrars.ModModelProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -20,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class ChiseledBlockInstance {
@@ -65,7 +60,7 @@ public class ChiseledBlockInstance {
             if (!modelData.containsKey(renderType)) {
                 modelData.put(renderType, materialManager.state(layer, renderType)
                         .material(ChiseledBlockMaterials.CHISELED_BLOCK)
-                        .model(new ModelKey(identifier, renderType), () -> new BlockModel(model, blockState))
+                        .model(new ModelKey(identifier, renderType), () -> BlockModel.of(model, blockState))
                         .createInstance());
 
                 if (this.localBlockLight != -1) {
@@ -75,7 +70,7 @@ public class ChiseledBlockInstance {
             else {
                 materialManager.state(layer, renderType)
                         .material(ChiseledBlockMaterials.CHISELED_BLOCK)
-                        .model(new ModelKey(identifier, renderType), () -> new BlockModel(model, blockState))
+                        .model(new ModelKey(identifier, renderType), () -> BlockModel.of(model, blockState))
                         .stealInstance(modelData.get(renderType));
             }
         });
