@@ -32,4 +32,6 @@ public interface IBlockInformation extends INBTSerializable<CompoundTag>, IPacke
     boolean isFluid();
 
     boolean isAir();
+
+    boolean isSeeThrough();
 }
