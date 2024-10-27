@@ -8,6 +8,8 @@ import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.stateinfo.additional.StateVariantManager;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.Blocks;
@@ -126,6 +128,11 @@ public final class BlockInformation implements IBlockInformation {
     @Override
     public boolean isAir() {
         return getBlockState().isAir();
+    }
+
+    @Override
+    public boolean isSeeThrough() {
+        return isAir() || isFluid() || !ItemBlockRenderTypes.getChunkRenderType(getBlockState()).equals(RenderType.solid());
     }
 
     @Override

@@ -5,6 +5,7 @@ import mod.chiselsandbits.api.blockinformation.IBlockInformation;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
+import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
 import mod.chiselsandbits.api.profiling.IProfilerSection;
 import mod.chiselsandbits.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.baked.base.BaseBakedBlockModel;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.*;
 
@@ -33,6 +33,7 @@ public class ChiseledBlockBakedModel extends BaseBakedBlockModel {
     public static final ChiseledBlockBakedModel EMPTY = new ChiseledBlockBakedModel(
             BlockInformation.AIR,
             ChiselRenderType.SOLID,
+            null,
             null,
             0);
 
@@ -83,6 +84,7 @@ public class ChiseledBlockBakedModel extends BaseBakedBlockModel {
             final IBlockInformation state,
             final ChiselRenderType layer,
             final IAreaAccessor data,
+            final IBlockNeighborhood blockNeighborhood,
             final long primaryStateRenderSeed) {
         chiselRenderType = layer;
         BakedModel originalModel = null;
@@ -101,7 +103,7 @@ public class ChiseledBlockBakedModel extends BaseBakedBlockModel {
             if (shouldLayerRender) {
                 final ChiseledBlockModelBuilder builder = new ChiseledBlockModelBuilder();
                 try (final IProfilerSection ignoredFaceGeneration = ProfilingManager.getInstance().withSection("facegeneration")) {
-                    generateFaces(builder, data, primaryStateRenderSeed);
+                    generateFaces(builder, data, blockNeighborhood, primaryStateRenderSeed);
                 }
 
                 // convert from builder to final storage.
@@ -128,23 +130,58 @@ public class ChiseledBlockBakedModel extends BaseBakedBlockModel {
         return trulyEmpty;
     }
 
+    @Nullable
+    private Direction getDirectionFromPosition(Vec3 pos) {
+        if (pos.x >= 0 && pos.x < 1) {
+            if (pos.y >= 0 && pos.y < 1) {
+                if (pos.z >= 0 && pos.z < 1) {
+                    return null;
+                }else {
+                    return pos.z < 0 ? Direction.NORTH : Direction.SOUTH;
+                }
+            }else if (pos.z >= 0 && pos.z < 1) {
+                return pos.y < 0 ? Direction.DOWN : Direction.UP;
+            }
+        }else if (pos.y >= 0 && pos.y < 1 && pos.z >= 0 && pos.z < 1) {
+            return pos.x < 0 ? Direction.WEST : Direction.EAST;
+        }
+        return null;
+    }
+
+    private boolean isInBlock(Vec3 pos) {
+        return pos.x >= 0 && pos.x < 1 && pos.y >= 0 && pos.y < 1 && pos.z >= 0 && pos.z < 1;
+    }
+
     private void generateFaces(
             final ChiseledBlockModelBuilder builder,
             final IAreaAccessor accessor,
+            final IBlockNeighborhood blockNeighborhood,
             final long primaryStateRenderSeed) {
         final GreedyMeshFace[] faces;
         try (final IProfilerSection ignoredFaceProcessing = ProfilingManager.getInstance().withSection("processing")) {
             faces =
-                    GreedyMeshBuilder.buildMesh(
-                            (x, y, z) -> accessor.getInAreaTarget(
-                                            new Vec3(
-                                                    x * StateEntrySize.current().getSizePerBit(),
-                                                    y * StateEntrySize.current().getSizePerBit(),
-                                                    z * StateEntrySize.current().getSizePerBit()
-                                            )
-                                    ).map(IStateEntryInfo::getBlockInformation)
-                                    .orElse(IBlockInformation.AIR)
-                    );
+                    GreedyMeshBuilder.buildMesh((x, y, z) -> {
+                        Vec3 pos = new Vec3(
+                                x * StateEntrySize.current().getSizePerBit(),
+                                y * StateEntrySize.current().getSizePerBit(),
+                                z * StateEntrySize.current().getSizePerBit()
+                        );
+                        if (isInBlock(pos)) {
+                            return accessor.getInAreaTarget(pos)
+                                    .map(iStateEntryInfo -> chiselRenderType.isRequiredForRendering(iStateEntryInfo) ? iStateEntryInfo.getBlockInformation() : null)
+                                    .orElse(IBlockInformation.AIR);
+                        }
+                        Direction direction = getDirectionFromPosition(pos);
+                        if (direction == null || blockNeighborhood == null)
+                            return IBlockInformation.AIR;
+                        pos = pos.subtract(Vec3.atLowerCornerOf(direction.getNormal()));
+                        IBlockInformation blockInformation = blockNeighborhood.getAreaAccessor(direction) == null ?
+                                blockNeighborhood.getBlockInformation(direction) :
+                                blockNeighborhood.getAreaAccessor(direction).getInAreaTarget(pos)
+                                        .map(IStateEntryInfo::getBlockInformation)
+                                        .orElse(IBlockInformation.AIR);
+                        return blockInformation.getBlockState().skipRendering(blockInformation.getBlockState(), direction) ? blockInformation : BlockInformation.AIR;
+                    }, chiselRenderType);
         }
 
         try (final IProfilerSection ignoredQuadGeneration = ProfilingManager.getInstance().withSection("quadGeneration")) {

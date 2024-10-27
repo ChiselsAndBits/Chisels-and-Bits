@@ -105,6 +105,7 @@ public class ChiseledBlockBakedModelManager {
                                     primaryState,
                                     chiselRenderType,
                                     accessor,
+                                    blockNeighborhood,
                                     primaryStateRenderSeed
                             );
                         }
