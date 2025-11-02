@@ -65,7 +65,7 @@ public class BagContainer extends AbstractContainerMenu
 
         for (int xToolbar = 0; xToolbar < 9; ++xToolbar)
         {
-            if (thePlayer.getInventory().selected == xToolbar)
+            if (thePlayer.getInventory().getSelectedSlot() == xToolbar)
             {
                 addSlot(bagSlot = new ReadonlySlot(thePlayer.getInventory(), xToolbar, 8 + xToolbar * OUTER_SLOT_SIZE, 162 + playerInventoryOffset));
             }

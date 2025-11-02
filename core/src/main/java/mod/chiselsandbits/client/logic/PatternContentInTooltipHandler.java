@@ -13,7 +13,7 @@ public class PatternContentInTooltipHandler
         if (!(stack.getItem() instanceof final IPatternItem patternItem))
             return;
 
-        if (!(Minecraft.getInstance().getWindow() != null && Screen.hasShiftDown()))
+        if (!Minecraft.getInstance().hasShiftDown())
             return;
 
         final ItemStack renderTarget = patternItem.createItemStack(stack).toBlockStack();

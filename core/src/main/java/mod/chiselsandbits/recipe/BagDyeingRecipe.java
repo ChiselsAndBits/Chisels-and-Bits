@@ -109,13 +109,7 @@ public class BagDyeingRecipe extends CustomRecipe
     }
 
     @Override
-    public boolean canCraftInDimensions(final int width, final int height)
-    {
-        return width * height >= 2;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer()
+    public RecipeSerializer<? extends CustomRecipe> getSerializer()
     {
         return ModRecipeSerializers.BAG_DYEING.get();
     }

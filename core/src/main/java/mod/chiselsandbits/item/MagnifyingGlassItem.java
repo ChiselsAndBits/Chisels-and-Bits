@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class MagnifyingGlassItem extends Item implements IPermanentlyHighlightedNameItem
 {
@@ -70,11 +72,18 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
         );
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag advanced) {
-        super.appendHoverText(stack, context, tooltip, advanced);
+    public void appendHoverText(
+        final ItemStack stack,
+        final TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
+    {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
         HelpTextUtils.build(
-          LocalStrings.HelpMagnifyingGlass, tooltip
+            LocalStrings.HelpMagnifyingGlass, tooltipAdder
         );
     }
 }

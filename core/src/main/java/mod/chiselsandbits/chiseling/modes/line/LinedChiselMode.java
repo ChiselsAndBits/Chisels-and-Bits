@@ -17,12 +17,12 @@ import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -36,7 +36,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -57,7 +56,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
     @Override
     public ClickProcessingState onLeftClickBy(final Player playerEntity, final IChiselingContext context) {
-        final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(playerEntity, context, face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()), Direction::getOpposite, false);
+        final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(playerEntity, context, face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()), Direction::getOpposite, false);
 
         if (context.isSimulation()) {
             return ClickProcessingState.DEFAULT;
@@ -94,7 +93,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
     @Override
     public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context) {
-        final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(playerEntity, context, face -> Vec3.atLowerCornerOf(face.getNormal()), Function.identity(), true);
+        final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(playerEntity, context, face -> Vec3.atLowerCornerOf(face.getUnitVec3i()), Function.identity(), true);
 
         if (context.isSimulation()) {
             return ClickProcessingState.DEFAULT;
@@ -124,10 +123,8 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
             }
 
             if (missingBitCount == 0) {
-                final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-                if (heightPos.getY() >= context.getWorld().getMaxBuildHeight()) {
-                    Component component = (Component.translatable("build.tooHigh", context.getWorld().getMaxBuildHeight() - 1)).withStyle(ChatFormatting.RED);
-                    playerEntity.sendSystemMessage(component);
+                if (!context.validateBuildHeights()) {
+                    return ClickProcessingState.DENIED;
                 }
             }
 
@@ -399,8 +396,8 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon() {
-        return iconName;
+    public TextureAtlasSprite getIcon() {
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

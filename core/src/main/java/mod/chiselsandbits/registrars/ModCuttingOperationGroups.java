@@ -3,22 +3,25 @@ package mod.chiselsandbits.registrars;
 import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.client.icon.IconManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 public final class ModCuttingOperationGroups
 {
-    private static final Logger                      LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    public static        IModificationOperationGroup ACROSS_AXIS = new IModificationOperationGroup()
+    public static IModificationOperationGroup ACROSS_AXIS = new IModificationOperationGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/rotate.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate")
+            );
         }
 
         @Override
@@ -27,12 +30,14 @@ public final class ModCuttingOperationGroups
             return LocalStrings.PatternModificationGroupRotate.getText();
         }
     };
-    public static        IModificationOperationGroup ALL_AXI = new IModificationOperationGroup()
+    public static IModificationOperationGroup ALL_AXI     = new IModificationOperationGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/rotate.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate")
+            );
         }
 
         @Override
@@ -51,5 +56,4 @@ public final class ModCuttingOperationGroups
     {
         LOGGER.info("Loaded cutting operation group configuration.");
     }
-
 }

@@ -3,19 +3,18 @@ package mod.chiselsandbits.block;
 import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.block.bitbag.IBitBagAcceptingBlock;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 import mod.chiselsandbits.api.inventory.bit.IBitInventoryItemStack;
 import mod.chiselsandbits.api.inventory.management.IBitInventoryManager;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.item.BitBagItem;
-import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModBlocks;
+import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -40,7 +39,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
 public class BitStorageBlock extends Block implements EntityBlock, IBitBagAcceptingBlock
 {
 
@@ -72,37 +70,37 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
+    protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
         final BlockEntity tileEntity = level.getBlockEntity(blockPos);
         if (!(tileEntity instanceof final BitStorageBlockEntity tank))
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
 
-        final ItemStack current = player.getInventory().getSelected();
+        final ItemStack current = player.getInventory().getSelectedItem();
 
         if (current.getItem() instanceof BitBagItem)
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
         if (!current.isEmpty())
         {
             if (tank.addHeldBits(current, player))
             {
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
         else
         {
             if (tank.addAllPossibleBits(player))
             {
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
         if (tank.extractBits(player))
         {
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     public float getShadeBrightness(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos)
@@ -116,10 +114,9 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
     }
 
     @Override
-    public @NotNull ItemStack getCloneItemStack(final LevelReader blockGetter, final @NotNull BlockPos blockPos, final @NotNull BlockState state)
-    {
-        if (!(blockGetter.getBlockEntity(blockPos) instanceof BitStorageBlockEntity bitStorageBlockEntity))
-            return super.getCloneItemStack(blockGetter, blockPos, state);
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+        if (!(level.getBlockEntity(pos) instanceof BitStorageBlockEntity bitStorageBlockEntity))
+            return super.getCloneItemStack(level, pos, state, includeData);
 
         return getTankDrop(bitStorageBlockEntity);
     }

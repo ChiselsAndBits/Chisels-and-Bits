@@ -7,12 +7,14 @@ import mod.chiselsandbits.api.client.variant.state.IClientStateVariantProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public final class ClientStateVariantManager implements IClientStateVariantManager {
@@ -53,19 +55,25 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
     }
 
     @Override
-    public void appendHoverText(BlockInformation blockInformation, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(
+        final BlockInformation blockInformation,
+        final Item.TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
+    {
         bakeProviders();
         if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock()))
             return;
 
         final List<Component> variantLines = new ArrayList<>();
         blockInformation.variant().ifPresent(variant -> {
-            providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flags);
+            providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
         });
 
         if (!variantLines.isEmpty()) {
-            tooltip.add(Component.literal(""));
-            tooltip.addAll(variantLines);
+            tooltipAdder.accept(Component.literal(""));
+            variantLines.forEach(tooltipAdder);
         }
     }
 }

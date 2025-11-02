@@ -19,17 +19,18 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ModificationTableContainer extends AbstractContainerMenu
 {
-    private final ContainerLevelAccess            worldPosCallable;
-    private final DataSlot           selectedRecipe = DataSlot.standalone();
-    private final Level                         world;
-    private       List<RecipeHolder<ModificationTableRecipe>> recipes = Lists.newArrayList();
-
+    private final ContainerLevelAccess                            worldPosCallable;
+    private final DataSlot                                        selectedRecipe = DataSlot.standalone();
+    private final Level                                           world;
+    private List<RecipeHolder<ModificationTableRecipe>> recipes = Lists.newArrayList();
     private       ItemStack inputItemStack = ItemStack.EMPTY;
     private       long                   lastOnTake;
     final         Slot                   inputInventorySlot;
@@ -62,7 +63,7 @@ public class ModificationTableContainer extends AbstractContainerMenu
             }
 
             public void onTake(@NotNull Player thePlayer, @NotNull ItemStack stack) {
-                stack.onCraftedBy(thePlayer.level(), thePlayer, stack.getCount());
+                stack.onCraftedBy(thePlayer, stack.getCount());
                 ModificationTableContainer.this.inventory.awardUsedRecipes(thePlayer, List.of(ModificationTableContainer.this.inputInventorySlot.getItem()));
                 ItemStack itemstack = ModificationTableContainer.this.inputInventorySlot.remove(1);
                 if (!itemstack.isEmpty()) {
@@ -132,9 +133,10 @@ public class ModificationTableContainer extends AbstractContainerMenu
         return true;
     }
 
-    private boolean isValidRecipeIndex(int p_241818_1_) {
-        return p_241818_1_ >= 0 && p_241818_1_ < this.recipes.size();
+    private boolean isValidRecipeIndex(int recipeIndex) {
+        return recipeIndex >= 0 && recipeIndex < this.recipes.size();
     }
+
 
     /**
      * Callback for when the crafting matrix is changed.
@@ -154,7 +156,10 @@ public class ModificationTableContainer extends AbstractContainerMenu
         this.outputInventorySlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
             final CraftingInput input = CraftingInput.of(1,1, List.of(stack));
-            this.recipes = this.world.getRecipeManager().getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world);
+            this.recipes =
+                this.world.getServer() != null ?
+                this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList()) :
+                new ArrayList<>();
             this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().getOperation().getRegistryName()).toString()));
         }
     }
@@ -195,12 +200,12 @@ public class ModificationTableContainer extends AbstractContainerMenu
     public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             Item item = itemstack1.getItem();
             itemstack = itemstack1.copy();
             if (index == 1) {
-                item.onCraftedBy(itemstack1, playerIn.level(), playerIn);
+                item.onCraftedBy(itemstack1, playerIn);
                 if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -210,7 +215,7 @@ public class ModificationTableContainer extends AbstractContainerMenu
                 if (!this.moveItemStackTo(itemstack1, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.world.getRecipeManager().getRecipeFor(ModRecipeTypes.MODIFICATION_TABLE.get(), CraftingInput.of(1,1,List.of(inputItemStack)), this.world).isPresent()) {
+            } else if (this.world.getServer() != null && this.world.getServer().getRecipeManager().getRecipeFor(ModRecipeTypes.MODIFICATION_TABLE.get(), CraftingInput.of(1,1,List.of(inputItemStack)), this.world).isPresent()) {
                 if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

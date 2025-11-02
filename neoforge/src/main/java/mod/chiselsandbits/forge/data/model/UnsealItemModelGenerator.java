@@ -5,24 +5,22 @@ import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class UnsealItemModelGenerator extends AbstractInteractableItemModelGenerator
 {
 
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event)
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
-        event.getGenerator().addProvider(true, new UnsealItemModelGenerator(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(true, new UnsealItemModelGenerator(event.getGenerator()));
     }
 
-    public UnsealItemModelGenerator(final DataGenerator generator, final ExistingFileHelper existingFileHelper)
+    public UnsealItemModelGenerator(final DataGenerator generator)
     {
-        super(generator, existingFileHelper, ModItems.UNSEAL_ITEM);
+        super(generator, ModItems.UNSEAL_ITEM);
     }
 
     @Override

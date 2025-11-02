@@ -21,10 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -37,6 +34,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.NotNull;
@@ -80,28 +79,27 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider loader) {
-        super.loadAdditional(nbt, loader);
+    protected void loadAdditional(final ValueInput input)
+    {
+        super.loadAdditional(input);
 
-        final RegistryOps<Tag> registryOps = RegistryOps.create(NbtOps.INSTANCE, loader);
+        tool_handler = input.read(NbtConstants.TOOL, SimpleContainer.CODEC).orElse(new SimpleContainer(1));
+        pattern_handler = input.read(NbtConstants.PATTERN, SimpleContainer.CODEC).orElse(new SimpleContainer(1));
+        result_handler = input.read(NbtConstants.RESULT, SimpleContainer.CODEC).orElse(new SimpleContainer(1));
 
-        tool_handler = SimpleContainer.CODEC.decode(registryOps, nbt.get(NbtConstants.TOOL)).getOrThrow().getFirst();
-        pattern_handler = SimpleContainer.CODEC.decode(registryOps, nbt.get(NbtConstants.PATTERN)).getOrThrow().getFirst();
-        result_handler = SimpleContainer.CODEC.decode(registryOps, nbt.get(NbtConstants.RESULT)).getOrThrow().getFirst();
-
-        progress = nbt.getInt(NbtConstants.PROGRESS);
+        progress = input.getIntOr(NbtConstants.PROGRESS, 0);
     }
 
     @Override
-    public void saveAdditional(final @NotNull CompoundTag compound, HolderLookup.@NotNull Provider loader) {
-        super.saveAdditional(compound, loader);
+    protected void saveAdditional(final ValueOutput output)
+    {
+        super.saveAdditional(output);
 
-        final RegistryOps<Tag> registryOps = RegistryOps.create(NbtOps.INSTANCE, loader);
-        compound.put(NbtConstants.TOOL, SimpleContainer.CODEC.encodeStart(registryOps, tool_handler).getOrThrow());
-        compound.put(NbtConstants.PATTERN, SimpleContainer.CODEC.encodeStart(registryOps, pattern_handler).getOrThrow());
-        compound.put(NbtConstants.RESULT, SimpleContainer.CODEC.encodeStart(registryOps, result_handler).getOrThrow());
+        output.store(NbtConstants.TOOL, SimpleContainer.CODEC, tool_handler);
+        output.store(NbtConstants.PATTERN, SimpleContainer.CODEC, pattern_handler);
+        output.store(NbtConstants.RESULT, SimpleContainer.CODEC, result_handler);
 
-        compound.putInt(NbtConstants.PROGRESS, progress);
+        output.putInt(NbtConstants.PROGRESS, progress);
     }
 
     @Override
@@ -344,8 +342,17 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
         }
     }
 
-    public void dropInventoryItems(Level worldIn, BlockPos pos) {
-        Containers.dropItemStack(worldIn,
+    @Override
+    public void preRemoveSideEffects(final BlockPos pos, final BlockState state)
+    {
+        super.preRemoveSideEffects(pos, state);
+        dropInventoryItems();
+    }
+
+    public void dropInventoryItems() {
+        final Level worldIn = getLevel();
+        final BlockPos pos = getBlockPos();
+        Containers.dropItemStack(Objects.requireNonNull(worldIn),
                 pos.getX(),
                 pos.getY(),
                 pos.getZ(),

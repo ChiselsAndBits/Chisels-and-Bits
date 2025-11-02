@@ -1,20 +1,16 @@
 package mod.chiselsandbits.multistate.snapshot;
 
 import com.google.common.collect.Maps;
-import com.jcraft.jorbis.Block;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
-import mod.chiselsandbits.api.axissize.CollisionType;
-import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
-import mod.chiselsandbits.api.serialization.CBCodecs;
-import mod.chiselsandbits.api.serialization.CBStreamCodecs;
-import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.api.block.storage.StateEntryStorage;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
+import mod.chiselsandbits.api.item.multistate.IStatistics;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
+import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IArrayBackedAreaShapeIdentifier;
@@ -23,19 +19,21 @@ import mod.chiselsandbits.api.multistate.mutator.IMutableStateEntryInfo;
 import mod.chiselsandbits.api.multistate.mutator.callback.StateClearer;
 import mod.chiselsandbits.api.multistate.mutator.callback.StateSetter;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
+import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
+import mod.chiselsandbits.api.serialization.CBCodecs;
+import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import mod.chiselsandbits.api.util.BlockPosForEach;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
-import mod.chiselsandbits.api.block.storage.StateEntryStorage;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.item.ChiseledBlockItem;
 import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.registrars.ModItems;
+import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -44,15 +42,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class SimpleSnapshot implements IMultiStateSnapshot {
+public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlignedAreaAccessor {
 
     public static final Codec<SimpleSnapshot> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
@@ -85,7 +80,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot {
         this.chunkSection = chunkSection;
     }
 
-    private SimpleSnapshot(StateEntryStorage chunkSection, SimpleStatistics stateObjectStatistics) {
+    public SimpleSnapshot(StateEntryStorage chunkSection, SimpleStatistics stateObjectStatistics) {
         this.chunkSection = chunkSection;
         this.stateObjectStatistics = stateObjectStatistics;
     }
@@ -204,6 +199,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot {
                     this::setInAreaTarget,
                     this::clearInAreaTarget));
         });
+    }
+
+    @Override
+    public IStatistics getStatistics()
+    {
+        return stateObjectStatistics;
     }
 
     /**
@@ -335,7 +336,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot {
 
     @Override
     public IMultiStateSnapshotType getType() {
-        return MultiStateSnapshotTypes.SIMPLE;
+        return ModMultiStateSnapshotTypes.SIMPLE.get();
     }
 
     /**
@@ -500,7 +501,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot {
             this.stateCounts = determineStateCounts(storage);
         }
 
-        private SimpleStatistics(BlockInformation primaryState, Map<BlockInformation, Integer> stateCounts) {
+        public SimpleStatistics(BlockInformation primaryState, Map<BlockInformation, Integer> stateCounts) {
             this.primaryState = primaryState;
             this.stateCounts = stateCounts;
         }

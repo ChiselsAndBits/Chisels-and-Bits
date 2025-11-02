@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "c": {
-      "tag": "chiselsandbits:chisel"
-    },
-    "g": {
-      "tag": "c:glass_blocks"
-    },
-    "s": {
-      "tag": "c:rods/wooden"
-    }
+    "c": "#chiselsandbits:chisel",
+    "g": "#c:glass_blocks",
+    "s": "#c:rods/wooden"
   },
   "pattern": [
     "cg ",

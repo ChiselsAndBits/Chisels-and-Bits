@@ -2,25 +2,20 @@ package mod.chiselsandbits.storage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.config.ICommonConfiguration;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.TagParser;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.RegistryOps;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedStorageEngine<TPayload>
 {
@@ -49,24 +44,20 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
         this.internalEngine = internalEngine;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public CompletableFuture<Tag> encodeAsync(TPayload payload, HolderLookup.Provider provider) {
+    public CompletableFuture<Void> encodeAsync(TPayload payload, ValueOutput output) {
         ensureThreadPoolSetup();
-        return CompletableFuture.supplyAsync(() -> {
-            final NbtOps ops = NbtOps.INSTANCE;
-            final RegistryOps<Tag> registryOps = RegistryOps.create(ops, provider);
-            return internalEngine.encodeStart(registryOps, payload).getPartialOrThrow((s) -> new IllegalStateException("Failed to encode payload: " + s));
+        return CompletableFuture.runAsync(() -> {
+            output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
         }, saveService);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public CompletableFuture<TPayload> decodeAsync(Tag tag, HolderLookup.Provider provider) {
+    public CompletableFuture<TPayload> decodeAsync(final ValueInput valueInput) {
         ensureThreadPoolSetup();
-        return CompletableFuture.supplyAsync(() -> {
-            final NbtOps ops = NbtOps.INSTANCE;
-            final RegistryOps<Tag> registryOps = RegistryOps.create(ops, provider);
-            final Dynamic<Tag> dynamic = new Dynamic<>(registryOps, tag);
-            return internalEngine.parse(dynamic).getPartialOrThrow((s) -> new IllegalStateException("Failed to decode payload: " + s));
-        }, saveService);
+        return CompletableFuture.supplyAsync(() -> valueInput.read(MapCodec.assumeMapUnsafe(internalEngine))
+            .orElseThrow(() -> new IllegalStateException("Failed to decode payload!")), saveService);
     }
 }

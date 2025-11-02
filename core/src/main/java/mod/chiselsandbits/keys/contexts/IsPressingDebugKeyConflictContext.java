@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import java.util.function.Supplier;
 
 public enum IsPressingDebugKeyConflictContext implements IKeyConflictContext {
-    F3_DEBUG_KEY(() -> InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 292));
+    F3_DEBUG_KEY(() -> InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), 292));
 
     private final Supplier<Boolean> isKeyPressed;
 

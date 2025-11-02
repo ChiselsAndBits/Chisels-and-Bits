@@ -10,9 +10,9 @@ import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator
 import mod.chiselsandbits.api.multistate.mutator.IMutableStateEntryInfo;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.multistate.mutator.MutatorFactory;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -74,7 +74,7 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
         return null;
     }

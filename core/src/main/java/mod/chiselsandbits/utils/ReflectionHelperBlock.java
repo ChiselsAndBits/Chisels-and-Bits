@@ -3,8 +3,12 @@ package mod.chiselsandbits.utils;
 import com.communi.suggestu.saecularia.caudices.core.block.IBlockWithWorldlyProperties;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
+import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,12 +42,12 @@ public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyPro
 
     public ReflectionHelperBlock()
     {
-        super( Properties.of() );
+        super( Properties.of()
+            .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "reflection_helper_block"))) );
     }
 
-    @Nullable
     @Override
-    public VoxelShape getOcclusionShape(@Nullable final BlockState state, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos)
+    protected VoxelShape getOcclusionShape(final BlockState $$0)
     {
         markMethod();
         return Shapes.empty();
@@ -91,12 +95,6 @@ public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyPro
     public float getFriction(BlockState state, LevelReader levelReader, BlockPos pos, @Nullable Entity entity) {
         markMethod();
         return 0f;
-    }
-
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter blockGetter, BlockPos pos) {
-        markMethod();
-        return 0;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package mod.chiselsandbits.utils;
 
-import mod.chiselsandbits.api.util.SingleBlockLevelReader;
+import com.communi.suggestu.scena.core.util.SingleBlockLevelReader;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.item.click.ILeftClickControllingItem;
@@ -42,7 +42,9 @@ public class ItemStackUtils
     {
         final Optional<ItemStack> dynamicStack = IStateVariantManager.getInstance().getItemStack(blockInformation);
         if (dynamicStack.isPresent())
+        {
             return dynamicStack.get();
+        }
 
         if (blockInformation.blockState().getBlock() instanceof LiquidBlock liquidBlock)
         {
@@ -67,7 +69,14 @@ public class ItemStackUtils
         }
         else if (block instanceof CropBlock)
         {
-            final ItemStack stack = block.getCloneItemStack(new SingleBlockLevelReader(blockInformation), BlockPos.ZERO, blockInformation.blockState());
+            final ItemStack stack = blockInformation.blockState().getCloneItemStack(
+                new SingleBlockLevelReader.Builder()
+                    .withBlockState(blockInformation.blockState())
+                    .withBlockEntity(blockInformation::newBlockEntityAtZero)
+                    .createSingleBlockLevelReader(),
+                BlockPos.ZERO,
+                true
+            );
             if (!stack.isEmpty())
             {
                 return stack.getItem();
@@ -274,7 +283,7 @@ public class ItemStackUtils
     }
 
     public static BlockInformation getStateFromItem(
-      final ItemStack is)
+        final ItemStack is)
     {
         try
         {
@@ -282,8 +291,8 @@ public class ItemStackUtils
             {
                 final BlockState blockState = blockItem.getBlock().defaultBlockState();
                 return new BlockInformation(
-                  blockState,
-                  IStateVariantManager.getInstance().getStateVariant(blockState, is)
+                    blockState,
+                    IStateVariantManager.getInstance().getStateVariant(blockState, is)
                 );
             }
         }

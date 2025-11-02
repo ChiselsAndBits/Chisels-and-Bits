@@ -1,6 +1,5 @@
 package mod.chiselsandbits.client.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.screens.widgets.MultiStateSnapshotWidget;
@@ -10,7 +9,10 @@ import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -62,14 +64,13 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 
     @SuppressWarnings("deprecation")
     protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         int left = this.leftPos;
         int top = this.topPos;
-        graphics.blit(BACKGROUND_TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+
         int sliderOffset = (int)(41.0F * this.sliderProgress);
-        graphics.blit(BACKGROUND_TEXTURE, left + 119, top + 15 + sliderOffset, this.imageWidth + (this.canScroll() ? 0 : 12), 0, 12, 15);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, left + 119, top + 15 + sliderOffset, this.imageWidth + (this.canScroll() ? 0 : 12), 0, 12, 15, 256, 256);
+
         int recipesLeft = this.leftPos + 52;
         int recipesTop = this.topPos + 14;
         int recipeIndexOffsetMax = this.recipeIndexOffset + 12;
@@ -99,7 +100,12 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
                 if (x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18) {
-                    graphics.renderTooltip(font, list.get(l).value().getDisplayName(), x, y);
+                    graphics.renderTooltip(font,
+                        List.of(ClientTooltipComponent.create(list.get(l).value().getDisplayName().getVisualOrderText())),
+                        x,
+                        y,
+                        DefaultTooltipPositioner.INSTANCE,
+                        null);
                 }
             }
         }
@@ -119,7 +125,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
                 j1 += 36;
             }
 
-            graphics.blit(BACKGROUND_TEXTURE, k, i1 - 1, 0, j1, 16, 18);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, k, i1 - 1, 0, j1, 16, 18, 256, 256);
         }
 
     }
@@ -141,7 +147,12 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 
     }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    @Override
+    public boolean mouseClicked(final MouseButtonEvent event, final boolean repeat)
+    {
+        final int mouseX = (int) event.x();
+        final int mouseY = (int) event.y();
+
         this.clickedOnSroll = false;
         if (this.hasItemsInInputSlot) {
             int i = this.leftPos + 52;
@@ -171,10 +182,15 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
             }
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, repeat);
     }
 
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    @Override
+    public boolean mouseDragged(final MouseButtonEvent event, final double dragX, final double dragY)
+    {
+        final int mouseX = (int) event.x();
+        final int mouseY = (int) event.y();
+
         if (this.clickedOnSroll && this.canScroll()) {
             int i = this.topPos + 14;
             int j = i + 54;
@@ -184,9 +200,9 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
             return true;
         } else {
             if (this.snapshotWidget.isMouseOver(mouseX, mouseY)) {
-                return this.snapshotWidget.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+                return this.snapshotWidget.mouseDragged(event, dragX, dragY);
             }
-            return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+            return super.mouseDragged(event, dragX, dragY);
         }
     }
 

@@ -16,13 +16,13 @@ import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -34,9 +34,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -44,7 +44,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 {
     private final MutableComponent displayName;
     private final MutableComponent multiLineDisplayName;
-    private final ResourceLocation          iconName;
+    private final ResourceLocation             iconName;
 
     DrawnCubeChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final ResourceLocation iconName) {
         this.displayName = displayName;
@@ -64,7 +64,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
         return processRayTraceIntoContext(
           playerEntity,
           context,
-          direction -> Vec3.atLowerCornerOf(direction.getOpposite().getNormal()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+          direction -> Vec3.atLowerCornerOf(direction.getOpposite().getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
         );
     }
 
@@ -110,7 +110,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
         return processRayTraceIntoContext(
           playerEntity,
           context,
-          direction -> Vec3.atLowerCornerOf(direction.getNormal()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+          direction -> Vec3.atLowerCornerOf(direction.getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
         );
     }
 
@@ -159,12 +159,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
             if (missingBitCount == 0)
             {
-                final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-                if (heightPos.getY() >= context.getWorld().getMaxBuildHeight())
-                {
-                    Component component = (Component.translatable("build.tooHigh", context.getWorld().getMaxBuildHeight() - 1)).withStyle(ChatFormatting.RED);
-                    playerEntity.sendSystemMessage(component);
-                }
+                context.validateBuildHeights();
             }
         });
     }
@@ -207,9 +202,9 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return iconName;
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

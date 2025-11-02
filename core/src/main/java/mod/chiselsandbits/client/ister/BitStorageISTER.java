@@ -1,68 +1,69 @@
 package mod.chiselsandbits.client.ister;
 
-import com.communi.suggestu.scena.core.client.rendering.IRenderingManager;
-import com.communi.suggestu.scena.core.registries.IPlatformRegistryManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
-import mod.chiselsandbits.registrars.ModBlocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransform;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-public class BitStorageISTER extends BlockEntityWithoutLevelRenderer
-{
-    private static final ItemTransform GUI = new ItemTransform(
-      new Vector3f(30,225,0),
-      new Vector3f(-0.5f, 0f, 0),
-      new Vector3f(0.625f, 0.625f, 0.625f)
-    );
+import java.util.Set;
 
+public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.RenderState>
+{
     public BitStorageISTER()
     {
-        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(),
-          Minecraft.getInstance().getEntityModels());
+    }
+
+    public record RenderState(BitStorageBlockEntity entity) {}
+
+    @Override
+    public void submit(
+        @Nullable final BitStorageISTER.RenderState argument,
+        final @NotNull ItemDisplayContext displayContext,
+        final @NotNull PoseStack poseStack,
+        final @NotNull SubmitNodeCollector nodeCollector,
+        final int packedLight,
+        final int packedOverlay,
+        final boolean hasFoil,
+        final int outlineColor)
+    {
+        poseStack.pushPose();
+
+        assert argument != null;
+        final BlockEntityRenderState state = Minecraft.getInstance().getBlockEntityRenderDispatcher().tryExtractRenderState(
+            argument.entity(),
+            Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
+            null
+        );
+
+        assert state != null;
+        Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
+            state,
+            poseStack,
+            nodeCollector,
+            new CameraRenderState()
+        );
+
+        poseStack.popPose();
     }
 
     @Override
-    public void renderByItem(
-      final @NotNull ItemStack stack,
-      final @NotNull ItemDisplayContext transformType,
-      final PoseStack matrixStack,
-      final @NotNull MultiBufferSource buffer,
-      final int combinedLight,
-      final int combinedOverlay)
+    public void getExtents(final @NotNull Set<Vector3f> output)
     {
+        //Noop., for now. Figure out later
+    }
 
-        final BakedModel model = Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(
-          IPlatformRegistryManager.getInstance().getBlockRegistry()
-            .getKey(ModBlocks.BIT_STORAGE.get())
-          , "facing=east"));
-
-
-        final BitStorageBlockEntity blockEntity = BitStorageBlock.createEntityFromStack(stack);
-
-        matrixStack.pushPose();
-
-        Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrixStack, buffer, combinedLight, combinedOverlay);
-
-        matrixStack.popPose();
-
-
-        matrixStack.pushPose();
-
-        IRenderingManager.getInstance()
-                .renderModel(matrixStack.last(), buffer.getBuffer(RenderType.cutoutMipped()), ModBlocks.BIT_STORAGE
-                        .get().defaultBlockState(), model, 1f, 1f, 1f, combinedLight, combinedOverlay, RenderType.cutout());
-
-        matrixStack.popPose();
+    @Override
+    public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
+    {
+        return new RenderState(BitStorageBlock.createEntityFromStack(stack));
     }
 }

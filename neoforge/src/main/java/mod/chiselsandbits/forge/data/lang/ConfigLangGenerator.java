@@ -8,7 +8,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,12 +17,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class ConfigLangGenerator implements DataProvider
 {
 
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event)
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
         event.getGenerator().addProvider(true, new ConfigLangGenerator(event.getGenerator().getPackOutput()));
     }

@@ -18,19 +18,15 @@ import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.world.IInWorldStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
-import mod.chiselsandbits.api.util.BlockPosForEach;
-import mod.chiselsandbits.api.util.BlockPosStreamProvider;
-import mod.chiselsandbits.api.util.IBatchMutation;
-import mod.chiselsandbits.api.util.LocalStrings;
-import mod.chiselsandbits.api.util.RayTracingUtils;
-import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.api.util.*;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.BlockPosUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
-import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -103,7 +99,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
         final Either<ClickProcessingState, Vec3> rayTraceHandle = this.processRayTraceIntoContext(
                 playerEntity,
                 context,
-                face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()),
+                face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
                 facing -> facing.multiply(-1, -1, -1)
         );
 
@@ -169,13 +165,12 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
         //Noop.
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context) {
         final Either<ClickProcessingState, Vec3> rayTraceHandle = this.processRayTraceIntoContext(
                 playerEntity,
                 context,
-                face -> Vec3.atLowerCornerOf(face.getNormal()),
+                face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
                 Function.identity()
         );
 
@@ -228,10 +223,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
             }
 
             if (missingBitCount == 0) {
-                final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-                if (heightPos.getY() >= context.getWorld().getMaxBuildHeight()) {
-                    Component component = (Component.translatable("build.tooHigh", context.getWorld().getMaxBuildHeight() - 1)).withStyle(ChatFormatting.RED);
-                    playerEntity.sendSystemMessage(component);
+                if (!context.validateBuildHeights()) {
+                    return ClickProcessingState.DENIED;
                 }
             }
 
@@ -254,12 +247,12 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
         final Optional<Vec3> rayTraceHandle = modeOfOperation.isChiseling() ?
                 this.processRayTraceIntoCenter(
                         playerEntity,
-                        face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()),
+                        face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
                         facing -> facing.multiply(-1, -1, -1)
                 )
                 : this.processRayTraceIntoCenter(
                 playerEntity,
-                face -> Vec3.atLowerCornerOf(face.getNormal()),
+                face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
                 Function.identity()
         );
 
@@ -325,7 +318,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
                         (diameter / 2d) / StateEntrySize.current().getBitsPerBlockSide(),
                         (diameter / 2d) / StateEntrySize.current().getBitsPerBlockSide()
                 ).multiply(
-                        fullFacingVectorAdapter.apply(Vec3.atLowerCornerOf(blockRayTraceResult.getDirection().getNormal())
+                        fullFacingVectorAdapter.apply(Vec3.atLowerCornerOf(blockRayTraceResult.getDirection().getUnitVec3i())
                         )
                 )
         );
@@ -362,7 +355,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
                         (diameter / 2d) / StateEntrySize.current().getBitsPerBlockSide(),
                         (diameter / 2d) / StateEntrySize.current().getBitsPerBlockSide()
                 ).multiply(
-                        fullFacingVectorAdapter.apply(Vec3.atLowerCornerOf(blockRayTraceResult.getDirection().getNormal())
+                        fullFacingVectorAdapter.apply(Vec3.atLowerCornerOf(blockRayTraceResult.getDirection().getUnitVec3i())
                         )
                 )
         );
@@ -390,8 +383,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon() {
-        return iconName;
+    public TextureAtlasSprite getIcon() {
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

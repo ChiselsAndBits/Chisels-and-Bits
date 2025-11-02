@@ -21,11 +21,13 @@ import mod.chiselsandbits.api.util.IQuadFunction;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -72,7 +74,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
           Player,
           context,
           Direction::getOpposite,
-          face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()),
+          face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
           IQuadFunction.fourthIdentity(),
           position -> IMutatorFactory.getInstance().in(
             context.getWorld(),
@@ -142,42 +144,42 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
           player,
           context,
           UnaryOperator.identity(),
-          face -> Vec3.atLowerCornerOf(face.getNormal()),
+          face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
           (hitPos, inBlockTargetedPosition, hitFace, candidatePosition) -> {
               if (inBlockTargetedPosition.equals(candidatePosition))
               {
                   return Vec3.atLowerCornerOf(hitPos)
                     .add(inBlockTargetedPosition)
                     .add(Vec3.atLowerCornerOf(
-                          hitFace.getOpposite().getNormal()
+                          hitFace.getOpposite().getUnitVec3i()
                         )
                         .multiply(StateEntrySize.current().getSizePerBitScalingVector())
                     );
               }
 
               final Vec3 relevantAxisCandidate = candidatePosition.multiply(
-                Math.abs(hitFace.getNormal().getX()),
-                Math.abs(hitFace.getNormal().getY()),
-                Math.abs(hitFace.getNormal().getZ())
+                Math.abs(hitFace.getUnitVec3i().getX()),
+                Math.abs(hitFace.getUnitVec3i().getY()),
+                Math.abs(hitFace.getUnitVec3i().getZ())
               );
               final Vec3 noneRelevantAxisCandidates = candidatePosition.subtract(relevantAxisCandidate);
               final Vec3 relevantAxisTarget = inBlockTargetedPosition.multiply(
-                Math.abs(hitFace.getNormal().getX()),
-                Math.abs(hitFace.getNormal().getY()),
-                Math.abs(hitFace.getNormal().getZ())
+                Math.abs(hitFace.getUnitVec3i().getX()),
+                Math.abs(hitFace.getUnitVec3i().getY()),
+                Math.abs(hitFace.getUnitVec3i().getZ())
               );
 
               final Vec3 offset = candidatePosition.subtract(inBlockTargetedPosition);
               final Vec3 relevantAxisOffset = offset.multiply(
-                Math.abs(hitFace.getNormal().getX()),
-                Math.abs(hitFace.getNormal().getY()),
-                Math.abs(hitFace.getNormal().getZ())
+                Math.abs(hitFace.getUnitVec3i().getX()),
+                Math.abs(hitFace.getUnitVec3i().getY()),
+                Math.abs(hitFace.getUnitVec3i().getZ())
               );
 
               return noneRelevantAxisCandidates.add(relevantAxisTarget).subtract(relevantAxisOffset)
                 .add(hitPos.getX(), hitPos.getY(), hitPos.getZ())
                 .add(Vec3.atLowerCornerOf(
-                      hitFace.getOpposite().getNormal()
+                      hitFace.getOpposite().getUnitVec3i()
                     )
                     .multiply(StateEntrySize.current().getSizePerBitScalingVector())
                 );
@@ -188,9 +190,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
             VectorUtils.toBlockPos(position.add(1, 1, 1))
           ),
           direction -> new Vec3i(
-            direction.getNormal().getX() * depth,
-            direction.getNormal().getY() * depth,
-            direction.getNormal().getZ() * depth
+            direction.getUnitVec3i().getX() * depth,
+            direction.getUnitVec3i().getY() * depth,
+            direction.getUnitVec3i().getZ() * depth
           )
         );
 
@@ -240,13 +242,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
               if (missingBitCount == 0)
               {
-                  final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-                  if (heightPos.getY() >= context.getWorld().getMaxBuildHeight())
-                  {
-                      context.setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
-                  }
-                  else if (heightPos.getY() <= context.getWorld().getMinBuildHeight()) {
-                      context.setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
+                  if (!context.validateBuildHeights()) {
+                      return ClickProcessingState.DENIED;
                   }
               }
 
@@ -291,8 +288,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
         }
 
         final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING ?
-                                                                   face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()) :
-                                                                                                                                  face -> Vec3.atLowerCornerOf(face.getNormal());
+                                                                   face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
+                                                                                                                                  face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
         final Vec3 hitVector = blockHitResult.getLocation().add(
           placementFacingAdapter.apply(blockHitResult.getDirection())
@@ -344,10 +341,10 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
         final Set<Vec3i> validPositions = new HashSet<>();
 
         final Set<Vec3i> offsets = new HashSet<>();
-        offsets.add(searchDirectionAdapter.apply(blockHitResult.getDirection()).getNormal());
+        offsets.add(searchDirectionAdapter.apply(blockHitResult.getDirection()).getUnitVec3i());
         Arrays.stream(Direction.values())
           .filter(direction -> direction.getAxis() != blockHitResult.getDirection().getAxis())
-          .map(Direction::getNormal)
+          .map(Direction::getUnitVec3i)
           .forEach(offsets::add);
 
         final Vec3i selectedPosition = VectorUtils.toInteger(
@@ -359,9 +356,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
         final Vec3i relevantSelectedAxisVector =
           new Vec3i(
-            selectedPosition.getX() * Math.abs(blockHitResult.getDirection().getNormal().getX()),
-            selectedPosition.getY() * Math.abs(blockHitResult.getDirection().getNormal().getY()),
-            selectedPosition.getZ() * Math.abs(blockHitResult.getDirection().getNormal().getZ())
+            selectedPosition.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
+            selectedPosition.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
+            selectedPosition.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
           );
 
         final Vec3 selectedInBlockPosition = Vec3.atLowerCornerOf(
@@ -422,9 +419,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
                         final Vec3i relevantNewTargetAxisVector =
                           new Vec3i(
-                            newTarget.getX() * Math.abs(blockHitResult.getDirection().getNormal().getX()),
-                            newTarget.getY() * Math.abs(blockHitResult.getDirection().getNormal().getY()),
-                            newTarget.getZ() * Math.abs(blockHitResult.getDirection().getNormal().getZ())
+                            newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
+                            newTarget.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
+                            newTarget.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
                           );
 
                         final int targetedDepth = Math.abs(
@@ -461,9 +458,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return iconName;
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

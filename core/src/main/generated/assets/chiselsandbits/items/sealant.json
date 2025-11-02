@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "chiselsandbits:interactable",
+    "model": "chiselsandbits:item/sealant_spec"
+  }
+}

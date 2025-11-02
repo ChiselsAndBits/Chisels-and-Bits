@@ -27,7 +27,7 @@ public class GreedyMeshBuilder {
         BlockInformation getMaterial(int x, int y, int z);
     }
 
-    public static GreedyMeshFace[] buildMesh(MaterialProvider data, ChiselRenderType chiselRenderType) {
+    public static GreedyMeshFace[] buildMesh(MaterialProvider data) {
         final List<GreedyMeshFace> faces = new ArrayList<>();
         final int sizePerDimension = StateEntrySize.current().getBitsPerBlockSide();
 
@@ -35,12 +35,12 @@ public class GreedyMeshBuilder {
         final Int2ObjectMap<BlockInformation> materialByIndex = new Int2ObjectOpenHashMap<>();
         final int[] mask = new int[sizePerDimension * sizePerDimension]; // The mask is used to keep track of which faces have been added to the mesh.
 
+        indexByMaterial.put(BlockInformation.AIR, 0);
+        materialByIndex.put(0, BlockInformation.AIR);
+
         class MaterialProcessor {
             final int getMaterialIndex(int x, int y, int z) {
                 final BlockInformation blockInformation = data.getMaterial(x, y, z);
-
-                if (!chiselRenderType.isRequiredForRendering(blockInformation))
-                    return 0;
 
                 return indexByMaterial.computeIfAbsent(blockInformation, k -> {
                     int index = indexByMaterial.size() + 1;
@@ -109,7 +109,15 @@ public class GreedyMeshBuilder {
                             dimensionalIterator[firstDimensionIter] = currentFirstDimensionIter;
                             dimensionalIterator[secondDimensionIter] = currentSecondDimensionIter;
 
-                            final GreedyMeshFace face = generateFace(materialMask, secondDimensionIter, height, firstDimensionIter, width, materialByIndex, dimensionalIterator, dimension, sizePerDimension);
+                            final GreedyMeshFace face = generateFace(materialMask,
+                                secondDimensionIter,
+                                height,
+                                firstDimensionIter,
+                                width,
+                                materialByIndex,
+                                dimensionalIterator,
+                                dimension,
+                                sizePerDimension);
                             faces.add(face);
 
                             clearMask(height, width, mask, maskIndex, sizePerDimension);
@@ -137,7 +145,16 @@ public class GreedyMeshBuilder {
     }
 
     @NotNull
-    private static GreedyMeshFace generateFace(int materialMask, int secondDimensionIter, int height, int firstDimensionIter, int width, Int2ObjectMap<BlockInformation> materialByIndex, int[] dimensionalIterator, int dimension, float sizePerDimension) {
+    private static GreedyMeshFace generateFace(
+        int materialMask,
+        int secondDimensionIter,
+        int height,
+        int firstDimensionIter,
+        int width,
+        Int2ObjectMap<BlockInformation> materialByIndex,
+        int[] dimensionalIterator,
+        int dimension,
+        float sizePerDimension) {
         int[] deltaVertical = new int[]{0, 0, 0};
         int[] deltaHorizontal = new int[]{0, 0, 0};
 
@@ -166,7 +183,15 @@ public class GreedyMeshBuilder {
 
         final boolean isEdge = axisValue == 0 || axisValue == sizePerDimension;
 
-        return new GreedyMeshFace(material, lowerLeft, upperLeft, lowerRight, upperRight, normalDirection, isEdge);
+        return new GreedyMeshFace(
+            material,
+            lowerLeft,
+            upperLeft,
+            lowerRight,
+            upperRight,
+            normalDirection,
+            isEdge
+        );
     }
 
     private static int computeHeight(int j, int sizePerDimension, int width, int[] mask, int maskIndex, int materialMask) {

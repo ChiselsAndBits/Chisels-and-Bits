@@ -1,7 +1,7 @@
 package mod.chiselsandbits.pattern.placement;
 
+import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
 import mod.chiselsandbits.api.block.IMultiStateBlock;
-import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.change.IChangeTrackerManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
@@ -11,16 +11,18 @@ import mod.chiselsandbits.api.inventory.management.IBitInventoryManager;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
-import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
-import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -50,7 +52,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
     public VoxelShape buildVoxelShapeForWireframe(
       final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
     {
-        final BlockPos targetedPosition = hitFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? VectorUtils.toBlockPos(targetedPoint) : VectorUtils.toBlockPos(targetedPoint).offset(hitFace.getOpposite().getNormal());
+        final BlockPos targetedPosition = hitFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? VectorUtils.toBlockPos(targetedPoint) : VectorUtils.toBlockPos(targetedPoint).offset(hitFace.getOpposite().getUnitVec3i());
         final VoxelShape targetingShape = BlockPosStreamProvider.getForRange(
           player.isShiftKeyDown() ? targetedPoint : Vec3.atLowerCornerOf(targetedPosition) ,
           player.isShiftKeyDown() ? targetedPoint.add(0.9999, 0.9999,0.9999): Vec3.atLowerCornerOf(targetedPosition)
@@ -70,7 +72,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
                                     targetedPoint.y() - targetedPosition.getY(),
                                     targetedPoint.z() - targetedPosition.getZ()
                                   ) : Vec3.ZERO;
-        final VoxelShape ownShape = ModPatternPlacementTypes.PLACEMENT.get().buildVoxelShapeForWireframe(
+        final VoxelShape ownShape = ModPatternPlacementTypes.REMOVAL.get().buildVoxelShapeForWireframe(
           sourceSnapshot, player, targetedPoint, hitFace
         ).move(
           offSet.x(),
@@ -89,7 +91,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
     {
         final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
                                             context.getClickLocation()
-                                            : Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getNormal()));
+                                            : Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
         final IWorldAreaMutator areaMutator =
           IMutatorFactory.getInstance().covering(
             context.getLevel(),
@@ -184,11 +186,10 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(
-          MOD_ID,
-          "textures/icons/pattern_remove.png"
+        return IconManager.getInstance().getIcon(
+            ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_remove")
         );
     }
 

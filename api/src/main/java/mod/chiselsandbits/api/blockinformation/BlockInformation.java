@@ -14,13 +14,18 @@ import mod.chiselsandbits.api.util.ISnapshotable;
 import mod.chiselsandbits.api.serialization.Serializable;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Entity;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -95,5 +100,24 @@ public record BlockInformation(BlockState blockState,
     @Override
     public StreamCodec<RegistryFriendlyByteBuf, BlockInformation> streamCodec() {
         return STREAM_CODEC;
+    }
+
+    @Nullable
+    public BlockEntity newBlockEntityAtZero() {
+        return newBlockEntity(BlockPos.ZERO);
+    }
+
+    @Nullable
+    public BlockEntity newBlockEntity(BlockPos pos) {
+        if (!(blockState.getBlock() instanceof EntityBlock entityBlock))
+            return null;
+
+        final BlockEntity blockEntity = entityBlock.newBlockEntity(pos, blockState());
+        if (blockEntity == null)
+            return null;
+
+        variant().ifPresent(variant -> variant.updateBlockEntity(blockEntity));
+
+        return blockEntity;
     }
 }

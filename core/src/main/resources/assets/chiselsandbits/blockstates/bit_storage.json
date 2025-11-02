@@ -1,8 +1,0 @@
-{
-	"variants": {
-		"facing=east": { "model": "chiselsandbits:block/bit_storage", "y": 270 },
-		"facing=south": { "model": "chiselsandbits:block/bit_storage", "y": 0 },
-		"facing=west": { "model": "chiselsandbits:block/bit_storage", "y": 90 },
-		"facing=north": { "model": "chiselsandbits:block/bit_storage", "y": 180 }
-	}
-}

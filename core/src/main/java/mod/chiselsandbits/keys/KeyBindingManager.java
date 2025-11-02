@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.InputConstants;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
+import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.ToolModeSelectionScreen;
@@ -20,6 +21,7 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
@@ -51,26 +53,30 @@ public class KeyBindingManager {
     }
 
     public void onModInitialization() {
+        final ResourceLocation toolCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "tools");
+        final ResourceLocation debuggingCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "debugging");
+        final ResourceLocation creativeModeCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "creative-mode");
+        
         IKeyBindingManager.getInstance().register(openToolMenuKeybinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.open",
                         HoldsWithToolItemInHandKeyConflictContext.getInstance(),
                         InputConstants.Type.KEYSYM,
                         GLFW.GLFW_KEY_R,
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(cycleToolMenuLeftKeybinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.left",
                         SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
                         InputConstants.Type.KEYSYM,
                         InputConstants.UNKNOWN.getValue(),
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(cycleToolMenuRightKeybinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.right",
                         SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
                         InputConstants.Type.KEYSYM,
                         InputConstants.UNKNOWN.getValue(),
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(resetMeasuringTapeKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.measuring-tape.reset",
@@ -78,7 +84,7 @@ public class KeyBindingManager {
                         KeyModifier.CONTROL,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_R,
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(undoOperationKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.undo",
@@ -86,7 +92,7 @@ public class KeyBindingManager {
                         KeyModifier.CONTROL,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_Z,
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(redoOperationKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.redo",
@@ -94,21 +100,21 @@ public class KeyBindingManager {
                         KeyModifier.CONTROL,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_Y,
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(scopingKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.zoom",
                         HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_Z,
-                        "mod.chiselsandbits.keys.category"));
+                        toolCategory));
 
         IKeyBindingManager.getInstance().register(resetCachesKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.reset-caches",
                         IsPressingDebugKeyConflictContext.F3_DEBUG_KEY,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_C,
-                        "mod.chiselsandbits.keys.category"));
+                        debuggingCategory));
 
         IKeyBindingManager.getInstance().register(removeFromClipboardKeyBinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
@@ -116,7 +122,7 @@ public class KeyBindingManager {
                         KeyModifier.SHIFT,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_D,
-                        "mod.chiselsandbits.keys.category"));
+                        creativeModeCategory));
 
         initialized = true;
     }
@@ -235,9 +241,9 @@ public class KeyBindingManager {
 
         boolean isDown = switch (keybinding.key.getType()) {
             case KEYSYM ->
-                    InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keybinding.key.getValue());
+                    InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keybinding.key.getValue());
             case MOUSE ->
-                    GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
+                    GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
             default -> false;
         };
         return (isDown || keybinding.isDown()) && IKeyBindingManager.getInstance().isKeyConflictOfActive(keybinding) &&

@@ -16,15 +16,15 @@ public class SlotOverlayRenderManager {
     }
 
     public void renderSlot(final int xOffset, final int yOffSet, final GuiGraphics graphics, final ItemStack stack) {
-        graphics.pose().pushPose();
-        graphics.pose().translate(xOffset, yOffSet, 100);
-        graphics.pose().pushPose();
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(xOffset, yOffSet);
+        graphics.pose().pushMatrix();
 
         if (!Minecraft.getInstance().options.hideGui)
             SelectedToolModeRendererRegistry.getInstance().getCurrent()
                     .render(graphics, stack);
 
-        graphics.pose().popPose();
-        graphics.pose().popPose();
+        graphics.pose().popMatrix();
+        graphics.pose().popMatrix();
     }
 }

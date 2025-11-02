@@ -432,6 +432,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
             ChiselAdaptingWorldMutator::createSnapshot
           ));
 
+        @SuppressWarnings("resource")
         final IBatchMutation innerMutation = batch();
         return () -> {
             final Map<BlockPos, IMultiStateSnapshot> after = BlockPosStreamProvider.getForRange(

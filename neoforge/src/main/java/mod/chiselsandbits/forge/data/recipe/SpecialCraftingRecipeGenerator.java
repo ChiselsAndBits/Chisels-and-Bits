@@ -16,11 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class SpecialCraftingRecipeGenerator implements DataProvider
 {
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event)
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
         event.getGenerator().addProvider(true, new SpecialCraftingRecipeGenerator(event.getGenerator().getPackOutput()));
     }

@@ -45,7 +45,7 @@ public class ChiselingManager implements IChiselingManager
     public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode)
     {
         final UUID playerId = playerEntity.getUUID();
-        final ResourceLocation worldId = playerEntity.getCommandSenderWorld().dimension().location();
+        final ResourceLocation worldId = playerEntity.level().dimension().location();
 
         final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
         if (currentStored == null)
@@ -58,7 +58,7 @@ public class ChiselingManager implements IChiselingManager
     public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus)
     {
         final UUID playerId = playerEntity.getUUID();
-        final ResourceLocation worldId = playerEntity.getCommandSenderWorld().dimension().location();
+        final ResourceLocation worldId = playerEntity.level().dimension().location();
 
         final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
         if (currentStored == null)
@@ -74,7 +74,7 @@ public class ChiselingManager implements IChiselingManager
     public IChiselingContext create(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus, final boolean simulation, final ItemStack causingItemStack)
     {
         final UUID playerId = playerEntity.getUUID();
-        final ResourceLocation worldId = playerEntity.getCommandSenderWorld().dimension().location();
+        final ResourceLocation worldId = playerEntity.level().dimension().location();
 
         final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
 
@@ -85,7 +85,7 @@ public class ChiselingManager implements IChiselingManager
             }
         }
 
-        final ChiselingContext newContext = new ChiselingContext(playerEntity.getCommandSenderWorld(),
+        final ChiselingContext newContext = new ChiselingContext(playerEntity.level(),
           mode,
           modeOfOperandus,
           simulation, () -> {
@@ -108,7 +108,7 @@ public class ChiselingManager implements IChiselingManager
         validateOrSetup();
 
         final UUID playerId = playerEntity.getUUID();
-        final ResourceLocation worldId = playerEntity.getCommandSenderWorld().dimension().location();
+        final ResourceLocation worldId = playerEntity.level().dimension().location();
 
         final Long lastChiselTime = this.lastUsedChiselMoments.get().get(playerId, worldId);
         if (lastChiselTime == null)

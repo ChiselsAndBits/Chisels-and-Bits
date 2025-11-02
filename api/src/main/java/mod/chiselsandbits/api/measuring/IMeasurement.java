@@ -45,7 +45,7 @@ public interface IMeasurement
      *
      * @return The mode of the measurement.
      */
-    MeasuringMode getMode();
+    IMeasuringMode getMode();
 
     /**
      * The id of the world that this measurement was made in.

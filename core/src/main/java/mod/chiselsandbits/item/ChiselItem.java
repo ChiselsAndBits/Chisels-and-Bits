@@ -8,7 +8,6 @@ import mod.chiselsandbits.api.chiseling.ILocalChiselingContextCache;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
 import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPreviewRendererRegistry;
 import mod.chiselsandbits.api.config.IClientConfiguration;
-import mod.chiselsandbits.api.config.IServerConfiguration;
 import mod.chiselsandbits.api.item.chisel.IChiselItem;
 import mod.chiselsandbits.api.item.chisel.IChiselingItem;
 import mod.chiselsandbits.api.item.click.ClickProcessingState;
@@ -20,44 +19,44 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.chiseling.ChiselingManager;
 import mod.chiselsandbits.chiseling.LocalChiselingContextCache;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import mod.chiselsandbits.registrars.ModTags;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.TranslationUtils;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyHighlightedNameItem
+public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlightedNameItem
 {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private final ToolMaterial material;
 
     public ChiselItem(
-      final Tier tier,
+      final ToolMaterial material,
       final Properties builderIn)
     {
-        super(
-          tier,
-          ModTags.Blocks.CHISELED_BLOCK,
-          builderIn
-        );
+        super(builderIn.shovel(material, 0F, -3.0F));
+        this.material = material;
     }
 
     @Override
@@ -71,19 +70,25 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+    public void appendHoverText(
+        final ItemStack stack,
+        final TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
+    {
         final IChiselMode mode = getMode(stack);
         if (mode.getGroup().isPresent())
         {
-            tooltip.add(TranslationUtils.build("chiselmode.mode_grouped", mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
+            tooltipAdder.accept(TranslationUtils.build("chiselmode.mode_grouped", mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
         }
         else
         {
-            tooltip.add(TranslationUtils.build("chiselmode.mode", mode.getDisplayName()));
+            tooltipAdder.accept(TranslationUtils.build("chiselmode.mode", mode.getDisplayName()));
         }
 
 
-        super.appendHoverText(stack, context, tooltip, flagIn);
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     @NotNull
@@ -143,7 +148,7 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
 
         if (context.isComplete())
         {
-            playerEntity.getCooldowns().addCooldown(this, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+            playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
             ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
         }
 
@@ -174,7 +179,7 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
         context.ifPresent(c -> {
             chiselMode.onStoppedLeftClicking(player, c);
             if (c.isComplete()) {
-                player.getCooldowns().addCooldown(this, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+                player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
                 LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
             }
         });
@@ -183,7 +188,7 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
     @Override
     public boolean canUse(final Player playerEntity, @NotNull final ItemStack stack)
     {
-        final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack.getItem());
+        final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
         if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
             INotificationManager.getInstance().notify(
                     getMode(stack).getIcon(),
@@ -272,10 +277,13 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
 
     @Override
     public void renderHighlight(
-      final Player playerEntity,
-      final LevelRenderer worldRenderer,
-      final PoseStack matrixStack,
-      final float partialTicks)
+        final Player playerEntity,
+        final LevelRenderer levelRenderer,
+        final PoseStack poseStack,
+        final MultiBufferSource.BufferSource bufferSource,
+        final boolean translucentPass,
+        final LevelRenderState levelRenderState,
+        final float partialTicks)
     {
         final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
         if (itemStack.isEmpty() || itemStack.getItem() != this)
@@ -332,7 +340,7 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
 
         if (context.getMutator().isPresent() && context.getError().isEmpty()) {
             IChiselContextPreviewRendererRegistry.getInstance().getCurrent()
-              .renderExistingContextsBoundingBox(matrixStack, context);
+              .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, context);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
         }
     }
@@ -349,14 +357,14 @@ public class ChiselItem extends DiggerItem implements IChiselItem, IDynamicallyH
         final DataComponentMap.Builder builder = DataComponentMap.builder();
 
         builder.addAll(map);
-        builder.set(DataComponents.MAX_DAMAGE, getMaxDamage() * StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock());
+        builder.set(DataComponents.MAX_DAMAGE, getMaxBrokenBlocksAsDurability() * StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock());
 
         return builder.build();
     }
 
-    public int getMaxDamage()
+    public int getMaxBrokenBlocksAsDurability()
     {
-        return getTier().getUses();
+        return material.durability();
     }
 
     @Override

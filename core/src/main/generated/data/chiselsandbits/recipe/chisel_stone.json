@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "s": {
-      "tag": "c:rods/wooden"
-    },
-    "t": {
-      "tag": "c:stones"
-    }
+    "s": "#c:rods/wooden",
+    "t": "#c:stones"
   },
   "pattern": [
     "st",

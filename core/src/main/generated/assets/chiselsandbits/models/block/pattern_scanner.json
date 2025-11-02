@@ -1,0 +1,7 @@
+{
+  "parent": "chiselsandbits:block/pattern_scanner_spec",
+  "textures": {
+    "layer0": "chiselsandbits:block/pattern_scanner",
+    "particle": "chiselsandbits:block/pattern_scanner"
+  }
+}

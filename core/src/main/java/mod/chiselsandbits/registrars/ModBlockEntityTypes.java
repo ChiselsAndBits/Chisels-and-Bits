@@ -6,14 +6,12 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
-import mod.chiselsandbits.compact.legacy.block.entity.MateriallyChiseledConversionBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -33,37 +31,38 @@ public final class ModBlockEntityTypes
         LOGGER.info("Loaded block entity configuration.");
     }
 
-    public static IRegistryObject<BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> BlockEntityType.Builder.of(
+    public static IRegistryObject<BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> new BlockEntityTypeBuilder<>(
         ChiseledBlockEntity::new,
         ModBlocks.CHISELED_BLOCK.get()
-      ).build(null)
+      ).build()
     );
 
-    public static IRegistryObject<BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> BlockEntityType.Builder.of(
+    public static IRegistryObject<BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> new BlockEntityTypeBuilder<>(
         BitStorageBlockEntity::new,
         ModBlocks.BIT_STORAGE.get()
-      ).build(null)
+      ).build()
     );
 
     public static final IRegistryObject<BlockEntityType<ChiseledPrinterBlockEntity>> CHISELED_PRINTER = REGISTRAR.register(
       "chiseled_printer",
-      () -> BlockEntityType.Builder.of(
+      () -> new BlockEntityTypeBuilder<>(
         ChiseledPrinterBlockEntity::new,
         ModBlocks.CHISELED_PRINTER.get()
-      ).build(null)
+      ).build()
     );
 
-    @Deprecated
-    public static final IRegistryObject<BlockEntityType<MateriallyChiseledConversionBlockEntity>> MATERIAL_CHISELED_CONVERSION = REGISTRAR.register("chiseled", () -> new BlockEntityType<>(
-            MateriallyChiseledConversionBlockEntity::new,
-            Set.of(),
-            null
-    ) {
-        @Override
-        public boolean isValid(@NotNull BlockState state) {
-            return ModBlocks.MATERIAL_TO_BLOCK_CONVERSIONS.values()
-                    .stream()
-                    .anyMatch(blockRegistryEntry -> blockRegistryEntry.get() == state.getBlock());
+    private record BlockEntityTypeBuilder<T extends BlockEntity>(BlockEntityType.BlockEntitySupplier<T> factory, Set<Block> allowedBlocks) {
+
+        private BlockEntityTypeBuilder(final BlockEntityType.BlockEntitySupplier<T> factory, Block... allowedBlocks)
+        {
+            this(factory, Set.of(allowedBlocks));
         }
-    });
+
+        public BlockEntityType<T> build() {
+            return new BlockEntityType<>(
+                factory(),
+                allowedBlocks()
+            );
+        }
+    }
 }

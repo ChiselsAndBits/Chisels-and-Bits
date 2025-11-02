@@ -1,7 +1,6 @@
 package mod.chiselsandbits.measures;
 
 import mod.chiselsandbits.ChiselsAndBits;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
 import mod.chiselsandbits.network.packets.MeasurementUpdatedPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;

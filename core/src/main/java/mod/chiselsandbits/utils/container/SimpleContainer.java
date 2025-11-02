@@ -6,10 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.api.serialization.Serializable;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -17,7 +14,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -177,13 +173,6 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
         this.setChanged();
     }
 
-    public void fillStackedContents(StackedContents stackedContents) {
-        for (final ItemStack stack : this.items)
-        {
-            stackedContents.accountStack(stack);
-        }
-    }
-
     public String toString() {
         return this.items.stream().filter((stack) -> !stack.isEmpty()).toList().toString();
     }
@@ -221,29 +210,6 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
             leftInput.shrink(toTransfer);
             this.setChanged();
         }
-    }
-
-    public void fromTag(ListTag param0, HolderLookup.Provider provider) {
-        for(int var0 = 0; var0 < param0.size(); ++var0) {
-            ItemStack var1 = ItemStack.parseOptional(provider, param0.getCompound(var0));
-            if (!var1.isEmpty()) {
-                this.addItem(var1);
-            }
-        }
-
-    }
-
-    public ListTag createTag(HolderLookup.Provider provider) {
-        ListTag var0 = new ListTag();
-
-        for(int var1 = 0; var1 < this.getContainerSize(); ++var1) {
-            ItemStack var2 = this.getItem(var1);
-            if (!var2.isEmpty()) {
-                var0.add(var2.save(provider, new CompoundTag()));
-            }
-        }
-
-        return var0;
     }
 
     public void setSize(int size)

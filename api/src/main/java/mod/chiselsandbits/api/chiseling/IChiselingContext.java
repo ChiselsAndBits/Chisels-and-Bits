@@ -9,7 +9,6 @@ import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.util.LocalStrings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
@@ -296,4 +295,25 @@ public interface IChiselingContext extends IStateAccessor
      * @return An optional with the potential error message included.
      */
     Optional<MutableComponent> getError();
+
+    /**
+     * Checks whether the mutator currently modifies blocks outside the levels build height.
+     *
+     * @return True when the build height is respected, false when not.
+     */
+    default boolean validateBuildHeights() {
+        return getMutator().map(mutator -> {
+            final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
+            if (heightPos.getY() >= getWorld().getMaxY())
+            {
+                setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
+                return false;
+            }
+            else if (heightPos.getY() <= getWorld().getMinY()) {
+                setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
+                return false;
+            }
+            return true;
+        }).orElse(true);
+    }
 }

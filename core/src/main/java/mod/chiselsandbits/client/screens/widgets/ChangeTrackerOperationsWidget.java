@@ -107,10 +107,4 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
         if (this.clearButton != null)
             this.clearButton.active = !changeTracker.getChanges().isEmpty();
     }
-
-    @Override
-    protected boolean isValidClickButton(final int button)
-    {
-        return false; //We are just a wrapper.
-    }
 }

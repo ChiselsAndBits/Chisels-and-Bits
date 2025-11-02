@@ -25,5 +25,5 @@ public interface IIconManager
 
     TextureAtlasSprite getWhiteIcon();
 
-    void bindTexture();
+
 }

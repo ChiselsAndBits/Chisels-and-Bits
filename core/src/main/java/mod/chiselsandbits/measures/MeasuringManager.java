@@ -2,13 +2,12 @@ package mod.chiselsandbits.measures;
 
 import com.communi.suggestu.scena.core.dist.Dist;
 import com.communi.suggestu.scena.core.dist.DistExecutor;
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.measuring.IMeasurement;
 import mod.chiselsandbits.api.measuring.IMeasuringManager;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
+import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.network.packets.MeasurementsUpdatedPacket;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -55,7 +54,7 @@ public class MeasuringManager implements IMeasuringManager
 
     @Override
     public Measurement create(
-      final Level world, final Player playerEntity, final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode)
+      final Level world, final Player playerEntity, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode)
     {
         return new Measurement(
           playerEntity.getUUID(),

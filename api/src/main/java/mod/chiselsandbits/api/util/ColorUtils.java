@@ -1,6 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 
 /**
  * Utility class for processing colors.
@@ -11,7 +11,7 @@ public class ColorUtils
     /**
      * The maximal value for a given color channel.
      */
-    public static final int FULL_CHANNEL = 255;
+    public static final int FULL_CHANNEL  = 255;
     /**
      * The minimal value for a given color channel.
      */
@@ -28,7 +28,8 @@ public class ColorUtils
      * @param c The value of the color channels to pack.
      * @return A packed integer, representing the color with all three channels set to the same value.
      */
-    public static int pack(final int c) {
+    public static int pack(final int c)
+    {
         return pack(c, c, c);
     }
 
@@ -38,10 +39,10 @@ public class ColorUtils
      * @param r The value for the red channel.
      * @param g The value for the green channel.
      * @param b The value for the blue channel.
-     *
      * @return A packed integer, representing the color.
      */
-    public static int pack(final int r, final int g, final int b) {
+    public static int pack(final int r, final int g, final int b)
+    {
         return pack(r, g, b, FULL_CHANNEL);
     }
 
@@ -54,7 +55,8 @@ public class ColorUtils
      * @param a The value for the alpha channel.
      * @return A packed integer, representing the color.
      */
-    public static int pack(final int r, final int g, final int b, final int a) {
+    public static int pack(final int r, final int g, final int b, final int a)
+    {
         int color = 0;
 
         color |= (a & FULL_CHANNEL) << 24;
@@ -65,20 +67,25 @@ public class ColorUtils
         return color;
     }
 
-    public static int pack(final float r, final float g, final float b, final float a) {
+    public static int pack(final float r, final float g, final float b, final float a)
+    {
         return pack((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
-    };
+    }
 
-    public static int pack(final float[] color) {
+    ;
+
+    public static int pack(final float[] color)
+    {
         return pack(color[0], color[1], color[2], color[3]);
     }
 
-    public static float[] unpack(final int color) {
+    public static float[] unpack(final int color)
+    {
         return new float[] {
-                FastColor.ARGB32.red(color) / 255f,
-                FastColor.ARGB32.green(color) / 255f,
-                FastColor.ARGB32.blue(color) / 255f,
-                FastColor.ARGB32.alpha(color) / 255f
+            ARGB.red(color) / 255f,
+            ARGB.green(color) / 255f,
+            ARGB.blue(color) / 255f,
+            ARGB.alpha(color) / 255f
         };
     }
 }

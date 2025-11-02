@@ -1,21 +1,15 @@
 package mod.chiselsandbits.api.item.multistate;
 
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
-import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
+import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.IMirrorAndRotateble;
-import mod.chiselsandbits.api.serialization.RawSerializable;
 import net.minecraft.world.item.ItemStack;
 
 /**
  * The itemstack sensitive version of the multistate item.
  */
-public interface IMultiStateItemStack extends IAreaAccessor, IMirrorAndRotateble {
-    /**
-     * The statistics of the itemstack.
-     *
-     * @return The statistics.
-     */
-    IStatistics getStatistics();
+public interface IMultiStateItemStack extends IAreaAccessor, IMirrorAndRotateble, ISingleBlockAxisAlignedAreaAccessor
+{
 
     /**
      * Converts this multistate itemstack data to an actual use able itemstack.

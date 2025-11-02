@@ -1,10 +1,11 @@
 package mod.chiselsandbits.client.util;
 
+import com.communi.suggestu.scena.core.client.models.processing.VertexData;
+import com.communi.suggestu.scena.core.util.VectorUtils;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import mod.chiselsandbits.client.model.baked.chiseled.InterpolationHelper;
-import mod.chiselsandbits.client.model.baked.face.model.VertexData;
 import net.minecraft.core.Direction;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import java.util.*;

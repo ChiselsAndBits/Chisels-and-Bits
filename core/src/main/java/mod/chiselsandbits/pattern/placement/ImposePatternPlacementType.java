@@ -19,7 +19,9 @@ import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.LocalStrings;
 import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,11 +44,10 @@ import static mod.chiselsandbits.api.util.constants.Constants.MOD_ID;
 public class ImposePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
 {
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(
-                MOD_ID,
-                "textures/icons/pattern_impose.png"
+        return IconManager.getInstance().getIcon(
+            ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_impose")
         );
     }
 
@@ -60,7 +61,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
     public VoxelShape buildVoxelShapeForWireframe(
             final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
     {
-        return ModPatternPlacementTypes.PLACEMENT.get().buildVoxelShapeForWireframe(
+        return ModPatternPlacementTypes.IMPOSEMENT.get().buildVoxelShapeForWireframe(
                 sourceSnapshot, player, targetedPoint, hitFace
         );
     }
@@ -70,7 +71,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
     {
         final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
                 context.getClickLocation()
-                : Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getNormal()));
+                : Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
         final IWorldAreaMutator areaMutator =
                 IMutatorFactory.getInstance().covering(
                         context.getLevel(),

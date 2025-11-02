@@ -13,10 +13,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
@@ -28,7 +25,9 @@ public class ModificationTableRecipe implements Recipe<CraftingInput>
 {
     private final IModificationOperation operation;
 
-    public ModificationTableRecipe(final IModificationOperation operation) {this.operation = operation;}
+    public ModificationTableRecipe(final IModificationOperation operation) {
+        this.operation = operation;
+    }
 
     public IModificationOperation getOperation()
     {
@@ -44,6 +43,24 @@ public class ModificationTableRecipe implements Recipe<CraftingInput>
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         return getAppliedSnapshot(input).toItemStack().toPatternStack();
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer()
+    {
+        return ModRecipeSerializers.MODIFICATION_TABLE.get();
+    }
+
+    @Override
+    public RecipeType<? extends Recipe<CraftingInput>> getType()
+    {
+        return ModRecipeTypes.MODIFICATION_TABLE.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo()
+    {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     public @NotNull ItemStack getCraftingBlockResult(final CraftingInput inv)
@@ -74,25 +91,8 @@ public class ModificationTableRecipe implements Recipe<CraftingInput>
     }
 
     @Override
-    public boolean canCraftInDimensions(final int width, final int height)
+    public RecipeBookCategory recipeBookCategory()
     {
-        return width * height > 0;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer()
-    {
-        return ModRecipeSerializers.MODIFICATION_TABLE.get();
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType()
-    {
-        return ModRecipeTypes.MODIFICATION_TABLE.get();
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 }

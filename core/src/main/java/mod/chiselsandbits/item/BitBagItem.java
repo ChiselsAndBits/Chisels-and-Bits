@@ -1,5 +1,7 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.Dist;
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.block.bitbag.IBitBagAcceptingBlock;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -8,36 +10,31 @@ import mod.chiselsandbits.api.inventory.bit.IBitInventoryItemStack;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
-import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.inventory.bit.SlottedBitInventoryItemStack;
 import mod.chiselsandbits.network.packets.OpenBagGuiPacket;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.utils.SimpleInstanceCache;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class BitBagItem extends Item implements IBitInventoryItem
@@ -67,30 +64,34 @@ public class BitBagItem extends Item implements IBitInventoryItem
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext $$1, List<Component> tooltip, TooltipFlag $$3) {
-        super.appendHoverText(stack, $$1, tooltip, $$3);
-        HelpTextUtils.build(LocalStrings.HelpBitBag, tooltip);
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(LocalStrings.ShiftDetails.getText());
-            return;
-        }
+    public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+        HelpTextUtils.build(LocalStrings.HelpBitBag, tooltipAdder);
 
-        final IBitInventoryItemStack inventoryItemStack;
-        if (tooltipCache.needsUpdate(stack))
-        {
-            inventoryItemStack = create(stack);
-            tooltipCache.updateCachedValue(inventoryItemStack);
-        } else {
-            inventoryItemStack = tooltipCache.getCached();
-        }
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            if (!Minecraft.getInstance().hasShiftDown()) {
+                tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
+                return;
+            }
 
-        var contents = inventoryItemStack.listContents();
-        tooltip.addAll(contents.displayComponents());
+            final IBitInventoryItemStack inventoryItemStack;
+            if (tooltipCache.needsUpdate(stack))
+            {
+                inventoryItemStack = create(stack);
+                tooltipCache.updateCachedValue(inventoryItemStack);
+            } else {
+                inventoryItemStack = tooltipCache.getCached();
+            }
+
+            var contents = inventoryItemStack.listContents();
+            contents.displayComponents().forEach(tooltipAdder);
+        });
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(
+    public @NotNull InteractionResult use(
       final @NotNull Level worldIn,
       final @NotNull Player playerIn,
       final @NotNull InteractionHand hand)
@@ -101,17 +102,18 @@ public class BitBagItem extends Item implements IBitInventoryItem
         if (rayTraceResult.getType() == HitResult.Type.BLOCK && rayTraceResult instanceof final BlockHitResult blockRayTraceResult) {
             final BlockState hitBlockState = worldIn.getBlockState(blockRayTraceResult.getBlockPos());
             if (hitBlockState.getBlock() instanceof IBitBagAcceptingBlock bitBagAcceptingBlock) {
-                return new InteractionResultHolder<>(InteractionResult.SUCCESS,
-                        bitBagAcceptingBlock.onBitBagInteraction(itemStackIn, playerIn, blockRayTraceResult));
+                final var resultStack = bitBagAcceptingBlock.onBitBagInteraction(itemStackIn, playerIn, blockRayTraceResult);
+                playerIn.setItemInHand(hand, resultStack);
+                return InteractionResult.SUCCESS;
             }
         }
 
-        if (worldIn.isClientSide)
+        if (worldIn.isClientSide())
         {
             ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new OpenBagGuiPacket());
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemStackIn);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -198,11 +200,11 @@ public class BitBagItem extends Item implements IBitInventoryItem
             return null;
         }
 
-        final CompoundTag tag = stack.get(DataComponents.CUSTOM_DATA).getUnsafe();
+        final CompoundTag tag = Objects.requireNonNull(stack.get(DataComponents.CUSTOM_DATA)).copyTag();
 
         if (tag.contains("color"))
         {
-            String name = tag.getString("color");
+            String name = tag.getString("color").orElseThrow();
             for (DyeColor color : DyeColor.values())
             {
                 if (name.equals(color.getSerializedName()))

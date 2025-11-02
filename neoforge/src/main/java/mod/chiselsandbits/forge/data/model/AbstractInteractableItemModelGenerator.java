@@ -2,44 +2,69 @@ package mod.chiselsandbits.forge.data.model;
 
 import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.client.model.item.InteractableItemModel;
+import mod.chiselsandbits.registrars.ModItems;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.stream.Stream;
 
-public abstract class AbstractInteractableItemModelGenerator extends ItemModelProvider {
+public abstract class AbstractInteractableItemModelGenerator extends ModelProvider
+{
     private final IRegistryObject<? extends Item> targetRegistryObject;
 
     protected AbstractInteractableItemModelGenerator(
             final DataGenerator generator,
-            final ExistingFileHelper existingFileHelper,
             final IRegistryObject<? extends Item> targetRegistryObject) {
-        super(generator.getPackOutput(), Constants.MOD_ID, existingFileHelper);
+        super(generator.getPackOutput(), Constants.MOD_ID);
         this.targetRegistryObject = targetRegistryObject;
     }
 
     @Override
-    protected void registerModels() {
-        final ResourceLocation targetRegistryObjectKey = BuiltInRegistries.ITEM.getKey(this.targetRegistryObject.get());
-        final ResourceLocation targetModelLocation = targetRegistryObjectKey.withPrefix("item/").withSuffix("_spec");
+    protected void registerModels(final @NotNull BlockModelGenerators blockModels, final ItemModelGenerators itemModels)
+    {
+        itemModels.itemModelOutput.accept(
+            this.targetRegistryObject.get(),
+            new InteractableItemModel.Unbaked(
+                createSpecModel(itemModels)
+            )
+        );
+    }
 
-        getBuilder(
-                Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(this.targetRegistryObject.get())).getPath()
-        )
-                .parent(
-                        getExistingFile(targetModelLocation)
-                )
-                .customLoader((itemModelBuilder, existingFileHelper) -> new CustomLoaderBuilder<>(
-                        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "interactable_model"),
-                        itemModelBuilder,
-                        existingFileHelper,
-                        false
-                ) {
-                });
+    @Override
+    protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+    {
+        return Stream.of();
+    }
+
+    @Override
+    protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+    {
+        return Stream.of(
+            BuiltInRegistries.ITEM.wrapAsHolder(
+                targetRegistryObject.get()
+            )
+        );
+    }
+
+    protected ResourceLocation createSpecModel(final ItemModelGenerators itemModelGenerators) {
+        return ModelTemplates.FLAT_ITEM
+            .create(
+                ModelLocationUtils.getModelLocation(this.targetRegistryObject.get()).withSuffix("_spec"),
+                TextureMapping.layer0(this.targetRegistryObject.get()),
+                itemModelGenerators.modelOutput
+            );
     }
 }

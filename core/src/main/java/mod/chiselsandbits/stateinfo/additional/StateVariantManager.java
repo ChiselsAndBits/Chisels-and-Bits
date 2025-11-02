@@ -2,9 +2,9 @@ package mod.chiselsandbits.stateinfo.additional;
 
 import com.communi.suggestu.scena.core.blockstate.ILevelBasedPropertyAccessor;
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
+import com.communi.suggestu.scena.core.util.SingleBlockLevelReader;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import mod.chiselsandbits.api.util.SingleBlockLevelReader;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.variant.state.IStateVariantProvider;
@@ -198,11 +198,12 @@ public final class StateVariantManager implements IStateVariantManager
         if (!providers.containsKey(blockInformation.blockState().getBlock()))
         {
             return Optional.ofNullable(ILevelBasedPropertyAccessor.getInstance().getBeaconColorMultiplier(
-                    new SingleBlockLevelReader(
-                            blockInformation,
-                            pos,
-                            levelReader
-                    ),
+                new SingleBlockLevelReader.Builder()
+                    .withBlockState(blockInformation.blockState())
+                    .withBlockEntity(() -> blockInformation.newBlockEntity(pos))
+                    .withPos(pos)
+                    .withSource(levelReader)
+                    .createSingleBlockLevelReader(),
                     pos,
                     beaconPos
             ));

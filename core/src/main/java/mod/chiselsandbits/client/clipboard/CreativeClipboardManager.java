@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.clipboard;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Dynamic;
 import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
@@ -12,6 +13,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.*;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackLinkedSet;
 import org.apache.logging.log4j.LogManager;
@@ -48,11 +51,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
         try
         {
             final CompoundTag data = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
-            final ListTag tags = data.getList("clipboard", Tag.TAG_COMPOUND);
+            final ListTag tags = data.getList("clipboard").orElse(new ListTag());
             tags.stream()
               .filter(CompoundTag.class::isInstance)
               .map(CompoundTag.class::cast)
-              .map(tag -> ItemStack.parseOptional(provider, tag))
+              .map(tag -> {
+                  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
+                  return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
+              })
               .map(SingleBlockMultiStateItemStack::new)
               .forEach(cache::add);
         }
@@ -68,7 +74,10 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
         cache.stream()
           .map(IMultiStateItemStack::toBlockStack)
-          .map(stack -> stack.save(provider))
+          .map(stack -> {
+              final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
+              return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
+          })
           .forEach(tags::add);
 
         data.put("clipboard", tags);

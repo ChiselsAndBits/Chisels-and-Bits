@@ -1,15 +1,18 @@
 package mod.chiselsandbits.client.util;
 
 import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
+import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
+import com.communi.suggestu.scena.core.util.SingleBlockLevelReader;
 import com.google.common.collect.Sets;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.api.client.variant.state.IClientStateVariantManager;
 import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.ThreadSafeLegacyRandomSource;
 
@@ -39,24 +42,29 @@ public final class BlockInformationUtils {
                 continue;
 
             if (blockInformation.isFluid()) {
-                final RenderType renderType = ItemBlockRenderTypes.getRenderLayer(blockInformation.blockState().getFluidState());
-                if (!entity || renderType != RenderType.translucent())
+                final ChunkSectionLayer chunkSectionLayer = ItemBlockRenderTypes.getRenderLayer(blockInformation.blockState().getFluidState());
+                final RenderType renderType = RenderTypeUtils.renderTypeFor(chunkSectionLayer);
+                if (!entity || renderType != RenderType.translucentMovingBlock())
                     renderTypes.add(renderType);
-                else if (renderType == RenderType.translucent())
+                else
                     renderTypes.add(RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS));
 
                 continue;
             }
 
-            final BakedModel bakedModel = Minecraft.getInstance().getBlockRenderer().getBlockModel(blockInformation.blockState());
-            renderTypes.addAll(
-                    IRenderTypeManager.getInstance().getRenderTypesFor(
-                            bakedModel,
-                            blockInformation.blockState(),
-                            RANDOM,
-                            IClientStateVariantManager.getInstance().getBlockModelData(blockInformation)
-                    )
-            );
+            final BlockStateModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(blockInformation.blockState());
+            IRenderTypeManager.getInstance().getRenderTypesFor(
+                    model,
+                    new SingleBlockLevelReader.Builder()
+                        .withBlockState(blockInformation.blockState())
+                        .withBlockEntity(blockInformation::newBlockEntityAtZero)
+                        .createSingleBlockLevelReader(),
+                    BlockPos.ZERO,
+                    blockInformation.blockState(),
+                    RANDOM
+                ).stream()
+                .map(RenderTypeUtils::renderTypeFor)
+                .forEach(renderTypes::add);
         }
 
         return renderTypes;

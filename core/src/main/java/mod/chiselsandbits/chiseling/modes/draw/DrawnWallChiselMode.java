@@ -20,12 +20,13 @@ import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.VoxelShapeUtils;
-import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -41,7 +42,10 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -86,7 +90,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
         return processRayTraceIntoContext(
                 playerEntity,
                 context,
-                direction -> Vec3.atLowerCornerOf(direction.getOpposite().getNormal()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+                direction -> Vec3.atLowerCornerOf(direction.getOpposite().getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
         );
     }
 
@@ -133,7 +137,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
         return processRayTraceIntoContext(
                 playerEntity,
                 context,
-                direction -> Vec3.atLowerCornerOf(direction.getNormal()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+                direction -> Vec3.atLowerCornerOf(direction.getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
         );
     }
 
@@ -178,11 +182,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
             }
 
             if (missingBitCount == 0) {
-                final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-                if (heightPos.getY() >= context.getWorld().getMaxBuildHeight()) {
-                    Component component = (Component.translatable("build.tooHigh", context.getWorld().getMaxBuildHeight() - 1)).withStyle(ChatFormatting.RED);
-                    playerEntity.sendSystemMessage(component);
-                }
+                context.validateBuildHeights();
             }
         });
     }
@@ -272,8 +272,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon() {
-        return iconName;
+    public TextureAtlasSprite getIcon() {
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

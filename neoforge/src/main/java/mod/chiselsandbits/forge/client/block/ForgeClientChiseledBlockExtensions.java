@@ -25,7 +25,7 @@ public class ForgeClientChiseledBlockExtensions implements IClientBlockExtension
         return multiStateBlockEntity.getStatistics().getPrimaryState().blockState();
     }
 
-    public boolean addHitEffects(@NotNull BlockState state, @NotNull Level level, @NotNull HitResult target, @NotNull ParticleEngine engine)
+    public boolean addHitEffects(@NotNull BlockState state, @NotNull Level level, @Nullable HitResult target, @NotNull ParticleEngine engine)
     {
         if (!(target instanceof BlockHitResult blockTarget) || target.getType() == HitResult.Type.MISS)
             return false;

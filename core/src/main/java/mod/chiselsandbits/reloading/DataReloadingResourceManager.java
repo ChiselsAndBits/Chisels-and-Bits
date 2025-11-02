@@ -5,16 +5,13 @@ import mod.chiselsandbits.aabb.AABBManager;
 import mod.chiselsandbits.api.reloading.ICacheClearingHandler;
 import mod.chiselsandbits.change.ChangeTrackerManger;
 import mod.chiselsandbits.chiseling.LocalChiselingContextCache;
-import mod.chiselsandbits.client.model.baked.chiseled.ChiseledBlockBakedModelManager;
-import mod.chiselsandbits.client.model.baked.face.FaceManager;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -52,20 +49,20 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
     }
 
     @Override
-    public @NotNull CompletableFuture<Void> reload(
-            final PreparationBarrier barrier,
-            final @NotNull ResourceManager manager,
-            final @NotNull ProfilerFiller preparationProfiler,
-            final @NotNull ProfilerFiller reloadProfiler,
-            final @NotNull Executor backgroundExecutor,
-            final @NotNull Executor gameExecutor) {
+    public CompletableFuture<Void> reload(
+        final SharedState sharedState,
+        final Executor exectutor,
+        final PreparationBarrier barrier,
+        final Executor applyExectutor)
+    {
         return barrier.wait(Unit.INSTANCE).thenRunAsync(() -> {
-            reloadProfiler.startTick();
-            reloadProfiler.push("C&B Data reload");
+            ProfilerFiller profilerfiller = Profiler.get();
+            profilerfiller.startTick();
+            profilerfiller.push("C&B Data reload");
             this.onResourceManagerReload();
-            reloadProfiler.pop();
-            reloadProfiler.endTick();
-        }, gameExecutor);
+            profilerfiller.pop();
+            profilerfiller.endTick();
+        }, applyExectutor);
     }
 
     public void clearCaches() {

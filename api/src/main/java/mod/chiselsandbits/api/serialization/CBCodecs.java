@@ -236,7 +236,7 @@ public interface CBCodecs {
                 final NbtOps nbtOps = NbtOps.INSTANCE;
 
                 if (lazyTag != null) {
-                    lazyTag.getAllKeys().forEach(key -> {
+                    lazyTag.keySet().forEach(key -> {
                         final Tag tag = lazyTag.get(key);
                         if (tag != null) {
                             prefix.add(key, nbtOps.convertTo(ops, tag));

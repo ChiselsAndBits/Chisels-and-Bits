@@ -24,7 +24,6 @@ import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
-import mod.chiselsandbits.compact.legacy.UpgradeUtils;
 import mod.chiselsandbits.components.data.MultiStateItemStackData;
 import mod.chiselsandbits.item.ChiseledBlockItem;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
@@ -35,7 +34,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
@@ -48,7 +46,8 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
+public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
+{
 
     private final ItemStack sourceStack;
     private final StateEntryStorage compressedSection;

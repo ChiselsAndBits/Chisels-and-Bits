@@ -6,9 +6,9 @@ import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup
 import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.registrars.ModModificationOperationGroups;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
         return ModModificationOperationGroups.MIRROR.getIcon();
     }

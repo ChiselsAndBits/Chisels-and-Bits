@@ -44,6 +44,7 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
     protected void init()
     {
         super.init();
+
         this.addRenderableWidget(
           new ToolModeSelectionWidget<>(
             this,
@@ -51,6 +52,7 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
             sourceStack
           )
         );
+
 
         this.addRenderableWidget(
           new ChangeTrackerOperationsWidget(

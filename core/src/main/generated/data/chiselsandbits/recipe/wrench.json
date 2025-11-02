@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "b": {
-      "item": "chiselsandbits:block_bit"
-    },
-    "p": {
-      "tag": "minecraft:planks"
-    }
+    "b": "chiselsandbits:block_bit",
+    "p": "#minecraft:planks"
   },
   "pattern": [
     " pb",

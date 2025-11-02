@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "s": {
-      "tag": "c:rods/blaze"
-    },
-    "t": {
-      "tag": "c:ingots/netherite"
-    }
+    "s": "#c:rods/blaze",
+    "t": "#c:ingots/netherite"
   },
   "pattern": [
     "st",

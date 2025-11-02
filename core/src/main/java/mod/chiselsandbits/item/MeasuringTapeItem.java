@@ -6,7 +6,8 @@ import com.google.common.collect.Lists;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.click.ClickProcessingState;
 import mod.chiselsandbits.api.item.measuring.IMeasuringTapeItem;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
+import mod.chiselsandbits.api.measuring.IMeasuringMode;
+import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.api.util.BlockHitResultUtils;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
@@ -19,21 +20,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 {
@@ -50,13 +54,16 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
     }
 
     @Override
-    public void setMode(final ItemStack stack, final MeasuringMode mode)
+    public void setMode(final ItemStack stack, final IMeasuringMode mode)
     {
-        stack.set(ModDataComponentTypes.MEASURING_MODE.get(), mode);
+        if (!(mode instanceof MeasuringMode m))
+            throw new IllegalArgumentException("Mode is not of a known type!");
+
+        stack.set(ModDataComponentTypes.MEASURING_MODE.get(), m);
     }
 
     @Override
-    public @NotNull Collection<MeasuringMode> getPossibleModes()
+    public @NotNull Collection<IMeasuringMode> getPossibleModes()
     {
         return Lists.newArrayList(MeasuringMode.values());
     }
@@ -109,12 +116,12 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
     }
 
     @Override
-    public void inventoryTick(final @NotNull ItemStack stack, final @NotNull Level worldIn, final @NotNull Entity entityIn, final int itemSlot, final boolean isSelected)
-    {
-        if (!worldIn.isClientSide())
+    public void inventoryTick(final ItemStack stack, final ServerLevel level, final Entity entity, @Nullable final EquipmentSlot slot)
+   {
+        if (!level.isClientSide())
             return;
 
-        if (!(entityIn instanceof final Player playerEntity))
+        if (!(entity instanceof final Player playerEntity))
             return;
 
         if (stack.getItem() != this)
@@ -136,8 +143,6 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
         {
             return;
         }
-        final Vec3 hitVector = blockRayTraceResult.getLocation();
-
         final Vec3 startPoint = startPointHandler.get();
 
         MeasuringManager.getInstance().createAndSend(
@@ -167,12 +172,18 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, context, tooltip, flagIn);
+    public void appendHoverText(
+        final ItemStack stack,
+        final TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
+    {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             if (KeyBindingManager.getInstance().hasBeenInitialized()) {
                 HelpTextUtils.build(
-                  LocalStrings.HelpTapeMeasure, tooltip,
+                  LocalStrings.HelpTapeMeasure, tooltipAdder,
                   Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
                   Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
                   KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),

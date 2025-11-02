@@ -6,10 +6,12 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -44,8 +46,14 @@ public interface IClientStateVariantManager {
      *
      * @param blockInformation The block information to append the tooltip for.
      * @param context The context.
-     * @param tooltip The tooltip list.
-     * @param flags The flags
+     * @param tooltipAdder The tooltip adder which can be invoked to add a tool tip.
+     * @param flag The flags
+     * @param tooltipDisplay The display information regarding the tooltip.
      */
-    void appendHoverText(BlockInformation blockInformation, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags);
+    void appendHoverText(BlockInformation blockInformation,
+        final Item.TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag
+    );
 }

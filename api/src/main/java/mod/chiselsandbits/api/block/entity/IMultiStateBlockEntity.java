@@ -4,12 +4,12 @@ import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.block.IMultiStateBlock;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessorWithVoxelShape;
+import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
+import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
 import mod.chiselsandbits.api.multistate.mutator.batched.IBatchedAreaMutator;
-import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
-import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
-import mod.chiselsandbits.api.serialization.RawSerializable;
+import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -18,10 +18,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * provided by the {@link IMultiStateBlock} blocks.
  */
 public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
-        IWorldAreaMutator,
-        IBatchedAreaMutator,
-        IGenerallyModifiableAreaMutator,
-        IAreaAccessorWithVoxelShape {
+    IWorldAreaMutator,
+    IBatchedAreaMutator,
+    IGenerallyModifiableAreaMutator,
+    IAreaAccessorWithVoxelShape,
+    ISingleBlockAxisAlignedAreaAccessor
+{
 
     /**
      * Indicates whether the current block entity can be flooded with water.

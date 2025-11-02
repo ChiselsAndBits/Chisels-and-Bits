@@ -11,25 +11,23 @@ import mod.chiselsandbits.components.data.InteractionData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class SealantItem extends Item implements ISealantItem
 {
@@ -39,7 +37,7 @@ public class SealantItem extends Item implements ISealantItem
 
     public SealantItem(final Properties properties)
     {
-        super(properties);
+        super(properties.enchantable(5));
     }
 
     @Override
@@ -71,11 +69,6 @@ public class SealantItem extends Item implements ISealantItem
         return 64;
     }
 
-    @Override
-    public int getEnchantmentValue() {
-        return 5;
-    }
-
     public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
         for (int i = 0; i < 20; i++) {
             Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.random, 1 / 8f);
@@ -85,14 +78,18 @@ public class SealantItem extends Item implements ISealantItem
     }
 
     @Override
-    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
+    public boolean releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
         if (!(entityLiving instanceof Player player))
-            return;
+            return false;
+
         if (isInteracting(stack)) {
             ItemStack interactionTarget = getInteractionTarget(stack);
             player.getInventory().placeItemBackInInventory(interactionTarget);
             stack.remove(ModDataComponentTypes.INTERACTION_TARGET.get());
+            return true;
         }
+
+        return false;
     }
 
     @Override
@@ -103,7 +100,7 @@ public class SealantItem extends Item implements ISealantItem
             ItemStack target = getInteractionTarget(stack);
             ItemStack pattern = createPattern(target);
 
-            if (worldIn.isClientSide) {
+            if (worldIn.isClientSide()) {
                 spawnParticles(entityLiving.getEyePosition(1)
                                  .add(entityLiving.getLookAngle()
                                         .scale(.5f)),
@@ -130,12 +127,12 @@ public class SealantItem extends Item implements ISealantItem
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
+    public @NotNull InteractionResult use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
 
         if (isInteracting(itemstack)) {
             playerIn.startUsingItem(handIn);
-            return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
+            return InteractionResult.PASS;
         }
 
         InteractionHand otherHand = handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
@@ -146,10 +143,10 @@ public class SealantItem extends Item implements ISealantItem
             playerIn.startUsingItem(handIn);
             itemstack.set(ModDataComponentTypes.INTERACTION_TARGET.get(), new InteractionData(target));
             playerIn.setItemInHand(otherHand, item);
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+            return InteractionResult.SUCCESS;
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+        return InteractionResult.SUCCESS;
     }
 
     private static ItemStack createPattern(final ItemStack targetStack) {
@@ -169,9 +166,13 @@ public class SealantItem extends Item implements ISealantItem
 
     @Override
     public void appendHoverText(
-      final @NotNull ItemStack stack, @NotNull final TooltipContext context, final @NotNull List<Component> tooltip, final @NotNull TooltipFlag flagIn)
+        final ItemStack stack,
+        final TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
     {
-        super.appendHoverText(stack, context, tooltip, flagIn);
-        HelpTextUtils.build(LocalStrings.HelpSealant, tooltip);
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+        HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder);
     }
 }

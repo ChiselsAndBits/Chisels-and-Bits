@@ -1,5 +1,7 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.Dist;
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.exceptions.SealingNotSupportedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.item.pattern.IMultiUsePatternItem;
@@ -26,6 +28,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.Vec3;
@@ -35,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class SingleUsePatternItem extends Item implements IPatternItem
 {
@@ -158,24 +162,31 @@ public class SingleUsePatternItem extends Item implements IPatternItem
 
     @Override
     public void appendHoverText(
-      final @NotNull ItemStack stack, @Nullable final TooltipContext worldIn, final @NotNull List<Component> tooltip, final @NotNull TooltipFlag flagIn)
+        final ItemStack stack,
+        final TooltipContext context,
+        final TooltipDisplay tooltipDisplay,
+        final Consumer<Component> tooltipAdder,
+        final TooltipFlag flag)
     {
         final IPatternPlacementType mode = getMode(stack);
         if (mode.getGroup().isPresent())
         {
-            tooltip.add(LocalStrings.PatternItemTooltipModeGrouped.getText(mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
+            tooltipAdder.accept(LocalStrings.PatternItemTooltipModeGrouped.getText(mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
         }
         else
         {
-            tooltip.add(LocalStrings.PatternItemTooltipModeSimple.getText(mode.getDisplayName()));
+            tooltipAdder.accept(LocalStrings.PatternItemTooltipModeSimple.getText(mode.getDisplayName()));
         }
 
-        if ((Minecraft.getInstance().getWindow() != null && Screen.hasShiftDown())) {
-            tooltip.add(Component.literal("        "));
-            tooltip.add(Component.literal("        "));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
+                tooltipAdder.accept(Component.literal("        "));
+                tooltipAdder.accept(Component.literal("        "));
 
-            HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltip);
-        }
+                HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltipAdder);
+            }
+        });
+
     }
 
     @Override

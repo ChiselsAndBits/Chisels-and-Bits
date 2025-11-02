@@ -1,66 +1,80 @@
 package mod.chiselsandbits.forge.data.model;
 
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.client.item.properties.IsMeasuringItemProperty;
+import mod.chiselsandbits.client.registrars.ItemProperties;
+import mod.chiselsandbits.registrars.ModItems;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
-public class MeasuringTapeModelGenerator extends ItemModelProvider
+import java.util.Optional;
+import java.util.stream.Stream;
+
+@EventBusSubscriber(modid = Constants.MOD_ID)
+public class MeasuringTapeModelGenerator extends ModelProvider
 {
-    private MeasuringTapeModelGenerator(final DataGenerator generator, final ExistingFileHelper existingFileHelper)
+    private static final ModelTemplate FLAT_ITEM_IS_MEASURING = new ModelTemplate(
+        ModelTemplates.FLAT_ITEM.model,
+        Optional.of("_is_measuring"),
+        ModelTemplates.FLAT_ITEM.requiredSlots.toArray(TextureSlot[]::new)
+    );
+
+    private MeasuringTapeModelGenerator(final DataGenerator generator)
     {
-        super(generator.getPackOutput(), Constants.MOD_ID, existingFileHelper);
+        super(generator.getPackOutput(), Constants.MOD_ID);
     }
 
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event)
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
-        event.getGenerator().addProvider(true, new MeasuringTapeModelGenerator(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(true, new MeasuringTapeModelGenerator(event.getGenerator()));
     }
 
     @Override
-    protected void registerModels()
+    protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
     {
-        getBuilder("measuring_tape")
-          .parent(new ModelFile.UncheckedModelFile("item/generated"))
-          .texture("layer0", ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "item/tape_measure"))
-          .transforms()
-          .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
-          .rotation(-80, 260, -40)
-          .translation(-1, -2, 2.5f)
-          .scale(0.9f, 0.9f, 0.9f)
-          .end()
-          .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
-          .rotation(-80, -280, 40)
-          .translation(-1, -2, 2.5f)
-          .scale(0.9f, 0.9f, 0.9f)
-          .end()
-          .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
-          .rotation(0,-90,25)
-          .translation(1.13f, 3.2f, 1.13f)
-          .scale(0.68f,0.68f,0.68f)
-          .end()
-          .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
-          .rotation(0,90,-25)
-          .translation(1.13f, 3.2f, 1.13f)
-          .scale(0.68f,0.68f,0.68f)
-          .end()
-          .end()
-          .override()
-          .predicate(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"), 1)
-          .model(new ModelFile.UncheckedModelFile(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "item/measuring_tape_is_measuring")))
-          .end();
+        final ItemModel.Unbaked model = ItemModelUtils.conditional(
+            new IsMeasuringItemProperty(),
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.MEASURING_TAPE.get(), "_default", ModelTemplates.FLAT_ITEM)),
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.MEASURING_TAPE.get(), "_is_measuring", FLAT_ITEM_IS_MEASURING))
+        );
 
-        getBuilder("measuring_tape_is_measuring")
-          .parent(getBuilder("measuring_tape"))
-          .texture("layer0", "item/tape_measure_is_measuring");
+        itemModels.itemModelOutput.accept(ModItems.MEASURING_TAPE.get(), model);
+    }
+
+    @Override
+    protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+    {
+        return Stream.of();
+    }
+
+    @Override
+    protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+    {
+        return Stream.of(
+            BuiltInRegistries.ITEM.wrapAsHolder(
+                ModItems.MEASURING_TAPE.get()
+            )
+        );
+    }
+
+    @Override
+    public @NotNull String getName()
+    {
+        return "Measuring tape item model generator";
     }
 }

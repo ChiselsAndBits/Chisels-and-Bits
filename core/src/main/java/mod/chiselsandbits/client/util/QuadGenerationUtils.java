@@ -1,39 +1,57 @@
 package mod.chiselsandbits.client.util;
 
+import com.communi.suggestu.scena.core.client.models.processing.BakedQuadAdapter;
+import com.communi.suggestu.scena.core.client.models.processing.VertexData;
+import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.client.model.baked.face.FaceManager;
-import mod.chiselsandbits.client.model.baked.face.model.BakedQuadAdapter;
-import mod.chiselsandbits.client.model.baked.face.model.ModelQuadLayer;
-import mod.chiselsandbits.client.model.baked.face.model.VertexData;
+import mod.chiselsandbits.client.model.face.FaceManager;
 import mod.chiselsandbits.utils.LightUtil;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.TriState;
+import net.minecraft.world.level.BlockAndTintGetter;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
-public final class QuadGenerationUtils {
+public final class QuadGenerationUtils
+{
 
-    private QuadGenerationUtils() {
+    private QuadGenerationUtils()
+    {
         throw new IllegalStateException("Tried to instantiate: 'QuadGenerationUtils', but this is a utility class.");
     }
 
-    public static void generateQuads(List<BakedQuad> target, long primaryStateRenderSeed, @NotNull RenderType renderType, BlockInformation blockInformation, Direction cullDirection, Vector3f from, Vector3f to, BiFunction<ModelQuadLayer, BakedQuad, BakedQuad> resultAdapter) {
-        final Collection<ModelQuadLayer> quadLayers = FaceManager.getInstance().getCachedLayersFor(blockInformation, cullDirection, renderType, primaryStateRenderSeed, renderType);
+    public static void generateQuads(
+        final BlockInformation blockInformation,
+        @Nullable final Direction facingDirection,
+        @Nullable final BlockAndTintGetter blockAndTintGetter,
+        @Nullable final BlockPos pos,
+        final Vector3f from,
+        final Vector3f to,
+        final Consumer<GeneratedQuad> target)
+    {
 
-        if (quadLayers != null) {
-            for (final ModelQuadLayer layer : quadLayers) {
-
+        FaceManager.getInstance().extractQuads(
+            blockInformation,
+            facingDirection,
+            blockAndTintGetter,
+            pos,
+            (layer) -> {
                 final Collection<VertexData> adaptedVertices;
-                try {
-                    adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), cullDirection, from, to);
-                } catch (IllegalStateException e) {
-                    continue;
+                try
+                {
+                    adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), facingDirection, from, to);
+                }
+                catch (IllegalStateException e)
+                {
+                    return;
                 }
 
                 final BakedQuadAdapter adapter = new BakedQuadAdapter(adaptedVertices, layer.color());
@@ -41,11 +59,42 @@ public final class QuadGenerationUtils {
                 adapter.setQuadTint(layer.tint());
                 adapter.setApplyDiffuseLighting(layer.shade());
                 adapter.setTexture(layer.sprite());
-                adapter.setQuadOrientation(cullDirection);
+                adapter.setQuadOrientation(facingDirection);
                 final BakedQuad quad = adapter.build();
 
-                target.add(resultAdapter.apply(layer, quad));
+                target.accept(new GeneratedQuad(
+                    quad,
+                    layer.usesAmbientOcclusion(),
+                    layer.particleSprite(),
+                    layer.renderType(),
+                    layer.chunkSectionLayer()
+                ));
             }
+        );
+    }
+
+    public record GeneratedQuad(
+        BakedQuad quad,
+        TriState ambientOcclusion,
+        TextureAtlasSprite particleSprite,
+        @Nullable RenderType renderType,
+        @Nullable ChunkSectionLayer chunkSectionLayer)
+    {
+
+        @Nullable
+        public RenderType renderType()
+        {
+            if (this.renderType != null)
+            {
+                return renderType;
+            }
+
+            if (this.chunkSectionLayer() == null)
+            {
+                return null;
+            }
+
+            return RenderTypeUtils.renderTypeFor(chunkSectionLayer());
         }
     }
 }

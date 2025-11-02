@@ -13,20 +13,25 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.LocalStrings;
-import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
-import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.utils.CompressionUtils;
 import mod.chiselsandbits.utils.FileUtils;
 import mod.chiselsandbits.utils.TextureUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.*;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.data.AtlasIds;
+import net.minecraft.nbt.NbtAccounter;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import java.io.ByteArrayOutputStream;
@@ -40,9 +45,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 
 public final class PatternSharingExecutor
@@ -61,17 +63,17 @@ public final class PatternSharingExecutor
         }
         catch (PatternIOException e)
         {
-            Minecraft.getInstance().player.sendSystemMessage(e.getErrorMessage());
+            Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
         }
     }
 
     private static void savePattern(final IMultiStateItemStack multiStateItemStack, final String patternName, HolderLookup.Provider provider) throws PatternIOException
     {
         final byte[] textureAtlasData = getBlockTextureAtlasData();
-        final ModelData modelData = getModelQuadData(multiStateItemStack);
+        final Model model = getModelQuadData(multiStateItemStack);
         final byte[] chiselData = getChiselData(multiStateItemStack, provider);
 
-        final String dataString = toDataString(textureAtlasData, modelData, chiselData);
+        final String dataString = toDataString(textureAtlasData, model, chiselData);
         writePatternDataToDisk(patternName, dataString);
     }
 
@@ -96,7 +98,7 @@ public final class PatternSharingExecutor
         }
     }
 
-    private static String toDataString(final byte[] textureAtlasData, final ModelData modelData, final byte[] chiselData)
+    private static String toDataString(final byte[] textureAtlasData, final Model model, final byte[] chiselData)
     {
         final Gson gson = new GsonBuilder().create();
 
@@ -104,7 +106,7 @@ public final class PatternSharingExecutor
 
         returnObject.addProperty("version", "1.0");
         returnObject.addProperty("textureAtlas", Base64.getEncoder().encodeToString(textureAtlasData));
-        returnObject.add("modelData", gson.toJsonTree(modelData));
+        returnObject.add("modelData", gson.toJsonTree(model));
         returnObject.addProperty("chiselData", Base64.getEncoder().encodeToString(chiselData));
 
         return gson.toJson(returnObject);
@@ -137,59 +139,62 @@ public final class PatternSharingExecutor
 
     private static byte[] getBlockTextureAtlasData() throws PatternIOException
     {
-        final NativeImage currentAtlas = TextureUtils.getNativeImageFromTexture(InventoryMenu.BLOCK_ATLAS);
+        try(NativeImage currentAtlas = TextureUtils.downloadTexture(
+            Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
+        )) {
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            final WritableByteChannel channel = Channels.newChannel(byteArrayOutputStream);
+            try
+            {
+                if (currentAtlas.writeToChannel(channel)) {
+                    return byteArrayOutputStream.toByteArray();
+                }
 
-        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        final WritableByteChannel channel = Channels.newChannel(byteArrayOutputStream);
-        try
-        {
-            if (currentAtlas.writeToChannel(channel)) {
-                return byteArrayOutputStream.toByteArray();
+                throw new PatternIOException(
+                    LocalStrings.PatternExportFailedGenericAtlasWriteFailure.getText(),
+                    "Failed to process the in-memory block atlas texture."
+                );
             }
-
-            throw new PatternIOException(
-              LocalStrings.PatternExportFailedGenericAtlasWriteFailure.getText(),
-              "Failed to process the in-memory block atlas texture."
-            );
-        }
-        catch (IOException e)
-        {
-            throw new PatternIOException(
-              LocalStrings.PatternExportFailedCouldNotWriteAtlas.getText(),
-              "Failed to write the current block texture atlas to disk.",
-              e
-            );
+            catch (IOException e)
+            {
+                throw new PatternIOException(
+                    LocalStrings.PatternExportFailedCouldNotWriteAtlas.getText(),
+                    "Failed to write the current block texture atlas to disk.",
+                    e
+                );
+            }
         }
     }
 
-    private static ModelData getModelQuadData(final IMultiStateItemStack multiStateItemStack)
+    private static Model getModelQuadData(final IMultiStateItemStack multiStateItemStack)
     {
         final ItemStack blockStack = multiStateItemStack.toBlockStack();
-        final BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(
-          blockStack,
-          Minecraft.getInstance().level,
-          Minecraft.getInstance().player,
-          0
+        if (!blockStack.has(DataComponents.ITEM_MODEL))
+            throw new IllegalStateException("BlockStage does not have model for export!");
+
+        final ResourceLocation itemModelLocation = blockStack.get(DataComponents.ITEM_MODEL);
+        if (itemModelLocation == null)
+            throw new IllegalStateException("BlockStage has empty model location for export!");
+
+        final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(itemModelLocation);
+        final ItemStackRenderState state = new ItemStackRenderState();
+        model.update(
+            state,
+            blockStack,
+            Minecraft.getInstance().getItemModelResolver(),
+            ItemDisplayContext.NONE,
+            null,
+            null,
+            0
         );
 
-        final RandomSource random = RandomSource.create(42);
-
-        final ModelData modelData = new ModelData(
-          Arrays.stream(Direction.values())
-            .collect(Collectors.toMap(
-              Function.identity(),
-              direction -> bakedmodel.getQuads(
-                null, direction, random
-              ).stream()
-                             .map(QuadData::new)
-                             .collect(Collectors.toList())
-            )),
-          bakedmodel.getQuads(null, null, random).stream()
+        final List<QuadData> quads = Arrays.stream(state.layers)
+            .map(ItemStackRenderState.LayerRenderState::prepareQuadList)
+            .flatMap(List::stream)
             .map(QuadData::new)
-            .collect(Collectors.toList())
-        );
+            .toList();
 
-        return modelData;
+        return new Model(quads);
     }
 
     static Either<IMultiStateItemStack, PatternIOException> doImportPattern(final String patternName, HolderLookup.Provider provider) {
@@ -300,52 +305,12 @@ public final class PatternSharingExecutor
         return snapshot.toItemStack();
     }
 
-    private static final class ModelData {
-        final Map<Direction, List<QuadData>> directionalQuads;
-        final List<QuadData> genericData;
+    private record Model(List<QuadData> quads) {}
 
-        private ModelData(
-          final Map<Direction, List<QuadData>> directionalQuads,
-          final List<QuadData> genericData) {
-            this.directionalQuads = directionalQuads;
-            this.genericData = genericData;
-        }
-
-
-    }
-
-    private static final class QuadData {
-        private final int[] vertices;
-        private final int tintIndex;
-        private final Direction direction;
-        private final boolean shade;
-
-        private QuadData(final BakedQuad source)
+    private record QuadData(int[] vertices, int tintIndex, Direction direction, boolean shade) {
+        private QuadData(BakedQuad quad)
         {
-            this.vertices = source.getVertices();
-            this.tintIndex = source.getTintIndex();
-            this.direction = source.getDirection();
-            this.shade = source.isShade();
-        }
-
-        public int[] getVertices()
-        {
-            return vertices;
-        }
-
-        public int getTintIndex()
-        {
-            return tintIndex;
-        }
-
-        public Direction getDirection()
-        {
-            return direction;
-        }
-
-        public boolean isShade()
-        {
-            return shade;
+            this(quad.vertices(), quad.tintIndex(), quad.direction(), quad.shade());
         }
     }
 }

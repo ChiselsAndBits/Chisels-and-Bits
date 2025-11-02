@@ -24,7 +24,6 @@ public class MultiStateItemFactory implements IMultiStateItemFactory
      * @param stateEntryInfo The state entry info to create an itemstack for.
      * @return The itemstack containing only the given single state entry.
      */
-    @SuppressWarnings("deprecation")
     @Override
     public ItemStack createBlockFrom(final IStateEntryInfo stateEntryInfo)
     {

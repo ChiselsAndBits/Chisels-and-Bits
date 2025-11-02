@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "tag": "c:feathers"
-    },
-    {
-      "tag": "c:dyes/black"
-    },
-    {
-      "tag": "c:dyes/yellow"
-    }
+    "#c:feathers",
+    "#c:dyes/black",
+    "#c:dyes/yellow"
   ],
   "result": {
     "count": 1,

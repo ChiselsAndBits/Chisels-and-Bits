@@ -1,11 +1,14 @@
 package mod.chiselsandbits.utils;
 
+import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.platform.NativeImage;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.AbstractTexture;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.GpuDevice;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTexture;
 
-import static org.lwjgl.opengl.GL11.*;
+import java.nio.ByteBuffer;
+import java.util.function.Consumer;
 
 public class TextureUtils
 {
@@ -15,32 +18,33 @@ public class TextureUtils
         throw new IllegalStateException("Can not instantiate an instance of: TextureUtils. This is a utility class");
     }
 
-    /**
-     * Sets up the rendering engine to render a texture out to CPU memory and prepare it for writing to disk.
-     * The {@link NativeImage} returned here is still connected to the GPU and needs to be closed when done.
-     *
-     * @param imageName The texture name to write to the NativeImage.
-     * @return The {@link NativeImage} with the image of the given texture contained.
-     */
-    public static NativeImage getNativeImageFromTexture(final ResourceLocation imageName) {
-        final AbstractTexture texture = Minecraft.getInstance().getTextureManager().getTexture(imageName);
-        final int openGlTextureId = texture.getId();
+    public static NativeImage downloadTexture(GpuTexture srcTexture)
+    {
+        GpuDevice device = RenderSystem.getDevice();
+        CommandEncoder cmdEncoder = device.createCommandEncoder();
 
-        Minecraft.getInstance().getTextureManager().bindForSetup(imageName);
-
-        int format = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT);
-        int width = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH);
-        int height = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT);
-
-
-        final NativeImage nativeImage = new NativeImage(
-          format == GL_RGB ? NativeImage.Format.RGB : NativeImage.Format.RGBA,
-          width,
-          height,
-          false
-        );
-
-        nativeImage.downloadTexture(0, true);
-        return nativeImage;
+        int width = srcTexture.getWidth(0);
+        int height = srcTexture.getHeight(0);
+        int pixSize = srcTexture.getFormat().pixelSize();
+        int bufSize = width * height * pixSize;
+        GpuBuffer buffer = device.createBuffer(() -> "Texture output buffer", GpuBuffer.USAGE_COPY_DST | GpuBuffer.USAGE_MAP_READ, bufSize);
+        NativeImage destImage = new NativeImage(width, height, false);
+        cmdEncoder.copyTextureToBuffer(srcTexture, buffer, 0, () ->
+        {
+            try (GpuBuffer.MappedView bufView = cmdEncoder.mapBuffer(buffer, true, false); )
+            {
+                ByteBuffer data = bufView.data();
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int pixel = data.getInt((x + y * width) * pixSize);
+                        destImage.setPixelABGR(x, y, pixel);
+                    }
+                }
+            }
+            buffer.close();
+        }, 0);
+        return destImage;
     }
 }

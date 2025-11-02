@@ -1,19 +1,13 @@
 package mod.chiselsandbits.block;
 
 import com.google.common.collect.ImmutableMap;
-import mod.chiselsandbits.api.util.HelpTextUtils;
-import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -32,14 +26,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class ChiseledPrinterBlock extends Block implements EntityBlock
 {
 
-    public static final  DirectionProperty FACING   = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     private static final Map<Direction, VoxelShape> BUTTON_VS_MAP = ImmutableMap.<Direction, VoxelShape>builder()
                                                                       .put(Direction.NORTH, Block.box(7, 1, -0.5, 12, 4, 0))
@@ -142,7 +135,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 
     public @NotNull InteractionResult use(@NotNull BlockState state, Level worldIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit)
     {
-        if (worldIn.isClientSide)
+        if (worldIn.isClientSide())
         {
             return InteractionResult.SUCCESS;
         }
@@ -150,27 +143,6 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
         {
             player.openMenu((MenuProvider) worldIn.getBlockEntity(pos));
             return InteractionResult.CONSUME;
-        }
-    }
-
-    @Override
-    public void appendHoverText(
-            @NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag)
-    {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        HelpTextUtils.build(LocalStrings.ChiselStationHelp, tooltipComponents);
-    }
-
-    @Override
-    public void onRemove(BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof ChiseledPrinterBlockEntity) {
-                ((ChiseledPrinterBlockEntity) tileentity).dropInventoryItems(worldIn, pos);
-                worldIn.updateNeighbourForOutputSignal(pos, this);
-            }
-
-            super.onRemove(state, worldIn, pos, newState, isMoving);
         }
     }
 }

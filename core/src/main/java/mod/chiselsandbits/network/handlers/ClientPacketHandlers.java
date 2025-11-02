@@ -19,6 +19,7 @@ import mod.chiselsandbits.profiling.ProfilingManager;
 import mod.chiselsandbits.registrars.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -26,6 +27,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 
 import java.util.Deque;
 
@@ -74,13 +77,13 @@ public final class ClientPacketHandlers
         }
     }
 
-    public static void handleNeighborUpdated(final BlockPos toUpdate, final BlockPos from) {
+    public static void handleNeighborUpdated(final BlockPos toUpdate, Block neighborBlock, final Orientation orientation) {
         Minecraft.getInstance().level.getBlockState(toUpdate)
           .handleNeighborChanged(
             Minecraft.getInstance().level,
             toUpdate,
-            Minecraft.getInstance().level.getBlockState(from).getBlock(),
-            from,
+            neighborBlock,
+            orientation,
             false
           );
     }
@@ -94,7 +97,7 @@ public final class ClientPacketHandlers
         final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(target);
         if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity))
         {
-            Minecraft.getInstance().player.sendSystemMessage(Component.literal("Failed to export pattern: " + name + " - Not a multistate block."));
+            Minecraft.getInstance().getChatListener().handleSystemMessage(Component.literal("Failed to export pattern: " + name + " - Not a multistate block."), false);
             return;
         }
 
@@ -109,7 +112,7 @@ public final class ClientPacketHandlers
               .sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
         });
         importResult.ifRight(e -> {
-            Minecraft.getInstance().player.sendSystemMessage(e.getErrorMessage());
+            Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
         });
     }
 }

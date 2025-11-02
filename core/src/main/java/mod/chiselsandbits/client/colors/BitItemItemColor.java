@@ -1,23 +1,20 @@
 package mod.chiselsandbits.client.colors;
 
-import com.communi.suggestu.scena.core.client.fluid.IClientFluidManager;
-import com.communi.suggestu.scena.core.fluid.FluidInformation;
-import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
-import mod.chiselsandbits.item.bit.BitItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.world.item.AirItem;
-import net.minecraft.world.item.Item;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.color.item.ItemTintSource;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LiquidBlock;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class BitItemItemColor implements ItemColor
+public class BitItemItemColor implements ItemTintSource
 {
+    public static final MapCodec<BitItemItemColor> CODEC = MapCodec.unit(new BitItemItemColor());
+
     private static final int TINT_MASK = 0xff;
+
+    /*
 
     @Override
     public int getColor(
@@ -63,5 +60,18 @@ public class BitItemItemColor implements ItemColor
             return 0xffffff;
 
         return Minecraft.getInstance().itemColors.getColor(workingStack, tint);
+    }
+
+     */
+    @Override
+    public int calculate(final @NotNull ItemStack stack, @Nullable final ClientLevel level, @Nullable final LivingEntity entity)
+    {
+        return -1;
+    }
+
+    @Override
+    public @NotNull MapCodec<? extends ItemTintSource> type()
+    {
+        return CODEC;
     }
 }

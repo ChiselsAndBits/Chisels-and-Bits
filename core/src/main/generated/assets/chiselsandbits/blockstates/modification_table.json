@@ -2,18 +2,18 @@
   "variants": {
     "facing=east": {
       "model": "chiselsandbits:block/modification_table",
-      "y": 270
+      "y": 90
     },
     "facing=north": {
+      "model": "chiselsandbits:block/modification_table"
+    },
+    "facing=south": {
       "model": "chiselsandbits:block/modification_table",
       "y": 180
     },
-    "facing=south": {
-      "model": "chiselsandbits:block/modification_table"
-    },
     "facing=west": {
       "model": "chiselsandbits:block/modification_table",
-      "y": 90
+      "y": 270
     }
   }
 }

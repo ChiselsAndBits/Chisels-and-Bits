@@ -1,8 +1,6 @@
 package mod.chiselsandbits.forge.data.lang;
 
-import com.communi.suggestu.scena.core.client.key.IKeyBindingManager;
 import com.google.gson.JsonObject;
-import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.keys.KeyBindingManager;
 import net.minecraft.client.KeyMapping;
@@ -16,16 +14,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class KeyMapLangGenerator implements DataProvider {
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event) {
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
         event.getGenerator().addProvider(true, new KeyMapLangGenerator(event.getGenerator().getPackOutput()));
     }
 

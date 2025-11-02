@@ -1,14 +1,11 @@
 package mod.chiselsandbits.client.screens.widgets;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mod.chiselsandbits.api.client.screen.widget.AbstractChiselsAndBitsButton;
-import mod.chiselsandbits.client.icon.IconManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,17 +56,23 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
     @Override
     public void renderWidget(final @NotNull GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float partialTicks)
     {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        guiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        guiGraphics.blitSprite(SPRITES.get(this.active, this.isHoveredOrFocused()), this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        guiGraphics.blitSprite(
+            RenderPipelines.GUI_TEXTURED,
+            SPRITES.get(this.active, this.isHoveredOrFocused()),
+            this.getX(),
+            this.getY(),
+            this.getWidth(),
+            this.getHeight()
+        );
 
-        IconManager.getInstance().bindTexture();
-        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        guiGraphics.blit(getX() + 2, getY() + 2, 0, 16,16, icon);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+        guiGraphics.blitSprite(
+            RenderPipelines.GUI_TEXTURED,
+            icon,
+            getX() + 2,
+            getY() + 2,
+            16,
+            16,
+            -1
+        );
     }
 }

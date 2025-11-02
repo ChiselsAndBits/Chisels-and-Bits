@@ -3,8 +3,9 @@ package mod.chiselsandbits.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.joml.Vector4f;
@@ -63,12 +64,12 @@ public class ChiseledBlockWireframeRenderer
                 : ModRenderTypes.WIREFRAME_LINES.get();
 
         //48/255f, 120/255f, 201/255f
-        LevelRenderer.renderShape(
+        ShapeRenderer.renderShape(
           stack,
           Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(renderType),
           wireFrame,
           position.x() - xView, position.y() - yView, position.z() - zView,
-          color.x(), color.y(), color.z(), 1f
+            ARGB.colorFromFloat(1, color.x(), color.y(), color.z())
         );
         Minecraft.getInstance().renderBuffers().bufferSource().endBatch(renderType);
 

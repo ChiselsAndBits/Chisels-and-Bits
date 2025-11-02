@@ -1,13 +1,12 @@
 plugins {
-    id 'com.ldtteam.tableau.maven-publishing' version '0.0.74'
-    id 'com.ldtteam.tableau.curseforge' version '0.0.74'
-    id 'com.communi-suggestu.obumbratio' version '0.0.8'
-    id 'com.communi-suggestu.bonorum' version '0.0.1'
+    id 'com.ldtteam.tableau.maven-publishing' version '0.0.79'
+    id 'com.ldtteam.tableau.curseforge' version '0.0.79'
+    id 'com.communi-suggestu.obumbratio' version '0.0.12'
+    //id 'com.communi-suggestu.bonorum' version '0.0.1'
 }
 
 platform {
     neoforge {
-        version = "21.1.+"
         accessTransformers.from(rootProject.files("common/accesstransformer.cfg"))
     }
 }
@@ -37,19 +36,14 @@ tableau {
     }
 }
 
-shaders {
-    enable()
-    sodium()
-    embeddium()
-    neoforge()
-}
-
 dependencies {
     includedLibraries "com.communi-suggestu.saecularia-caudices:neoforge:${project.property('communi.suggestu.saecularia.caudices.version')}"
     includedLibraries "com.communi-suggestu.scena:neoforge:${project.property('communi.suggestu.scena.version')}"
 }
 
+/*
 bonorum {
     sinytraExporterVersion = '1.0.2+1.21'
     exportedNamespaces = ['minecraft', 'chiselsandbits']
 }
+*/

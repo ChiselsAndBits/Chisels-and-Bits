@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "chiselsandbits:block/bit_storage"
+  }
+}

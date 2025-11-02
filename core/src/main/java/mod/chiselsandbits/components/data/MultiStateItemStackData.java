@@ -4,8 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.api.block.storage.StateEntryStorage;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.serialization.CBCodecs;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
+import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.serialization.CompressedDataFindingCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -58,9 +60,15 @@ public record MultiStateItemStackData(StateEntryStorage storage, Statistics stat
         this.statistics = statistics;
     }
 
-    @Override
     public StateEntryStorage storage() {
         return storage.createSnapshot();
+    }
+
+    public IMultiStateSnapshot asSnapshot() {
+        return new SimpleSnapshot(storage(), new SimpleSnapshot.SimpleStatistics(
+            statistics().primaryState(),
+            statistics().counts()
+        ));
     }
 
     public record Statistics(BlockInformation primaryState, Map<BlockInformation, Integer> counts) {

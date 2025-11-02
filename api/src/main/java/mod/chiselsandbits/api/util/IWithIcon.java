@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 /**
  * An object with an icon to render.
@@ -13,6 +12,5 @@ public interface IWithIcon
      *
      * @return The icon.
      */
-    @NotNull
-    ResourceLocation getIcon();
+    TextureAtlasSprite getIcon();
 }

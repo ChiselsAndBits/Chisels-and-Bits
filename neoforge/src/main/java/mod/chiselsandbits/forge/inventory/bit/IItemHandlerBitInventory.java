@@ -2,14 +2,17 @@ package mod.chiselsandbits.forge.inventory.bit;
 
 import mod.chiselsandbits.inventory.bit.AbstractBitInventory;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class IItemHandlerBitInventory extends AbstractBitInventory
 {
 
-    private final IItemHandler itemHandler;
+    private final ResourceHandler<ItemResource> itemHandler;
 
-    public IItemHandlerBitInventory(final IItemHandler itemHandler) {this.itemHandler = itemHandler;}
+    public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {this.itemHandler = itemHandler;}
 
     /**
      * Gets a copy of the stack that is in the given slot.
@@ -20,7 +23,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
     @Override
     protected ItemStack getItem(final int index)
     {
-        return itemHandler.getStackInSlot(index).copy();
+        return itemHandler.getResource(index).toStack();
     }
 
     /**
@@ -31,7 +34,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
     @Override
     protected int getInventorySize()
     {
-        return itemHandler.getSlots();
+        return itemHandler.size();
     }
 
     /**
@@ -43,22 +46,20 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
     @Override
     protected void setSlotContents(final int index, final ItemStack stack)
     {
-        itemHandler.extractItem(index, Integer.MAX_VALUE, false);
-        
-        if (!itemHandler.insertItem(index, stack, false).isEmpty()) {
-            throw new IllegalStateException("Failed to insert stack.");
+        try(Transaction tx = Transaction.openRoot())
+        {
+            itemHandler.extract(index, ItemResource.of(stack), stack.getCount(), tx);
+            if (itemHandler.insert(index, ItemResource.of(stack), stack.getCount(), tx) != stack.getCount()) {
+                throw new IllegalStateException("Failed to insert stack.");
+            }
+
+            tx.commit();
         }
     }
 
     @Override
     public boolean isEmpty()
     {
-        for (int i = 0; i < itemHandler.getSlots(); i++)
-        {
-            if (!itemHandler.getStackInSlot(i).isEmpty())
-                return false;
-        }
-
-        return true;
+        return ResourceHandlerUtil.isEmpty(itemHandler);
     }
 }

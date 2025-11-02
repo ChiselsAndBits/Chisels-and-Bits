@@ -8,7 +8,10 @@ import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
@@ -34,23 +37,28 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
         final Vec2 positionVector = renderableMode.getPositionVector();
         final Vec2 scaleVector = renderableMode.getScaleVector();
 
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(positionVector.x, positionVector.y, 1000);
-        guiGraphics.pose().scale(scaleVector.x, scaleVector.y, 1);
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(positionVector.x, positionVector.y);
+        guiGraphics.pose().scale(scaleVector.x, scaleVector.y);
+        guiGraphics.pose().pushMatrix();
 
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-        RenderSystem.setShaderColor(
-          (float) renderableMode.getColorVector().x(),
-          (float) renderableMode.getColorVector().y(),
-          (float) renderableMode.getColorVector().z(),
-          (float) renderableMode.getAlphaChannel()
-        );
-        RenderSystem.setShaderTexture(0, mode.getIcon());
-        guiGraphics.blit(mode.getIcon(), 0, 0, 16,16, 0, 0, 18, 18, 18, 18);
+        TextureAtlasSprite sprite = mode.getIcon();
 
-        guiGraphics.pose().popPose();
-        guiGraphics.pose().popPose();
+        guiGraphics.blitSprite(
+            RenderPipelines.GUI_TEXTURED,
+            sprite,
+            0,
+            0,
+            16,16,
+            ARGB.colorFromFloat(
+                (float) mode.getAlphaChannel(),
+                (float) mode.getColorVector().x(),
+                (float) mode.getColorVector().y(),
+                (float) mode.getColorVector().z()
+            ));
+
+        guiGraphics.pose().popMatrix();
+        guiGraphics.pose().popMatrix();
     }
 
     private IRenderableMode getRootRenderableMode(final IRenderableMode mode) {

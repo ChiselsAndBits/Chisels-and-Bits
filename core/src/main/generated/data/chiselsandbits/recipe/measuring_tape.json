@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "i": {
-      "tag": "c:ingots/iron"
-    },
-    "s": {
-      "tag": "c:strings"
-    },
-    "y": {
-      "tag": "c:dyes/yellow"
-    }
+    "i": "#c:ingots/iron",
+    "s": "#c:strings",
+    "y": "#c:dyes/yellow"
   },
   "pattern": [
     "  s",

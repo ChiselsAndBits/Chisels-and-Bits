@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "b": {
-      "item": "chiselsandbits:block_bit"
-    },
-    "w": {
-      "tag": "minecraft:wool"
-    }
+    "b": "chiselsandbits:block_bit",
+    "w": "#minecraft:wool"
   },
   "pattern": [
     "www",

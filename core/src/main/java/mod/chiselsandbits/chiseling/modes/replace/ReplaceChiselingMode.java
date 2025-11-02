@@ -21,10 +21,12 @@ import mod.chiselsandbits.api.util.LambdaExceptionUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -174,8 +176,8 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
             return false;
 
         final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING ?
-                                                                       face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal()) :
-                                                                       face -> Vec3.atLowerCornerOf(face.getNormal());
+                                                                       face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
+                                                                       face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
         final Vec3 hitVector = blockHitResult.getLocation().add(
           placementFacingAdapter.apply(blockHitResult.getDirection())
@@ -212,7 +214,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
             return Optional.of(ClickProcessingState.DEFAULT);
         }
 
-        final Function<Direction, Vec3> placementFacingAdapter = face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal());
+        final Function<Direction, Vec3> placementFacingAdapter = face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i());
         final Vec3 hitVector = blockHitResult.getLocation().add(
           placementFacingAdapter.apply(blockHitResult.getDirection())
             .multiply(StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit())
@@ -287,9 +289,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return iconName;
+        return IconManager.getInstance().getIcon(iconName);
     }
 
     @Override

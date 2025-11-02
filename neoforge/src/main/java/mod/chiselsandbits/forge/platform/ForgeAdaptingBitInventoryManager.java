@@ -2,9 +2,7 @@ package mod.chiselsandbits.forge.platform;
 
 import mod.chiselsandbits.api.inventory.bit.IAdaptingBitInventoryManager;
 import mod.chiselsandbits.forge.inventory.bit.IItemHandlerBitInventory;
-import mod.chiselsandbits.forge.inventory.bit.IModifiableItemHandlerBitInventory;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 
 import java.util.Optional;
 
@@ -20,14 +18,9 @@ public final class ForgeAdaptingBitInventoryManager implements IAdaptingBitInven
     @Override
     public Optional<Object> create(Object target) {
         return Optional.of(target)
-                .filter(IItemHandler.class::isInstance)
-                .map(IItemHandler.class::cast)
-                .map(itemHandler -> {
-                    if (itemHandler instanceof IItemHandlerModifiable)
-                        return new IModifiableItemHandlerBitInventory((IItemHandlerModifiable) itemHandler);
-
-                    return new IItemHandlerBitInventory(itemHandler);
-                });
+                .filter(ResourceHandler.class::isInstance)
+                .map(ResourceHandler.class::cast)
+                .map(IItemHandlerBitInventory::new);
     }
 
 

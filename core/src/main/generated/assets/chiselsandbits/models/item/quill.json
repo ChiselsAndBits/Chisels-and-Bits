@@ -1,4 +1,0 @@
-{
-  "parent": "chiselsandbits:item/quill_spec",
-  "loader": "chiselsandbits:interactable_model"
-}

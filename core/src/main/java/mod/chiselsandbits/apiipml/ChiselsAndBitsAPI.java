@@ -11,7 +11,7 @@ import mod.chiselsandbits.api.chiseling.conversion.IConversionManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityOptions;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
-import mod.chiselsandbits.api.client.model.baked.cache.IBakedModelCacheKeyCalculatorRegistry;
+import mod.chiselsandbits.api.client.model.baked.cache.ModelCacheKeyCalculatorRegistry;
 import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPreviewRendererRegistry;
 import mod.chiselsandbits.api.client.sharing.IPatternSharingManager;
 import mod.chiselsandbits.api.client.tool.mode.icon.ISelectedToolModeIconRendererRegistry;
@@ -370,7 +370,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI
     }
 
     @Override
-    public @NotNull IBakedModelCacheKeyCalculatorRegistry getBakedModelCacheKeyCalculatorRegistry() {
+    public @NotNull ModelCacheKeyCalculatorRegistry getBakedModelCacheKeyCalculatorRegistry() {
         return null;
     }
 }

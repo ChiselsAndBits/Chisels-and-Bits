@@ -3,24 +3,18 @@ package mod.chiselsandbits.measures;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import mod.chiselsandbits.api.measuring.IMeasurement;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
+import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import mod.chiselsandbits.api.serialization.Serializable;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
-import java.nio.ByteBuffer;
 import java.util.UUID;
 
 public class Measurement implements IMeasurement, Serializable<Measurement, FriendlyByteBuf>
@@ -62,18 +56,24 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
     private MeasuringMode    mode;
     private ResourceLocation worldKey;
 
-    private Measurement(UUID owner, Vec3 from, Vec3 to, MeasuringMode mode, ResourceLocation worldKey) {
+    private Measurement(UUID owner, Vec3 from, Vec3 to, IMeasuringMode mode, ResourceLocation worldKey) {
         this.owner = owner;
         this.from = from;
         this.to = to;
-        this.mode = mode;
+        this.mode = mode instanceof MeasuringMode m ? m : null;
         this.worldKey = worldKey;
+
+        if (this.mode == null)
+            throw new IllegalStateException("The measuring mode for now needs to be a built in mode!");
     }
 
-    public Measurement(final UUID owner, final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode, final ResourceLocation worldKey) {
+    public Measurement(final UUID owner, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode, final ResourceLocation worldKey) {
         this.owner = owner;
-        this.mode = mode;
+        this.mode = mode instanceof MeasuringMode m ? m : null;
         this.worldKey = worldKey;
+
+        if (this.mode == null)
+            throw new IllegalStateException("The measuring mode for now needs to be a built in mode!");
 
         adaptPositions(from, to, hitFace, mode);
     }
@@ -82,7 +82,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
     {
     }
 
-    private void adaptPositions(final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode)
+    private void adaptPositions(final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode)
     {
         this.from = mode.getType().isNeedsNormalization() ? new Vec3(
           Math.min(from.x(), to.x()),

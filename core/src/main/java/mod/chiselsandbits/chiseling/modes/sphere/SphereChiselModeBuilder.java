@@ -1,5 +1,6 @@
 package mod.chiselsandbits.chiseling.modes.sphere;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.MutableComponent;
 

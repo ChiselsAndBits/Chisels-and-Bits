@@ -15,7 +15,8 @@ import java.util.UUID;
  */
 public interface IMeasuringManager
 {
-    static IMeasuringManager getInstance() {
+    static IMeasuringManager getInstance()
+    {
         return IChiselsAndBitsAPI.getInstance().getMeasuringManager();
     }
 
@@ -25,7 +26,8 @@ public interface IMeasuringManager
      * @param world The world in question.
      * @return A collection of measurements which are active in the given world.
      */
-    default Collection<? extends IMeasurement> getInWorld(final Level world) {
+    default Collection<? extends IMeasurement> getInWorld(final Level world)
+    {
         return getInWorld(world.dimension().location());
     }
 
@@ -43,7 +45,8 @@ public interface IMeasuringManager
      * @param playerEntity The player in question.
      * @return A collection of measurements which are active for the given player.
      */
-    default Collection<? extends IMeasurement> getForPlayer(final Player playerEntity) {
+    default Collection<? extends IMeasurement> getForPlayer(final Player playerEntity)
+    {
         return getForPlayer(playerEntity.getUUID());
     }
 
@@ -58,20 +61,21 @@ public interface IMeasuringManager
     /**
      * Creates a new measurement for the given player in the given world.
      *
-     * @param world The world to create the measurement in.
+     * @param world        The world to create the measurement in.
      * @param playerEntity The player to create the given measurement for.
-     * @param from The start-point of the measurement.
-     * @param to The end-point of the measurement.
+     * @param from         The start-point of the measurement.
+     * @param to           The end-point of the measurement.
      * @param hitFace
-     * @param mode The measurement mode.
+     * @param mode         The measurement mode.
      * @return The newly created and processed measurement.
      */
     IMeasurement create(
-      final Level world,
-      final Player playerEntity,
-      final Vec3 from,
-      final Vec3 to,
-      final Direction hitFace, final MeasuringMode mode
+        final Level world,
+        final Player playerEntity,
+        final Vec3 from,
+        final Vec3 to,
+        final Direction hitFace,
+        final IMeasuringMode mode
     );
 
     /**
@@ -79,7 +83,8 @@ public interface IMeasuringManager
      *
      * @param playerEntity The player to remove the measurements for.
      */
-    default void resetMeasurementsFor(Player playerEntity) {
+    default void resetMeasurementsFor(Player playerEntity)
+    {
         resetMeasurementsFor(playerEntity.getUUID());
     }
 

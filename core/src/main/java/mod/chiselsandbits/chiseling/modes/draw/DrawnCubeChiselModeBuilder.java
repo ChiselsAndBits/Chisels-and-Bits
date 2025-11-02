@@ -1,13 +1,15 @@
 package mod.chiselsandbits.chiseling.modes.draw;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import org.w3c.dom.Text;
 
 public class DrawnCubeChiselModeBuilder
 {
     private MutableComponent displayName;
-    private MutableComponent multiLineDisplayName;
-    private ResourceLocation          iconName;
+    private MutableComponent   multiLineDisplayName;
+    private ResourceLocation iconName;
 
     public DrawnCubeChiselModeBuilder setDisplayName(final MutableComponent displayName)
     {

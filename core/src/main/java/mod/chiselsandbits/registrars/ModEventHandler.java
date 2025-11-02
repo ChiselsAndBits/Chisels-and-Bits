@@ -66,7 +66,7 @@ public final class ModEventHandler {
                         };
             }
         });
-        IGameEvents.getInstance().getDataPackSyncEvent().register((list, players) -> {
+        IGameEvents.getInstance().getDataPackSyncEvent().register((list, players, recipeTypeSynchroniser) -> {
             MeasuringSynchronisationHandler.syncToAll();
         });
         IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> {

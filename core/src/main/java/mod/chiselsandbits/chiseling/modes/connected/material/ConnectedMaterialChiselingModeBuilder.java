@@ -1,5 +1,6 @@
 package mod.chiselsandbits.chiseling.modes.connected.material;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 
@@ -7,7 +8,7 @@ public class ConnectedMaterialChiselingModeBuilder
 {
     private int                       depth;
     private MutableComponent          displayName;
-    private MutableComponent multiLineDisplayName;
+    private MutableComponent   multiLineDisplayName;
     private ResourceLocation iconName;
 
     public ConnectedMaterialChiselingModeBuilder setDepth(final int depth)

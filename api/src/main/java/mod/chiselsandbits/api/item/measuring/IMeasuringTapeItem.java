@@ -3,7 +3,7 @@ package mod.chiselsandbits.api.item.measuring;
 import mod.chiselsandbits.api.item.INoHitEffectsItem;
 import mod.chiselsandbits.api.item.click.IRightClickControllingItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
+import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<MeasuringMode>, IRightClickControllingItem
+public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMeasuringMode>, IRightClickControllingItem
 {
 
     /**

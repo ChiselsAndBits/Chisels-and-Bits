@@ -1,3 +1,5 @@
 {
-  "loader": "chiselsandbits:chiseled_block"
+  "textures": {
+    "particle": "minecraft:missingno"
+  }
 }

@@ -5,7 +5,7 @@ import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import com.mojang.serialization.Codec;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
-import mod.chiselsandbits.api.measuring.MeasuringMode;
+import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.api.modification.operation.IModificationOperation;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
@@ -20,11 +20,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.checkerframework.checker.units.qual.N;
 
 public class ModDataComponentTypes {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -81,7 +79,7 @@ public class ModDataComponentTypes {
     public static IRegistryObject<DataComponentType<Component>> HIGHLIGHT = REGISTRAR.register(
             NbtConstants.HIGHLIGHT,
             () -> DataComponentType.<Component>builder()
-                    .persistent(ComponentSerialization.FLAT_CODEC)
+                    .persistent(ComponentSerialization.CODEC)
                     .networkSynchronized(ComponentSerialization.STREAM_CODEC)
                     .build()
     );
@@ -89,7 +87,7 @@ public class ModDataComponentTypes {
     public static IRegistryObject<DataComponentType<Component>> CHISEL_ERROR = REGISTRAR.register(
             NbtConstants.CHISEL_ERROR,
             () -> DataComponentType.<Component>builder()
-                    .persistent(ComponentSerialization.FLAT_CODEC)
+                    .persistent(ComponentSerialization.CODEC)
                     .networkSynchronized(ComponentSerialization.STREAM_CODEC)
                     .build()
     );

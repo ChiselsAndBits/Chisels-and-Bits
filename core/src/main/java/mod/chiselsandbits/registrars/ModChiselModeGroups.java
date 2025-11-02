@@ -3,12 +3,13 @@ package mod.chiselsandbits.registrars;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.utils.TranslationUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 public final class ModChiselModeGroups
 {
@@ -18,16 +19,18 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CUBED = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/cube_medium.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium")
+            );
         }
 
         @Override
         public Component getDisplayName()
         {
             return TranslationUtils.build(
-              "chiselmode.cubed"
+                "chiselmode.cubed"
             );
         }
     };
@@ -35,16 +38,18 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/snap4.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "snap4")
+            );
         }
 
         @Override
         public Component getDisplayName()
         {
             return TranslationUtils.build(
-              "chiselmode.snap"
+                "chiselmode.snap"
             );
         }
     };
@@ -52,16 +57,18 @@ public final class ModChiselModeGroups
     public static IToolModeGroup LINE = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/line.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "line")
+            );
         }
 
         @Override
         public Component getDisplayName()
         {
             return TranslationUtils.build(
-              "chiselmode.line"
+                "chiselmode.line"
             );
         }
     };
@@ -69,16 +76,18 @@ public final class ModChiselModeGroups
     public static IToolModeGroup PLANE = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/plane.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "plane")
+            );
         }
 
         @Override
         public Component getDisplayName()
         {
             return TranslationUtils.build(
-              "chiselmode.plane"
+                "chiselmode.plane"
             );
         }
     };
@@ -86,16 +95,18 @@ public final class ModChiselModeGroups
     public static IToolModeGroup SPHERE = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/sphere_medium.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium")
+            );
         }
 
         @Override
         public Component getDisplayName()
         {
             return TranslationUtils.build(
-              "chiselmode.sphere"
+                "chiselmode.sphere"
             );
         }
     };
@@ -103,9 +114,11 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/connected_plane.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane")
+            );
         }
 
         @Override
@@ -118,9 +131,11 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/connected_material.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_material")
+            );
         }
 
         @Override
@@ -133,9 +148,11 @@ public final class ModChiselModeGroups
     public static IToolModeGroup DRAW = new IToolModeGroup()
     {
         @Override
-        public @NotNull ResourceLocation getIcon()
+        public TextureAtlasSprite getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/icons/drawn_cube.png");
+            return IconManager.getInstance().getIcon(
+                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "drawn_cube")
+            );
         }
 
         @Override
@@ -154,5 +171,4 @@ public final class ModChiselModeGroups
     {
         LOGGER.info("Loaded chisel mode group configuration.");
     }
-
 }

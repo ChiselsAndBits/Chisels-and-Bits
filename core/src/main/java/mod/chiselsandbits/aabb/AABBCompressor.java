@@ -109,7 +109,7 @@ public class AABBCompressor
     {
         for (final Direction offsetDirection :Direction.values())
         {
-            final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getNormal()).multiply(
+            final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getUnitVec3i()).multiply(
               StateEntrySize.current().getSizePerBit(),
               StateEntrySize.current().getSizePerBit(),
               StateEntrySize.current().getSizePerBit()

@@ -11,11 +11,13 @@ import mod.chiselsandbits.client.render.ModRenderTypes;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
@@ -32,10 +34,18 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 
     @Override
     public void renderExistingContextsBoundingBox(
-      final PoseStack poseStack, final IChiselingContext currentContextSnapshot)
+        final LevelRenderer levelRenderer,
+        final PoseStack poseStack,
+        final MultiBufferSource.BufferSource bufferSource,
+        final boolean translucentPass,
+        final LevelRenderState levelRenderState,
+        final float partialTicks,
+        final IChiselingContext currentContextSnapshot)
     {
         if (currentContextSnapshot.getMutator().isEmpty())
+        {
             return;
+        }
 
         Vec3 Vec3 = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
         double xView = Vec3.x();
@@ -44,67 +54,78 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 
         final BlockPos inWorldStartPos = currentContextSnapshot.getMutator().get().getInWorldStartBlockPoint();
         final VoxelShape boundingShape = VoxelShapeManager.getInstance()
-          .get(currentContextSnapshot.getMutator().get(),
-            currentContextSnapshot.getModeOfOperandus().isChiseling() ? CollisionType.NONE_AIR : CollisionType.ALL, //TODO: Handle the sphere shape adapter somehow...
-            false);
+            .get(currentContextSnapshot.getMutator().get(),
+                currentContextSnapshot.getModeOfOperandus().isChiseling() ? CollisionType.NONE_AIR : CollisionType.ALL, //TODO: Handle the sphere shape adapter somehow...
+                false);
 
         final VoxelShape modeShape = currentContextSnapshot.getMode().getShape(currentContextSnapshot);
         final VoxelShape renderedShape = modeShape; // Shapes.joinUnoptimized(boundingShape, modeShape, BooleanOp.AND);
 
         final List<? extends Float> color = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING ?
-                                 IClientConfiguration.getInstance().getPreviewChiselingColor().get() :
-                                 IClientConfiguration.getInstance().getPreviewPlacementColor().get();
+            IClientConfiguration.getInstance().getPreviewChiselingColor().get() :
+            IClientConfiguration.getInstance().getPreviewPlacementColor().get();
 
         final List<? extends Float> mutatorColor = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING ?
-                                              IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get() :
-                                              IClientConfiguration.getInstance().getMutatorPreviewPlacementColor().get();
+            IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get() :
+            IClientConfiguration.getInstance().getMutatorPreviewPlacementColor().get();
 
-        LevelRenderer.renderShape(
-          poseStack,
-          Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get()),
-          renderedShape,
-          inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
-          getColorValue(color, 0, 0f) * 0.3f,
-          getColorValue(color, 1, 0f) * 0.3f,
-          getColorValue(color, 2, 0f) * 0.3f,
-          getColorValue(color, 3, 1f) * 0.3f
+        ShapeRenderer.renderShape(
+            poseStack,
+            bufferSource.getBuffer(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get()),
+            renderedShape,
+            inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
+            ARGB.colorFromFloat(
+                getColorValue(color, 0, 0f) * 0.3f,
+                getColorValue(color, 1, 0f) * 0.3f,
+                getColorValue(color, 2, 0f) * 0.3f,
+                getColorValue(color, 3, 1f) * 0.3f)
         );
-        Minecraft.getInstance().renderBuffers().bufferSource().endBatch(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get());
+        bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get());
 
-        LevelRenderer.renderShape(
-                poseStack,
-                Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get()),
-                renderedShape,
-                inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
+        ShapeRenderer.renderShape(
+            poseStack,
+            bufferSource.getBuffer(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get()),
+            renderedShape,
+            inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
+            ARGB.colorFromFloat(
                 getColorValue(color, 0, 0f),
                 getColorValue(color, 1, 0f),
                 getColorValue(color, 2, 0f),
                 getColorValue(color, 3, 1f)
+            )
         );
-        Minecraft.getInstance().renderBuffers().bufferSource().endBatch(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get());
+        bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get());
 
-        if (IClientConfiguration.getInstance().getMutatorPreviewDebug().get()) {
-            LevelRenderer.renderShape(
-              poseStack,
-              Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
-              boundingShape,
-              inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
-              getColorValue(mutatorColor, 0, 0f),
-              getColorValue(mutatorColor, 1, 0f),
-              getColorValue(mutatorColor, 2, 0f),
-              getColorValue(mutatorColor, 3, 1f)
+        if (IClientConfiguration.getInstance().getMutatorPreviewDebug().get())
+        {
+            ShapeRenderer.renderShape(
+                poseStack,
+                bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
+                boundingShape,
+                inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
+                ARGB.colorFromFloat(
+                    getColorValue(mutatorColor, 0, 0f),
+                    getColorValue(mutatorColor, 1, 0f),
+                    getColorValue(mutatorColor, 2, 0f),
+                    getColorValue(mutatorColor, 3, 1f)
+                )
             );
-            Minecraft.getInstance().renderBuffers().bufferSource().endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
+            bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
         }
     }
 
-    private static float getColorValue(final List<? extends Float> values, final int index, final float defaultValue) {
+    private static float getColorValue(final List<? extends Float> values, final int index, final float defaultValue)
+    {
         if (values.size() <= index || index < 0)
+        {
             return defaultValue;
+        }
 
         final Number value = values.get(index);
         if (0 <= value.floatValue() && value.floatValue() <= 1f)
+        {
             return value.floatValue();
+        }
 
         return defaultValue;
     }

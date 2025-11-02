@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "item": "minecraft:wet_sponge"
-    }
+    "minecraft:wet_sponge"
   ],
   "result": {
     "count": 1,

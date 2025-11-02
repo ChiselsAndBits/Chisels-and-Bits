@@ -7,6 +7,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 
 import java.security.InvalidParameterException;
@@ -14,76 +15,86 @@ import java.util.Collection;
 
 public enum ChiselRenderType
 {
-    SOLID( RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), VoxelType.SOLID ),
-    SOLID_FLUID( RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), VoxelType.FLUID),
-    CUTOUT( RenderType.cutout(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), VoxelType.UNKNOWN),
-    CUTOUT_MIPPED( RenderType.cutoutMipped(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), VoxelType.UNKNOWN),
-    TRANSLUCENT( RenderType.translucent(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), VoxelType.UNKNOWN),
-    TRANSLUCENT_FLUID( RenderType.translucent(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), VoxelType.FLUID),
-    TRIPWIRE (RenderType.tripwire(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), VoxelType.UNKNOWN);
+    SOLID(RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.SOLID),
+    SOLID_FLUID(RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.FLUID),
+    CUTOUT(RenderType.cutout(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.CUTOUT, VoxelType.UNKNOWN),
+    CUTOUT_MIPPED(RenderType.cutoutMipped(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.CUTOUT_MIPPED, VoxelType.UNKNOWN),
+    TRANSLUCENT(RenderType.translucentMovingBlock(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.UNKNOWN),
+    TRANSLUCENT_FLUID(RenderType.translucentMovingBlock(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.FLUID),
+    TRIPWIRE(RenderType.tripwire(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRIPWIRE, VoxelType.UNKNOWN);
 
-    public final RenderType layer;
-    public final RenderType entityLayer;
-    public final VoxelType type;
+    private final RenderType layer;
+    private final RenderType entityLayer;
+    private final ChunkSectionLayer chunkSectionLayer;
+    private final VoxelType  type;
 
     private static final Multimap<VoxelType, ChiselRenderType> TYPED_RENDER_TYPES = HashMultimap.create();
-    static {
+    static
+    {
         for (final ChiselRenderType value : values())
         {
-            TYPED_RENDER_TYPES.put(value.type, value);
+            TYPED_RENDER_TYPES.put(value.type(), value);
         }
     }
 
     ChiselRenderType(
-            final RenderType layer, RenderType entityLayer,
-            final VoxelType type)
+        final RenderType layer,
+        final RenderType entityLayer, final ChunkSectionLayer chunkSectionLayer,
+        final VoxelType type)
     {
         this.layer = layer;
         this.entityLayer = entityLayer;
+        this.chunkSectionLayer = chunkSectionLayer;
         this.type = type;
     }
 
-    public boolean has(RenderType type) {
-        return layer.equals(type) || entityLayer.equals(type);
+    public boolean has(RenderType type)
+    {
+        return layer().equals(type) || entityLayer().equals(type);
     }
 
     public boolean isRequiredForRendering(
-      final IAreaAccessor accessor )
+        final IAreaAccessor accessor)
     {
-        if ( accessor == null )
+        if (accessor == null)
         {
             return false;
         }
 
         return accessor.stream()
-          .anyMatch(this::isRequiredForRendering);
+            .anyMatch(this::isRequiredForRendering);
     }
 
     public boolean isRequiredForRendering(
-      final IStateEntryInfo stateEntryInfo )
+        final IStateEntryInfo stateEntryInfo)
     {
         return isRequiredForRendering(stateEntryInfo.getBlockInformation());
     }
 
     public boolean isRequiredForRendering(
-      final BlockInformation state )
+        final BlockInformation state)
     {
-        if (state.isAir() || !this.type.isValidBlockState(state))
+        if (state.isAir() || !this.type().isValidBlockState(state))
+        {
             return false;
-
-        if (this.type.isFluid()) {
-            return IRenderTypeManager.getInstance().canRenderInType(state.blockState().getFluidState(), this.layer);
         }
 
-        return IRenderTypeManager.getInstance().canRenderInType(state.blockState(), this.layer);
+        if (this.type().isFluid())
+        {
+            return IRenderTypeManager.getInstance().canRenderInType(state.blockState().getFluidState(), this.chunkSectionLayer());
+        }
+
+        return IRenderTypeManager.getInstance().canRenderInType(state.blockState(), this.chunkSectionLayer());
     }
 
     public static ChiselRenderType fromLayer(
-      RenderType layerInfo,
-      final boolean isFluid )
+        RenderType layerInfo,
+        final boolean isFluid)
     {
         if (layerInfo == null)
+        {
             layerInfo = RenderType.solid();
+        }
 
         if (ChiselRenderType.CUTOUT.has(layerInfo))
         {
@@ -109,7 +120,28 @@ public enum ChiselRenderType
         throw new InvalidParameterException();
     }
 
-    public static Collection<ChiselRenderType> getRenderTypes(final VoxelType voxelType) {
+    public static Collection<ChiselRenderType> getRenderTypes(final VoxelType voxelType)
+    {
         return TYPED_RENDER_TYPES.get(voxelType);
+    }
+
+    public RenderType layer()
+    {
+        return layer;
+    }
+
+    public RenderType entityLayer()
+    {
+        return entityLayer;
+    }
+
+    public VoxelType type()
+    {
+        return type;
+    }
+
+    public ChunkSectionLayer chunkSectionLayer()
+    {
+        return chunkSectionLayer;
     }
 }

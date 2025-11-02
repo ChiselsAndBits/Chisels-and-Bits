@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "tag": "c:slimeballs"
-    },
-    {
-      "item": "minecraft:honey_bottle"
-    }
+    "#c:slime_balls",
+    "#c:drinks/honey"
   ],
   "result": {
     "count": 1,

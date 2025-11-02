@@ -1,21 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item_a": {
+    "has_tag_a": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:honey_bottle"
+            "items": "#c:slime_balls"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_tag_a": {
+    "has_tag_b": {
       "conditions": {
         "items": [
           {
-            "items": "#c:slimeballs"
+            "items": "#c:drinks/honey"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_tag_a",
-      "has_item_a"
+      "has_tag_b"
     ]
   ],
   "rewards": {

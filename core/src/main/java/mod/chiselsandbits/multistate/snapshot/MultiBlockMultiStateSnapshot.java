@@ -24,6 +24,7 @@ import mod.chiselsandbits.api.util.BlockPosForEach;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
+import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -325,7 +326,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 
     @Override
     public IMultiStateSnapshotType getType() {
-        return MultiStateSnapshotTypes.MULTI_BLOCK;
+        return ModMultiStateSnapshotTypes.MULTI_BLOCK.get();
     }
 
     /**

@@ -3,10 +3,15 @@ package mod.chiselsandbits.network.packets;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.redstone.Orientation;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class NeighborBlockUpdatedPacket extends ModPacket
 {
@@ -15,13 +20,14 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
     public static final CustomPacketPayload.Type<NeighborBlockUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private BlockPos toUpdate = BlockPos.ZERO;
-    private BlockPos from     = BlockPos.ZERO;
+    private Block    neighborBlock = Blocks.AIR;
+    private @Nullable Orientation orientation = null;
 
-    public NeighborBlockUpdatedPacket(final BlockPos toUpdate, final BlockPos from)
+    public NeighborBlockUpdatedPacket(final BlockPos toUpdate, final Block neighborBlock, @Nullable final Orientation orientation)
     {
-        super();
         this.toUpdate = toUpdate;
-        this.from = from;
+        this.neighborBlock = neighborBlock;
+        this.orientation = orientation;
     }
 
     public NeighborBlockUpdatedPacket(RegistryFriendlyByteBuf buffer)
@@ -34,24 +40,29 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
     public void writePayload(final RegistryFriendlyByteBuf buffer)
     {
         buffer.writeBlockPos(this.toUpdate);
-        buffer.writeBlockPos(this.from);
+        buffer.writeById(buffer.registryAccess().lookupOrThrow(Registries.BLOCK)::getId, this.neighborBlock);
+        buffer.writeNullable(
+            this.orientation,
+            Orientation.STREAM_CODEC
+        );
     }
 
     @Override
     public void readPayload(final RegistryFriendlyByteBuf buffer)
     {
         this.toUpdate = buffer.readBlockPos();
-        this.from = buffer.readBlockPos();
+        this.neighborBlock = buffer.readById(buffer.registryAccess().lookupOrThrow(Registries.BLOCK)::byIdOrThrow);
+        this.orientation = buffer.readNullable(Orientation.STREAM_CODEC);
     }
 
     @Override
     public void client()
     {
-        ClientPacketHandlers.handleNeighborUpdated(toUpdate, from);
+        ClientPacketHandlers.handleNeighborUpdated(toUpdate, neighborBlock, orientation);
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 }

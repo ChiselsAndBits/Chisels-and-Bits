@@ -1,0 +1,8 @@
+{
+  "parent": "chiselsandbits:block/bit_storage_spec",
+  "textures": {
+    "layer0": "chiselsandbits:block/bit_storage",
+    "missing": "minecraft:missingno",
+    "particle": "chiselsandbits:block/bit_storage"
+  }
+}

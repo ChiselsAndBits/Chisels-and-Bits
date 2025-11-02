@@ -1,7 +1,6 @@
 package mod.chiselsandbits.block;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -141,7 +140,7 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
         if (true)
             return InteractionResult.PASS;
 
-        if (level.isClientSide)
+        if (level.isClientSide())
         {
             return InteractionResult.SUCCESS;
         }

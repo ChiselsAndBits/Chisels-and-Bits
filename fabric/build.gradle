@@ -1,7 +1,7 @@
 plugins {
-    id 'com.ldtteam.tableau.maven-publishing' version '0.0.74'
-    id 'com.ldtteam.tableau.curseforge' version '0.0.74'
-    id 'com.communi-suggestu.obumbratio' version '0.0.7'
+    id 'com.ldtteam.tableau.maven-publishing' version '0.0.79'
+    id 'com.ldtteam.tableau.curseforge' version '0.0.79'
+    id 'com.communi-suggestu.obumbratio' version '0.0.12'
 }
 
 platform {
@@ -40,12 +40,6 @@ tableau {
             isSourcesPublished = false
         }
     }
-}
-
-shaders {
-    enable()
-    sodium()
-    fabric()
 }
 
 dependencies {

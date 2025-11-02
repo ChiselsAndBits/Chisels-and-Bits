@@ -7,35 +7,35 @@ import mod.chiselsandbits.registrars.ModTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
 {
     @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent event)
+    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
-        event.getGenerator().addProvider(true, new ChiselsAndBitsAdvancementGenerator(event.getGenerator().getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(true, new ChiselsAndBitsAdvancementGenerator(event.getGenerator().getPackOutput(), event.getLookupProvider()));
     }
 
-    public ChiselsAndBitsAdvancementGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holderProvider, @Nullable ExistingFileHelper existingFileHelper) {
+    public ChiselsAndBitsAdvancementGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holderProvider) {
         super(packOutput, holderProvider, List.of(new Provider()));
     }
 
@@ -43,6 +43,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
 
         @Override
         public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
+            HolderLookup<Item> itemRegistry = provider.lookupOrThrow(Registries.ITEM);
             AdvancementHolder root = Advancement.Builder.advancement()
                     .display(ModItems.ITEM_CHISEL_DIAMOND.get(),
                             Component.translatable("mod.chiselsandbits.advancements.root.title"),
@@ -53,7 +54,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                             true,
                             true)
                     .addCriterion("chisel", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
-                            .of(ModTags.Items.CHISEL)
+                            .of(itemRegistry, ModTags.Items.CHISEL)
                             .withCount(MinMaxBounds.Ints.ANY)
                             .build()))
                     .save(consumer, Constants.MOD_ID + ":chiselsandbits/root");
@@ -82,7 +83,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                             true,
                             true)
                     .addCriterion("bit_bag", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
-                            .of(ModTags.Items.BIT_BAG)
+                            .of(itemRegistry, ModTags.Items.BIT_BAG)
                             .withCount(MinMaxBounds.Ints.ANY)
                             .build()))
                     .save(consumer, Constants.MOD_ID + ":chiselsandbits/collect_bits");

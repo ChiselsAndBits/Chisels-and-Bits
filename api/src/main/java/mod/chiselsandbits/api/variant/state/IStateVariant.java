@@ -6,6 +6,7 @@ import mod.chiselsandbits.api.util.ISnapshotable;
 import mod.chiselsandbits.api.serialization.Serializable;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Object which provides additional information about a state.
@@ -36,4 +37,14 @@ public interface IStateVariant extends Comparable<IStateVariant>, ISnapshotable<
      * {@return The provider that created this state variant.}
      */
     IStateVariantProvider provider();
+
+    /**
+     * Updates a block entity with the correct state of this variant.
+     * <p>
+     *     By default, this does nothing, however a particular implementation can decide to properly instantiate it so that
+     *     the model extraction system can provide other minecraft subsystems, like coloring, the correct information needed
+     *     for this variant.
+     * </p>
+     */
+    default void updateBlockEntity(BlockEntity blockEntity) {}
 }

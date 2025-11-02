@@ -8,6 +8,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.item.multistate.IStatistics;
+import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.api.multistate.accessor.sortable.IPositionMutator;
@@ -32,7 +33,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public class EmptySnapshot implements IMultiStateSnapshot
+public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlignedAreaAccessor
 {
     public static final EmptySnapshot INSTANCE = new EmptySnapshot();
 
@@ -249,6 +250,12 @@ public class EmptySnapshot implements IMultiStateSnapshot
         return new AABB(0,0,0,1,1,1);
     }
 
+    @Override
+    public IStatistics getStatistics()
+    {
+        return EMPTY_STATISTICS;
+    }
+
     private static final class Identifier implements IAreaShapeIdentifier {
         public static final Identifier INSTANCE = new Identifier();
     }
@@ -290,12 +297,6 @@ public class EmptySnapshot implements IMultiStateSnapshot
                 return Collections.emptySet();
             }
         };
-
-        @Override
-        public IStatistics getStatistics()
-        {
-            return EMPTY_STATISTICS;
-        }
 
         @Override
         public ItemStack toBlockStack()
@@ -385,6 +386,12 @@ public class EmptySnapshot implements IMultiStateSnapshot
         public @NotNull AABB getBoundingBox()
         {
             return new AABB(0,0,0,1,1,1);
+        }
+
+        @Override
+        public IStatistics getStatistics()
+        {
+            return EMPTY_STATISTICS;
         }
     }
 }

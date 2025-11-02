@@ -19,7 +19,7 @@ public class BlockHitResultUtils
         return getCenterOfHitObject(
           blockHitResult,
           objectSize,
-          face -> Vec3.atLowerCornerOf(face.getOpposite().getNormal())
+          face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i())
         );
     }
 

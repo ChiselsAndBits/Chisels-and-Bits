@@ -1,4 +1,0 @@
-{
-  "parent": "chiselsandbits:item/unseal_spec",
-  "loader": "chiselsandbits:interactable_model"
-}

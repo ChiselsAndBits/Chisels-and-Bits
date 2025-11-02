@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "chiselsandbits:item/measuring_tape_is_measuring"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chiselsandbits:item/measuring_tape_default"
+    },
+    "property": "chiselsandbits:is_measuring"
+  }
+}

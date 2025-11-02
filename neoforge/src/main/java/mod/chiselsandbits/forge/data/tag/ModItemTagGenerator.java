@@ -5,23 +5,18 @@ import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("unchecked")
-public class ModItemTagGenerator extends ItemTagsProvider
+public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.ItemTagsProvider
 {
 
-    public ModItemTagGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holderProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(packOutput, holderProvider, blockTagsProvider, Constants.MOD_ID, existingFileHelper);
+    public ModItemTagGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holderProvider) {
+        super(packOutput, holderProvider, Constants.MOD_ID);
     }
 
     @Override

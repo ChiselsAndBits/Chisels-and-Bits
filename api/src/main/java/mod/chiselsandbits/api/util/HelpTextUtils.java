@@ -4,6 +4,7 @@ import mod.chiselsandbits.api.config.ICommonConfiguration;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Utility class for processing help texts,
@@ -26,11 +27,21 @@ public class HelpTextUtils
      */
     public static void build(final LocalStrings helpText, final List<Component> tooltip, final Object... variables)
     {
+        build(helpText, tooltip::add, variables);
+    }
+
+    /**
+     * Builds a new help tooltip if this is enabled by the player.
+     *
+     * @param helpText The help tooltip.
+     * @param tooltip The tooltip lines to append to.
+     * @param variables The variables to inject.
+     */
+    public static void build(final LocalStrings helpText, final Consumer<Component> tooltip, final Object... variables)
+    {
         if ( ICommonConfiguration.getInstance().getEnableHelp().get() )
         {
-            tooltip.addAll(
-              helpText.getTextLines(variables)
-            );
+            helpText.getTextLines(variables).forEach(tooltip);
         }
     }
 }

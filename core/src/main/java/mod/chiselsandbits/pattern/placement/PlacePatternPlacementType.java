@@ -1,5 +1,6 @@
 package mod.chiselsandbits.pattern.placement;
 
+import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
 import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.change.IChangeTrackerManager;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -8,15 +9,16 @@ import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 import mod.chiselsandbits.api.inventory.management.IBitInventoryManager;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
-import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
-import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,47 +40,47 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
     @Override
     public VoxelShape buildVoxelShapeForWireframe(
-      final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
+        final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
     {
         return VoxelShapeManager.getInstance()
-          .get(sourceSnapshot, CollisionType.NONE_AIR);
+            .get(sourceSnapshot, CollisionType.NONE_AIR);
     }
 
     @Override
     public PlacementResult performPlacement(
-      final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
+        final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
     {
-        final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
-                                            context.getClickLocation()
-                                            : Vec3.atLowerCornerOf(context.getClickedPos());
+        final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown() ?
+            context.getClickLocation()
+            : Vec3.atLowerCornerOf(context.getClickedPos());
         final IWorldAreaMutator areaMutator =
-          IMutatorFactory.getInstance().covering(
-            context.getLevel(),
-            targetedPosition,
-            targetedPosition.add(0.9999,0.9999,0.9999)
-          );
+            IMutatorFactory.getInstance().covering(
+                context.getLevel(),
+                targetedPosition,
+                targetedPosition.add(0.9999, 0.9999, 0.9999)
+            );
 
         final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
-          .map(context.getLevel()::getBlockState)
-          .allMatch(BlockBehaviour.BlockStateBase::isAir);
+            .map(context.getLevel()::getBlockState)
+            .allMatch(BlockBehaviour.BlockStateBase::isAir);
 
         if (!isAir)
         {
             return PlacementResult.failure(
-                    IClientConfiguration::getNotFittingPatternPlacementColor,
-                    LocalStrings.PatternPlacementNotAnAirBlock.getText());
+                IClientConfiguration::getNotFittingPatternPlacementColor,
+                LocalStrings.PatternPlacementNotAnAirBlock.getText());
         }
 
         final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
         final boolean hasRequiredBits = context.getPlayer().isCreative() || source.getStatics().getStateCounts().entrySet().stream()
-          .filter(e -> !e.getKey().isAir())
-          .allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
+            .filter(e -> !e.getKey().isAir())
+            .allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
         if (!hasRequiredBits)
         {
             return PlacementResult.failure(
-                    IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
-                    LocalStrings.PatternPlacementNotEnoughBits.getText());
+                IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
+                LocalStrings.PatternPlacementNotEnoughBits.getText());
         }
 
         if (simulate)
@@ -89,25 +91,25 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
         try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
         {
             source.stream().sequential().forEach(
-              stateEntryInfo -> {
-                  try
-                  {
-                      areaMutator.setInAreaTarget(
-                        stateEntryInfo.getBlockInformation(),
-                        stateEntryInfo.getStartPoint());
-                  }
-                  catch (SpaceOccupiedException ignored1)
-                  {
-                  }
-              }
+                stateEntryInfo -> {
+                    try
+                    {
+                        areaMutator.setInAreaTarget(
+                            stateEntryInfo.getBlockInformation(),
+                            stateEntryInfo.getStartPoint());
+                    }
+                    catch (SpaceOccupiedException ignored1)
+                    {
+                    }
+                }
             );
         }
 
         if (!context.getPlayer().isCreative())
         {
             source.getStatics().getStateCounts().entrySet().stream()
-              .filter(e -> !e.getKey().isAir())
-              .forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
+                .filter(e -> !e.getKey().isAir())
+                .forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
         }
 
         return PlacementResult.success();
@@ -115,14 +117,14 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
     @Override
     public Vec3 getTargetedPosition(
-      final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
+        final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
     {
         if (playerEntity.isShiftKeyDown())
         {
             return blockRayTraceResult.getLocation();
         }
 
-        return Vec3.atLowerCornerOf(blockRayTraceResult.getBlockPos().offset(blockRayTraceResult.getDirection().getNormal()));
+        return Vec3.atLowerCornerOf(blockRayTraceResult.getBlockPos().offset(blockRayTraceResult.getDirection().getUnitVec3i()));
     }
 
     @Override
@@ -132,12 +134,11 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
     }
 
     @Override
-    public @NotNull ResourceLocation getIcon()
+    public TextureAtlasSprite getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(
-          MOD_ID,
-          "textures/icons/pattern_place.png"
-        );
+        return IconManager.getInstance().getIcon(ResourceLocation.fromNamespaceAndPath(
+            MOD_ID, "pattern_place"
+        ));
     }
 
     @Override

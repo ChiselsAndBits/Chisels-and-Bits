@@ -2,14 +2,19 @@ package mod.chiselsandbits.client.util;
 
 import com.communi.suggestu.scena.core.client.fluid.IClientFluidManager;
 import com.communi.suggestu.scena.core.client.rendering.IRenderingManager;
+import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -27,18 +32,19 @@ public class FluidCuboidUtils
      * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 using block model coordinates, so from 0-16
      */
     public static void renderScaledFluidCuboid(
-      FluidInformation fluid,
-      PoseStack matrices,
-      VertexConsumer renderer,
-      int combinedLight,
-      final int combinedOverlay, float x1,
-      float y1,
-      float z1,
-      float x2,
-      float y2,
-      float z2)
+      final FluidInformation fluid,
+      final PoseStack matrices,
+      final SubmitNodeCollector nodeCollector,
+      final int combinedLight,
+      final int combinedOverlay,
+      final float x1,
+      final float y1,
+      final float z1,
+      final float x2,
+      final float y2,
+      final float z2)
     {
-        renderFluidCuboid(fluid, matrices, renderer, combinedLight, combinedOverlay, x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
+        renderFluidCuboid(fluid, matrices, nodeCollector, combinedLight, combinedOverlay, x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
     }
 
     /**
@@ -47,7 +53,7 @@ public class FluidCuboidUtils
     public static void renderFluidCuboid(
       FluidInformation fluid,
       PoseStack matrices,
-      VertexConsumer renderer,
+      SubmitNodeCollector nodeCollector,
       int combinedLight,
       final int combinedOverlay,
       float x1,
@@ -58,7 +64,7 @@ public class FluidCuboidUtils
       float z2)
     {
         int color = IClientFluidManager.getInstance().getFluidColor(fluid);
-        renderFluidCuboid(fluid, matrices, renderer, combinedLight, combinedOverlay, x1, y1, z1, x2, y2, z2, color);
+        renderFluidCuboid(fluid, matrices, nodeCollector, combinedLight, combinedOverlay, x1, y1, z1, x2, y2, z2, color);
     }
 
     /**
@@ -67,7 +73,7 @@ public class FluidCuboidUtils
     public static void renderFluidCuboid(
       FluidInformation fluid,
       PoseStack matrices,
-      VertexConsumer renderer,
+      SubmitNodeCollector nodeCollector,
       int combinedLight,
       final int combinedOverlay,
       float x1,
@@ -81,7 +87,15 @@ public class FluidCuboidUtils
         ResourceLocation still = IRenderingManager.getInstance().getStillFluidTexture(fluid);
         ResourceLocation flowing = IRenderingManager.getInstance().getFlowingFluidTexture(fluid);
 
-        renderFluidCuboid(still, flowing, color, matrices, renderer, combinedOverlay, combinedLight, x1, y1, z1, x2, y2, z2);
+        for (final ChunkSectionLayer renderLayer : ChunkSectionLayer.values())
+        {
+            if (!IRenderTypeManager.getInstance().canRenderInType(fluid.fluid().defaultFluidState(), renderLayer))
+                return;
+
+            final RenderType renderType = IRenderTypeManager.getInstance().getMovingBlockRenderType(renderLayer);
+
+            renderFluidCuboid(still, flowing, color, matrices, renderType, nodeCollector, combinedOverlay, combinedLight, x1, y1, z1, x2, y2, z2);
+        }
     }
 
     public static void renderFluidCuboid(
@@ -89,7 +103,8 @@ public class FluidCuboidUtils
       ResourceLocation flowing,
       int color,
       PoseStack matrices,
-      VertexConsumer renderer,
+      RenderType renderType,
+      SubmitNodeCollector nodeCollector,
       final int combinedOverlay,
       int combinedLight,
       float x1,
@@ -102,16 +117,24 @@ public class FluidCuboidUtils
         matrices.pushPose();
         matrices.translate(x1, y1, z1);
 
-        final TextureAtlasSprite stillSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(still);
-        final TextureAtlasSprite flowingSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(flowing);
+        final TextureAtlasSprite stillSprite = Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(still);
+        final TextureAtlasSprite flowingSprite = Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(flowing);
 
-        // x/y/z2 - x/y/z1 is because we need the width/height/depth
-        putTexturedQuad(renderer, matrices.last(), stillSprite, x2 - x1, y2 - y1, z2 - z1, DOWN, color, combinedOverlay, combinedLight, false);
-        putTexturedQuad(renderer, matrices.last(), flowingSprite, x2 - x1, y2 - y1, z2 - z1, NORTH, color, combinedOverlay, combinedLight, true);
-        putTexturedQuad(renderer, matrices.last(), flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedOverlay, combinedLight, true);
-        putTexturedQuad(renderer, matrices.last(), flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedOverlay, combinedLight, true);
-        putTexturedQuad(renderer, matrices.last(), flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedOverlay, combinedLight, true);
-        putTexturedQuad(renderer, matrices.last(), stillSprite, x2 - x1, y2 - y1, z2 - z1, UP, color, combinedOverlay, combinedLight, false);
+        nodeCollector.submitCustomGeometry(
+            matrices,
+            renderType,
+            (pose, consumer) -> {
+                // x/y/z2 - x/y/z1 is because we need the width/height/depth
+                putTexturedQuad(consumer, pose, stillSprite, x2 - x1, y2 - y1, z2 - z1, DOWN, color, combinedOverlay, combinedLight, false);
+                putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, NORTH, color, combinedOverlay, combinedLight, true);
+                putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedOverlay, combinedLight, true);
+                putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedOverlay, combinedLight, true);
+                putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedOverlay, combinedLight, true);
+                putTexturedQuad(consumer, pose, stillSprite, x2 - x1, y2 - y1, z2 - z1, UP, color, combinedOverlay, combinedLight, false);
+            }
+        );
+
+
         matrices.popPose();
     }
 

@@ -1,5 +1,6 @@
 package mod.chiselsandbits.chiseling.modes.plane;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -7,8 +8,8 @@ public class PlaneChiselModeBuilder
 {
     private int                       depth;
     private MutableComponent displayName;
-    private MutableComponent multiLineDisplayName;
-    private ResourceLocation          iconName;
+    private MutableComponent   multiLineDisplayName;
+    private ResourceLocation iconName;
 
     public PlaneChiselModeBuilder setDepth(final int depth)
     {
