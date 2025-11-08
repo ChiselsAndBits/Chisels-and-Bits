@@ -1,6 +1,7 @@
 package mod.chiselsandbits.api.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class ReflectionUtils
 {
@@ -34,6 +35,41 @@ public class ReflectionUtils
         catch (NoSuchFieldException | IllegalAccessException e)
         {
             throw new IllegalStateException("Failed to get value!");
+        }
+    }
+
+    public static Object getFieldInherited(final Object target, final String name)
+    {
+        Class<?> clazz = target.getClass();
+        while (clazz != null)
+        {
+            try
+            {
+                Field f = clazz.getDeclaredField(name);
+                f.setAccessible(true);
+                return f.get(target);
+            }
+            catch (NoSuchFieldException e)
+            {
+                clazz = clazz.getSuperclass();
+            }
+            catch (IllegalAccessException e)
+            {
+                throw new IllegalStateException("Failed to get value!");
+            }
+        }
+        throw new IllegalStateException("Failed to get value: field '" + name + "' not found in class hierarchy!");
+    }
+
+    public static Method getMethod(final Object target, final String methodName, final Class<?>... parameterTypes) {
+        try {
+            Method method = target.getClass().getDeclaredMethod(methodName, parameterTypes);
+            method.setAccessible(true);
+            return method;
+        } catch (NoSuchMethodException e ) {
+            throw new IllegalStateException("Failed to find method!");
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to invoke method!");
         }
     }
 }

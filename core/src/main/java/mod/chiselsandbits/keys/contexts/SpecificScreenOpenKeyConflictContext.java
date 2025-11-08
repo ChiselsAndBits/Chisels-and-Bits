@@ -4,11 +4,14 @@ import com.communi.suggestu.scena.core.client.key.IKeyConflictContext;
 import mod.chiselsandbits.client.screens.ToolModeSelectionScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 
 public enum SpecificScreenOpenKeyConflictContext implements IKeyConflictContext
 {
 
-    RADIAL_TOOL_MENU(ToolModeSelectionScreen.class);
+    RADIAL_TOOL_MENU(ToolModeSelectionScreen.class),
+    CREATIVE_MENU(CreativeModeInventoryScreen .class);
+
 
     private final Class<? extends Screen> guiScreenClass;
 
