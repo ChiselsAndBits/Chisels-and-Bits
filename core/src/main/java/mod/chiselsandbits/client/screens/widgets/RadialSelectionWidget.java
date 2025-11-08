@@ -542,7 +542,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
     }
 
     @Override
-    public void onClick(final MouseButtonEvent event, final boolean isDoubleClick)
+    public void onClick(final @NotNull MouseButtonEvent event, final boolean isDoubleClick)
     {
         if (!this.active || !this.visible)
         {

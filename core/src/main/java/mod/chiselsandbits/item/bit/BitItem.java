@@ -26,12 +26,10 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.chiseling.ChiselingManager;
-import mod.chiselsandbits.client.render.ModRenderTypes;
 import mod.chiselsandbits.registrars.ModCreativeTabs;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.TranslationUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.LevelRenderState;
@@ -358,7 +356,6 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
         final LevelRenderer levelRenderer,
         final PoseStack poseStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         final float partialTicks)
     {
@@ -393,7 +390,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, currentContextSnapshot);
+                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, currentContextSnapshot);
 
             return;
         }
@@ -404,7 +401,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
             {
                 IChiselContextPreviewRendererRegistry.getInstance()
                     .getCurrent()
-                    .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, chiselingContext);
+                    .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
             }
             else
             {
@@ -420,7 +417,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
                 {
                     IChiselContextPreviewRendererRegistry.getInstance()
                         .getCurrent()
-                        .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, placingContext);
+                        .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, placingContext);
                 }
                 else
                 {
@@ -439,7 +436,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, context);
+                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
 
             return;
         }
@@ -454,14 +451,14 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
         {
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, chiselingContext);
+                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, chiselingContext);
         }
         if (placingContext.getMutator().isPresent() && placingContext.getError().isEmpty())
         {
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, placingContext);
+                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, placingContext);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.PLACING, placingContext);
         }
     }

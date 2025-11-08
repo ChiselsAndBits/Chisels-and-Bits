@@ -37,7 +37,6 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
         final LevelRenderer levelRenderer,
         final PoseStack poseStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         final float partialTicks,
         final IChiselingContext currentContextSnapshot)
@@ -75,10 +74,11 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
             renderedShape,
             inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
             ARGB.colorFromFloat(
+                getColorValue(color, 3, 1f) * 0.3f,
                 getColorValue(color, 0, 0f) * 0.3f,
                 getColorValue(color, 1, 0f) * 0.3f,
-                getColorValue(color, 2, 0f) * 0.3f,
-                getColorValue(color, 3, 1f) * 0.3f)
+                getColorValue(color, 2, 0f) * 0.3f
+            )
         );
         bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get());
 
@@ -88,10 +88,10 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
             renderedShape,
             inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
             ARGB.colorFromFloat(
+                getColorValue(color, 3, 1f),
                 getColorValue(color, 0, 0f),
                 getColorValue(color, 1, 0f),
-                getColorValue(color, 2, 0f),
-                getColorValue(color, 3, 1f)
+                getColorValue(color, 2, 0f)
             )
         );
         bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get());
@@ -104,10 +104,10 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
                 boundingShape,
                 inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
                 ARGB.colorFromFloat(
+                    getColorValue(mutatorColor, 3, 1f),
                     getColorValue(mutatorColor, 0, 0f),
                     getColorValue(mutatorColor, 1, 0f),
-                    getColorValue(mutatorColor, 2, 0f),
-                    getColorValue(mutatorColor, 3, 1f)
+                    getColorValue(mutatorColor, 2, 0f)
                 )
             );
             bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());

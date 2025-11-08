@@ -13,6 +13,10 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/'
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -20,7 +24,7 @@ pluginManagement {
 
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
-    id 'com.communi-suggestu.placitum' version '0.0.45'
+    id 'com.communi-suggestu.placitum' version '0.0.46'
 }
 
 rootProject.name = "chisels-and-bits"

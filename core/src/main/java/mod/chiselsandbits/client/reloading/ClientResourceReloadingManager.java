@@ -1,13 +1,16 @@
 package mod.chiselsandbits.client.reloading;
 
+import com.communi.suggestu.scena.core.client.event.IRegisterClientReloadListenersEvent;
 import com.google.common.collect.Sets;
 import mod.chiselsandbits.api.reloading.ICacheClearingHandler;
+import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.besr.BitStorageBESR;
-import mod.chiselsandbits.client.model.baked.bit.BitBlockBakedModelManager;
+import mod.chiselsandbits.client.model.item.BitBlockBakedModelManager;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.face.FaceManager;
 import mod.chiselsandbits.reloading.DataReloadingResourceManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -44,12 +47,15 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
         return this;
     }
 
-    public static void setup() {
+    public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar) {
         LOGGER.info("Setting up client reloading resource manager.");
-        ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
-        if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
-            reloadableResourceManager.registerReloadListener(ClientResourceReloadingManager.getInstance());
-        }
+        registrar.addListener(
+            ResourceLocation.fromNamespaceAndPath(
+                Constants.MOD_ID,
+                "client_cache_clear"
+            ),
+            getInstance()
+        );
 
         ClientResourceReloadingManager.getInstance()
           .registerCacheClearer(BitStorageBESR::clearCache)

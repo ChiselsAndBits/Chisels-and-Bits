@@ -17,7 +17,6 @@ public class SelectedObjectRenderHandler
         final LevelRenderer levelRenderer,
         final PoseStack poseStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         final float partialTicks
     )
@@ -50,7 +49,6 @@ public class SelectedObjectRenderHandler
             levelRenderer,
             poseStack,
             bufferSource,
-            translucentPass,
             levelRenderState,
             partialTicks
         );

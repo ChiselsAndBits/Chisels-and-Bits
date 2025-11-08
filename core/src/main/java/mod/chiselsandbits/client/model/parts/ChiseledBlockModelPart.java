@@ -2,6 +2,8 @@ package mod.chiselsandbits.client.model.parts;
 
 import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockModelPart;
 import com.google.common.base.Suppliers;
+import mod.chiselsandbits.client.colors.ChiseledBlockBlockColor;
+import mod.scena.client.utils.ItemModelUtils;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
@@ -79,5 +81,34 @@ public record ChiseledBlockModelPart(
     public ChunkSectionLayer getRenderType(final BlockState state)
     {
         return renderType();
+    }
+
+    public ChiseledBlockModelPart adaptForBlockModel()
+    {
+        return new ChiseledBlockModelPart(
+            appearance(),
+            renderType(),
+            ItemModelUtils.adapt(
+                quads(),
+                this::adaptForBlockModel
+            ),
+            ambientOcclusion(),
+            particleIcon(),
+            extendsCalculator()
+        );
+    }
+
+    private BakedQuad adaptForBlockModel(BakedQuad quad) {
+        return new BakedQuad(
+            quad.vertices(),
+            ChiseledBlockBlockColor.compress(
+                appearance(),
+                quad.tintIndex()
+            ),
+            quad.direction(),
+            quad.sprite(),
+            quad.shade(),
+            quad.lightEmission()
+        );
     }
 }

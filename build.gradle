@@ -1,5 +1,5 @@
 plugins {
-    id 'com.ldtteam.tableau.common' version '0.0.79'
+    id 'com.ldtteam.tableau.common' version '0.0.80'
 }
 
 tableau {

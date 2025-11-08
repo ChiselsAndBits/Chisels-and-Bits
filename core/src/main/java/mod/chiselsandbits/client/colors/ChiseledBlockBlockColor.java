@@ -22,4 +22,20 @@ public class ChiseledBlockBlockColor implements BlockColor
         int tintValue = color & TINT_MASK;
         return Minecraft.getInstance().getBlockColors().getColor(containedState, displayReader, pos, tintValue);
     }
+
+    public record BlockStateAndTintIndex(BlockState blockState, int tintIndex) {}
+
+    public static BlockStateAndTintIndex decompress(final int partIndex) {
+        final BlockState containedState = IBlockStateIdManager.getInstance().getBlockStateFrom(partIndex >> TINT_BITS);
+        final int tintValue = partIndex & TINT_MASK;
+
+        return new BlockStateAndTintIndex(
+            containedState, tintValue
+        );
+    }
+
+    public static int compress(final BlockState blockState, final int tintIndex) {
+        final int blockStateId = IBlockStateIdManager.getInstance().getIdFrom(blockState);
+        return (blockStateId << TINT_BITS) | (tintIndex & TINT_MASK);
+    }
 }

@@ -32,13 +32,11 @@ public interface IWithHighlightItem
      * @param worldRenderer    The rendering world renderer.
      * @param matrixStack      The matrix stack used to render the world.
      * @param bufferSource     The buffer source to get the relevant vertex consumer from.
-     * @param translucentPass  Whether we are rendering a translucent pass.
      * @param levelRenderState The current levels render state.
      * @param partialTicks     The partial ticks used for animations.
      */
     void renderHighlight(Player playerEntity, LevelRenderer worldRenderer, PoseStack matrixStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         float partialTicks);
 }

@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.chiselsandbits.api.measuring.IMeasurement;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.api.measuring.IMeasuringType;
-import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.measures.MeasuringType;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.Constants;
@@ -15,10 +14,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShapeRenderer;
-import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.ARGB;
@@ -49,12 +46,8 @@ public final class MeasurementRenderer
     }
 
     public void renderMeasurements(
-        final LevelRenderer levelRenderer,
         final PoseStack poseStack,
-        final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
-        final LevelRenderState levelRenderState,
-        final float partialTickTime)
+        final MultiBufferSource.BufferSource bufferSource)
     {
         if (Minecraft.getInstance().level == null)
         {
@@ -99,36 +92,27 @@ public final class MeasurementRenderer
 
                 if (lengths.y() > 1 / 16d)
                 {
-                    renderMeasurementSize(levelRenderer,
+                    renderMeasurementSize(
                         poseStack,
                         bufferSource,
-                        translucentPass,
-                        levelRenderState,
-                        partialTickTime,
                         measurement,
                         lengths.y(),
                         new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()));
                 }
                 if (lengths.x() > 1 / 16d)
                 {
-                    renderMeasurementSize(levelRenderer,
+                    renderMeasurementSize(
                         poseStack,
                         bufferSource,
-                        translucentPass,
-                        levelRenderState,
-                        partialTickTime,
                         measurement,
                         lengths.x(),
                         new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()));
                 }
                 if (lengths.z() > 1 / 16d)
                 {
-                    renderMeasurementSize(levelRenderer,
+                    renderMeasurementSize(
                         poseStack,
                         bufferSource,
-                        translucentPass,
-                        levelRenderState,
-                        partialTickTime,
                         measurement,
                         lengths.z(),
                         new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()));
@@ -167,12 +151,9 @@ public final class MeasurementRenderer
 
                 if (totalLength > 1 / 16d)
                 {
-                    renderMeasurementSize(levelRenderer,
+                    renderMeasurementSize(
                         poseStack,
                         bufferSource,
-                        translucentPass,
-                        levelRenderState,
-                        partialTickTime,
                         measurement,
                         totalLength,
                         centerPos);
@@ -184,12 +165,8 @@ public final class MeasurementRenderer
     }
 
     private void renderMeasurementSize(
-        final LevelRenderer levelRenderer,
         final PoseStack matrixStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
-        final LevelRenderState levelRenderState,
-        final float partialTickTime,
         final IMeasurement measurement,
         final double length,
         final Vec3 position

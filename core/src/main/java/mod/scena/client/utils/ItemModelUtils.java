@@ -6,9 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.resources.model.QuadCollection;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -17,6 +19,7 @@ import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ItemModelUtils
@@ -158,5 +161,21 @@ public class ItemModelUtils
         return quads(
             stack, model, context, level, owner, seed
         );
+    }
+
+    public static QuadCollection adapt(
+        final QuadCollection input,
+        final Function<BakedQuad, BakedQuad> adapter
+    ) {
+        final QuadCollection.Builder builder = new QuadCollection.Builder();
+        for (final Direction direction : Direction.values())
+        {
+            input.getQuads(direction)
+                .forEach(inputQuad -> builder.addCulledFace(direction, adapter.apply(inputQuad)));
+        }
+        input.getQuads(null)
+            .forEach(inputQuad -> builder.addUnculledFace(adapter.apply(inputQuad)));
+
+        return builder.build();
     }
 }

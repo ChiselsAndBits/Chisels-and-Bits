@@ -281,7 +281,6 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
         final LevelRenderer levelRenderer,
         final PoseStack poseStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         final float partialTicks)
     {
@@ -340,7 +339,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
         if (context.getMutator().isPresent() && context.getError().isEmpty()) {
             IChiselContextPreviewRendererRegistry.getInstance().getCurrent()
-              .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTicks, context);
+              .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
         }
     }

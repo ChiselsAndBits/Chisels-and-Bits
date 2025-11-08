@@ -141,3 +141,7 @@ accessible field net/minecraft/client/renderer/RenderType DEBUG_FILLED_BOX Lnet/
 accessible field net/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState renderType Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/world/item/crafting/RecipeManager recipes Lnet/minecraft/world/item/crafting/RecipeMap;
 accessible method net/minecraft/client/data/models/ItemModelGenerators createFlatItemModel (Lnet/minecraft/world/item/Item;Ljava/lang/String;Lnet/minecraft/client/data/models/model/ModelTemplate;)Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState tintLayers [I
+accessible method net/minecraft/client/renderer/block/ModelBlockRenderer putQuadData (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lcom/mojang/blaze3d/vertex/VertexConsumer;Lcom/mojang/blaze3d/vertex/PoseStack$Pose;Lnet/minecraft/client/renderer/block/model/BakedQuad;Lnet/minecraft/client/renderer/block/ModelBlockRenderer$CommonRenderStorage;I)V
+accessible class net/minecraft/client/renderer/block/ModelBlockRenderer$CommonRenderStorage
+accessible field net/minecraft/client/renderer/item/BlockModelWrapper tints Ljava/util/List;

@@ -24,7 +24,6 @@ public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRe
         final LevelRenderer levelRenderer,
         final PoseStack matrixStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
         final LevelRenderState levelRenderState,
         final float partialTicks,
         final IChiselingContext currentContextSnapshot)

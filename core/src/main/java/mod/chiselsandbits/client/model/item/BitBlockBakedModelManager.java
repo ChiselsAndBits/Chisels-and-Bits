@@ -1,18 +1,24 @@
-package mod.chiselsandbits.client.model.baked.bit;
+package mod.chiselsandbits.client.model.item;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
+import mod.chiselsandbits.client.model.builder.BitBlockModelInformationBuilder;
+import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
+import mod.chiselsandbits.client.model.parts.BitBlockModelPart;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.registrars.ModCreativeTabs;
 import mod.scena.client.utils.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -23,7 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +37,8 @@ public class BitBlockBakedModelManager
 {
     private static final Logger                                                   LOGGER            = LogManager.getLogger();
     private static final BitBlockBakedModelManager                                INSTANCE          = new BitBlockBakedModelManager();
-    private final        Cache<BlockInformation, Map<RenderType, QuadCollection>> modelCache        = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
-    private final        Cache<BlockInformation, Map<RenderType, QuadCollection>> largeModelCache   = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
+    private final        Cache<BlockInformation, BitBlockModelInformation> modelCache        = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
+    private final        Cache<BlockInformation, BitBlockModelInformation> largeModelCache   = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
     private final        NonNullList<ItemStack>                                   alternativeStacks = NonNullList.create();
 
     private BitBlockBakedModelManager()
@@ -50,7 +56,7 @@ public class BitBlockBakedModelManager
         largeModelCache.asMap().clear();
     }
 
-    public Map<RenderType, QuadCollection> get(
+    public BitBlockModelInformation get(
         ItemStack stack,
         final Level world)
     {
@@ -61,7 +67,7 @@ public class BitBlockBakedModelManager
         );
     }
 
-    public Map<RenderType, QuadCollection> get(
+    public BitBlockModelInformation get(
         ItemStack stack,
         final Level world,
         final boolean large
@@ -70,7 +76,7 @@ public class BitBlockBakedModelManager
         if (!(stack.getItem() instanceof IBitItem))
         {
             LOGGER.warn("Tried to get bit item model for non bit item");
-            return Map.of();
+            return BitBlockModelInformation.EMPTY;
         }
 
         return get(
@@ -80,7 +86,7 @@ public class BitBlockBakedModelManager
         );
     }
 
-    public Map<RenderType, QuadCollection> get(
+    public BitBlockModelInformation get(
         final boolean large,
         @Nullable BlockInformation blockInformation,
         Level level)
@@ -91,7 +97,7 @@ public class BitBlockBakedModelManager
 
             if (level == null)
             {
-                return Map.of();
+                return BitBlockModelInformation.EMPTY;
             }
         }
 
@@ -114,37 +120,55 @@ public class BitBlockBakedModelManager
             blockInformation = ((IBitItem) alternativeStack.getItem()).getBlockInformation(alternativeStack);
         }
 
-        final Cache<BlockInformation, Map<RenderType, QuadCollection>> target = large ? largeModelCache : modelCache;
+        final Cache<BlockInformation, BitBlockModelInformation> target = large ? largeModelCache : modelCache;
         final BlockInformation workingState = blockInformation;
         try
         {
             final @Nullable BlockInformation finalBlockInformation = blockInformation;
+            final Level finalLevel = level;
             return target.get(blockInformation, () -> {
                 if (large)
                 {
+                    boolean isBlock = true;
                     ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
                         () -> new ItemStack(workingState.blockState().getBlock())
                     );
                     if (workingState.blockState().getBlock() instanceof LiquidBlock)
                     {
                         lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
+                        isBlock = false;
                     }
-                    return ItemModelUtils.quads(
-                        lookupStack,
-                        ItemDisplayContext.NONE,
-                        null, null, 0
+
+                    final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
+                        Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
                     );
+
+                    final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
+                    final List<BitBlockModelPart> parts = new ArrayList<>();
+
+                    for (final ItemStackRenderState.LayerRenderState layer : renderState.layers)
+                    {
+                        parts.add(
+                            new BitBlockModelPart(
+                                layer.renderType,
+                                layer.prepareQuadList(),
+                                layer.tintLayers
+                            )
+                        );
+                    }
+
+                    return new BitBlockModelInformation(parts, isBlock, true);
                 }
                 else
                 {
-                    return new BitBlockQuadCollectionBuilder(finalBlockInformation).build();
+                    return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
                 }
             });
         }
         catch (ExecutionException e)
         {
-            LOGGER.warn("Failed to get a model for a bit: " + blockInformation + " the model calculation got aborted.", e);
-            return Map.of();
+            LOGGER.warn("Failed to get a model for a bit: {} the model calculation got aborted.", blockInformation, e);
+            return BitBlockModelInformation.EMPTY;
         }
     }
 }

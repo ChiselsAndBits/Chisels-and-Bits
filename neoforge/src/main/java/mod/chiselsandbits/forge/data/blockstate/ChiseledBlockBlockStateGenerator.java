@@ -112,11 +112,5 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
                 }
             })
         ));
-
-        //TODO: Potentially use a custom model.
-        generators.itemModelOutput.accept(block.asItem(), new BlockModelWrapper.Unbaked(
-            ModelLocationUtils.getModelLocation(block),
-            List.of()
-        ));
     }
 }

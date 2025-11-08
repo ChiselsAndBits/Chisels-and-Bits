@@ -13,9 +13,7 @@ import mod.chiselsandbits.client.render.ChiseledBlockGhostRenderer;
 import mod.chiselsandbits.client.render.ChiseledBlockWireframeRenderer;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,12 +28,8 @@ public class MultiStateBlockPreviewRenderHandler
 {
 
     public static void renderMultiStateBlockPreview(
-        final LevelRenderer levelRenderer,
         final PoseStack poseStack,
-        final MultiBufferSource.BufferSource bufferSource,
-        final boolean translucentPass,
-        final LevelRenderState levelRenderState,
-        final float partialTickTime)
+        final MultiBufferSource.BufferSource bufferSource)
     {
         final HitResult rayTraceResult = Minecraft.getInstance().hitResult;
         if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS)

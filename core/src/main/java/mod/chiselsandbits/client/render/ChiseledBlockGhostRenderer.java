@@ -1,24 +1,31 @@
 package mod.chiselsandbits.client.render;
 
-import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
-import com.mojang.blaze3d.vertex.*;
+import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.chiselsandbits.api.client.render.preview.placement.PlacementPreviewRenderMode;
 import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
@@ -26,9 +33,9 @@ import org.lwjgl.system.MemoryStack;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ChiseledBlockGhostRenderer
 {
@@ -79,6 +86,7 @@ public class ChiseledBlockGhostRenderer
             information,
             renderColoredGhost,
             color,
+            targetedRenderPos,
             ignoreDepth
         );
 
@@ -91,6 +99,7 @@ public class ChiseledBlockGhostRenderer
         final ChiseledBlockModelInformation model,
         final boolean renderColoredGhost,
         final Vector4f color,
+        final Vec3 targetedRenderPos,
         final boolean ignoreDepth)
     {
         final RenderType renderType;
@@ -107,14 +116,90 @@ public class ChiseledBlockGhostRenderer
                 : ModRenderTypes.GHOST_BLOCK_PREVIEW.get();
         }
 
-        renderModelLists(
-            model,
-            poseStack,
-            bufferSource,
-            color
-        );
+        if (renderColoredGhost)
+        {
+            renderModelLists(
+                model,
+                poseStack,
+                bufferSource,
+                color,
+                renderType
+            );
+        }
+        else
+        {
+            final BlockPos placementPosition = new BlockPos(
+                (int) targetedRenderPos.x(),
+                (int) targetedRenderPos.y(),
+                (int) targetedRenderPos.z()
+            );
+            final BlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
+                .withBlockState(model.key().primaryState().blockState())
+                .withBlockEntity(() -> model.key().primaryState().newBlockEntity(placementPosition))
+                .withPos(placementPosition)
+                .withSource(Minecraft.getInstance().level)
+                .createSingleBlockBlockAndTintGetter();
+
+            final List<BlockModelPart> parts = new ArrayList<>(model.parts());
+
+            Minecraft.getInstance().getBlockRenderer().getModelRenderer().tesselateBlock(
+                blockAndTintGetter,
+                parts,
+                model.key().primaryState().blockState(),
+                placementPosition,
+                poseStack,
+                new AlphaSettingVertexConsumer(color.w(), bufferSource.getBuffer(renderType)),
+                false,
+                OverlayTexture.NO_OVERLAY);
+        }
 
         bufferSource.endBatch();
+    }
+
+    private record AlphaSettingVertexConsumer(
+        int alpha,
+        VertexConsumer delegate) implements VertexConsumer
+    {
+        private AlphaSettingVertexConsumer(final float alpha, final VertexConsumer delegate)
+        {
+            this((int) (alpha * 255F), delegate);
+        }
+
+        @Override
+        public @NotNull VertexConsumer addVertex(final float x, final float y, final float z)
+        {
+            return delegate.addVertex(x, y, z);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setColor(final int red, final int green, final int blue, final int alpha)
+        {
+            return delegate.setColor(red, green, blue, this.alpha);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setUv(final float u, final float v)
+        {
+            return delegate.setUv(u, v);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setUv1(final int u, final int v)
+        {
+            return delegate.setUv1(u, v);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setUv2(final int u, final int v)
+        {
+            return delegate.setUv2(u, v);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setNormal(final float normalX, final float normalY, final float normalZ)
+        {
+            return delegate.setNormal(normalX, normalY, normalZ);
+        }
     }
 
     private static final float[] DIRECTIONAL_BRIGHTNESS = {0.5f, 1f, 0.7f, 0.7f, 0.6f, 0.6f};
@@ -154,7 +239,8 @@ public class ChiseledBlockGhostRenderer
         final ChiseledBlockModelInformation model,
         final PoseStack poseStack,
         final MultiBufferSource.BufferSource bufferSource,
-        final Vector4f color)
+        final Vector4f color,
+        final RenderType renderType)
     {
         final RandomSource random = RandomSource.create(42);
 
@@ -172,7 +258,7 @@ public class ChiseledBlockGhostRenderer
                 // Render outer directional quads
                 random.setSeed(42L);
                 renderQuadList(poseStack.last().pose(),
-                    bufferSource.getBuffer(Objects.requireNonNull(RenderTypeUtils.renderTypeFor(part.renderType()))),
+                    bufferSource.getBuffer(renderType),
                     part.getQuads(direction),
                     normals,
                     shadedColors,
@@ -182,7 +268,7 @@ public class ChiseledBlockGhostRenderer
             // Render quads of unspecified direction
             random.setSeed(42L);
             renderQuadList(poseStack.last().pose(),
-                bufferSource.getBuffer(Objects.requireNonNull(RenderTypeUtils.renderTypeFor(part.renderType()))),
+                bufferSource.getBuffer(renderType),
                 part.getQuads(null),
                 normals,
                 shadedColors,
@@ -228,6 +314,8 @@ public class ChiseledBlockGhostRenderer
         final int[] vertices = bakedQuad.vertices();
         final int vertexCount = vertices.length / (DefaultVertexFormat.BLOCK.getVertexSize() / 4);
 
+        final Vector2f uv = new Vector2f();
+
         try (final MemoryStack memorystack = MemoryStack.stackPush())
         {
             // Setup buffers
@@ -248,63 +336,21 @@ public class ChiseledBlockGhostRenderer
                     1f);
                 pos.mul(pose);
 
+                // Color is the next 4 Bytes.
+
+                // UV is the next 2 Floats (4 bytes each)
+                uv.set(
+                    bytebuffer.getFloat(16),
+                    bytebuffer.getFloat(20)
+                );
+
                 buffer.addVertex(pos.x(), pos.y(), pos.z())
                     .setColor(color.x(), color.y(), color.z(), 1f)
+                    .setUv(uv.x(), uv.y())
+                    .setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
+                    .setUv2(LightTexture.block(LightTexture.FULL_BLOCK), LightTexture.sky(LightTexture.FULL_SKY))
                     .setNormal(normal.x(), normal.y(), normal.z());
             }
-        }
-    }
-
-    private static class BufferBuilderTransparent extends BufferBuilder
-    {
-        private float alphaPercentage;
-
-        public BufferBuilderTransparent(ByteBufferBuilder memory, VertexFormat.Mode mode, VertexFormat format)
-        {
-            super(memory, mode, format);
-        }
-
-        public void setAlphaPercentage(final float alphaPercentage)
-        {
-            this.alphaPercentage = Mth.clamp(alphaPercentage, 0, 1);
-        }
-
-        @Override
-        public @NotNull VertexConsumer setColor(int red, int green, int blue, int alpha)
-        {
-            return super.setColor(red, green, blue, (int) (alpha * alphaPercentage));
-        }
-
-        @Override
-        public @NotNull VertexConsumer setColor(int argb)
-        {
-            final int newAlpha = (int) ((argb >> 24) * alphaPercentage);
-            return super.setColor((newAlpha << 24) | (argb & 0x00ffffff));
-        }
-
-        @Override
-        public void addVertex(
-            float x, float y, float z, int argb, float texU,
-            float texV, int overlayUV, int lightmapUV, float normalX, float normalY, float normalZ)
-        {
-            final int newAlpha = (int) ((argb >> 24) * alphaPercentage);
-            super.addVertex(x, y, z, (newAlpha << 24) | (argb & 0x00ffffff), texU, texV, overlayUV, lightmapUV, normalX, normalY, normalZ);
-        }
-
-        public void putBulkData(
-            PoseStack.Pose pose,
-            BakedQuad quad,
-            float[] brightness,
-            float red,
-            float green,
-            float blue,
-            float alpha,
-            int[] lightmap,
-            int packedOverlay,
-            boolean readAlpha
-        )
-        {
-            super.putBulkData(pose, quad, brightness, red, green, blue, alpha * alphaPercentage, lightmap, packedOverlay, readAlpha);
         }
     }
 }

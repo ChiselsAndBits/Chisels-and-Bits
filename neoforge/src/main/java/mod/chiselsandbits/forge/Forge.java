@@ -10,8 +10,11 @@ import mod.chiselsandbits.client.ChiselsAndBitsClient;
 import mod.chiselsandbits.forge.platform.ForgeAdaptingBitInventoryManager;
 import mod.chiselsandbits.forge.platform.ForgePluginDiscoverer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.extensions.IBlockExtension;
 import org.slf4j.Logger;
 
@@ -29,7 +32,7 @@ public class Forge
         this.chiselsAndBits = chiselsAndBits;
     }
 
-    public Forge(IEventBus modBus)
+    public Forge(IEventBus modBus, ModContainer container)
 	{
         LOGGER.info("Initialized Chisels&Bits - Forge");
         //We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
@@ -44,6 +47,8 @@ public class Forge
         });
         
         modBus.addListener((Consumer<FMLCommonSetupEvent>) event -> chiselsAndBits.onInitialize());
+
+        container.registerExtensionPoint(IConfigScreenFactory.class, (mc, parent) -> new ConfigurationScreen(container, parent));
 	}
 
     public static final class Client {

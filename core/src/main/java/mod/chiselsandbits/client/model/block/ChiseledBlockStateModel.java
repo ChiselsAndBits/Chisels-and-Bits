@@ -4,16 +4,17 @@ import com.communi.suggestu.scena.core.client.rendering.DataAwareBlockStateModel
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
+import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.registrars.ModModelProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.core.BlockPos;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -35,7 +36,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
     public @NotNull TextureAtlasSprite particleIcon()
     {
         return Minecraft.getInstance().getAtlasManager()
-            .get(new Material(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation()));
+            .get(new Material(AtlasIds.BLOCKS, MissingTextureAtlasSprite.getLocation()));
     }
 
     protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos)
@@ -75,6 +76,9 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
         list.addAll(
             modelInformation.parts()
+                .stream()
+                .map(ChiseledBlockModelPart::adaptForBlockModel)
+                .toList()
         );
     }
 

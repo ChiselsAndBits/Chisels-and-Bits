@@ -9,7 +9,9 @@ import mod.chiselsandbits.client.input.FrameBasedInputTracker;
 import mod.chiselsandbits.client.logic.*;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModel;
 import mod.chiselsandbits.client.model.item.BitBlockItemModel;
+import mod.chiselsandbits.client.model.item.ChiseledBlockItemModel;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
+import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.client.screens.pips.Torus;
 import mod.chiselsandbits.client.time.TickHandler;
@@ -38,34 +40,24 @@ public final class EventHandlers {
         });
         IClientEvents.getInstance().getScrollEvent().register(ScrollBasedModeChangeHandler::onScroll);
         IClientEvents.getInstance().getHUDRenderEvent().register(SlotOverlayRenderHandler::renderSlotOverlays);
-        IClientEvents.getInstance().getPostRenderWorldEvent().register((levelRenderer, poseStack, bufferSource, translucentPass, levelRenderState, partialTickTime) -> {
-            SelectedObjectHighlightHandler.onDrawHighlight();
-
+        IClientEvents.getInstance().getDrawHighlightEvent().register(SelectedObjectHighlightHandler::onDrawHighlight);
+        IClientEvents.getInstance().getPostRenderWorldEvent().register((levelRenderer, poseStack, bufferSource, levelRenderState, partialTickTime) -> {
             SelectedObjectRenderHandler.renderCustomWorldHighlight(
                     levelRenderer,
                     poseStack,
                     bufferSource,
-                    translucentPass,
                     levelRenderState,
                     partialTickTime
             );
 
             MeasurementsRenderHandler.renderMeasurements(
-                levelRenderer,
                 poseStack,
-                bufferSource,
-                translucentPass,
-                levelRenderState,
-                partialTickTime
+                bufferSource
             );
 
             MultiStateBlockPreviewRenderHandler.renderMultiStateBlockPreview(
-                levelRenderer,
                 poseStack,
-                bufferSource,
-                translucentPass,
-                levelRenderState,
-                partialTickTime
+                bufferSource
             );
 
             FrameBasedInputTracker.getInstance().onRenderFrame();
@@ -73,7 +65,10 @@ public final class EventHandlers {
         IClientEvents.getInstance().getGatherTooltipEvent().register((itemStack, tooltipContext, tooltipFlag, list) -> {
             MagnifyingGlassTooltipHandler.onItemTooltip(itemStack, list);
         });
-        IClientEvents.getInstance().getRegisterTextureAtlasesEvent().register(consumer -> IconManager.getInstance().initialize(consumer));
+        IClientEvents.getInstance().getRegisterTextureAtlasesEvent().register(consumer -> {
+            IconManager.getInstance().initialize(consumer);
+        });
+        IClientEvents.getInstance().getRegisterClientResourceReloadListenersEvent().register(ClientResourceReloadingManager::setup);
         IClientEvents.getInstance().getRegisterPIPRenderersEvent().register(registrar -> {
             registrar.register(RotatableItemRenderer.RenderState.class, RotatableItemRenderer::new);
             registrar.register(Torus.RenderState.class, Torus::new);
@@ -83,6 +78,7 @@ public final class EventHandlers {
         });
         IClientEvents.getInstance().getRegisterItemModelEvent().register(registrar -> {
             registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_block"), BitBlockItemModel.Unbaked.CODEC);
+            registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockItemModel.Unbaked.CODEC);
             registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "interactable"), InteractableItemModel.Unbaked.CODEC);
         });
     }
