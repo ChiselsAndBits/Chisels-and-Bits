@@ -30,3 +30,5 @@ required = true #mandatory
 versionRange = "$dependencies.com.communi_suggestu.scena.neoforge.maven"
 ordering = "AFTER"
 side = "BOTH"
+[[mixins]]
+config="chiselsandbits.mixins.json"

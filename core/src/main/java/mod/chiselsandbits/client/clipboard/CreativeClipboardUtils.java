@@ -42,4 +42,14 @@ public final class CreativeClipboardUtils
             ICreativeClipboardManager.getInstance().removeEntry(screen.hoveredSlot.index, minecraft.level.registryAccess());
         }
     }
+
+    public static void clearClipboard(final Minecraft minecraft) {
+        if (CreativeModeInventoryScreen.selectedTab != ModCreativeTabs.CLIPBOARD.get())
+            return;
+
+        if (minecraft.level == null)
+            return;
+
+        ICreativeClipboardManager.getInstance().clear(minecraft.level.registryAccess());
+    }
 }

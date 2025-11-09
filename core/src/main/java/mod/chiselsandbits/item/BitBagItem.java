@@ -12,11 +12,10 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.inventory.bit.SlottedBitInventoryItemStack;
 import mod.chiselsandbits.network.packets.OpenBagGuiPacket;
-import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.utils.SimpleInstanceCache;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
@@ -26,7 +25,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class BitBagItem extends Item implements IBitInventoryItem
@@ -49,14 +48,29 @@ public class BitBagItem extends Item implements IBitInventoryItem
         super(properties.stacksTo(1));
     }
 
+    public static ItemStack dyeBag(final ItemStack itemStack, final DyeColor color)
+    {
+        itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color.getTextureDiffuseColor()));
+        return itemStack;
+    }
+
     @Override
     public @NotNull Component getName(final @NotNull ItemStack stack)
     {
-        DyeColor color = getDyedColor(stack);
+        DyedItemColor color = getDyedColor(stack);
         final Component parent = super.getName(stack);
-        if (parent instanceof MutableComponent && color != null)
+        if (parent instanceof MutableComponent mutableComponent && color != null)
         {
-            return ((MutableComponent) parent).append(" - ").append(Component.translatable("chiselsandbits.color." + color.getName()));
+            for (final DyeColor value : DyeColor.values())
+            {
+                if (value.getTextureDiffuseColor() == color.rgb()) {
+                    return mutableComponent.copy().append(" - ").append(Component.translatable("chiselsandbits.color." + value.getName()));
+                }
+            }
+
+            return mutableComponent.copy().append(" - ").append(
+                Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
+            );
         }
         else
         {
@@ -153,68 +167,10 @@ public class BitBagItem extends Item implements IBitInventoryItem
         return Math.min(1.0d, Math.max(0.0d, IClientConfiguration.getInstance().getInvertBitBagFullness().get() ? filledRatio : 1.0 - filledRatio));
     }
 
-    public static ItemStack dyeBag(
-      ItemStack bag,
-      DyeColor color)
-    {
-        ItemStack copy = bag.copy();
-
-        if (!copy.has(DataComponents.CUSTOM_DATA))
-        {
-            CustomData.set(DataComponents.CUSTOM_DATA, copy, new CompoundTag());
-        }
-
-        if (color == null && bag.getItem() == ModItems.ITEM_BIT_BAG_DYED.get())
-        {
-            final ItemStack unColoredStack = new ItemStack(ModItems.ITEM_BIT_BAG_DEFAULT.get());
-            CustomData.set(DataComponents.CUSTOM_DATA, unColoredStack, copy.get(DataComponents.CUSTOM_DATA).copyTag());
-            CustomData.update(DataComponents.CUSTOM_DATA, unColoredStack, compoundTag -> compoundTag.remove("color"));
-            return unColoredStack;
-        }
-        else if (color != null)
-        {
-            ItemStack coloredStack = copy;
-            if (coloredStack.getItem() == ModItems.ITEM_BIT_BAG_DEFAULT.get())
-            {
-                coloredStack = new ItemStack(ModItems.ITEM_BIT_BAG_DYED.get());
-                CustomData.set(DataComponents.CUSTOM_DATA, coloredStack, copy.get(DataComponents.CUSTOM_DATA).copyTag());
-            }
-
-            CustomData.update(DataComponents.CUSTOM_DATA, coloredStack, compoundTag -> compoundTag.putString("color", color.getName()));
-            return coloredStack;
-        }
-
-        return copy;
-    }
-
-    public static DyeColor getDyedColor(
+    public static DyedItemColor getDyedColor(
       ItemStack stack)
     {
-        if (stack.getItem() != ModItems.ITEM_BIT_BAG_DYED.get())
-        {
-            return null;
-        }
-
-        if (!stack.has(DataComponents.CUSTOM_DATA))
-        {
-            return null;
-        }
-
-        final CompoundTag tag = Objects.requireNonNull(stack.get(DataComponents.CUSTOM_DATA)).copyTag();
-
-        if (tag.contains("color"))
-        {
-            String name = tag.getString("color").orElseThrow();
-            for (DyeColor color : DyeColor.values())
-            {
-                if (name.equals(color.getSerializedName()))
-                {
-                    return color;
-                }
-            }
-        }
-
-        return null;
+        return stack.get(DataComponents.DYED_COLOR);
     }
 
     @SuppressWarnings("unused")

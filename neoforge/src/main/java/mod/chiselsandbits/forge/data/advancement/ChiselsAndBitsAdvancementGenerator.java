@@ -74,7 +74,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
 
             AdvancementHolder collectBits = Advancement.Builder.advancement()
                     .parent(root)
-                    .display(ModItems.ITEM_BIT_BAG_DEFAULT.get(),
+                    .display(ModItems.ITEM_BIT_BAG.get(),
                             Component.translatable("mod.chiselsandbits.advancements.collect-bits.title"),
                             Component.translatable("mod.chiselsandbits.advancements.collect-bits.description"),
                             ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),

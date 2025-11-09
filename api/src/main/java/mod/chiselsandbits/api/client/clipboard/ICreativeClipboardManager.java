@@ -34,4 +34,11 @@ public interface ICreativeClipboardManager
      * @param index The index of the entry to remove.
      */
     void removeEntry(int index, HolderLookup.Provider provider);
+
+    /**
+     * Clears the entire clip board.
+     *
+     * @param provider The provider.
+     */
+    void clear(HolderLookup.Provider provider);
 }

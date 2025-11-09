@@ -2,9 +2,9 @@ package mod.chiselsandbits.client.model.parts;
 
 import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockModelPart;
 import com.google.common.base.Suppliers;
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.colors.ChiseledBlockBlockColor;
 import mod.scena.client.utils.ItemModelUtils;
-import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.FaceBakery;
@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 public record ChiseledBlockModelPart(
+    BlockInformation source,
     BlockState appearance,
     ChunkSectionLayer renderType,
     QuadCollection quads,
@@ -33,6 +34,7 @@ public record ChiseledBlockModelPart(
 ) implements BlockModelPart, ExtendedBlockModelPart {
 
     public ChiseledBlockModelPart(
+        final BlockInformation source,
         final BlockState appearance,
         final ChunkSectionLayer renderType,
         final QuadCollection quads,
@@ -40,6 +42,7 @@ public record ChiseledBlockModelPart(
         final TextureAtlasSprite particleIcon)
     {
         this(
+            source,
             appearance,
             renderType,
             quads,
@@ -86,6 +89,7 @@ public record ChiseledBlockModelPart(
     public ChiseledBlockModelPart adaptForBlockModel()
     {
         return new ChiseledBlockModelPart(
+            source(),
             appearance(),
             renderType(),
             ItemModelUtils.adapt(

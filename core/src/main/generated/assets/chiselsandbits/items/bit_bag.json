@@ -1,6 +1,12 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "chiselsandbits:item/bit_bag"
+    "model": "chiselsandbits:item/bit_bag",
+    "tints": [
+      {
+        "type": "minecraft:dye",
+        "default": -6265536
+      }
+    ]
   }
 }

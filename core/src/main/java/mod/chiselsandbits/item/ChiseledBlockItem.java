@@ -1,5 +1,6 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import com.google.common.base.Suppliers;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.util.VectorUtils;
@@ -25,6 +26,8 @@ import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModModificationOperation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -194,14 +197,21 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
     @Override
     public void appendHoverText(
-        final ItemStack stack,
-        final TooltipContext context,
-        final TooltipDisplay tooltipDisplay,
-        final Consumer<Component> tooltipAdder,
-        final TooltipFlag flag)
+        final @NotNull ItemStack stack,
+        final @NotNull TooltipContext context,
+        final @NotNull TooltipDisplay tooltipDisplay,
+        final @NotNull Consumer<Component> tooltipAdder,
+        final @NotNull TooltipFlag flag)
     {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
-        HelpTextUtils.build(LocalStrings.HelpChiseledBlock, tooltipAdder);
+        DistExecutor.unsafeExecuteForDist(
+            () -> () ->
+                HelpTextUtils.build(LocalStrings.HelpChiseledBlock, tooltipAdder,
+                    Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
+                    Minecraft.getInstance().options.keyShift.getTranslatedKeyMessage()),
+            () -> () ->
+                HelpTextUtils.build(LocalStrings.HelpChiseledBlock, tooltipAdder)
+        );
     }
 
     @Override

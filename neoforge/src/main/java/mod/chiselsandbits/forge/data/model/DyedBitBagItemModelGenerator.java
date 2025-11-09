@@ -2,6 +2,7 @@ package mod.chiselsandbits.forge.data.model;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModItems;
+import net.minecraft.client.color.item.Dye;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -19,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class GenericItemModelGenerator extends ModelProvider
+public class DyedBitBagItemModelGenerator extends ModelProvider
 {
-    public GenericItemModelGenerator(final PackOutput output)
+    public DyedBitBagItemModelGenerator(final PackOutput output)
     {
         super(output, Constants.MOD_ID);
     }
@@ -29,7 +30,7 @@ public class GenericItemModelGenerator extends ModelProvider
     @SubscribeEvent
     public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
-        event.getGenerator().addProvider(true, new GenericItemModelGenerator(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(true, new DyedBitBagItemModelGenerator(event.getGenerator().getPackOutput()));
     }
 
     @Override
@@ -42,25 +43,14 @@ public class GenericItemModelGenerator extends ModelProvider
     protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
     {
         return Stream.of(
-            ModItems.ITEM_CHISEL_STONE.get(),
-            ModItems.ITEM_CHISEL_IRON.get(),
-            ModItems.ITEM_CHISEL_GOLD.get(),
-            ModItems.ITEM_CHISEL_DIAMOND.get(),
-            ModItems.ITEM_CHISEL_NETHERITE.get(),
-            ModItems.MAGNIFYING_GLASS.get(),
-            ModItems.ITEM_BIT_BAG.get(),
-            ModItems.LEGACY_ITEM_BIT_BAG_DYED.get(),
-            ModItems.SINGLE_USE_PATTERN_ITEM.get(),
-            ModItems.MULTI_USE_PATTERN_ITEM.get(),
-            ModItems.WRENCH.get(),
-            ModItems.MONOCLE_ITEM.get()
+            ModItems.ITEM_BIT_BAG.get()
         ).map(Item::builtInRegistryHolder);
     }
 
     @Override
     public @NotNull String getName()
     {
-        return "Generic item model provider";
+        return "Dyed bit bag item model provider";
     }
 
     @Override
@@ -72,7 +62,10 @@ public class GenericItemModelGenerator extends ModelProvider
     public void actOnItem(Holder<Item> item, ItemModelGenerators generators) {
         generators.itemModelOutput.accept(
             item.value(),
-            ItemModelUtils.plainModel(generators.createFlatItemModel(item.value(), "", ModelTemplates.FLAT_ITEM))
+            ItemModelUtils.tintedModel(
+                generators.createFlatItemModel(item.value(), "", ModelTemplates.FLAT_ITEM),
+                new Dye(-6265536)
+            )
         );
     }
 }

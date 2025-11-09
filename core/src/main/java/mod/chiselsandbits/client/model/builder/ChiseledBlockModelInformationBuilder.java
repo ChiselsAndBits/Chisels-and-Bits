@@ -16,10 +16,6 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPartKey;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import mod.chiselsandbits.profiling.ProfilingManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public record ChiseledBlockModelInformationBuilder(
     IAreaAccessor data,
@@ -61,6 +56,7 @@ public record ChiseledBlockModelInformationBuilder(
                     region.upperRight(),
                     (quad) -> {
                         final ChiseledBlockModelPartKey key = new ChiseledBlockModelPartKey(
+                            region.faceValue(),
                             region.faceValue().blockState(),
                             quad.chunkSectionLayer(),
                             quad.ambientOcclusion(),

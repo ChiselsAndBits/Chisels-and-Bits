@@ -2,10 +2,10 @@ package mod.chiselsandbits.registrars;
 
 import com.communi.suggestu.scena.core.registries.deferred.IRegistrar;
 import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
-import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.item.*;
 import mod.chiselsandbits.item.bit.BitItem;
+import mod.chiselsandbits.legacy.LegacyDyedBitBagItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -14,8 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 public final class ModItems {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -39,17 +37,14 @@ public final class ModItems {
     public static final IRegistryObject<BitItem> ITEM_BLOCK_BIT =
             ITEM_REGISTRAR.register("block_bit", () -> new BitItem(new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block_bit")))));
-    public static final IRegistryObject<MagnifyingGlassItem> MAGNIFYING_GLASS =
+    public static final IRegistryObject<MagnifyingGlassItem> MAGNIFYING_GLASS  =
             ITEM_REGISTRAR.register("magnifying_glass", () -> new MagnifyingGlassItem(new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "magnifying_glass")))));
-    public static final IRegistryObject<BitBagItem> ITEM_BIT_BAG_DEFAULT =
+    public static final IRegistryObject<BitBagItem> ITEM_BIT_BAG            =
             ITEM_REGISTRAR.register("bit_bag", () -> new BitBagItem(new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_bag")))));
-    public static final IRegistryObject<BitBagItem> ITEM_BIT_BAG_DYED =
-            ITEM_REGISTRAR.register("bit_bag_dyed", () -> new BitBagItem(new Item.Properties()
-                .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_bag_dyed")))));
     public static final IRegistryObject<BitStorageBlockItem>
-            ITEM_BIT_STORAGE =
+                                                    ITEM_BIT_STORAGE        =
             ITEM_REGISTRAR.register("bit_storage", () -> new BitStorageBlockItem(ModBlocks.BIT_STORAGE.get(), new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_storage")))
             ));
@@ -92,6 +87,17 @@ public final class ModItems {
     public static final IRegistryObject<ChiseledBlockItem> CHISELED_BLOCK =
             ITEM_REGISTRAR.register("chiseled_block", () -> new ChiseledBlockItem(ModBlocks.CHISELED_BLOCK.get(), new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block")))));
+
+
+
+
+
+
+    @SuppressWarnings("deprecation")
+    public static final IRegistryObject<LegacyDyedBitBagItem> LEGACY_ITEM_BIT_BAG_DYED =
+        ITEM_REGISTRAR.register("bit_bag_dyed", () -> new LegacyDyedBitBagItem(new Item.Properties()
+            .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_bag_dyed")))));
+
 
     private ModItems() {
         throw new IllegalStateException("Tried to initialize: ModItems but this is a Utility class.");

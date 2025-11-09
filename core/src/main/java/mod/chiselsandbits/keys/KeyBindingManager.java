@@ -7,8 +7,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
-import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
+import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.ToolModeSelectionScreen;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.keys.contexts.HoldsSpecificItemInHandKeyConflictContext;
@@ -39,6 +38,7 @@ public class KeyBindingManager {
     private KeyMapping scopingKeyBinding = null;
     private KeyMapping resetCachesKeyBinding = null;
     private KeyMapping removeFromClipboardKeyBinding = null;
+    private KeyMapping clearClipboardKeyBinding = null;
     private boolean toolMenuKeyWasDown = false;
     private int toolModeSelectionPlusCoolDown = 15;
     private int toolModeSelectionMinusCoolDown = 15;
@@ -117,12 +117,20 @@ public class KeyBindingManager {
                         debuggingCategory));
 
         IKeyBindingManager.getInstance().register(removeFromClipboardKeyBinding =
-                IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
-                        SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
-                        KeyModifier.SHIFT,
-                        InputConstants.Type.KEYSYM,
-                        InputConstants.KEY_D,
-                        creativeModeCategory));
+            IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
+                SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
+                KeyModifier.SHIFT,
+                InputConstants.Type.KEYSYM,
+                InputConstants.KEY_D,
+                creativeModeCategory));
+
+        IKeyBindingManager.getInstance().register(clearClipboardKeyBinding =
+            IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.clear-clipboard",
+                SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
+                KeyModifier.CONTROL,
+                InputConstants.Type.KEYSYM,
+                InputConstants.KEY_D,
+                creativeModeCategory));
 
         initialized = true;
     }
@@ -206,6 +214,10 @@ public class KeyBindingManager {
         if (mc.screen instanceof CreativeModeInventoryScreen creativeModeInventoryScreen) {
             if (isDeleteFromClipboardPressed()) {
                 CreativeClipboardUtils.deleteHoveredClipboardEntry(mc, creativeModeInventoryScreen);
+            }
+
+            if (isClearClipboardPressed()) {
+                CreativeClipboardUtils.clearClipboard(mc);
             }
         }
     }
@@ -338,9 +350,22 @@ public class KeyBindingManager {
         return isKeyDown(getRemoveFromClipboardKeyBinding());
     }
 
+    public KeyMapping getClearClipboardKeyBinding() {
+        if (clearClipboardKeyBinding == null) {
+            throw new IllegalStateException("Keybindings have not been initialized.");
+        }
+
+        return clearClipboardKeyBinding;
+    }
+
+    public boolean isClearClipboardPressed() {
+        return isKeyDown(getClearClipboardKeyBinding());
+    }
+
+
     public Collection<KeyMapping> getAllKeyBinds() {
         return List.of(getOpenToolMenuKeybinding(), getCycleToolMenuRightKeybinding(), getCycleToolMenuLeftKeybinding(),
                 getResetMeasuringTapeKeyBinding(), getUndoOperationKeyBinding(), getRedoOperationKeyBinding(),
-                getScopingKeyBinding(), getResetCachesKeyBinding(), getRemoveFromClipboardKeyBinding());
+                getScopingKeyBinding(), getResetCachesKeyBinding(), getRemoveFromClipboardKeyBinding(), getClearClipboardKeyBinding());
     }
 }

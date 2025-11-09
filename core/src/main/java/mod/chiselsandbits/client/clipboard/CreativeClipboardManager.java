@@ -148,4 +148,15 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
             updateCreativeTab();
         }
     }
+
+    @Override
+    public void clear(final HolderLookup.Provider provider)
+    {
+        synchronized (cache) {
+            cache.clear();
+            writeContentsToDisk(provider);
+
+            updateCreativeTab();
+        }
+    }
 }

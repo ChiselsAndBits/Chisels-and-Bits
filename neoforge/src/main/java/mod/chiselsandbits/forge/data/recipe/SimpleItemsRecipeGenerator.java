@@ -70,7 +70,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
             new AbstractRecipeGenerator.Runner(
                 event.getGenerator().getPackOutput(),
                 event.getLookupProvider(),
-                ModItems.ITEM_BIT_BAG_DEFAULT.get(),
+                ModItems.ITEM_BIT_BAG.get(),
                 (registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
                     registries,
                     output,

@@ -1,7 +1,7 @@
 {
-    "parent":"item/generated",
-    "textures": {
-        "layer0":"chiselsandbits:item/bit_bag_string",
-        "layer1":"chiselsandbits:item/bit_bag_dyeable"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "chiselsandbits:item/bit_bag_dyeable",
+    "layer1": "chiselsandbits:item/bit_bag_string"
+  }
 }

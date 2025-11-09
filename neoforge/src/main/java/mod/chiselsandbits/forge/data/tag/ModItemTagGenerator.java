@@ -21,7 +21,7 @@ public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.Item
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        this.tag(ModTags.Items.BIT_BAG).add(ModItems.ITEM_BIT_BAG_DEFAULT.get(), ModItems.ITEM_BIT_BAG_DYED.get());
+        this.tag(ModTags.Items.BIT_BAG).add(ModItems.ITEM_BIT_BAG.get(), ModItems.LEGACY_ITEM_BIT_BAG_DYED.get());
         this.tag(ModTags.Items.CHISEL).add(
                 ModItems.ITEM_CHISEL_STONE.get(),
                 ModItems.ITEM_CHISEL_IRON.get(),
@@ -33,5 +33,7 @@ public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.Item
         this.tag(ItemTags.PIGLIN_LOVED).add(ModItems.ITEM_CHISEL_GOLD.get());
 
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTags(ModTags.Items.CHISEL);
+
+        this.tag(ItemTags.DYEABLE).add(ModItems.ITEM_BIT_BAG.get());
     }
 }

@@ -4,16 +4,16 @@ import com.communi.suggestu.scena.core.registries.IPlatformRegistryManager;
 import com.communi.suggestu.scena.core.registries.deferred.IRegistrar;
 import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import com.google.common.collect.Sets;
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.item.bit.IBitItemManager;
+import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.block.ChiseledBlock;
-import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.item.BitBagItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
@@ -44,10 +44,9 @@ public final class ModCreativeTabs
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_GOLD.get()));
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_DIAMOND.get()));
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()));
-                output.accept(new ItemStack(ModItems.ITEM_BIT_BAG_DEFAULT.get()));
                 for (DyeColor color : DyeColor.values())
                 {
-                    output.accept(BitBagItem.dyeBag(new ItemStack(ModItems.ITEM_BIT_BAG_DYED.get()), color));
+                    output.accept(BitBagItem.dyeBag(new ItemStack(ModItems.ITEM_BIT_BAG.get()), color));
                 }
                 output.accept(new ItemStack(ModItems.MAGNIFYING_GLASS.get()));
                 output.accept(new ItemStack(ModItems.ITEM_BIT_STORAGE.get()));

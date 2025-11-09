@@ -204,7 +204,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
     @Override
     protected void renderLabels(final @NotNull GuiGraphics graphics, final int x, final int y)
     {
-        graphics.drawString(font, Language.getInstance().getVisualOrder(ModItems.ITEM_BIT_BAG_DEFAULT.get().getName(ItemStack.EMPTY)), 8, 6, 0x404040);
+        graphics.drawString(font, Language.getInstance().getVisualOrder(ModItems.ITEM_BIT_BAG.get().getName(ItemStack.EMPTY)), 8, 6, 0x404040);
         graphics.drawString(font, I18n.get("container.inventory"), 8, imageHeight - 93, 0x404040);
     }
 }

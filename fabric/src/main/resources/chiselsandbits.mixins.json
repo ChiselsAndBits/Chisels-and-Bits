@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mod.chiselsandbits.fabric.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "common.CreativeModeTabMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

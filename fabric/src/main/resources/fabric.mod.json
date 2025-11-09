@@ -22,6 +22,9 @@
     ]
   },
   "accessWidener" : "accesswidener.accesswidener",
+  "mixins": [
+    "chiselsandbits.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=$project.fabric.loader.version",
