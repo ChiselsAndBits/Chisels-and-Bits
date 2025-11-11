@@ -49,6 +49,8 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
             return;
         }
 
+        cache.clear();
+
         try
         {
             final CompoundTag data = NbtIo.readCompressed(file);
