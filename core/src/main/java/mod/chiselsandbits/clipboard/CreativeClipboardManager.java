@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
-import mod.chiselsandbits.api.util.ReflectionUtils;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.registrars.ModCreativeTabs;
@@ -16,13 +15,12 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackLinkedSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 public final class CreativeClipboardManager implements ICreativeClipboardManager
@@ -101,20 +99,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
     private void updateCreativeTab() {
         try {
-            LinkedHashSet<ItemStack> newSet = new LinkedHashSet<>();
-            cache.forEach(stack -> newSet.add(stack.toBlockStack()));
+            ModCreativeTabs.CLIPBOARD.get().displayItems = ItemStackLinkedSet.createTypeAndTagSet();
 
-            ReflectionUtils.setField(ModCreativeTabs.CLIPBOARD.get(), "displayItems", newSet);
-            ModCreativeTabs.CLIPBOARD.get().rebuildSearchTree();
+            cache.forEach(stack -> {
+                ModCreativeTabs.CLIPBOARD.get().displayItems.add(stack.toBlockStack());
+            });
 
-            Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.screen instanceof CreativeModeInventoryScreen) {
-
-                if (minecraft.player == null) {
-                    return;
-                }
-
-				minecraft.setScreen(new CreativeModeInventoryScreen(minecraft.player, minecraft.player.connection.enabledFeatures(), minecraft.options.operatorItemsTab().get()));
+            if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {
+                screen.refreshCurrentTabContents(this.cache.stream().map(IMultiStateItemStack::toBlockStack).toList());
             }
         } catch (Exception e) {
             LOGGER.error("Failed to update creative tab", e);

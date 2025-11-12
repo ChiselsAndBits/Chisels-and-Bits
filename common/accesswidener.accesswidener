@@ -54,3 +54,9 @@ accessible   field      net/minecraft/world/phys/shapes/BitSetDiscreteVoxelShape
 accessible   field      net/minecraft/client/gui/Gui lastToolHighlight Lnet/minecraft/world/item/ItemStack;
 accessible   class      net/minecraft/world/item/CreativeModeTab$Output
 accessible   method     net/minecraft/world/item/CreativeModeTab$Builder type (Lnet/minecraft/world/item/CreativeModeTab$Type;)Lnet/minecraft/world/item/CreativeModeTab$Builder; # type
+accessible   field      net/minecraft/world/item/CreativeModeTab displayItems Ljava/util/Collection;
+accessible   field      net/minecraft/world/item/CreativeModeTab displayItemsSearchTab Ljava/util/Set;
+accessible   field      net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
+accessible   field      net/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen selectedTab Lnet/minecraft/world/item/CreativeModeTab;
+accessible   method     net/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen isCreativeSlot (Lnet/minecraft/world/inventory/Slot;)Z
+accessible   method     net/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen refreshCurrentTabContents (Ljava/util/Collection;)V
