@@ -1,10 +1,16 @@
 package mod.chiselsandbits.api.client.icon;
 
+import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 
 public interface IIconManager
 {
+
+    public static IIconManager getInstance() {
+        return IChiselsAndBitsAPI.getInstance().getIconManager();
+    }
+
     TextureAtlasSprite getIcon(ResourceLocation name);
 
     TextureAtlasSprite getSwapIcon();
@@ -25,5 +31,12 @@ public interface IIconManager
 
     TextureAtlasSprite getWhiteIcon();
 
+    TextureAtlasSprite getFilterBagModeIcon();
+
+    TextureAtlasSprite getNormalBagModeIcon();
+
+    TextureAtlasSprite getBagPicksUpFirstIcon();
+
+    TextureAtlasSprite getBagPicksUpSecondIcon();
 
 }

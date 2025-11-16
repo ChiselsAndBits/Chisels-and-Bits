@@ -51,7 +51,9 @@ public class NbtConstants
     public static final String INTERACTION_TARGET = "interaction_target";
     public static final String IS_SIMULATING = "is_simulating";
     public static final String MODIFICATION_OPERATION = "modification_operation";
-    public static final String OPERATION = "operation";
+    public static final String OPERATION           = "operation";
+    public static final String IS_PREFERRED_PICKUP = "is_preferred_pickup";
+    public static final String IS_FILTERED_PICKUP = "is_filtered_pickup";
 
     public static final String PALETTE = "palette";
     public static final String BLOCK_STATES  = "block_states";

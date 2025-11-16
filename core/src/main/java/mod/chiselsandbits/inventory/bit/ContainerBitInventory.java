@@ -3,12 +3,12 @@ package mod.chiselsandbits.inventory.bit;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-public class IInventoryBitInventory extends AbstractBitInventory
+public class ContainerBitInventory extends AbstractBitInventory
 {
 
     private final Container inventory;
 
-    public IInventoryBitInventory(final Container inventory) {this.inventory = inventory;}
+    public ContainerBitInventory(final Container inventory) {this.inventory = inventory;}
 
     /**
      * Gets a copy of the stack that is in the given slot.
@@ -40,7 +40,7 @@ public class IInventoryBitInventory extends AbstractBitInventory
      * @param stack The stack to insert.
      */
     @Override
-    protected void setSlotContents(final int index, final ItemStack stack)
+    protected void setItem(final int index, final ItemStack stack)
     {
         inventory.setItem(index, stack);
     }

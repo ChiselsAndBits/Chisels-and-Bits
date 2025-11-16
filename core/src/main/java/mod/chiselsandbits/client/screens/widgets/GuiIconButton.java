@@ -17,40 +17,45 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
             ResourceLocation.withDefaultNamespace("widget/button"), ResourceLocation.withDefaultNamespace("widget/button_disabled"), ResourceLocation.withDefaultNamespace("widget/button_highlighted")
     );
     public static final int SIZE = 20;
-    TextureAtlasSprite icon;
+    private final TextureAtlasSprite defaultIcon;
 
 	public GuiIconButton(
 			final int x,
 			final int y,
-			final TextureAtlasSprite icon,
+			final TextureAtlasSprite defaultIcon,
             Button.OnPress pressedAction,
             Tooltip tooltip)
 	{
 		super( x, y, SIZE, SIZE, Component.empty(), pressedAction, Button.DEFAULT_NARRATION);
-		this.icon = icon;
+		this.defaultIcon = defaultIcon;
         this.setTooltip(tooltip);
 	}
 
     public GuiIconButton(
       final int x, final int y,
       final Component narration,
-      final TextureAtlasSprite icon,
+      final TextureAtlasSprite defaultIcon,
       final OnPress pressable)
     {
         super(x, y, SIZE, SIZE, narration, pressable, Button.DEFAULT_NARRATION);
-        this.icon = icon;
+        this.defaultIcon = defaultIcon;
     }
 
     public GuiIconButton(
       final int x, final int y,
       final Component narration,
-      final TextureAtlasSprite icon,
+      final TextureAtlasSprite defaultIcon,
       final OnPress pressable,
       final Tooltip tooltip)
     {
         super(x, y, SIZE, SIZE, narration, pressable, Button.DEFAULT_NARRATION);
-        this.icon = icon;
+        this.defaultIcon = defaultIcon;
         this.setTooltip(tooltip);
+    }
+
+    protected TextureAtlasSprite getDefaultIcon()
+    {
+        return defaultIcon;
     }
 
     @Override
@@ -67,7 +72,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
 
         guiGraphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,
-            icon,
+            getDefaultIcon(),
             getX() + 2,
             getY() + 2,
             16,

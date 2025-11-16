@@ -11,7 +11,6 @@ import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.components.data.SlottedBitInventoryData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -243,13 +242,13 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
     }
 
     @Override
-    protected int getMaxBitsForSlot() {
+    protected int getMaxBitsFor(ItemStack stack) {
         return IServerConfiguration.getInstance().getBagStackSize().get();
     }
 
     @Override
     public int getMaxStackSize() {
-        return getMaxBitsForSlot();
+        return IServerConfiguration.getInstance().getBagStackSize().get();
     }
 
     //The following methods are needed to handle the obfuscation tree.

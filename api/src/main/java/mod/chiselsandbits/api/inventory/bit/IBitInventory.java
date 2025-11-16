@@ -160,4 +160,12 @@ public interface IBitInventory
      * @return The contained state count of all bits in the inventory.
      */
     Map<BlockInformation, Integer> getContainedStates();
+
+    /**
+     * Indicates whether the inventory contains a bit with this block.
+     *
+     * @param blockInformation The block to check for.
+     * @return True when contained.
+     */
+    boolean contains(BlockInformation blockInformation);
 }

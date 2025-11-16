@@ -117,6 +117,10 @@ public enum LocalStrings
     ReallyTrashItem("help.reallytrash_blank"),
     TrashInvalidItem("help.trash.invalid"),
     Convert("help.convert"),
+    NonPreferredPickup("help.non-preferred-pickup"),
+    PreferredPickup("help.preferred-pickup"),
+    FilteredPickup("help.filtered-pickup"),
+    NonFilteredPickup("help.non-filtered-pickup"),
 
     PositivePatternReplace("positivepatternmode.replace"),
     PositivePatternAdditive("positivepatternmode.additive"),
@@ -247,7 +251,13 @@ public enum LocalStrings
     ChiselsAndBitsName("name"),
     BitBagEmpty("bit-bag-empty"),
     BitBagEntry("bit-bag-entry"),
-    BitBagMoreEntries("bit-bag-more-entries");
+    BitBagMoreEntries("bit-bag-more-entries"),
+    BagPicksUpFirst("bag-pick-up.bag-first"),
+    PlayerPicksUpFirst("bag-pick-up.player-first"),
+    Filtered("bag-pick-up.filtered"),
+    NonFiltered("bag-pick-up.non-filtered"),
+    HelpBagPickupMode("help.bit_bag.pickup-mode");
+
 
     private final String string;
 

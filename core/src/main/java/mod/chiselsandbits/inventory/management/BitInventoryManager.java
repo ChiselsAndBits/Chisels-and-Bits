@@ -5,8 +5,8 @@ import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 import mod.chiselsandbits.api.inventory.bit.IBitInventoryItem;
 import mod.chiselsandbits.api.inventory.bit.IBitInventoryItemStack;
 import mod.chiselsandbits.api.inventory.management.IBitInventoryManager;
-import mod.chiselsandbits.inventory.bit.IInventoryBitInventory;
-import mod.chiselsandbits.inventory.bit.IllegalBitInventory;
+import mod.chiselsandbits.inventory.bit.ContainerBitInventory;
+import mod.chiselsandbits.inventory.bit.PlayerBitInventory;
 import mod.chiselsandbits.inventory.player.PlayerMainAndOffhandInventoryWrapper;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +28,7 @@ public class BitInventoryManager implements IBitInventoryManager
     @Override
     public IBitInventory create(final Player playerEntity)
     {
-        return this.create(new PlayerMainAndOffhandInventoryWrapper(playerEntity.getInventory()));
+        return new PlayerBitInventory(new PlayerMainAndOffhandInventoryWrapper(playerEntity.getInventory()));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BitInventoryManager implements IBitInventoryManager
     @Override
     public IBitInventory create(final Container inventory)
     {
-        return new IInventoryBitInventory(inventory);
+        return new ContainerBitInventory(inventory);
     }
 
     @Override

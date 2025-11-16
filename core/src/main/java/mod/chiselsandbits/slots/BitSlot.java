@@ -13,8 +13,6 @@ import java.util.Optional;
 
 public class BitSlot extends Slot
 {
-    private boolean isActive = true;
-
     public BitSlot(
       final Container inventoryIn,
       final int index,
@@ -39,15 +37,6 @@ public class BitSlot extends Slot
     @Override
     public int getMaxStackSize(ItemStack stack) {
         return stack.getItem() instanceof BitItem ? IServerConfiguration.getInstance().getBagStackSize().get() : 0;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     @Override

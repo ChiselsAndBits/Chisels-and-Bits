@@ -38,15 +38,10 @@ public final class BagGuiStackPacket extends ModPacket
             return;
         }
 
-        if (Minecraft.getInstance().player.containerMenu == null)
-        {
-            return;
-        }
-
         final AbstractContainerMenu cc = Minecraft.getInstance().player.containerMenu;
-        if (cc instanceof BagContainer)
+        if (cc instanceof BagContainer bagContainer)
         {
-            ((BagContainer) cc).bitSlots.get(index).set(stack);
+            bagContainer.getBitSlots().get(index).set(stack);
         }
     }
 
@@ -72,7 +67,7 @@ public final class BagGuiStackPacket extends ModPacket
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 }

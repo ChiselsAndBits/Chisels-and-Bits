@@ -5,7 +5,6 @@ import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import com.mojang.serialization.Codec;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
-import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.api.modification.operation.IModificationOperation;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
@@ -14,6 +13,7 @@ import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.components.data.InteractionData;
 import mod.chiselsandbits.components.data.MultiStateItemStackData;
 import mod.chiselsandbits.components.data.SlottedBitInventoryData;
+import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.registries.RegistryManager;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -154,6 +154,22 @@ public class ModDataComponentTypes {
                     .persistent(RegistryManager.getInstance().getModificationOperationRegistry().byNameCodec())
                     .networkSynchronized(RegistryManager.getInstance().getModificationOperationRegistry().byNameStreamCodec())
                     .build()
+    );
+
+    public static IRegistryObject<DataComponentType<Boolean>> BAG_PREFERRED_PICK_UP = REGISTRAR.register(
+        NbtConstants.IS_PREFERRED_PICKUP,
+        () -> DataComponentType.<Boolean>builder()
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .build()
+    );
+
+    public static IRegistryObject<DataComponentType<Boolean>> BAG_FILTERED_PICK_UP = REGISTRAR.register(
+        NbtConstants.IS_FILTERED_PICKUP,
+        () -> DataComponentType.<Boolean>builder()
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .build()
     );
 
     public static void onModConstruction() {

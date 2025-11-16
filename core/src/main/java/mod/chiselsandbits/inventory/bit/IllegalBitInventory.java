@@ -98,4 +98,10 @@ public class IllegalBitInventory implements IBitInventory
     {
         return Collections.emptyMap();
     }
+
+    @Override
+    public boolean contains(final BlockInformation blockInformation)
+    {
+        return false;
+    }
 }

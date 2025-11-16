@@ -1,6 +1,8 @@
 {
   "model": {
     "type": "chiselsandbits:interactable",
-    "model": "chiselsandbits:item/unseal_spec"
+    "model": {
+      "model": "chiselsandbits:item/unseal_spec"
+    }
   }
 }

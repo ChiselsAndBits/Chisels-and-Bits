@@ -26,6 +26,12 @@ public class IconManager implements IIconManager
     private static final ResourceLocation ICON_ROLL_X = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "roll_x");
     private static final ResourceLocation ICON_ROLL_Z = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "roll_z");
     private static final ResourceLocation ICON_WHITE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "white");
+    private static final ResourceLocation BAG_MODE_FILTER = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_mode_filter");
+    private static final ResourceLocation BAG_MODE_NORMAL = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_mode_normal");
+    private static final ResourceLocation BAG_MODE_FIRST = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_mode_first");
+    private static final ResourceLocation BAG_MODE_SECOND = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_mode_second");
+
+
     public static final ResourceLocation ATLAS_ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "icons");
 
     public static IconManager getInstance()
@@ -101,5 +107,29 @@ public class IconManager implements IIconManager
     @Override
     public TextureAtlasSprite getWhiteIcon() {
         return getIcon(ICON_WHITE);
+    }
+
+    @Override
+    public TextureAtlasSprite getFilterBagModeIcon()
+    {
+        return getIcon(BAG_MODE_FILTER);
+    }
+
+    @Override
+    public TextureAtlasSprite getNormalBagModeIcon()
+    {
+        return getIcon(BAG_MODE_NORMAL);
+    }
+
+    @Override
+    public TextureAtlasSprite getBagPicksUpFirstIcon()
+    {
+        return getIcon(BAG_MODE_FIRST);
+    }
+
+    @Override
+    public TextureAtlasSprite getBagPicksUpSecondIcon()
+    {
+        return getIcon(BAG_MODE_SECOND);
     }
 }

@@ -5,14 +5,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.item.interactable.IInteractableItem;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
 import mod.chiselsandbits.client.time.TickHandler;
-import mod.scena.client.models.item.DelegateAwareItemModel;
 import mod.scena.client.utils.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -29,13 +27,10 @@ import java.util.Set;
  * Cloned from: Creators-of-Create: <a href="https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">...</a>
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
-public class InteractionISTER implements SpecialModelRenderer<InteractionISTER.RenderState>
+public record InteractionISTER(InteractableItemModel mainModel) implements SpecialModelRenderer<InteractionISTER.RenderState>
 {
-    public InteractionISTER()
-    {
-    }
 
-    public record RenderState(ItemStack stack) {}
+    public record RenderState(ItemStack stack, IInteractableItem item) {}
 
     @Override
     public void submit(
@@ -52,24 +47,9 @@ public class InteractionISTER implements SpecialModelRenderer<InteractionISTER.R
             return;
 
         final ItemStack stack = argument.stack();
-        if (!(stack.getItem() instanceof final IInteractableItem item)) {
-            return;
-        }
-
-        LocalPlayer player = Minecraft.getInstance().player;
-        ItemModel mainModel = Minecraft.getInstance().getModelManager().getItemModel(
-            Objects.requireNonNull(stack.get(DataComponents.ITEM_MODEL))
-        );
-
-        if (mainModel instanceof DelegateAwareItemModel delegatingBakedModel) {
-            mainModel = delegatingBakedModel.delegate();
-        }
-
-        if (!(mainModel instanceof InteractableItemModel interactableItemModel))
-        {
-            return;
-        }
-        ItemModel innerModel = interactableItemModel.model();
+        final LocalPlayer player = Minecraft.getInstance().player;
+        final IInteractableItem item = argument.item();
+        ItemModel innerModel = mainModel().model();
 
         float partialTicks = Minecraft.getInstance().gameRenderer.getMainCamera().getPartialTickTime();
 
@@ -79,9 +59,9 @@ public class InteractionISTER implements SpecialModelRenderer<InteractionISTER.R
         poseStack.pushPose();
         poseStack.translate(.5f, .5f, .5f);
 
-        boolean jeiMode = item.isRunningASimulatedInteraction(stack);
+        boolean jeiMode = item.isRunningASimulatedInteraction(argument.stack());
 
-        if (item.isInteracting(stack)) {
+        if (item.isInteracting(argument.stack())) {
             poseStack.pushPose();
 
             if (displayContext == ItemDisplayContext.GUI) {
@@ -181,6 +161,10 @@ public class InteractionISTER implements SpecialModelRenderer<InteractionISTER.R
     @Override
     public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
     {
-        return new RenderState(stack);
+        if (stack.getItem() instanceof IInteractableItem item) {
+            return new RenderState(stack, item);
+        }
+
+        return null;
     }
 }

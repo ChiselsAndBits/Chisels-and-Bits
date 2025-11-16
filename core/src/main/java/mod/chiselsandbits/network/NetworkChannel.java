@@ -46,6 +46,7 @@ public class NetworkChannel
         register(OpenBagGuiPacket.TYPE, OpenBagGuiPacket.streamCodec(OpenBagGuiPacket::new));
         register(SortBagGuiPacket.TYPE, SortBagGuiPacket.streamCodec(SortBagGuiPacket::new));
         register(ConvertBagGuiPacket.TYPE, ConvertBagGuiPacket.streamCodec(ConvertBagGuiPacket::new));
+        register(UpdateBagModesPacket.TYPE, UpdateBagModesPacket.streamCodec(UpdateBagModesPacket::new));
         register(MeasurementUpdatedPacket.TYPE, MeasurementUpdatedPacket.streamCodec(MeasurementUpdatedPacket::new));
         register(MeasurementsUpdatedPacket.TYPE, MeasurementsUpdatedPacket.streamCodec(MeasurementsUpdatedPacket::new));
         register(MeasurementsResetPacket.TYPE, MeasurementsResetPacket.streamCodec(MeasurementsResetPacket::new));

@@ -412,5 +412,14 @@
   "mod.chiselsandbits.patterns.import.invoked-from-the-server": "Could not read the pattern, this command can only be invoked from the client.",
   "mod.chiselsandbits.bit-bag-entry": "- %s %s Bits",
   "mod.chiselsandbits.bit-bag-more-entries": "... and Some other Bits",
-  "mod.chiselsandbits.bit-bag-empty": "... The bit bag is empty ... go collect some bits."
+  "mod.chiselsandbits.bit-bag-empty": "... The bit bag is empty ... go collect some bits.",
+  "mod.chiselsandbits.bag-pick-up.bag-first": "Picked up bits go into the bag first",
+  "mod.chiselsandbits.bag-pick-up.player-first": "Picked up bits go into your inventory first.",
+  "mod.chiselsandbits.bag-pick-up.filtered": "This bag will only pickup bits which it already has.",
+  "mod.chiselsandbits.bag-pick-up.non-filtered": "This bag will pick up any bits.",
+  "mod.chiselsandbits.help.bit_bag.pickup-mode": "Pick up mode:\n - %s\n - %s",
+  "mod.chiselsandbits.help.non-preferred-pickup": "This Bag will pick up bits after your inventory is full.\n\nPress: %s on this button to switch the bag to pick up bits first.",
+  "mod.chiselsandbits.help.preferred-pickup": "This Bag will pick up bits before they go into your inventory.\n\nPress: %s on this button to switch the bag to pick up bits after your inventory is full.",
+  "mod.chiselsandbits.help.non-filtered-pickup": "This Bag will pick up any bits.\n\nPress: %s on this button to switch to a mode were it will only pick up bits it already contains.",
+  "mod.chiselsandbits.help.filtered-pickup": "This Bag will only pick up bits it already contains.\n\nPress: %s on this button to switch the bag to pick up any bits."
 }

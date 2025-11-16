@@ -50,7 +50,7 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
     }
 
     @Override
-    protected void setSlotContents(final int index, final ItemStack stack)
+    protected void setItem(final int index, final ItemStack stack)
     {
         if (stack.isEmpty())
         {

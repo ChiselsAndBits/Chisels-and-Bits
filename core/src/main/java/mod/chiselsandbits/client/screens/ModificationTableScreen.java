@@ -45,9 +45,8 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
     public ModificationTableScreen(ModificationTableContainer containerIn, Inventory playerInv, Component titleIn) {
         super(containerIn, playerInv, titleIn);
         containerIn.setInventoryUpdateListener(this::onInventoryUpdate);
-        --this.titleLabelY;
-        this.imageHeight = 197;
-        this.inventoryLabelY = this.imageHeight - 94;
+        this.imageHeight = 240;
+        this.inventoryLabelY = this.imageHeight;
     }
 
     @Override
@@ -62,7 +61,6 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
-    @SuppressWarnings("deprecation")
     protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
         int left = this.leftPos;
         int top = this.topPos;

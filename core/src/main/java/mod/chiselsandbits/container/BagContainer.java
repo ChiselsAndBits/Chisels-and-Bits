@@ -1,21 +1,18 @@
 package mod.chiselsandbits.container;
 
-import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.inventory.bit.IBitInventoryItem;
 import mod.chiselsandbits.api.inventory.bit.IBitInventoryItemStack;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.inventory.wrapping.WrappingInventory;
-import mod.chiselsandbits.network.packets.BagGuiStackPacket;
+import mod.chiselsandbits.item.BitBagItem;
 import mod.chiselsandbits.registrars.ModContainerTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.slots.BitSlot;
 import mod.chiselsandbits.slots.ReadonlySlot;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -25,14 +22,14 @@ import java.util.List;
 
 public class BagContainer extends AbstractContainerMenu
 {
-    static final int OUTER_SLOT_SIZE = 18;
-    final public List<BitSlot> bitSlots = new ArrayList<>();
-    final public List<ItemStack> customSlotsItems = new ArrayList<>();
-    final Player      thePlayer;
-    final WrappingInventory visibleInventory = new WrappingInventory();
+    private static final int OUTER_SLOT_SIZE = 18;
+    private final List<BitSlot> bitSlots = new ArrayList<>();
+    private final Player      thePlayer;
+    private final WrappingInventory visibleInventory = new WrappingInventory();
 
-    IBitInventoryItemStack bagInv;
-    ReadonlySlot           bagSlot;
+
+    private IBitInventoryItemStack bagInv;
+    private ReadonlySlot           bagSlot;
 
     public BagContainer(final int id, final Inventory playerInventory)
     {
@@ -40,9 +37,6 @@ public class BagContainer extends AbstractContainerMenu
         thePlayer = playerInventory.player;
 
         final int playerInventoryOffset = (7 - 4) * OUTER_SLOT_SIZE;
-
-        final ItemStack is = thePlayer.getMainHandItem();
-        setBag(is);
 
         for (int yOffset = 0; yOffset < 7; ++yOffset)
         {
@@ -74,6 +68,8 @@ public class BagContainer extends AbstractContainerMenu
                 addSlot(new Slot(thePlayer.getInventory(), xToolbar, 8 + xToolbar * OUTER_SLOT_SIZE, 162 + playerInventoryOffset));
             }
         }
+
+        setBag(bagSlot.getItem());
     }
 
     private void setBag(
@@ -83,10 +79,13 @@ public class BagContainer extends AbstractContainerMenu
         {
             bagInv = bitInventoryItem.create(bagItem);
             visibleInventory.setWrapped(bagInv);
+            bagSlot.set(bagItem);
         }
         else
         {
             bagInv = null;
+            visibleInventory.setWrapped(null);
+            bagSlot.set(ItemStack.EMPTY);
         }
     }
 
@@ -95,36 +94,8 @@ public class BagContainer extends AbstractContainerMenu
     {
         newSlot.index = bitSlots.size();
         bitSlots.add(newSlot);
-        customSlotsItems.add(ItemStack.EMPTY);
 
         addSlot(newSlot);
-    }
-
-    @Override
-    public void broadcastChanges()
-    {
-        super.broadcastChanges();
-
-        for (int slotIdx = 0; slotIdx < bitSlots.size(); ++slotIdx)
-        {
-            final ItemStack realStack = bitSlots.get(slotIdx).getItem();
-            ItemStack clientStack = customSlotsItems.get(slotIdx);
-
-            if (!ItemStack.matches(clientStack, realStack))
-            {
-                clientStack = realStack.isEmpty() ? ItemStack.EMPTY : realStack.copy();
-                customSlotsItems.set(slotIdx, clientStack);
-
-                for (final ContainerListener cl : containerListeners)
-                {
-                    if (cl instanceof ServerPlayer)
-                    {
-                        final BagGuiStackPacket packet = new BagGuiStackPacket(slotIdx, clientStack);
-                        ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(packet, (ServerPlayer) cl);
-                    }
-                }
-            }
-        }
     }
 
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
@@ -191,19 +162,38 @@ public class BagContainer extends AbstractContainerMenu
         }
 
         setCarried(ItemStack.EMPTY);
-
-        transferState(this);
+        broadcastChanges();
     }
 
     public void sort()
     {
         bagInv.sort();
-        transferState(this);
+        broadcastChanges();
     }
 
     public void convert(Player player)
     {
         bagInv.convert(player);
-        transferState(this);
+        broadcastChanges();
+    }
+
+    public void setBagProperties(final boolean filtered, final boolean preferred)
+    {
+        if (getBagStack().getItem() instanceof BitBagItem bitBagItem) {
+            bitBagItem.setFilteredPickupInventory(thePlayer.getMainHandItem(), filtered);
+            bitBagItem.setPreferredPickupInventory(thePlayer.getMainHandItem(), preferred);
+            broadcastChanges();
+            thePlayer.inventoryMenu.broadcastChanges();
+        }
+    }
+
+    public List<BitSlot> getBitSlots()
+    {
+        return bitSlots;
+    }
+
+    public ItemStack getBagStack()
+    {
+        return bagSlot.getItem();
     }
 }

@@ -1,8 +1,8 @@
 package mod.chiselsandbits.inventory.wrapping;
 
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,9 +18,9 @@ public class WrappingInventory implements Container
     public int getContainerSize()
     {
         return whenNotNull(
-          wrapped,
-          0,
-          Container::getContainerSize
+            getWrapped(),
+            0,
+            Container::getContainerSize
         );
     }
 
@@ -28,9 +28,9 @@ public class WrappingInventory implements Container
     public boolean isEmpty()
     {
         return whenNotNull(
-          wrapped,
-          true,
-          Container::isEmpty
+            getWrapped(),
+            true,
+            Container::isEmpty
         );
     }
 
@@ -39,9 +39,9 @@ public class WrappingInventory implements Container
     public ItemStack getItem(final int index)
     {
         return whenNotNull(
-          wrapped,
-          ItemStack.EMPTY,
-          inventory -> inventory.getItem(index)
+            getWrapped(),
+            ItemStack.EMPTY,
+            inventory -> inventory.getItem(index)
         );
     }
 
@@ -50,9 +50,9 @@ public class WrappingInventory implements Container
     public ItemStack removeItem(final int index, final int count)
     {
         return whenNotNull(
-          wrapped,
-          ItemStack.EMPTY,
-          inventory -> inventory.removeItem(index, count)
+            getWrapped(),
+            ItemStack.EMPTY,
+            inventory -> inventory.removeItem(index, count)
         );
     }
 
@@ -61,9 +61,9 @@ public class WrappingInventory implements Container
     public ItemStack removeItemNoUpdate(final int index)
     {
         return whenNotNull(
-          wrapped,
-          ItemStack.EMPTY,
-          inventory -> inventory.removeItemNoUpdate(index)
+            getWrapped(),
+            ItemStack.EMPTY,
+            inventory -> inventory.removeItemNoUpdate(index)
         );
     }
 
@@ -71,8 +71,8 @@ public class WrappingInventory implements Container
     public void setItem(final int index, final @NotNull ItemStack stack)
     {
         whenNotNull(
-          wrapped,
-          inventory -> inventory.setItem(index, stack)
+            getWrapped(),
+            inventory -> inventory.setItem(index, stack)
         );
     }
 
@@ -80,8 +80,8 @@ public class WrappingInventory implements Container
     public void setChanged()
     {
         whenNotNull(
-          wrapped,
-          Container::setChanged
+            getWrapped(),
+            Container::setChanged
         );
     }
 
@@ -89,9 +89,9 @@ public class WrappingInventory implements Container
     public boolean stillValid(final @NotNull Player player)
     {
         return whenNotNull(
-          wrapped,
-          false,
-          inventory -> inventory.stillValid(player)
+            getWrapped(),
+            false,
+            inventory -> inventory.stillValid(player)
         );
     }
 
@@ -99,8 +99,8 @@ public class WrappingInventory implements Container
     public void clearContent()
     {
         whenNotNull(
-          wrapped,
-          Clearable::clearContent
+            getWrapped(),
+            Clearable::clearContent
         );
     }
 
@@ -108,9 +108,9 @@ public class WrappingInventory implements Container
     public int getMaxStackSize()
     {
         return whenNotNull(
-          wrapped,
-          64,
-          Container::getMaxStackSize
+            getWrapped(),
+            64,
+            Container::getMaxStackSize
         );
     }
 
@@ -124,6 +124,4 @@ public class WrappingInventory implements Container
     {
         this.wrapped = wrapped;
     }
-
-
 }

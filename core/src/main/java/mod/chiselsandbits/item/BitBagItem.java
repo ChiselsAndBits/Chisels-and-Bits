@@ -12,6 +12,7 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.inventory.bit.SlottedBitInventoryItemStack;
 import mod.chiselsandbits.network.packets.OpenBagGuiPacket;
+import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleInstanceCache;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -84,6 +85,13 @@ public class BitBagItem extends Item implements IBitInventoryItem
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
         HelpTextUtils.build(LocalStrings.HelpBitBag, tooltipAdder);
 
+        tooltipAdder.accept(
+            LocalStrings.HelpBagPickupMode.getText(
+                isPreferredPickupInventory(stack) ? LocalStrings.BagPicksUpFirst.getText() : LocalStrings.PlayerPicksUpFirst.getText(),
+                isFilteredPickupInventory(stack) ? LocalStrings.Filtered.getText() : LocalStrings.NonFiltered.getText()
+            )
+        );
+
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             if (!Minecraft.getInstance().hasShiftDown()) {
                 tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
@@ -140,6 +148,26 @@ public class BitBagItem extends Item implements IBitInventoryItem
           stack,
           BAG_STORAGE_SLOTS
         );
+    }
+
+    @Override
+    public boolean isPreferredPickupInventory(final ItemStack stack)
+    {
+        return stack.getOrDefault(ModDataComponentTypes.BAG_PREFERRED_PICK_UP.get(), false);
+    }
+
+    @Override
+    public boolean isFilteredPickupInventory(final ItemStack stack)
+    {
+        return stack.getOrDefault(ModDataComponentTypes.BAG_FILTERED_PICK_UP.get(), false);
+    }
+
+    public void setPreferredPickupInventory(final ItemStack stack, final boolean preferred) {
+        stack.set(ModDataComponentTypes.BAG_PREFERRED_PICK_UP.get(), preferred);
+    }
+
+    public void setFilteredPickupInventory(final ItemStack stack, final boolean filtered) {
+        stack.set(ModDataComponentTypes.BAG_FILTERED_PICK_UP.get(), filtered);
     }
 
     @SuppressWarnings("unused")

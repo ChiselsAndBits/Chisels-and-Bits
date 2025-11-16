@@ -11,6 +11,7 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class AbstractInteractableItemModelGenerator extends ModelProvider
@@ -59,12 +61,12 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
         );
     }
 
-    protected ResourceLocation createSpecModel(final ItemModelGenerators itemModelGenerators) {
-        return ModelTemplates.FLAT_ITEM
+    protected BlockModelWrapper.Unbaked createSpecModel(final ItemModelGenerators itemModelGenerators) {
+        return new BlockModelWrapper.Unbaked(ModelTemplates.FLAT_ITEM
             .create(
                 ModelLocationUtils.getModelLocation(this.targetRegistryObject.get()).withSuffix("_spec"),
                 TextureMapping.layer0(this.targetRegistryObject.get()),
                 itemModelGenerators.modelOutput
-            );
+            ), List.of());
     }
 }

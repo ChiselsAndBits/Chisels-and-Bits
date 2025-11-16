@@ -11,11 +11,11 @@ import mod.chiselsandbits.api.chiseling.conversion.IConversionManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityOptions;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
-import mod.chiselsandbits.api.client.model.baked.cache.ModelCacheKeyCalculatorRegistry;
+import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
+import mod.chiselsandbits.api.client.icon.IIconManager;
 import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPreviewRendererRegistry;
 import mod.chiselsandbits.api.client.sharing.IPatternSharingManager;
 import mod.chiselsandbits.api.client.tool.mode.icon.ISelectedToolModeIconRendererRegistry;
-import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
 import mod.chiselsandbits.api.client.variant.state.IClientStateVariantManager;
 import mod.chiselsandbits.api.config.IChiselsAndBitsConfiguration;
 import mod.chiselsandbits.api.cutting.operation.ICuttingOperation;
@@ -44,10 +44,11 @@ import mod.chiselsandbits.chiseling.LocalChiselingContextCache;
 import mod.chiselsandbits.chiseling.conversion.ConversionManager;
 import mod.chiselsandbits.chiseling.eligibility.EligibilityManager;
 import mod.chiselsandbits.client.chiseling.preview.render.ChiselContextPreviewRendererRegistry;
+import mod.chiselsandbits.client.clipboard.CreativeClipboardManager;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.client.sharing.PatternSharingManager;
 import mod.chiselsandbits.client.tool.mode.icon.SelectedToolModeRendererRegistry;
 import mod.chiselsandbits.client.variant.state.ClientStateVariantManager;
-import mod.chiselsandbits.client.clipboard.CreativeClipboardManager;
 import mod.chiselsandbits.inventory.management.BitInventoryManager;
 import mod.chiselsandbits.item.bit.BitItemManager;
 import mod.chiselsandbits.item.multistate.MultiStateItemFactory;
@@ -70,6 +71,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("DataFlowIssue")
 public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI
 {
     private final IEligibilityOptions eligibilityOptions;
@@ -370,7 +372,11 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI
     }
 
     @Override
-    public @NotNull ModelCacheKeyCalculatorRegistry getBakedModelCacheKeyCalculatorRegistry() {
-        return null;
+    public @NotNull IIconManager getIconManager()
+    {
+        return DistExecutor.unsafeRunForDist(
+            () -> IconManager::getInstance,
+            () -> () -> null
+        );
     }
 }

@@ -44,7 +44,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
      * @param stack The stack to insert.
      */
     @Override
-    protected void setSlotContents(final int index, final ItemStack stack)
+    protected void setItem(final int index, final ItemStack stack)
     {
         try(Transaction tx = Transaction.openRoot())
         {
