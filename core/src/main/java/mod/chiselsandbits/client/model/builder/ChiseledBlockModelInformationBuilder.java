@@ -68,7 +68,7 @@ public record ChiseledBlockModelInformationBuilder(
                             $ -> new QuadCollection.Builder()
                         );
 
-                        if (cullDirection != null)
+                        if (region.isOnOuterFace() && cullDirection != null)
                             builder.addCulledFace(cullDirection, quad.quad());
                         else
                             builder.addUnculledFace(quad.quad());

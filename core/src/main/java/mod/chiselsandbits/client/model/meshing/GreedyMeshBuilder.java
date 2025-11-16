@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
-import mod.chiselsandbits.client.model.baked.chiseled.ChiselRenderType;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GreedyMeshBuilder {
-
-    private static final int DIMENSIONS = 3;
+    private static final double EPSILON    = 0.000001d;
+    private static final int    DIMENSIONS = 3;
 
     private GreedyMeshBuilder() {
         throw new IllegalStateException("Cannot instantiate utility class");
@@ -41,7 +40,6 @@ public class GreedyMeshBuilder {
         class MaterialProcessor {
             final int getMaterialIndex(int x, int y, int z) {
                 final BlockInformation blockInformation = data.getMaterial(x, y, z);
-
                 return indexByMaterial.computeIfAbsent(blockInformation, k -> {
                     int index = indexByMaterial.size() + 1;
                     materialByIndex.put(index, blockInformation);
@@ -181,7 +179,7 @@ public class GreedyMeshBuilder {
 
         final double axisValue = axis.choose(lowerLeft.x, lowerLeft.y, lowerLeft.z);
 
-        final boolean isEdge = axisValue == 0 || axisValue == sizePerDimension;
+        final boolean isEdge = Math.abs(0-axisValue) < EPSILON || Math.abs(1-axisValue) < EPSILON;
 
         return new GreedyMeshFace(
             material,
