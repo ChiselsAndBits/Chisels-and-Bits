@@ -59,8 +59,9 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
         poseStack.pushPose();
         poseStack.translate(.5f, .5f, .5f);
 
-        boolean jeiMode = item.isRunningASimulatedInteraction(argument.stack());
+        boolean simulation = item.isRunningASimulatedInteraction(argument.stack());
 
+        int modifier = leftHand ? -1 : 1;
         if (item.isInteracting(argument.stack())) {
             poseStack.pushPose();
 
@@ -68,7 +69,6 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
                 poseStack.translate(0.0F, .2f, 1.0F);
                 poseStack.scale(.75f, .75f, .75f);
             } else {
-                int modifier = leftHand ? -1 : 1;
                 poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
             }
 
@@ -76,7 +76,7 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
             float time = 0;
             if (player != null)
             {
-                time = (float) (!jeiMode ? player.getUseItemRemainingTicks()
+                time = (float) (!simulation ? player.getUseItemRemainingTicks()
                     : (-TickHandler.getNonePausedTicks()) % stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player))) - partialTicks + 1.0F;
             }
             if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) < 0.8F) {
@@ -108,7 +108,6 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
         if (firstPerson && player != null) {
             int itemInUseCount = player.getUseItemRemainingTicks();
             if (itemInUseCount > 0) {
-                int modifier = leftHand ? -1 : 1;
                 poseStack.translate(modifier * .5f, 0, -.25f);
                 poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
                 poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 10, 0), true));
@@ -134,6 +133,9 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
         }
         else
         {
+            poseStack.pushPose();
+            poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * -90, 0), true));
+
             final ItemStack target = item.getInteractionTarget(stack);
             ItemModelUtils.render(
                 target,
@@ -147,6 +149,8 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
                 null,
                 0
             );
+
+            poseStack.popPose();
         }
 
         poseStack.popPose();

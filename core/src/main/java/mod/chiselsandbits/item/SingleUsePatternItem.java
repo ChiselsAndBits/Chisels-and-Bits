@@ -160,6 +160,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem
         return source;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(
         final ItemStack stack,

@@ -59,6 +59,7 @@ public class NetworkChannel
         register(ExportPatternCommandMessagePacket.TYPE, ExportPatternCommandMessagePacket.streamCodec(ExportPatternCommandMessagePacket::new));
         register(ImportPatternCommandMessagePacket.TYPE, ImportPatternCommandMessagePacket.streamCodec(ImportPatternCommandMessagePacket::new));
         register(GivePlayerPatternCommandPacket.TYPE, GivePlayerPatternCommandPacket.streamCodec(GivePlayerPatternCommandPacket::new));
+        register(ModificationRecipesUpdated.TYPE, ModificationRecipesUpdated.streamCodec(ModificationRecipesUpdated::new));
     }
 
     private <T extends ModPacket> void register(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec)

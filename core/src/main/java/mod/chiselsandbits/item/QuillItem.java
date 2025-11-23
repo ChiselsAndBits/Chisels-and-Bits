@@ -1,5 +1,6 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import com.communi.suggestu.scena.core.entity.IPlayerInventoryManager;
 import mod.chiselsandbits.api.item.tool.IQuillItem;
 import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
@@ -10,6 +11,7 @@ import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.components.data.InteractionData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -69,7 +71,7 @@ public class QuillItem extends Item implements IQuillItem
     }
 
     @Override
-    public int getUseDuration(ItemStack $$0, LivingEntity $$1) {
+    public int getUseDuration(@NotNull ItemStack $$0, @NotNull LivingEntity $$1) {
         return 32;
     }
 
@@ -131,8 +133,6 @@ public class QuillItem extends Item implements IQuillItem
         return stack;
     }
 
-
-
     @Override
     public @NotNull InteractionResult use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
@@ -167,15 +167,20 @@ public class QuillItem extends Item implements IQuillItem
         return areaMutator.createSnapshot().toItemStack().toPatternStack();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(
-        final ItemStack stack,
-        final TooltipContext context,
-        final TooltipDisplay tooltipDisplay,
-        final Consumer<Component> tooltipAdder,
-        final TooltipFlag flag)
+        final @NotNull ItemStack stack,
+        final @NotNull TooltipContext context,
+        final @NotNull TooltipDisplay tooltipDisplay,
+        final @NotNull Consumer<Component> tooltipAdder,
+        final @NotNull TooltipFlag flag)
     {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
-        HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder);
+
+        DistExecutor.unsafeExecuteForDist(
+            () -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
+            () -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder)
+        );
     }
 }

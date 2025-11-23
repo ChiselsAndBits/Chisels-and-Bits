@@ -5,13 +5,12 @@ import com.google.common.collect.Sets;
 import mod.chiselsandbits.api.reloading.ICacheClearingHandler;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.besr.BitStorageBESR;
-import mod.chiselsandbits.client.model.item.BitBlockBakedModelManager;
+import mod.chiselsandbits.client.besr.ChiseledPrinterBESR;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.face.FaceManager;
+import mod.chiselsandbits.client.model.item.BitBlockBakedModelManager;
 import mod.chiselsandbits.reloading.DataReloadingResourceManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +21,7 @@ import java.util.Set;
 
 public class ClientResourceReloadingManager implements ResourceManagerReloadListener
 {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger                         LOGGER   = LogManager.getLogger();
     private static final ClientResourceReloadingManager INSTANCE = new ClientResourceReloadingManager();
 
     public static ClientResourceReloadingManager getInstance()
@@ -42,12 +41,14 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
         clearCaches();
     }
 
-    public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler) {
+    public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler)
+    {
         this.cacheClearingHandlers.add(cacheClearingHandler);
         return this;
     }
 
-    public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar) {
+    public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar)
+    {
         LOGGER.info("Setting up client reloading resource manager.");
         registrar.addListener(
             ResourceLocation.fromNamespaceAndPath(
@@ -58,13 +59,15 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
         );
 
         ClientResourceReloadingManager.getInstance()
-          .registerCacheClearer(BitStorageBESR::clearCache)
-          .registerCacheClearer(BitBlockBakedModelManager.getInstance()::clearCache)
-          .registerCacheClearer(ChiseledBlockStateModelManager.getInstance()::clearCache)
-          .registerCacheClearer(FaceManager.getInstance()::clearCache);
+            .registerCacheClearer(BitStorageBESR::clearCache)
+            .registerCacheClearer(ChiseledPrinterBESR::clearCache)
+            .registerCacheClearer(BitBlockBakedModelManager.getInstance()::clearCache)
+            .registerCacheClearer(ChiseledBlockStateModelManager.getInstance()::clearCache)
+            .registerCacheClearer(FaceManager.getInstance()::clearCache);
     }
 
-    public void clearCaches() {
+    public void clearCaches()
+    {
         LOGGER.info("Resetting client caches");
         cacheClearingHandlers.forEach(ICacheClearingHandler::clear);
 

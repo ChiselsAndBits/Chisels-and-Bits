@@ -74,10 +74,13 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
         this.chunkSection = new StateEntryStorage();
 
         this.chunkSection.initializeWith(blockInformation);
+
+        this.stateObjectStatistics = new SimpleStatistics(this.chunkSection);
     }
 
     public SimpleSnapshot(final StateEntryStorage chunkSection) {
         this.chunkSection = chunkSection;
+        this.stateObjectStatistics = new SimpleStatistics(chunkSection);
     }
 
     public SimpleSnapshot(StateEntryStorage chunkSection, SimpleStatistics stateObjectStatistics) {
@@ -386,6 +389,14 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
     }
 
     @Override
+    public IMultiStateSnapshot limitedToProgression(final float progress)
+    {
+        return new SimpleSnapshot(
+            this.chunkSection.limitedToProgress(progress)
+        );
+    }
+
+    @Override
     public @NotNull AABB getBoundingBox() {
         return new AABB(0, 0, 0, 1, 1, 1);
     }
@@ -590,7 +601,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
         @Override
         public boolean isEmpty ()
         {
-            return !primaryState.isAir();
+            return primaryState.isAir();
         }
 
         @Override

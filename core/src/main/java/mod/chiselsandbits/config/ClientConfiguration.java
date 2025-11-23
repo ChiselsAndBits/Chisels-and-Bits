@@ -30,6 +30,7 @@ public class ClientConfiguration implements IClientConfiguration
     private final Supplier<String>                     toolModeRenderer;
     private final Supplier<Boolean>                    invertPickBlockBehaviour;
     private final Supplier<Long>                       bitStorageContentCacheSize;
+    private final Supplier<Long>                       printerContentCacheSize;
     private final Supplier<Boolean>                    faceLightMapExtraction;
     private final Supplier<Boolean>                    blockLightEmissionExtraction;
     private final Supplier<Boolean>                    radialMenuMouseIndicator;
@@ -69,6 +70,7 @@ public class ClientConfiguration implements IClientConfiguration
         addPickedBlocksToClipboard = builder.defineBoolean("settings.clipboard.add-picked-blocks", true);
         patternExportPath = builder.defineString("settings.patterns.export-path", "./chiselsandbits/patterns");
         bitStorageContentCacheSize = builder.defineLong("performance.caches.sizes.bit-storage-content-models", 100, 0, Long.MAX_VALUE);
+        printerContentCacheSize = builder.defineLong("performance.caches.sizes.printer-content-models", 100, 0, Long.MAX_VALUE);
         faceLightMapExtraction = builder.defineBoolean("performance.lighting.extract-lighting-values-from-faces", true);
         blockLightEmissionExtraction = builder.defineBoolean("performance.lighting.extract-lighting-values-from-blockstates", false);
         radialMenuMouseIndicator = builder.defineBoolean("gui.radial-menu.display-mouse-indicator", false);
@@ -154,6 +156,12 @@ public class ClientConfiguration implements IClientConfiguration
     public Supplier<Long> getBitStorageContentCacheSize()
     {
         return bitStorageContentCacheSize;
+    }
+
+    @Override
+    public Supplier<Long> getPrinterContentCacheSize()
+    {
+        return printerContentCacheSize;
     }
 
     @Override

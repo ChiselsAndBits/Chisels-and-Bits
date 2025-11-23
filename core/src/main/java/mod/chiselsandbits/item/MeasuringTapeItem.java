@@ -8,7 +8,6 @@ import mod.chiselsandbits.api.item.click.ClickProcessingState;
 import mod.chiselsandbits.api.item.measuring.IMeasuringTapeItem;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.measures.MeasuringMode;
-import mod.chiselsandbits.api.util.BlockHitResultUtils;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
@@ -20,20 +19,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -56,8 +53,11 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
     @Override
     public void setMode(final ItemStack stack, final IMeasuringMode mode)
     {
+        if (mode == null)
+            throw new IllegalArgumentException("Mode is null");
+
         if (!(mode instanceof MeasuringMode m))
-            throw new IllegalArgumentException("Mode is not of a known type!");
+            throw new IllegalArgumentException("Mode is not of a known type: " + mode.getClass());
 
         stack.set(ModDataComponentTypes.MEASURING_MODE.get(), m);
     }
@@ -98,7 +98,6 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
                     else
                     {
                         final Vec3 startPoint = startPointHandler.get();
-                        final Vec3 hitVector = BlockHitResultUtils.getCenterOfHitObject(blockRayTraceResult, getMode(stack).getType().getResolution() );
                         MeasuringManager.getInstance().createAndSend(
                           startPoint,
                           getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
@@ -115,8 +114,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
         return result;
     }
 
-    @Override
-    public void inventoryTick(final ItemStack stack, final ServerLevel level, final Entity entity, @Nullable final EquipmentSlot slot)
+    public void clientTick(final ItemStack stack, final Level level, final Entity entity)
    {
         if (!level.isClientSide())
             return;

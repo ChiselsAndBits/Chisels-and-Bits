@@ -56,112 +56,122 @@ public final class MeasurementRenderer
 
         final Collection<? extends IMeasurement> measurements = MeasuringManager.getInstance().getInWorld(Minecraft.getInstance().level);
 
-
         Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
         double xView = vector3d.x();
         double yView = vector3d.y();
         double zView = vector3d.z();
 
         measurements.forEach(measurement -> {
-            final Vec3 startPos = measurement.getFrom();
-
-            final AABB measurementBB = new AABB(
-                Vec3.ZERO, measurement.getSize().add(0.0001d, 0.0001d, 0.0001d)
-            );
-            final VoxelShape boundingShape = Shapes.create(measurementBB);
-
-            if (measurement.getMode().getGroup().map(g -> g != MeasuringType.DISTANCE).orElse(false))
-            {
-                ShapeRenderer.renderShape(
-                    poseStack,
-                    bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
-                    boundingShape,
-                    startPos.x() - xView,
-                    startPos.y() - yView,
-                    startPos.z() - zView,
-                    ARGB.colorFromFloat(
-                        (float) measurement.getMode().getColorVector().x(),
-                        (float) measurement.getMode().getColorVector().y(),
-                        (float) measurement.getMode().getColorVector().z(),
-                        (float) measurement.getMode().getAlphaChannel()
-                    )
-                );
-
-                final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
-                final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
-
-                if (lengths.y() > 1 / 16d)
-                {
-                    renderMeasurementSize(
-                        poseStack,
-                        bufferSource,
-                        measurement,
-                        lengths.y(),
-                        new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()));
-                }
-                if (lengths.x() > 1 / 16d)
-                {
-                    renderMeasurementSize(
-                        poseStack,
-                        bufferSource,
-                        measurement,
-                        lengths.x(),
-                        new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()));
-                }
-                if (lengths.z() > 1 / 16d)
-                {
-                    renderMeasurementSize(
-                        poseStack,
-                        bufferSource,
-                        measurement,
-                        lengths.z(),
-                        new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()));
-                }
-            }
-            else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false))
-            {
-                final VertexConsumer bufferIn = bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get());
-                bufferIn.addVertex(poseStack.last().pose(),
-                        (float) (measurement.getFrom().x() - xView),
-                        (float) (measurement.getFrom().y() - yView),
-                        (float) (measurement.getFrom().z() - zView))
-                    .setColor(
-                        (float) measurement.getMode().getColorVector().x(),
-                        (float) measurement.getMode().getColorVector().y(),
-                        (float) measurement.getMode().getColorVector().z(),
-                        (float) measurement.getMode().getAlphaChannel()
-                    )
-                    .setNormal(poseStack.last(), 0, 1, 0);
-
-                bufferIn.addVertex(poseStack.last().pose(),
-                        (float) (measurement.getTo().x() - xView),
-                        (float) (measurement.getTo().y() - yView),
-                        (float) (measurement.getTo().z() - zView))
-                    .setColor(
-                        (float) measurement.getMode().getColorVector().x(),
-                        (float) measurement.getMode().getColorVector().y(),
-                        (float) measurement.getMode().getColorVector().z(),
-                        (float) measurement.getMode().getAlphaChannel()
-                    )
-                    .setNormal(poseStack.last(), 0, 1, 0);
-
-                final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
-                final double totalLength = lengths.length();
-                final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
-
-                if (totalLength > 1 / 16d)
-                {
-                    renderMeasurementSize(
-                        poseStack,
-                        bufferSource,
-                        measurement,
-                        totalLength,
-                        centerPos);
-                }
-            }
-
-            bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
+            renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView);
         });
+    }
+
+    private void renderMeasurement(
+        final PoseStack poseStack,
+        final MultiBufferSource.BufferSource bufferSource,
+        final IMeasurement measurement,
+        final double xView,
+        final double yView,
+        final double zView)
+    {
+        final Vec3 startPos = measurement.getFrom();
+
+        final AABB measurementBB = new AABB(
+            Vec3.ZERO, measurement.getSize().add(0.0001d, 0.0001d, 0.0001d)
+        );
+        final VoxelShape boundingShape = Shapes.create(measurementBB);
+
+        if (measurement.getMode().getGroup().map(g -> g != MeasuringType.DISTANCE).orElse(false))
+        {
+            ShapeRenderer.renderShape(
+                poseStack,
+                bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
+                boundingShape,
+                startPos.x() - xView,
+                startPos.y() - yView,
+                startPos.z() - zView,
+                ARGB.colorFromFloat(
+                    (float) measurement.getMode().getAlphaChannel(),
+                    (float) measurement.getMode().getColorVector().x(),
+                    (float) measurement.getMode().getColorVector().y(),
+                    (float) measurement.getMode().getColorVector().z()
+                )
+            );
+
+            final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
+            final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
+
+            if (lengths.y() > 1 / 16d)
+            {
+                renderMeasurementSize(
+                    poseStack,
+                    bufferSource,
+                    measurement,
+                    lengths.y(),
+                    new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()));
+            }
+            if (lengths.x() > 1 / 16d)
+            {
+                renderMeasurementSize(
+                    poseStack,
+                    bufferSource,
+                    measurement,
+                    lengths.x(),
+                    new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()));
+            }
+            if (lengths.z() > 1 / 16d)
+            {
+                renderMeasurementSize(
+                    poseStack,
+                    bufferSource,
+                    measurement,
+                    lengths.z(),
+                    new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()));
+            }
+        }
+        else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false))
+        {
+            final VertexConsumer bufferIn = bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get());
+            bufferIn.addVertex(poseStack.last().pose(),
+                    (float) (measurement.getFrom().x() - xView),
+                    (float) (measurement.getFrom().y() - yView),
+                    (float) (measurement.getFrom().z() - zView))
+                .setColor(
+                    (float) measurement.getMode().getColorVector().x(),
+                    (float) measurement.getMode().getColorVector().y(),
+                    (float) measurement.getMode().getColorVector().z(),
+                    (float) measurement.getMode().getAlphaChannel()
+                )
+                .setNormal(poseStack.last(), 0, 1, 0);
+
+            bufferIn.addVertex(poseStack.last().pose(),
+                    (float) (measurement.getTo().x() - xView),
+                    (float) (measurement.getTo().y() - yView),
+                    (float) (measurement.getTo().z() - zView))
+                .setColor(
+                    (float) measurement.getMode().getColorVector().x(),
+                    (float) measurement.getMode().getColorVector().y(),
+                    (float) measurement.getMode().getColorVector().z(),
+                    (float) measurement.getMode().getAlphaChannel()
+                )
+                .setNormal(poseStack.last(), 0, 1, 0);
+
+            final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
+            final double totalLength = lengths.length();
+            final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
+
+            if (totalLength > 1 / 16d)
+            {
+                renderMeasurementSize(
+                    poseStack,
+                    bufferSource,
+                    measurement,
+                    totalLength,
+                    centerPos);
+            }
+        }
+
+        bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
     }
 
     private void renderMeasurementSize(

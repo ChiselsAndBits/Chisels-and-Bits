@@ -10,8 +10,12 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 import javax.annotation.Nullable;
@@ -22,7 +26,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
     private final SubmitNodeCollector     submitNodeCollector;
     private final FeatureRenderDispatcher featureRenderDispatcher;
     @Nullable
-    private Object lastModelIdentity = null;
+    private ItemStack lastModelIdentity = null;
     @Nullable
     private Quaternionf lastRotY  = null;
 
@@ -36,16 +40,33 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
     @Override
     protected void renderToTexture(RenderState state, PoseStack poseStack)
     {
-        TrackingItemStackRenderState renderState = state.renderState;
 
         poseStack.scale(1, -1, -1);
         poseStack.mulPose(state.rotation);
 
         Minecraft.getInstance().gameRenderer.getLighting().setupFor(Lighting.Entry.ITEMS_FLAT);
-        renderState.submit(poseStack, submitNodeCollector, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
+
+        final ItemStackRenderState renderState = new ItemStackRenderState();
+        Minecraft.getInstance().getItemModelResolver().updateForTopItem(
+            renderState,
+            state.stack,
+            ItemDisplayContext.GUI,
+            null,
+            null,
+            42
+        );
+
+        renderState.submit(
+            poseStack,
+            submitNodeCollector,
+            LightTexture.FULL_BRIGHT,
+            OverlayTexture.NO_OVERLAY,
+            0
+        );
+
         featureRenderDispatcher.renderAllFeatures();
 
-        lastModelIdentity = renderState.getModelIdentity();
+        lastModelIdentity = state.stack;
         lastRotY = state.rotation;
     }
 
@@ -58,26 +79,27 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
     @Override
     protected boolean textureIsReadyToBlit(RenderState state)
     {
-        if (state.rotation != lastRotY) { return false; }
+        if (state.rotation != lastRotY) return false;
+        if (lastModelIdentity == null) return false;
 
-        TrackingItemStackRenderState renderState = state.renderState;
-        return !renderState.isAnimated() && renderState.getModelIdentity().equals(lastModelIdentity);
+        ItemStack renderState = state.stack;
+        return ItemStack.isSameItemSameComponents(renderState, this.lastModelIdentity);
     }
 
     @Override
-    protected String getTextureLabel()
+    protected @NotNull String getTextureLabel()
     {
         return "c&B rotatable item renderer";
     }
 
     @Override
-    public Class<RenderState> getRenderStateClass()
+    public @NotNull Class<RenderState> getRenderStateClass()
     {
         return RenderState.class;
     }
 
     public record RenderState(
-        TrackingItemStackRenderState renderState,
+        ItemStack stack,
         Quaternionf rotation,
         int x0,
         int y0,
@@ -89,7 +111,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
     ) implements PictureInPictureRenderState
     {
         public RenderState(
-            TrackingItemStackRenderState renderState,
+            ItemStack stack,
             Quaternionf rotation,
             int x0,
             int y0,
@@ -99,7 +121,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
             @Nullable ScreenRectangle scissorArea
         )
         {
-            this(renderState, rotation, x0, y0, x1, y1, scale, PictureInPictureRenderState.getBounds(x0, y0, x1, y1, scissorArea), scissorArea);
+            this(stack, rotation, x0, y0, x1, y1, scale, PictureInPictureRenderState.getBounds(x0, y0, x1, y1, scissorArea), scissorArea);
         }
     }
 }

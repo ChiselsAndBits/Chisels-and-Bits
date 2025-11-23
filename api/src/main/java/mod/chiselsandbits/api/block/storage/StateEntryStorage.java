@@ -232,6 +232,42 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
         }
     }
 
+    public StateEntryStorage limitedToProgress(final float progress)
+    {
+        final var noneAirCounts = count().entrySet()
+            .stream()
+            .filter(e -> !e.getKey().isAir())
+            .mapToInt(Map.Entry::getValue)
+            .sum();
+
+        final var allowedCounts = (int) Math.floor(noneAirCounts * progress);
+        final var result = new StateEntryStorage();
+        if (allowedCounts == 0)
+            return result;
+
+        int currentCount = 0;
+        for (int y = 0; y < this.size; y++)
+        {
+            for (int z = 0; z < this.size; z++)
+            {
+                for (int x = 0; x < this.size; x++)
+                {
+                    final BlockInformation target = getBlockInformation(x, y, z);
+                    if (target.isAir())
+                        continue;
+
+                    currentCount++;
+                    result.setBlockInformation(x,y,z, target);
+
+                    if (currentCount == allowedCounts)
+                        return result;
+                }
+            }
+        }
+
+        return result;
+    }
+
     public StateEntryPalette palette() {
         return palette;
     }

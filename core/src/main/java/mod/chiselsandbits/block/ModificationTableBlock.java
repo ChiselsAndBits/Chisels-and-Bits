@@ -66,7 +66,7 @@ public class ModificationTableBlock extends Block
     @Override
     public BlockState getStateForPlacement(final BlockPlaceContext context)
     {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection());
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -93,6 +93,6 @@ public class ModificationTableBlock extends Block
 
     @Override
     public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
-        return SHAPES.get(pState.getValue(FACING));
+        return SHAPES.get(pState.getValue(FACING).getOpposite());
     }
 }

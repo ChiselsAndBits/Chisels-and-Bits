@@ -9,6 +9,7 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.ColorUtils;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
+import mod.scena.client.utils.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -22,17 +23,15 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
 {
 
     private ItemStack snapshotBlockStack = ItemStack.EMPTY;
-    private TrackingItemStackRenderState renderState = new TrackingItemStackRenderState();
 
     private Vec3 facingVector = Vec3.ZERO;
-    private float scaleFactor = 1f;
+    private float scaleFactor = 20f;
 
     public MultiStateSnapshotWidget(final int x, final int y, final int width, final int height, final Component title)
     {
         super(x, y, width, height, title);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void renderWidget(final @NotNull GuiGraphics graphics, final int mouseX, final int mouseY, final float partialTicks)
     {
@@ -41,28 +40,24 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
         graphics.fill(this.getX() + 1, this.getY() + 1, this.getX() + this.width, this.getY() + this.height, ColorUtils.pack(ColorUtils.FULL_CHANNEL));
         graphics.fill(this.getX() + 1, this.getY() + 1, this.getX() + this.width - 1, this.getY() + this.height - 1, ColorUtils.pack(ColorUtils.EMPTY_CHANNEL));
 
-        scissorStart();
-
         if (!snapshotBlockStack.isEmpty()) {
             graphics.pose().pushMatrix();
             renderRotatableItemAndEffectIntoGui(graphics);
             graphics.pose().popMatrix();
         }
-
-        scissorEnd();
     }
 
-    @SuppressWarnings({"deprecation", "ConstantConditions"})
+    @SuppressWarnings({"ConstantConditions"})
     public void renderRotatableItemAndEffectIntoGui(@NotNull GuiGraphics graphics) {
         final IExtendedGuiGraphics extendedGuiGraphics = extendGraphics(graphics);
         extendedGuiGraphics.submitPip(
             new RotatableItemRenderer.RenderState(
-                renderState,
+                this.snapshotBlockStack,
                 TransformationUtils.quatFromXYZ(this.facingVector.toVector3f(), false),
-                this.getX(),
-                this.getY(),
-                this.getX() + this.width,
-                this.getY() + this.height,
+                this.getX() + 1,
+                this.getY() + 1,
+                this.getX() + this.width - 1,
+                this.getY() + this.height - 1,
                 scaleFactor,
                 extendedGuiGraphics.currentScissorArea()
             )
@@ -83,27 +78,15 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
     }
 
     @Override
-    protected void onDrag(final MouseButtonEvent event, final double mouseX, final double mouseY)
+    protected void onDrag(final @NotNull MouseButtonEvent event, final double mouseX, final double mouseY)
     {
-        this.facingVector = this.facingVector.add(-mouseY * 10, mouseX * 10, 0);
+        this.facingVector = this.facingVector.add(mouseY * 0.1, 0, mouseX * 0.1);
     }
 
     @Override
     public boolean mouseScrolled(final double mouseX, final double mouseY, final double deltaX, final double deltaY)
     {
-        this.scaleFactor += (float) (deltaY * 0.25);
+        this.scaleFactor += (float) (deltaY * 0.4);
         return true;
-    }
-
-    private void scissorStart()
-    {
-        Window mw = Minecraft.getInstance().getWindow();
-        double sf = mw.getGuiScale();
-        GL11.glScissor((int)((this.getX() + 1) * mw.getGuiScale()), (int)(mw.getGuiScaledHeight() * sf - height * sf - (getY() - 1) * sf), (int)((width - 2) * sf), (int)((height - 1) * sf));
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
-    }
-
-    protected void scissorEnd() {
-        GL11.glDisable(GL11.GL_SCISSOR_TEST);
     }
 }

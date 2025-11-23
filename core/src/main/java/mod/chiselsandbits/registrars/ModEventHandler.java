@@ -132,5 +132,7 @@ public final class ModEventHandler {
                         );
                     });
         });
+
+        IGameEvents.getInstance().getIsPlayerScopingEvent().register(IsScopingHandler::isScoping);
     }
 }

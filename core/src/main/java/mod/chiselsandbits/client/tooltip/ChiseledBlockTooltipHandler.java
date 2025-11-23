@@ -38,13 +38,13 @@ public class ChiseledBlockTooltipHandler
         @Override
         public int getHeight(final Font font)
         {
-            return 40;
+            return 20;
         }
 
         @Override
         public int getWidth(@NotNull Font font)
         {
-            return 40;
+            return 20;
         }
 
         @Override
@@ -52,7 +52,7 @@ public class ChiseledBlockTooltipHandler
         {
             guiGraphics.renderItem(
                 component,
-                x, y
+                x + 2, y + 2
             );
         }
     }

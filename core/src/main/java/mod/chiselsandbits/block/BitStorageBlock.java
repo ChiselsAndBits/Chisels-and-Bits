@@ -53,7 +53,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
     @Override
     public BlockState getStateForPlacement(final BlockPlaceContext context)
     {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection());
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

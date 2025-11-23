@@ -495,6 +495,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
     }
 
     @Override
+    public IMultiStateSnapshot limitedToProgression(final float progress)
+    {
+        throw new NotImplementedException("MultiBlock Snapshots can not be limited to a progression yet!");
+    }
+
+    @Override
     public @NotNull AABB getBoundingBox() {
         return new AABB(
                 startPoint.x(),

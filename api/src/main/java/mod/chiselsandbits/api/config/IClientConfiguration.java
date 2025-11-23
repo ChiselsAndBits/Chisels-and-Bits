@@ -117,6 +117,13 @@ public interface IClientConfiguration
     Supplier<Long> getBitStorageContentCacheSize();
 
     /**
+     * Indicates the size of the printer content model cache size.
+     *
+     * @return A configuration supplier that indicates the current printer content cache size.
+     */
+    Supplier<Long> getPrinterContentCacheSize();
+
+    /**
      * Indicates if the lightmap values of a face should be used to extract lighting information for a model.
      *
      * @return A configuration supplier that indicates if the lightmap values of a face should be used to extract lighting information for a model.

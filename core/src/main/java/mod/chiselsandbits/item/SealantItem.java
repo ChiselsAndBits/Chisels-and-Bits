@@ -1,5 +1,6 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import com.communi.suggestu.scena.core.entity.IPlayerInventoryManager;
 import mod.chiselsandbits.api.exceptions.SealingNotSupportedException;
 import mod.chiselsandbits.api.item.tool.ISealantItem;
@@ -9,6 +10,7 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.components.data.InteractionData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -65,7 +67,7 @@ public class SealantItem extends Item implements ISealantItem
     }
 
     @Override
-    public int getUseDuration(ItemStack $$0, LivingEntity $$1) {
+    public int getUseDuration(@NotNull ItemStack $$0, @NotNull LivingEntity $$1) {
         return 64;
     }
 
@@ -164,15 +166,20 @@ public class SealantItem extends Item implements ISealantItem
         return targetStack;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(
-        final ItemStack stack,
-        final TooltipContext context,
-        final TooltipDisplay tooltipDisplay,
-        final Consumer<Component> tooltipAdder,
-        final TooltipFlag flag)
+        final @NotNull ItemStack stack,
+        final @NotNull TooltipContext context,
+        final @NotNull TooltipDisplay tooltipDisplay,
+        final @NotNull Consumer<Component> tooltipAdder,
+        final @NotNull TooltipFlag flag)
     {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
-        HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder);
+
+        DistExecutor.unsafeExecuteForDist(
+            () -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
+            () -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder)
+        );
     }
 }

@@ -36,7 +36,7 @@ public class MonocleItem extends Item
         if (list.isEmpty()) {
             return false;
         } else {
-            LivingEntity targetEntity = list.get(0);
+            LivingEntity targetEntity = list.getFirst();
             EquipmentSlot slot = targetEntity.getEquipmentSlotForItem(stack);
             ItemStack stackToDispense = stack.split(1);
             targetEntity.setItemSlot(slot, stackToDispense);

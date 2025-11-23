@@ -31,6 +31,8 @@ public class MeasurementNetworkUtil
           mode
         );
 
+        MeasuringManager.getInstance().addOrUpdate(measurement);
+
         final MeasurementUpdatedPacket packet = new MeasurementUpdatedPacket(measurement);
 
         ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);

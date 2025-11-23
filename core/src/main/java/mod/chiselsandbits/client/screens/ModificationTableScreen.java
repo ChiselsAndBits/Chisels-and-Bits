@@ -27,6 +27,9 @@ import java.util.List;
 
 public class ModificationTableScreen extends AbstractContainerScreen<ModificationTableContainer>
 {
+    private static final ResourceLocation RECIPE_SELECTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_selected");
+    private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_highlighted");
+    private static final ResourceLocation RECIPE_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe");
     private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/modification_table.png");
     private               float            sliderProgress;
     /** Is {@code true} if the player clicked on the scroll wheel in the GUI. */
@@ -45,8 +48,8 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
     public ModificationTableScreen(ModificationTableContainer containerIn, Inventory playerInv, Component titleIn) {
         super(containerIn, playerInv, titleIn);
         containerIn.setInventoryUpdateListener(this::onInventoryUpdate);
-        this.imageHeight = 240;
-        this.inventoryLabelY = this.imageHeight;
+        this.imageHeight = 196;
+        this.inventoryLabelY = this.imageHeight - 94;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
-    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
+    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
         int left = this.leftPos;
         int top = this.topPos;
         graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
@@ -72,7 +75,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         int recipesLeft = this.leftPos + 52;
         int recipesTop = this.topPos + 14;
         int recipeIndexOffsetMax = this.recipeIndexOffset + 12;
-        this.renderButtons(graphics, x, y, recipesLeft, recipesTop, recipeIndexOffsetMax);
+        this.renderButtons(graphics, mouseX, mouseY, recipesLeft, recipesTop, recipeIndexOffsetMax);
         this.drawRecipesItems(graphics, recipesLeft, recipesTop, recipeIndexOffsetMax);
 
         if (this.lastRenderedSelectedRecipeIndex != this.menu.getSelectedRecipe() && this.hasItemsInInputSlot) {
@@ -110,22 +113,23 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 
     }
 
-    private void renderButtons(GuiGraphics graphics, int x, int y, int p_238853_4_, int p_238853_5_, int p_238853_6_) {
-        for(int i = this.recipeIndexOffset; i < p_238853_6_ && i < this.menu.getRecipeListSize(); ++i) {
-            int j = i - this.recipeIndexOffset;
-            int k = p_238853_4_ + j % 4 * 16;
-            int l = j / 4;
-            int i1 = p_238853_5_ + l * 18 + 2;
-            int j1 = this.imageHeight;
-            if (i == this.menu.getSelectedRecipe()) {
-                j1 += 18;
-            } else if (x >= k && y >= i1 && x < k + 16 && y < i1 + 18) {
-                j1 += 36;
+    private void renderButtons(GuiGraphics graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
+        for(int index = this.recipeIndexOffset; index < lastVisibleElementIndex && index < this.menu.getRecipeListSize(); ++index) {
+            int displayedIndex = index - this.recipeIndexOffset;
+            int drawX = x + displayedIndex % 4 * 16;
+            int rowIndex = displayedIndex / 4;
+            int drawY = y + rowIndex * 18 + 2;
+            ResourceLocation resourcelocation;
+            if (index == this.menu.getSelectedRecipe()) {
+                resourcelocation = RECIPE_SELECTED_SPRITE;
+            } else if (mouseX >= drawX && mouseY >= drawY && mouseX < drawX + 16 && mouseY < drawY + 18) {
+                resourcelocation = RECIPE_HIGHLIGHTED_SPRITE;
+            } else {
+                resourcelocation = RECIPE_SPRITE;
             }
 
-            graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, k, i1 - 1, 0, j1, 16, 18, 256, 256);
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, resourcelocation, drawX, drawY - 1, 16, 18);
         }
-
     }
 
     private void drawRecipesItems(final GuiGraphics graphics, int recipesLeft, int recipesTop, int recipeIndexOffsetMax) {
@@ -139,7 +143,11 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
             if (this.minecraft != null)
             {
                 final CraftingInput input = CraftingInput.of(1,1, List.of(this.menu.inputInventory.getItem(0)));
-                graphics.renderItem(list.get(offset).value().getCraftingBlockResult(input), itemX, itemY);
+                graphics.pose().pushMatrix();
+                graphics.pose().translate(itemX + 0.75f, itemY + 0.75f);
+                graphics.pose().scale(0.9f, 0.9f);
+                graphics.renderItem(list.get(offset).value().getCraftingBlockResult(input), 0, 0);
+                graphics.pose().popMatrix();
             }
         }
 

@@ -1,21 +1,13 @@
 package mod.chiselsandbits.api.multistate.snapshot;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import io.netty.buffer.ByteBuf;
-import mod.chiselsandbits.api.block.storage.StateEntryStorage;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
-import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
 import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
 import mod.chiselsandbits.api.registries.IRegistryManager;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.Item;
-
-import java.util.function.Function;
 
 public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableAreaMutator
 {
@@ -55,4 +47,11 @@ public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableArea
      * @return The clone.
      */
     IMultiStateSnapshot clone();
+
+    /**
+     * Creates a new snapshot which limits the currents snapshots contents to the given progression.
+     * @param progress The current progress in procent
+     * @return The progress
+     */
+    IMultiStateSnapshot limitedToProgression(float progress);
 }

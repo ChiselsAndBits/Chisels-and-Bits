@@ -233,6 +233,12 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
     }
 
     @Override
+    public IMultiStateSnapshot limitedToProgression(final float progress)
+    {
+        return this;
+    }
+
+    @Override
     public void rotate(final Direction.Axis axis, final int rotationCount)
     {
         //Noop

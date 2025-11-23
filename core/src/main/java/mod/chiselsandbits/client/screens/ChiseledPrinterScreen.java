@@ -59,8 +59,8 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
         guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
             GUI_TEXTURES,
-            this.leftPos,
-            this.topPos,
+            this.leftPos + 83 + scaledProgress,
+            this.topPos + 48,
             this.imageWidth + scaledProgress,
             0.0F,
             16 - scaledProgress,

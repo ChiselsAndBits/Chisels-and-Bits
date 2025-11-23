@@ -91,7 +91,7 @@ public enum LocalStrings
 
     HelpBitStorageFilled("help.bittank.full"),
     HelpBitStorageEmpty("help.bittank.empty"),
-    LongHelpBitTank("help.bittank.long"),
+    LongHelpBitStorage("help.bittank.long"),
 
     HelpSimplePattern("help.pattern.simple"),
     LongHelpSimplePattern("help.pattern.simple.long"),
@@ -131,13 +131,8 @@ public enum LocalStrings
     LongHelpTapeMeasure("help.tape_measure.long"),
 
     HelpQuill("help.quill"),
-    LongHelpQuill("help.quill.long"),
-
     HelpSealant("help.sealant"),
-    LongHelpSealant("help.sealant.long"),
-
     HelpUnseal("help.unseal"),
-    LongHelpUnseal("help.unseal.long"),
 
     TapeMeasureBit("tapemeasure.bit"),
     TapeMeasureBlock("tapemeasure.block"),

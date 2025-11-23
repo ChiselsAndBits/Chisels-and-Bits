@@ -133,16 +133,14 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
         };
     }
 
-    public @NotNull InteractionResult use(@NotNull BlockState state, Level worldIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit)
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(final @NotNull BlockState state, final Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull BlockHitResult hitResult)
     {
-        if (worldIn.isClientSide())
+        if (!level.isClientSide())
         {
-            return InteractionResult.SUCCESS;
+            player.openMenu((MenuProvider) level.getBlockEntity(pos));
         }
-        else
-        {
-            player.openMenu((MenuProvider) worldIn.getBlockEntity(pos));
-            return InteractionResult.CONSUME;
-        }
+
+        return InteractionResult.SUCCESS;
     }
 }

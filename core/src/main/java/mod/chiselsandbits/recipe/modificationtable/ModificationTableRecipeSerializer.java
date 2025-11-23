@@ -32,6 +32,12 @@ public class ModificationTableRecipeSerializer extends SimpleCustomRegistryEntry
             ModificationTableRecipe::new
     );
 
+    public static final StreamCodec<? super FriendlyByteBuf, ModificationTableRecipe> NETWORK_CODEC = StreamCodec.composite(
+        IModificationOperation.getRegistry().byNameStreamCodec(),
+        ModificationTableRecipe::getOperation,
+        ModificationTableRecipe::new
+    );
+
     @Override
     public @NotNull MapCodec<ModificationTableRecipe> codec() {
         return CODEC;

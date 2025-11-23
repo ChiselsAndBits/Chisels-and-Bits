@@ -17,6 +17,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -30,7 +31,9 @@ public class AddPackFindersEventHandler {
     public static void onAddPackFinders(AddPackFindersEvent event) {
         event.addRepositorySource(registrar -> {
             try {
-                Path coreJarPath = Path.of(ChiselsAndBits.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+                final File packMcMeta = new File(ChiselsAndBits.class.getResource("/pack.mcmeta")
+                    .toURI());
+                Path coreJarPath = packMcMeta.toPath().getParent();
 
                 final PackLocationInfo packLocationInfo = new PackLocationInfo(
                         "chiselsandbits-core",

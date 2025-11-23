@@ -1,5 +1,6 @@
 package mod.chiselsandbits.item;
 
+import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
@@ -7,6 +8,7 @@ import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import static org.lwjgl.system.linux.X11.True;
 
 public class BitStorageBlockItem extends BlockItem
 {
@@ -53,6 +57,17 @@ public class BitStorageBlockItem extends BlockItem
         else
         {
             HelpTextUtils.build(LocalStrings.HelpBitStorageEmpty, tooltipAdder);
+        }
+
+        tooltipAdder.accept(Component.literal(""));
+
+        if (
+            DistExecutor.unsafeRunForDist(
+                () -> () -> Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown(),
+                () -> () -> Boolean.TRUE
+            )
+        ) {
+            HelpTextUtils.build(LocalStrings.LongHelpBitStorage, tooltipAdder);
         }
     }
 
