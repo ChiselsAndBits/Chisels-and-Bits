@@ -7,6 +7,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public final class MeasurementUpdatedPacket extends ModPacket
 {
@@ -41,11 +42,11 @@ public final class MeasurementUpdatedPacket extends ModPacket
     @Override
     public void server(final ServerPlayer playerEntity)
     {
-        MeasuringManager.getInstance().addOrUpdate(measurement);
+        MeasuringManager.getInstance().addOrUpdate(measurement, true);
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 }

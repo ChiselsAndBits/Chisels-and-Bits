@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "s": "#c:rods/wooden",
+    "t": "#c:ingots/copper"
+  },
+  "pattern": [
+    "st",
+    "  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "chiselsandbits:chisel_copper"
+  }
+}

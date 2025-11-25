@@ -202,9 +202,9 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(iconName);
+        return iconName;
     }
 
     @Override

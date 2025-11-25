@@ -8,10 +8,7 @@ import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -22,9 +19,6 @@ import javax.annotation.Nullable;
 
 public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableItemRenderer.RenderState>
 {
-
-    private final SubmitNodeCollector     submitNodeCollector;
-    private final FeatureRenderDispatcher featureRenderDispatcher;
     @Nullable
     private ItemStack lastModelIdentity = null;
     @Nullable
@@ -33,13 +27,13 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
     public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource)
     {
         super(bufferSource);
-        this.submitNodeCollector = Minecraft.getInstance().gameRenderer.getSubmitNodeStorage();
-        this.featureRenderDispatcher = Minecraft.getInstance().gameRenderer.getFeatureRenderDispatcher();
     }
 
     @Override
     protected void renderToTexture(RenderState state, PoseStack poseStack)
     {
+        final var submitNodeCollector = Minecraft.getInstance().gameRenderer.getSubmitNodeStorage();
+        final var featureRenderDispatcher = Minecraft.getInstance().gameRenderer.getFeatureRenderDispatcher();
 
         poseStack.scale(1, -1, -1);
         poseStack.mulPose(state.rotation);

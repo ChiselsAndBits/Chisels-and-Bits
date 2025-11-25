@@ -6,6 +6,7 @@ import mod.chiselsandbits.api.item.withmode.IRenderableMode;
 import mod.chiselsandbits.api.item.withmode.IToolMode;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.client.icon.IconManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -42,7 +43,7 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
         guiGraphics.pose().scale(scaleVector.x, scaleVector.y);
         guiGraphics.pose().pushMatrix();
 
-        TextureAtlasSprite sprite = mode.getIcon();
+        TextureAtlasSprite sprite = IconManager.getInstance().getIcon(renderableMode.getIcon());
 
         guiGraphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,

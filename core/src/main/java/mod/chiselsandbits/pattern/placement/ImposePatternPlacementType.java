@@ -44,11 +44,9 @@ import static mod.chiselsandbits.api.util.constants.Constants.MOD_ID;
 public class ImposePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
 {
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_impose")
-        );
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_impose");
     }
 
     @Override

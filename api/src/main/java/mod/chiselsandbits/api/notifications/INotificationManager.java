@@ -28,7 +28,7 @@ public interface INotificationManager
      * @param color The color of the icon.
      * @param message The message to display.
      */
-    default void notify(final TextureAtlasSprite icon, final Vec3 color, final Component message) {
+    default void notify(final ResourceLocation icon, final Vec3 color, final Component message) {
         notify(new INotification() {
             @Override
             public @NotNull Vec3 getColorVector()
@@ -37,7 +37,7 @@ public interface INotificationManager
             }
 
             @Override
-            public TextureAtlasSprite getIcon()
+            public ResourceLocation getIcon()
             {
                 return icon;
             }
@@ -56,7 +56,7 @@ public interface INotificationManager
      * @param icon The icon to display.
      * @param message The message to display.
      */
-    default void notify(final TextureAtlasSprite icon, final Component message) {
+    default void notify(final ResourceLocation icon, final Component message) {
         notify(icon, new Vec3(1, 1, 1), message);
     }
 

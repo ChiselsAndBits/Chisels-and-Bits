@@ -236,8 +236,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
     }
 
     @Override
-    public TextureAtlasSprite getIcon() {
-        return IconManager.getInstance().getIcon(iconName);
+    public ResourceLocation getIcon() {
+        return iconName;
     }
 
     @Override

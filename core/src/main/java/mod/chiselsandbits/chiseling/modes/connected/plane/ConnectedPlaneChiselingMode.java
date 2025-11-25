@@ -463,9 +463,9 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(iconName);
+        return iconName;
     }
 
     @Override

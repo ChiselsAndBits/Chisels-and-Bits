@@ -52,16 +52,14 @@ public final class BlockInformationUtils {
                 continue;
             }
 
-            final BlockStateModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(blockInformation.blockState());
             IRenderTypeManager.getInstance().getRenderTypesFor(
-                    model,
                     new SingleBlockLevelReader.Builder()
                         .withBlockState(blockInformation.blockState())
                         .withBlockEntity(blockInformation::newBlockEntityAtZero)
                         .createSingleBlockLevelReader(),
+                    blockInformation::newBlockEntityAtZero,
                     BlockPos.ZERO,
-                    blockInformation.blockState(),
-                    RANDOM
+                    blockInformation.blockState()
                 ).stream()
                 .map(RenderTypeUtils::renderTypeFor)
                 .forEach(renderTypes::add);

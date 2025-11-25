@@ -20,7 +20,7 @@ public enum ModRenderPipelines
 
     CHISEL_PREVIEW_IN_BLOCKS(() -> RenderPipeline.builder(
         LINES_SNIPPET,
-        ModRenderPipelineSnippets.GREATER_DEPTH_TEST.snippet()
+        ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
     ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_in_blocks")).build()),
 
     CHISEL_PREVIEW_OUTSIDE_BLOCKS(() -> RenderPipeline.builder(

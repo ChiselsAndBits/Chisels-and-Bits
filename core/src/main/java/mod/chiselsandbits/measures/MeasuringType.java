@@ -75,9 +75,9 @@ public enum MeasuringType implements IMeasuringType
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(icon);
+        return icon;
     }
 
     @Override

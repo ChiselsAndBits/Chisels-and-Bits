@@ -396,8 +396,8 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
     }
 
     @Override
-    public TextureAtlasSprite getIcon() {
-        return IconManager.getInstance().getIcon(iconName);
+    public ResourceLocation getIcon() {
+        return iconName;
     }
 
     @Override

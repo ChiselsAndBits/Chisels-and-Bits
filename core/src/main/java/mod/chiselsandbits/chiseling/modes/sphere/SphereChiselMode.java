@@ -383,8 +383,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
     }
 
     @Override
-    public TextureAtlasSprite getIcon() {
-        return IconManager.getInstance().getIcon(iconName);
+    public ResourceLocation getIcon() {
+        return iconName;
     }
 
     @Override

@@ -1,26 +1,18 @@
 accessWidener	v1	named
 extendable   class      net/minecraft/client/gui/Font
-extendable   class      net/minecraft/client/renderer/block/model/ItemOverrides
 extendable   class      net/minecraft/world/phys/shapes/BitSetDiscreteVoxelShape
-extendable   method     net/minecraft/client/renderer/block/model/ItemOverrides <init> ()V
 extendable   class      net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
 accessible   class      net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 accessible   class      net/minecraft/world/inventory/MenuType$MenuSupplier
 accessible   class      net/minecraft/world/level/chunk/PalettedContainer$Data
 accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
-accessible   method     net/minecraft/client/renderer/LevelRenderer renderShape (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;Lnet/minecraft/world/phys/shapes/VoxelShape;DDDFFFF)V
-accessible   method     net/minecraft/client/renderer/entity/ItemRenderer renderModelLists (Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/world/item/ItemStack;IILcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V
 accessible   method     net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
-accessible   method     net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
 accessible   method     net/minecraft/client/gui/screens/inventory/AbstractContainerScreen renderSlot (Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;)V
 accessible   method     net/minecraft/client/gui/screens/inventory/AbstractContainerScreen isHovering (Lnet/minecraft/world/inventory/Slot;DD)Z
 accessible   method     net/minecraft/client/gui/screens/MenuScreens register (Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
-accessible   method     net/minecraft/client/renderer/item/ItemProperties register (Lnet/minecraft/world/item/Item;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/renderer/item/ClampedItemPropertyFunction;)V
 accessible   method     com/mojang/blaze3d/platform/NativeImage writeToChannel (Ljava/nio/channels/WritableByteChannel;)Z
 accessible   method     net/minecraft/world/phys/shapes/CubeVoxelShape <init> (Lnet/minecraft/world/phys/shapes/DiscreteVoxelShape;)V
 accessible   method     net/minecraft/world/phys/shapes/VoxelShape <init> (Lnet/minecraft/world/phys/shapes/DiscreteVoxelShape;)V # VoxelShape
-accessible   field      net/minecraft/client/Minecraft itemColors Lnet/minecraft/client/color/item/ItemColors;
-accessible   field      net/minecraft/client/gui/Font fonts Ljava/util/function/Function;
 accessible   field      net/minecraft/world/inventory/AbstractContainerMenu containerListeners Ljava/util/List;
 accessible   field      com/mojang/blaze3d/vertex/VertexFormat vertexSize I
 accessible   field      net/minecraft/client/KeyMapping key Lcom/mojang/blaze3d/platform/InputConstants$Key;
@@ -28,11 +20,6 @@ accessible   field      net/minecraft/world/level/chunk/LevelChunkSection states
 accessible   field      net/minecraft/world/level/chunk/PalettedContainer data Lnet/minecraft/world/level/chunk/PalettedContainer$Data;
 accessible   field      net/minecraft/client/gui/Gui toolHighlightTimer I
 accessible   field      net/minecraft/client/renderer/ItemBlockRenderTypes TYPE_BY_BLOCK Ljava/util/Map;
-accessible   field      net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer blockEntityRenderDispatcher Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher;
-accessible   field      net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer entityModelSet Lnet/minecraft/client/model/geom/EntityModelSet;
-mutable   field      net/minecraft/client/renderer/block/BlockRenderDispatcher blockEntityRenderer Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer;
-mutable   field      net/minecraft/client/renderer/entity/ItemRenderer blockEntityRenderer Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer;
-mutable   field      net/minecraft/client/renderer/blockentity/BlockEntityRenderDispatcher blockRenderDispatcher Ljava/util/function/Supplier;
 mutable   field      net/minecraft/world/level/chunk/LevelChunkSection states Lnet/minecraft/world/level/chunk/PalettedContainer;
 mutable   field      net/minecraft/world/phys/shapes/DiscreteVoxelShape xSize I
 mutable   field      net/minecraft/world/phys/shapes/DiscreteVoxelShape ySize I
@@ -48,7 +35,6 @@ accessible   field      net/minecraft/world/phys/shapes/BitSetDiscreteVoxelShape
 accessible   field      net/minecraft/client/gui/Gui lastToolHighlight Lnet/minecraft/world/item/ItemStack;
 accessible   class      net/minecraft/world/item/CreativeModeTab$Output
 accessible   method     net/minecraft/world/item/CreativeModeTab$Builder type (Lnet/minecraft/world/item/CreativeModeTab$Type;)Lnet/minecraft/world/item/CreativeModeTab$Builder; # type
-accessible   field      net/minecraft/client/resources/model/WeightedBakedModel totalWeight I
 accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
 accessible method net/minecraft/world/level/block/state/BlockBehaviour isRandomlyTicking (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible field net/minecraft/world/item/CreativeModeTab displayItems Ljava/util/Collection;

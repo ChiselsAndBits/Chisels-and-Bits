@@ -186,11 +186,9 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_remove")
-        );
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_remove");
     }
 
     @Override

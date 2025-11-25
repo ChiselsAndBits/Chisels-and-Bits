@@ -6,7 +6,7 @@ import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
-import mod.scena.client.utils.ItemModelUtils;
+import mod.chiselsandbits.client.util.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.model.ModelLocationUtils;

@@ -107,7 +107,11 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
         final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
         if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get())
         {
-            INotificationManager.getInstance().notify(getMode(stack).getIcon(), new Vec3(1, 0, 0), LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText());
+            INotificationManager.getInstance().notify(
+                getMode(stack).getIcon(),
+                new Vec3(1, 0, 0),
+                LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
+            );
         }
 
         return isAllowedToUse;
@@ -237,7 +241,11 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
             if (offHandStack.isEmpty() || !(offHandStack.getItem() instanceof IChiselItem))
             {
                 playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_ERRORS);
-                INotificationManager.getInstance().notify(getMode(itemStack).getIcon(), new Vec3(1, 0, 0), LocalStrings.ChiselAttemptMissingChiselInOffhand.getText());
+                INotificationManager.getInstance().notify(
+                    getMode(itemStack).getIcon(),
+                    new Vec3(1, 0, 0),
+                    LocalStrings.ChiselAttemptMissingChiselInOffhand.getText()
+                );
                 return currentState;
             }
         }
@@ -257,7 +265,11 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
         if (context.getError().isPresent() && context.getWorld().isClientSide())
         {
-            INotificationManager.getInstance().notify(context.getMode().getIcon(), new Vec3(1, 0, 0), context.getError().get());
+            INotificationManager.getInstance().notify(
+                context.getMode().getIcon(),
+                new Vec3(1, 0, 0),
+                context.getError().get()
+            );
         }
 
         return resultState;

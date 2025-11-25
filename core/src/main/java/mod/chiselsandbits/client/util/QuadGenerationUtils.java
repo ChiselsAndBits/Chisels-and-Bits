@@ -72,7 +72,7 @@ public final class QuadGenerationUtils
                 final Collection<VertexData> adaptedVertices;
                 try
                 {
-                    adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), facingDirection, from, to);
+                    adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
                 }
                 catch (IllegalStateException e)
                 {

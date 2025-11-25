@@ -87,9 +87,9 @@ public enum MeasuringMode implements IMeasuringMode
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(icon);
+        return icon;
     }
 
     @Override

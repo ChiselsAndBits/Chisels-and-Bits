@@ -4,7 +4,7 @@ import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockModelPart;
 import com.google.common.base.Suppliers;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.colors.ChiseledBlockBlockColor;
-import mod.scena.client.utils.ItemModelUtils;
+import mod.chiselsandbits.client.util.ItemModelUtils;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.FaceBakery;

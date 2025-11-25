@@ -4,7 +4,6 @@ import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.icon.IconManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -13,14 +12,12 @@ import org.apache.logging.log4j.Logger;
 public final class ModModificationOperationGroups
 {
     private static final Logger                      LOGGER = LogManager.getLogger();
-    public static        IModificationOperationGroup ROTATE = new IModificationOperationGroup()
+    public static final  IModificationOperationGroup ROTATE = new IModificationOperationGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate");
         }
 
         @Override
@@ -29,14 +26,12 @@ public final class ModModificationOperationGroups
             return LocalStrings.PatternModificationGroupRotate.getText();
         }
     };
-    public static        IModificationOperationGroup MIRROR = new IModificationOperationGroup()
+    public static final  IModificationOperationGroup MIRROR = new IModificationOperationGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "mirror")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "mirror");
         }
 
         @Override

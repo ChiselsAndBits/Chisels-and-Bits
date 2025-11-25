@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.item.interactable.IInteractableItem;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
 import mod.chiselsandbits.client.time.TickHandler;
-import mod.scena.client.utils.ItemModelUtils;
+import mod.chiselsandbits.client.util.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;

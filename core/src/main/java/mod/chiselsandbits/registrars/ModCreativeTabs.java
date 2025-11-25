@@ -18,6 +18,7 @@ import mod.chiselsandbits.item.BitBagItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,6 +41,7 @@ public final class ModCreativeTabs
             .title(LocalStrings.ChiselsAndBitsName.getText())
             .displayItems((parameters, output) -> {
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_STONE.get()));
+                output.accept(new ItemStack(ModItems.ITEM_CHISEL_COPPER.get()));
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_IRON.get()));
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_GOLD.get()));
                 output.accept(new ItemStack(ModItems.ITEM_CHISEL_DIAMOND.get()));

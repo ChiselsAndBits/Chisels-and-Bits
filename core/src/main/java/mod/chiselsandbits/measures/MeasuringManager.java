@@ -88,14 +88,17 @@ public class MeasuringManager implements IMeasuringManager
         );
     }
 
-    public void addOrUpdate(final Measurement measurement)
+    public void addOrUpdate(final Measurement measurement, final boolean updateAll)
     {
         if (!this.measurements.contains(measurement.getWorldKey(), measurement.getOwner()))
             this.measurements.put(measurement.getWorldKey(), measurement.getOwner(), new HashMap<>());
 
         Objects.requireNonNull(this.measurements.get(measurement.getWorldKey(), measurement.getOwner())).put(measurement.getMode(), measurement);
 
-        this.syncToAll();
+        if (updateAll)
+        {
+            this.syncToAll();
+        }
     }
 
     public void createAndSend(

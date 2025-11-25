@@ -11,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
-@EventBusSubscriber(modid = Constants.MOD_ID)
+@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class GenericItemModelGenerator extends ModelProvider
 {
     public GenericItemModelGenerator(final PackOutput output)
@@ -43,6 +44,7 @@ public class GenericItemModelGenerator extends ModelProvider
     {
         return Stream.of(
             ModItems.ITEM_CHISEL_STONE.get(),
+            ModItems.ITEM_CHISEL_COPPER.get(),
             ModItems.ITEM_CHISEL_IRON.get(),
             ModItems.ITEM_CHISEL_GOLD.get(),
             ModItems.ITEM_CHISEL_DIAMOND.get(),

@@ -31,7 +31,7 @@ public class MeasurementNetworkUtil
           mode
         );
 
-        MeasuringManager.getInstance().addOrUpdate(measurement);
+        MeasuringManager.getInstance().addOrUpdate(measurement, false);
 
         final MeasurementUpdatedPacket packet = new MeasurementUpdatedPacket(measurement);
 

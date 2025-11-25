@@ -3,6 +3,7 @@ package mod.chiselsandbits.client.screens.components.toasts;
 import mod.chiselsandbits.api.util.IWithColor;
 import mod.chiselsandbits.api.util.IWithIcon;
 import mod.chiselsandbits.api.util.IWithText;
+import mod.chiselsandbits.client.icon.IconManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -74,7 +75,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
         );
         guiGraphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,
-            contents.getIcon(),
+            IconManager.getInstance().getIcon(contents.getIcon()),
             0,
             0,
             16,16,

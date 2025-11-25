@@ -134,11 +134,11 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(ResourceLocation.fromNamespaceAndPath(
+        return ResourceLocation.fromNamespaceAndPath(
             MOD_ID, "pattern_place"
-        ));
+        );
     }
 
     @Override

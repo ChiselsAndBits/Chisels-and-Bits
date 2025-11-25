@@ -3,9 +3,7 @@ package mod.chiselsandbits.registrars;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.utils.TranslationUtils;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -19,11 +17,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CUBED = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium");
         }
 
         @Override
@@ -38,11 +34,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "snap4")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "snap4");
         }
 
         @Override
@@ -57,11 +51,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup LINE = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "line")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "line");
         }
 
         @Override
@@ -76,11 +68,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup PLANE = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "plane")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "plane");
         }
 
         @Override
@@ -95,11 +85,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup SPHERE = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium");
         }
 
         @Override
@@ -114,11 +102,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane");
         }
 
         @Override
@@ -131,11 +117,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_material")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "connected_material");
         }
 
         @Override
@@ -148,11 +132,9 @@ public final class ModChiselModeGroups
     public static IToolModeGroup DRAW = new IToolModeGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "drawn_cube")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "drawn_cube");
         }
 
         @Override

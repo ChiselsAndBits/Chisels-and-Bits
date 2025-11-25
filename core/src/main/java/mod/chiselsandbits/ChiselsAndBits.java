@@ -52,7 +52,6 @@ public class ChiselsAndBits
         ModChangeTypes.onModConstruction();
         ModMultiStateSnapshotTypes.onModConstruction();
         ModDataComponentTypes.onModConstruction();
-
         ModEventHandler.onModConstruction();
 
         networkChannel.registerCommonMessages();

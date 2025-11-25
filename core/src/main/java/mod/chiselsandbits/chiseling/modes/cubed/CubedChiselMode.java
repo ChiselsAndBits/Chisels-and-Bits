@@ -260,9 +260,9 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
     }
 
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(iconName);
+        return iconName;
     }
 
     @Override

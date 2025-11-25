@@ -418,12 +418,15 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
                 this.mainSelectedToolMode instanceof IToolModeGroup ? this.selectedOuterToolMode : (this.mainSelectedToolMode instanceof IToolMode) ? (M) this.mainSelectedToolMode
                     : toolModeItem.getMode(this.sourceStack);
 
-            toolModeItem.setMode(
-                ItemStackUtils.getModeItemStackFromPlayer(Minecraft.getInstance().player),
-                mainToolModeSelection
-            );
+            if (mainToolModeSelection != null)
+            {
+                toolModeItem.setMode(
+                    ItemStackUtils.getModeItemStackFromPlayer(Minecraft.getInstance().player),
+                    mainToolModeSelection
+                );
 
-            ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new HeldToolModeChangedPacket(modes.indexOf(mainToolModeSelection)));
+                ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new HeldToolModeChangedPacket(modes.indexOf(mainToolModeSelection)));
+            }
         }
     }
 
@@ -435,12 +438,11 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
         private PageSelectionMode(final boolean isPrevious) {this.isPrevious = isPrevious;}
 
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
+            return
                 isPrevious ? ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "undo") :
-                    ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "redo")
-            );
+                    ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "redo");
         }
 
         @Override

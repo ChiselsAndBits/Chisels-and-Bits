@@ -5,6 +5,7 @@ import mod.chiselsandbits.api.client.screen.widget.AbstractChiselsAndBitsWidget;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.withmode.IRenderableMode;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
+import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.client.screens.pips.Torus;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -512,7 +513,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
         graphics.pose().scale(iconScaleFactor);
         graphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,
-            mode.getIcon(),
+            IconManager.getInstance().getIcon(mode.getIcon()),
             (int) (iconStartX * 1f / iconScaleFactor),
             (int) (iconStartY * 1f / iconScaleFactor),
             16, 16,

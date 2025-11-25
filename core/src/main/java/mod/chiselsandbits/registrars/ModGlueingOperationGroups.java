@@ -3,8 +3,6 @@ package mod.chiselsandbits.registrars;
 import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.icon.IconManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -17,11 +15,9 @@ public final class ModGlueingOperationGroups
     public static IModificationOperationGroup ACROSS_AXIS = new IModificationOperationGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate");
         }
 
         @Override
@@ -33,11 +29,9 @@ public final class ModGlueingOperationGroups
     public static IModificationOperationGroup ALL_AXI     = new IModificationOperationGroup()
     {
         @Override
-        public TextureAtlasSprite getIcon()
+        public ResourceLocation getIcon()
         {
-            return IconManager.getInstance().getIcon(
-                ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate")
-            );
+            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate");
         }
 
         @Override

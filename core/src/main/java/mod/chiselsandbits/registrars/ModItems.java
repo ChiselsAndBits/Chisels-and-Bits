@@ -22,6 +22,10 @@ public final class ModItems {
             ITEM_REGISTRAR.register("chisel_stone", () -> new ChiselItem(ToolMaterial.STONE, new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chisel_stone")))
                 .stacksTo(1)));
+    public static final IRegistryObject<ChiselItem> ITEM_CHISEL_COPPER =
+        ITEM_REGISTRAR.register("chisel_copper", () -> new ChiselItem(ToolMaterial.STONE, new Item.Properties()
+            .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chisel_copper")))
+            .stacksTo(1)));
     public static final IRegistryObject<ChiselItem> ITEM_CHISEL_IRON =
             ITEM_REGISTRAR.register("chisel_iron", () -> new ChiselItem(ToolMaterial.IRON, new Item.Properties()
                 .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chisel_iron"))).stacksTo(1)));

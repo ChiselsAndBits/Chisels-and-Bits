@@ -1,4 +1,4 @@
-package mod.scena.client.utils;
+package mod.chiselsandbits.client.util;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;

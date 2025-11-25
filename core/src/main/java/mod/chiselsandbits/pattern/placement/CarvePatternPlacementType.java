@@ -40,11 +40,9 @@ import static mod.chiselsandbits.api.util.constants.Constants.MOD_ID;
 public class CarvePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
 {
     @Override
-    public TextureAtlasSprite getIcon()
+    public ResourceLocation getIcon()
     {
-        return IconManager.getInstance().getIcon(
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_carve")
-        );
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_carve");
     }
 
     @Override

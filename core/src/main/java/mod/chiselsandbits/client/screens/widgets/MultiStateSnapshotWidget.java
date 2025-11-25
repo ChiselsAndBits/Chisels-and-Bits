@@ -2,23 +2,19 @@ package mod.chiselsandbits.client.screens.widgets;
 
 import com.communi.suggestu.scena.core.client.rendering.IExtendedGuiGraphics;
 import com.communi.suggestu.scena.core.util.TransformationUtils;
-import com.mojang.blaze3d.platform.Window;
 import mod.chiselsandbits.api.client.screen.widget.AbstractChiselsAndBitsWidget;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.ColorUtils;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
-import mod.scena.client.utils.ItemModelUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.item.TrackingItemStackRenderState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.opengl.GL11;
+
 public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
 {
 

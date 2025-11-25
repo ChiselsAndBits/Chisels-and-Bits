@@ -1,6 +1,5 @@
 package mod.chiselsandbits.block.entities;
 
-import com.communi.suggestu.scena.core.item.IItemComparisonHelper;
 import com.google.common.collect.ImmutableList;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.block.entity.INetworkUpdatableEntity;
@@ -187,7 +186,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
             return false;
         }
 
-        return IItemComparisonHelper.getInstance().canItemStacksStack(getOutputStack(), getRealisedStack()) && getOutputStack().getCount() + getRealisedStack().getCount() <= getOutputStack().getMaxStackSize();
+        return ItemStack.isSameItemSameComponents(getOutputStack(), getRealisedStack()) && getOutputStack().getCount() + getRealisedStack().getCount() <= getOutputStack().getMaxStackSize();
     }
 
     public boolean canWork() {
