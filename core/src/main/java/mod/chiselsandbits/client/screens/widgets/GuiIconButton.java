@@ -8,13 +8,13 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class GuiIconButton extends AbstractChiselsAndBitsButton
 {
     private static final WidgetSprites SPRITES = new WidgetSprites(
-            ResourceLocation.withDefaultNamespace("widget/button"), ResourceLocation.withDefaultNamespace("widget/button_disabled"), ResourceLocation.withDefaultNamespace("widget/button_highlighted")
+            Identifier.withDefaultNamespace("widget/button"), Identifier.withDefaultNamespace("widget/button_disabled"), Identifier.withDefaultNamespace("widget/button_highlighted")
     );
     public static final int SIZE = 20;
     private final TextureAtlasSprite defaultIcon;
@@ -59,7 +59,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
     }
 
     @Override
-    public void renderWidget(final @NotNull GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float partialTicks)
+    protected void renderContents(final GuiGraphics guiGraphics, final int i, final int i1, final float v)
     {
         guiGraphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,

@@ -5,15 +5,15 @@ import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.communi.suggestu.scena.core.util.SingleBlockLevelReader;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.variant.state.IStateVariantProvider;
-import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -41,8 +41,8 @@ public final class StateVariantManager implements IStateVariantManager
     }
 
     private final Map<Supplier<Block>, IStateVariantProvider> preBakeProviders = new ConcurrentHashMap<>();
-    private final Map<Block, IStateVariantProvider> providers = new ConcurrentHashMap<>();
-    private final Map<ResourceLocation, IStateVariantProvider> providersByNames = new ConcurrentHashMap<>();
+    private final Map<Block, IStateVariantProvider>      providers        = new ConcurrentHashMap<>();
+    private final Map<Identifier, IStateVariantProvider> providersByNames = new ConcurrentHashMap<>();
 
     private StateVariantManager()
     {
@@ -50,23 +50,23 @@ public final class StateVariantManager implements IStateVariantManager
 
     @Override
     public Codec<IStateVariantProvider> byNameCodec() {
-        return ResourceLocation.CODEC.comapFlatMap(
+        return Identifier.CODEC.comapFlatMap(
             name -> Optional.ofNullable(providersByNames.get(name)).map(DataResult::success).orElse(DataResult.error(() -> "Unknown registry name: " + name)),
                 IStateVariantProvider::getRegistryName
         );
     }
 
     @Override
-    public StreamCodec<RegistryFriendlyByteBuf, IStateVariantProvider> byNameStreamCodec() {
+    public StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull IStateVariantProvider> byNameStreamCodec() {
         return new StreamCodec<>() {
             @Override
             public @NotNull IStateVariantProvider decode(@NotNull RegistryFriendlyByteBuf buffer) {
-                return providersByNames.get(buffer.readResourceLocation());
+                return providersByNames.get(buffer.readIdentifier());
             }
 
             @Override
             public void encode(@NotNull RegistryFriendlyByteBuf buffer, @NotNull IStateVariantProvider value) {
-                buffer.writeResourceLocation(value.getRegistryName());
+                buffer.writeIdentifier(value.getRegistryName());
             }
         };
     }

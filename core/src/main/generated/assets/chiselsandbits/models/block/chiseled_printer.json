@@ -2,7 +2,6 @@
   "parent": "chiselsandbits:block/chiseled_printer_spec",
   "textures": {
     "layer0": "chiselsandbits:block/chiseled_printer",
-    "missing": "minecraft:missingno",
     "particle": "chiselsandbits:block/chiseled_printer"
   }
 }

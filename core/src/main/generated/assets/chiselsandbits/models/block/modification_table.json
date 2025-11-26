@@ -2,7 +2,6 @@
   "parent": "chiselsandbits:block/modification_table_spec",
   "textures": {
     "layer0": "chiselsandbits:block/modification_table",
-    "missing": "minecraft:missingno",
     "particle": "chiselsandbits:block/modification_table"
   }
 }

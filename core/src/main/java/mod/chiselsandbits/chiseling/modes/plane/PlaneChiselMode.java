@@ -18,17 +18,15 @@ import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.api.util.VectorUtils;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -49,13 +47,13 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
     private final int                       depth;
     private final MutableComponent displayName;
     private final MutableComponent multiLineDisplayName;
-    private final ResourceLocation          iconName;
+    private final Identifier       iconName;
 
     PlaneChiselMode(
       final int depth,
       final MutableComponent displayName,
       final MutableComponent multiLineDisplayName,
-      final ResourceLocation iconName)
+      final Identifier iconName)
     {
         this.depth = depth;
         this.displayName = displayName;
@@ -315,7 +313,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
     }
 
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
         return iconName;
     }

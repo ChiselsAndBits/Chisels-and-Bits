@@ -6,8 +6,9 @@ import com.google.common.collect.Multimap;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 
 import java.security.InvalidParameterException;
@@ -15,13 +16,12 @@ import java.util.Collection;
 
 public enum ChiselRenderType
 {
-    SOLID(RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.SOLID),
-    SOLID_FLUID(RenderType.solid(), RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.FLUID),
-    CUTOUT(RenderType.cutout(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.CUTOUT, VoxelType.UNKNOWN),
-    CUTOUT_MIPPED(RenderType.cutoutMipped(), RenderType.entityCutout(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.CUTOUT_MIPPED, VoxelType.UNKNOWN),
-    TRANSLUCENT(RenderType.translucentMovingBlock(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.UNKNOWN),
-    TRANSLUCENT_FLUID(RenderType.translucentMovingBlock(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.FLUID),
-    TRIPWIRE(RenderType.tripwire(), RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRIPWIRE, VoxelType.UNKNOWN);
+    SOLID(RenderTypes.solidMovingBlock(), RenderTypes.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.SOLID),
+    SOLID_FLUID(RenderTypes.solidMovingBlock(), RenderTypes.entitySolid(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.SOLID, VoxelType.FLUID),
+    CUTOUT(RenderTypes.cutoutMovingBlock(), RenderTypes.entityCutout(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.CUTOUT, VoxelType.UNKNOWN),
+    TRANSLUCENT(RenderTypes.translucentMovingBlock(), RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.UNKNOWN),
+    TRANSLUCENT_FLUID(RenderTypes.translucentMovingBlock(), RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRANSLUCENT, VoxelType.FLUID),
+    TRIPWIRE(RenderTypes.tripwireMovingBlock(), RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), ChunkSectionLayer.TRIPWIRE, VoxelType.UNKNOWN);
 
     private final RenderType layer;
     private final RenderType entityLayer;
@@ -93,16 +93,12 @@ public enum ChiselRenderType
     {
         if (layerInfo == null)
         {
-            layerInfo = RenderType.solid();
+            layerInfo = RenderTypes.solidMovingBlock();
         }
 
         if (ChiselRenderType.CUTOUT.has(layerInfo))
         {
             return CUTOUT;
-        }
-        else if (ChiselRenderType.CUTOUT_MIPPED.has(layerInfo))
-        {
-            return CUTOUT_MIPPED;
         }
         else if (ChiselRenderType.SOLID.has(layerInfo))
         {

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -98,21 +98,29 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
     @Override
     protected void renderToTexture(final RenderState renderState, final @NotNull PoseStack poseStack)
     {
-        VertexConsumer vertexBuffer = this.bufferSource.getBuffer(RenderType.DEBUG_FILLED_BOX);
+        VertexConsumer vertexBuffer = this.bufferSource.getBuffer(RenderTypes.debugFilledBox());
         poseStack.pushPose();
         Matrix4f matrix4f = poseStack.last().pose();
         float draws = DRAWS * (renderState.sizeAngle() / 360F);
-        for (int i = 0; i <= draws; i++)
+        for (int i = 0; i < draws; i++)
         {
             float angle = (float) Math.toRadians(renderState.startAngle() + (i / DRAWS) * 360);
+            float endAngle = ((float) Math.toRadians(renderState.startAngle() + ((i + 1) / DRAWS) * 360));
             final float outer = renderState.outer();
+            final float inner = renderState.inner();
             vertexBuffer
                 .addVertex(matrix4f, (float) ((outer) * Math.cos(angle)), (float) (outer * Math.sin(angle)), 0)
                 .setColor(renderState.color());
-            final float inner = renderState.inner();
             vertexBuffer
                 .addVertex(matrix4f, (float) (inner * Math.cos(angle)), (float) (inner * Math.sin(angle)), 0)
                 .setColor(renderState.color());
+            vertexBuffer
+                .addVertex(matrix4f, (float) (inner * Math.cos(endAngle)), (float) (inner * Math.sin(endAngle)), 0)
+                .setColor(renderState.color());
+            vertexBuffer
+                .addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
+                .setColor(renderState.color());
+
         }
         poseStack.popPose();
     }

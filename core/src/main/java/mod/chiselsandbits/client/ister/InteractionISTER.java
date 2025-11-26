@@ -17,9 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * This class animates an interaction between the items in the two hands of the players.
@@ -157,7 +159,7 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
     }
 
     @Override
-    public void getExtents(final @NotNull Set<Vector3f> output)
+    public void getExtents(final @NotNull Consumer<Vector3fc> output)
     {
         //No clue how to do this, we do not have access to the outer layer!
     }

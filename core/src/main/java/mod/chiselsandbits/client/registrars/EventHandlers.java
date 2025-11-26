@@ -17,7 +17,7 @@ import mod.chiselsandbits.client.screens.pips.Torus;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.keys.KeyBindingManager;
 import mod.chiselsandbits.logic.MagnifyingGlassTooltipHandler;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 public final class EventHandlers {
@@ -74,12 +74,12 @@ public final class EventHandlers {
             registrar.register(Torus.RenderState.class, Torus::new);
         });
         IClientEvents.getInstance().getRegisterBlockStateModelEvent().register(registrar -> {
-            registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockStateModel.Unbaked.CODEC);
+            registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockStateModel.Unbaked.CODEC);
         });
         IClientEvents.getInstance().getRegisterItemModelEvent().register(registrar -> {
-            registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit_block"), BitBlockItemModel.Unbaked.CODEC);
-            registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockItemModel.Unbaked.CODEC);
-            registrar.registerModel(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "interactable"), InteractableItemModel.Unbaked.CODEC);
+            registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit_block"), BitBlockItemModel.Unbaked.CODEC);
+            registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockItemModel.Unbaked.CODEC);
+            registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "interactable"), InteractableItemModel.Unbaked.CODEC);
         });
     }
 }

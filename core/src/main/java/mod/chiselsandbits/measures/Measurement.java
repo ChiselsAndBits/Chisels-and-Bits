@@ -12,7 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
@@ -25,7 +25,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
       Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
       Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
       MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-      ResourceLocation.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+      Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
     ).apply(instance, Measurement::new));
 
     public static final MapCodec<Measurement> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -33,7 +33,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
       Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
       Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
       MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-      ResourceLocation.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+      Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
     ).apply(instance, Measurement::new));
 
     public static final StreamCodec<FriendlyByteBuf, Measurement> STREAM_CODEC = StreamCodec.composite(
@@ -45,7 +45,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
             Measurement::getTo,
             MeasuringMode.STREAM_CODEC,
             Measurement::getMode,
-            ResourceLocation.STREAM_CODEC,
+            Identifier.STREAM_CODEC,
             Measurement::getWorldKey,
             Measurement::new
     );
@@ -53,10 +53,10 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
     private UUID owner;
     private Vec3 from;
     private Vec3         to;
-    private MeasuringMode    mode;
-    private ResourceLocation worldKey;
+    private MeasuringMode mode;
+    private Identifier    worldKey;
 
-    private Measurement(UUID owner, Vec3 from, Vec3 to, IMeasuringMode mode, ResourceLocation worldKey) {
+    private Measurement(UUID owner, Vec3 from, Vec3 to, IMeasuringMode mode, Identifier worldKey) {
         this.owner = owner;
         this.from = from;
         this.to = to;
@@ -67,7 +67,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
             throw new IllegalStateException("The measuring mode for now needs to be a built in mode!");
     }
 
-    public Measurement(final UUID owner, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode, final ResourceLocation worldKey) {
+    public Measurement(final UUID owner, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode, final Identifier worldKey) {
         this.owner = owner;
         this.mode = mode instanceof MeasuringMode m ? m : null;
         this.worldKey = worldKey;
@@ -125,7 +125,7 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
     }
 
     @Override
-    public ResourceLocation getWorldKey()
+    public Identifier getWorldKey()
     {
         return worldKey;
     }

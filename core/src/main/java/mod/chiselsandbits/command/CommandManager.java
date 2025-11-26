@@ -36,6 +36,7 @@ import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.LevelBasedPermissionSet;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,7 +68,7 @@ public class CommandManager
     {
         dispatcher.register(
           Commands.literal("candb")
-            .requires(source -> source.hasPermission(2))
+            .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
             .then(Commands.literal("fill")
                     .then(Commands.argument("start", Vec3Argument.vec3(false))
                             .then(Commands.argument("end", Vec3Argument.vec3(false))

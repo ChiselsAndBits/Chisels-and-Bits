@@ -2,7 +2,7 @@ package mod.chiselsandbits.api.util.constants;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public final class Constants
 {
@@ -37,9 +37,9 @@ public final class Constants
         public static final  String LOOT_TABLES_DIR                = DATAPACK_DIR + "loot_tables/blocks";
         private static final String RESOURCEPACK_DIR               = "assets/" + MOD_ID + "/";
         public static final  String BLOCKSTATE_DIR                 = RESOURCEPACK_DIR + "blockstates/";
-        public static final  String CONFIG_LANG_DIR                 = RESOURCEPACK_DIR + "lang/config/";
-        public static final ResourceLocation CHISELED_BLOCK_MODEL   = ResourceLocation.fromNamespaceAndPath( Constants.MOD_ID, "block/chiseled" );
-        public static final ResourceLocation CHISELED_PRINTER_MODEL = ResourceLocation.fromNamespaceAndPath( Constants.MOD_ID, "block/chiseled_printer" );
+        public static final String     CONFIG_LANG_DIR        = RESOURCEPACK_DIR + "lang/config/";
+        public static final Identifier CHISELED_BLOCK_MODEL   = Identifier.fromNamespaceAndPath( Constants.MOD_ID, "block/chiseled" );
+        public static final Identifier CHISELED_PRINTER_MODEL = Identifier.fromNamespaceAndPath( Constants.MOD_ID, "block/chiseled_printer" );
     }
 
     public static final int TICKS_BETWEEN_CHISEL_USAGE = 3;

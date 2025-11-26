@@ -6,16 +6,17 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.chiselsandbits.api.measuring.IMeasurement;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.api.measuring.IMeasuringType;
-import mod.chiselsandbits.measures.MeasuringType;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.measures.MeasuringManager;
+import mod.chiselsandbits.measures.MeasuringType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.ARGB;
@@ -56,7 +57,7 @@ public final class MeasurementRenderer
 
         final Collection<? extends IMeasurement> measurements = MeasuringManager.getInstance().getInWorld(Minecraft.getInstance().level);
 
-        Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().position();
         double xView = vector3d.x();
         double yView = vector3d.y();
         double zView = vector3d.z();
@@ -85,7 +86,7 @@ public final class MeasurementRenderer
         {
             ShapeRenderer.renderShape(
                 poseStack,
-                bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
+                bufferSource.getBuffer(RenderTypes.LINES),
                 boundingShape,
                 startPos.x() - xView,
                 startPos.y() - yView,
@@ -95,7 +96,8 @@ public final class MeasurementRenderer
                     (float) measurement.getMode().getColorVector().x(),
                     (float) measurement.getMode().getColorVector().y(),
                     (float) measurement.getMode().getColorVector().z()
-                )
+                ),
+                2.5f
             );
 
             final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
@@ -131,7 +133,7 @@ public final class MeasurementRenderer
         }
         else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false))
         {
-            final VertexConsumer bufferIn = bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get());
+            final VertexConsumer bufferIn = bufferSource.getBuffer(RenderTypes.LINES);
             bufferIn.addVertex(poseStack.last().pose(),
                     (float) (measurement.getFrom().x() - xView),
                     (float) (measurement.getFrom().y() - yView),
@@ -142,7 +144,8 @@ public final class MeasurementRenderer
                     (float) measurement.getMode().getColorVector().z(),
                     (float) measurement.getMode().getAlphaChannel()
                 )
-                .setNormal(poseStack.last(), 0, 1, 0);
+                .setNormal(poseStack.last(), 0, 1, 0)
+                .setLineWidth(2.5f);
 
             bufferIn.addVertex(poseStack.last().pose(),
                     (float) (measurement.getTo().x() - xView),
@@ -154,7 +157,8 @@ public final class MeasurementRenderer
                     (float) measurement.getMode().getColorVector().z(),
                     (float) measurement.getMode().getAlphaChannel()
                 )
-                .setNormal(poseStack.last(), 0, 1, 0);
+                .setNormal(poseStack.last(), 0, 1, 0)
+                .setLineWidth(2.5f);
 
             final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
             final double totalLength = lengths.length();
@@ -171,7 +175,7 @@ public final class MeasurementRenderer
             }
         }
 
-        bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
+        bufferSource.endBatch(RenderTypes.LINES);
     }
 
     private void renderMeasurementSize(
@@ -191,7 +195,7 @@ public final class MeasurementRenderer
 
         final float scale = getScale(length);
 
-        Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().position();
         double xView = vector3d.x();
         double yView = vector3d.y();
         double zView = vector3d.z();

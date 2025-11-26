@@ -123,7 +123,7 @@ accessible class net/minecraft/client/renderer/RenderType$OutlineProperty
 
 accessible field net/minecraft/world/entity/player/Inventory items Lnet/minecraft/core/NonNullList;
 
-accessible field net/minecraft/client/renderer/RenderType DEBUG_FILLED_BOX Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
+accessible field net/minecraft/client/renderer/rendertype/RenderTypes DEBUG_FILLED_BOX Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
 accessible field net/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState renderType Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/world/item/crafting/RecipeManager recipes Lnet/minecraft/world/item/crafting/RecipeMap;
 accessible method net/minecraft/client/data/models/ItemModelGenerators createFlatItemModel (Lnet/minecraft/world/item/Item;Ljava/lang/String;Lnet/minecraft/client/data/models/model/ModelTemplate;)Lnet/minecraft/resources/ResourceLocation;
@@ -139,3 +139,6 @@ accessible field net/minecraft/world/item/CreativeModeTab alignedRight Z
 accessible field net/minecraft/world/item/CreativeModeTab showTitle Z
 accessible field net/minecraft/world/item/CreativeModeTab canScroll Z
 accessible field net/minecraft/world/item/CreativeModeTab backgroundTexture Lnet/minecraft/resources/ResourceLocation;
+
+accessible method net/minecraft/client/renderer/rendertype/RenderType create (Ljava/lang/String;Lnet/minecraft/client/renderer/rendertype/RenderSetup;)Lnet/minecraft/client/renderer/rendertype/RenderType;
+accessible method net/minecraft/client/renderer/entity/ItemRenderer renderQuadList (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;Ljava/util/List;[III)V

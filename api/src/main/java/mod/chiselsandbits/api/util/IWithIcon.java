@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * An object with an icon to render.
@@ -13,5 +12,5 @@ public interface IWithIcon
      *
      * @return The icon.
      */
-    ResourceLocation getIcon();
+    Identifier getIcon();
 }

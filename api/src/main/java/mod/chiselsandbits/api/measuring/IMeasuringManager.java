@@ -2,7 +2,7 @@ package mod.chiselsandbits.api.measuring;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -28,7 +28,7 @@ public interface IMeasuringManager
      */
     default Collection<? extends IMeasurement> getInWorld(final Level world)
     {
-        return getInWorld(world.dimension().location());
+        return getInWorld(world.dimension().identifier());
     }
 
     /**
@@ -37,7 +37,7 @@ public interface IMeasuringManager
      * @param worldKey The world key in question.
      * @return A collection of measurements which are active in the given world.
      */
-    Collection<? extends IMeasurement> getInWorld(final ResourceLocation worldKey);
+    Collection<? extends IMeasurement> getInWorld(final Identifier worldKey);
 
     /**
      * Determines the active measurements for a given player.

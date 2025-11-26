@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.ister;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import net.minecraft.client.Minecraft;
@@ -13,10 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
-public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.RenderState>
+public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState>
 {
     public BitStorageISTER()
     {
@@ -56,7 +59,7 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
     }
 
     @Override
-    public void getExtents(final @NotNull Set<Vector3f> output)
+    public void getExtents(final @NotNull Consumer<Vector3fc> output)
     {
         //Noop., for now. Figure out later
     }

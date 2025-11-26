@@ -5,7 +5,7 @@ import mod.chiselsandbits.container.BagContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public final class BagGuiStackPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui_stack");
+    public static final Identifier                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui_stack");
     public static final CustomPacketPayload.Type<BagGuiStackPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private int       index = -1;

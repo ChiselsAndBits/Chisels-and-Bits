@@ -3,13 +3,11 @@ package mod.chiselsandbits.client.model.face;
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.client.models.processing.ModelQuadLayer;
 import com.communi.suggestu.scena.core.client.rendering.IRenderingManager;
-import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +15,6 @@ import net.minecraft.data.AtlasIds;
 import net.minecraft.util.TriState;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -116,13 +113,12 @@ public class FaceManager
         }
 
         final ModelQuadLayer.Builder builder = ModelQuadLayer.Builder.create(
-            key.blockInformation().blockState(),
             sprite,
             TriState.DEFAULT,
             ItemBlockRenderTypes.getRenderLayer(key.blockInformation().blockState().getFluidState()));
 
         if (key.direction() != null)
-            builder.setQuadOrientation(key.direction());
+            builder.cullDirection(key.direction());
 
         builder.withLight(lv);
 
@@ -134,7 +130,7 @@ public class FaceManager
         builder.withSprite(sprite);
         injectFluidVertexDataForSide(builder, minU, maxU, minV, maxV, key.direction());
 
-        builder.setQuadTint(0xff);
+        builder.tintIndex(0xff);
 
         return Collections.singletonList(builder.build());
     }

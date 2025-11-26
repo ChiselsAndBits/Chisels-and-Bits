@@ -28,8 +28,6 @@ import java.util.stream.Stream;
 public class BitStorageBlockStateGenerator extends ModelProvider implements DataProvider
 {
 
-    private static final TextureSlot MISSING = TextureSlot.create("missing");
-
     @SubscribeEvent
     public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
@@ -57,14 +55,12 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
                 return new TexturedModel(
                     new TextureMapping()
                         .put(TextureSlot.LAYER0, ModelLocationUtils.getModelLocation(block))
-                        .put(TextureSlot.PARTICLE, ModelLocationUtils.getModelLocation(block))
-                        .put(MISSING, MissingTextureAtlasSprite.getLocation()),
+                        .put(TextureSlot.PARTICLE, ModelLocationUtils.getModelLocation(block)),
                     new ModelTemplate(
                         Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
                         Optional.empty(),
                         TextureSlot.LAYER0,
-                        TextureSlot.PARTICLE,
-                        MISSING
+                        TextureSlot.PARTICLE
                     )
                 );
             }

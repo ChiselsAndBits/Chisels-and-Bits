@@ -7,14 +7,14 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.LevelRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRenderer
 {
-    static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "noop");
+    static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
     @Override
-    public ResourceLocation getId()
+    public Identifier getId()
     {
         return ID;
     }

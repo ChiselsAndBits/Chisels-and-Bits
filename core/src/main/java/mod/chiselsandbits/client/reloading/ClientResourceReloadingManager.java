@@ -10,7 +10,7 @@ import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.face.FaceManager;
 import mod.chiselsandbits.client.model.item.BitBlockBakedModelManager;
 import mod.chiselsandbits.reloading.DataReloadingResourceManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +51,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
     {
         LOGGER.info("Setting up client reloading resource manager.");
         registrar.addListener(
-            ResourceLocation.fromNamespaceAndPath(
+            Identifier.fromNamespaceAndPath(
                 Constants.MOD_ID,
                 "client_cache_clear"
             ),

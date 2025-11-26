@@ -7,6 +7,9 @@ platform {
         library()
         accessTransformers.from(rootProject.files('common/accesstransformer.cfg'))
     }
+    minecraft {
+        version = "1.21.11-pre2-20251124.022710"
+    }
 }
 
 tableau {

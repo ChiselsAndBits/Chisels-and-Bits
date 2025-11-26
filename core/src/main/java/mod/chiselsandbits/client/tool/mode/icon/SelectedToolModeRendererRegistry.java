@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.client.tool.mode.icon.ISelectedToolModeIconRenderer;
 import mod.chiselsandbits.api.client.tool.mode.icon.ISelectedToolModeIconRendererRegistry;
 import mod.chiselsandbits.api.config.IClientConfiguration;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
         return INSTANCE;
     }
 
-    private final Map<ResourceLocation, ISelectedToolModeIconRenderer> rendererMap = Maps.newConcurrentMap();
+    private final Map<Identifier, ISelectedToolModeIconRenderer> rendererMap = Maps.newConcurrentMap();
 
     private SelectedToolModeRendererRegistry()
     {
@@ -30,7 +30,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
     @Override
     public ISelectedToolModeIconRenderer getCurrent()
     {
-        return rendererMap.getOrDefault(ResourceLocation.parse(IClientConfiguration.getInstance().getToolModeRenderer().get()),
+        return rendererMap.getOrDefault(Identifier.parse(IClientConfiguration.getInstance().getToolModeRenderer().get()),
           rendererMap.get(RootGroupTopLeftSelectedToolModeIconRenderer.ID));
     }
 

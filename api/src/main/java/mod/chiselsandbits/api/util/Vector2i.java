@@ -2,10 +2,10 @@ package mod.chiselsandbits.api.util;
 
 import com.google.common.base.MoreObjects;
 import com.mojang.serialization.Codec;
-import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 
 import java.util.stream.IntStream;
 

@@ -1,14 +1,13 @@
 package mod.chiselsandbits.chiseling.modes.sphere;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.MutableComponent;
 
 public class SphereChiselModeBuilder {
     private int                       diameter;
     private MutableComponent displayName;
     private MutableComponent multiLineDisplayName;
-    private ResourceLocation          iconName;
+    private Identifier       iconName;
 
     public SphereChiselModeBuilder setDiameter(final int diameter)
     {
@@ -28,7 +27,7 @@ public class SphereChiselModeBuilder {
         return this;
     }
 
-    public SphereChiselModeBuilder setIconName(final ResourceLocation iconName)
+    public SphereChiselModeBuilder setIconName(final Identifier iconName)
     {
         this.iconName = iconName;
         return this;

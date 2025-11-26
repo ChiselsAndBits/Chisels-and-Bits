@@ -3,8 +3,8 @@ package mod.chiselsandbits.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -15,26 +15,6 @@ import java.util.function.Predicate;
 public class ChiseledBlockWireframeRenderer
 {
     private static final ChiseledBlockWireframeRenderer INSTANCE = new ChiseledBlockWireframeRenderer();
-    private static final Predicate<IStateEntryInfo> NONE_AIR_PREDICATE = new Predicate<>()
-    {
-        @Override
-        public boolean test(final IStateEntryInfo iStateEntryInfo)
-        {
-            return !iStateEntryInfo.getBlockInformation().isAir();
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return 2;
-        }
-
-        @Override
-        public boolean equals(final Object obj)
-        {
-            return this == obj;
-        }
-    };
 
     public static ChiseledBlockWireframeRenderer getInstance()
     {
@@ -54,7 +34,7 @@ public class ChiseledBlockWireframeRenderer
     {
         stack.pushPose();
 
-        final Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        final Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().position();
         final double xView = vector3d.x();
         final double yView = vector3d.y();
         final double zView = vector3d.z();
@@ -69,7 +49,8 @@ public class ChiseledBlockWireframeRenderer
           Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(renderType),
           wireFrame,
           position.x() - xView, position.y() - yView, position.z() - zView,
-            ARGB.colorFromFloat(1, color.x(), color.y(), color.z())
+            ARGB.colorFromFloat(1, color.x(), color.y(), color.z()),
+            3f
         );
         Minecraft.getInstance().renderBuffers().bufferSource().endBatch(renderType);
 

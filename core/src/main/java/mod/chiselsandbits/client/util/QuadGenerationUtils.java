@@ -1,15 +1,14 @@
 package mod.chiselsandbits.client.util;
 
-import com.communi.suggestu.scena.core.client.models.processing.BakedQuadAdapter;
+import com.communi.suggestu.scena.core.client.models.processing.BakedQuadBuilder;
 import com.communi.suggestu.scena.core.client.models.processing.ModelQuadLayer;
 import com.communi.suggestu.scena.core.client.models.processing.VertexData;
 import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.face.FaceManager;
-import mod.chiselsandbits.utils.LightUtil;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +20,6 @@ import org.joml.Vector3f;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public final class QuadGenerationUtils
 {
@@ -59,7 +57,7 @@ public final class QuadGenerationUtils
         @Nullable final BlockPos pos,
         final Vector3f from,
         final Vector3f to,
-        final BiConsumer<ModelQuadLayer, BakedQuadAdapter> quadAdapter,
+        final BiConsumer<ModelQuadLayer, BakedQuadBuilder> quadAdapter,
         final Consumer<GeneratedQuad> target)
     {
 
@@ -79,12 +77,12 @@ public final class QuadGenerationUtils
                     return;
                 }
 
-                final BakedQuadAdapter adapter = new BakedQuadAdapter(adaptedVertices, layer.color());
-                LightUtil.put(adapter, layer.sourceQuad());
-                adapter.setQuadTint(layer.tint());
-                adapter.setApplyDiffuseLighting(layer.shade());
-                adapter.setTexture(layer.sprite());
-                adapter.setQuadOrientation(facingDirection);
+                final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.sprite());
+                adaptedVertices.forEach(adapter::vertex);
+                adapter.tintIndex(layer.tint());
+                adapter.shade(layer.shade());
+                adapter.texture(layer.sprite());
+                adapter.cullDirection(facingDirection);
 
                 quadAdapter.accept(layer, adapter);
 

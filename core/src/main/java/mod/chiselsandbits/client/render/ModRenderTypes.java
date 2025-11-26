@@ -1,18 +1,18 @@
 package mod.chiselsandbits.client.render;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.LayeringTransform;
+import net.minecraft.client.renderer.rendertype.OutputTarget;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-import java.util.OptionalDouble;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public enum ModRenderTypes
 {
-    MEASUREMENT_LINES(Internal.MEASUREMENT_LINES),
     CHISEL_PREVIEW_INSIDE_BLOCKS(Internal.PREVIEW_INSIDE_BLOCKS),
     CHISEL_PREVIEW_OUTSIDE_BLOCKS(Internal.PREVIEW_OUTSIDE_BLOCKS),
     WIREFRAME_LINES(Internal.WIREFRAME),
@@ -24,115 +24,130 @@ public enum ModRenderTypes
 
     private final Supplier<RenderType> typeSupplier;
 
-    ModRenderTypes(final Supplier<RenderType> typeSupplier) {
+    ModRenderTypes(final Supplier<RenderType> typeSupplier)
+    {
         this.typeSupplier = typeSupplier;
     }
 
-    public RenderType get() {
+    public RenderType get()
+    {
         return typeSupplier.get();
     }
 
     private static class Internal
     {
-        public static Supplier<RenderType> MEASUREMENT_LINES = Suppliers.memoize(Internal::measurementLines);
-
-        private static RenderType measurementLines() {
-            var state = RenderType.CompositeState.builder()
-                .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(2.5d)))
-                .setLayeringState(RenderStateShard.LayeringStateShard.VIEW_OFFSET_Z_LAYERING)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
-            return RenderType.create("c_and_b_measurement_lines", 256, true, false, ModRenderPipelines.LINES.pipeline(), state);
-        }
-
         public static Supplier<RenderType> PREVIEW_INSIDE_BLOCKS = Suppliers.memoize(Internal::chiselPreviewInsideBlocks);
 
-        private static RenderType chiselPreviewInsideBlocks() {
-            var state = RenderType.CompositeState.builder()
-                .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(2.5d)))
-                .setLayeringState(RenderStateShard.LayeringStateShard.VIEW_OFFSET_Z_LAYERING)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
-            return RenderType.create("c_and_b_preview_inside_blocks", 256, true, false, ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline(), state);
+        private static RenderType chiselPreviewInsideBlocks()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline())
+                .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                .bufferSize(256)
+                .sortOnUpload()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .createRenderSetup();
+            return RenderType.create("c_and_b_preview_inside_blocks", state);
         }
 
         public static Supplier<RenderType> PREVIEW_OUTSIDE_BLOCKS = Suppliers.memoize(Internal::chiselPreviewOutsideBlocks);
 
-        private static RenderType chiselPreviewOutsideBlocks() {
-            var state = RenderType.CompositeState.builder()
-                .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(2.5d)))
-                .setLayeringState(RenderStateShard.LayeringStateShard.VIEW_OFFSET_Z_LAYERING)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
-            return RenderType.create("c_and_b_preview_outside_blocks", 256, true, false, ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline(), state);
+        private static RenderType chiselPreviewOutsideBlocks()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline())
+                .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                .bufferSize(256)
+                .sortOnUpload()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .createRenderSetup();
+            return RenderType.create("c_and_b_preview_outside_blocks", state);
         }
 
         public static Supplier<RenderType> WIREFRAME = Suppliers.memoize(Internal::wireframe);
 
-        private static RenderType wireframe() {
-            var state = RenderType.CompositeState.builder()
-                .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(3d)))
-                .setLayeringState(RenderStateShard.LayeringStateShard.VIEW_OFFSET_Z_LAYERING)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
-            return RenderType.create("c_and_b_wireframe", 256, true, true, ModRenderPipelines.WIREFRAME.pipeline(), state);
+        private static RenderType wireframe()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME.pipeline())
+                .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                .bufferSize(256)
+                .sortOnUpload()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .createRenderSetup();
+            return RenderType.create("c_and_b_wireframe", state);
         }
 
         public static Supplier<RenderType> WIREFRAME_ALWAYS = Suppliers.memoize(Internal::wireframeAlways);
 
-        private static RenderType wireframeAlways() {
-            var state = RenderType.CompositeState.builder()
-                .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(3d)))
-                .setLayeringState(RenderStateShard.LayeringStateShard.VIEW_OFFSET_Z_LAYERING)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
-            return RenderType.create("c_and_b_wireframe_always", 256, true, true, ModRenderPipelines.WIREFRAME_ALWAYS.pipeline(), state);
+        private static RenderType wireframeAlways()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME_ALWAYS.pipeline())
+                .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                .bufferSize(256)
+                .sortOnUpload()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .createRenderSetup();
+            return RenderType.create("c_and_b_wireframe_always", state);
         }
 
-        public static Function<ResourceLocation, Supplier<RenderType>> GHOST_BLOCK = (rl) -> Suppliers.memoize(() -> ghostBlock(rl));
+        public static Function<Identifier, Supplier<RenderType>> GHOST_BLOCK = (rl) -> Suppliers.memoize(() -> ghostBlock(rl));
 
-        private static RenderType ghostBlock(ResourceLocation texture) {
-            var state = RenderType.CompositeState.builder()
-                .setTextureState(new RenderStateShard.TextureStateShard(texture, false))
-                .setLightmapState(RenderStateShard.LIGHTMAP)
-                .setOverlayState(RenderStateShard.OVERLAY)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
+        private static RenderType ghostBlock(Identifier texture)
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK.pipeline())
+                .withTexture("Sampler0", texture)
+                .useLightmap()
+                .useOverlay()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .bufferSize(256)
+                .affectsCrumbling()
+                .sortOnUpload()
+                .createRenderSetup();
 
-            return RenderType.create("c_and_b_ghost_block", 256, true, true, ModRenderPipelines.GHOST_BLOCK.pipeline(), state);
+            return RenderType.create("c_and_b_ghost_block", state);
         }
 
-        public static Function<ResourceLocation, Supplier<RenderType>> GHOST_BLOCK_ALWAYS = (rl) -> Suppliers.memoize(() -> ghostBlockAlways(rl));
+        public static Function<Identifier, Supplier<RenderType>> GHOST_BLOCK_ALWAYS = (rl) -> Suppliers.memoize(() -> ghostBlockAlways(rl));
 
-        private static RenderType ghostBlockAlways(ResourceLocation texture) {
-            var state = RenderType.CompositeState.builder()
-                .setTextureState(new RenderStateShard.TextureStateShard(texture, false))
-                .setLightmapState(RenderStateShard.LIGHTMAP)
-                .setOverlayState(RenderStateShard.OVERLAY)
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
+        private static RenderType ghostBlockAlways(Identifier texture)
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_ALWAYS.pipeline())
+                .withTexture("Sampler0", texture)
+                .useLightmap()
+                .useOverlay()
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .bufferSize(256)
+                .affectsCrumbling()
+                .sortOnUpload()
+                .createRenderSetup();
 
-            return RenderType.create("c_and_b_ghost_block_always", 256, true, true, ModRenderPipelines.GHOST_BLOCK_ALWAYS.pipeline(), state);
+            return RenderType.create("c_and_b_ghost_block_always", state);
         }
 
         public static Supplier<RenderType> GHOST_BLOCK_COLORED = Suppliers.memoize(Internal::ghostBlockColored);
 
-        private static RenderType ghostBlockColored() {
-            var state = RenderType.CompositeState.builder()
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
+        private static RenderType ghostBlockColored()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline())
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .bufferSize(256)
+                .affectsCrumbling()
+                .sortOnUpload()
+                .createRenderSetup();
 
-            return RenderType.create("c_and_b_ghost_block_colored", 256, true, true, ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline(), state);
+            return RenderType.create("c_and_b_ghost_block_colored", state);
         }
 
         public static Supplier<RenderType> GHOST_BLOCK_COLORED_ALWAYS = Suppliers.memoize(Internal::ghostBlockColoredAlways);
 
-        private static RenderType ghostBlockColoredAlways() {
-            var state = RenderType.CompositeState.builder()
-                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
-                .createCompositeState(true);
+        private static RenderType ghostBlockColoredAlways()
+        {
+            var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline())
+                .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                .bufferSize(256)
+                .affectsCrumbling()
+                .sortOnUpload()
+                .createRenderSetup();
 
-            return RenderType.create("c_and_b_ghost_block_colored", 256, true, true, ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline(), state);
+            return RenderType.create("c_and_b_ghost_block_colored", state);
         }
     }
 }

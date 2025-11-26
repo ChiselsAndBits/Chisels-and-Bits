@@ -1,6 +1,6 @@
 package mod.chiselsandbits.api.measuring;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
@@ -52,5 +52,5 @@ public interface IMeasurement
      *
      * @return The id of the world.
      */
-    ResourceLocation getWorldKey();
+    Identifier getWorldKey();
 }

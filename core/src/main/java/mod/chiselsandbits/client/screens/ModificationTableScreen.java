@@ -15,7 +15,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,11 +27,11 @@ import java.util.List;
 
 public class ModificationTableScreen extends AbstractContainerScreen<ModificationTableContainer>
 {
-    private static final ResourceLocation RECIPE_SELECTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_selected");
-    private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_highlighted");
-    private static final ResourceLocation RECIPE_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe");
-    private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/modification_table.png");
-    private               float            sliderProgress;
+    private static final Identifier RECIPE_SELECTED_SPRITE    = Identifier.withDefaultNamespace("container/stonecutter/recipe_selected");
+    private static final Identifier RECIPE_HIGHLIGHTED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe_highlighted");
+    private static final Identifier RECIPE_SPRITE             = Identifier.withDefaultNamespace("container/stonecutter/recipe");
+    private static final Identifier BACKGROUND_TEXTURE        = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/modification_table.png");
+    private              float      sliderProgress;
     /** Is {@code true} if the player clicked on the scroll wheel in the GUI. */
     private               boolean          clickedOnSroll;
     /**
@@ -119,7 +119,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
             int drawX = x + displayedIndex % 4 * 16;
             int rowIndex = displayedIndex / 4;
             int drawY = y + rowIndex * 18 + 2;
-            ResourceLocation resourcelocation;
+            Identifier resourcelocation;
             if (index == this.menu.getSelectedRecipe()) {
                 resourcelocation = RECIPE_SELECTED_SPRITE;
             } else if (mouseX >= drawX && mouseY >= drawY && mouseX < drawX + 16 && mouseY < drawY + 18) {

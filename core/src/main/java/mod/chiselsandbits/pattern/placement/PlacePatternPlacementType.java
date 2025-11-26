@@ -16,12 +16,10 @@ import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -134,9 +132,9 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
     }
 
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(
+        return Identifier.fromNamespaceAndPath(
             MOD_ID, "pattern_place"
         );
     }

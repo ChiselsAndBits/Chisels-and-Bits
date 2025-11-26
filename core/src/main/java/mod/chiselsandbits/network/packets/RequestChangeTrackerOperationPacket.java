@@ -8,12 +8,12 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class RequestChangeTrackerOperationPacket extends ModPacket
 {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "request_change_tracker_operation");
+    public static final Identifier                                                    ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "request_change_tracker_operation");
     public static final CustomPacketPayload.Type<RequestChangeTrackerOperationPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private boolean redo;

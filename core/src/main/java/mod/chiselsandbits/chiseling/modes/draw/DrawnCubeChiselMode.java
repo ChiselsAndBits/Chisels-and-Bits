@@ -16,17 +16,15 @@ import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.RayTracingUtils;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -34,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.util.Map;
 import java.util.Optional;
@@ -44,9 +41,9 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 {
     private final MutableComponent displayName;
     private final MutableComponent multiLineDisplayName;
-    private final ResourceLocation             iconName;
+    private final Identifier       iconName;
 
-    DrawnCubeChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final ResourceLocation iconName) {
+    DrawnCubeChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final Identifier iconName) {
         this.displayName = displayName;
         this.multiLineDisplayName = multiLineDisplayName;
         this.iconName = iconName;
@@ -202,7 +199,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
     }
 
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
         return iconName;
     }

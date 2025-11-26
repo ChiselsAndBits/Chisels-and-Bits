@@ -20,7 +20,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 {
 
-    private static final ResourceLocation BAG_GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/bitbag.png");
+    private static final Identifier BAG_GUI_TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/bitbag.png");
 
     boolean requireConfirm = true;
     boolean dontThrow      = false;
@@ -209,17 +209,17 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
     }
 
     @Override
-    public void renderSlot(final GuiGraphics guiGraphics, final Slot slot)
+    protected void renderSlot(final GuiGraphics guiGraphics, final Slot slot, final int mouseX, final int mouseY)
     {
         if (!(slot instanceof BitSlot bitSlot))
         {
-            super.renderSlot(guiGraphics, slot);
+            super.renderSlot(guiGraphics, slot, mouseX, mouseY);
             return;
         }
 
         final ItemStack currentContents = bitSlot.getItem();
         bitSlot.set(currentContents.copyWithCount(1));
-        super.renderSlot(guiGraphics, bitSlot);
+        super.renderSlot(guiGraphics, bitSlot, mouseX, mouseY);
         bitSlot.set(currentContents);
 
         if (currentContents.getCount() != 0) {

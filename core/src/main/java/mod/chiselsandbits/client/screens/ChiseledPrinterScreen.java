@@ -1,21 +1,19 @@
 package mod.chiselsandbits.client.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ChiseledPrinterContainer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrinterContainer>
 {
 
-    private static final ResourceLocation GUI_TEXTURES = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/chisel_printer.png");
+    private static final Identifier GUI_TEXTURES = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/chisel_printer.png");
 
     public ChiseledPrinterScreen(final ChiseledPrinterContainer screenContainer, final Inventory inv, final Component titleIn)
     {

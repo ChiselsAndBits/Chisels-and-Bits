@@ -1,20 +1,16 @@
 package mod.chiselsandbits.network.packets;
 
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.container.BagContainer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 public final class BagGuiPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui");
+    public static final Identifier                             ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui");
     public static final CustomPacketPayload.Type<BagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private int slotNumber = -1;

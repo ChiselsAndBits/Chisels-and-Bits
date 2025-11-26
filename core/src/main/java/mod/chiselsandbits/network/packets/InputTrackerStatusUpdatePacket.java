@@ -2,16 +2,15 @@ package mod.chiselsandbits.network.packets;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.input.ProcessingInputTracker;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class InputTrackerStatusUpdatePacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "input_tracker_status_update");
+    public static final Identifier                                               ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "input_tracker_status_update");
     public static final CustomPacketPayload.Type<InputTrackerStatusUpdatePacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private boolean isLeftMouse;

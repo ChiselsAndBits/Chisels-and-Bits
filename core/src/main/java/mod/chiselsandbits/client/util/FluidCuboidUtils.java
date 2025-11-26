@@ -7,14 +7,13 @@ import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.data.AtlasIds;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -84,8 +83,8 @@ public class FluidCuboidUtils
       float z2,
       int color)
     {
-        ResourceLocation still = IRenderingManager.getInstance().getStillFluidTexture(fluid);
-        ResourceLocation flowing = IRenderingManager.getInstance().getFlowingFluidTexture(fluid);
+        Identifier still = IRenderingManager.getInstance().getStillFluidTexture(fluid);
+        Identifier flowing = IRenderingManager.getInstance().getFlowingFluidTexture(fluid);
 
         for (final ChunkSectionLayer renderLayer : ChunkSectionLayer.values())
         {
@@ -99,8 +98,8 @@ public class FluidCuboidUtils
     }
 
     public static void renderFluidCuboid(
-      ResourceLocation still,
-      ResourceLocation flowing,
+      Identifier still,
+      Identifier flowing,
       int color,
       PoseStack matrices,
       RenderType renderType,

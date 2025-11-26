@@ -10,7 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import static com.communi.suggestu.scena.core.dist.Dist.CLIENT;
@@ -18,7 +18,7 @@ import static com.communi.suggestu.scena.core.dist.Dist.CLIENT;
 public final class UpdateBlockEntityPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "update_block_entity");
+    public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "update_block_entity");
     public static final CustomPacketPayload.Type<UpdateBlockEntityPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private BlockPos blockPos;

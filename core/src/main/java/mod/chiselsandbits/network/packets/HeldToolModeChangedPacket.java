@@ -5,14 +5,13 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
 
 public final class HeldToolModeChangedPacket extends ModPacket
 {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "held_tool_mode_changed");
+    public static final Identifier                                          ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "held_tool_mode_changed");
     public static final CustomPacketPayload.Type<HeldToolModeChangedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private int modeIndex;

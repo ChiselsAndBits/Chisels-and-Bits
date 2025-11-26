@@ -1,7 +1,6 @@
 package mod.chiselsandbits.chiseling.modes.cubed;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.MutableComponent;
 
 public class CubedChiselModeBuilder {
@@ -9,7 +8,7 @@ public class CubedChiselModeBuilder {
     private boolean                   aligned;
     private MutableComponent displayName;
     private MutableComponent multiLineDisplayName;
-    private ResourceLocation          iconName;
+    private Identifier       iconName;
 
     public CubedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
     {
@@ -35,7 +34,7 @@ public class CubedChiselModeBuilder {
         return this;
     }
 
-    public CubedChiselModeBuilder setIconName(final ResourceLocation iconName)
+    public CubedChiselModeBuilder setIconName(final Identifier iconName)
     {
         this.iconName = iconName;
         return this;

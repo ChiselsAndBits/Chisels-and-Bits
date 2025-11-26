@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.util.BlockInformationUtils;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

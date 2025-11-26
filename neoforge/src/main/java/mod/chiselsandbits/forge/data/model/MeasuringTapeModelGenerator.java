@@ -2,7 +2,6 @@ package mod.chiselsandbits.forge.data.model;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.item.properties.IsMeasuringItemProperty;
-import mod.chiselsandbits.client.registrars.ItemProperties;
 import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -12,9 +11,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

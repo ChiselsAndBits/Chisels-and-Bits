@@ -6,11 +6,9 @@ import mod.chiselsandbits.api.util.BlockHitResultUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.icon.IconManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public enum MeasuringType implements IMeasuringType
 {
     BIT(LocalStrings.TapeMeasureBit.getText(),
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
         blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->
         new Vec3(
             Math.min(from.x(), to.x()) - StateEntrySize.current().getSizePerHalfBit(),
@@ -33,7 +31,7 @@ public enum MeasuringType implements IMeasuringType
                 Math.max(from.z(), to.z()) + StateEntrySize.current().getSizePerHalfBit()
             ),
         true),
-    BLOCK(LocalStrings.TapeMeasureBlock.getText(), ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block"),
+    BLOCK(LocalStrings.TapeMeasureBlock.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "block"),
         blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, VectorUtils.ONE), (from, to, hitFace) ->
         new Vec3(
             Math.min(from.x(), to.x()) - 0.499,
@@ -48,12 +46,12 @@ public enum MeasuringType implements IMeasuringType
                 Math.max(from.z(), to.z()) + 0.499
             ),
         true),
-    DISTANCE(LocalStrings.TapeMeasureDistance.getText(), ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "line"),
+    DISTANCE(LocalStrings.TapeMeasureDistance.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line"),
         IClickedPositionAdapter.identity(), (from, to, hitFace) -> from,
         (from, to, hitFace) -> to, false);
 
     private final Component               displayName;
-    private final ResourceLocation        icon;
+    private final Identifier              icon;
     private final IClickedPositionAdapter clickedPositionAdapter;
     private final IPositionAdapter        finalStartPositionAdapter;
     private final IPositionAdapter        finalEndPositionAdapter;
@@ -61,7 +59,7 @@ public enum MeasuringType implements IMeasuringType
 
     MeasuringType(
         final Component displayName,
-        final ResourceLocation icon,
+        final Identifier icon,
         final IClickedPositionAdapter startPositionAdapter,
         IPositionAdapter finalStartPositionAdapter,
         IPositionAdapter finalEndPositionAdapter, final boolean needsNormalization)
@@ -75,7 +73,7 @@ public enum MeasuringType implements IMeasuringType
     }
 
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
         return icon;
     }

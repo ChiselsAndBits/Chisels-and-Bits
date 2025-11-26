@@ -8,7 +8,7 @@ import mod.chiselsandbits.measures.Measurement;
 import mod.chiselsandbits.measures.MeasuringManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
@@ -19,17 +19,17 @@ import java.util.UUID;
 public final class MeasurementsUpdatedPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "measurements_updated");
+    public static final Identifier                                          ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_updated");
     public static final CustomPacketPayload.Type<MeasurementsUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
-    private Table<ResourceLocation, UUID, Map<MeasuringMode, Measurement>> measurements;
+    private Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements;
 
     public MeasurementsUpdatedPacket(final RegistryFriendlyByteBuf buffer)
     {
         readPayload(buffer);
     }
 
-    public MeasurementsUpdatedPacket(final Table<ResourceLocation, UUID, Map<MeasuringMode, Measurement>> measurements)
+    public MeasurementsUpdatedPacket(final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements)
     {
         this.measurements = measurements;
     }
@@ -39,7 +39,7 @@ public final class MeasurementsUpdatedPacket extends ModPacket
     {
         buffer.writeMap(
                 measurements.rowMap(),
-                FriendlyByteBuf::writeResourceLocation,
+                FriendlyByteBuf::writeIdentifier,
                 (buffer5, value) -> buffer5.writeMap(
                         value,
                         (buffer4, value4) -> buffer4.writeUUID(value4),
@@ -55,8 +55,8 @@ public final class MeasurementsUpdatedPacket extends ModPacket
     @Override
     public void readPayload(final RegistryFriendlyByteBuf buffer)
     {
-        final Map<ResourceLocation, Map<UUID, Map<MeasuringMode, Measurement>>> bufferData = buffer.readMap(
-                FriendlyByteBuf::readResourceLocation,
+        final Map<Identifier, Map<UUID, Map<MeasuringMode, Measurement>>> bufferData = buffer.readMap(
+                FriendlyByteBuf::readIdentifier,
                 buffer2 -> buffer2.readMap(
                         buffer1 -> buffer1.readUUID(),
                         buffer1 -> buffer1.readMap(

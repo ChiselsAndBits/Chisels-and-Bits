@@ -4,14 +4,13 @@ import com.communi.suggestu.scena.core.dist.Dist;
 import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ImportPatternCommandMessagePacket extends ModPacket
 {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "import_pattern_command_message");
+    public static final Identifier                                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "import_pattern_command_message");
     public static final CustomPacketPayload.Type<ImportPatternCommandMessagePacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private String   name;

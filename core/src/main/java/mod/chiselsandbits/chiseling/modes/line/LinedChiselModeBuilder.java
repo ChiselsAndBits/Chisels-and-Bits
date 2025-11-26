@@ -1,15 +1,14 @@
 package mod.chiselsandbits.chiseling.modes.line;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.MutableComponent;
 
 public class LinedChiselModeBuilder
 {
     private int                       bitsPerSide;
     private MutableComponent displayName;
-    private MutableComponent   multiLineDisplayName;
-    private ResourceLocation iconName;
+    private MutableComponent multiLineDisplayName;
+    private Identifier       iconName;
 
     public LinedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
     {
@@ -29,7 +28,7 @@ public class LinedChiselModeBuilder
         return this;
     }
 
-    public LinedChiselModeBuilder setIconName(final ResourceLocation iconName)
+    public LinedChiselModeBuilder setIconName(final Identifier iconName)
     {
         this.iconName = iconName;
         return this;

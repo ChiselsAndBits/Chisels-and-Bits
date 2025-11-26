@@ -5,13 +5,10 @@ import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
-import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipeSerializer;
-import mod.chiselsandbits.registrars.ModRecipeSerializers;
-import mod.chiselsandbits.registrars.ModRecipeTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +17,7 @@ import java.util.List;
 
 public class ModificationRecipesUpdated extends ModPacket
 {
-    public static final ResourceLocation                                   ID   = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "modification_recipes_updated");
+    public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "modification_recipes_updated");
     public static final CustomPacketPayload.Type<ModificationRecipesUpdated> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private final List<RecipeHolder<ModificationTableRecipe>> recipes;

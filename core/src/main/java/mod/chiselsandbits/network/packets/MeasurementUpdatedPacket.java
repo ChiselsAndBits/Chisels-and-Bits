@@ -5,14 +5,14 @@ import mod.chiselsandbits.measures.Measurement;
 import mod.chiselsandbits.measures.MeasuringManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public final class MeasurementUpdatedPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "measurement_updated");
+    public static final Identifier                                         ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurement_updated");
     public static final CustomPacketPayload.Type<MeasurementUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private Measurement measurement;

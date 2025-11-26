@@ -5,7 +5,7 @@ import mod.chiselsandbits.api.chiseling.IChiselingContext;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.LevelRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Renderer which is used to render the chiseling preview.
@@ -19,7 +19,7 @@ public interface IChiselContextPreviewRenderer
      *
      * @return The id of the preview renderer.
      */
-    ResourceLocation getId();
+    Identifier getId();
 
     /**
      * Invoked by the engine to render previews of the given {@link IChiselingContext}.

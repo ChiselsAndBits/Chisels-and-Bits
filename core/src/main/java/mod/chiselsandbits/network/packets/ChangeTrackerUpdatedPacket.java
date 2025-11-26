@@ -5,17 +5,16 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedList;
 
 public final class ChangeTrackerUpdatedPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "change_tracker_updated");
+    public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "change_tracker_updated");
     public static final CustomPacketPayload.Type<ChangeTrackerUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private Deque<IChange> changes;

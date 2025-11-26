@@ -12,7 +12,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
@@ -28,9 +27,6 @@ import java.util.stream.Stream;
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements DataProvider
 {
-
-    private static final TextureSlot MISSING = TextureSlot.create("missing");
-
     @SubscribeEvent
     public static void dataGeneratorSetup(final GatherDataEvent.Client event)
     {
@@ -58,14 +54,12 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
                 return new TexturedModel(
                     new TextureMapping()
                         .put(TextureSlot.LAYER0, ModelLocationUtils.getModelLocation(block))
-                        .put(TextureSlot.PARTICLE, ModelLocationUtils.getModelLocation(block))
-                        .put(MISSING, MissingTextureAtlasSprite.getLocation()),
+                        .put(TextureSlot.PARTICLE, ModelLocationUtils.getModelLocation(block)),
                     new ModelTemplate(
                         Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
                         Optional.empty(),
                         TextureSlot.LAYER0,
-                        TextureSlot.PARTICLE,
-                        MISSING
+                        TextureSlot.PARTICLE
                     )
                 );
             }

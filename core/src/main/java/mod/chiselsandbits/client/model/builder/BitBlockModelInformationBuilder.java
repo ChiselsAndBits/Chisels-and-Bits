@@ -8,8 +8,8 @@ import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.BitBlockModelPart;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ARGB;
@@ -56,7 +56,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
                 (layer, quad) -> {
                     if (layer.tint() != -1)
                     {
-                        quad.setQuadTint(0);
+                        quad.tintIndex(0);
                     }
                 },
                 generatedQuad -> {

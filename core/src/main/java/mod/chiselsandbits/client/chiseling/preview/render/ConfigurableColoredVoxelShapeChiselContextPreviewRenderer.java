@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShapeRenderer;
 import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -24,10 +24,10 @@ import java.util.List;
 
 public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implements IChiselContextPreviewRenderer
 {
-    static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "default");
+    static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "default");
 
     @Override
-    public ResourceLocation getId()
+    public Identifier getId()
     {
         return ID;
     }
@@ -46,7 +46,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
             return;
         }
 
-        Vec3 Vec3 = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Vec3 Vec3 = Minecraft.getInstance().gameRenderer.getMainCamera().position();
         double xView = Vec3.x();
         double yView = Vec3.y();
         double zView = Vec3.z();
@@ -78,7 +78,8 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
                 getColorValue(color, 0, 0f) * 0.3f,
                 getColorValue(color, 1, 0f) * 0.3f,
                 getColorValue(color, 2, 0f) * 0.3f
-            )
+            ),
+            2.5f
         );
         bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get());
 
@@ -92,7 +93,8 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
                 getColorValue(color, 0, 0f),
                 getColorValue(color, 1, 0f),
                 getColorValue(color, 2, 0f)
-            )
+            ),
+            2.5f
         );
         bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get());
 
@@ -100,7 +102,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
         {
             ShapeRenderer.renderShape(
                 poseStack,
-                bufferSource.getBuffer(ModRenderTypes.MEASUREMENT_LINES.get()),
+                bufferSource.getBuffer(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get()),
                 boundingShape,
                 inWorldStartPos.getX() - xView, inWorldStartPos.getY() - yView, inWorldStartPos.getZ() - zView,
                 ARGB.colorFromFloat(
@@ -108,9 +110,10 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
                     getColorValue(mutatorColor, 0, 0f),
                     getColorValue(mutatorColor, 1, 0f),
                     getColorValue(mutatorColor, 2, 0f)
-                )
+                ),
+                2.5f
             );
-            bufferSource.endBatch(ModRenderTypes.MEASUREMENT_LINES.get());
+            bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_INSIDE_BLOCKS.get());
         }
     }
 

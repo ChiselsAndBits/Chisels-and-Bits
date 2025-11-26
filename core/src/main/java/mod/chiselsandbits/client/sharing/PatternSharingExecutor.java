@@ -1,5 +1,6 @@
 package mod.chiselsandbits.client.sharing;
 
+import com.communi.suggestu.scena.core.client.models.processing.VertexData;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -13,6 +14,7 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.LocalStrings;
+import mod.chiselsandbits.client.util.BakedQuadUtils;
 import mod.chiselsandbits.utils.CompressionUtils;
 import mod.chiselsandbits.utils.FileUtils;
 import mod.chiselsandbits.utils.TextureUtils;
@@ -20,7 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -29,8 +30,8 @@ import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -172,7 +173,7 @@ public final class PatternSharingExecutor
         if (!blockStack.has(DataComponents.ITEM_MODEL))
             throw new IllegalStateException("BlockStage does not have model for export!");
 
-        final ResourceLocation itemModelLocation = blockStack.get(DataComponents.ITEM_MODEL);
+        final Identifier itemModelLocation = blockStack.get(DataComponents.ITEM_MODEL);
         if (itemModelLocation == null)
             throw new IllegalStateException("BlockStage has empty model location for export!");
 
@@ -307,10 +308,10 @@ public final class PatternSharingExecutor
 
     private record Model(List<QuadData> quads) {}
 
-    private record QuadData(int[] vertices, int tintIndex, Direction direction, boolean shade) {
+    private record QuadData(VertexData[] vertices, int tintIndex, Direction direction, boolean shade) {
         private QuadData(BakedQuad quad)
         {
-            this(quad.vertices(), quad.tintIndex(), quad.direction(), quad.shade());
+            this(BakedQuadUtils.getVertexData(quad), quad.tintIndex(), quad.direction(), quad.shade());
         }
     }
 }

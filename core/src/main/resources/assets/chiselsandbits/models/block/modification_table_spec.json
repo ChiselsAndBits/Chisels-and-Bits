@@ -6,8 +6,7 @@
   ],
   "textures": {
     "0": "chiselsandbits:block/modification_table",
-    "particle": "chiselsandbits:block/modification_table",
-    "missing": "minecraft:missingno"
+    "particle": "chiselsandbits:block/modification_table"
   },
   "elements": [
     {
@@ -106,7 +105,7 @@
             3,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "east": {
           "uv": [
@@ -115,7 +114,7 @@
             2,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "south": {
           "uv": [
@@ -124,7 +123,7 @@
             3,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "west": {
           "uv": [
@@ -133,7 +132,7 @@
             2,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "up": {
           "uv": [
@@ -984,7 +983,7 @@
             0.75,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "east": {
           "uv": [
@@ -993,7 +992,7 @@
             1.75,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "south": {
           "uv": [
@@ -1002,7 +1001,7 @@
             0.75,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "west": {
           "uv": [
@@ -1011,7 +1010,7 @@
             1.75,
             0
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "up": {
           "uv": [
@@ -1061,7 +1060,7 @@
             0.25,
             0.25
           ],
-          "texture": "#missing"
+          "texture": "#0"
         },
         "east": {
           "uv": [

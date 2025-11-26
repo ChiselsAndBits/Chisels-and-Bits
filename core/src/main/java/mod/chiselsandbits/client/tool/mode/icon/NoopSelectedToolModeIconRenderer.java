@@ -3,15 +3,15 @@ package mod.chiselsandbits.client.tool.mode.icon;
 import mod.chiselsandbits.api.client.tool.mode.icon.ISelectedToolModeIconRenderer;
 import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRenderer
 {
-    static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "noop");
+    static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
     @Override
-    public ResourceLocation getId()
+    public Identifier getId()
     {
         return ID;
     }

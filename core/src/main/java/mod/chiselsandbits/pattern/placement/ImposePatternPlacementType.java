@@ -19,12 +19,10 @@ import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.LocalStrings;
 import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -44,9 +42,9 @@ import static mod.chiselsandbits.api.util.constants.Constants.MOD_ID;
 public class ImposePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
 {
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_impose");
+        return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_impose");
     }
 
     @Override

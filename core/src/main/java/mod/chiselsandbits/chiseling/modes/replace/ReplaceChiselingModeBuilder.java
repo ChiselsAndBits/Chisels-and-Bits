@@ -1,13 +1,12 @@
 package mod.chiselsandbits.chiseling.modes.replace;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ReplaceChiselingModeBuilder {
     private MutableComponent          displayName;
-    private MutableComponent   multiLineDisplayName;
-    private ResourceLocation iconName;
+    private MutableComponent multiLineDisplayName;
+    private Identifier       iconName;
 
     public ReplaceChiselingModeBuilder setDisplayName(final MutableComponent displayName)
     {
@@ -21,7 +20,7 @@ public class ReplaceChiselingModeBuilder {
         return this;
     }
 
-    public ReplaceChiselingModeBuilder setIconName(final ResourceLocation iconName)
+    public ReplaceChiselingModeBuilder setIconName(final Identifier iconName)
     {
         this.iconName = iconName;
         return this;

@@ -10,15 +10,18 @@ import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -63,7 +66,7 @@ public class ChiseledBlockGhostRenderer
         poseStack.pushPose();
 
         // Offset/scale by an unnoticeable amount to prevent z-fighting
-        final Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        final Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera().position();
         poseStack.translate(
             targetedRenderPos.x - camera.x - 0.000125,
             targetedRenderPos.y - camera.y + 0.000125,
@@ -178,6 +181,24 @@ public class ChiseledBlockGhostRenderer
         }
 
         @Override
+        public @NotNull VertexConsumer setColor(final int color)
+        {
+            //Color is in RGBA format
+            //Extract the channels
+            final int red   = (color >> 24) & 0xFF;
+            final int green = (color >> 16) & 0xFF;
+            final int blue  = (color >> 8)  & 0xFF;
+            final int alpha = color & 0xFF;
+
+            return delegate.setColor(
+                red,
+                green,
+                blue,
+                alpha
+            );
+        }
+
+        @Override
         public @NotNull VertexConsumer setUv(final float u, final float v)
         {
             return delegate.setUv(u, v);
@@ -199,6 +220,12 @@ public class ChiseledBlockGhostRenderer
         public @NotNull VertexConsumer setNormal(final float normalX, final float normalY, final float normalZ)
         {
             return delegate.setNormal(normalX, normalY, normalZ);
+        }
+
+        @Override
+        public @NotNull VertexConsumer setLineWidth(final float lineWidth)
+        {
+            return delegate.setLineWidth(lineWidth);
         }
     }
 
@@ -311,46 +338,27 @@ public class ChiseledBlockGhostRenderer
         final Vector4f pos)
     {
         // Get vertex data
-        final int[] vertices = bakedQuad.vertices();
-        final int vertexCount = vertices.length / (DefaultVertexFormat.BLOCK.getVertexSize() / 4);
-
         final Vector2f uv = new Vector2f();
 
-        try (final MemoryStack memorystack = MemoryStack.stackPush())
+        for (int v = 0; v < 4; ++v)
         {
-            // Setup buffers
-            final ByteBuffer bytebuffer =
-                memorystack.malloc(DefaultVertexFormat.BLOCK.getVertexSize()); //Exact amount of bytes in a vertex / 4 * 4 for each vertex results in no further operation compared to the byte count..
-            final IntBuffer intbuffer = bytebuffer.asIntBuffer();
+            final var vertexPos = bakedQuad.position(v);
+            pos.set(vertexPos.x(), vertexPos.y(),vertexPos.z(), 1f);
+            pos.mul(pose);
 
-            for (int v = 0; v < vertexCount; ++v)
-            {
-                // Add vertex data to the buffer
-                ((Buffer) intbuffer).clear();
-                intbuffer.put(vertices, v * 8, 8);
+            // UV is the next 2 Floats (4 bytes each)
+            final long packedUv = bakedQuad.packedUV(v);
+            uv.set(
+                UVPair.unpackU(packedUv),
+                UVPair.unpackV(packedUv)
+            );
 
-                // Extract relative position, then transform it to the position in the world
-                pos.set(bytebuffer.getFloat(0),
-                    bytebuffer.getFloat(4),
-                    bytebuffer.getFloat(8),
-                    1f);
-                pos.mul(pose);
-
-                // Color is the next 4 Bytes.
-
-                // UV is the next 2 Floats (4 bytes each)
-                uv.set(
-                    bytebuffer.getFloat(16),
-                    bytebuffer.getFloat(20)
-                );
-
-                buffer.addVertex(pos.x(), pos.y(), pos.z())
-                    .setColor(color.x(), color.y(), color.z(), 1f)
-                    .setUv(uv.x(), uv.y())
-                    .setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
-                    .setUv2(LightTexture.block(LightTexture.FULL_BLOCK), LightTexture.sky(LightTexture.FULL_SKY))
-                    .setNormal(normal.x(), normal.y(), normal.z());
-            }
+            buffer.addVertex(pos.x(), pos.y(), pos.z())
+                .setColor(color.x(), color.y(), color.z(), 1f)
+                .setUv(uv.x(), uv.y())
+                .setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
+                .setUv2(LightTexture.block(LightTexture.FULL_BLOCK), LightTexture.sky(LightTexture.FULL_SKY))
+                .setNormal(normal.x(), normal.y(), normal.z());
         }
     }
 }

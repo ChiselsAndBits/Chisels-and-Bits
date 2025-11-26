@@ -4,19 +4,17 @@ import com.communi.suggestu.scena.core.entity.IPlayerInventoryManager;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.registrars.ModItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 public class GivePlayerPatternCommandPacket extends ModPacket
 {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "give_player_pattern_command");
+    public static final Identifier                                               ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "give_player_pattern_command");
     public static final CustomPacketPayload.Type<GivePlayerPatternCommandPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     private IMultiStateSnapshot snapshot;

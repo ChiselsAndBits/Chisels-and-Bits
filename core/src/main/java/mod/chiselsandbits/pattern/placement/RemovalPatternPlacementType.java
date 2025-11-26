@@ -20,13 +20,11 @@ import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -186,9 +184,9 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
     }
 
     @Override
-    public ResourceLocation getIcon()
+    public Identifier getIcon()
     {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, "pattern_remove");
+        return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_remove");
     }
 
     @Override

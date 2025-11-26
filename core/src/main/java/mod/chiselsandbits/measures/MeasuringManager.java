@@ -10,7 +10,7 @@ import mod.chiselsandbits.api.measuring.IMeasuringManager;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.network.packets.MeasurementsUpdatedPacket;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -31,7 +31,7 @@ public class MeasuringManager implements IMeasuringManager
         return INSTANCE;
     }
 
-    private final Table<ResourceLocation, UUID, Map<MeasuringMode, Measurement>> measurements = Tables.newCustomTable(
+    private final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements = Tables.newCustomTable(
             new ConcurrentHashMap<>(),
             ConcurrentHashMap::new
     );
@@ -41,7 +41,7 @@ public class MeasuringManager implements IMeasuringManager
     }
 
     @Override
-    public Collection<? extends IMeasurement> getInWorld(final ResourceLocation worldKey)
+    public Collection<? extends IMeasurement> getInWorld(final Identifier worldKey)
     {
         return measurements.row(worldKey).values().stream().flatMap(m -> m.values().stream()).collect(Collectors.toSet());
     }
@@ -62,7 +62,7 @@ public class MeasuringManager implements IMeasuringManager
           to,
           hitFace,
           mode,
-          world.dimension().location()
+          world.dimension().identifier()
         );
     }
 
@@ -107,7 +107,7 @@ public class MeasuringManager implements IMeasuringManager
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MeasurementNetworkUtil.createAndSend(from, to, hitFace, mode));
     }
 
-    public void updateMeasurements(Table<ResourceLocation, UUID, Map<MeasuringMode, Measurement>> measurements) {
+    public void updateMeasurements(Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements) {
         this.measurements.clear();
         this.measurements.putAll(measurements);
     }

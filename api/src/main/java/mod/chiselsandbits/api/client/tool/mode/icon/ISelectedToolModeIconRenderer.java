@@ -1,7 +1,7 @@
 package mod.chiselsandbits.api.client.tool.mode.icon;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -15,7 +15,7 @@ public interface ISelectedToolModeIconRenderer
      *
      * @return The id of the preview renderer.
      */
-    ResourceLocation getId();
+    Identifier getId();
 
     /**
      * Invoked to render the stacks tool mode icon in the given itemstack.

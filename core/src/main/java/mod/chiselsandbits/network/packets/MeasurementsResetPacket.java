@@ -4,14 +4,13 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.measures.MeasuringManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.FriendlyByteBuf;
 
 public final class MeasurementsResetPacket extends ModPacket
 {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "measurements_reset");
+    public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_reset");
     public static final CustomPacketPayload.Type<MeasurementsResetPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
     public MeasurementsResetPacket()

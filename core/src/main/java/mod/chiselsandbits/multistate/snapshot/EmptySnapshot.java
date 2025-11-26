@@ -3,7 +3,6 @@ package mod.chiselsandbits.multistate.snapshot;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import mod.chiselsandbits.api.block.storage.StateEntryStorage;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
@@ -41,7 +40,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
         @Override
         public Codec<?> codec() {
-            return Codec.unit(EMPTY_STATISTICS);
+            return MapCodec.unitCodec(EMPTY_STATISTICS);
         }
 
         @Override
@@ -273,7 +272,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
         public static final IStatistics EMPTY_STACK_STATISTICS = new IStatistics() {
             @Override
             public Codec<?> codec() {
-                return Codec.unit(EMPTY_STACK_STATISTICS);
+                return MapCodec.unitCodec(EMPTY_STACK_STATISTICS);
             }
 
             @Override

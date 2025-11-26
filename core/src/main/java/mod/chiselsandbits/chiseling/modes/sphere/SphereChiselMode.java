@@ -19,20 +19,18 @@ import mod.chiselsandbits.api.multistate.accessor.world.IInWorldStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.util.*;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.BlockPosUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -53,7 +51,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
     private final int diameter;
     private final MutableComponent displayName;
     private final MutableComponent multiLineDisplayName;
-    private final ResourceLocation iconName;
+    private final Identifier       iconName;
 
     private final Map<StateEntrySize, VoxelShape> baseSphereShapes = Maps.newHashMap();
 
@@ -61,7 +59,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
             final int diameter,
             final MutableComponent displayName,
             final MutableComponent multiLineDisplayName,
-            final ResourceLocation iconName) {
+            final Identifier iconName) {
         this.diameter = diameter;
         this.displayName = displayName;
         this.multiLineDisplayName = multiLineDisplayName;
@@ -383,7 +381,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
     }
 
     @Override
-    public ResourceLocation getIcon() {
+    public Identifier getIcon() {
         return iconName;
     }
 

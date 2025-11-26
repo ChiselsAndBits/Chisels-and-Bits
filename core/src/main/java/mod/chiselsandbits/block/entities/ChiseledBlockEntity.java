@@ -1125,7 +1125,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
             Codec.BOOL.fieldOf(NbtConstants.REQUIRES_RECALCULATION).forGetter(MutableStatistics::isRequiresRecalculation)
         ).apply(instance, MutableStatistics::new));
 
-        public static final Codec<MutableStatistics> LEGACY_CODEC = Codec.unit(MutableStatistics::new);
+        public static final Codec<MutableStatistics> LEGACY_CODEC = MapCodec.unitCodec(MutableStatistics::new);
 
         public static final MapCodec<MutableStatistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),

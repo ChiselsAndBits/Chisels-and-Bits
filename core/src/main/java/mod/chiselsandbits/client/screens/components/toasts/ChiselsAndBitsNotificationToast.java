@@ -10,7 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & IWithText> implements Toast
 {
-    private static final ResourceLocation BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("toast/advancement");
-    private final T contents;
+    private static final Identifier BACKGROUND_SPRITE = Identifier.withDefaultNamespace("toast/advancement");
+    private final        T          contents;
     private Toast.Visibility wantedVisibility = Toast.Visibility.HIDE;
 
     public static <G extends IWithColor & IWithIcon & IWithText> void notifyOf(G contents) {

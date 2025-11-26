@@ -5,7 +5,7 @@ import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Supplier;
 
@@ -13,30 +13,25 @@ import static net.minecraft.client.renderer.RenderPipelines.*;
 
 public enum ModRenderPipelines
 {
-    LINES(() -> RenderPipeline.builder(
-        LINES_SNIPPET,
-        ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/lines")).build()),
-
     CHISEL_PREVIEW_IN_BLOCKS(() -> RenderPipeline.builder(
         LINES_SNIPPET,
         ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_in_blocks")).build()),
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_in_blocks")).build()),
 
     CHISEL_PREVIEW_OUTSIDE_BLOCKS(() -> RenderPipeline.builder(
         LINES_SNIPPET,
         ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_outside_blocks")).build()),
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_outside_blocks")).build()),
 
     WIREFRAME(() -> RenderPipeline.builder(
         LINES_SNIPPET,
         ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe")).build()),
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe")).build()),
 
     WIREFRAME_ALWAYS(() -> RenderPipeline.builder(
         LINES_SNIPPET,
         ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
 
     GHOST_BLOCK(() ->
         RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
@@ -45,7 +40,7 @@ public enum ModRenderPipelines
             .withSampler("Sampler1")
             .withBlend(BlendFunction.TRANSLUCENT)
             .withCull(false)
-            .withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block")).build()),
+            .withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block")).build()),
 
     GHOST_BLOCK_ALWAYS(() ->
         RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET, ModRenderPipelineSnippets.GREATER_DEPTH_TEST.snippet())
@@ -54,17 +49,17 @@ public enum ModRenderPipelines
             .withSampler("Sampler1")
             .withBlend(BlendFunction.TRANSLUCENT)
             .withCull(false)
-            .withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block_always")).build()),
+            .withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block_always")).build()),
 
     GHOST_BLOCK_COLORED(() -> RenderPipeline.builder(
         RenderPipelines.DEBUG_FILLED_SNIPPET,
         ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
 
     GHOST_BLOCK_COLORED_ALWAYS(() -> RenderPipeline.builder(
         RenderPipelines.DEBUG_FILLED_SNIPPET,
         ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-    ).withLocation(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build());
+    ).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build());
 
     private final Supplier<RenderPipeline> getter;
 

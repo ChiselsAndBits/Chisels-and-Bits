@@ -10,16 +10,13 @@ import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.network.packets.HeldToolModeChangedPacket;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.input.MouseButtonInfo;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -438,11 +435,11 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
         private PageSelectionMode(final boolean isPrevious) {this.isPrevious = isPrevious;}
 
         @Override
-        public ResourceLocation getIcon()
+        public Identifier getIcon()
         {
             return
-                isPrevious ? ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "undo") :
-                    ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "redo");
+                isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo") :
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, "redo");
         }
 
         @Override

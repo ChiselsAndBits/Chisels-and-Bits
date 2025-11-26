@@ -1,9 +1,8 @@
 package mod.chiselsandbits.api.notifications;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +27,7 @@ public interface INotificationManager
      * @param color The color of the icon.
      * @param message The message to display.
      */
-    default void notify(final ResourceLocation icon, final Vec3 color, final Component message) {
+    default void notify(final Identifier icon, final Vec3 color, final Component message) {
         notify(new INotification() {
             @Override
             public @NotNull Vec3 getColorVector()
@@ -37,7 +36,7 @@ public interface INotificationManager
             }
 
             @Override
-            public ResourceLocation getIcon()
+            public Identifier getIcon()
             {
                 return icon;
             }
@@ -56,7 +55,7 @@ public interface INotificationManager
      * @param icon The icon to display.
      * @param message The message to display.
      */
-    default void notify(final ResourceLocation icon, final Component message) {
+    default void notify(final Identifier icon, final Component message) {
         notify(icon, new Vec3(1, 1, 1), message);
     }
 

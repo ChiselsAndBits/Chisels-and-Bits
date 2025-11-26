@@ -7,16 +7,16 @@ import mod.chiselsandbits.registrars.ModTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -48,7 +48,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                     .display(ModItems.ITEM_CHISEL_DIAMOND.get(),
                             Component.translatable("mod.chiselsandbits.advancements.root.title"),
                             Component.translatable("mod.chiselsandbits.advancements.root.description"),
-                            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
+                            Identifier.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
                             AdvancementType.CHALLENGE,
                             true,
                             true,
@@ -64,7 +64,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                     .display(ModItems.MAGNIFYING_GLASS.get(),
                             Component.translatable("mod.chiselsandbits.advancements.find-chiselables.title"),
                             Component.translatable("mod.chiselsandbits.advancements.find-chiselables.description"),
-                            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
+                            Identifier.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
                             AdvancementType.TASK,
                             true,
                             true,
@@ -77,7 +77,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                     .display(ModItems.ITEM_BIT_BAG.get(),
                             Component.translatable("mod.chiselsandbits.advancements.collect-bits.title"),
                             Component.translatable("mod.chiselsandbits.advancements.collect-bits.description"),
-                            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
+                            Identifier.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
                             AdvancementType.TASK,
                             true,
                             true,
@@ -93,7 +93,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
                     .display(ModBlocks.BIT_STORAGE.get(),
                             Component.translatable("mod.chiselsandbits.advancements.make-tank.title"),
                             Component.translatable("mod.chiselsandbits.advancements.make-tank.description"),
-                            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
+                            Identifier.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
                             AdvancementType.TASK,
                             true,
                             true,

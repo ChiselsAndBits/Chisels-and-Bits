@@ -1,7 +1,7 @@
 package mod.chiselsandbits.client.model.parts;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.QuadCollection;
 
 import java.util.Arrays;

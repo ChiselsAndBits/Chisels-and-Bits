@@ -2,8 +2,8 @@ package mod.chiselsandbits.profiling;
 
 import mod.chiselsandbits.api.profiling.IProfiler;
 import mod.chiselsandbits.api.profiling.IProfilerResult;
+import net.minecraft.util.Util;
 import net.minecraft.util.profiling.ActiveProfiler;
-import net.minecraft.Util;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
+import mod.chiselsandbits.client.util.BakedQuadUtils;
 import mod.chiselsandbits.client.util.ItemModelUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
@@ -21,7 +22,7 @@ import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -65,7 +66,7 @@ public record ChiseledBlockItemModel(
             }
 
             final ItemStack lookupStack = new ItemStack(part.appearance().getBlock());
-            final ResourceLocation itemModel = lookupStack.get(DataComponents.ITEM_MODEL);
+            final Identifier itemModel = lookupStack.get(DataComponents.ITEM_MODEL);
             QuadCollection quads = part.quads();
             if (itemModel != null)
             {
@@ -105,14 +106,8 @@ public record ChiseledBlockItemModel(
                     //Update the quad to a 0 tint index.
                     quads = ItemModelUtils.adapt(
                         quads,
-                        quad -> new BakedQuad(
-                            quad.vertices(),
-                            0,
-                            quad.direction(),
-                            quad.sprite(),
-                            quad.shade(),
-                            quad.lightEmission()
-                        )
+                        quad ->
+                            BakedQuadUtils.withTintIndex(quad, 0)
                     );
 
                     final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()

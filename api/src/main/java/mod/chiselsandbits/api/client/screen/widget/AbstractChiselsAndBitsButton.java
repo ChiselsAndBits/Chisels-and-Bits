@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
  * An abstract chisels and bits button.
  * Is used to be able to retroactively initialize a button when it's containing screen is initialized.
  */
-public class AbstractChiselsAndBitsButton extends Button implements IChiselsAndBitsWidget
+public abstract class AbstractChiselsAndBitsButton extends Button implements IChiselsAndBitsWidget
 {
     /**
      * Creates a new button with a tooltip.

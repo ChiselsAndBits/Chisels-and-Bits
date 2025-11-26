@@ -3,9 +3,8 @@ package mod.chiselsandbits.registrars;
 import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.icon.IconManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,9 +14,9 @@ public final class ModModificationOperationGroups
     public static final  IModificationOperationGroup ROTATE = new IModificationOperationGroup()
     {
         @Override
-        public ResourceLocation getIcon()
+        public Identifier getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "rotate");
+            return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "rotate");
         }
 
         @Override
@@ -29,9 +28,9 @@ public final class ModModificationOperationGroups
     public static final  IModificationOperationGroup MIRROR = new IModificationOperationGroup()
     {
         @Override
-        public ResourceLocation getIcon()
+        public Identifier getIcon()
         {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "mirror");
+            return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "mirror");
         }
 
         @Override

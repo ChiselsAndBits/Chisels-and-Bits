@@ -20,7 +20,7 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
@@ -53,9 +53,9 @@ public class KeyBindingManager {
     }
 
     public void onModInitialization() {
-        final ResourceLocation toolCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "tools");
-        final ResourceLocation debuggingCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "debugging");
-        final ResourceLocation creativeModeCategory = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "creative-mode");
+        final Identifier toolCategory = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "tools");
+        final Identifier debuggingCategory = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "debugging");
+        final Identifier creativeModeCategory = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "creative-mode");
         
         IKeyBindingManager.getInstance().register(openToolMenuKeybinding =
                 IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.open",

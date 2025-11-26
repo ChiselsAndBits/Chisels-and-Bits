@@ -2,7 +2,7 @@ package mod.chiselsandbits.api.client.icon;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public interface IIconManager
 {
@@ -11,7 +11,7 @@ public interface IIconManager
         return IChiselsAndBitsAPI.getInstance().getIconManager();
     }
 
-    TextureAtlasSprite getIcon(ResourceLocation name);
+    TextureAtlasSprite getIcon(Identifier name);
 
     TextureAtlasSprite getSwapIcon();
 
