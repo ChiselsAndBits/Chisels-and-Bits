@@ -30,7 +30,6 @@ tableau {
 }
 
 dependencies {
-    api "com.communi-suggestu.saecularia-caudices:core:${project.property('communi.suggestu.saecularia.caudices.version')}"
     api "com.communi-suggestu.scena:core:${project.property('communi.suggestu.scena.version')}"
     api "org.lz4:lz4-pure-java:${project.property('org.lz4.lz4.pure.java.version')}"
 }

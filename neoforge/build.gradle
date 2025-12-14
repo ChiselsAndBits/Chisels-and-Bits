@@ -37,7 +37,6 @@ tableau {
 }
 
 dependencies {
-    includedLibraries "com.communi-suggestu.saecularia-caudices:neoforge:${project.property('communi.suggestu.saecularia.caudices.version')}"
     includedLibraries "com.communi-suggestu.scena:neoforge:${project.property('communi.suggestu.scena.version')}"
 }
 
