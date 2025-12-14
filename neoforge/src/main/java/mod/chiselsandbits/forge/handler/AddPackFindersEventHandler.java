@@ -18,8 +18,12 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Optional;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
@@ -31,9 +35,11 @@ public class AddPackFindersEventHandler {
     public static void onAddPackFinders(AddPackFindersEvent event) {
         event.addRepositorySource(registrar -> {
             try {
-                final File packMcMeta = new File(ChiselsAndBits.class.getResource("/pack.mcmeta")
-                    .toURI());
-                Path coreJarPath = packMcMeta.toPath().getParent();
+                final URI coreJarMarkerUri = ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker")
+                        .toURI();
+                if (coreJarMarkerUri.getScheme().equals("jar"))
+                    FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
+                final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
 
                 final PackLocationInfo packLocationInfo = new PackLocationInfo(
                         "chiselsandbits-core",
@@ -57,7 +63,7 @@ public class AddPackFindersEventHandler {
                 );
 
                 registrar.accept(pack);
-            } catch (URISyntaxException e) {
+            } catch (Exception e) {
                 LOGGER.error("Failed to inject Core Resource Pack. C&B Assets will not be loaded!", e);
             }
         });
