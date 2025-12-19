@@ -43,9 +43,6 @@ tableau {
 }
 
 dependencies {
-    modImplementation "com.communi-suggestu.saecularia-caudices:fabric:${project.property('communi.suggestu.saecularia.caudices.version')}"
-    include "com.communi-suggestu.saecularia-caudices:fabric:${project.property('communi.suggestu.saecularia.caudices.version')}"
-
     modImplementation "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
     include "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
 }
