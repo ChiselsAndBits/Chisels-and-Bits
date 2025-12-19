@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
@@ -35,10 +36,13 @@ public class AddPackFindersEventHandler {
     public static void onAddPackFinders(AddPackFindersEvent event) {
         event.addRepositorySource(registrar -> {
             try {
-                final URI coreJarMarkerUri = ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker")
+                final URI coreJarMarkerUri = Objects.requireNonNull(ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker"))
                         .toURI();
-                if (coreJarMarkerUri.getScheme().equals("jar"))
-                    FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
+                if (coreJarMarkerUri.getScheme().equals("jar")) {
+                    try {
+                        FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
+                    } catch (Exception ignored) {}
+                }
                 final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
 
                 final PackLocationInfo packLocationInfo = new PackLocationInfo(
