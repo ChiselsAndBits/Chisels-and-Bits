@@ -122,9 +122,12 @@ public class ChiseledBlockGhostRenderer
             );
         }
 
-        final MeshData meshData = BUFFER.buildOrThrow();
-        meshData.sortQuads(BUFFER_BUILDER, RenderSystem.getVertexSorting());
-        renderType.draw(meshData);
+        final MeshData meshData = BUFFER.build();
+        if (meshData != null)
+        {
+            meshData.sortQuads(BUFFER_BUILDER, RenderSystem.getVertexSorting());
+            renderType.draw(meshData);
+        }
         BUFFER = null;
     }
 
