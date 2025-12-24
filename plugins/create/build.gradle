@@ -1,0 +1,43 @@
+plugins {
+    id 'com.ldtteam.tableau.maven-publishing' version '0.0.80'
+}
+
+repositories {
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
+}
+
+platform {
+    project {
+        library()
+        accessTransformers.from(rootProject.files('common/accesstransformer.cfg'))
+    }
+}
+
+tableau {
+    project {
+        group = "mod.chiselsandbits"
+        publisher = "chisels-and-bits"
+        versioning {
+            version = environmentVariable("VERSION")
+                    .orElse(property("local.version"))
+            suffix = ""
+        }
+    }
+    maven {
+        publishToLDTTeamMaven('chisels-and-bits-chisels-and-bits')
+        publishLocally()
+        pom({
+            usingMitLicense()
+            usingGit()
+        })
+    }
+}
+
+dependencies {
+    implementation("com.simibubi.create:create-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.version')}:slim") { transitive = false }
+    implementation("net.createmod.ponder:Ponder-NeoForge-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.ponder.version')}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.flywheel.version')}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.flywheel.version')}")
+    implementation("com.tterrag.registrate:Registrate:${rootProject.property('compat.create.registrate.version')}")
+}
