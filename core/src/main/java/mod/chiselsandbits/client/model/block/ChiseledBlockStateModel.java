@@ -35,8 +35,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
     @Override
     public @NotNull TextureAtlasSprite particleIcon()
     {
-        return Minecraft.getInstance().getAtlasManager()
-            .get(new Material(AtlasIds.BLOCKS, MissingTextureAtlasSprite.getLocation()));
+        return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(MissingTextureAtlasSprite.getLocation());
     }
 
     protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos)
