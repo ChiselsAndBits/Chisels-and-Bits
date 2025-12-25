@@ -1,23 +1,24 @@
 package mod.chiselsandbits.forge.compat.create;
 
-import com.jozufozu.flywheel.api.MaterialManager;
-import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
-import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
+import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
-import com.simibubi.create.content.contraptions.render.ActorInstance;
+import com.simibubi.create.content.contraptions.render.ActorVisual;
+import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import org.jetbrains.annotations.Nullable;
 
-public class ChiseledBlockMovementBehaviour implements MovementBehaviour {
+public class ChiseledBlockMovementBehaviour implements MovementBehaviour
+{
 
     @Override
-    public boolean hasSpecialInstancedRendering() {
-        return true;
+    public @Nullable ActorVisual createVisual(final VisualizationContext visualizationContext, final VirtualRenderWorld simulationWorld, final MovementContext movementContext)
+    {
+        return new ChiseledBlockActorVisual(visualizationContext, simulationWorld, movementContext);
     }
 
-    @Nullable
     @Override
-    public ActorInstance createInstance(MaterialManager materialManager, VirtualRenderWorld simulationWorld,
-                                        MovementContext context) {
-        return new ChiseledBlockActorInstance(materialManager, simulationWorld, context);
+    public void startMoving(final MovementContext context)
+    {
+        context.data = context.blockEntityData;
     }
 }

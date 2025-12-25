@@ -7,6 +7,12 @@ plugins {
 
 repositories.mavenLocal()
 
+repositories {
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/mirror" } // Registrate
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
+}
+
 configurations.create("includedLibraries")
 configurations.implementation.extendsFrom configurations.includedLibraries
 configurations.includedLibraries.transitive false
@@ -117,9 +123,15 @@ project.dependencies.forgeLibrary ("org.lz4:lz4-pure-java:${project.lz4Version}"
 }
 project.dependencies.compileOnly fg.deobf("com.communi-suggestu.saecularia-caudices:saecularia-caudices-core:${project.saeculariaCaudicesVersion}")
 
-project.dependencies.implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
-project.dependencies.implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-project.dependencies.implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+dependencies {
+    implementation(fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false })
+    implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${create_minecraft_version}:${ponder_version}"))
+    compileOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-${flywheel_minecraft_version}:${flywheel_version}"))
+    runtimeOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}"))
+    implementation(fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+}
 
 project.tasks.processResources.from (project(":common").file("accesstransformer.cfg")) {
     into 'META-INF'
@@ -185,3 +197,10 @@ if ((opc.hasPropertySet("curseApiKey") || opc.hasPropertySet("CURSEAPIKEY"))) {
 }
 
 
+getTasks().register("prepareClientRunIdea", Copy.class, task -> {
+    final TaskProvider<ProcessResources> defaultProcessResources = project.getTasks().named(project.sourceSets.main.getProcessResourcesTaskName(), ProcessResources.class);
+    task.from(defaultProcessResources.map(ProcessResources::getDestinationDir));
+    task.into(new File(project.projectDir, "out/production/resources"));
+
+    task.dependsOn(defaultProcessResources);
+});

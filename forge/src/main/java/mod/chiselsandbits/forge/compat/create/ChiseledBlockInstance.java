@@ -2,89 +2,71 @@ package mod.chiselsandbits.forge.compat.create;
 
 import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
 import com.google.common.collect.Maps;
-import com.jozufozu.flywheel.api.MaterialManager;
-import com.jozufozu.flywheel.backend.RenderLayer;
-import com.jozufozu.flywheel.core.materials.model.ModelData;
-import com.jozufozu.flywheel.core.model.BlockModel;
-import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
+import dev.engine_room.flywheel.api.instance.InstancerProvider;
+import dev.engine_room.flywheel.lib.instance.InstanceTypes;
+import dev.engine_room.flywheel.lib.instance.TransformedInstance;
+import dev.engine_room.flywheel.lib.model.baked.BakedModelBuilder;
+import dev.engine_room.flywheel.lib.model.baked.ForgeBakedModelBuilder;
 import mod.chiselsandbits.registrars.ModModelProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ChiseledBlockInstance {
 
-    private final MaterialManager materialManager;
-    private final BlockState blockState;
-    private final BlockPos instancePos;
+    private final InstancerProvider provider;
+    private final Map<RenderType, TransformedInstance> modelData       = Maps.newConcurrentMap();
+    private       int                                             localBlockLight = -1;
+    private BlockPos localPos;
 
-    private Map<RenderType, ModelData> modelData = Maps.newConcurrentMap();
-    private int localBlockLight = -1;
-
-    public ChiseledBlockInstance(MaterialManager materialManager, BlockState blockState, BlockPos instancePos, ChiseledBlockOnContraptionModelCache cache) {
-        this.materialManager = materialManager;
-        this.blockState = blockState;
-        this.instancePos = instancePos;
+    public ChiseledBlockInstance(final InstancerProvider instancerProvider, final BlockPos localPos, ChiseledBlockOnContraptionModelCache cache) {
+        this.provider = instancerProvider;
+        this.localPos = localPos;
 
         cache.addConsumer((identifier, modelData) -> {
             Minecraft.getInstance().execute(() -> {
-                init(identifier, modelData);
+                init(modelData);
             });
         });
     }
 
-    public void init(IAreaShapeIdentifier identifier, IBlockModelData data) {
-        record ModelKey(IAreaShapeIdentifier identifier, RenderType type){};
+    public void init(IBlockModelData data) {
+        delete();
+        modelData.clear();
 
         final Map<RenderType, BakedModel> models = data.getData(ModModelProperties.KNOWN_LAYER_MODEL_PROPERTY);
         if (models == null)
             return;
 
-        final Set<RenderType> removedTypes = modelData.keySet().stream().filter(t -> !models.containsKey(t)).collect(Collectors.toSet());
-        removedTypes.forEach(key -> {
-            modelData.get(key).delete();
-            modelData.remove(key);
-        });
-
         models.forEach((renderType, model) -> {
-            final RenderLayer layer = RenderLayer.getLayer(renderType);
-            if (layer == null)
-                return;
+            modelData.put(
+                renderType,
+                provider.instancer(InstanceTypes.TRANSFORMED, new ForgeBakedModelBuilder(model)
+                    .build()).createInstance()
+            );
 
-            if (!modelData.containsKey(renderType)) {
-                modelData.put(renderType, materialManager.state(layer, renderType)
-                        .material(ChiseledBlockMaterials.CHISELED_BLOCK)
-                        .model(new ModelKey(identifier, renderType), () -> BlockModel.of(model, blockState))
-                        .createInstance());
-
-                if (this.localBlockLight != -1) {
-                    this.modelData.get(renderType).setBlockLight(this.localBlockLight);
-                }
-            }
-            else {
-                materialManager.state(layer, renderType)
-                        .material(ChiseledBlockMaterials.CHISELED_BLOCK)
-                        .model(new ModelKey(identifier, renderType), () -> BlockModel.of(model, blockState))
-                        .stealInstance(modelData.get(renderType));
+            if (this.localBlockLight != -1) {
+                this.modelData.get(renderType).light(this.localBlockLight);
             }
         });
     }
 
     public void beginFrame() {
-        if (modelData != null) {
-            for (ModelData value : modelData.values()) {
-                value.loadIdentity().translate(instancePos);
-            }
+        for (TransformedInstance value : modelData.values())
+        {
+            value.setIdentityTransform().translate(localPos).setChanged();
         }
     }
 
     public void setInitialBlockLight(int localBlockLight) {
         this.localBlockLight = localBlockLight;
+    }
+
+    void delete()
+    {
+        this.modelData.values().forEach(TransformedInstance::delete);
     }
 }
