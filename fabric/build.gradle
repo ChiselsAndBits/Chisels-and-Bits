@@ -75,4 +75,4 @@ if ((opc.hasPropertySet("curseApiKey") || opc.hasPropertySet("CURSEAPIKEY"))) {
     }
 }
 
-project.getTasks().named("publish").configure(task -> task.dependsOn(curseforge));
+project.getTasks().named("publish").configure(task -> task.dependsOn(project.getTasks().named("curseforge")));
