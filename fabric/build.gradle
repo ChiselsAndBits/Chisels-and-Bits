@@ -74,3 +74,5 @@ if ((opc.hasPropertySet("curseApiKey") || opc.hasPropertySet("CURSEAPIKEY"))) {
         }
     }
 }
+
+project.getTasks().named("publish").configure(task -> task.dependsOn(curseforge));

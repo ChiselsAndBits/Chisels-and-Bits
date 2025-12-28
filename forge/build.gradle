@@ -204,3 +204,5 @@ getTasks().register("prepareClientRunIdea", Copy.class, task -> {
 
     task.dependsOn(defaultProcessResources);
 });
+
+project.getTasks().named("publish").configure(task -> task.dependsOn(curseforge));
