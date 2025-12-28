@@ -1,0 +1,92 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - 'version/*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read Gradle Properties File
+        uses: kurt-code/gha-properties@v0.0.1
+        id: read-properties
+        with:
+          operation: 'read'
+          file-path: 'gradle.properties'
+          keys: 'javaVersion,minecraftVersion'
+
+      - name: Extract patch version
+        id: extract-patch
+        uses: Communi-Suggestu/Cadens@0.0.2
+        with:
+          file: gradle.properties
+          prefix: 'minecraftVersion='
+
+      - name: Extract major and minor version
+        id: extract-major-minor
+        uses: Communi-Suggestu/Spoliatus@0.0.2
+        with:
+          version: ${{ steps.read-properties.outputs['minecraftVersion'] }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ steps.read-properties.outputs['javaVersion'] }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - id: tagLocalBuild
+        name: "🏷️ Tag local build"
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github@chisels-and-bits.com"
+          git tag -f -a "${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}" -m "${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}"
+
+      - id: getPreviousTag
+        name: "📝 Get previous tag"
+        run: |
+          previous_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
+          echo "Previous tag: ${previous_tag}"
+          echo "previous_tag=${previous_tag}" >> "$GITHUB_OUTPUT"
+
+      - id: generateReleaseChangelog
+        name: "📝 Generate release changelog"
+        run: |
+          echo "# Changelog" > changelog.md
+          echo "" >> changelog.md
+          echo "[Full Changelog](${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.getPreviousTag.outputs.previous_tag }}..${{ needs.compute-version.outputs.tag_version }})" >> changelog.md
+          echo "" >> changelog.md
+          echo "Changelog of version: ${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}"
+          echo "### Commits:" >> changelog.md
+          echo "" >> changelog.md
+          echo "$(git log --pretty=format:"- %s ([commit](${{ github.server_url }}/${{ github.repository }}/commit/%H))" ${{ steps.getPreviousTag.outputs.previous_tag }}..${{ needs.compute-version.outputs.tag_version }})" >> changelog.md
+          echo "" >> changelog.md
+          sed -i -E "s|\(#([[:digit:]]+)\)|([#\1](${{ github.server_url }}/${{ github.repository }}/pull/\1))|" changelog.md
+
+      - name: Publish to Maven
+        run: ./gradlew publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          CURSE_API_KEY: ${{ secrets.CURSE_API_KEY }}
+          VERSION: ${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}
+
+      - id: publishLocalBuildTag
+        name: "🏷️ Tag local build"
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github@chisels-and-bits.com"
+          git push --tags

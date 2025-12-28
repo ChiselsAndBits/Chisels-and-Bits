@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read Gradle Properties File
+        uses: kurt-code/gha-properties@v0.0.1
+        id: read-properties
+        with:
+          operation: 'read'
+          file-path: 'gradle.properties'
+          keys: 'javaVersion,minecraftVersion'
+
+      - name: Extract patch version
+        id: extract-patch
+        uses: Communi-Suggestu/Cadens@0.0.2
+        with:
+          file: gradle.properties
+          prefix: 'minecraftVersion='
+
+      - name: Extract major and minor version
+        id: extract-major-minor
+        uses: Communi-Suggestu/Spoliatus@0.0.2
+        with:
+          version: ${{ steps.read-properties.outputs['minecraftVersion'] }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ steps.read-properties.outputs['javaVersion'] }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Build with Gradle
+        run: ./gradlew assemble
+        env:
+          VERSION: ${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}
