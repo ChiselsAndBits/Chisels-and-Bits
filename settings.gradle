@@ -20,7 +20,7 @@ pluginManagement {
 
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
-    id 'com.communi-suggestu.placitum' version '0.0.60'
+    id 'com.communi-suggestu.placitum' version '0.0.61'
 }
 
 rootProject.name = "chisels-and-bits"
