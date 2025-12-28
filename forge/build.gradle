@@ -183,7 +183,7 @@ if ((opc.hasPropertySet("curseApiKey") || opc.hasPropertySet("CURSEAPIKEY"))) {
             cp.id = "231095"
             cp.addGameVersion "Java ${java.toolchain.languageVersion.get().asInt()}"
             cp.addGameVersion(project.minecraftVersion)
-            cp.changelog = rootProject.file('build/changelog.md')
+            cp.changelog = rootProject.file('changelog.md')
             cp.changelogType = 'markdown'
             cp.releaseType = 'release'
 
