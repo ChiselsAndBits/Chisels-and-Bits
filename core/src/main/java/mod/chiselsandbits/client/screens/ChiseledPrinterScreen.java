@@ -23,9 +23,6 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
     @Override
     protected void init()
     {
-        this.imageWidth = 176;
-        this.imageHeight = 166;
-
         super.init();
 
         this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;

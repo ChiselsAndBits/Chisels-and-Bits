@@ -11,7 +11,6 @@ import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.UVPair;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
@@ -22,6 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -357,7 +357,7 @@ public class ChiseledBlockGhostRenderer
                 .setColor(color.x(), color.y(), color.z(), 1f)
                 .setUv(uv.x(), uv.y())
                 .setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
-                .setUv2(LightTexture.block(LightTexture.FULL_BLOCK), LightTexture.sky(LightTexture.FULL_SKY))
+                .setUv2(LightCoordsUtil.block(LightCoordsUtil.FULL_BRIGHT), LightCoordsUtil.sky(LightCoordsUtil.FULL_SKY))
                 .setNormal(normal.x(), normal.y(), normal.z());
         }
     }

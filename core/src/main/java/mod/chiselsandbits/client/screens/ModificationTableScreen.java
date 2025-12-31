@@ -46,9 +46,8 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
     private int                      lastRenderedSelectedRecipeIndex = -1;
 
     public ModificationTableScreen(ModificationTableContainer containerIn, Inventory playerInv, Component titleIn) {
-        super(containerIn, playerInv, titleIn);
+        super(containerIn, playerInv, titleIn, 176, 196);
         containerIn.setInventoryUpdateListener(this::onInventoryUpdate);
-        this.imageHeight = 196;
         this.inventoryLabelY = this.imageHeight - 94;
     }
 

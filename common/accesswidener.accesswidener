@@ -1,4 +1,4 @@
-accessWidener	v1	named
+accessWidener	v1	official
 extendable   class      net/minecraft/client/gui/Font
 extendable   class      net/minecraft/world/phys/shapes/BitSetDiscreteVoxelShape
 extendable   class      net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor

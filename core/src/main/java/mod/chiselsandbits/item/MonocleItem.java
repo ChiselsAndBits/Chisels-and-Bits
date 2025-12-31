@@ -73,7 +73,7 @@ public class MonocleItem extends Item
 
             Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
             assert equippable != null;
-            if (!equippable.canBeEquippedBy(entity.getType())) {
+            if (!equippable.canBeEquippedBy(entity.typeHolder())) {
                 return false;
             }
 

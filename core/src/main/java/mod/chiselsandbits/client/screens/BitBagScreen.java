@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 {
@@ -45,8 +46,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
         final Component title
     )
     {
-        super(container, playerInventory, title);
-        imageHeight = 240;
+        super(container, playerInventory, title, 176, 240);
         inventoryLabelY = this.imageHeight - 94;
     }
 
@@ -209,7 +209,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
     }
 
     @Override
-    protected void renderSlot(final GuiGraphics guiGraphics, final Slot slot, final int mouseX, final int mouseY)
+    protected void renderSlot(final @NonNull GuiGraphics guiGraphics, final @NonNull Slot slot, final int mouseX, final int mouseY)
     {
         if (!(slot instanceof BitSlot bitSlot))
         {

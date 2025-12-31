@@ -73,7 +73,7 @@ public class SealantItem extends Item implements ISealantItem
 
     public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
         for (int i = 0; i < 20; i++) {
-            Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.random, 1 / 8f);
+            Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
             world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), location.x, location.y,
               location.z, motion.x, motion.y, motion.z);
         }

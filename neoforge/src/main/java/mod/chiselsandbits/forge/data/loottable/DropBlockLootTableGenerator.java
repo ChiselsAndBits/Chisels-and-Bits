@@ -14,6 +14,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -40,7 +41,8 @@ public class DropBlockLootTableGenerator extends LootTableProvider
     }
 
     @Override
-    protected void validate(@NotNull WritableRegistry<LootTable> writableregistry, @NotNull ValidationContext validationcontext, ProblemReporter.@NotNull Collector problemreporter$collector) {
+    protected void validate(final WritableRegistry<LootTable> tables, final ValidationContextSource validationContext, final ProblemReporter.Collector problems)
+    {
         //Noop
     }
 

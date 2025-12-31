@@ -12,7 +12,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.ContainerListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +33,6 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
     private int                     size;
     private NonNullList<ItemStack>  items;
-    private List<ContainerListener> listeners;
 
     public SimpleContainer(int size) {
         this.size = size;
@@ -50,18 +48,6 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
         this.size = slotData.size();
         this.items = NonNullList.withSize(size, ItemStack.EMPTY);
         slotData.forEach(data -> this.items.set(data.index(), data.stack()));
-    }
-
-    public void addListener(ContainerListener param0) {
-        if (this.listeners == null) {
-            this.listeners = Lists.newArrayList();
-        }
-
-        this.listeners.add(param0);
-    }
-
-    public void removeListener(ContainerListener param0) {
-        this.listeners.remove(param0);
     }
 
     public @NotNull ItemStack getItem(int index) {
@@ -150,18 +136,17 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
         this.setChanged();
     }
 
+    @Override
+    public void setChanged()
+    {
+    }
+
     public int getContainerSize() {
         return this.size;
     }
 
     public boolean isEmpty() {
         return this.items.stream().allMatch(ItemStack::isEmpty);
-    }
-
-    public void setChanged() {
-        if (this.listeners != null) {
-            this.listeners.forEach(listener -> listener.containerChanged(this));
-        }
     }
 
     public boolean stillValid(@NotNull Player player) {
