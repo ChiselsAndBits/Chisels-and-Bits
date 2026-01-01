@@ -341,33 +341,18 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
     @Override
     public VoxelShape getShape(@NotNull final BlockState state, @NotNull final BlockGetter worldIn, @NotNull final BlockPos pos, @NotNull final CollisionContext context)
     {
-        final VoxelShape shape = getBlockEntity(worldIn, pos)
+        return getBlockEntity(worldIn, pos)
                                    .map(multiStateBlockEntity -> IVoxelShapeManager.getInstance().get(multiStateBlockEntity))
                                    .orElse(Shapes.empty());
-
-        return shape.isEmpty() ? Shapes.block() : shape;
     }
 
     @NotNull
     @Override
     public VoxelShape getCollisionShape(@NotNull final BlockState state, @NotNull final BlockGetter worldIn, @NotNull final BlockPos pos, @NotNull final CollisionContext context)
     {
-        final VoxelShape shape = getBlockEntity(worldIn, pos)
+        return getBlockEntity(worldIn, pos)
                                    .map(multiStateBlockEntity -> IVoxelShapeManager.getInstance().get(multiStateBlockEntity, CollisionType.COLLIDEABLE_ONLY))
                                    .orElse(Shapes.empty());
-
-        if (shape.isEmpty()) {
-            final boolean justFluids = getBlockEntity(worldIn, pos)
-                                         .map(IAreaAccessor::stream)
-                                         .map(stream -> stream
-                                           .allMatch(stateEntry -> stateEntry.getBlockInformation().isAir() || !stateEntry.getBlockInformation().getBlockState().getFluidState().isEmpty())
-                                         )
-                                         .orElse(false);
-
-            return justFluids ? shape : Shapes.block();
-        }
-
-        return shape;
     }
 
     @NotNull
