@@ -61,14 +61,12 @@ public class ChiseledBlockTooltipHandler
     {
 
         @Override
-        public ClientTooltipComponent convert(TooltipComponent component)
-        {
-            if (!(component instanceof Payload(IMultiStateSnapshot snapshot)))
-            {
+        public ClientTooltipComponent convert(TooltipComponent component) {
+            if (!(component instanceof Payload payload)) {
                 return null;
             }
 
-            return new Client(snapshot.toItemStack().toBlockStack());
+            return new Client(payload.snapshot().toItemStack().toBlockStack());
         }
     }
 }
