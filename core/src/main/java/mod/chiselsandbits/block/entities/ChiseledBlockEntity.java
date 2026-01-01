@@ -454,9 +454,12 @@ public class ChiseledBlockEntity extends BlockEntity implements
             return;
         }
 
-        getLevel().getLightEngine().checkBlock(getBlockPos());
-        getLevel().sendBlockUpdated(getBlockPos(), Blocks.AIR.defaultBlockState(), getBlockState(), Block.UPDATE_ALL);
-        getLevel().updateNeighborsAt(getBlockPos(), getLevel().getBlockState(getBlockPos()).getBlock());
+        if (getLevel().isLoaded(getBlockPos()))
+        {
+            getLevel().getLightEngine().checkBlock(getBlockPos());
+            getLevel().sendBlockUpdated(getBlockPos(), Blocks.AIR.defaultBlockState(), getBlockState(), Block.UPDATE_ALL);
+            getLevel().updateNeighborsAt(getBlockPos(), getLevel().getBlockState(getBlockPos()).getBlock());
+        }
 
         voxelShapeCache.reset();
 
@@ -501,7 +504,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
     private boolean shouldUpdateWorld()
     {
-        return this.getLevel() != null && this.batchMutations.isEmpty() && this.getLevel() instanceof ServerLevel;
+        return this.getLevel() != null && this.batchMutations.isEmpty() && this.getLevel() instanceof ServerLevel && getLevel().isLoaded(getBlockPos());
     }
 
     @Override
