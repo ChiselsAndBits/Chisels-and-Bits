@@ -3,13 +3,15 @@ package mod.chiselsandbits.utils;
 import com.google.common.collect.Lists;
 
 import java.util.AbstractList;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class SimpleMaxSizedList<E> extends AbstractList<E>
 {
     private final Supplier<Integer>      maxSize;
-    private final LinkedList<E> delegate = Lists.newLinkedList();
+    private final LinkedList<E> delegate     = Lists.newLinkedList();
 
     public SimpleMaxSizedList(final Supplier<Integer> maxSize)
     {
@@ -51,6 +53,14 @@ public class SimpleMaxSizedList<E> extends AbstractList<E>
     public E remove(int index) {
         synchronized (delegate) {
             return delegate.remove(index);
+        }
+    }
+
+    @Override
+    public boolean contains(final Object o)
+    {
+        synchronized (delegate) {
+            return delegate.contains(o);
         }
     }
 }
