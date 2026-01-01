@@ -4,13 +4,15 @@ apply from: 'https://raw.githubusercontent.com/ldtteam/OperaPublicaCreator/main/
 apply from: 'https://raw.githubusercontent.com/ldtteam/OperaPublicaCreator/main/gradle/modules/util.gradle'
 
 project.group = "mod.chiselsandbits"
-project.version = opc.buildVersionNumberWithOffset(
+project.version =
+        !System.getenv().containsKey("VERSION") ?
+        opc.buildVersionNumberWithOffset(
         (System.getenv().containsKey("Version") ? System.getenv("Version") : project.localVersion),
         project.minecraftVersion,
         opc.getProperty("sourceVersionName"),
         opc.getIntProperty("sourceVersionElementIndex"),
         opc.getIntProperty("mcVersionElementIndex")
-)
+) : System.getenv("VERSION")
 
 //Configure extension utility methods on all subprojects.
 subprojects { Project subProject ->
