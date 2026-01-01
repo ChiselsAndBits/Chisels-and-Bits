@@ -249,6 +249,12 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
     }
 
     @Override
+    public IMultiStateItemStack copy()
+    {
+        return new SingleBlockMultiStateItemStack(sourceStack);
+    }
+
+    @Override
     public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
         return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
                 .map(positionMutator::mutate)

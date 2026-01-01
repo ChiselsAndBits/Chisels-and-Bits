@@ -3,6 +3,7 @@ package mod.chiselsandbits.api.block.entity;
 import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.block.IMultiStateBlock;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessorWithVoxelShape;
 import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
@@ -11,6 +12,7 @@ import mod.chiselsandbits.api.multistate.mutator.batched.IBatchedAreaMutator;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
@@ -83,4 +85,17 @@ public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
      * @return The shape.
      */
     VoxelShape getShape(CollisionType type);
+
+    /**
+     * Creates an {@link ItemStack} for placement as a block.
+     *
+     * @return The block stack.
+     */
+    BlockStack getBlockStack();
+
+    record BlockStack(ItemStack stack, IMultiStateItemStack multiStateItemStack) {
+        public BlockStack copy() {
+            return new BlockStack(stack.copy(), multiStateItemStack.copy());
+        }
+    }
 }
