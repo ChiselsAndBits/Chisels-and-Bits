@@ -1,6 +1,8 @@
 package mod.chiselsandbits.client.model.builder;
 
 import com.communi.suggestu.scena.core.client.models.IModelManager;
+import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
+import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
@@ -33,10 +35,13 @@ public record ChiseledBlockModelInformationBuilder(
     BlockPos pos
 )
 {
-    public ChiseledBlockModelInformation build() {
+    public ChiseledBlockModelInformation build()
+    {
         //Handle the case where we have no bits in the system.
         if (key().primaryState().isAir())
+        {
             return ChiseledBlockModelInformation.EMPTY;
+        }
 
         final Map<ChiseledBlockModelPartKey, QuadCollection.Builder> informationBuilder = Maps.newHashMap();
         final GreedyMeshFace[] faces = generateFaces();
@@ -55,10 +60,32 @@ public record ChiseledBlockModelInformationBuilder(
                     region.lowerLeft(),
                     region.upperRight(),
                     (quad) -> {
+                        var chunkSectionLayer = quad.chunkSectionLayer();
+                        if (chunkSectionLayer == null)
+                        {
+                            var defaultChunkSectionLayer = IRenderTypeManager.getInstance().getRenderTypesFor(
+                                new SingleBlockBlockAndTintGetter.Builder()
+                                    .withBlockState(region.faceValue().blockState())
+                                    .withBlockEntity(region.faceValue()::newBlockEntityAtZero)
+                                    .withPos(BlockPos.ZERO)
+                                    .withSource(blockAndTintGetter())
+                                    .createSingleBlockBlockAndTintGetter(),
+                                region.faceValue()::newBlockEntityAtZero,
+                                BlockPos.ZERO,
+                                region.faceValue().blockState()
+                            );
+                            if (defaultChunkSectionLayer.size() != 1)
+                            {
+                                return;
+                            }
+
+                            chunkSectionLayer = defaultChunkSectionLayer.iterator().next();
+                        }
+
                         final ChiseledBlockModelPartKey key = new ChiseledBlockModelPartKey(
                             region.faceValue(),
                             region.faceValue().blockState(),
-                            quad.chunkSectionLayer(),
+                            chunkSectionLayer,
                             quad.ambientOcclusion(),
                             quad.particleSprite()
                         );
@@ -69,9 +96,13 @@ public record ChiseledBlockModelInformationBuilder(
                         );
 
                         if (region.isOnOuterFace() && cullDirection != null)
+                        {
                             builder.addCulledFace(cullDirection, quad.quad());
+                        }
                         else
+                        {
                             builder.addUnculledFace(quad.quad());
+                        }
                     }
                 );
             }
@@ -105,7 +136,8 @@ public record ChiseledBlockModelInformationBuilder(
 
     private BlockInformation getBlockInformationForOffset(
         int x, int y, int z
-    ) {
+    )
+    {
         final Vec3 targetOffset = new Vec3(x, y, z).multiply(StateEntrySize.current().getSizePerBitScalingVector());
         final Vec3 nominalTargetOffset = Vec3.ZERO.add(targetOffset);
         final BlockPos nominalTargetBlockOffset = VectorUtils.toBlockPos(nominalTargetOffset);
