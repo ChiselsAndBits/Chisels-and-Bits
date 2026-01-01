@@ -1,5 +1,7 @@
 package mod.chiselsandbits.client.model.builder;
 
+import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
+import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -60,9 +62,20 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
                     }
                 },
                 generatedQuad -> {
-                    if (generatedQuad.renderType() == null)
+                    var renderType = generatedQuad.renderType();
+                    if (renderType == null)
                     {
-                        return;
+                        var defaultChunkSectionLayer = IRenderTypeManager.getInstance().getRenderTypesFor(
+                            blockAndTintGetter,
+                            information()::newBlockEntityAtZero,
+                            BlockPos.ZERO,
+                            information().blockState()
+                        );
+                        if (defaultChunkSectionLayer.size() != 1) {
+                            return;
+                        }
+
+                        renderType = RenderTypeUtils.renderTypeFor(defaultChunkSectionLayer.iterator().next());
                     }
 
                     Optional<Integer> tint =
@@ -79,14 +92,12 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
                                 )) :
                             Optional.empty();
 
-                    //tint = Optional.of(ARGB.color(0, 0, 255));
-
-                    if (!quads.contains(generatedQuad.renderType(), tint))
+                    if (!quads.contains(renderType, tint))
                     {
-                        quads.put(generatedQuad.renderType(), tint, new ArrayList<>());
+                        quads.put(renderType, tint, new ArrayList<>());
                     }
 
-                    Objects.requireNonNull(quads.get(generatedQuad.renderType(), tint)).add(generatedQuad.quad());
+                    Objects.requireNonNull(quads.get(renderType, tint)).add(generatedQuad.quad());
                 }
             );
         }
