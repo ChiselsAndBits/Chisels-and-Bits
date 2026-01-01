@@ -361,7 +361,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
             }
         }
 
-        if (getLevel() != null && this.batchMutations.isEmpty()) {
+        if (getLevel() != null && this.batchMutations.isEmpty() && getLevel().isLoaded(getBlockPos())) {
             super.setChanged();
 
             getLevel().getLightEngine().checkBlock(getBlockPos());
@@ -369,8 +369,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
             getLevel().updateNeighborsAt(getBlockPos(), getLevel().getBlockState(getBlockPos()).getBlock());
         }
     }
-    
-    
+
 
     private void setOffThreadSaveResult(final CompoundTag tag) {
         synchronized (this.tagSyncHandle) {
@@ -379,7 +378,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
     }
 
     private boolean shouldUpdateWorld() {
-        return this.getLevel() != null && this.batchMutations.size() == 0 && this.getLevel() instanceof ServerLevel;
+        return this.getLevel() != null && this.batchMutations.size() == 0 && this.getLevel() instanceof ServerLevel && getLevel().isLoaded(getBlockPos());
     }
 
     @Nullable
