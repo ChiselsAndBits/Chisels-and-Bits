@@ -24,6 +24,7 @@ import mod.chiselsandbits.api.change.IChangeTracker;
 import mod.chiselsandbits.api.chiseling.conversion.IConversionManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
+import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
@@ -53,6 +54,7 @@ import mod.chiselsandbits.storage.IMultiThreadedStorageEngine;
 import mod.chiselsandbits.storage.StorageEngineBuilder;
 import mod.chiselsandbits.utils.BlockPosUtils;
 import mod.chiselsandbits.utils.MultiStateSnapshotUtils;
+import mod.chiselsandbits.utils.SingleObjectCache;
 import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
 import mod.chiselsandbits.voxelshape.SingleBlockVoxelShapeCache;
 import net.minecraft.client.Minecraft;
@@ -70,6 +72,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -123,6 +126,11 @@ public class ChiseledBlockEntity extends BlockEntity implements
     private       CompletableFuture<Void>              storageFuture        = null;
     private final List<CompoundTag>                    deserializationQueue = Collections.synchronizedList(Lists.newArrayList());
     private final SingleBlockVoxelShapeCache           voxelShapeCache      = new SingleBlockVoxelShapeCache(this);
+    private final SingleObjectCache<BlockStack>         blockStackCache      =
+        new SingleObjectCache<>(() -> {
+            final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
+            return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
+        }, BlockStack::copy);
     private       boolean                              isLoading            = false;
     private final Deque<Runnable>                      afterCurrentLoad     = new ArrayDeque<>();
 
@@ -431,6 +439,12 @@ public class ChiseledBlockEntity extends BlockEntity implements
         return voxelShapeCache.getShape(type);
     }
 
+    @Override
+    public BlockStack getBlockStack()
+    {
+        return blockStackCache.get();
+    }
+
     /**
      * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it hasn't changed and skip it.
      */
@@ -462,6 +476,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
         }
 
         voxelShapeCache.reset();
+        blockStackCache.reset();
 
         if (!getLevel().isClientSide())
         {
@@ -1445,15 +1460,11 @@ public class ChiseledBlockEntity extends BlockEntity implements
                 else if (currentPrimary != primaryState)
                 {
                     final Optional<Block> optionalWithConvertedBlock = IConversionManager.getInstance().getChiseledVariantOf(this.primaryState.blockState());
-                    if (optionalWithConvertedBlock.isPresent())
-                    {
-                        final Block convertedBlock = optionalWithConvertedBlock.get();
-                        levelAccessor.setBlock(
-                            inWorldPos,
-                            convertedBlock.defaultBlockState(),
-                            Block.UPDATE_ALL
-                        );
-                    }
+                    optionalWithConvertedBlock.ifPresent(convertedBlock -> levelAccessor.setBlock(
+                        inWorldPos,
+                        convertedBlock.defaultBlockState(),
+                        Block.UPDATE_ALL
+                    ));
                 }
             }
         }

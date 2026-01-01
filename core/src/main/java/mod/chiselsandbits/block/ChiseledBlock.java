@@ -26,6 +26,7 @@ import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
+import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.network.packets.NeighborBlockUpdatedPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -123,11 +124,9 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
         ) {
             return getBlockEntity(blockGetter, pos)
                     .map(e -> {
-                        final IMultiStateSnapshot snapshot = e.createSnapshot();
-                        final IMultiStateItemStack multiStateItemStack = snapshot.toItemStack();
-                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreativeClipboardUtils.addPickedBlock(multiStateItemStack, Minecraft.getInstance().level.registryAccess()));
-
-                        return multiStateItemStack.toBlockStack();
+                        final IMultiStateBlockEntity.BlockStack result = e.getBlockStack();
+                        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreativeClipboardUtils.addPickedBlock(result.multiStateItemStack(), Minecraft.getInstance().level.registryAccess()));
+                        return result.stack();
                     })
                     .orElse(ItemStack.EMPTY);
         }
