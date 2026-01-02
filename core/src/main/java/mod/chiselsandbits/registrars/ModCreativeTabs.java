@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackLinkedSet;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -69,6 +70,8 @@ public final class ModCreativeTabs
             .icon(() -> new ItemStack(ModItems.ITEM_BLOCK_BIT.get()))
             .title(LocalStrings.CreativeTabBits.getText())
             .displayItems((parameters, output) -> {
+                final Collection<ItemStack> contentGuard = ItemStackLinkedSet.createTypeAndTagSet();
+
                 IPlatformRegistryManager.getInstance().getBlockRegistry().getValues()
                         .forEach(block -> {
                             if (block instanceof ChiseledBlock)
@@ -82,7 +85,11 @@ public final class ModCreativeTabs
                                     final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
 
                                     if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem)
-                                        output.accept(resultStack);
+                                    {
+                                        if (!contentGuard.contains(resultStack) && contentGuard.add(resultStack)) {
+                                            output.accept(resultStack);
+                                        }
+                                    }
                                 });
                                 return;
                             }
@@ -101,7 +108,9 @@ public final class ModCreativeTabs
                                 final ItemStack resultStack = IBitItemManager.getInstance().create(information);
 
                                 if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-                                    output.accept(resultStack);
+                                    if (!contentGuard.contains(resultStack) && contentGuard.add(resultStack)) {
+                                        output.accept(resultStack);
+                                    }
                                 }
                             }
                         });
