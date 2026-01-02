@@ -292,6 +292,12 @@ public class EmptySnapshot implements IMultiStateSnapshot
         }
 
         @Override
+        public IMultiStateItemStack copy()
+        {
+            return this;
+        }
+
+        @Override
         public IAreaShapeIdentifier createNewShapeIdentifier()
         {
             return Identifier.INSTANCE;

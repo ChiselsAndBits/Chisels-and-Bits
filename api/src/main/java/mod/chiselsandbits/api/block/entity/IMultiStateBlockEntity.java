@@ -2,6 +2,7 @@ package mod.chiselsandbits.api.block.entity;
 
 import mod.chiselsandbits.api.block.IMultiStateBlock;
 import mod.chiselsandbits.api.blockinformation.IBlockInformation;
+import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessorWithVoxelShape;
 import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
 import mod.chiselsandbits.api.multistate.mutator.batched.IBatchedAreaMutator;
@@ -12,6 +13,7 @@ import mod.chiselsandbits.api.util.IPacketBufferSerializable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
 import mod.chiselsandbits.api.util.INBTSerializable;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import org.jetbrains.annotations.NotNull;
@@ -75,4 +77,17 @@ public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
     * @param initialInformation The new initial block information.
     */
    void initializeWith(IBlockInformation initialInformation);
+
+    /**
+     * Creates an {@link ItemStack} for placement as a block.
+     *
+     * @return The block stack.
+     */
+    BlockStack getBlockStack();
+
+    record BlockStack(ItemStack stack, IMultiStateItemStack multiStateItemStack) {
+        public BlockStack copy() {
+            return new BlockStack(stack.copy(), multiStateItemStack.copy());
+        }
+    }
 }

@@ -101,6 +101,9 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
     public void addEntry(final IMultiStateItemStack multiStateItemStack)
     {
         synchronized (cache) {
+            if (cache.contains(multiStateItemStack))
+                return;
+
             cache.add(multiStateItemStack);
             writeContentsToDisk();
         }

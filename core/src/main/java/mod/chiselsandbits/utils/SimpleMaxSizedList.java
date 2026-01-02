@@ -46,4 +46,12 @@ public class SimpleMaxSizedList<E> extends AbstractList<E>
             return delegate.size();
         }
     }
+
+    @Override
+    public boolean contains(final Object o)
+    {
+        synchronized (delegate) {
+            return delegate.contains(o);
+        }
+    }
 }

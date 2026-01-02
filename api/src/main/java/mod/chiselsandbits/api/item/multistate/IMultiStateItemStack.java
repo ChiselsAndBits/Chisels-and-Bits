@@ -34,4 +34,11 @@ public interface IMultiStateItemStack extends IGenerallyModifiableAreaMutator,
      * @return The single use patter from this multi state itemstack.
      */
     ItemStack toPatternStack();
+
+    /**
+     * Copies the current stack.
+     *
+     * @return The stack copied.
+     */
+    IMultiStateItemStack copy();
 }
