@@ -6,12 +6,16 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
+import mod.chiselsandbits.registrars.ModCreativeTabs;
 import mod.chiselsandbits.utils.SimpleMaxSizedList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackLinkedSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,6 +46,8 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
         if (!file.exists()) {
             return;
         }
+
+        cache.clear();
 
         try
         {
@@ -91,6 +97,23 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
         }
     }
 
+    private void updateCreativeTab() {
+        try {
+            ModCreativeTabs.CLIPBOARD.get().displayItems = ItemStackLinkedSet.createTypeAndTagSet();
+
+            cache.forEach(stack -> {
+                ModCreativeTabs.CLIPBOARD.get().displayItems.add(stack.toBlockStack());
+            });
+
+            if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {
+                screen.refreshCurrentTabContents(this.cache.stream().map(IMultiStateItemStack::toBlockStack).toList());
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to update creative tab", e);
+        }
+    }
+
+
     @Override
     public List<IMultiStateItemStack> getClipboard()
     {
@@ -106,6 +129,22 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
             cache.add(multiStateItemStack);
             writeContentsToDisk();
+
+            updateCreativeTab();
+        }
+    }
+
+    @Override
+    public void removeEntry(int index) {
+        synchronized (cache) {
+            if (index < 0 || index >= cache.size()) {
+                return;
+            }
+
+            cache.remove(index);
+            writeContentsToDisk();
+
+            updateCreativeTab();
         }
     }
 }

@@ -25,4 +25,11 @@ public interface ICreativeClipboardManager
      * @param multiStateItemStack The multi-state item stack to add.
      */
     void addEntry(IMultiStateItemStack multiStateItemStack);
+
+    /**
+     * Removes an entry from the clipboard.
+     *
+     * @param index The index of the entry to remove.
+     */
+    void removeEntry(int index);
 }

@@ -9,6 +9,7 @@ import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.ToolModeSelectionScreen;
 import mod.chiselsandbits.client.time.TickHandler;
+import mod.chiselsandbits.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.keys.contexts.HoldsSpecificItemInHandKeyConflictContext;
 import mod.chiselsandbits.keys.contexts.HoldsWithToolItemInHandKeyConflictContext;
 import mod.chiselsandbits.keys.contexts.IsPressingDebugKeyConflictContext;
@@ -18,6 +19,7 @@ import mod.chiselsandbits.network.packets.RequestChangeTrackerOperationPacket;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
@@ -33,6 +35,8 @@ public class KeyBindingManager {
     private KeyMapping redoOperationKeyBinding = null;
     private KeyMapping scopingKeyBinding = null;
     private KeyMapping resetCachesKeyBinding = null;
+    private KeyMapping removeFromClipboardKeyBinding = null;
+    private boolean deleteFromClipboardKeyWasDown = false;
     private boolean toolMenuKeyWasDown = false;
     private int toolModeSelectionPlusCoolDown = 15;
     private int toolModeSelectionMinusCoolDown = 15;
@@ -104,6 +108,14 @@ public class KeyBindingManager {
                         IsPressingDebugKeyConflictContext.F3_DEBUG_KEY,
                         InputConstants.Type.KEYSYM,
                         InputConstants.KEY_C,
+                        "mod.chiselsandbits.keys.category"));
+
+        IKeyBindingManager.getInstance().register(removeFromClipboardKeyBinding =
+                IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
+                        SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
+                        KeyModifier.SHIFT,
+                        InputConstants.Type.KEYSYM,
+                        InputConstants.KEY_D,
                         "mod.chiselsandbits.keys.category"));
 
         initialized = true;
@@ -184,6 +196,15 @@ public class KeyBindingManager {
         if (isResetCachesPressed()) {
             ClientResourceReloadingManager.getInstance().clearCaches();
         }
+
+        if (mc.screen instanceof CreativeModeInventoryScreen creativeModeInventoryScreen) {
+            boolean deleteKeyIsDown = isDeleteFromClipboardPressed();
+            if (deleteKeyIsDown && !deleteFromClipboardKeyWasDown) {
+                CreativeClipboardUtils.deleteHoveredClipboardEntry(mc, creativeModeInventoryScreen);
+            }
+            deleteFromClipboardKeyWasDown = deleteKeyIsDown;
+        }
+
     }
 
     public boolean hasBeenInitialized() {
@@ -300,5 +321,17 @@ public class KeyBindingManager {
 
     public boolean isResetCachesPressed() {
         return isKeyDown(getResetCachesKeyBinding());
+    }
+
+    public KeyMapping getRemoveFromClipboardKeyBinding() {
+        if (removeFromClipboardKeyBinding == null) {
+            throw new IllegalStateException("Keybindings have not been initialized.");
+        }
+
+        return removeFromClipboardKeyBinding;
+    }
+
+    public boolean isDeleteFromClipboardPressed() {
+        return isKeyDown(getRemoveFromClipboardKeyBinding());
     }
 }

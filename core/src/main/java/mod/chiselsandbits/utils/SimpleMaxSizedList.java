@@ -48,6 +48,13 @@ public class SimpleMaxSizedList<E> extends AbstractList<E>
     }
 
     @Override
+    public E remove(int index) {
+        synchronized (delegate) {
+            return delegate.remove(index);
+        }
+    }
+
+    @Override
     public boolean contains(final Object o)
     {
         synchronized (delegate) {

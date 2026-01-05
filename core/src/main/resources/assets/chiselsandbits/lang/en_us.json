@@ -306,6 +306,7 @@
   "mod.chiselsandbits.keys.key.undo": "Undo last chiseling operation",
   "mod.chiselsandbits.keys.key.redo": "Redo last undone chiseling operation",
   "mod.chiselsandbits.keys.key.zoom": "Zoom with monocle",
+  "mod.chiselsandbits.keys.remove-from-clipboard": "Remove entry from Creative Clipboard",
   "mod.chiselsandbits.test": "Placeholder text during development",
   "mod.chiselsandbits.pattern.modification.group.mirror": "Mirror",
   "mod.chiselsandbits.pattern.modification.group.rotate": "Rotate",

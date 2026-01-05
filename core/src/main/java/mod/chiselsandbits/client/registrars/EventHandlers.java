@@ -22,7 +22,7 @@ public final class EventHandlers {
             if (chunkAccess instanceof LevelChunk levelChunk)
                 ChiseledBlockModelUpdateHandler.updateAllModelDataInChunk(levelChunk);
         });
-        IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> CreativeClipboardManager.getInstance().load());
+        IGameEvents.getInstance().getPlayerLoggedInEvent().register((player) -> CreativeClipboardManager.getInstance().load());
         IClientEvents.getInstance().getClientTickStartedEvent().register(() -> {
             ToolNameHighlightTickHandler.handleClientTickForMagnifyingGlass();
             KeyBindingManager.getInstance().handleKeyPresses();
