@@ -1,0 +1,59 @@
+name: Export Textures
+
+on:
+  workflow_call:
+    inputs:
+      ASSETS_PUSH_TOKEN:
+        required: true
+        type: string
+
+jobs:
+  export-textures:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Install software OpenGL rendering
+        run: sudo apt-get install xvfb libgl1-mesa-dri
+
+      - name: Run texture export
+        run: xvfb-run ./gradlew :neoforge:runExportTextures
+
+      - name: Clone Assets repository
+        run: |
+          git clone https://x-access-token:${{ inputs.ASSETS_PUSH_TOKEN }}@github.com/ChiselsAndBits/Assets.git ../Assets
+
+      - name: Copy exported textures to Assets repo
+        run: |
+          mkdir -p ../Assets/Icons/InGame
+          cp -r neoforge/runs/exporters/wiki_exporter/render/* ../Assets/Icons/InGame/
+
+      - name: Set up git config for Assets repo
+        run: |
+          cd ../Assets
+          git config user.name "GitHub Actions"
+          git config user.email "github@chisels-and-bits.com"
+
+      - name: Commit and push changes to Assets repo
+        run: |
+          cd ../Assets
+          if [ -n "$(git status --porcelain)" ]; then
+            COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/.git --work-tree=${{ github.workspace }} log -1 --pretty=%B)
+            git add Icons/InGame
+            git commit -m "$COMMIT_MSG"
+            git push origin HEAD:main
+          else
+            echo "No changes to commit."
+          fi

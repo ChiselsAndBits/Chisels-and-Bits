@@ -1,0 +1,16 @@
+{
+  "output_path": "wiki_exporter",
+  "enabled": [
+    "render"
+  ],
+  "modules": {
+    "render": {
+      "namespaces": [
+        "minecraft",
+        "chiselsandbits"
+      ],
+      "resolution": 128,
+      "png": true
+    }
+  }
+}

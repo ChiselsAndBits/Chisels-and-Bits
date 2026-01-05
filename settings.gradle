@@ -20,6 +20,10 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+
+    if (file('../Chisels-And-Bits-Website').exists()) {
+        includeBuild '../Chisels-And-Bits-Website'
+    }
 }
 
 plugins {

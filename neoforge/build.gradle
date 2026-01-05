@@ -2,7 +2,7 @@ plugins {
     id 'com.ldtteam.tableau.maven-publishing' version '0.0.80'
     id 'com.ldtteam.tableau.curseforge' version '0.0.80'
     id 'com.communi-suggestu.obumbratio' version '0.0.14'
-    //id 'com.communi-suggestu.bonorum' version '0.0.1'
+    id 'com.communi-suggestu.bonorum' version '0.0.2'
 }
 
 repositories {
@@ -51,9 +51,8 @@ dependencies {
     includedLibraries "com.communi-suggestu.scena:neoforge:${project.property('communi.suggestu.scena.version')}"
 }
 
-/*
 bonorum {
-    sinytraExporterVersion = '1.0.2+1.21'
-    exportedNamespaces = ['minecraft', 'chiselsandbits']
+    sinytraExporterVersion = '2.2.1+1.21.11'
+    configFile = rootProject.file('website/exporter/config.json')
 }
-*/
+
