@@ -12,12 +12,32 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Java
+      - name: Read Gradle Properties File
+        uses: kurt-code/gha-properties@v0.0.1
+        id: read-properties
+        with:
+          operation: 'read'
+          file-path: 'gradle.properties'
+          keys: 'java.version,minecraft.version'
+
+      - name: Extract patch version
+        id: extract-patch
+        uses: Communi-Suggestu/Cadens@0.0.2
+        with:
+          file: gradle.properties
+          prefix: 'minecraft.version='
+
+      - name: Extract major and minor version
+        id: extract-major-minor
+        uses: Communi-Suggestu/Spoliatus@0.0.2
+        with:
+          version: ${{ steps.read-properties.outputs['minecraft.version'] }}
+
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 17
-
+          java-version: ${{ steps.read-properties.outputs['java.version'] }}
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
