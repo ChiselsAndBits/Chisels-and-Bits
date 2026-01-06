@@ -157,14 +157,14 @@ jobs:
           cp -r ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/* Assets/Icons/InGame/
 
       - name: Set up git config for Assets repo
+        working-directory: Assets
         run: |
-          cd Assets
           git config user.name "GitHub Actions"
           git config user.email "github@chisels-and-bits.com"
 
       - name: Commit and push changes to Assets repo
+        working-directory: Assets
         run: |
-          cd Assets
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/.git --work-tree=${{ github.workspace }} log -1 --pretty=%B)
             git add Icons/InGame
