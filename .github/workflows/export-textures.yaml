@@ -23,9 +23,10 @@ jobs:
 
       - name: Extract patch version
         id: extract-patch
-        uses: Communi-Suggestu/Cadens@0.0.2
+        uses: Communi-Suggestu/Cadens@0.0.3
         with:
-          file: 'ChiselsAndBits/gradle.properties'
+          working-directory: 'ChiselsAndBits'
+          file: 'gradle.properties'
           prefix: 'minecraft.version='
 
       - name: Extract major and minor version
