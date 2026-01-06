@@ -166,7 +166,7 @@ jobs:
         working-directory: Assets
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/.git --work-tree=${{ github.workspace }} log -1 --pretty=%B)
+            COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
             git add Icons/InGame
             git commit -m "$COMMIT_MSG"
             git push origin HEAD:main
