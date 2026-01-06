@@ -54,6 +54,9 @@ jobs:
       - name: Copy exported textures to Assets repo
         run: |
           mkdir -p ../Assets/Icons/InGame
+          ls -la .
+          ls -la neoforge
+          ls -la ../Assets
           cp -r neoforge/runs/exporters/wiki_exporter/render/* ../Assets/Icons/InGame/
 
       - name: Set up git config for Assets repo
