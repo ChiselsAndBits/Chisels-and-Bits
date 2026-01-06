@@ -47,9 +47,12 @@ jobs:
       - name: Run texture export
         run: xvfb-run ./gradlew :neoforge:runExportTextures
 
-      - name: Clone Assets repository
-        run: |
-          git clone https://x-access-token:${{ secrets.ASSETS_PUSH_TOKEN }}@github.com/ChiselsAndBits/Assets.git ../Assets
+      - name: Checkout profile repo
+        uses: actions/checkout@v6
+        with:
+          repository: ChiselsAndBits/Assets
+          path: ../Assets
+          token: ${{ secrets.ASSETS_PUSH_TOKEN }}
 
       - name: Copy exported textures to Assets repo
         run: |
