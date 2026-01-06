@@ -11,20 +11,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          path: ChiselsAndBits
 
       - name: Read Gradle Properties File
         uses: kurt-code/gha-properties@v0.0.1
         id: read-properties
         with:
           operation: 'read'
-          file-path: 'gradle.properties'
+          file-path: 'ChiselsAndBits/gradle.properties'
           keys: 'java.version,minecraft.version'
 
       - name: Extract patch version
         id: extract-patch
         uses: Communi-Suggestu/Cadens@0.0.2
         with:
-          file: gradle.properties
+          file: 'ChiselsAndBits/gradle.properties'
           prefix: 'minecraft.version='
 
       - name: Extract major and minor version
@@ -38,6 +39,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ steps.read-properties.outputs['java.version'] }}
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
@@ -45,29 +47,31 @@ jobs:
         run: sudo apt-get install xvfb libgl1-mesa-dri
 
       - name: Run texture export
-        run: xvfb-run ./gradlew :neoforge:runExportTextures
+        run: |
+          cd ChiselsAndBits
+          xvfb-run ./gradlew :neoforge:runExportTextures
 
-      - name: Checkout profile repo
+      - name: Checkout Assets Repo
         uses: actions/checkout@v6
         with:
           repository: ChiselsAndBits/Assets
-          path: ../Assets
+          path: Assets
           token: ${{ secrets.ASSETS_PUSH_TOKEN }}
 
       - name: Copy exported textures to Assets repo
         run: |
-          mkdir -p ../Assets/Icons/InGame
-          cp -r neoforge/runs/exporters/texture/wiki_exporter/render/* ../Assets/Icons/InGame/
+          mkdir -p Assets/Icons/InGame
+          cp -r ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/* ../Assets/Icons/InGame/
 
       - name: Set up git config for Assets repo
         run: |
-          cd ../Assets
+          cd Assets
           git config user.name "GitHub Actions"
           git config user.email "github@chisels-and-bits.com"
 
       - name: Commit and push changes to Assets repo
         run: |
-          cd ../Assets
+          cd Assets
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/.git --work-tree=${{ github.workspace }} log -1 --pretty=%B)
             git add Icons/InGame
