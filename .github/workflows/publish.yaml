@@ -142,7 +142,12 @@ jobs:
       - name: Run texture export
         run: |
           cd ChiselsAndBits
-          xvfb-run ./gradlew :neoforge:runExportTextures :neoforge:runExportMetadata
+          xvfb-run ./gradlew :neoforge:runExportTextures
+
+      - name: Run metadata export
+        run: |
+          cd ChiselsAndBits
+          ./gradlew :neoforge:runExportMetadata
 
       - name: Checkout Assets Repo
         uses: actions/checkout@v6
