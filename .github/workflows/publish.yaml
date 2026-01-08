@@ -142,7 +142,7 @@ jobs:
       - name: Run texture export
         run: |
           cd ChiselsAndBits
-          xvfb-run ./gradlew :neoforge:runExportTextures
+          xvfb-run ./gradlew :neoforge:runExportTextures :neoforge:runExportMetadata
 
       - name: Checkout Assets Repo
         uses: actions/checkout@v6
@@ -151,10 +151,12 @@ jobs:
           path: Assets
           token: ${{ secrets.ASSETS_PUSH_TOKEN }}
 
-      - name: Copy exported textures to Assets repo
+      - name: Copy exported textures and metadata to Assets repo
         run: |
           mkdir -p Assets/Icons/InGame
+          mkdir -p Assets/Metadata/Tags
           cp -r ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/* Assets/Icons/InGame/
+          cp -r ChiselsAndBits/neoforge/runs/exporters/metadata/wiki_exporter/tags/* Assets/Icons/Tags
 
       - name: Set up git config for Assets repo
         working-directory: Assets
