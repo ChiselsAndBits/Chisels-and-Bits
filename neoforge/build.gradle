@@ -2,18 +2,7 @@ plugins {
     id 'com.ldtteam.tableau.maven-publishing' version '0.0.85'
     id 'com.ldtteam.tableau.curseforge' version '0.0.85'
     id 'com.communi-suggestu.obumbratio' version '0.0.14'
-    id 'com.communi-suggestu.bonorum' version '0.0.2'
-}
-
-repositories {
-    maven {
-        name = "Maven for PR #2815" // https://github.com/neoforged/NeoForge/pull/2815
-        url = uri("https://prmaven.neoforged.net/NeoForge/pr2815")
-        content {
-            includeModule("net.neoforged", "neoforge")
-            includeModule("net.neoforged", "testframework")
-        }
-    }
+    id 'com.communi-suggestu.bonorum' version '0.0.3'
 }
 
 platform {

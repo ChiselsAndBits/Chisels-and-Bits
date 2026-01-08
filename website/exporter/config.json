@@ -1,9 +1,20 @@
 {
   "output_path": "wiki_exporter",
   "enabled": [
-    "render"
+    "render",
+    "tags"
   ],
   "modules": {
+    "tags": {
+      "namespaces": [
+        "minecraft",
+        "c",
+        "chiselsandbits"
+      ],
+      "registries": [
+        "minecraft:item"
+      ]
+    },
     "render": {
       "namespaces": [
         "minecraft",
