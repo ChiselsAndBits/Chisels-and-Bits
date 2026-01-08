@@ -44,3 +44,11 @@ tableau {
 dependencies {
     implementation "org.sinytra:wiki-exporter-neoforge:2.2.1+1.21.11"
 }
+
+jar {
+    manifest {
+        attributes(
+                'FMLModType': 'GAMELIBRARY'
+        )
+    }
+}
