@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'com.ldtteam.tableau.maven-publishing' version '0.0.80'
 }
 
@@ -16,7 +17,6 @@ project.getRepositories().exclusiveContent(exclusiveContentRepository -> {
 
 platform {
     project {
-        library()
         accessTransformers.from(rootProject.files('common/accesstransformer.cfg'))
     }
 }
@@ -43,12 +43,4 @@ tableau {
 
 dependencies {
     implementation "org.sinytra:wiki-exporter-neoforge:2.2.1+1.21.11"
-}
-
-jar {
-    manifest {
-        attributes(
-                'FMLModType': 'GAMELIBRARY'
-        )
-    }
 }

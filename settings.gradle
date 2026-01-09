@@ -28,15 +28,15 @@ pluginManagement {
 
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
-    id 'com.communi-suggestu.placitum' version '0.0.79'
+    id 'com.communi-suggestu.placitum' version '0.0.81'
 }
 
 rootProject.name = "chisels-and-bits"
 
 platforms {
     common(':api')
-    core(':core')
     plugin(':wiki')
+    core(':core')
     fabric(':fabric')
     neoforge(':neoforge')
 
