@@ -17,6 +17,7 @@ project.getRepositories().exclusiveContent(exclusiveContentRepository -> {
 
 platform {
     project {
+        library()
         accessTransformers.from(rootProject.files('common/accesstransformer.cfg'))
     }
 }
