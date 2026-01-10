@@ -91,6 +91,13 @@ jobs:
           git config --global user.email "github@chisels-and-bits.com"
           git push --tags
 
+      - name: Archive the created artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: subproject-jars
+          path: '**/build/libs/*.jar'
+          if-no-files-found: ignore
+
 
   texture-export:
     name: "Export textures to Assets"
