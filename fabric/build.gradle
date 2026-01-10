@@ -4,6 +4,11 @@ plugins {
     id 'com.communi-suggestu.obumbratio' version '0.0.14'
 }
 
+repositories {
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
+}
+
 platform {
     fabric {
         loaderVersion = rootProject.property('fabric.loader.version')
@@ -49,9 +54,6 @@ shaders {
 }
 
 dependencies {
-    modImplementation "com.communi-suggestu.saecularia-caudices:fabric:${project.property('communi.suggestu.saecularia.caudices.version')}"
-    include "com.communi-suggestu.saecularia-caudices:fabric:${project.property('communi.suggestu.saecularia.caudices.version')}"
-
     modImplementation "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
     include "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
 }

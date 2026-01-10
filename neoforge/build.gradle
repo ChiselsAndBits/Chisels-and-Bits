@@ -5,6 +5,11 @@ plugins {
     id 'com.communi-suggestu.bonorum' version '0.0.1'
 }
 
+repositories {
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
+}
+
 platform {
     neoforge {
         version = "21.1.+"
@@ -45,7 +50,6 @@ shaders {
 }
 
 dependencies {
-    includedLibraries "com.communi-suggestu.saecularia-caudices:neoforge:${project.property('communi.suggestu.saecularia.caudices.version')}"
     includedLibraries "com.communi-suggestu.scena:neoforge:${project.property('communi.suggestu.scena.version')}"
 }
 

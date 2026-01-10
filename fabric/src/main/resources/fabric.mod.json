@@ -2,8 +2,7 @@
   "schemaVersion": 1,
   "id": "$project.mod.id",
   "version": "$version",
-
-  "name": "$name",
+  "name": "$project.title",
   "description": "$project.description",
   "authors": [
     "$project.author"
