@@ -1,12 +1,16 @@
 package mod.chiselsandbits.plugin;
 
 import com.google.common.collect.ImmutableSet;
+import com.mojang.logging.LogUtils;
 import mod.chiselsandbits.api.plugin.*;
+import org.slf4j.Logger;
 
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class PluginManger implements IPluginManager {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
     private static final PluginManger INSTANCE = new PluginManger();
 
     public static PluginManger getInstance() {
@@ -32,6 +36,7 @@ public final class PluginManger implements IPluginManager {
     }
 
     public void detect() {
+        LOGGER.info("Discovering plugins...");
         this.pluginDatas = ImmutableSet.copyOf(IPluginDiscoverer.getInstance().loadPlugins(
                 ChiselsAndBitsPlugin.class,
                 ChiselsAndBitsPlugin.Instance.class,
@@ -39,5 +44,6 @@ public final class PluginManger implements IPluginManager {
                 IChiselsAndBitsPlugin::getId
         ));
         this.plugins = ImmutableSet.copyOf(this.pluginDatas.stream().map(PluginData::plugin).collect(Collectors.toSet()));
+        LOGGER.info("Discovered {} plugins: {}", this.pluginDatas.size(), this.pluginDatas.stream().map(p -> p.plugin().getId()).collect(Collectors.joining(", ")));
     }
 }
