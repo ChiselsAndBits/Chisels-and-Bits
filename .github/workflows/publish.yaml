@@ -176,7 +176,7 @@ jobs:
           mkdir -p Assets/Icons/InGame
           mkdir -p Assets/Metadata/Tags
           cp -r ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/* Assets/Icons/InGame/
-          cp -r ChiselsAndBits/neoforge/runs/exporters/metadata/wiki_exporter/tags/* Assets/Icons/Tags
+          cp -r ChiselsAndBits/neoforge/runs/exporters/metadata/wiki_exporter/tags/* Assets/Metadata/Tags
 
       - name: Set up git config for Assets repo
         working-directory: Assets
@@ -190,6 +190,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
             git add Icons/InGame
+            git add Metadata/Tags
             git commit -m "$COMMIT_MSG"
             git push origin HEAD:main
           else
