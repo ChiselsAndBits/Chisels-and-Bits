@@ -2,8 +2,7 @@ package mod.chiselsandbits.fabric;
 
 import com.communi.suggestu.scena.core.init.PlatformInitializationHandler;
 import mod.chiselsandbits.ChiselsAndBits;
-import mod.chiselsandbits.block.ChiseledBlock;
-import mod.chiselsandbits.fabric.plugin.FabricPluginManager;
+import mod.chiselsandbits.fabric.plugin.FabricPluginDiscoverer;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,7 @@ public class Fabric implements ModInitializer {
         PlatformInitializationHandler.getInstance().onInit(platform -> setChiselsAndBits(new ChiselsAndBits(
                 Objects::isNull,
                 target -> Optional.empty(),
-                FabricPluginManager.getInstance()
+                FabricPluginDiscoverer.getInstance()
         )));
     }
 

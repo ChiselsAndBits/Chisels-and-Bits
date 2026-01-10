@@ -13,14 +13,6 @@ import java.lang.annotation.Target;
 public @interface ChiselsAndBitsPlugin
 {
     /**
-     * Used to on a static field of a class annotated with {@link ChiselsAndBitsPlugin} to represent the field is an instance of an {@link ChiselsAndBitsPlugin}. This instance
-     * will then be used instead of attempting to create a new instance of the class.
-     */
-    @Target(ElementType.FIELD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface Instance {}
-
-    /**
      * Mod ids of the mods required to load this plugin.
      * Leave on the default empty to not care for mod specific filtering.
      *

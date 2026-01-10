@@ -2,11 +2,17 @@ package mod.chiselsandbits.api.plugin;
 
 /**
  * Represents a plugin for ChiselsAndBits.
- *
- * Plugins have callbacks that can be invoked by aequivaleo.
- * See their documentation for more information.
- *
- * All methods are potentially invoked in parallel with other plugins, or even aequivaleo itself.
+ * <p>
+ *     Plugins have callbacks that can be invoked by chisels and bits.
+ *     See their documentation for more information.
+ * </p>
+ * <p>
+ *     All methods are potentially invoked in parallel with other plugins, or even chisels and bits itself.
+ * </p>
+ * <p>
+ *     Plugins are loaded through the {@link java.util.ServiceLoader}. If annotated by {@link ChiselsAndBitsPlugin}
+ *     then additional metadata is checked, like required mods or experimental flags.
+ * </p>
  */
 public interface IChiselsAndBitsPlugin
 {
@@ -21,15 +27,15 @@ public interface IChiselsAndBitsPlugin
     /**
      * Invoked when the plugin is constructed.
      */
-    default void onConstruction() {};
+    default void onConstruction() {}
 
     /**
      * Called after ChiselsAndBits client construction completes.
      */
-    default void onClientConstruction() {};
+    default void onClientConstruction() {}
 
     /**
      * Invoked by chisels and bits when the platform it runs on (so forge or fabric) indicates that mod initialization should happen.
      */
-    default void onInitialize() {};
+    default void onInitialize() {}
 }

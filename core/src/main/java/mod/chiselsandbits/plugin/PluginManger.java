@@ -37,12 +37,7 @@ public final class PluginManger implements IPluginManager {
 
     public void detect() {
         LOGGER.info("Discovering plugins...");
-        this.pluginDatas = ImmutableSet.copyOf(IPluginDiscoverer.getInstance().loadPlugins(
-                ChiselsAndBitsPlugin.class,
-                ChiselsAndBitsPlugin.Instance.class,
-                IChiselsAndBitsPlugin.class,
-                IChiselsAndBitsPlugin::getId
-        ));
+        this.pluginDatas = ImmutableSet.copyOf(IPluginDiscoverer.getInstance().loadPlugins().toList());
         this.plugins = ImmutableSet.copyOf(this.pluginDatas.stream().map(PluginData::plugin).collect(Collectors.toSet()));
         LOGGER.info("Discovered {} plugins: {}", this.pluginDatas.size(), this.pluginDatas.stream().map(p -> p.plugin().getId()).collect(Collectors.joining(", ")));
     }
