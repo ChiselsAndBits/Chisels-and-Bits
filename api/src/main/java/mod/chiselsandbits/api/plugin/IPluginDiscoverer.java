@@ -1,11 +1,14 @@
 package mod.chiselsandbits.api.plugin;
 
+import com.mojang.logging.LogUtils;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import org.apache.logging.log4j.core.config.plugins.Plugin;
+import mod.chiselsandbits.api.launch.ILaunchPropertyManager;
+import org.slf4j.Logger;
 
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ServiceLoader;
+import java.util.stream.Stream;
 
 /**
  * The platform plugin manager which can load the plugins for C{@literal &}B on a given platform.
@@ -18,26 +21,66 @@ public interface IPluginDiscoverer
      *
      * @return The platform's plugin manager.
      */
-    static IPluginDiscoverer getInstance() {
+    static IPluginDiscoverer getInstance()
+    {
         return IChiselsAndBitsAPI.getInstance().getPluginDiscoverer();
     }
 
     /**
-     * Loads the plugins of a given type, potentially marked with a given annotation type.
+     * Loads the plugins.
+     * Already has performed the instantiation logic and validation.
      *
-     * @param annotationType The annotation type to look for.
-     * @param instanceAnnotationType The annotation type that marks the instance of the plugin.
-     * @param pluginSpecificationType The plugin specification interface type to look for.
-     * @param idExtractor The function to extract the id from the plugin specification.
-     * @param <A> The type of the annotation.
-     * @param <I> The type of the instance annotation.
-     * @param <T> The type of the interface.
-     * @return All loaded plugins available.
+     * @return The loaded plugins.
      */
-    <A, I extends Annotation, T> Collection<PluginData<T>> loadPlugins(
-      final Class<A> annotationType,
-      final Class<I> instanceAnnotationType,
-      final Class<T> pluginSpecificationType,
-      final Function<T, String> idExtractor
-    );
+    Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins();
+
+    abstract class AbstractPluginDiscoverer implements IPluginDiscoverer
+    {
+
+        private static final Logger LOGGER = LogUtils.getLogger();
+
+        @Override
+        public Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins()
+        {
+            var serviceLoader = ServiceLoader.load(
+                IChiselsAndBitsPlugin.class,
+                this.getClass().getClassLoader()
+            );
+
+            return serviceLoader.stream()
+                .filter(pluginProvider -> canLoad(pluginProvider.type()))
+                .map(ServiceLoader.Provider::get)
+                .map(PluginData::new);
+        }
+
+        private boolean canLoad(Class<? extends IChiselsAndBitsPlugin> potentialClass)
+        {
+            if (!potentialClass.isAnnotationPresent(ChiselsAndBitsPlugin.class))
+            {
+                return true;
+            }
+
+            var annotation = potentialClass.getAnnotation(ChiselsAndBitsPlugin.class);
+            final List<String> requiredMods = Arrays.asList(annotation.requiredMods());
+            if (!requiredMods.isEmpty())
+            {
+                if (requiredMods.stream().anyMatch(this::isModNotLoaded))
+                {
+                    LOGGER.info("Skipping: {} as plugin, its required mods: {} are not all available!", potentialClass.getSimpleName(), String.join(", ", requiredMods));
+                    return false;
+                }
+            }
+
+            final boolean isExperimental = annotation.isExperimental();
+            if (isExperimental && !Boolean.parseBoolean(ILaunchPropertyManager.getInstance().get("plugins.experimental", "false")))
+            {
+                LOGGER.info("Skipping: {} as plugin, it is marked as experimental and those plugins are disabled by the configuration.", potentialClass.getSimpleName());
+                return false;
+            }
+
+            return true;
+        }
+
+        protected abstract boolean isModNotLoaded(String modId);
+    }
 }
