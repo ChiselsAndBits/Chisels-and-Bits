@@ -146,9 +146,17 @@ jobs:
       - name: Install software OpenGL rendering
         run: sudo apt-get install xvfb libgl1-mesa-dri
 
+      - name: Download and extract JAR artifacts from publish job
+        uses: actions/download-artifact@v4
+        with:
+          name: subproject-jars
+          path: ChiselsAndBits
+
       - name: Run texture export
         run: |
           cd ChiselsAndBits
+          ls neoforge/build/libs
+          ls plugins/wiki/build/libs
           xvfb-run ./gradlew :neoforge:runExportTextures
 
       - name: Run metadata export
