@@ -42,14 +42,16 @@ public final class ForgePluginDiscoverer implements IPluginDiscoverer {
             for (ModFileScanData.AnnotationData data : scanData.getAnnotations()) {
                 if (pluginType.equals(data.annotationType())) {
                     final ArrayList<String> requiredMods = (ArrayList<String>) data.annotationData().get("requiredMods");
-                    if (requiredMods != null && requiredMods.size() > 0) {
+                    if (requiredMods != null && !requiredMods.isEmpty()) {
                         if (requiredMods.stream().anyMatch(modId -> !ModList.get().isLoaded(modId))) {
+                            LOGGER.info("Skipping: {} as plugin, its required mods: {} are not all available!", data.memberName(), String.join(", ", requiredMods));
                             continue;
                         }
                     }
 
                     final Boolean isExperimental = (Boolean) data.annotationData().get("isExperimental");
                     if (isExperimental != null && isExperimental && !Boolean.parseBoolean(ILaunchPropertyManager.getInstance().get("plugins.experimental", "false"))) {
+                        LOGGER.info("Skipping: {} as plugin, it is marked as experimental and those plugins are disabled by the configuration.", data.memberName());
                         continue;
                     }
 
@@ -76,7 +78,7 @@ public final class ForgePluginDiscoverer implements IPluginDiscoverer {
                 .map(d -> idExtractor.apply(d.plugin()))
                 .collect(Collectors.toSet());
 
-        if (idsWithDuplicates.size() > 0) {
+        if (!idsWithDuplicates.isEmpty()) {
             throw new RuntimeException(String.format("Can not load C&B there are multiple instances of the plugins: [%s]", String.join(", ", idsWithDuplicates)));
         }
 
