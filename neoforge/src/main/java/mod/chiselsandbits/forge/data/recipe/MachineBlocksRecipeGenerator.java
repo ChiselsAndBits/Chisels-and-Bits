@@ -32,7 +32,7 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
             new AbstractRecipeGenerator.Runner(
                 event.getGenerator().getPackOutput(),
                 event.getLookupProvider(),
-                ModBlocks.CHISELED_BLOCK.get(),
+                ModBlocks.CHISELED_PRINTER.get(),
                 (registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
                     registries,
                     output,

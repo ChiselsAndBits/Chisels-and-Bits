@@ -155,7 +155,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
     @Override
     protected int getLightBlock(final BlockState state)
     {
-        return super.getLightBlock(state);
+        return state.getValue(LIGHT_BLOCK_LEVEL);
     }
 
     @Override
@@ -318,7 +318,6 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
     {
         if (te instanceof final IMultiStateBlockEntity multiStateBlockEntity)
         {
-
             final IMultiStateSnapshot snapshot = multiStateBlockEntity.createSnapshot();
             popResource(worldIn, pos, snapshot.toItemStack().toBlockStack());
         }
@@ -641,7 +640,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
         {
             return getBlockEntity(level, blockPos)
                 .map(blockEntity -> {
-                    try (IBatchMutation mutation = blockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(player)))
+                    try (IBatchMutation ignored = blockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(player)))
                     {
                         return blockEntity.mutableStream()
                             .filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())

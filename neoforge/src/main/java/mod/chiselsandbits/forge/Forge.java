@@ -34,6 +34,9 @@ public class Forge
 
     public Forge(IEventBus modBus)
 	{
+        if (true)
+            throw new IllegalStateException("Test");
+
         LOGGER.info("Initialized Chisels&Bits - Forge");
         //We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
         PlatformInitializationHandler.getInstance().onInit(platform -> {

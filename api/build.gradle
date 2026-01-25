@@ -1,5 +1,6 @@
 plugins {
     id 'com.ldtteam.tableau.maven-publishing' version '0.0.80'
+    id 'com.communi-suggestu.javamark' version '0.0.7'
 }
 
 platform {
@@ -31,4 +32,12 @@ tableau {
 
 dependencies {
     api "com.communi-suggestu.scena:core:${project.property('communi.suggestu.scena.version')}"
+}
+
+tasks.withType(Javadoc.class).configureEach { it -> {
+    it.options.tags = [ "implNote:a:Note on the Implementation" ]
+}}
+
+java {
+    withJavadocJar()
 }
