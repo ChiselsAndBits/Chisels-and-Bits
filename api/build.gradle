@@ -1,6 +1,6 @@
 plugins {
     id 'com.ldtteam.tableau.maven-publishing' version '0.0.80'
-    id 'com.communi-suggestu.javamark' version '0.0.7'
+    id 'com.communi-suggestu.javamark' version '0.0.13'
 }
 
 platform {
