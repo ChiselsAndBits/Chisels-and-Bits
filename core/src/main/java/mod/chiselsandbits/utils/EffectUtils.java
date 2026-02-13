@@ -83,7 +83,11 @@ public class EffectUtils
         final BlockPos pos = blockRayTraceResult.getBlockPos();
         final double boxOffset = 0.1;
 
-        final AABB bb = world.getBlockState(pos).getShape(world, pos).bounds();
+        final VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
+        if (shape.isEmpty())
+            return true;
+
+        final AABB bb = shape.bounds();
 
         double x = pos.getX() + RANDOM.nextDouble() * (bb.maxX - bb.minX - boxOffset * 2d) + boxOffset + bb.minX;
         double y = pos.getY() + RANDOM.nextDouble() * (bb.maxY - bb.minY - boxOffset * 2d) + boxOffset + bb.minY;
