@@ -6,8 +6,8 @@
     "t": "#c:stones"
   },
   "pattern": [
-    "st",
-    "  "
+    " t",
+    "s "
   ],
   "result": {
     "id": "chiselsandbits:chisel_stone"

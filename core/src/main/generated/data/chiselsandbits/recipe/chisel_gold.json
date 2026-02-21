@@ -6,8 +6,8 @@
     "t": "#c:ingots/gold"
   },
   "pattern": [
-    "st",
-    "  "
+    " t",
+    "s "
   ],
   "result": {
     "id": "chiselsandbits:chisel_gold"

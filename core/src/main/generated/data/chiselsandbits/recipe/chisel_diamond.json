@@ -6,8 +6,8 @@
     "t": "#c:gems/diamond"
   },
   "pattern": [
-    "st",
-    "  "
+    " t",
+    "s "
   ],
   "result": {
     "id": "chiselsandbits:chisel_diamond"
