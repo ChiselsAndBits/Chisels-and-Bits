@@ -6,8 +6,8 @@
     "t": "#c:ingots/gold"
   },
   "pattern": [
-    "st",
-    "  "
+    " t",
+    "s "
   ],
   "result": {
     "count": 1,

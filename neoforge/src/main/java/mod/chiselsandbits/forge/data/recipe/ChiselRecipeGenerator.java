@@ -62,6 +62,16 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator
             new AbstractRecipeGenerator.Runner(
                 event.getGenerator().getPackOutput(),
                 event.getLookupProvider(),
+                ModItems.ITEM_CHISEL_IRON.get(),
+                withWoodenRodFor(Tags.Items.INGOTS_IRON)
+            )
+        );
+
+        event.getGenerator().addProvider(
+            true,
+            new AbstractRecipeGenerator.Runner(
+                event.getGenerator().getPackOutput(),
+                event.getLookupProvider(),
                 ModItems.ITEM_CHISEL_GOLD.get(),
                 withWoodenRodFor(Tags.Items.INGOTS_GOLD)
             )

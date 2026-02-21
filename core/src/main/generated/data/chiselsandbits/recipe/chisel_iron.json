@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "s": "#c:rods/wooden",
-    "t": "#c:stones"
+    "t": "#c:ingots/iron"
   },
   "pattern": [
     " t",
@@ -11,6 +11,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "chiselsandbits:chisel_stone"
+    "id": "chiselsandbits:chisel_iron"
   }
 }

@@ -6,8 +6,8 @@
     "t": "#c:ingots/copper"
   },
   "pattern": [
-    "st",
-    "  "
+    " t",
+    "s "
   ],
   "result": {
     "count": 1,
