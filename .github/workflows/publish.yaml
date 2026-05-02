@@ -175,3 +175,88 @@ jobs:
           else
             echo "No changes to commit."
           fi
+
+documentation-export:
+  name: "Export documentation to website"
+  needs:
+    - publish
+  if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        path: ChiselsAndBits
+
+    - name: Read Gradle Properties File
+      uses: kurt-code/gha-properties@v0.0.1
+      id: read-properties
+      with:
+        operation: 'read'
+        file-path: 'ChiselsAndBits/gradle.properties'
+        keys: 'java.version,minecraft.version'
+
+    - name: Extract patch version
+      id: extract-patch
+      uses: Communi-Suggestu/Cadens@0.0.3
+      with:
+        working-directory: 'ChiselsAndBits'
+        file: 'gradle.properties'
+        prefix: 'minecraft.version='
+
+    - name: Extract major and minor version
+      id: extract-major-minor
+      uses: Communi-Suggestu/Spoliatus@0.0.2
+      with:
+        version: ${{ steps.read-properties.outputs['minecraft.version'] }}
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: ${{ steps.read-properties.outputs['java.version'] }}
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    - name: Download and extract JAR artifacts from publish job
+      uses: actions/download-artifact@v4
+      with:
+        name: subproject-jars
+        path: ChiselsAndBits
+
+    - name: Run documentation export
+      run: |
+        cd ChiselsAndBits
+        xvfb-run ./gradlew :api:javamark
+
+    - name: Checkout Website Repo
+      uses: actions/checkout@v6
+      with:
+        repository: ChiselsAndBits/Website
+        path: Website
+        token: ${{ secrets.ASSETS_PUSH_TOKEN }}
+
+    - name: Copy exported documentation to website
+      run: |
+        mkdir -p Website/docs/modders/api
+        cp -r ChiselsAndBits/api/build/docs/markdown/* Website/docs/modders/api/
+
+    - name: Set up git config for Website repo
+      working-directory: Website
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "github@chisels-and-bits.com"
+
+    - name: Commit and push changes to Website repo
+      working-directory: Website
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
+          git add docs/modders/api
+          git commit -m "$COMMIT_MSG"
+          git push origin HEAD:main
+        else
+          echo "No changes to commit."
+        fi
