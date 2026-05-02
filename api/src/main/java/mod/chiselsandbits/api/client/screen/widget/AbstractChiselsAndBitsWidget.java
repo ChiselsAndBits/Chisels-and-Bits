@@ -1,10 +1,9 @@
 package mod.chiselsandbits.api.client.screen.widget;
 
 import com.communi.suggestu.scena.core.client.rendering.IExtendedGuiGraphics;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -63,7 +62,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
         this.defaultButtonNarrationText(output);
     }
 
-    protected static IExtendedGuiGraphics extendGraphics(@NotNull GuiGraphics graphics) {
+    protected static IExtendedGuiGraphics getExtendedGraphicsExtractor(@NotNull GuiGraphicsExtractor graphics) {
         return ((IExtendedGuiGraphics) graphics);
     }
 }

@@ -20,18 +20,19 @@ import mod.chiselsandbits.logic.MagnifyingGlassTooltipHandler;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.chunk.LevelChunk;
 
-public final class EventHandlers {
+public final class ModClientEventHandlers
+{
 
-    private EventHandlers() {
+    private ModClientEventHandlers() {
         throw new IllegalStateException("Can not instantiate an instance of: EventHandlers. This is a utility class");
     }
 
     public static void onClientConstruction() {
-        IGameEvents.getInstance().getChunkLoadEvent().register((levelAccessor, chunkAccess) -> {
+        IGameEvents.getInstance().getChunkLoadEvent().register((_, chunkAccess) -> {
             if (chunkAccess instanceof LevelChunk levelChunk)
                 ChiseledBlockModelUpdateHandler.updateAllModelDataInChunk(levelChunk);
         });
-        IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> CreativeClipboardManager.getInstance().load(level.registryAccess()));
+        IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((_, level) -> CreativeClipboardManager.getInstance().load(level.registryAccess()));
         IClientEvents.getInstance().getClientTickStartedEvent().register(() -> {
             ToolNameHighlightTickHandler.handleClientTickForMagnifyingGlass();
             KeyBindingManager.getInstance().handleKeyPresses();
@@ -52,7 +53,8 @@ public final class EventHandlers {
 
             MeasurementsRenderHandler.renderMeasurements(
                 poseStack,
-                bufferSource
+                bufferSource,
+                partialTickTime
             );
 
             MultiStateBlockPreviewRenderHandler.renderMultiStateBlockPreview(
@@ -62,7 +64,7 @@ public final class EventHandlers {
 
             FrameBasedInputTracker.getInstance().onRenderFrame();
         });
-        IClientEvents.getInstance().getGatherTooltipEvent().register((itemStack, tooltipContext, tooltipFlag, list) -> {
+        IClientEvents.getInstance().getGatherTooltipEvent().register((itemStack, _, _, list) -> {
             MagnifyingGlassTooltipHandler.onItemTooltip(itemStack, list);
         });
         IClientEvents.getInstance().getRegisterTextureAtlasesEvent().register(consumer -> {

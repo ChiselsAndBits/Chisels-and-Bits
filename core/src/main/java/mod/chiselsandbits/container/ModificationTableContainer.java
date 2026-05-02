@@ -191,7 +191,7 @@ public class ModificationTableContainer extends AbstractContainerMenu
                 this.world.getServer() != null ?
                     this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList()) :
                     new ArrayList<>();
-            this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().getOperation().getRegistryName()).toString()));
+            this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().operation().getRegistryName()).toString()));
 
             if (!this.world.isClientSide() && this.playerInventory.player instanceof ServerPlayer serverPlayer) {
                 ChiselsAndBits.getInstance().getNetworkChannel()
@@ -207,7 +207,7 @@ public class ModificationTableContainer extends AbstractContainerMenu
             RecipeHolder<ModificationTableRecipe> modificationTableRecipe = this.recipes.get(this.selectedRecipe.get());
             this.inventory.setRecipeUsed(modificationTableRecipe);
             final CraftingInput input = CraftingInput.of(1, 1, List.of(this.inputInventory.getItem(0)));
-            this.outputInventorySlot.set(modificationTableRecipe.value().assemble(input, this.world.registryAccess()));
+            this.outputInventorySlot.set(modificationTableRecipe.value().assemble(input));
         }
         else
         {

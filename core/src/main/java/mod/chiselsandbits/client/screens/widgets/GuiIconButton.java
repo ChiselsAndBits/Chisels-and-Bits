@@ -1,7 +1,7 @@
 package mod.chiselsandbits.client.screens.widgets;
 
 import mod.chiselsandbits.api.client.screen.widget.AbstractChiselsAndBitsButton;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class GuiIconButton extends AbstractChiselsAndBitsButton
 {
@@ -59,7 +59,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
     }
 
     @Override
-    protected void renderContents(final GuiGraphics guiGraphics, final int i, final int i1, final float v)
+    protected void extractContents(final @NonNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float a)
     {
         guiGraphics.blitSprite(
             RenderPipelines.GUI_TEXTURED,

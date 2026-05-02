@@ -24,6 +24,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -78,7 +79,7 @@ public class QuillItem extends Item implements IQuillItem
     public static void spawnParticles(Vec3 location, ItemStack polishedStack, Level world) {
         for (int i = 0; i < 20; i++) {
             Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
-            world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, polishedStack), location.x, location.y,
+            world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(polishedStack.getItem().builtInRegistryHolder(), polishedStack.count(), polishedStack.getComponentsPatch())), location.x, location.y,
               location.z, motion.x, motion.y, motion.z);
         }
     }

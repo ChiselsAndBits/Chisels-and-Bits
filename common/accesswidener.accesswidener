@@ -7,7 +7,6 @@ accessible   class      net/minecraft/world/inventory/MenuType$MenuSupplier
 accessible   class      net/minecraft/world/level/chunk/PalettedContainer$Data
 accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
 accessible   method     net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
-accessible   method     net/minecraft/client/gui/screens/inventory/AbstractContainerScreen renderSlot (Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;)V
 accessible   method     net/minecraft/client/gui/screens/inventory/AbstractContainerScreen isHovering (Lnet/minecraft/world/inventory/Slot;DD)Z
 accessible   method     net/minecraft/client/gui/screens/MenuScreens register (Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
 accessible   method     com/mojang/blaze3d/platform/NativeImage writeToChannel (Ljava/nio/channels/WritableByteChannel;)Z
@@ -19,7 +18,6 @@ accessible   field      net/minecraft/client/KeyMapping key Lcom/mojang/blaze3d/
 accessible   field      net/minecraft/world/level/chunk/LevelChunkSection states Lnet/minecraft/world/level/chunk/PalettedContainer;
 accessible   field      net/minecraft/world/level/chunk/PalettedContainer data Lnet/minecraft/world/level/chunk/PalettedContainer$Data;
 accessible   field      net/minecraft/client/gui/Gui toolHighlightTimer I
-accessible   field      net/minecraft/client/renderer/ItemBlockRenderTypes TYPE_BY_BLOCK Ljava/util/Map;
 mutable   field      net/minecraft/world/level/chunk/LevelChunkSection states Lnet/minecraft/world/level/chunk/PalettedContainer;
 mutable   field      net/minecraft/world/phys/shapes/DiscreteVoxelShape xSize I
 mutable   field      net/minecraft/world/phys/shapes/DiscreteVoxelShape ySize I
@@ -47,54 +45,6 @@ accessible field net/minecraft/world/entity/item/ItemEntity target Ljava/util/UU
 accessible method net/minecraft/world/level/storage/TagValueInput <init> (Lnet/minecraft/util/ProblemReporter;Lnet/minecraft/world/level/storage/ValueInputContextHelper;Lnet/minecraft/nbt/CompoundTag;)V
 accessible field net/minecraft/client/renderer/item/ItemStackRenderState layers [Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;
 
-# render state shard classes
-accessible class net/minecraft/client/renderer/RenderStateShard$BooleanStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$EmptyTextureStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$LightmapStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$LineStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$MultiTextureStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$MultiTextureStateShard$Entry
-accessible method net/minecraft/client/renderer/RenderStateShard$MultiTextureStateShard$Entry <init> (Lnet/minecraft/resources/ResourceLocation;Z)V
-accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$OutputStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$OverlayStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$TexturingStateShard
-
-# render state shards
-accessible field net/minecraft/client/renderer/RenderStateShard ARMOR_ENTITY_GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard BLOCK_SHEET Lnet/minecraft/client/renderer/RenderStateShard$TextureStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard BLOCK_SHEET_MIPPED Lnet/minecraft/client/renderer/RenderStateShard$TextureStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard DEFAULT_LINE Lnet/minecraft/client/renderer/RenderStateShard$LineStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard DEFAULT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard ENTITY_GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard ITEM_ENTITY_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
-accessible field net/minecraft/client/renderer/RenderPipelines LIGHTMAP Lcom/mojang/blaze3d/pipeline/RenderPipeline;
-accessible field net/minecraft/client/renderer/RenderStateShard MAIN_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard NO_LAYERING Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard NO_LIGHTMAP Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard NO_OVERLAY Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard NO_TEXTURE Lnet/minecraft/client/renderer/RenderStateShard$EmptyTextureStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard OUTLINE_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard OVERLAY Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard VIEW_OFFSET_Z_LAYERING_FORWARD Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;
-accessible field net/minecraft/client/renderer/RenderStateShard WEATHER_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
-
-# composite state builder methods
-accessible class net/minecraft/client/renderer/RenderType$CompositeState
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder createCompositeState (Lnet/minecraft/client/renderer/RenderType$OutlineProperty;)Lnet/minecraft/client/renderer/RenderType$CompositeState;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder createCompositeState (Z)Lnet/minecraft/client/renderer/RenderType$CompositeState;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setLayeringState (Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setLightmapState (Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setLineState (Lnet/minecraft/client/renderer/RenderStateShard$LineStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setOutputState (Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setOverlayState (Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setTextureState (Lnet/minecraft/client/renderer/RenderStateShard$EmptyTextureStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-accessible method net/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder setTexturingState (Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;)Lnet/minecraft/client/renderer/RenderType$CompositeState$CompositeStateBuilder;
-
 # render pipeline snippets
 accessible field net/minecraft/client/renderer/RenderPipelines BEACON_BEAM_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
 accessible field net/minecraft/client/renderer/RenderPipelines CLOUDS_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
@@ -117,20 +67,9 @@ accessible field net/minecraft/client/renderer/RenderPipelines TERRAIN_SNIPPET L
 accessible field net/minecraft/client/renderer/RenderPipelines TEXT_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
 accessible field net/minecraft/client/renderer/RenderPipelines WEATHER_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
 
-accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;ILcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
-accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;IZZLcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
-accessible class net/minecraft/client/renderer/RenderType$OutlineProperty
-
 accessible field net/minecraft/world/entity/player/Inventory items Lnet/minecraft/core/NonNullList;
 
-accessible field net/minecraft/client/renderer/rendertype/RenderTypes DEBUG_FILLED_BOX Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
-accessible field net/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState renderType Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/world/item/crafting/RecipeManager recipes Lnet/minecraft/world/item/crafting/RecipeMap;
-accessible method net/minecraft/client/data/models/ItemModelGenerators createFlatItemModel (Lnet/minecraft/world/item/Item;Ljava/lang/String;Lnet/minecraft/client/data/models/model/ModelTemplate;)Lnet/minecraft/resources/ResourceLocation;
-accessible field net/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState tintLayers [I
-accessible method net/minecraft/client/renderer/block/ModelBlockRenderer putQuadData (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lcom/mojang/blaze3d/vertex/VertexConsumer;Lcom/mojang/blaze3d/vertex/PoseStack$Pose;Lnet/minecraft/client/renderer/block/model/BakedQuad;Lnet/minecraft/client/renderer/block/ModelBlockRenderer$CommonRenderStorage;I)V
-accessible class net/minecraft/client/renderer/block/ModelBlockRenderer$CommonRenderStorage
-accessible field net/minecraft/client/renderer/item/BlockModelWrapper tints Ljava/util/List;
 
 accessible method net/minecraft/world/item/CreativeModeTab <init> (Lnet/minecraft/world/item/CreativeModeTab$Row;ILnet/minecraft/world/item/CreativeModeTab$Type;Lnet/minecraft/network/chat/Component;Ljava/util/function/Supplier;Lnet/minecraft/world/item/CreativeModeTab$DisplayItemsGenerator;)V
 accessible field net/minecraft/world/item/CreativeModeTab iconGenerator Ljava/util/function/Supplier;
@@ -138,7 +77,7 @@ accessible field net/minecraft/world/item/CreativeModeTab displayItemsGenerator 
 accessible field net/minecraft/world/item/CreativeModeTab alignedRight Z
 accessible field net/minecraft/world/item/CreativeModeTab showTitle Z
 accessible field net/minecraft/world/item/CreativeModeTab canScroll Z
-accessible field net/minecraft/world/item/CreativeModeTab backgroundTexture Lnet/minecraft/resources/ResourceLocation;
 
 accessible method net/minecraft/client/renderer/rendertype/RenderType create (Ljava/lang/String;Lnet/minecraft/client/renderer/rendertype/RenderSetup;)Lnet/minecraft/client/renderer/rendertype/RenderType;
-accessible method net/minecraft/client/renderer/entity/ItemRenderer renderQuadList (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;Ljava/util/List;[III)V
+
+accessible field net/minecraft/client/renderer/item/CuboidItemModelWrapper tints Ljava/util/List;

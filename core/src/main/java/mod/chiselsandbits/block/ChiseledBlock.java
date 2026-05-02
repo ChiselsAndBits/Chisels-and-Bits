@@ -18,7 +18,6 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.config.IServerConfiguration;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemFactory;
-import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.multistate.mutator.IMutableStateEntryInfo;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
@@ -30,9 +29,9 @@ import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
-import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.network.packets.NeighborBlockUpdatedPacket;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,8 +44,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.SignalGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -67,7 +75,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWaterloggedBlock, IBlockWithWorldlyProperties
@@ -153,9 +160,9 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
     }
 
     @Override
-    protected int getLightBlock(final BlockState state)
+    protected int getLightDampening(final BlockState state)
     {
-        return super.getLightBlock(state);
+        return state.getValue(LIGHT_BLOCK_LEVEL);
     }
 
     @Override

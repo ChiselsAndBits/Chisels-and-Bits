@@ -1,7 +1,7 @@
 package mod.chiselsandbits.client.util;
 
 import com.communi.suggestu.scena.core.client.models.processing.VertexData;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 
 public class BakedQuadUtils
 {
@@ -16,11 +16,15 @@ public class BakedQuadUtils
             input.packedUV1(),
             input.packedUV2(),
             input.packedUV3(),
-            tintIndex,
             input.direction(),
-            input.sprite(),
-            input.shade(),
-            input.lightEmission()
+            new BakedQuad.MaterialInfo(
+                input.materialInfo().sprite(),
+                input.materialInfo().layer(),
+                input.materialInfo().itemRenderType(),
+                tintIndex,
+                input.materialInfo().shade(),
+                input.materialInfo().lightEmission()
+            )
         );
     }
 

@@ -2,6 +2,7 @@ package mod.chiselsandbits.client.model.data;
 
 import com.communi.suggestu.scena.core.client.models.data.IModelDataBuilder;
 import com.communi.suggestu.scena.core.client.models.data.IModelDataManager;
+import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.mojang.logging.LogUtils;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -59,7 +60,12 @@ public class ChiseledBlockModelDataExecutor {
         CompletableFuture.supplyAsync(() -> {
                     final ChiseledBlockModelInformation chiseledBlockModelInformation =
                         ChiseledBlockStateModelManager.getInstance().get(
-                            tileEntity.getWorld(),
+                            new SingleBlockBlockAndTintGetter.Builder()
+                                .withBlockEntity(() -> tileEntity)
+                                .withBlockState(tileEntity.getBlockState())
+                                .withSource(tileEntity.getWorld())
+                                .withPos(tileEntity.getBlockPos())
+                                .createSingleBlockBlockAndTintGetter(),
                             tileEntity.blockPos(),
                             tileEntity,
                             neighborhood

@@ -5,10 +5,10 @@ import mod.chiselsandbits.client.besr.BitStorageBESR;
 import mod.chiselsandbits.client.besr.ChiseledPrinterBESR;
 import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 
-public final class BlockEntityRenderers
+public final class ModBlockEntityRenderers
 {
 
-    private BlockEntityRenderers()
+    private ModBlockEntityRenderers()
     {
         throw new IllegalStateException("Can not instantiate an instance of: BlockEntityRenderers. This is a utility class");
     }

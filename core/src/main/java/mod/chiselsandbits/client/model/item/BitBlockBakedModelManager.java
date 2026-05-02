@@ -9,9 +9,10 @@ import mod.chiselsandbits.client.model.builder.BitBlockModelInformationBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.BitBlockModelPart;
 import mod.chiselsandbits.client.time.TickHandler;
-import mod.chiselsandbits.registrars.ModCreativeTabs;
 import mod.chiselsandbits.client.util.ItemModelUtils;
+import mod.chiselsandbits.registrars.ModCreativeTabs;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.core.NonNullList;
@@ -20,13 +21,14 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +57,7 @@ public class BitBlockBakedModelManager
 
     public BitBlockModelInformation get(
         ItemStack stack,
-        final Level world)
+        final ClientLevel world)
     {
         return get(
             stack,
@@ -66,7 +68,7 @@ public class BitBlockBakedModelManager
 
     public BitBlockModelInformation get(
         ItemStack stack,
-        final Level world,
+        final ClientLevel world,
         final boolean large
     )
     {
@@ -86,7 +88,7 @@ public class BitBlockBakedModelManager
     public BitBlockModelInformation get(
         final boolean large,
         @Nullable BlockInformation blockInformation,
-        Level level)
+        ClientLevel level)
     {
         if (level == null)
         {
@@ -122,7 +124,7 @@ public class BitBlockBakedModelManager
         try
         {
             final @Nullable BlockInformation finalBlockInformation = blockInformation;
-            final Level finalLevel = level;
+            final ClientLevel finalLevel = level;
             return target.get(blockInformation, () -> {
                 if (large)
                 {
@@ -147,9 +149,8 @@ public class BitBlockBakedModelManager
                     {
                         parts.add(
                             new BitBlockModelPart(
-                                layer.renderType,
                                 layer.prepareQuadList(),
-                                layer.tintLayers
+                                layer.tintLayers()
                             )
                         );
                     }

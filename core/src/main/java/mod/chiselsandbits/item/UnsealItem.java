@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
@@ -68,7 +69,7 @@ public class UnsealItem extends Item implements IUnsealItem {
     public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
         for (int i = 0; i < 20; i++) {
             Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
-            world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), location.x, location.y,
+            world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.count(), stack.getComponentsPatch())), location.x, location.y,
                     location.z, motion.x, motion.y, motion.z);
         }
     }

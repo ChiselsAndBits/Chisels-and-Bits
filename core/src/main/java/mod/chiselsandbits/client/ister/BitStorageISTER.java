@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -29,12 +29,11 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 
     @Override
     public void submit(
-        @Nullable final BitStorageISTER.RenderState argument,
-        final @NotNull ItemDisplayContext displayContext,
-        final @NotNull PoseStack poseStack,
-        final @NotNull SubmitNodeCollector nodeCollector,
-        final int packedLight,
-        final int packedOverlay,
+        @Nullable final BitStorageISTER.@NotNull RenderState argument,
+        final PoseStack poseStack,
+        final SubmitNodeCollector submitNodeCollector,
+        final int lightCoords,
+        final int overlayCoords,
         final boolean hasFoil,
         final int outlineColor)
     {
@@ -51,7 +50,7 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
         Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
             state,
             poseStack,
-            nodeCollector,
+            submitNodeCollector,
             new CameraRenderState()
         );
 

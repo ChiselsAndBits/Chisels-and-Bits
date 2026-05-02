@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4fc;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An {@link ItemModel} which indicates interaction with it.
@@ -28,7 +30,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
         @Nullable final ItemOwner owner,
         final int seed)
     {
-        final var renderer = new InteractionISTER(this);
+        final var renderer = new InteractionISTER(this, displayContext);
         final var specialRenderState = renderer.extractArgument(stack);
         if (specialRenderState == null)
             return;
@@ -48,11 +50,11 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
         ));
     }
 
-    public record Unbaked(BlockModelWrapper.Unbaked model) implements ItemModel.Unbaked {
+    public record Unbaked(CuboidItemModelWrapper.Unbaked model) implements ItemModel.Unbaked {
 
         public static final MapCodec<Unbaked> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                BlockModelWrapper.Unbaked.MAP_CODEC.fieldOf("model").forGetter(Unbaked::model)
+                CuboidItemModelWrapper.Unbaked.MAP_CODEC.fieldOf("model").forGetter(Unbaked::model)
             ).apply(instance, Unbaked::new)
         );
 
@@ -63,9 +65,9 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
         }
 
         @Override
-        public @NotNull ItemModel bake(final @NotNull BakingContext context)
+        public @NonNull ItemModel bake(final @NonNull BakingContext context, final @NonNull Matrix4fc transformation)
         {
-            final ItemModel wrapper = model().bake(context);
+            final ItemModel wrapper = model().bake(context, transformation);
             return new InteractableItemModel(wrapper);
         }
 

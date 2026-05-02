@@ -59,7 +59,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 {
 
     private static final Supplier<ItemStack> DEFAULT_INSTANCE = Suppliers.memoize(() -> {
-        final RandomSource random = RandomSource.createNewThreadLocalInstance();
+        final RandomSource random = RandomSource.createThreadLocalInstance(42L);
 
         final int blockStateCount = (StateEntrySize.current().getBitsPerBlockSide() / 4) *
                                       (StateEntrySize.current().getBitsPerBlockSide() / 4) *

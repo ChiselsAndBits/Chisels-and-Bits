@@ -8,15 +8,14 @@ import mod.chiselsandbits.keys.KeyBindingManager;
 public class ChiselsAndBitsClient {
 
     public ChiselsAndBitsClient() {
-        BlockEntityRenderers.onClientConstruction();
-        ItemColors.onClientConstruction();
-        BlockColors.onClientConstruction();
-        ItemBlockRenderTypes.onClientConstruction();
-        EventHandlers.onClientConstruction();
+        ModBlockEntityRenderers.onClientConstruction();
+        ModBlockColors.onClientConstruction();
+        ModClientEventHandlers.onClientConstruction();
         KeyBindingManager.getInstance().onModInitialization();
-        Screens.onClientConstruction();
-        ItemProperties.onClientConstruction();
-        ClientTooltipComponents.onClientConstruction();
+        ModScreens.onClientConstruction();
+        ModItemProperties.onClientConstruction();
+        ModClientTooltipComponents.onClientConstruction();
+        ModEffectHandlers.onClientConstruction();
 
         IPluginManager.getInstance().run(IChiselsAndBitsPlugin::onClientConstruction);
     }

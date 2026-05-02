@@ -32,7 +32,7 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.TranslationUtils;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -365,8 +365,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
     @Override
     public void renderHighlight(
         final Player playerEntity,
-        final LevelRenderer levelRenderer,
-        final PoseStack poseStack,
+        final LevelRenderer worldRenderer,
+        final PoseStack matrixStack,
         final MultiBufferSource.BufferSource bufferSource,
         final LevelRenderState levelRenderState,
         final float partialTicks)
@@ -402,7 +402,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, currentContextSnapshot);
+                .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, currentContextSnapshot);
 
             return;
         }
@@ -413,7 +413,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
             {
                 IChiselContextPreviewRendererRegistry.getInstance()
                     .getCurrent()
-                    .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
+                    .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
             }
             else
             {
@@ -429,7 +429,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
                 {
                     IChiselContextPreviewRendererRegistry.getInstance()
                         .getCurrent()
-                        .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, placingContext);
+                        .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
                 }
                 else
                 {
@@ -448,7 +448,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
+                .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, context);
 
             return;
         }
@@ -463,14 +463,14 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
         {
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
+                .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, chiselingContext);
         }
         if (placingContext.getMutator().isPresent() && placingContext.getError().isEmpty())
         {
             IChiselContextPreviewRendererRegistry.getInstance()
                 .getCurrent()
-                .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, placingContext);
+                .renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
             ILocalChiselingContextCache.getInstance().set(ChiselingOperation.PLACING, placingContext);
         }
     }

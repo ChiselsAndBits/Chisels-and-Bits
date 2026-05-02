@@ -1,8 +1,9 @@
 package mod.chiselsandbits.client.model.item;
 
-import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.mojang.serialization.MapCodec;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
@@ -12,14 +13,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.item.BlockModelWrapper;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
+import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
@@ -29,9 +30,10 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4fc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public record ChiseledBlockItemModel(
     boolean usesBlockLight,
@@ -54,6 +56,13 @@ public record ChiseledBlockItemModel(
 
         renderState.appendModelIdentityElement(blockModelInformation.key());
 
+
+        IntList tintList = new IntArrayList();
+
+        buildTintList(level, owner, tintList, blockModelInformation);
+
+        renderState.appendModelIdentityElement(tintList);
+
         for (ChiseledBlockModelPart part : blockModelInformation.parts())
         {
             ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
@@ -65,76 +74,84 @@ public record ChiseledBlockItemModel(
                 renderState.appendModelIdentityElement(itemstackrenderstate$foiltype);
             }
 
-            final ItemStack lookupStack = new ItemStack(part.appearance().getBlock());
-            final Identifier itemModel = lookupStack.get(DataComponents.ITEM_MODEL);
-            QuadCollection quads = part.quads();
-            if (itemModel != null)
-            {
-                final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
-                    itemModel
+            itemstackrenderstate$layerrenderstate.tintLayers().addAll(tintList);
+            itemstackrenderstate$layerrenderstate.setExtents(part.extendsCalculator());
+            itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
+            itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
+            itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads().getAll());
+        }
+    }
+
+    private static void buildTintList(
+        final @org.jspecify.annotations.Nullable ClientLevel level,
+        final @org.jspecify.annotations.Nullable ItemOwner owner,
+        final IntList tintList,
+        final ChiseledBlockModelInformation blockModelInformation)
+    {
+        tintList.size(blockModelInformation.materials().size());
+
+        blockModelInformation.materials()
+            .forEach(material -> {
+                final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
+                final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
+
+                if (itemModelId == null) {
+                    if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null)
+                    {
+                        var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
+                            material.blockInformation().blockState().getFluidState()
+                        );
+
+                        if (fluidModel.tintSource() == null) {
+                            tintList.add(-1);
+                            return;
+                        }
+
+                        final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
+                            .withBlockState(material.blockInformation().blockState())
+                            .withBlockEntity(material.blockInformation()::newBlockEntityAtZero)
+                            .withPos(BlockPos.ZERO)
+                            .withSource((BlockAndTintGetter) level)
+                            .createSingleBlockBlockAndTintGetter();
+
+                        var tint = fluidModel.tintSource().colorInWorld(
+                            material.blockInformation().blockState(),
+                            blockAndTintGetter,
+                            BlockPos.ZERO
+                        );
+
+                        tintList.add(ARGB.color(255, tint));
+                        return;
+                    }
+
+                    tintList.add(-1);
+                    return;
+                }
+
+                final ItemModel itemModel = Minecraft.getInstance().getModelManager().getItemModel(
+                    itemModelId
                 );
 
-                if (model instanceof BlockModelWrapper wrapper)
+                if (itemModel instanceof CuboidItemModelWrapper wrapper)
                 {
-                    final List<ItemTintSource> tints = wrapper.tints;
-
-                    int k = tints.size();
-                    int[] tintLayers = itemstackrenderstate$layerrenderstate.prepareTintLayers(k);
-
-                    for (int i = 0; i < k; i++)
-                    {
-                        try
-                        {
-                            int j = tints.get(i).calculate(lookupStack, level, owner == null ? null : owner.asLivingEntity());
-                            tintLayers[i] = j;
-                            renderState.appendModelIdentityElement(j);
-                        }
-                        catch (Exception ex)
-                        {
-                            tintLayers[i] = -1;
-                            renderState.appendModelIdentityElement(-1);
-                        }
+                    final List<ItemTintSource> tintSources = wrapper.tints;
+                    if (material.tintIndex() >= tintSources.size()) {
+                        tintList.add(-1);
+                        return;
                     }
-                }
-            }
-            else
-                //Fluids do not have block models we can extract tints from, so we use this work around to generate them regardless.
-                //But we need a level for that.
-                //This also assumes that there is only a single color per fluid, which is currently the only one possible.
-                if (!part.appearance().getFluidState().isEmpty() && level != null)
-                {
-                    //Update the quad to a 0 tint index.
-                    quads = ItemModelUtils.adapt(
-                        quads,
-                        quad ->
-                            BakedQuadUtils.withTintIndex(quad, 0)
-                    );
 
-                    final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-                        .withBlockState(part.source().blockState())
-                        .withBlockEntity(part.source()::newBlockEntityAtZero)
-                        .withPos(BlockPos.ZERO)
-                        .withSource(level)
-                        .createSingleBlockBlockAndTintGetter();
+                    final ItemTintSource source = tintSources.get(material.tintIndex());
 
-                    int[] tintLayers = itemstackrenderstate$layerrenderstate.prepareTintLayers(1);
-                    tintLayers[0] =
-                        ARGB.color(255,
-                            Minecraft.getInstance().getBlockColors().getColor(
-                                part.source().blockState(),
-                                blockAndTintGetter,
-                                BlockPos.ZERO,
-                                0
-                            ));
+                    tintList.add(source.calculate(
+                        lookupStack,
+                        level,
+                        owner == null ? null : owner.asLivingEntity()
+                    ));
+                    return;
                 }
 
-            itemstackrenderstate$layerrenderstate.setExtents(part.extendsCalculator());
-            itemstackrenderstate$layerrenderstate.setRenderType(Objects.requireNonNull(RenderTypeUtils.renderTypeFor(part.renderType())));
-            itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
-            itemstackrenderstate$layerrenderstate.setTransform(this.transforms().getTransform(displayContext));
-
-            itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(quads.getAll());
-        }
+                tintList.add(-1);
+            });
     }
 
     public record Unbaked() implements ItemModel.Unbaked
@@ -149,7 +166,7 @@ public record ChiseledBlockItemModel(
         }
 
         @Override
-        public @NotNull ItemModel bake(final @NotNull BakingContext context)
+        public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
         {
             final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
             return new ChiseledBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());

@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -29,7 +29,8 @@ import java.util.function.Consumer;
  * Cloned from: Creators-of-Create: <a href="https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">...</a>
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
-public record InteractionISTER(InteractableItemModel mainModel) implements SpecialModelRenderer<InteractionISTER.RenderState>
+public record InteractionISTER(InteractableItemModel mainModel,
+                               ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState>
 {
 
     public record RenderState(ItemStack stack, IInteractableItem item) {}
@@ -37,11 +38,10 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
     @Override
     public void submit(
         @Nullable final InteractionISTER.RenderState argument,
-        final @NotNull ItemDisplayContext displayContext,
-        final @NotNull PoseStack poseStack,
-        final @NotNull SubmitNodeCollector nodeCollector,
-        final int packedLight,
-        final int packedOverlay,
+        final @NonNull PoseStack poseStack,
+        final @NonNull SubmitNodeCollector submitNodeCollector,
+        final int lightCoords,
+        final int overlayCoords,
         final boolean hasFoil,
         final int outlineColor)
     {
@@ -53,7 +53,7 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
         final IInteractableItem item = argument.item();
         ItemModel innerModel = mainModel().model();
 
-        float partialTicks = Minecraft.getInstance().gameRenderer.getMainCamera().getPartialTickTime();
+        float partialTicks = Minecraft.getInstance().getDeltaTracker().getRealtimeDeltaTicks();
 
         boolean leftHand = displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
         boolean firstPerson = leftHand || displayContext == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
@@ -93,10 +93,10 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
             ItemModelUtils.render(
                 stack,
                 innerModel,
-                nodeCollector,
+                submitNodeCollector,
                 poseStack,
-                packedLight,
-                packedOverlay,
+                lightCoords,
+                overlayCoords,
                 outlineColor,
                 displayContext,
                 null,
@@ -122,10 +122,10 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
             ItemModelUtils.render(
                 stack,
                 innerModel,
-                nodeCollector,
+                submitNodeCollector,
                 poseStack,
-                packedLight,
-                packedOverlay,
+                lightCoords,
+                overlayCoords,
                 outlineColor,
                 displayContext,
                 null,
@@ -141,10 +141,10 @@ public record InteractionISTER(InteractableItemModel mainModel) implements Speci
             final ItemStack target = item.getInteractionTarget(stack);
             ItemModelUtils.render(
                 target,
-                nodeCollector,
+                submitNodeCollector,
                 poseStack,
-                packedLight,
-                packedOverlay,
+                lightCoords,
+                overlayCoords,
                 outlineColor,
                 displayContext,
                 null,

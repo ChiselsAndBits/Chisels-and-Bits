@@ -1126,7 +1126,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
     private static final class MutableStatistics implements IMultiStateObjectStatistics, Serializable.Registry<MutableStatistics>
     {
 
-        private static final BiFunction<LevelReader, BlockPos, Integer> LIGHT_BLOCK_GETTER = (levelReader, pos) -> levelReader.getBlockState(pos).getLightBlock();
+        private static final BiFunction<LevelReader, BlockPos, Integer> LIGHT_BLOCK_GETTER = (levelReader, pos) -> levelReader.getBlockState(pos).getLightDampening();
 
         public static final Codec<MutableStatistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),
@@ -1841,7 +1841,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
                 Blocks.GRASS_BLOCK.defaultBlockState(),
                 blockInformation.blockState(),
                 Direction.UP,
-                blockInformation.blockState().getLightBlock()
+                blockInformation.blockState().getLightDampening()
             );
         }
 

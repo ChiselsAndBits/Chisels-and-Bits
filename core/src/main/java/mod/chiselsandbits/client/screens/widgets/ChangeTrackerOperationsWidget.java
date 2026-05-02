@@ -10,9 +10,9 @@ import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.network.packets.ClearChangeTrackerPacket;
 import mod.chiselsandbits.network.packets.RequestChangeTrackerOperationPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
 {
@@ -90,7 +90,7 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
     }
 
     @Override
-    public void renderWidget(final @NotNull GuiGraphics graphics, final int mouseX, final int mouseY, final float partialTick)
+    protected void extractWidgetRenderState(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
     {
 
     }

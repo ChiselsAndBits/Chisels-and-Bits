@@ -6,7 +6,7 @@ import mod.chiselsandbits.api.util.IWithText;
 import mod.chiselsandbits.client.icon.IconManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -14,6 +14,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
     private ChiselsAndBitsNotificationToast(final T contents) {this.contents = contents;}
 
     @Override
-    public Visibility getWantedVisibility()
+    public @NonNull Visibility getWantedVisibility()
     {
         return this.wantedVisibility;
     }
@@ -42,14 +43,14 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
     }
 
     @Override
-    public void render(final GuiGraphics guiGraphics, final Font font, final long time)
+    public void extractRenderState(final GuiGraphicsExtractor guiGraphics, final @NonNull Font font, final long time)
     {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND_SPRITE, 0, 0, this.width(), this.height());
 
         List<FormattedCharSequence> list = Minecraft.getInstance().font.split(contents.getText(), 125);
         if (list.size() == 1)
         {
-            guiGraphics.drawString(Minecraft.getInstance().font, contents.getText(), 30, 12, -1);
+            guiGraphics.text(Minecraft.getInstance().font, contents.getText(), 30, 12, -1);
         }
         else
         {
@@ -58,7 +59,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 
             for (FormattedCharSequence formattedcharsequence : list)
             {
-                guiGraphics.drawString(Minecraft.getInstance().font, formattedcharsequence, 30, verticalOffset, 16777215 | fontColor);
+                guiGraphics.text(Minecraft.getInstance().font, formattedcharsequence, 30, verticalOffset, 16777215 | fontColor);
                 verticalOffset += 9;
             }
         }

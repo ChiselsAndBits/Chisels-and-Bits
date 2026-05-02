@@ -1,21 +1,24 @@
 package mod.chiselsandbits.client.model.item;
 
 import com.mojang.serialization.MapCodec;
+import it.unimi.dsi.fastutil.ints.IntList;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4fc;
+import org.jspecify.annotations.NonNull;
 
 public record BitBlockItemModel(
     boolean usesBlockLight,
@@ -37,22 +40,23 @@ public record BitBlockItemModel(
             return;
         }
 
-        renderState.appendModelIdentityElement(bitItem.getBlockInformation(stack));
+        var information = bitItem.getBlockInformation(stack);
+        renderState.appendModelIdentityElement(information);
 
-        final BitBlockModelInformation information = BitBlockBakedModelManager.getInstance().get(
+        final BitBlockModelInformation modelInformation = BitBlockBakedModelManager.getInstance().get(
             stack,
             level
         );
 
-        renderState.appendModelIdentityElement(information.isLarge());
+        renderState.appendModelIdentityElement(modelInformation.isLarge());
 
-        information.parts().forEach((part) -> {
+        modelInformation.parts().forEach((part) -> {
             ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
 
-            if (information.isBlock())
+            if (modelInformation.isBlock())
             {
                 itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
-                itemstackrenderstate$layerrenderstate.setTransform(this.transforms().getTransform(displayContext));
+                itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
             }
 
             if (stack.hasFoil())
@@ -63,22 +67,13 @@ public record BitBlockItemModel(
             }
 
             if (part.hasTints()) {
-                final int[] targetTints = itemstackrenderstate$layerrenderstate.prepareTintLayers(part.tints().length);
+                final IntList targetTints = itemstackrenderstate$layerrenderstate.tintLayers();
 
-                System.arraycopy(
-                    part.tints(),
-                    0,
-                    targetTints,
-                    0,
-                    part.tints().length
-                );
-
+                targetTints.addAll(part.tints());
                 renderState.appendModelIdentityElement(targetTints);
             }
 
             itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
-
-            itemstackrenderstate$layerrenderstate.setRenderType(part.renderType());
             itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());
         });
     }
@@ -95,7 +90,7 @@ public record BitBlockItemModel(
         }
 
         @Override
-        public @NotNull ItemModel bake(final @NotNull BakingContext context)
+        public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
         {
             final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
             return new BitBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());

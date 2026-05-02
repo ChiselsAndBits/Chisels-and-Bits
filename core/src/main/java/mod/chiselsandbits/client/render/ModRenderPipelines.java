@@ -2,6 +2,7 @@ package mod.chiselsandbits.client.render;
 
 import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -38,7 +39,7 @@ public enum ModRenderPipelines
             .withShaderDefine("ALPHA_CUTOUT", 0.1F)
             .withShaderDefine("PER_FACE_LIGHTING")
             .withSampler("Sampler1")
-            .withBlend(BlendFunction.TRANSLUCENT)
+            .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
             .withCull(false)
             .withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block")).build()),
 
@@ -47,7 +48,7 @@ public enum ModRenderPipelines
             .withShaderDefine("ALPHA_CUTOUT", 0.1F)
             .withShaderDefine("PER_FACE_LIGHTING")
             .withSampler("Sampler1")
-            .withBlend(BlendFunction.TRANSLUCENT)
+            .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
             .withCull(false)
             .withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block_always")).build()),
 

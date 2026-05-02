@@ -8,7 +8,7 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.ColorUtils;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +29,7 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
     }
 
     @Override
-    public void renderWidget(final @NotNull GuiGraphics graphics, final int mouseX, final int mouseY, final float partialTicks)
+    protected void extractWidgetRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
     {
         graphics.fill(this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, ColorUtils.pack(139));
         graphics.fill(this.getX(), this.getY(), this.getX() + this.width - 1, this.getY() + this.height - 1, ColorUtils.pack(55));
@@ -44,8 +44,8 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
     }
 
     @SuppressWarnings({"ConstantConditions"})
-    public void renderRotatableItemAndEffectIntoGui(@NotNull GuiGraphics graphics) {
-        final IExtendedGuiGraphics extendedGuiGraphics = extendGraphics(graphics);
+    public void renderRotatableItemAndEffectIntoGui(@NotNull GuiGraphicsExtractor graphics) {
+        final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
         extendedGuiGraphics.submitPip(
             new RotatableItemRenderer.RenderState(
                 this.snapshotBlockStack,

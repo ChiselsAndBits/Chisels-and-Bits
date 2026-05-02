@@ -2,12 +2,12 @@ package mod.chiselsandbits.client.logic;
 
 import mod.chiselsandbits.client.render.SlotOverlayRenderManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 
 public class SlotOverlayRenderHandler
 {
-    public static void renderSlotOverlays(final GuiGraphics graphics) {
+    public static void renderSlotOverlays(final GuiGraphicsExtractor graphics) {
         Player player = Minecraft.getInstance().player;
         if (player == null || player.isSpectator())
             return;

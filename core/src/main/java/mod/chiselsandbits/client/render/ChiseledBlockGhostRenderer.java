@@ -3,6 +3,7 @@ package mod.chiselsandbits.client.render;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.QuadInstance;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.chiselsandbits.api.client.render.preview.placement.PlacementPreviewRenderMode;
 import mod.chiselsandbits.api.placement.PlacementResult;
@@ -12,11 +13,17 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockQuadOutput;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -24,8 +31,8 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -143,20 +150,41 @@ public class ChiseledBlockGhostRenderer
                 .withSource(Minecraft.getInstance().level)
                 .createSingleBlockBlockAndTintGetter();
 
-            final List<BlockModelPart> parts = new ArrayList<>(model.parts());
-
-            Minecraft.getInstance().getBlockRenderer().getModelRenderer().tesselateBlock(
-                blockAndTintGetter,
-                parts,
-                model.key().primaryState().blockState(),
-                placementPosition,
-                poseStack,
-                new AlphaSettingVertexConsumer(color.w(), bufferSource.getBuffer(renderType)),
+            final BlockQuadOutput output = (x, y, z, quad, instance) -> putBakedQuad(poseStack, bufferSource, x, y, z, quad, instance, color);
+            ModelBlockRenderer blockRenderer = new ModelBlockRenderer(
+                Minecraft.getInstance().options.ambientOcclusion().get(),
                 false,
+                Minecraft.getInstance().getBlockColors());
+
+            blockRenderer.tesselateBlock(
+                output,
+                0, 0, 0,
+                blockAndTintGetter,
+                placementPosition,
+                model.key().primaryState().blockState(),
+                model,
                 OverlayTexture.NO_OVERLAY);
         }
 
         bufferSource.endBatch();
+    }
+
+    private static void putBakedQuad(
+        PoseStack poseStack,
+        MultiBufferSource.BufferSource bufferSource,
+        float x,
+        float y,
+        float z,
+        BakedQuad quad,
+        QuadInstance instance,
+        final Vector4f color
+    ) {
+        poseStack.pushPose();
+        poseStack.translate(x, y, z);
+
+        VertexConsumer buffer = new AlphaSettingVertexConsumer(color.w(), bufferSource.getBuffer(RenderTypes.translucentMovingBlock()));
+        buffer.putBakedQuad(poseStack.last(), quad, instance);
+        poseStack.popPose();
     }
 
     private record AlphaSettingVertexConsumer(

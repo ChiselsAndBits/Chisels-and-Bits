@@ -1,16 +1,12 @@
 package mod.chiselsandbits.client.model.parts;
 
-import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockModelPart;
+import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockStateModelPart;
 import com.google.common.base.Suppliers;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.client.colors.ChiseledBlockBlockColor;
-import mod.chiselsandbits.client.util.BakedQuadUtils;
-import mod.chiselsandbits.client.util.ItemModelUtils;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.QuadCollection;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.QuadCollection;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.util.TriState;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,29 +22,29 @@ import java.util.function.Supplier;
 public record ChiseledBlockModelPart(
     BlockInformation source,
     BlockState appearance,
-    ChunkSectionLayer renderType,
     QuadCollection quads,
     TriState ambientOcclusion,
-    TextureAtlasSprite particleIcon,
+    Material.Baked particleMaterial,
+    int materialFlags,
     Supplier<Vector3fc[]> extendsCalculator
-) implements BlockModelPart, ExtendedBlockModelPart
+) implements BlockStateModelPart, ExtendedBlockStateModelPart
 {
 
     public ChiseledBlockModelPart(
         final BlockInformation source,
         final BlockState appearance,
-        final ChunkSectionLayer renderType,
         final QuadCollection quads,
         final TriState ambientOcclusion,
-        final TextureAtlasSprite particleIcon)
+        final Material.Baked particleMaterial,
+        final int materialFlags)
     {
         this(
             source,
             appearance,
-            renderType,
             quads,
             ambientOcclusion,
-            particleIcon,
+            particleMaterial,
+            materialFlags,
             Suppliers.memoize(
                 () -> {
                     Set<Vector3fc> set = new HashSet<>();
@@ -83,38 +79,5 @@ public record ChiseledBlockModelPart(
     public boolean useAmbientOcclusion()
     {
         return ambientOcclusion().toBoolean(true);
-    }
-
-    @Override
-    public ChunkSectionLayer getRenderType(final BlockState state)
-    {
-        return renderType();
-    }
-
-    public ChiseledBlockModelPart adaptForBlockModel()
-    {
-        return new ChiseledBlockModelPart(
-            source(),
-            appearance(),
-            renderType(),
-            ItemModelUtils.adapt(
-                quads(),
-                this::adaptForBlockModel
-            ),
-            ambientOcclusion(),
-            particleIcon(),
-            extendsCalculator()
-        );
-    }
-
-    private BakedQuad adaptForBlockModel(BakedQuad quad)
-    {
-        return BakedQuadUtils.withTintIndex(
-            quad,
-            ChiseledBlockBlockColor.compress(
-                appearance(),
-                quad.tintIndex()
-            )
-        );
     }
 }

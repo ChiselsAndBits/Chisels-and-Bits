@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.block.dispatch.VariantMutator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;

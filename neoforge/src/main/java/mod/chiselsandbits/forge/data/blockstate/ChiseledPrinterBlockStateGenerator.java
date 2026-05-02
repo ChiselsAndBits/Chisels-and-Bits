@@ -6,8 +6,8 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.item.BlockModelWrapper;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
@@ -53,8 +53,8 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
             {
                 return new TexturedModel(
                     new TextureMapping()
-                        .put(TextureSlot.LAYER0, ModelLocationUtils.getModelLocation(block))
-                        .put(TextureSlot.PARTICLE, ModelLocationUtils.getModelLocation(block)),
+                        .put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
+                        .put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
                     new ModelTemplate(
                         Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
                         Optional.empty(),
@@ -65,8 +65,9 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
             }
         });
 
-        generators.itemModelOutput.accept(block.asItem(), new BlockModelWrapper.Unbaked(
+        generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
             ModelLocationUtils.getModelLocation(block),
+            Optional.empty(),
             List.of()
         ));
     }

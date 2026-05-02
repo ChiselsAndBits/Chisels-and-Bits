@@ -8,10 +8,9 @@ import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.client.screens.pips.Torus;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
@@ -183,8 +182,10 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
         );
     }
 
+
+
     @Override
-    public void renderWidget(final @NotNull GuiGraphics graphics, final int mouseX, final int mouseY, final float partialTicks)
+    protected void extractWidgetRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
     {
         final IRenderableMode current = currentlySelectedModeSupplier.get();
 
@@ -344,7 +345,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
     @SuppressWarnings("deprecation")
     private static void drawSelectableSection(
-        @NotNull final GuiGraphics graphics,
+        @NotNull final GuiGraphicsExtractor graphics,
         final float sectionArcAngle,
         final float innerRadius,
         final float outerRadius,
@@ -402,7 +403,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
     @SuppressWarnings("deprecation")
     private static void drawDeactivatedSection(
-        @NotNull final GuiGraphics graphics,
+        @NotNull final GuiGraphicsExtractor graphics,
         final float sectionArcAngle,
         final float innerRadius,
         final float outerRadius,
@@ -428,9 +429,9 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
         );
     }
 
-    private static void drawTorus(GuiGraphics graphics, float startAngle, float sizeAngle, float inner, float outer, final int centerX, final int centerY, int color)
+    private static void drawTorus(GuiGraphicsExtractor graphics, float startAngle, float sizeAngle, float inner, float outer, final int centerX, final int centerY, int color)
     {
-        final IExtendedGuiGraphics extendedGuiGraphics = extendGraphics(graphics);
+        final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 
         extendedGuiGraphics.submitPip(
             new Torus.RenderState(
@@ -443,7 +444,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
     }
 
     private void renderModeIconAtAngle(
-        final @NotNull GuiGraphics graphics,
+        final @NotNull GuiGraphicsExtractor graphics,
         final float innerRadius,
         final float outerRadius,
         final float itemTargetAngle,
@@ -475,7 +476,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
     }
 
     private void renderModeIconCentered(
-        final @NotNull GuiGraphics graphics,
+        final @NotNull GuiGraphicsExtractor graphics,
         final float iconScaleFactor,
         final int iconTextSpacer,
         final @NotNull IRenderableMode mode,
@@ -498,7 +499,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
     }
 
     private static void renderModeIconAt(
-        final @NotNull GuiGraphics graphics,
+        final @NotNull GuiGraphicsExtractor graphics,
         final float iconScaleFactor,
         final int iconTextSpacer,
         final @NotNull IRenderableMode mode,
@@ -534,7 +535,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
             int offset = 0;
             for (final FormattedCharSequence line : lines)
             {
-                graphics.drawString(fontRenderer, line, (int) (fontRenderer.width(line) / -2f), iconTextSpacer + offset, 0xCCFFFFFF);
+                graphics.text(fontRenderer, line, (int) (fontRenderer.width(line) / -2f), iconTextSpacer + offset, 0xCCFFFFFF);
                 offset += fontRenderer.lineHeight;
             }
         }

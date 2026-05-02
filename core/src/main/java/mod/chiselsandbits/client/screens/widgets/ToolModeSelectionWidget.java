@@ -13,12 +13,12 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.packets.HeldToolModeChangedPacket;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
@@ -157,8 +157,9 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
         rebuildPageControl();
     }
 
+
     @Override
-    public void renderWidget(@NotNull GuiGraphics p_268228_, int p_268034_, int p_268009_, float p_268085_)
+    protected void extractWidgetRenderState(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
     {
 
     }

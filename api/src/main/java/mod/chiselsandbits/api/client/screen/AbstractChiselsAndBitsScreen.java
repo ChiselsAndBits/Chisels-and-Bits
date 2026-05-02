@@ -3,7 +3,7 @@ package mod.chiselsandbits.api.client.screen;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.client.screen.widget.IChiselsAndBitsWidget;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -132,11 +132,11 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
     }
 
     @Override
-    public void render(final @NotNull GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float partialTickTime)
+    public void extractRenderState(final @NotNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float partialTickTime)
     {
         final  List<Renderable> renderTargets = new ArrayList<>(this.renderables);
         for(Renderable widget : renderTargets) {
-            widget.render(guiGraphics, mouseX, mouseY, partialTickTime);
+            widget.extractRenderState(guiGraphics, mouseX, mouseY, partialTickTime);
         }
     }
 }

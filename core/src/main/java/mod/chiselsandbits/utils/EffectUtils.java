@@ -1,6 +1,7 @@
 package mod.chiselsandbits.utils;
 
 import mod.chiselsandbits.api.item.INoHitEffectsItem;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.TerrainParticle;
@@ -68,7 +69,7 @@ public class EffectUtils
         }
     }
 
-    public static boolean addHitEffects(final Level world, final BlockHitResult blockRayTraceResult, final BlockState primaryState, final ParticleEngine manager)
+    public static boolean addHitEffects(final Level world, final BlockPos blockPos, final Direction hitDirection, final BlockState primaryState, final ParticleEngine manager)
     {
         if (Minecraft.getInstance().player == null)
             return false;
@@ -80,29 +81,28 @@ public class EffectUtils
             return true;
         }
 
-        final BlockPos pos = blockRayTraceResult.getBlockPos();
         final double boxOffset = 0.1;
 
-        final AABB bb = world.getBlockState(pos).getShape(world, pos).bounds();
+        final AABB bb = world.getBlockState(blockPos).getShape(world, blockPos).bounds();
 
-        double x = pos.getX() + RANDOM.nextDouble() * (bb.maxX - bb.minX - boxOffset * 2d) + boxOffset + bb.minX;
-        double y = pos.getY() + RANDOM.nextDouble() * (bb.maxY - bb.minY - boxOffset * 2d) + boxOffset + bb.minY;
-        double z = pos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
+        double x = blockPos.getX() + RANDOM.nextDouble() * (bb.maxX - bb.minX - boxOffset * 2d) + boxOffset + bb.minX;
+        double y = blockPos.getY() + RANDOM.nextDouble() * (bb.maxY - bb.minY - boxOffset * 2d) + boxOffset + bb.minY;
+        double z = blockPos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
 
-        switch (blockRayTraceResult.getDirection())
+        switch (hitDirection)
         {
-            case DOWN -> y = pos.getY() + bb.minY - boxOffset;
-            case UP -> y = pos.getY() + bb.maxY + boxOffset;
-            case NORTH -> z = pos.getZ() + bb.minZ - boxOffset;
-            case SOUTH -> z = pos.getZ() + bb.maxZ + boxOffset;
-            case WEST -> x = pos.getX() + bb.minX - boxOffset;
-            case EAST -> x = pos.getX() + bb.maxX + boxOffset;
+            case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
+            case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
+            case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
+            case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
+            case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
+            case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
             default ->
             {
             }
         }
 
-        manager.add((new TerrainParticle((ClientLevel) world, x, y, z, 0.0D, 0.0D, 0.0D, primaryState, pos))
+        manager.add((new TerrainParticle((ClientLevel) world, x, y, z, 0.0D, 0.0D, 0.0D, primaryState, blockPos))
                                    .setPower(0.2F)
                                    .scale(0.6F));
 

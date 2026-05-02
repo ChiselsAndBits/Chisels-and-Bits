@@ -1,19 +1,14 @@
 package mod.chiselsandbits.client.util;
 
 import com.communi.suggestu.scena.core.client.models.processing.BakedQuadBuilder;
-import com.communi.suggestu.scena.core.client.models.processing.ModelQuadLayer;
+import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
 import com.communi.suggestu.scena.core.client.models.processing.VertexData;
-import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.face.FaceManager;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.TriState;
-import net.minecraft.world.level.BlockAndTintGetter;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -57,7 +52,7 @@ public final class QuadGenerationUtils
         @Nullable final BlockPos pos,
         final Vector3f from,
         final Vector3f to,
-        final BiConsumer<ModelQuadLayer, BakedQuadBuilder> quadAdapter,
+        final BiConsumer<DeconstructedModelPartComponent, BakedQuadBuilder> quadAdapter,
         final Consumer<GeneratedQuad> target)
     {
 
@@ -77,11 +72,8 @@ public final class QuadGenerationUtils
                     return;
                 }
 
-                final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.sprite());
-                adaptedVertices.forEach(adapter::vertex);
-                adapter.tintIndex(layer.tint());
-                adapter.shade(layer.shade());
-                adapter.texture(layer.sprite());
+                final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
+                adaptedVertices.forEach(adapter);
                 adapter.cullDirection(facingDirection);
 
                 quadAdapter.accept(layer, adapter);
@@ -90,39 +82,15 @@ public final class QuadGenerationUtils
 
                 target.accept(new GeneratedQuad(
                     layer,
-                    quad,
-                    layer.usesAmbientOcclusion(),
-                    layer.particleSprite(),
-                    layer.renderType(),
-                    layer.chunkSectionLayer()
+                    quad
                 ));
             }
         );
     }
 
     public record GeneratedQuad(
-        ModelQuadLayer source,
-        BakedQuad quad,
-        TriState ambientOcclusion,
-        TextureAtlasSprite particleSprite,
-        @Nullable RenderType renderType,
-        @Nullable ChunkSectionLayer chunkSectionLayer)
+        DeconstructedModelPartComponent source,
+        BakedQuad quad)
     {
-
-        @Nullable
-        public RenderType renderType()
-        {
-            if (this.renderType != null)
-            {
-                return renderType;
-            }
-
-            if (this.chunkSectionLayer() == null)
-            {
-                return null;
-            }
-
-            return RenderTypeUtils.renderTypeFor(chunkSectionLayer());
-        }
     }
 }

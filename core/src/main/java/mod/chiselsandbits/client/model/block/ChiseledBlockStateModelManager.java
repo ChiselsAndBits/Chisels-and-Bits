@@ -14,9 +14,9 @@ import mod.chiselsandbits.components.data.MultiStateItemStackData;
 import mod.chiselsandbits.profiling.ProfilingManager;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 

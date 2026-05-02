@@ -5,7 +5,7 @@ license = "$project.license"
 [[mods]] #mandatory
 modId = "$project.mod.id"
 version = "$version"
-displayName = "$name"
+displayName = "Chisels & Bits"
 authors = "$project.author"
 logoFile = "logo-forge.png"
 description = '''

@@ -6,9 +6,10 @@ import mod.chiselsandbits.client.screens.ChiseledPrinterScreen;
 import mod.chiselsandbits.client.screens.ModificationTableScreen;
 import mod.chiselsandbits.registrars.ModContainerTypes;
 
-public final class Screens {
+public final class ModScreens
+{
 
-    private Screens() {
+    private ModScreens() {
         throw new IllegalStateException("Can not instantiate an instance of: Screens. This is a utility class");
     }
 

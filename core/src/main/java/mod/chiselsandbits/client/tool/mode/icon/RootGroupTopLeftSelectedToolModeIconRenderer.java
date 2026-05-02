@@ -6,7 +6,7 @@ import mod.chiselsandbits.api.item.withmode.IToolMode;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.icon.IconManager;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
@@ -25,7 +25,7 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
     }
 
     @Override
-    public void render(final GuiGraphics guiGraphics, final ItemStack stack)
+    public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
     {
         if (!(stack.getItem() instanceof final IWithModeItem<?> modeItem))
             return;

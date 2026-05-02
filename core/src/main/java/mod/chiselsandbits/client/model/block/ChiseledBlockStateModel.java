@@ -7,35 +7,45 @@ import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.registrars.ModModelProperties;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.AtlasIds;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
 public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockStateModel
 {
     @Override
-    public void collectParts(final @NotNull RandomSource random, final @NotNull List<BlockModelPart> output)
+    public void collectParts(final @NotNull RandomSource random, final @NotNull List<BlockStateModelPart> output)
     {
         //Noop
     }
 
     @Override
-    public @NotNull TextureAtlasSprite particleIcon()
+    public Material.@NonNull Baked particleMaterial()
     {
-        return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(MissingTextureAtlasSprite.getLocation());
+         return new Material.Baked(
+             Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(MissingTextureAtlasSprite.getLocation()),
+             false
+         );
+    }
+
+    @Override
+    public @BakedQuad.MaterialFlags int materialFlags()
+    {
+        return 0;
     }
 
     protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos)
@@ -67,28 +77,33 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
         final BlockPos blockPos,
         final BlockState blockState,
         final RandomSource randomSource,
-        final List<BlockModelPart> list)
+        final List<BlockStateModelPart> list)
     {
         final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
         if (modelInformation == null)
             return;
 
-        list.addAll(
-            modelInformation.parts()
-                .stream()
-                .map(ChiseledBlockModelPart::adaptForBlockModel)
-                .toList()
-        );
+        modelInformation.collectParts(randomSource, list);
     }
 
     @Override
-    public TextureAtlasSprite particleIcon(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState)
+    public Material.Baked particleMaterial(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState)
     {
         final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
         if (modelInformation == null)
-            return particleIcon();
+            return particleMaterial();
 
-        return modelInformation.particleTexture();
+        return modelInformation.particleMaterial();
+    }
+
+    @Override
+    public @BakedQuad.MaterialFlags int materialFlags(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState)
+    {
+        var information = getInformation(blockAndTintGetter, blockPos);
+        if (information == null)
+            return materialFlags();
+
+        return information.materialFlags();
     }
 
     public final static class Direct extends ChiseledBlockStateModel {

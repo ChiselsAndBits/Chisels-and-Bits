@@ -32,9 +32,6 @@ public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.Item
         );
         this.tag(ModTags.Items.FORGE_PAPER).add(Items.PAPER);
         this.tag(ItemTags.PIGLIN_LOVED).add(ModItems.ITEM_CHISEL_GOLD.get());
-
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTags(ModTags.Items.CHISEL);
-
-        this.tag(ItemTags.DYEABLE).add(ModItems.ITEM_BIT_BAG.get());
     }
 }

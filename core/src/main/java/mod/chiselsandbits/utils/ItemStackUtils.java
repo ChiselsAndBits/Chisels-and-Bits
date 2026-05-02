@@ -17,7 +17,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.DirtPathBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,81 +37,6 @@ public class ItemStackUtils
     private ItemStackUtils()
     {
         throw new IllegalStateException("Can not instantiate an instance of: ItemStackUtils. This is a utility class");
-    }
-
-    /**
-     * Mimics pick block.
-     *
-     * @param blockInformation the block and state we are creating an ItemStack for.
-     * @return ItemStack fromt the BlockState.
-     */
-    public static ItemStack getItemStackFromBlockState(@NotNull final BlockInformation blockInformation)
-    {
-        final Optional<ItemStack> dynamicStack = IStateVariantManager.getInstance().getItemStack(blockInformation);
-        if (dynamicStack.isPresent())
-        {
-            return dynamicStack.get();
-        }
-
-        if (blockInformation.blockState().getBlock() instanceof LiquidBlock liquidBlock)
-        {
-            return new ItemStack(liquidBlock.fluid.getBucket());
-        }
-
-        final Item item = getItem(blockInformation);
-        if (item != Items.AIR && item != null)
-        {
-            return new ItemStack(item, 1);
-        }
-
-        return new ItemStack(blockInformation.blockState().getBlock(), 1);
-    }
-
-    public static Item getItem(@NotNull final BlockInformation blockInformation)
-    {
-        final Block block = blockInformation.blockState().getBlock();
-        if (block.equals(Blocks.LAVA))
-        {
-            return Items.LAVA_BUCKET;
-        }
-        else if (block instanceof CropBlock)
-        {
-            final ItemStack stack = blockInformation.blockState().getCloneItemStack(
-                new SingleBlockLevelReader.Builder()
-                    .withBlockState(blockInformation.blockState())
-                    .withBlockEntity(blockInformation::newBlockEntityAtZero)
-                    .createSingleBlockLevelReader(),
-                BlockPos.ZERO,
-                true
-            );
-            if (!stack.isEmpty())
-            {
-                return stack.getItem();
-            }
-
-            return Items.WHEAT_SEEDS;
-        }
-        // oh no...
-        else if (block instanceof FarmBlock || block instanceof DirtPathBlock)
-        {
-            return Blocks.DIRT.asItem();
-        }
-        else if (block instanceof FireBlock)
-        {
-            return Items.FLINT_AND_STEEL;
-        }
-        else if (block instanceof FlowerPotBlock)
-        {
-            return Items.FLOWER_POT;
-        }
-        else if (block == Blocks.BAMBOO_SAPLING)
-        {
-            return Items.BAMBOO;
-        }
-        else
-        {
-            return block.asItem();
-        }
     }
 
     public static ItemStack getModeItemStackFromPlayer(@Nullable final Player playerEntity)

@@ -48,7 +48,8 @@ public final class MeasurementRenderer
 
     public void renderMeasurements(
         final PoseStack poseStack,
-        final MultiBufferSource.BufferSource bufferSource)
+        final MultiBufferSource.BufferSource bufferSource,
+        final float partialTickTime)
     {
         if (Minecraft.getInstance().level == null)
         {
@@ -63,7 +64,7 @@ public final class MeasurementRenderer
         double zView = vector3d.z();
 
         measurements.forEach(measurement -> {
-            renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView);
+            renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
         });
     }
 
@@ -73,7 +74,8 @@ public final class MeasurementRenderer
         final IMeasurement measurement,
         final double xView,
         final double yView,
-        final double zView)
+        final double zView,
+        final float partialTickTime)
     {
         final Vec3 startPos = measurement.getFrom();
 
@@ -110,7 +112,7 @@ public final class MeasurementRenderer
                     bufferSource,
                     measurement,
                     lengths.y(),
-                    new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()));
+                    new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
             }
             if (lengths.x() > 1 / 16d)
             {
@@ -119,7 +121,7 @@ public final class MeasurementRenderer
                     bufferSource,
                     measurement,
                     lengths.x(),
-                    new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()));
+                    new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
             }
             if (lengths.z() > 1 / 16d)
             {
@@ -128,7 +130,7 @@ public final class MeasurementRenderer
                     bufferSource,
                     measurement,
                     lengths.z(),
-                    new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()));
+                    new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()), partialTickTime);
             }
         }
         else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false))
@@ -171,7 +173,7 @@ public final class MeasurementRenderer
                     bufferSource,
                     measurement,
                     totalLength,
-                    centerPos);
+                    centerPos, partialTickTime);
             }
         }
 
@@ -183,8 +185,8 @@ public final class MeasurementRenderer
         final MultiBufferSource.BufferSource bufferSource,
         final IMeasurement measurement,
         final double length,
-        final Vec3 position
-    )
+        final Vec3 position,
+        final float partialTickTime)
     {
         final double letterSize = 5.0;
         final double zScale = 0.001;
@@ -202,7 +204,7 @@ public final class MeasurementRenderer
 
         matrixStack.pushPose();
         matrixStack.translate(position.x() - xView, position.y() + scale * letterSize - yView, position.z() - zView);
-        performBillboardRotations(matrixStack);
+        performBillboardRotations(matrixStack, partialTickTime);
         matrixStack.scale(scale, -scale, (float) zScale);
         matrixStack.translate(-fontRenderer.width(size) * 0.5, 0, 0);
         fontRenderer.drawInBatch(size.getString(),
@@ -267,15 +269,16 @@ public final class MeasurementRenderer
     }
 
     private void performBillboardRotations(
-        final PoseStack matrixStack)
+        final PoseStack matrixStack,
+        final float partialTickTime)
     {
         final Entity view = Minecraft.getInstance().getCameraEntity() != null ? Minecraft.getInstance().getCameraEntity() : Minecraft.getInstance().player;
         if (view != null)
         {
-            final float yaw = view.yRotO + (view.getYRot() - view.yRotO) * Minecraft.getInstance().gameRenderer.getMainCamera().getPartialTickTime();
+            final float yaw = view.yRotO + (view.getYRot() - view.yRotO) * partialTickTime;
             matrixStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, 180 - yaw, 0), true));
 
-            final float pitch = view.xRotO + (view.getXRot() - view.xRotO) * Minecraft.getInstance().gameRenderer.getMainCamera().getPartialTickTime();
+            final float pitch = view.xRotO + (view.getXRot() - view.xRotO) * partialTickTime;
             matrixStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(-pitch, 0, 0), true));
         }
     }

@@ -1,21 +1,18 @@
 package mod.chiselsandbits.client.model.parts;
 
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.resources.model.QuadCollection;
+import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
 
 public record BitBlockModelPart(
-    RenderType renderType,
     Collection<BakedQuad> quads,
-    int[] tints
+    IntList tints
 )
 {
     public boolean hasTints()
     {
-        return tints.length != 0 && Arrays.stream(tints).allMatch(i -> i != -1);
+        return !tints.isEmpty();
     }
 }

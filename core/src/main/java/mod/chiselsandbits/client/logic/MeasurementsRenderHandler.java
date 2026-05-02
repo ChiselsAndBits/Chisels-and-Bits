@@ -10,12 +10,14 @@ public class MeasurementsRenderHandler
 
     public static void renderMeasurements(
         final PoseStack poseStack,
-        final MultiBufferSource.BufferSource bufferSource)
+        final MultiBufferSource.BufferSource bufferSource,
+        final float partialTickTime)
     {
         if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isSpectator())
             MeasurementRenderer.getInstance().renderMeasurements(
                 poseStack,
-                bufferSource
+                bufferSource,
+                partialTickTime
             );
     }
 

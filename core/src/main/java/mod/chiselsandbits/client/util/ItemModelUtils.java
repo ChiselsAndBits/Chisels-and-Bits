@@ -1,15 +1,13 @@
 package mod.chiselsandbits.client.util;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.resources.model.QuadCollection;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.ItemOwner;
@@ -19,7 +17,9 @@ import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -122,7 +122,7 @@ public class ItemModelUtils
         );
     }
 
-    public static Map<RenderType, QuadCollection> quads(
+    public static QuadCollection quads(
         ItemStack stack,
         ItemModel model,
         ItemDisplayContext context,
@@ -132,23 +132,18 @@ public class ItemModelUtils
     )
     {
         final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
-        final Map<RenderType, QuadCollection.Builder> builderMap = Maps.newHashMap();
+        final QuadCollection.Builder result = new QuadCollection.Builder();
 
         for (final ItemStackRenderState.LayerRenderState layer : renderState.layers)
         {
             layer.prepareQuadList()
-                .forEach(builderMap.computeIfAbsent(
-                    layer.renderType,
-                    type -> new QuadCollection.Builder()
-                )::addUnculledFace);
+                    .forEach(result::addUnculledFace);
         }
 
-        final Map<RenderType, QuadCollection> collectionMap = new HashMap<>();
-        builderMap.forEach((type, builder) -> collectionMap.put(type, builder.build()));
-        return collectionMap;
+        return result.build();
     }
 
-    public static Map<RenderType, QuadCollection> quads(
+    public static QuadCollection quads(
         ItemStack stack,
         ItemDisplayContext context,
         @Nullable ClientLevel level,

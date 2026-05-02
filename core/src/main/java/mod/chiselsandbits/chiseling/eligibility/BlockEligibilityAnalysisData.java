@@ -1,7 +1,7 @@
 package mod.chiselsandbits.chiseling.eligibility;
 
 import com.communi.suggestu.saecularia.caudices.core.block.IBlockWithWorldlyProperties;
-import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
+import com.communi.suggestu.scena.core.util.SingleBlockBlockAndLightGetter;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityOptions;
 import mod.chiselsandbits.api.config.IServerConfiguration;
@@ -79,7 +79,7 @@ public class BlockEligibilityAnalysisData
             if (test_b && test_c && test_d && !isFluid)
             {
                 final float blockHardness = state.blockState().getDestroySpeed(
-                    new SingleBlockBlockAndTintGetter.Builder()
+                    new SingleBlockBlockAndLightGetter.Builder()
                         .withBlockState(state.blockState())
                         .withBlockEntity(state::newBlockEntityAtZero)
                         .createSingleBlockBlockAndTintGetter(),
@@ -88,7 +88,7 @@ public class BlockEligibilityAnalysisData
 
                 if (blk instanceof IBlockWithWorldlyProperties blockWithWorldlyProperties)
                 {
-                    resistance = blockWithWorldlyProperties.getExplosionResistance(state.blockState(), new SingleBlockBlockAndTintGetter.Builder()
+                    resistance = blockWithWorldlyProperties.getExplosionResistance(state.blockState(), new SingleBlockBlockAndLightGetter.Builder()
                             .withBlockState(state.blockState())
                             .withBlockEntity(state::newBlockEntityAtZero)
                             .createSingleBlockBlockAndTintGetter(), BlockPos.ZERO,

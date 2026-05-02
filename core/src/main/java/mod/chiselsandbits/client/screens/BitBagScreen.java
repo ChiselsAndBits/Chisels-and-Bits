@@ -14,7 +14,7 @@ import mod.chiselsandbits.network.packets.UpdateBagModesPacket;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.slots.BitSlot;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -24,8 +24,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 
 public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 {
@@ -178,11 +176,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
     }
 
     @Override
-    public void render(
-        final @NotNull GuiGraphics guiGraphics,
-        final int mouseX,
-        final int mouseY,
-        final float partialTicks)
+    public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
     {
         if (trashBtn.isMouseOver(mouseX, mouseY))
         {
@@ -205,21 +199,21 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
             requireConfirm = true;
         }
 
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
-    protected void renderSlot(final @NonNull GuiGraphics guiGraphics, final @NonNull Slot slot, final int mouseX, final int mouseY)
+    protected void extractSlot(final GuiGraphicsExtractor guiGraphics, final Slot slot, final int mouseX, final int mouseY)
     {
         if (!(slot instanceof BitSlot bitSlot))
         {
-            super.renderSlot(guiGraphics, slot, mouseX, mouseY);
+            super.extractSlot(guiGraphics, slot, mouseX, mouseY);
             return;
         }
 
         final ItemStack currentContents = bitSlot.getItem();
         bitSlot.set(currentContents.copyWithCount(1));
-        super.renderSlot(guiGraphics, bitSlot, mouseX, mouseY);
+        super.extractSlot(guiGraphics, bitSlot, mouseX, mouseY);
         bitSlot.set(currentContents);
 
         if (currentContents.getCount() != 0) {
@@ -227,7 +221,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
             guiGraphics.pose().scale(0.5f, 0.5f);
 
             String countString = String.valueOf(currentContents.getCount());
-            guiGraphics.drawString(font,
+            guiGraphics.text(font,
                 countString,
                 (slot.x + 19 - 3) * 2 - font.width(countString),
                 (slot.y + 9 + 3) * 2,
@@ -239,13 +233,9 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
     }
 
     @Override
-    protected void renderBg(
-        final @NotNull GuiGraphics guiGraphics,
-        final float partialTicks,
-        final int mouseX,
-        final int mouseY)
+    public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
     {
-        guiGraphics.blit(
+        graphics.blit(
             RenderPipelines.GUI_TEXTURED,
             BAG_GUI_TEXTURE,
             this.leftPos,

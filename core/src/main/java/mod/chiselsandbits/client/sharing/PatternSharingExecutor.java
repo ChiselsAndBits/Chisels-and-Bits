@@ -19,9 +19,9 @@ import mod.chiselsandbits.utils.CompressionUtils;
 import mod.chiselsandbits.utils.FileUtils;
 import mod.chiselsandbits.utils.TextureUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -311,7 +311,7 @@ public final class PatternSharingExecutor
     private record QuadData(VertexData[] vertices, int tintIndex, Direction direction, boolean shade) {
         private QuadData(BakedQuad quad)
         {
-            this(BakedQuadUtils.getVertexData(quad), quad.tintIndex(), quad.direction(), quad.shade());
+            this(BakedQuadUtils.getVertexData(quad), quad.materialInfo().tintIndex(), quad.direction(), quad.materialInfo().shade());
         }
     }
 }

@@ -5,9 +5,10 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.item.properties.IsMeasuringItemProperty;
 import net.minecraft.resources.Identifier;
 
-public final class ItemProperties {
+public final class ModItemProperties
+{
 
-    private ItemProperties() {
+    private ModItemProperties() {
         throw new IllegalStateException("Can not instantiate an instance of: ItemProperties. This is a utility class");
     }
 

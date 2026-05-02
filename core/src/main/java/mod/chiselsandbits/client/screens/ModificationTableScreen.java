@@ -7,7 +7,7 @@ import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
 import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
@@ -21,7 +21,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -58,12 +57,16 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         this.snapshotWidget = this.addRenderableWidget(new MultiStateSnapshotWidget(this.leftPos + 51,this.topPos + 71, 66,28, Component.translatable(Constants.MOD_ID + ".screen.widgets.multistate.preview")));
     }
 
-    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(graphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(graphics, mouseX, mouseY);
+    @Override
+    public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
+    {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
+        this.extractTooltip(graphics, mouseX, mouseY);
     }
 
-    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    @Override
+    public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
+    {
         int left = this.leftPos;
         int top = this.topPos;
         graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
@@ -87,8 +90,10 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         }
     }
 
-    protected void renderTooltip(@NotNull GuiGraphics graphics, int x, int y) {
-        super.renderTooltip(graphics, x, y);
+    @Override
+    protected void extractTooltip(final GuiGraphicsExtractor graphics, final int x, final int y)
+    {
+        super.extractTooltip(graphics, x, y);
         if (this.hasItemsInInputSlot) {
             int i = this.leftPos + 52;
             int j = this.topPos + 14;
@@ -100,7 +105,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
                 if (x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18) {
-                    graphics.renderTooltip(font,
+                    graphics.tooltip(font,
                         List.of(ClientTooltipComponent.create(list.get(l).value().getDisplayName().getVisualOrderText())),
                         x,
                         y,
@@ -112,7 +117,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 
     }
 
-    private void renderButtons(GuiGraphics graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
+    private void renderButtons(GuiGraphicsExtractor graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
         for(int index = this.recipeIndexOffset; index < lastVisibleElementIndex && index < this.menu.getRecipeListSize(); ++index) {
             int displayedIndex = index - this.recipeIndexOffset;
             int drawX = x + displayedIndex % 4 * 16;
@@ -131,7 +136,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
         }
     }
 
-    private void drawRecipesItems(final GuiGraphics graphics, int recipesLeft, int recipesTop, int recipeIndexOffsetMax) {
+    private void drawRecipesItems(final GuiGraphicsExtractor graphics, int recipesLeft, int recipesTop, int recipeIndexOffsetMax) {
         List<RecipeHolder<ModificationTableRecipe>> list = this.menu.getRecipeList();
 
         for(int offset = this.recipeIndexOffset; offset < recipeIndexOffsetMax && offset < this.menu.getRecipeListSize(); ++offset) {
@@ -145,7 +150,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
                 graphics.pose().pushMatrix();
                 graphics.pose().translate(itemX + 0.75f, itemY + 0.75f);
                 graphics.pose().scale(0.9f, 0.9f);
-                graphics.renderItem(list.get(offset).value().getCraftingBlockResult(input), 0, 0);
+                graphics.item(list.get(offset).value().getCraftingBlockResult(input), 0, 0);
                 graphics.pose().popMatrix();
             }
         }

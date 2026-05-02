@@ -6,7 +6,7 @@ import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPrev
 import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.resources.Identifier;
 
 public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRenderer

@@ -1,27 +1,24 @@
 package mod.chiselsandbits.client.model.builder;
 
-import com.communi.suggestu.scena.core.client.rendering.type.IRenderTypeManager;
-import com.communi.suggestu.scena.core.client.utils.RenderTypeUtils;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.BitBlockModelPart;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.ARGB;
-import net.minecraft.world.level.Level;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.Map;
 
 public record BitBlockModelInformationBuilder(BlockInformation information, boolean isLarge)
 {
@@ -36,14 +33,14 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
         TO
     };
 
-    public BitBlockModelInformation build(final Level finalLevel)
+    public BitBlockModelInformation build(final BlockAndTintGetter surroundings)
     {
-        final Table<RenderType, Optional<Integer>, List<BakedQuad>> quads = HashBasedTable.create();
+        final Map<IntList, List<BakedQuad>> quadsByTints = new HashMap<>();
 
         final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
             .withBlockState(information().blockState())
             .withBlockEntity(information()::newBlockEntityAtZero)
-            .withSource(finalLevel)
+            .withSource(surroundings)
             .createSingleBlockBlockAndTintGetter();
 
         for (final Direction myFace : Direction.values())
@@ -56,57 +53,50 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
                 myFace.getAxisDirection() == Direction.AxisDirection.POSITIVE ? TO : FROM,
                 myFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? TO : FROM,
                 (layer, quad) -> {
-                    if (layer.tint() != -1)
+                    if (layer.material().tintIndex() != -1)
                     {
                         quad.tintIndex(0);
                     }
                 },
                 generatedQuad -> {
-                    var renderType = generatedQuad.renderType();
-                    if (renderType == null)
-                    {
-                        var defaultChunkSectionLayer = IRenderTypeManager.getInstance().getRenderTypesFor(
-                            blockAndTintGetter,
-                            information()::newBlockEntityAtZero,
-                            BlockPos.ZERO,
-                            information().blockState()
+                    final List<BlockTintSource> tintSources =
+                        information.isFluid() ?
+                        getFluidTintSources() :
+                        Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
+                    final IntList tints = new IntArrayList(tintSources.size());
+                    tintSources.forEach(source -> {
+                        tints.add(
+                            source.colorInWorld(information.blockState(),
+                                blockAndTintGetter,
+                                BlockPos.ZERO)
                         );
-                        if (defaultChunkSectionLayer.size() != 1) {
-                            return;
-                        }
+                    });
 
-                        renderType = RenderTypeUtils.renderTypeFor(defaultChunkSectionLayer.iterator().next());
-                    }
-
-                    Optional<Integer> tint =
-                        generatedQuad.source().tint() != -1 ?
-                            Optional.of(
-                                ARGB.color(
-                                    255,
-                                    Minecraft.getInstance().getBlockColors().getColor(
-                                        information().blockState(),
-                                        finalLevel,
-                                        BlockPos.ZERO,
-                                        generatedQuad.source().tint()
-                                    )
-                                )) :
-                            Optional.empty();
-
-                    if (!quads.contains(renderType, tint))
-                    {
-                        quads.put(renderType, tint, new ArrayList<>());
-                    }
-
-                    Objects.requireNonNull(quads.get(renderType, tint)).add(generatedQuad.quad());
+                    quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
+                        .add(generatedQuad.quad());
                 }
             );
         }
 
+
         final List<BitBlockModelPart> parts =
-            quads.cellSet().stream()
-                .map(c -> new BitBlockModelPart(c.getRowKey(), c.getValue(), c.getColumnKey().map(i -> new int[] {i}).orElse(new int[0])))
+            quadsByTints.entrySet().stream()
+                .map(c -> new BitBlockModelPart(c.getValue(), c.getKey()))
                 .toList();
 
         return new BitBlockModelInformation(parts, true, isLarge());
+    }
+
+    private List<BlockTintSource> getFluidTintSources()
+    {
+        final var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
+            information.blockState().getFluidState()
+        );
+        final var tintSource = fluidModel.tintSource();
+
+        if (tintSource == null)
+            return List.of();
+
+        return List.of(tintSource);
     }
 }

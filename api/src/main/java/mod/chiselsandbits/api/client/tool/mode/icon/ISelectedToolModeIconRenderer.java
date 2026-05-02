@@ -1,6 +1,6 @@
 package mod.chiselsandbits.api.client.tool.mode.icon;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
@@ -24,5 +24,5 @@ public interface ISelectedToolModeIconRenderer
      * @param guiGraphics The matrix stack.
      * @param stack       The stack.
      */
-    void render(GuiGraphics guiGraphics, ItemStack stack);
+    void extractGraphics(GuiGraphicsExtractor guiGraphics, ItemStack stack);
 }
