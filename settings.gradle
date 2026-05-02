@@ -37,7 +37,7 @@ platforms {
     common(':api')
     core(':core')
     modernFabric(':fabric')
-    //plugin(':wiki')
+    plugin(':wiki')
     neoforge(':neoforge')
 
     defaults {

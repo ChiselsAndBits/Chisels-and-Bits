@@ -42,5 +42,5 @@ tableau {
 }
 
 dependencies {
-    implementation "org.sinytra:wiki-exporter-neoforge:2.2.1+1.21.11"
+    implementation "org.sinytra:wiki-exporter-neoforge:2.3.0+26.1.2"
 }
