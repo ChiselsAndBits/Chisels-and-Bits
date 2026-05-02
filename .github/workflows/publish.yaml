@@ -91,9 +91,16 @@ jobs:
           git config --global user.email "github@chisels-and-bits.com"
           git push --tags
 
+      - name: Archive the created artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: subproject-jars
+          path: '**/build/libs/*.jar'
+          if-no-files-found: ignore
+
 
   texture-export:
-    name: "Export textures to Assets"
+    name: "Export textures and metadata to assets"
     needs:
       - publish
     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
@@ -139,10 +146,21 @@ jobs:
       - name: Install software OpenGL rendering
         run: sudo apt-get install xvfb libgl1-mesa-dri
 
+      - name: Download and extract JAR artifacts from publish job
+        uses: actions/download-artifact@v4
+        with:
+          name: subproject-jars
+          path: ChiselsAndBits
+
       - name: Run texture export
         run: |
           cd ChiselsAndBits
-          xvfb-run ./gradlew :neoforge:runExportTextures :neoforge:runExportMetadata
+          xvfb-run ./gradlew :neoforge:runExportTextures
+
+      - name: Run metadata export
+        run: |
+          cd ChiselsAndBits
+          ./gradlew :neoforge:runExportMetadata
 
       - name: Checkout Assets Repo
         uses: actions/checkout@v6
@@ -155,8 +173,12 @@ jobs:
         run: |
           mkdir -p Assets/Icons/InGame
           mkdir -p Assets/Metadata/Tags
+          
+          # Don't export the chiseled block as it can not be used to render anything, it is completely transparent.
+          rm ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/chiselsandbits/chiseled_block.png
+                    
           cp -r ChiselsAndBits/neoforge/runs/exporters/texture/wiki_exporter/render/* Assets/Icons/InGame/
-          cp -r ChiselsAndBits/neoforge/runs/exporters/metadata/wiki_exporter/tags/* Assets/Icons/Tags
+          cp -r ChiselsAndBits/neoforge/runs/exporters/metadata/wiki_exporter/tags/* Assets/Metadata/Tags
 
       - name: Set up git config for Assets repo
         working-directory: Assets
@@ -170,11 +192,13 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
             git add Icons/InGame
+            git add Metadata/Tags
             git commit -m "$COMMIT_MSG"
             git push origin HEAD:main
           else
             echo "No changes to commit."
           fi
+
 
   documentation-export:
     name: "Export documentation to website"
