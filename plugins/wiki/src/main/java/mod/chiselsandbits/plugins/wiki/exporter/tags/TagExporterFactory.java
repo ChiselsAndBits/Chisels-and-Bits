@@ -34,6 +34,12 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
     }
 
     @Override
+    public boolean isEnabled(final boolean client)
+    {
+        return !client;
+    }
+
+    @Override
     public String name()
     {
         return NAME;
