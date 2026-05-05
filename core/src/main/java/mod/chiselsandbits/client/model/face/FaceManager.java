@@ -2,6 +2,7 @@ package mod.chiselsandbits.client.model.face;
 
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
+import com.communi.suggestu.scena.core.client.models.processing.ProtoStateModelPart;
 import com.mojang.blaze3d.platform.Transparency;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -13,6 +14,7 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.TriState;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
@@ -99,8 +101,6 @@ public class FaceManager
     private Collection<DeconstructedModelPartComponent> buildFluidQuadCollection(
         final Key key
     ) {
-        final int lv = IClientConfiguration.getInstance().getUseGetLightValue().get() ? key.blockInformation().blockState().getLightEmission() : 0;
-
         final Fluid fluid = key.blockInformation().blockState().getFluidState().getType();
         final FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet()
             .get(key.blockInformation().blockState().getFluidState());
@@ -121,6 +121,8 @@ public class FaceManager
 
         final DeconstructedModelPartComponent.Builder builder = DeconstructedModelPartComponent.Builder.create();
 
+        builder.part(new ProtoStateModelPart(TriState.DEFAULT, model.stillMaterial(), computeFlags(model, material)));
+
         if (key.direction() != null)
             builder.cullDirection(key.direction());
 
@@ -135,6 +137,14 @@ public class FaceManager
         builder.tintIndex(0xff);
 
         return Collections.singletonList(builder.build());
+    }
+
+    private @BakedQuad.MaterialFlags int computeFlags(final FluidModel model, final Material.Baked material)
+    {
+        int materialFlags = 0;
+        materialFlags |= (model.layer().translucent() ? BakedQuad.FLAG_TRANSLUCENT : 0);
+        materialFlags |= (material.sprite().contents().isAnimated() ? BakedQuad.FLAG_ANIMATED : 0);
+        return materialFlags;
     }
 
     private static Transparency computeFluidTransparency(Material.Baked material) {

@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
+import mod.chiselsandbits.client.model.builder.ChiseledBlockModelMaterial;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.client.util.BakedQuadUtils;
@@ -90,68 +91,73 @@ public record ChiseledBlockItemModel(
     {
         tintList.size(blockModelInformation.materials().size());
 
-        blockModelInformation.materials()
-            .forEach(material -> {
-                final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
-                final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
+        List<ChiseledBlockModelMaterial> materials = blockModelInformation.materials();
+        for (int i = 0; i < materials.size(); i++)
+        {
+            final ChiseledBlockModelMaterial material = materials.get(i);
+            final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
+            final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
 
-                if (itemModelId == null) {
-                    if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null)
-                    {
-                        var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
-                            material.blockInformation().blockState().getFluidState()
-                        );
-
-                        if (fluidModel.tintSource() == null) {
-                            tintList.add(-1);
-                            return;
-                        }
-
-                        final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-                            .withBlockState(material.blockInformation().blockState())
-                            .withBlockEntity(material.blockInformation()::newBlockEntityAtZero)
-                            .withPos(BlockPos.ZERO)
-                            .withSource((BlockAndTintGetter) level)
-                            .createSingleBlockBlockAndTintGetter();
-
-                        var tint = fluidModel.tintSource().colorInWorld(
-                            material.blockInformation().blockState(),
-                            blockAndTintGetter,
-                            BlockPos.ZERO
-                        );
-
-                        tintList.add(ARGB.color(255, tint));
-                        return;
-                    }
-
-                    tintList.add(-1);
-                    return;
-                }
-
-                final ItemModel itemModel = Minecraft.getInstance().getModelManager().getItemModel(
-                    itemModelId
-                );
-
-                if (itemModel instanceof CuboidItemModelWrapper wrapper)
+            if (itemModelId == null)
+            {
+                if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null)
                 {
-                    final List<ItemTintSource> tintSources = wrapper.tints;
-                    if (material.tintIndex() >= tintSources.size()) {
-                        tintList.add(-1);
-                        return;
+                    var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
+                        material.blockInformation().blockState().getFluidState()
+                    );
+
+                    if (fluidModel.tintSource() == null)
+                    {
+                        tintList.set(material.tintIndex(), ARGB.color(255, 255, 255, 255));
+                        continue;
                     }
 
-                    final ItemTintSource source = tintSources.get(material.tintIndex());
+                    final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
+                        .withBlockState(material.blockInformation().blockState())
+                        .withBlockEntity(material.blockInformation()::newBlockEntityAtZero)
+                        .withPos(BlockPos.ZERO)
+                        .withSource((BlockAndTintGetter) level)
+                        .createSingleBlockBlockAndTintGetter();
 
-                    tintList.add(source.calculate(
-                        lookupStack,
-                        level,
-                        owner == null ? null : owner.asLivingEntity()
-                    ));
-                    return;
+                    var tint = fluidModel.tintSource().colorInWorld(
+                        material.blockInformation().blockState(),
+                        blockAndTintGetter,
+                        BlockPos.ZERO
+                    );
+
+                    tintList.set(i, ARGB.color(255, tint));
+                    continue;
                 }
 
-                tintList.add(-1);
-            });
+                tintList.set(i, ARGB.color(255, 255, 255, 255));
+                continue;
+            }
+
+            final ItemModel itemModel = Minecraft.getInstance().getModelManager().getItemModel(
+                itemModelId
+            );
+
+            if (itemModel instanceof CuboidItemModelWrapper wrapper)
+            {
+                final List<ItemTintSource> tintSources = wrapper.tints;
+                if (material.tintIndex() >= tintSources.size() || material.tintIndex() < 0)
+                {
+                    tintList.set(i, ARGB.color(255, 255, 255, 255));
+                    continue;
+                }
+
+                final ItemTintSource source = tintSources.get(material.tintIndex());
+
+                tintList.set(i, source.calculate(
+                    lookupStack,
+                    level,
+                    owner == null ? null : owner.asLivingEntity()
+                ));
+                continue;
+            }
+
+            tintList.set(i, ARGB.color(255, 255, 255, 255));
+        }
     }
 
     public record Unbaked() implements ItemModel.Unbaked

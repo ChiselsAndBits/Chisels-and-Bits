@@ -1,6 +1,8 @@
 package mod.chiselsandbits.plugins.wiki.exporter.tags;
 
+import com.communi.suggestu.scena.core.IScenaPlatform;
 import com.communi.suggestu.scena.core.event.IGameEvents;
+import com.communi.suggestu.scena.core.util.PlatformIds;
 import mod.chiselsandbits.api.plugin.ChiselsAndBitsPlugin;
 import mod.chiselsandbits.api.plugin.IChiselsAndBitsPlugin;
 import net.minecraft.server.MinecraftServer;
@@ -20,6 +22,9 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
     @Override
     public void onConstruction()
     {
+        if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE)
+            return;
+
         IGameEvents.getInstance().getServerStartedEvent()
             .register(minecraftServer -> {
                 setServer(minecraftServer);
