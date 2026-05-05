@@ -17,6 +17,6 @@ public class ChiselsAndBitsClient {
         ModClientTooltipComponents.onClientConstruction();
         ModEffectHandlers.onClientConstruction();
 
-        IPluginManager.getInstance().run(IChiselsAndBitsPlugin::onClientConstruction);
+        IPluginManager.getInstance().run("client construction", IChiselsAndBitsPlugin::onClientConstruction);
     }
 }
