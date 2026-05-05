@@ -57,7 +57,7 @@ public class ChiselsAndBits
         networkChannel.registerCommonMessages();
 
         PluginManger.getInstance().detect();
-        PluginManger.getInstance().run(IChiselsAndBitsPlugin::onConstruction);
+        PluginManger.getInstance().run("construction", IChiselsAndBitsPlugin::onConstruction);
 	}
 
 	public static ChiselsAndBits getInstance()
@@ -75,6 +75,6 @@ public class ChiselsAndBits
     }
 
     public void onInitialize() {
-        PluginManger.getInstance().run(IChiselsAndBitsPlugin::onInitialize);
+        PluginManger.getInstance().run("initialize", IChiselsAndBitsPlugin::onInitialize);
     }
 }
