@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chiselsandbits:chiseled_block"
+        "recipe": "chiselsandbits:chiseled_printer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -48,7 +48,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chiselsandbits:chiseled_block"
+      "chiselsandbits:chiseled_printer"
     ]
   }
 }
