@@ -262,10 +262,28 @@ jobs:
           path: Website
           token: ${{ secrets.ASSETS_PUSH_TOKEN }}
 
+      - name: Initial data for documentation changes
+        working-directory: Website
+        run: |
+          echo "=== Files modified in docs/modders/api ==="
+          git status --porcelain docs/modders/api || echo "No changes"
+          echo ""
+          echo "=== Documentation file count ==="
+          find docs/modders/api -type f -name "*.md" 2>/dev/null | wc -l || echo "0"
+
       - name: Copy exported documentation to website
         run: |
           mkdir -p Website/docs/modders/api
           cp -r ChiselsAndBits/api/build/docs/markdown/* Website/docs/modders/api/
+
+      - name: Check for documentation changes
+        working-directory: Website
+        run: |
+          echo "=== Files modified in docs/modders/api ==="
+          git status --porcelain docs/modders/api || echo "No changes"
+          echo ""
+          echo "=== Documentation file count ==="
+          find docs/modders/api -type f -name "*.md" 2>/dev/null | wc -l || echo "0"
 
       - name: Set up git config for Website repo
         working-directory: Website
