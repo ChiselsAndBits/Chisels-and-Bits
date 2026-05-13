@@ -253,7 +253,7 @@ jobs:
 
       - name: Run documentation export
         working-directory: ChiselsAndBits
-        run: ./gradlew :api:javamark
+        run: ./gradlew :api:clean :api:javamark
 
       - name: Checkout Website Repo
         uses: actions/checkout@v6
