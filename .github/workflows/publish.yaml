@@ -273,10 +273,16 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "github@chisels-and-bits.com"
 
+      - name: Debug exported documentation changes
+        working-directory: Website
+        run: |
+          git status --porcelain
+          git diff --stat
+
       - name: Commit and push changes to Website repo
         working-directory: Website
         run: |
-          git add docs/modders/api/*
+          git add -A docs/modders/api
           
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
