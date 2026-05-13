@@ -189,10 +189,11 @@ jobs:
       - name: Commit and push changes to Assets repo
         working-directory: Assets
         run: |
+          git add Icons/InGame
+          git add Metadata/Tags
+
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
-            git add Icons/InGame
-            git add Metadata/Tags
             git commit -m "$COMMIT_MSG"
             git push origin HEAD:main
           else
@@ -276,9 +277,10 @@ jobs:
       - name: Commit and push changes to Website repo
         working-directory: Website
         run: |
+          git add docs/modders/api
+          
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
-            git add docs/modders/api
             git commit -m "$COMMIT_MSG"
             git push origin HEAD:main
           else
