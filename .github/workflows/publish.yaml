@@ -252,9 +252,8 @@ jobs:
           path: ChiselsAndBits
 
       - name: Run documentation export
-        run: |
-          cd ChiselsAndBits
-          xvfb-run ./gradlew :api:javamark
+        working-directory: ChiselsAndBits
+        run: ./gradlew :api:javamark
 
       - name: Checkout Website Repo
         uses: actions/checkout@v6
@@ -277,7 +276,7 @@ jobs:
       - name: Commit and push changes to Website repo
         working-directory: Website
         run: |
-          git add docs/modders/api
+          git add docs/modders/api/*
           
           if [ -n "$(git status --porcelain)" ]; then
             COMMIT_MSG=$(git --git-dir=${{ github.workspace }}/ChiselsAndBits/.git --work-tree=${{ github.workspace }}/ChiselsAndBits log -1 --pretty=%B)
