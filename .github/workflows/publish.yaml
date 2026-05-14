@@ -245,15 +245,9 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Download and extract JAR artifacts from publish job
-        uses: actions/download-artifact@v4
-        with:
-          name: subproject-jars
-          path: ChiselsAndBits
-
       - name: Run documentation export
         working-directory: ChiselsAndBits
-        run: ./gradlew :api:clean :api:javamark
+        run: ./gradlew :api:javamark
 
       - name: Checkout Website Repo
         uses: actions/checkout@v6
