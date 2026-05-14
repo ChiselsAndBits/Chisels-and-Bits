@@ -244,6 +244,8 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: true
 
       - name: Run documentation export
         working-directory: ChiselsAndBits
