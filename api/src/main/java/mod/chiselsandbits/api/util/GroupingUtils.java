@@ -15,13 +15,12 @@ import java.util.stream.Collectors;
  */
 public final class GroupingUtils
 {
+	private GroupingUtils()
+	{
+		throw new IllegalStateException("Tried to initialize: GroupingUtils but this is a Utility class.");
+	}
 
-    private GroupingUtils()
-    {
-        throw new IllegalStateException("Tried to initialize: GroupingUtils but this is a Utility class.");
-    }
-
-    /**
+	/**
      * Group the given collection by the given key.
      * Returns a {@link java.util.Set} and as such eliminates duplicates.
      *
@@ -32,11 +31,11 @@ public final class GroupingUtils
      *
      * @return A collection of collections, which contain all objects which have the same key.
      */
-    public static <T, O> Collection<Collection<T>> groupByUsingSet(final Iterable<T> source, Function<T, O> extractor) {
-        return groupBy(HashMultimap.create(), source, extractor);
-    }
+	public static <T, O> Collection<Collection<T>> groupByUsingSet(final Iterable<T> source, Function<T, O> extractor) {
+		return groupBy(HashMultimap.create(), source, extractor);
+	}
 
-    /**
+	/**
      * Group the given collection by the given key.
      * Returns a {@link java.util.List} and as such does not eliminate duplicates.
      *
@@ -47,21 +46,21 @@ public final class GroupingUtils
      *
      * @return A collection of collections, which contain all objects which have the same key.
      */
-    public static <T, O> Collection<Collection<T>> groupByUsingList(final Iterable<T> source, Function<T, O> extractor) {
-        return groupBy(ArrayListMultimap.create(), source, extractor);
-    }
+	public static <T, O> Collection<Collection<T>> groupByUsingList(final Iterable<T> source, Function<T, O> extractor) {
+		return groupBy(ArrayListMultimap.create(), source, extractor);
+	}
 
-    private static <T, O> Collection<Collection<T>> groupBy(final Multimap<O, T> groups, final Iterable<T> source, Function<T, O> extractor) {
-        source.forEach(
-          e -> {
-              groups.put(extractor.apply(e), e);
-          }
-        );
+	private static <T, O> Collection<Collection<T>> groupBy(final Multimap<O, T> groups, final Iterable<T> source, Function<T, O> extractor) {
+		source.forEach(
+		  e -> {
+			  groups.put(extractor.apply(e), e);
+		  }
+		);
 
-        return groups
-                 .keySet()
-                 .stream()
-                 .map(groups::get)
-                 .collect(Collectors.toList());
-    }
+		return groups
+				 .keySet()
+				 .stream()
+				 .map(groups::get)
+				 .collect(Collectors.toList());
+	}
 }

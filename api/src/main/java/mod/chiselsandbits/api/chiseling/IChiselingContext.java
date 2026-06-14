@@ -22,7 +22,7 @@ import java.util.function.Predicate;
  */
 public interface IChiselingContext extends IStateAccessor
 {
-    /**
+	/**
      * Returns the current {@link IWorldAreaMutator} if there is one.
      * If a new chiseling operation is started no {@link IWorldAreaMutator} is available,
      * as such an empty {@link Optional} will be returned in that case.
@@ -32,26 +32,26 @@ public interface IChiselingContext extends IStateAccessor
      *
      * @return The {@link Optional} containing the {@link IWorldAreaMutator}.
      */
-    @NotNull
-    Optional<IWorldAreaMutator> getMutator();
+	@NotNull
+	Optional<IWorldAreaMutator> getMutator();
 
-    /**
+	/**
      * The {@link LevelAccessor} in which the current chiseling context is valid.
      *
      * @return The {@link LevelAccessor}.
      */
-    @NotNull
-    LevelAccessor getWorld();
+	@NotNull
+	LevelAccessor getWorld();
 
-    /**
+	/**
      * Returns the current {@link IChiselMode} for which this context is valid.
      *
      * @return The {@link IChiselMode}.
      */
-    @NotNull
-    IChiselMode getMode();
+	@NotNull
+	IChiselMode getMode();
 
-    /**
+	/**
      * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
      * the current {@link IWorldAreaMutator}.
      *
@@ -66,10 +66,10 @@ public interface IChiselingContext extends IStateAccessor
      * @param worldPosition The position in the current world to include.
      * @return The context, possibly with a mutated {@link IWorldAreaMutator}.
      */
-    @NotNull
-    IChiselingContext include(final Vec3 worldPosition);
+	@NotNull
+	IChiselingContext include(final Vec3 worldPosition);
 
-    /**
+	/**
      * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
      * the current {@link IWorldAreaMutator}.
      *
@@ -85,52 +85,52 @@ public interface IChiselingContext extends IStateAccessor
      * @param relativeInBlockPosition The relative position to include. Relative to the given {@code inWorldPosition}
      * @return The context, possibly with a mutated {@link IWorldAreaMutator}.
      */
-    @NotNull
-    default IChiselingContext include(final BlockPos inWorldPosition, final Vec3 relativeInBlockPosition) {
-        return this.include(Vec3.atLowerCornerOf(inWorldPosition).add(relativeInBlockPosition));
-    }
+	@NotNull
+	default IChiselingContext include(final BlockPos inWorldPosition, final Vec3 relativeInBlockPosition) {
+		return this.include(Vec3.atLowerCornerOf(inWorldPosition).add(relativeInBlockPosition));
+	}
 
-    /**
+	/**
      * Marks the current context as complete, so that it can not be reused for interactions which
      * will follow this one.
      *
      * Indicates that an action has been performed using this context, making it invalid.
      */
-    void setComplete();
+	void setComplete();
 
-    /**
+	/**
      * Indicates if the context is completed or not.
      *
      * @return True when complete.
      */
-    boolean isComplete();
+	boolean isComplete();
 
-    /**
+	/**
      * Indicates if the current context that is being executed is supposed to be a simulation.
      *
      * @return True when a simulation.
      */
-    boolean isSimulation();
+	boolean isSimulation();
 
-    /**
+	/**
      * Indicates what kind of chiseling operation this context was created for.
      * This indicates if the mode is used for chiseling or placing.
      *
      * @return {@link ChiselingOperation#CHISELING} when the context is used for breaking blocks, {@link ChiselingOperation#PLACING} for bit placement.
      */
-    @NotNull
-    ChiselingOperation getModeOfOperandus();
+	@NotNull
+	ChiselingOperation getModeOfOperandus();
 
-    /**
+	/**
      * Creates a deep copy of the context, so that the copy can be modified, without modifying this instance.
      * A snapshot is automatically a simulation.
      *
      * @return The snapshot context of this context.
      */
-    @NotNull
-    IChiselingContext createSnapshot();
+	@NotNull
+	IChiselingContext createSnapshot();
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operation.
      * If no item was the cause of the operation this function always returns successfully.
      * If this item does not support damaging the item on a chiseling operation this method also
@@ -141,11 +141,11 @@ public interface IChiselingContext extends IStateAccessor
      * The only case where this method does not return {@code True}, is when the item that caused the operation broke in the previous operation.
      * @return {@code True} when successful, {@code false} when not.
      */
-    default boolean tryDamageItem() {
-        return tryDamageItem(1);
-    };
+	default boolean tryDamageItem() {
+		return tryDamageItem(1);
+	};
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operation.
      * If no item was the cause of the operation this function always returns successfully.
      * If this item does not support damaging the item on a chiseling operation this method also
@@ -156,11 +156,11 @@ public interface IChiselingContext extends IStateAccessor
      * @param damage The damage to apply to the item that caused the chiseling operation.
      * @return {@code True} when successful, {@code false} when not.
      */
-    default boolean tryDamageItem(final int damage) {
-        return this.tryDamageItemAndDo(damage, () -> {}, () -> {}) > 0;
-    }
+	default boolean tryDamageItem(final int damage) {
+		return this.tryDamageItemAndDo(damage, () -> {}, () -> {}) > 0;
+	}
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operations.
      *
      * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
@@ -175,11 +175,11 @@ public interface IChiselingContext extends IStateAccessor
      * @param onBroken The callback to invoke when the item is broken.
      * @return The total damage applied to the item.
      */
-    default int tryDamageItemAndDo(final Runnable onDamaged, final Runnable onBroken) {
-        return tryDamageItemAndDo(1, onDamaged, onBroken);
-    }
+	default int tryDamageItemAndDo(final Runnable onDamaged, final Runnable onBroken) {
+		return tryDamageItemAndDo(1, onDamaged, onBroken);
+	}
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operations.
      *
      * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
@@ -193,11 +193,11 @@ public interface IChiselingContext extends IStateAccessor
      * @param onDamaged The callback to invoke when the item is damaged.
      * @return The total damage applied to the item.
      */
-    default int tryDamageItemAndDoOrSetBrokenError(final Runnable onDamaged) {
-        return tryDamageItemAndDo(1, onDamaged, () -> setError(LocalStrings.ChiselAttemptFailedChiselBroke.getText()));
-    }
+	default int tryDamageItemAndDoOrSetBrokenError(final Runnable onDamaged) {
+		return tryDamageItemAndDo(1, onDamaged, () -> setError(LocalStrings.ChiselAttemptFailedChiselBroke.getText()));
+	}
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operations.
      *
      * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
@@ -210,11 +210,11 @@ public interface IChiselingContext extends IStateAccessor
      * @param onDamaged The callback to invoke when the item is damaged.
      * @return The total damage applied to the item.
      */
-    default int tryDamageItemAndDo(final int damage, final Runnable onDamaged) {
-        return tryDamageItemAndDo(damage, onDamaged, () -> setError(LocalStrings.ChiselAttemptFailedChiselBroke.getText()));
-    }
+	default int tryDamageItemAndDo(final int damage, final Runnable onDamaged) {
+		return tryDamageItemAndDo(damage, onDamaged, () -> setError(LocalStrings.ChiselAttemptFailedChiselBroke.getText()));
+	}
 
-    /**
+	/**
      * Invoked to try to damage the item that caused the chiseling operations.
      *
      * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
@@ -228,9 +228,9 @@ public interface IChiselingContext extends IStateAccessor
      * @param onBroken The callback to invoke when the item is broken.
      * @return The total damage applied to the item.
      */
-    int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken);
+	int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken);
 
-    /**
+	/**
      * Allows for the setting of a filterBuilder on the context, which limits which {@link IStateEntryInfo} are returned from
      * the relevant accessor methods of the {@link IWorldAreaMutator}, as well as which limits the setter methods on the same {@link IWorldAreaMutator}
      * contained in the returned optional of the {@link #getMutator()}.
@@ -239,81 +239,81 @@ public interface IChiselingContext extends IStateAccessor
      *
      * @param filterBuilder The new filterBuilder.
      */
-    void setStateFilter(@NotNull final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
+	void setStateFilter(@NotNull final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
 
-    /**
+	/**
      * Clears the state filter which is applied to the {@link IWorldAreaMutator} for this context.
      */
-    void clearStateFilter();
+	void clearStateFilter();
 
-    /**
+	/**
      * Returns the filter that is currently applied on the context.
      * If one is applied.
      *
      * @return An optional, potentially containing the filter.
      */
-    Optional<Function<IAreaAccessor, Predicate<IStateEntryInfo>>> getStateFilter();
+	Optional<Function<IAreaAccessor, Predicate<IStateEntryInfo>>> getStateFilter();
 
-    /**
+	/**
      * Allows the storage of metadata on the context.
      * @param key The key of the metadata.
      * @param <T> The type of the metadata.
      * @return An optional possibly containing the stored metadata, or empty if no metadata is stored with the given key.
      */
-    <T> Optional<T> getMetadata(IMetadataKey<T> key);
+	<T> Optional<T> getMetadata(IMetadataKey<T> key);
 
-    /**
+	/**
      * Removes the metadata from the context.
      * @param key The key for the metadata.
      */
-    void removeMetadata(IMetadataKey<?> key);
+	void removeMetadata(IMetadataKey<?> key);
 
-    /**
+	/**
      * Allows for the setting of the metadata on the context.
      * @param key The key of the metadata.
      * @param value The value of the metadata.
      * @param <T> The type of the metadata.
      */
-    <T> void setMetadata(IMetadataKey<T> key, T value);
+	<T> void setMetadata(IMetadataKey<T> key, T value);
 
-    /**
+	/**
      * Resets the mutator that is used to handle the current selected area.
      */
-    void resetMutator();
+	void resetMutator();
 
-    /**
+	/**
      * Sets the error message that is displayed when the chiseling operation fails.
      * If an error is already set on the context, then subsequent calls to this method will be ignored.
      *
      * @param errorText The new error message.
      */
-    void setError(MutableComponent errorText);
+	void setError(MutableComponent errorText);
 
-    /**
+	/**
      * Returns the error message that is displayed when the chiseling operation fails.
      *
      * @return An optional with the potential error message included.
      */
-    Optional<MutableComponent> getError();
+	Optional<MutableComponent> getError();
 
-    /**
+	/**
      * Checks whether the mutator currently modifies blocks outside the levels build height.
      *
      * @return True when the build height is respected, false when not.
      */
-    default boolean validateBuildHeights() {
-        return getMutator().map(mutator -> {
-            final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
-            if (heightPos.getY() >= getWorld().getMaxY())
-            {
-                setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
-                return false;
-            }
-            else if (heightPos.getY() <= getWorld().getMinY()) {
-                setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
-                return false;
-            }
-            return true;
-        }).orElse(true);
-    }
+	default boolean validateBuildHeights() {
+		return getMutator().map(mutator -> {
+			final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
+			if (heightPos.getY() >= getWorld().getMaxY())
+			{
+				setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
+				return false;
+			}
+			else if (heightPos.getY() <= getWorld().getMinY()) {
+				setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
+				return false;
+			}
+			return true;
+		}).orElse(true);
+	}
 }

@@ -1,17 +1,16 @@
 package mod.chiselsandbits.api.inventory.bit;
 
-import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-
 import java.util.Optional;
+
+import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 
 public interface IAdaptingBitInventoryManager
 {
+	static IAdaptingBitInventoryManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getAdaptingBitInventoryManager();
+	}
 
-    static IAdaptingBitInventoryManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getAdaptingBitInventoryManager();
-    }
-
-    /**
+	/**
      * Creates a new bit inventory wrapping the given {@link Object}.
      *
      * This inventory is aware of items which themselves can act
@@ -24,5 +23,5 @@ public interface IAdaptingBitInventoryManager
      * @param target The {@link Object}.
      * @return The bit inventory which represents the inventory.
      */
-    Optional<Object> create(final Object target);
+	Optional<Object> create(final Object target);
 }

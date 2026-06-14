@@ -11,28 +11,27 @@ import net.minecraft.world.phys.Vec3;
  */
 public interface IAccessorFactory
 {
-
-    /**
+	/**
      * Gives access to the accessor factory.
      * @return The accessor factory.
      */
-    static IAccessorFactory getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getAccessorFactory();
-    }
+	static IAccessorFactory getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getAccessorFactory();
+	}
 
-    /**
+	/**
      * Creates a accessor which mutates a particular block only.
      *
      * @param world The world to mutate in.
      * @param pos The position to mutate.
      * @return The accessor.
      */
-    IWorldAreaAccessor in(
-      final LevelAccessor world,
-      final BlockPos pos
-    );
+	IWorldAreaAccessor in(
+	  final LevelAccessor world,
+	  final BlockPos pos
+	);
 
-    /**
+	/**
      * Creates an accessor which mutates a given area.
      *
      * @param world The world to mutate in.
@@ -40,13 +39,13 @@ public interface IAccessorFactory
      * @param to The block to function as an end point.
      * @return The accessor.
      */
-    IWorldAreaAccessor covering(
-      final LevelAccessor world,
-      final BlockPos from,
-      final BlockPos to
-    );
+	IWorldAreaAccessor covering(
+	  final LevelAccessor world,
+	  final BlockPos from,
+	  final BlockPos to
+	);
 
-    /**
+	/**
      * Creates an accessor which mutates a given area.
      *
      * @param world The world to mutate in.
@@ -54,9 +53,9 @@ public interface IAccessorFactory
      * @param to The end point.
      * @return The accessor.
      */
-    IWorldAreaAccessor covering(
-      final LevelAccessor world,
-      final Vec3 from,
-      final Vec3 to
-    );
+	IWorldAreaAccessor covering(
+	  final LevelAccessor world,
+	  final Vec3 from,
+	  final Vec3 to
+	);
 }

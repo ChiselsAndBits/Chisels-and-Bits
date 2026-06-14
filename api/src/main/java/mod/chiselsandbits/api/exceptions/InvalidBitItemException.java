@@ -5,6 +5,5 @@ package mod.chiselsandbits.api.exceptions;
  */
 public class InvalidBitItemException extends Exception
 {
-
-    private static final long serialVersionUID = -1101206778339096174L;
+	private static final long serialVersionUID = -1101206778339096174L;
 }

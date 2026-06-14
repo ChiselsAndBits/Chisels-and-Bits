@@ -1,20 +1,20 @@
 package mod.chiselsandbits.api.chiseling;
 
+import java.util.Optional;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Optional;
-
 public interface IChiselingManager
 {
+	static IChiselingManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getChiselingManager();
+	}
 
-    static IChiselingManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getChiselingManager();
-    }
-
-    /**
+	/**
      * Gets or creates a new chiseling context for the given player.
      *
      * A new context is created when either one of the following conditions is met:
@@ -29,24 +29,24 @@ public interface IChiselingManager
      * @param causingItemStack The stack that triggered the chiseling operation.
      * @return The context.
      */
-    default IChiselingContext getOrCreateContext(
-      final Player playerEntity,
-      final IChiselMode mode,
-      final ChiselingOperation modeOfOperandus,
-      final boolean simulation,
-      final ItemStack causingItemStack) {
-        final Optional<IChiselingContext> optionalWithCurrent = get(playerEntity, mode, modeOfOperandus);
+	default IChiselingContext getOrCreateContext(
+	  final Player playerEntity,
+	  final IChiselMode mode,
+	  final ChiselingOperation modeOfOperandus,
+	  final boolean simulation,
+	  final ItemStack causingItemStack) {
+		final Optional<IChiselingContext> optionalWithCurrent = get(playerEntity, mode, modeOfOperandus);
 
-        if (optionalWithCurrent.isPresent())
-        {
-            final IChiselingContext current = optionalWithCurrent.get();
-            return current.createSnapshot();
-        }
+		if (optionalWithCurrent.isPresent())
+		{
+			final IChiselingContext current = optionalWithCurrent.get();
+			return current.createSnapshot();
+		}
 
-        return create(playerEntity, mode, modeOfOperandus, simulation, causingItemStack);
-    }
+		return create(playerEntity, mode, modeOfOperandus, simulation, causingItemStack);
+	}
 
-    /**
+	/**
      * Gives access to the chiseling context of the player, if it exists.
      *
      * @param playerEntity The player for which the context is looked up.
@@ -54,12 +54,12 @@ public interface IChiselingManager
      *
      * @return An optional potentially containing the current context of the player.
      */
-    Optional<IChiselingContext> get(
-      final Player playerEntity,
-      final IChiselMode mode
-    );
+	Optional<IChiselingContext> get(
+	  final Player playerEntity,
+	  final IChiselMode mode
+	);
 
-    /**
+	/**
      * Gives access to the chiseling context of the player, if it exists.
      *
      * @param playerEntity The player for which the context is looked up.
@@ -68,13 +68,13 @@ public interface IChiselingManager
      *
      * @return An optional potentially containing the current context of the player.
      */
-    Optional<IChiselingContext> get(
-      final Player playerEntity,
-      final IChiselMode mode,
-      final ChiselingOperation modeOfOperandus
-    );
+	Optional<IChiselingContext> get(
+	  final Player playerEntity,
+	  final IChiselMode mode,
+	  final ChiselingOperation modeOfOperandus
+	);
 
-    /**
+	/**
      * Creates a new context for a given player.
      * If {@code simulate} is false and an a context for the player already exists, then that context is overriden.
      *
@@ -86,11 +86,11 @@ public interface IChiselingManager
      *
      * @return The newly created context.
      */
-    IChiselingContext create(
-      final Player playerEntity,
-      final IChiselMode mode,
-      final ChiselingOperation modeOfOperandus,
-      final boolean simulation,
-      final ItemStack causingItemStack
-    );
+	IChiselingContext create(
+	  final Player playerEntity,
+	  final IChiselMode mode,
+	  final ChiselingOperation modeOfOperandus,
+	  final boolean simulation,
+	  final ItemStack causingItemStack
+	);
 }

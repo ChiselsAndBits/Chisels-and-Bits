@@ -12,17 +12,16 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface IBitInventoryManager
 {
-
-    /**
+	/**
      * Gives access to the bit inventory manager.
      *
      * @return The bit inventory manager.
      */
-    static IBitInventoryManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getBitInventoryManager();
-    }
+	static IBitInventoryManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getBitInventoryManager();
+	}
 
-    /**
+	/**
      * Creates a new bit inventory wrapping the inventory of the player.
      *
      * This player inventory is aware of items which themselves can act
@@ -31,9 +30,9 @@ public interface IBitInventoryManager
      * @param playerEntity The player inventory.
      * @return The bit inventory which represents the players inventory.
      */
-    IBitInventory create(final Player playerEntity);
+	IBitInventory create(final Player playerEntity);
 
-    /**
+	/**
      * Creates a new bit inventory wrapping the given {@link Object}.
      *
      * This inventory is aware of items which themselves can act
@@ -46,9 +45,9 @@ public interface IBitInventoryManager
      * @param target The {@link Object}.
      * @return The bit inventory which represents the inventory.
      */
-    IBitInventory create(final Object target);
+	IBitInventory create(final Object target);
 
-    /**
+	/**
      * Creates a new bit inventory wrapping the given inventory.
      *
      * This inventory is aware of items which themselves can act
@@ -57,14 +56,14 @@ public interface IBitInventoryManager
      * @param inventory The inventory.
      * @return The bit inventory which represents the inventory.
      */
-    IBitInventory create(final Container inventory);
+	IBitInventory create(final Container inventory);
 
-    /**
+	/**
      * Creates a new bit inventory wrapping the given itemstack.
      *
      * @param stack The itemstack to wrap.
      *
      * @return The bit inventory which represents the inventory.
      */
-    IBitInventoryItemStack create(final ItemStack stack);
+	IBitInventoryItemStack create(final ItemStack stack);
 }

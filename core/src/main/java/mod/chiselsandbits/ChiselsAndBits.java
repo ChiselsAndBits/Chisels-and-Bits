@@ -1,6 +1,5 @@
 package mod.chiselsandbits;
 
-import mod.chiselsandbits.apiipml.ChiselsAndBitsAPI;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityOptions;
 import mod.chiselsandbits.api.config.IChiselsAndBitsConfiguration;
@@ -8,6 +7,7 @@ import mod.chiselsandbits.api.inventory.bit.IAdaptingBitInventoryManager;
 import mod.chiselsandbits.api.plugin.IChiselsAndBitsPlugin;
 import mod.chiselsandbits.api.plugin.IPluginDiscoverer;
 import mod.chiselsandbits.api.util.constants.Constants;
+import mod.chiselsandbits.apiipml.ChiselsAndBitsAPI;
 import mod.chiselsandbits.config.ChiselsAndBitsConfiguration;
 import mod.chiselsandbits.network.NetworkChannel;
 import mod.chiselsandbits.plugin.PluginManger;
@@ -21,60 +21,61 @@ public class ChiselsAndBits
 	private final IChiselsAndBitsConfiguration configuration;
 
 	public ChiselsAndBits(
-            IEligibilityOptions eligibilityOptions,
-            IAdaptingBitInventoryManager adaptingBitInventoryManager,
-            IPluginDiscoverer pluginDiscoverer)
+			IEligibilityOptions eligibilityOptions,
+			IAdaptingBitInventoryManager adaptingBitInventoryManager,
+			IPluginDiscoverer pluginDiscoverer)
 	{
-	    instance = this;
+		instance = this;
 
-        this.configuration = new ChiselsAndBitsConfiguration();
-        IChiselsAndBitsAPI.Holder.setInstance(new ChiselsAndBitsAPI(
-                eligibilityOptions,
-                adaptingBitInventoryManager,
-                pluginDiscoverer
-        ));
+		this.configuration = new ChiselsAndBitsConfiguration();
+		IChiselsAndBitsAPI.Holder.setInstance(new ChiselsAndBitsAPI(
+				eligibilityOptions,
+				adaptingBitInventoryManager,
+				pluginDiscoverer
+		));
 
-        ModBlockEntityTypes.onModConstruction();
-        ModBlocks.onModConstruction();
-        ModChiselModeGroups.onModConstruction();
-        ModChiselModes.onModConstruction();
-        ModContainerTypes.onModConstruction();
-        ModCreativeTabs.onModConstruction();
-        ModItems.onModConstruction();
-        ModMetadataKeys.onModConstruction();
-        ModModelProperties.onModConstruction();
-        ModModificationOperation.onModConstruction();
-        ModModificationOperationGroups.onModConstruction();
-        ModPatternPlacementTypes.onModConstruction();
-        ModRecipeSerializers.onModConstruction();
-        ModTags.onModConstruction();
-        ModRecipeTypes.onModConstruction();
-        ModChangeTypes.onModConstruction();
-        ModMultiStateSnapshotTypes.onModConstruction();
-        ModDataComponentTypes.onModConstruction();
-        ModEventHandler.onModConstruction();
+		ModBlockEntityTypes.onModConstruction();
+		ModBlocks.onModConstruction();
+		ModChiselModeGroups.onModConstruction();
+		ModChiselModes.onModConstruction();
+		ModContainerTypes.onModConstruction();
+		ModCreativeTabs.onModConstruction();
+		ModItems.onModConstruction();
+		ModMetadataKeys.onModConstruction();
+		ModModelProperties.onModConstruction();
+		ModModificationOperation.onModConstruction();
+		ModModificationOperationGroups.onModConstruction();
+		ModPatternPlacementTypes.onModConstruction();
+		ModRecipeSerializers.onModConstruction();
+		ModTags.onModConstruction();
+		ModRecipeTypes.onModConstruction();
+		ModChangeTypes.onModConstruction();
+		ModMultiStateSnapshotTypes.onModConstruction();
+		ModDataComponentTypes.onModConstruction();
+		ModEventHandler.onModConstruction();
 
-        networkChannel.registerCommonMessages();
+		networkChannel.registerCommonMessages();
 
-        PluginManger.getInstance().detect();
-        PluginManger.getInstance().run("construction", IChiselsAndBitsPlugin::onConstruction);
+		PluginManger.getInstance().detect();
+		PluginManger.getInstance().run("construction", IChiselsAndBitsPlugin::onConstruction);
 	}
 
 	public static ChiselsAndBits getInstance()
+
 	{
 		return instance;
 	}
 
-    public IChiselsAndBitsConfiguration getConfiguration()
-    {
-        return configuration;
-    }
+	public IChiselsAndBitsConfiguration getConfiguration()
+	{
+		return configuration;
+	}
 
-    public NetworkChannel getNetworkChannel() {
-	    return networkChannel;
-    }
+	public NetworkChannel getNetworkChannel() {
+		return networkChannel;
+	}
 
-    public void onInitialize() {
-        PluginManger.getInstance().run("initialize", IChiselsAndBitsPlugin::onInitialize);
-    }
+	public void onInitialize() {
+		PluginManger.getInstance().run("initialize", IChiselsAndBitsPlugin::onInitialize);
+	}
 }

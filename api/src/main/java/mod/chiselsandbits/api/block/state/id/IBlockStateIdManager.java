@@ -11,30 +11,29 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public interface IBlockStateIdManager
 {
+	static IBlockStateIdManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getBlockStateIdManager();
+	}
 
-    static IBlockStateIdManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getBlockStateIdManager();
-    }
-
-    /**
+	/**
      * Calculates the the integer id representation of the blockstate.
      *
      * @param blockState The blockstate for which the id is requested.
      *
      * @return The id of the given blockstate.
      */
-    default int getIdFrom(final BlockState blockState) {
-        return Block.getId(blockState);
-    }
+	default int getIdFrom(final BlockState blockState) {
+		return Block.getId(blockState);
+	}
 
-    /**
+	/**
      * Calculates the blockstate from the given id.
      *
      * @param id The integer id representation of the requested blockstate.
      *
      * @return The blockstate which is represented by the given id.
      */
-    default BlockState getBlockStateFrom(final int id) {
-        return Block.stateById(id);
-    }
+	default BlockState getBlockStateFrom(final int id) {
+		return Block.stateById(id);
+	}
 }

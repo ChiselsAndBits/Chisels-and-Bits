@@ -8,14 +8,14 @@ import jdk.jfr.*;
 @StackTrace(false)
 public class CandBProfilingSectionEvent extends Event
 {
-    public static final String NAME = "minecraft.candb.Section";
+	public static final String NAME = "minecraft.candb.Section";
 
-    @Name("name")
-    @Label("Name")
-    public String name;
+	@Name("name")
+	@Label("Name")
+	public String name;
 
-    public CandBProfilingSectionEvent(final String name)
-    {
-        this.name = name;
-    }
+	public CandBProfilingSectionEvent(final String name)
+	{
+		this.name = name;
+	}
 }

@@ -10,13 +10,12 @@ import net.minecraft.world.phys.Vec3;
 @FunctionalInterface
 public interface StateSetter
 {
-
-    /**
+	/**
      * Sets the block information of the targeted bit to the given block information.
      *
      * @param blockInformation The block information to set the bit to.
      * @param inAreaTarget The target area.
      * @throws SpaceOccupiedException If the target area is occupied.
      */
-    void set(BlockInformation blockInformation, Vec3 inAreaTarget) throws SpaceOccupiedException;
+	void set(BlockInformation blockInformation, Vec3 inAreaTarget) throws SpaceOccupiedException;
 }

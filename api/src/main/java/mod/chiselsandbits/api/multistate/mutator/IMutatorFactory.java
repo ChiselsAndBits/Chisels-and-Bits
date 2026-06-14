@@ -13,30 +13,29 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IMutatorFactory
 {
-
-    /**
+	/**
      * Gives access to the the mutator factory.
      * @return The mutator factory.
      */
-    @NotNull
-    static IMutatorFactory getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getMutatorFactory();
-    }
+	@NotNull
+	static IMutatorFactory getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getMutatorFactory();
+	}
 
-    /**
+	/**
      * Creates a mutator which mutates a particular block only.
      *
      * @param world The world to mutate in.
      * @param pos The position to mutate.
      * @return The mutator.
      */
-    @NotNull
-    IWorldAreaMutator in(
-      final LevelAccessor world,
-      final BlockPos pos
-    );
+	@NotNull
+	IWorldAreaMutator in(
+	  final LevelAccessor world,
+	  final BlockPos pos
+	);
 
-    /**
+	/**
      * Creates a mutator which mutates a given area.
      *
      * @param world The world to mutate in.
@@ -44,14 +43,14 @@ public interface IMutatorFactory
      * @param to The block to function as an end point.
      * @return The mutator.
      */
-    @NotNull
-    IWorldAreaMutator covering(
-      final LevelAccessor world,
-      final BlockPos from,
-      final BlockPos to
-    );
+	@NotNull
+	IWorldAreaMutator covering(
+	  final LevelAccessor world,
+	  final BlockPos from,
+	  final BlockPos to
+	);
 
-    /**
+	/**
      * Creates a mutator which mutates a given area.
      *
      * @param world The world to mutate in.
@@ -59,19 +58,19 @@ public interface IMutatorFactory
      * @param to The end point.
      * @return The mutator.
      */
-    @NotNull
-    IWorldAreaMutator covering(
-      final LevelAccessor world,
-      final Vec3 from,
-      final Vec3 to
-    );
+	@NotNull
+	IWorldAreaMutator covering(
+	  final LevelAccessor world,
+	  final Vec3 from,
+	  final Vec3 to
+	);
 
-    /**
+	/**
      * Creates a clone of the accessor and returns a mutator of it.
      *
      * @param source The source accessor.
      * @return The mutator.
      */
-    @NotNull
-    IGenerallyModifiableAreaMutator clonedFromAccessor(IAreaAccessor source);
+	@NotNull
+	IGenerallyModifiableAreaMutator clonedFromAccessor(IAreaAccessor source);
 }

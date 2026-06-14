@@ -4,8 +4,7 @@ import mod.chiselsandbits.client.tooltip.ChiseledBlockTooltipHandler;
 
 public class ModClientTooltipComponents
 {
-
-    public static void onClientConstruction() {
-        ChiseledBlockTooltipHandler.configure();
-    }
+	public static void onClientConstruction() {
+		ChiseledBlockTooltipHandler.configure();
+	}
 }

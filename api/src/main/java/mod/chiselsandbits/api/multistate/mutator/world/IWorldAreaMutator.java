@@ -11,11 +11,11 @@ import java.util.stream.Stream;
  */
 public interface IWorldAreaMutator extends IWorldAreaAccessor, IAreaMutator, IBatchedAreaMutator
 {
-    /**
+	/**
      * Returns all entries in the current area in a mutable fashion.
      * Includes all empty areas as areas containing an air state.
      *
      * @return A stream with a mutable state entry info for each mutable section in the area.
      */
-    Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream();
+	Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream();
 }

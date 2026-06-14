@@ -5,6 +5,5 @@ package mod.chiselsandbits.api.exceptions;
  */
 public class SpaceOccupiedException extends Exception
 {
-
-    private static final long serialVersionUID = -5620527137925750306L;
+	private static final long serialVersionUID = -5620527137925750306L;
 }

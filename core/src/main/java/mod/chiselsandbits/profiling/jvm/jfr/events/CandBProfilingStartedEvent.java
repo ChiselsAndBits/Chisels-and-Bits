@@ -7,6 +7,6 @@ import jdk.jfr.*;
 @Category({"Minecraft", "C&B"})
 public class CandBProfilingStartedEvent extends Event
 {
-    public static final String NAME = "minecraft.candb.Started";
-    public static final EventType TYPE = EventType.getEventType(CandBProfilingStartedEvent.class);
+	public static final String NAME = "minecraft.candb.Started";
+	public static final EventType TYPE = EventType.getEventType(CandBProfilingStartedEvent.class);
 }

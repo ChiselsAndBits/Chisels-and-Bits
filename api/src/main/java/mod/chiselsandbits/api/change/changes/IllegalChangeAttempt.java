@@ -5,8 +5,8 @@ package mod.chiselsandbits.api.change.changes;
  */
 public class IllegalChangeAttempt extends Exception
 {
-    public IllegalChangeAttempt()
-    {
-        super("Tried to make a change (either redo or undo) without checking for possibility primary!");
-    }
+	public IllegalChangeAttempt()
+	{
+		super("Tried to make a change (either redo or undo) without checking for possibility primary!");
+	}
 }

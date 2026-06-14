@@ -1,42 +1,41 @@
 package mod.chiselsandbits.api.client.icon;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 
 public interface IIconManager
 {
+	public static IIconManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getIconManager();
+	}
 
-    public static IIconManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getIconManager();
-    }
+	TextureAtlasSprite getIcon(Identifier name);
 
-    TextureAtlasSprite getIcon(Identifier name);
+	TextureAtlasSprite getSwapIcon();
 
-    TextureAtlasSprite getSwapIcon();
+	TextureAtlasSprite getPlaceIcon();
 
-    TextureAtlasSprite getPlaceIcon();
+	TextureAtlasSprite getUndoIcon();
 
-    TextureAtlasSprite getUndoIcon();
+	TextureAtlasSprite getRedoIcon();
 
-    TextureAtlasSprite getRedoIcon();
+	TextureAtlasSprite getTrashIcon();
 
-    TextureAtlasSprite getTrashIcon();
+	TextureAtlasSprite getSortIcon();
 
-    TextureAtlasSprite getSortIcon();
+	TextureAtlasSprite getRollXIcon();
 
-    TextureAtlasSprite getRollXIcon();
+	TextureAtlasSprite getRollZIcon();
 
-    TextureAtlasSprite getRollZIcon();
+	TextureAtlasSprite getWhiteIcon();
 
-    TextureAtlasSprite getWhiteIcon();
+	TextureAtlasSprite getFilterBagModeIcon();
 
-    TextureAtlasSprite getFilterBagModeIcon();
+	TextureAtlasSprite getNormalBagModeIcon();
 
-    TextureAtlasSprite getNormalBagModeIcon();
+	TextureAtlasSprite getBagPicksUpFirstIcon();
 
-    TextureAtlasSprite getBagPicksUpFirstIcon();
-
-    TextureAtlasSprite getBagPicksUpSecondIcon();
-
+	TextureAtlasSprite getBagPicksUpSecondIcon();
 }

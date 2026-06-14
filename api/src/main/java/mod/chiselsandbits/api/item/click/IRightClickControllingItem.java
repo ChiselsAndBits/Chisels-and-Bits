@@ -11,8 +11,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface IRightClickControllingItem
 {
-
-    /**
+	/**
      * Callback invoked when a supported item is used to right click.
      *
      * Allows for said item to take over the processing logic of the right clicking
@@ -26,25 +25,25 @@ public interface IRightClickControllingItem
      *
      * @return The processing state with which the processing of the right click should continue.
      */
-    ClickProcessingState handleRightClickProcessing(
-      final Player playerEntity,
-      final InteractionHand hand,
-      final BlockPos position,
-      final Direction face,
-      final ClickProcessingState currentState
-    );
+	ClickProcessingState handleRightClickProcessing(
+	  final Player playerEntity,
+	  final InteractionHand hand,
+	  final BlockPos position,
+	  final Direction face,
+	  final ClickProcessingState currentState
+	);
 
-    /**
+	/**
      * Invoked by the platform to indicate to this item that a right-clicking procedure has ended.
      * @param player The player who stopped right-clicking.
      * @param stack The stack on which the clicking ended.
      */
-    void onRightClickProcessingEnd(
-      final Player player,
-      final ItemStack stack
-    );
+	void onRightClickProcessingEnd(
+	  final Player player,
+	  final ItemStack stack
+	);
 
-    /**
+	/**
      * Indicates if the player can use the item in the current interaction.
      * If this returns false, then no processing is performed and the interaction
      * event is cancelled.
@@ -53,8 +52,8 @@ public interface IRightClickControllingItem
      *
      * @return True when useable, false when not.
      */
-    default boolean canUse(final Player playerEntity,
-                           final ItemStack stack) {
-        return true;
-    }
+	default boolean canUse(final Player playerEntity,
+						   final ItemStack stack) {
+		return true;
+	}
 }

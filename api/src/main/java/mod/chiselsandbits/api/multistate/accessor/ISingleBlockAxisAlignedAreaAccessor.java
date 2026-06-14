@@ -7,10 +7,10 @@ import mod.chiselsandbits.api.item.multistate.IStatistics;
  */
 public interface ISingleBlockAxisAlignedAreaAccessor extends IAreaAccessor
 {
-    /**
+	/**
      * The statistics of the itemstack.
      *
      * @return The statistics.
      */
-    IStatistics getStatistics();
+	IStatistics getStatistics();
 }

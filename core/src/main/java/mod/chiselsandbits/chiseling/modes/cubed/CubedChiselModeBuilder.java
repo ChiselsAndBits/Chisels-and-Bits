@@ -1,47 +1,47 @@
 package mod.chiselsandbits.chiseling.modes.cubed;
 
-import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
 
 public class CubedChiselModeBuilder {
-    private int                       bitsPerSide;
-    private boolean                   aligned;
-    private MutableComponent displayName;
-    private MutableComponent multiLineDisplayName;
-    private Identifier       iconName;
+	private int                       bitsPerSide;
+	private boolean                   aligned;
+	private MutableComponent displayName;
+	private MutableComponent multiLineDisplayName;
+	private Identifier       iconName;
 
-    public CubedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
-    {
-        this.bitsPerSide = bitsPerSide;
-        return this;
-    }
+	public CubedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
+	{
+		this.bitsPerSide = bitsPerSide;
+		return this;
+	}
 
-    public CubedChiselModeBuilder setAligned(final boolean aligned)
-    {
-        this.aligned = aligned;
-        return this;
-    }
+	public CubedChiselModeBuilder setAligned(final boolean aligned)
+	{
+		this.aligned = aligned;
+		return this;
+	}
 
-    public CubedChiselModeBuilder setDisplayName(final MutableComponent displayName)
-    {
-        this.displayName = displayName;
-        return this;
-    }
+	public CubedChiselModeBuilder setDisplayName(final MutableComponent displayName)
+	{
+		this.displayName = displayName;
+		return this;
+	}
 
-    public CubedChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
-    {
-        this.multiLineDisplayName = multiLineDisplayName;
-        return this;
-    }
+	public CubedChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
+	{
+		this.multiLineDisplayName = multiLineDisplayName;
+		return this;
+	}
 
-    public CubedChiselModeBuilder setIconName(final Identifier iconName)
-    {
-        this.iconName = iconName;
-        return this;
-    }
+	public CubedChiselModeBuilder setIconName(final Identifier iconName)
+	{
+		this.iconName = iconName;
+		return this;
+	}
 
-    public CubedChiselMode createCubedChiselMode()
-    {
-        return new CubedChiselMode(bitsPerSide, aligned, displayName, multiLineDisplayName, iconName);
-    }
+	public CubedChiselMode createCubedChiselMode()
+	{
+		return new CubedChiselMode(bitsPerSide, aligned, displayName, multiLineDisplayName, iconName);
+	}
 }

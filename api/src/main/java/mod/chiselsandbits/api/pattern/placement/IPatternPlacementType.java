@@ -19,7 +19,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  */
 public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<IToolModeGroup>, IPlacementProperties
 {
-    /**
+	/**
      * Used to build a voxelshape for rendering in the preview.
      *
      * @param sourceSnapshot The snapshot stored in the pattern for placement.
@@ -28,12 +28,12 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
      * @param hitFace The face hit by the player.
      * @return The VoxelShape used to render the wireframe.
      */
-    VoxelShape buildVoxelShapeForWireframe(final IMultiStateSnapshot sourceSnapshot,
-      final Player player,
-      final Vec3 targetedPoint,
-      final Direction hitFace);
+	VoxelShape buildVoxelShapeForWireframe(final IMultiStateSnapshot sourceSnapshot,
+	  final Player player,
+	  final Vec3 targetedPoint,
+	  final Direction hitFace);
 
-    /**
+	/**
      * Invoked to perform the actual placement of the pattern in the world.
      *
      * @param source The snapshot stored in the pattern for placement.
@@ -42,12 +42,12 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
      *
      * @return The action result which influences the further processing of the click interaction.
      */
-    PlacementResult performPlacement(
-      IMultiStateSnapshot source,
-      BlockPlaceContext context,
-      final boolean simulate);
+	PlacementResult performPlacement(
+	  IMultiStateSnapshot source,
+	  BlockPlaceContext context,
+	  final boolean simulate);
 
-    /**
+	/**
      * Invoked to determine where the targeted position of the placement type is.
      *
      * @param heldStack The stack that the player is holding.
@@ -55,5 +55,5 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
      * @param blockRayTraceResult The block ray trace result in the current context.
      * @return The position of the potential placement.
      */
-    Vec3 getTargetedPosition(ItemStack heldStack, Player player, BlockHitResult blockRayTraceResult);
+	Vec3 getTargetedPosition(ItemStack heldStack, Player player, BlockHitResult blockRayTraceResult);
 }

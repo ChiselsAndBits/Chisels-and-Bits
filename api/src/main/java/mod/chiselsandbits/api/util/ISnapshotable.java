@@ -6,5 +6,5 @@ package mod.chiselsandbits.api.util;
  */
 public interface ISnapshotable<T>
 {
-    T createSnapshot();
+	T createSnapshot();
 }

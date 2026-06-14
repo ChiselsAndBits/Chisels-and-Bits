@@ -8,22 +8,21 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
  */
 public interface IChiselContextPreviewRendererRegistry
 {
+	static IChiselContextPreviewRendererRegistry getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getChiselContextPreviewRendererRegistry();
+	}
 
-    static IChiselContextPreviewRendererRegistry getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getChiselContextPreviewRendererRegistry();
-    }
-
-    /**
+	/**
      * The currently configured renderer as per configuration of the player.
      * @return The renderer.
      */
-    IChiselContextPreviewRenderer getCurrent();
+	IChiselContextPreviewRenderer getCurrent();
 
-    /**
+	/**
      * Adds the passed in renderer instances as possible candidates.
      *
      * @param renderers The candidates.
      * @return The registry.
      */
-    IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers);
+	IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers);
 }

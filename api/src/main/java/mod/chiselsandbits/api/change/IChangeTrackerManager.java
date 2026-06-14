@@ -15,24 +15,22 @@ import java.util.UUID;
  */
 public interface IChangeTrackerManager
 {
-
-    /**
+	/**
      * Short circuit method to get the manager instance from the api.
      *
      * @return The change tracker manager.
      */
-    @NotNull
-    static IChangeTrackerManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getChangeTrackerManager();
-    }
+	@NotNull
+	static IChangeTrackerManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getChangeTrackerManager();
+	}
 
-    /**
+	/**
      * Gives access to the change tracker of the given player.
      *
      * @param player The player in question.
      * @return The change tracker for the given player.
      */
-    @NotNull
-    IChangeTracker getChangeTracker(final Player player);
-
+	@NotNull
+	IChangeTracker getChangeTracker(final Player player);
 }

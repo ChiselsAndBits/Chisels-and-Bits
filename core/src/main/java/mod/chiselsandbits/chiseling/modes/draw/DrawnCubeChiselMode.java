@@ -1,5 +1,9 @@
 package mod.chiselsandbits.chiseling.modes.draw;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
 import com.communi.suggestu.scena.core.registries.AbstractCustomRegistryEntry;
 import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.axissize.CollisionType;
@@ -21,6 +25,8 @@ import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -31,194 +37,189 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
 
 public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements IChiselMode
 {
-    private final MutableComponent displayName;
-    private final MutableComponent multiLineDisplayName;
-    private final Identifier       iconName;
+	private final MutableComponent displayName;
+	private final MutableComponent multiLineDisplayName;
+	private final Identifier       iconName;
 
-    DrawnCubeChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final Identifier iconName) {
-        this.displayName = displayName;
-        this.multiLineDisplayName = multiLineDisplayName;
-        this.iconName = iconName;
-    }
+	DrawnCubeChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final Identifier iconName) {
+		this.displayName = displayName;
+		this.multiLineDisplayName = multiLineDisplayName;
+		this.iconName = iconName;
+	}
 
-    @Override
-    public boolean isSingleClickUse() {
-        return false;
-    }
+	@Override
+	public boolean isSingleClickUse() {
+		return false;
+	}
 
-    @Override
-    public ClickProcessingState onLeftClickBy(
-      final Player playerEntity, final IChiselingContext context)
-    {
-        return processRayTraceIntoContext(
-          playerEntity,
-          context,
-          direction -> Vec3.atLowerCornerOf(direction.getOpposite().getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
-        );
-    }
+	@Override
+	public ClickProcessingState onLeftClickBy(
+	  final Player playerEntity, final IChiselingContext context)
+	{
+		return processRayTraceIntoContext(
+		  playerEntity,
+		  context,
+		  direction -> Vec3.atLowerCornerOf(direction.getOpposite().getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+		);
+	}
 
-    @Override
-    public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context)
-    {
-        onLeftClickBy(playerEntity, context);
-        context.setComplete();
+	@Override
+	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context)
+	{
+		onLeftClickBy(playerEntity, context);
+		context.setComplete();
 
-        if (context.isSimulation())
-            return;
+		if (context.isSimulation())
+			return;
 
-        context.getMutator().ifPresent(mutator -> {
-            try (IBatchMutation ignored =
-                   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-            {
-                final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+		context.getMutator().ifPresent(mutator -> {
+			try (IBatchMutation ignored =
+				   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
+			{
+				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-                mutator.inWorldMutableStream()
-                  .forEach(state -> {
-                      final BlockInformation currentState = state.getBlockInformation();
-                      if (context.tryDamageItem())
-                      {
-                          resultingBitCount.putIfAbsent(currentState, 0);
-                          resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+				mutator.inWorldMutableStream()
+				  .forEach(state -> {
+					  final BlockInformation currentState = state.getBlockInformation();
+					  if (context.tryDamageItem())
+					  {
+						  resultingBitCount.putIfAbsent(currentState, 0);
+						  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-                          state.clear();
-                      }
-                  });
+						  state.clear();
+					  }
+				  });
 
-                resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-                  playerEntity,
-                  blockState,
-                  count
-                ));
-            }
-        });
-    }
+				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+				  playerEntity,
+				  blockState,
+				  count
+				));
+			}
+		});
+	}
 
-    @Override
-    public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context)
-    {
-        return processRayTraceIntoContext(
-          playerEntity,
-          context,
-          direction -> Vec3.atLowerCornerOf(direction.getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
-        );
-    }
+	@Override
+	public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context)
+	{
+		return processRayTraceIntoContext(
+		  playerEntity,
+		  context,
+		  direction -> Vec3.atLowerCornerOf(direction.getUnitVec3i()).multiply(StateEntrySize.current().getSizePerHalfBitScalingVector())
+		);
+	}
 
-    @Override
-    public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context)
-    {
-        onRightClickBy(playerEntity, context);
-        context.setComplete();
+	@Override
+	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context)
+	{
+		onRightClickBy(playerEntity, context);
+		context.setComplete();
 
-        if (context.isSimulation())
-            return;
+		if (context.isSimulation())
+			return;
 
-        context.getMutator().ifPresent(mutator -> {
-            final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
-            if (heldBlockState.isAir())
-            {
-                return;
-            }
+		context.getMutator().ifPresent(mutator -> {
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+			if (heldBlockState.isAir())
+			{
+				return;
+			}
 
-            final int missingBitCount = (int) mutator.stream()
-              .filter(state -> state.getBlockInformation().isAir())
-              .count();
+			final int missingBitCount = (int) mutator.stream()
+			  .filter(state -> state.getBlockInformation().isAir())
+			  .count();
 
-            final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
-            context.setComplete();
-            if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative())
-            {
-                if (!playerEntity.isCreative())
-                {
-                    playerBitInventory.extract(heldBlockState, missingBitCount);
-                }
+			context.setComplete();
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative())
+			{
+				if (!playerEntity.isCreative())
+				{
+					playerBitInventory.extract(heldBlockState, missingBitCount);
+				}
 
-                try (IBatchMutation ignored =
-                       mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-                {
-                    mutator.inWorldMutableStream()
-                      .filter(state -> state.getBlockInformation().isAir())
-                      .forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-                }
-            }
-            else
-            {
-                context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-            }
+				try (IBatchMutation ignored =
+					   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
+				{
+					mutator.inWorldMutableStream()
+					  .filter(state -> state.getBlockInformation().isAir())
+					  .forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+				}
+			}
+			else
+			{
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-            if (missingBitCount == 0)
-            {
-                context.validateBuildHeights();
-            }
-        });
-    }
+			if (missingBitCount == 0)
+			{
+				context.validateBuildHeights();
+			}
+		});
+	}
 
-    private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
-        final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
-        if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
-        {
-            context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
-            return ClickProcessingState.DEFAULT;
-        }
+	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
+		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+		{
+			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
+			return ClickProcessingState.DEFAULT;
+		}
 
-        Optional<Vec3> anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
-        if (anchor.isEmpty()) {
-            context.setMetadata(ModMetadataKeys.ANCHOR.get(), blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection())));
-            anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
-        }
+		Optional<Vec3> anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+		if (anchor.isEmpty()) {
+			context.setMetadata(ModMetadataKeys.ANCHOR.get(), blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection())));
+			anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+		}
 
-        context.resetMutator();
-        context.include(anchor.orElseThrow());
-        context.include(blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection())));
+		context.resetMutator();
+		context.include(anchor.orElseThrow());
+		context.include(blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection())));
 
-        return ClickProcessingState.ALLOW;
-    }
+		return ClickProcessingState.ALLOW;
+	}
 
-    @Override
-    public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
-    {
-        return context.getMutator()
-                 .map(IAreaAccessor.class::cast);
-    }
+	@Override
+	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
+	{
+		return context.getMutator()
+				 .map(IAreaAccessor.class::cast);
+	}
 
-    @Override
-    public VoxelShape getShape(final IChiselingContext context)
-    {
-        if (context.getMutator().isEmpty())
-            return Shapes.empty();
+	@Override
+	public VoxelShape getShape(final IChiselingContext context)
+	{
+		if (context.getMutator().isEmpty())
+			return Shapes.empty();
 
-        return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
-    }
+		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
+	}
 
-    @Override
-    public Identifier getIcon()
-    {
-        return iconName;
-    }
+	@Override
+	public Identifier getIcon()
+	{
+		return iconName;
+	}
 
-    @Override
-    public @NotNull Optional<IToolModeGroup> getGroup()
-    {
-        return Optional.of(ModChiselModeGroups.DRAW);
-    }
+	@Override
+	public @NotNull Optional<IToolModeGroup> getGroup()
+	{
+		return Optional.of(ModChiselModeGroups.DRAW);
+	}
 
-    @Override
-    public Component getDisplayName()
-    {
-        return displayName;
-    }
+	@Override
+	public Component getDisplayName()
+	{
+		return displayName;
+	}
 
-    @Override
-    public Component getMultiLineDisplayName()
-    {
-        return multiLineDisplayName;
-    }
+	@Override
+	public Component getMultiLineDisplayName()
+	{
+		return multiLineDisplayName;
+	}
 }

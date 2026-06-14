@@ -17,18 +17,17 @@ import java.util.function.Function;
  * Represents a single change that has been created with bits.
  */
 public interface IChange extends IChangeHandler {
+	Codec<IChange> CODEC = Codec.lazyInitialized(() -> IRegistryManager.getInstance().getChangeTypeRegistry().byNameCodec()
+			.dispatch(IChange::getType, IChangeType::codec));
 
-    Codec<IChange> CODEC = Codec.lazyInitialized(() -> IRegistryManager.getInstance().getChangeTypeRegistry().byNameCodec()
-            .dispatch(IChange::getType, IChangeType::codec));
+	StreamCodec<RegistryFriendlyByteBuf, IChange> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
+			IRegistryManager.getInstance().getChangeTypeRegistry().byNameStreamCodec(),
+			IChangeType::streamCodec,
+			IChange::getType
+	));
 
-    StreamCodec<RegistryFriendlyByteBuf, IChange> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
-            IRegistryManager.getInstance().getChangeTypeRegistry().byNameStreamCodec(),
-            IChangeType::streamCodec,
-            IChange::getType
-    ));
-
-    /**
+	/**
      * {@return The type of the change.}
      */
-    IChangeType getType();
+	IChangeType getType();
 }

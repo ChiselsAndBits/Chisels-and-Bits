@@ -5,6 +5,5 @@ package mod.chiselsandbits.api.exceptions;
  */
 public class CannotBeChiseledException extends Exception
 {
-
-    private static final long serialVersionUID = -2164869172949828669L;
+	private static final long serialVersionUID = -2164869172949828669L;
 }

@@ -19,28 +19,27 @@ import java.util.function.Supplier;
  * Handles client specific logic related to the state variant.
  */
 public interface IClientStateVariantManager {
+	static IClientStateVariantManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getClientStateVariantManager();
+	}
 
-    static IClientStateVariantManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getClientStateVariantManager();
-    }
-
-    /**
+	/**
      * Registers a new state variant provider.
      *
      * @param provider The provider to register.
      * @return The manager instance.
      */
-    IClientStateVariantManager registerStateVariantProvider(Supplier<Block> block, IClientStateVariantProvider provider);
+	IClientStateVariantManager registerStateVariantProvider(Supplier<Block> block, IClientStateVariantProvider provider);
 
-    /**
+	/**
      * Retrieves the block model data for the state block information.
      *
      * @param blockInformation The state block information.
      * @return The block model data.
      */
-    IBlockModelData getBlockModelData(BlockInformation blockInformation);
+	IBlockModelData getBlockModelData(BlockInformation blockInformation);
 
-    /**
+	/**
      * Invoked to append a tooltip for the given variant in the block information.
      * If no variant is found this method does nothing.
      *
@@ -50,10 +49,10 @@ public interface IClientStateVariantManager {
      * @param flag The flags
      * @param tooltipDisplay The display information regarding the tooltip.
      */
-    void appendHoverText(BlockInformation blockInformation,
-        final Item.TooltipContext context,
-        final TooltipDisplay tooltipDisplay,
-        final Consumer<Component> tooltipAdder,
-        final TooltipFlag flag
-    );
+	void appendHoverText(BlockInformation blockInformation,
+		final Item.TooltipContext context,
+		final TooltipDisplay tooltipDisplay,
+		final Consumer<Component> tooltipAdder,
+		final TooltipFlag flag
+	);
 }

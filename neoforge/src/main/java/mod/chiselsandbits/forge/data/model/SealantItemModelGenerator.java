@@ -2,31 +2,31 @@ package mod.chiselsandbits.forge.data.model;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModItems;
-import net.minecraft.data.DataGenerator;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
+import net.minecraft.data.DataGenerator;
+
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class SealantItemModelGenerator extends AbstractInteractableItemModelGenerator
 {
+	@SubscribeEvent
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+	{
+		event.getGenerator().addProvider(true, new SealantItemModelGenerator(event.getGenerator()));
+	}
 
-    @SubscribeEvent
-    public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-    {
-        event.getGenerator().addProvider(true, new SealantItemModelGenerator(event.getGenerator()));
-    }
+	public SealantItemModelGenerator(final DataGenerator generator)
+	{
+		super(generator, ModItems.SEALANT_ITEM);
+	}
 
-    public SealantItemModelGenerator(final DataGenerator generator)
-    {
-        super(generator, ModItems.SEALANT_ITEM);
-    }
-
-    @Override
-    public @NotNull String getName()
-    {
-        return "Sealant item model generator";
-    }
+	@Override
+	public @NotNull String getName()
+	{
+		return "Sealant item model generator";
+	}
 }

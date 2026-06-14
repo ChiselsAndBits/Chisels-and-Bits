@@ -11,49 +11,48 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IEligibilityManager
 {
+	static IEligibilityManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getEligibilityManager();
+	}
 
-    static IEligibilityManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getEligibilityManager();
-    }
-
-    /**
+	/**
      * Checks if a given block information can be chiseled or is already chiseled.
      *
      * @param blockInformation The given block information in question.
      *
      * @return True when chiselable or already chiseled.
      */
-    default boolean canBeChiseled(@NotNull final BlockInformation blockInformation) {
-        return analyse(blockInformation).canBeChiseled() || analyse(blockInformation).isAlreadyChiseled();
-    }
+	default boolean canBeChiseled(@NotNull final BlockInformation blockInformation) {
+		return analyse(blockInformation).canBeChiseled() || analyse(blockInformation).isAlreadyChiseled();
+	}
 
-    /**
+	/**
      * Checks if a given {@link ItemStack} can be chiseled or is already chiseled.
      *
      * @param provider The given {@link ItemStack} in question.
      *
      * @return True when chiselable or already chiseled.
      */
-    default boolean canBeChiseled(@NotNull final ItemStack provider)
-    {
-        return analyse(provider).canBeChiseled();
-    }
+	default boolean canBeChiseled(@NotNull final ItemStack provider)
+	{
+		return analyse(provider).canBeChiseled();
+	}
 
-    /**
+	/**
      * Performs a chiselability analysis on the given block information.
      *
      * @param blockInformation The block information to analyze.
      *
      * @return The analysis result.
      */
-    IEligibilityAnalysisResult analyse(@NotNull final BlockInformation blockInformation);
+	IEligibilityAnalysisResult analyse(@NotNull final BlockInformation blockInformation);
 
-    /**
+	/**
      * Performs a chiselability analysis on the given {@link ItemStack}.
      *
      * @param provider The {@link ItemStack} to analyze.
      *
      * @return The analysis result.
      */
-    IEligibilityAnalysisResult analyse(@NotNull final ItemStack provider);
+	IEligibilityAnalysisResult analyse(@NotNull final ItemStack provider);
 }

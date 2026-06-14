@@ -7,8 +7,6 @@ import jdk.jfr.*;
 @Category({"Minecraft", "C&B"})
 public class CandBProfilingFinishedEvent extends Event
 {
-    public static final String NAME = "minecraft.candb.Finished";
-    public static final EventType TYPE = EventType.getEventType(CandBProfilingFinishedEvent.class);
-
-
+	public static final String NAME = "minecraft.candb.Finished";
+	public static final EventType TYPE = EventType.getEventType(CandBProfilingFinishedEvent.class);
 }

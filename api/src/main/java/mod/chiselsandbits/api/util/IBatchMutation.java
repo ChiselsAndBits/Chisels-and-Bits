@@ -9,8 +9,7 @@ import java.io.Closeable;
  */
 public interface IBatchMutation extends AutoCloseable
 {
-
-    /**
+	/**
      * Closes this resource, relinquishing any underlying resources. This method is invoked automatically on objects managed by the {@code try}-with-resources statement.
      *
      * <p>While this interface method is declared to throw {@code
@@ -36,6 +35,6 @@ public interface IBatchMutation extends AutoCloseable
      * <p>
      * However, implementers of this interface are strongly encouraged to make their {@code close} methods idempotent.
      */
-    @Override
-    void close();
+	@Override
+	void close();
 }

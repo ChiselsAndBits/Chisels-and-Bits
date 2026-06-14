@@ -9,23 +9,22 @@ import org.jetbrains.annotations.NotNull;
  * the same as the properties of the server you are connecting to.
  */
 public interface ILaunchPropertyManager {
-
-    /**
+	/**
      * The current instance of the launch property manager.
      *
      * @return The current instance.
      */
-    static ILaunchPropertyManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getLaunchPropertyManager();
-    }
+	static ILaunchPropertyManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getLaunchPropertyManager();
+	}
 
-    /**
+	/**
      * Retrieves the value of the launch property with the given key.
      *
      * @param key The key to get the launch property of.
      * @param defaultValue The default value if not configured.
      * @return The current value of the property.
      */
-    @NotNull
-    String get(final String key, final String defaultValue);
+	@NotNull
+	String get(final String key, final String defaultValue);
 }

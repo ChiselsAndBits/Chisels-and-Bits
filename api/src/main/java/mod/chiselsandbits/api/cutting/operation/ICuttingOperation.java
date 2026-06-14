@@ -14,23 +14,23 @@ import java.util.Collection;
  */
 public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICuttingOperationGroup>
 {
-    /**
+	/**
      * The default Cutting operation.
      * @return The default operation.
      */
-    static ICuttingOperation getDefaultMode() {
-        return IChiselsAndBitsAPI.getInstance().getDefaultCuttingOperation();
-    }
+	static ICuttingOperation getDefaultMode() {
+		return IChiselsAndBitsAPI.getInstance().getDefaultCuttingOperation();
+	}
 
-    /**
+	/**
      * The underlying registry that contains the different Cutting modes that can be performed.
      * @return The underlying forge registry.
      */
-    static ICustomRegistry<ICuttingOperation> getRegistry() {
-        return IRegistryManager.getInstance().getCuttingOperationRegistry();
-    }
+	static ICustomRegistry<ICuttingOperation> getRegistry() {
+		return IRegistryManager.getInstance().getCuttingOperationRegistry();
+	}
 
-    /**
+	/**
      * Performs a Cutting on the snapshot.
      * The returned collection contains the individual pieces that result of this cut.
      *
@@ -41,5 +41,5 @@ public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICutt
      * @param source The mutator to modify.
      * @return A collection of accessors that were created by the operation.
      */
-    Collection<IAreaAccessor> apply(final IAreaAccessor source);
+	Collection<IAreaAccessor> apply(final IAreaAccessor source);
 }

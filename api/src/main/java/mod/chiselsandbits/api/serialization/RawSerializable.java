@@ -8,19 +8,18 @@ import net.minecraft.network.codec.StreamCodec;
  * Defines objects which can be serialized into a raw format.
  */
 public interface RawSerializable {
-
-    /**
+	/**
      * {@return The codec used for direct serialization.}
      */
-    Codec<?> codec();
+	Codec<?> codec();
 
-    /**
+	/**
      * {@return The codec used for complex serialization.}
      */
-    MapCodec<?> mapCodec();
+	MapCodec<?> mapCodec();
 
-    /**
+	/**
      * {@return The codec used for streaming serialization.}
      */
-    StreamCodec<?, ?> streamCodec();
+	StreamCodec<?, ?> streamCodec();
 }

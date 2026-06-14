@@ -8,23 +8,23 @@ import mod.chiselsandbits.client.screens.components.toasts.ChiselsAndBitsNotific
 
 public final class NotificationManager implements INotificationManager
 {
-    private static final NotificationManager INSTANCE = new NotificationManager();
+	private static final NotificationManager INSTANCE = new NotificationManager();
 
-    public static NotificationManager getInstance()
-    {
-        return INSTANCE;
-    }
+	public static NotificationManager getInstance()
+	{
+		return INSTANCE;
+	}
 
-    private NotificationManager()
-    {
-    }
+	private NotificationManager()
+	{
+	}
 
-    @Override
-    public void notify(final INotification notification)
-    {
-        DistExecutor.unsafeRunWhenOn(
-          Dist.CLIENT,
-          () -> () -> ChiselsAndBitsNotificationToast.notifyOf(notification)
-        );
-    }
+	@Override
+	public void notify(final INotification notification)
+	{
+		DistExecutor.unsafeRunWhenOn(
+		  Dist.CLIENT,
+		  () -> () -> ChiselsAndBitsNotificationToast.notifyOf(notification)
+		);
+	}
 }

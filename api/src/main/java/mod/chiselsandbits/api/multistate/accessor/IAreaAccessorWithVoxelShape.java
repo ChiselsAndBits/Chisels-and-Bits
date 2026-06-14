@@ -9,7 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  */
 public interface IAreaAccessorWithVoxelShape extends IAreaAccessor
 {
-    /**
+	/**
      * Determines the voxelshape of the {@link IAreaAccessorWithVoxelShape} at the given position.
      *
      * @param type The type of the voxel shape that is needed.
@@ -17,5 +17,5 @@ public interface IAreaAccessorWithVoxelShape extends IAreaAccessor
      * @param simplify Whether to simplify the voxelshape.
      * @return The voxelshape of the {@link IAreaAccessorWithVoxelShape} at the given position.
      */
-    VoxelShape provideShape(final CollisionType type, final BlockPos offset, final boolean simplify);
+	VoxelShape provideShape(final CollisionType type, final BlockPos offset, final boolean simplify);
 }

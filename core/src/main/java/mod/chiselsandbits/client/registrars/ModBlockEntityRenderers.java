@@ -7,23 +7,22 @@ import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 
 public final class ModBlockEntityRenderers
 {
+	private ModBlockEntityRenderers()
+	{
+		throw new IllegalStateException("Can not instantiate an instance of: BlockEntityRenderers. This is a utility class");
+	}
 
-    private ModBlockEntityRenderers()
-    {
-        throw new IllegalStateException("Can not instantiate an instance of: BlockEntityRenderers. This is a utility class");
-    }
+	public static void onClientConstruction() {
+		IRenderingManager.getInstance().registerBlockEntityRenderer(
+				registrar -> {
+					registrar.registerBlockEntityRenderer(ModBlockEntityTypes.BIT_STORAGE.get(), context -> new BitStorageBESR());
+				}
+		);
 
-    public static void onClientConstruction() {
-        IRenderingManager.getInstance().registerBlockEntityRenderer(
-                registrar -> {
-                    registrar.registerBlockEntityRenderer(ModBlockEntityTypes.BIT_STORAGE.get(), context -> new BitStorageBESR());
-                }
-        );
-
-        IRenderingManager.getInstance().registerBlockEntityRenderer(
-            registrar -> {
-                registrar.registerBlockEntityRenderer(ModBlockEntityTypes.CHISELED_PRINTER.get(), context -> new ChiseledPrinterBESR());
-            }
-        );
-    }
+		IRenderingManager.getInstance().registerBlockEntityRenderer(
+			registrar -> {
+				registrar.registerBlockEntityRenderer(ModBlockEntityTypes.CHISELED_PRINTER.get(), context -> new ChiseledPrinterBESR());
+			}
+		);
+	}
 }

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IWithHighlightItem
 {
-    /**
+	/**
      * Indicates if the given player is allowed to use the
      * default render method.
      *
@@ -23,9 +23,9 @@ public interface IWithHighlightItem
      *
      * @return True to let minecraft handle the highlight rendering, false when not.
      */
-    boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity);
+	boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity);
 
-    /**
+	/**
      * Renders the highlight for the current item.
      *
      * @param playerEntity     The player entity in question.
@@ -35,8 +35,8 @@ public interface IWithHighlightItem
      * @param levelRenderState The current levels render state.
      * @param partialTicks     The partial ticks used for animations.
      */
-    void renderHighlight(Player playerEntity, LevelRenderer worldRenderer, PoseStack matrixStack,
-        final MultiBufferSource.BufferSource bufferSource,
-        final LevelRenderState levelRenderState,
-        float partialTicks);
+	void renderHighlight(Player playerEntity, LevelRenderer worldRenderer, PoseStack matrixStack,
+		final MultiBufferSource.BufferSource bufferSource,
+		final LevelRenderState levelRenderState,
+		float partialTicks);
 }

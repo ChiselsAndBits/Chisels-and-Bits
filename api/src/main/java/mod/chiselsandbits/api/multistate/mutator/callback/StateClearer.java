@@ -5,6 +5,5 @@ import net.minecraft.world.phys.Vec3;
 @FunctionalInterface
 public interface StateClearer
 {
-
-    void accept(Vec3 pos);
+	void accept(Vec3 pos);
 }

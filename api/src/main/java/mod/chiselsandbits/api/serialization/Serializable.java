@@ -14,26 +14,26 @@ import net.minecraft.network.codec.StreamCodec;
  */
 public interface Serializable<TSelf, TBuffer extends FriendlyByteBuf> extends RawSerializable
 {
-    /**
+	/**
      * {@return The codec used for direct serialization.}
      */
-    Codec<TSelf> codec();
+	Codec<TSelf> codec();
 
-    /**
+	/**
      * {@return The codec used for complex serialization.}
      */
-    MapCodec<TSelf> mapCodec();
+	MapCodec<TSelf> mapCodec();
 
-    /**
+	/**
      * {@return The codec used for streaming serialization.}
      */
-    StreamCodec<TBuffer, TSelf> streamCodec();
+	StreamCodec<TBuffer, TSelf> streamCodec();
 
-    /**
+	/**
      * Serializes specifically when a registry is involved.
      *
      * @param <TSelf> The type of the implementing class.
      */
-    interface Registry<TSelf> extends Serializable<TSelf, RegistryFriendlyByteBuf> {
-    }
+	interface Registry<TSelf> extends Serializable<TSelf, RegistryFriendlyByteBuf> {
+	}
 }

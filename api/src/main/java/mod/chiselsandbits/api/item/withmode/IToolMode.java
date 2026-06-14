@@ -11,13 +11,12 @@ import java.util.Optional;
  */
 public interface IToolMode<G extends IToolModeGroup> extends IWithDisplayName, IRenderableMode
 {
-
-    /**
+	/**
      * An optional which indicates the group this tool mode
      * is part of.
      *
      * @return The optional tool mode group.
      */
-    @NotNull
-    Optional<G> getGroup();
+	@NotNull
+	Optional<G> getGroup();
 }

@@ -1,5 +1,9 @@
 package mod.chiselsandbits.item;
 
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.chiseling.ChiselingOperation;
 import mod.chiselsandbits.api.chiseling.IChiselingContext;
@@ -21,6 +25,10 @@ import mod.chiselsandbits.chiseling.LocalChiselingContextCache;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.TranslationUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
@@ -37,355 +45,346 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlightedNameItem
 {
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final ToolMaterial material;
 
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final ToolMaterial material;
+	public ChiselItem(
+	  final ToolMaterial material,
+	  final Properties builderIn)
+	{
+		super(builderIn.shovel(material, 0F, -3.0F));
+		this.material = material;
+	}
 
-    public ChiselItem(
-      final ToolMaterial material,
-      final Properties builderIn)
-    {
-        super(builderIn.shovel(material, 0F, -3.0F));
-        this.material = material;
-    }
+	@Override
+	public @NotNull Component getName(final ItemStack stack)
+	{
+		if (stack.has(ModDataComponentTypes.CHISEL_ERROR.get())) {
+			return Objects.requireNonNull(stack.get(ModDataComponentTypes.CHISEL_ERROR.get()));
+		}
 
-    @Override
-    public @NotNull Component getName(final ItemStack stack)
-    {
-        if (stack.has(ModDataComponentTypes.CHISEL_ERROR.get())) {
-            return Objects.requireNonNull(stack.get(ModDataComponentTypes.CHISEL_ERROR.get()));
-        }
+		return super.getName(stack);
+	}
 
-        return super.getName(stack);
-    }
+	@Override
+	public void appendHoverText(
+		final ItemStack stack,
+		final TooltipContext context,
+		final TooltipDisplay tooltipDisplay,
+		final Consumer<Component> tooltipAdder,
+		final TooltipFlag flag)
+	{
+		final IChiselMode mode = getMode(stack);
+		if (mode.getGroup().isPresent())
+		{
+			tooltipAdder.accept(TranslationUtils.build("chiselmode.mode_grouped", mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
+		}
+		else
+		{
+			tooltipAdder.accept(TranslationUtils.build("chiselmode.mode", mode.getDisplayName()));
+		}
 
-    @Override
-    public void appendHoverText(
-        final ItemStack stack,
-        final TooltipContext context,
-        final TooltipDisplay tooltipDisplay,
-        final Consumer<Component> tooltipAdder,
-        final TooltipFlag flag)
-    {
-        final IChiselMode mode = getMode(stack);
-        if (mode.getGroup().isPresent())
-        {
-            tooltipAdder.accept(TranslationUtils.build("chiselmode.mode_grouped", mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
-        }
-        else
-        {
-            tooltipAdder.accept(TranslationUtils.build("chiselmode.mode", mode.getDisplayName()));
-        }
+		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+	}
 
+	@NotNull
+	@Override
+	public IChiselMode getMode(final ItemStack stack)
+	{
+		return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
+	}
 
-        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
-    }
+	@Override
+	public void setMode(final ItemStack stack, final IChiselMode mode)
+	{
+	   stack.set(ModDataComponentTypes.CHISEL_MODE.get(), mode);
+	}
 
-    @NotNull
-    @Override
-    public IChiselMode getMode(final ItemStack stack)
-    {
-        return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
-    }
+	@NotNull
+	@Override
+	public Collection<IChiselMode> getPossibleModes()
+	{
+		return IChiselMode.getRegistry()
+				 .getValues()
+				 .stream()
+				 .filter(mode -> !mode.requiresPlaceableEditStack())
+				 .sorted(Comparator.comparing(IChiselMode::getRegistryName))
+				 .collect(Collectors.toList());
+	}
 
-    @Override
-    public void setMode(final ItemStack stack, final IChiselMode mode)
-    {
-       stack.set(ModDataComponentTypes.CHISEL_MODE.get(), mode);
-    }
+	@Override
+	public ClickProcessingState handleLeftClickProcessing(
+	  final Player playerEntity,
+	  final InteractionHand hand,
+	  final BlockPos position,
+	  final Direction face,
+	  final ClickProcessingState currentState
+	)
+	{
+		final ItemStack itemStack = playerEntity.getItemInHand(hand);
+		if (itemStack.isEmpty() || itemStack.getItem() != this)
+		{
+			return currentState;
+		}
 
-    @NotNull
-    @Override
-    public Collection<IChiselMode> getPossibleModes()
-    {
-        return IChiselMode.getRegistry()
-                 .getValues()
-                 .stream()
-                 .filter(mode -> !mode.requiresPlaceableEditStack())
-                 .sorted(Comparator.comparing(IChiselMode::getRegistryName))
-                 .collect(Collectors.toList());
-    }
+		final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
+		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
-    @Override
-    public ClickProcessingState handleLeftClickProcessing(
-      final Player playerEntity,
-      final InteractionHand hand,
-      final BlockPos position,
-      final Direction face,
-      final ClickProcessingState currentState
-    )
-    {
-        final ItemStack itemStack = playerEntity.getItemInHand(hand);
-        if (itemStack.isEmpty() || itemStack.getItem() != this)
-        {
-            return currentState;
-        }
+		final IChiselingContext context = IChiselingManager.getInstance().getOrCreateContext(
+		  playerEntity,
+		  chiselMode,
+		  ChiselingOperation.CHISELING,
+		  false,
+		  itemStack);
 
-        final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
-        final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
+		final ClickProcessingState resultState = chiselMode.onLeftClickBy(
+		  playerEntity,
+		  context
+		);
 
-        final IChiselingContext context = IChiselingManager.getInstance().getOrCreateContext(
-          playerEntity,
-          chiselMode,
-          ChiselingOperation.CHISELING,
-          false,
-          itemStack);
+		if (context.isComplete())
+		{
+			playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+			ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
+		}
 
-        final ClickProcessingState resultState = chiselMode.onLeftClickBy(
-          playerEntity,
-          context
-        );
+		if (context.getError().isPresent() && context.getWorld().isClientSide()) {
+			INotificationManager.getInstance().notify(
+			  context.getMode().getIcon(),
+			  new Vec3(1, 0, 0),
+			  context.getError().get()
+			);
+		}
 
-        if (context.isComplete())
-        {
-            playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
-            ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-        }
+		return resultState;
+	}
 
-        if (context.getError().isPresent() && context.getWorld().isClientSide()) {
-            INotificationManager.getInstance().notify(
-              context.getMode().getIcon(),
-              new Vec3(1, 0, 0),
-              context.getError().get()
-            );
-        }
+	@Override
+	public void onLeftClickProcessingEnd(final Player player, final ItemStack stack)
+	{
+		final IChiselMode chiselMode = getMode(stack);
+		Optional<IChiselingContext> context = IChiselingManager.getInstance().get(
+		  player,
+		  chiselMode,
+		  ChiselingOperation.CHISELING);
 
-        return resultState;
-    }
+		if (context.isEmpty()) {
+			context = LocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
+		}
 
-    @Override
-    public void onLeftClickProcessingEnd(final Player player, final ItemStack stack)
-    {
-        final IChiselMode chiselMode = getMode(stack);
-        Optional<IChiselingContext> context = IChiselingManager.getInstance().get(
-          player,
-          chiselMode,
-          ChiselingOperation.CHISELING);
+		context.ifPresent(c -> {
+			chiselMode.onStoppedLeftClicking(player, c);
+			if (c.isComplete()) {
+				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+				LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
+			}
+		});
+	}
 
-        if (context.isEmpty()) {
-            context = LocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
-        }
+	@Override
+	public boolean canUse(final Player playerEntity, @NotNull final ItemStack stack)
+	{
+		final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
+		if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
+			INotificationManager.getInstance().notify(
+					getMode(stack).getIcon(),
+					new Vec3(1, 0, 0),
+					LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
+			);
+		}
 
-        context.ifPresent(c -> {
-            chiselMode.onStoppedLeftClicking(player, c);
-            if (c.isComplete()) {
-                player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
-                LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-            }
-        });
-    }
+		return isAllowedToUse;
+	}
 
-    @Override
-    public boolean canUse(final Player playerEntity, @NotNull final ItemStack stack)
-    {
-        final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
-        if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
-            INotificationManager.getInstance().notify(
-                    getMode(stack).getIcon(),
-                    new Vec3(1, 0, 0),
-                    LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
-            );
-        }
+	@Override
+	public boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity)
+	{
+		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
+		if (itemStack.isEmpty() || itemStack.getItem() != this)
+		{
+			return true;
+		}
 
-        return isAllowedToUse;
-    }
+		final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
+		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
-    @Override
-    public boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity)
-    {
-        final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
-        if (itemStack.isEmpty() || itemStack.getItem() != this)
-        {
-            return true;
-        }
+		final Optional<IChiselingContext> potentiallyExistingContext =
+		  IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+		if (potentiallyExistingContext.isPresent())
+		{
+			final IChiselingContext context = potentiallyExistingContext.get();
 
-        final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
-        final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
+			if (context.getMutator().isPresent())
+			{
+				return false;
+			}
 
-        final Optional<IChiselingContext> potentiallyExistingContext =
-          IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
-        if (potentiallyExistingContext.isPresent())
-        {
-            final IChiselingContext context = potentiallyExistingContext.get();
+			final IChiselingContext currentContextSnapshot = context.createSnapshot();
+			chiselMode.onLeftClickBy(
+			  playerEntity,
+			  currentContextSnapshot
+			);
 
-            if (context.getMutator().isPresent())
-            {
-                return false;
-            }
+			return currentContextSnapshot.getMutator().isEmpty();
+		}
 
-            final IChiselingContext currentContextSnapshot = context.createSnapshot();
-            chiselMode.onLeftClickBy(
-              playerEntity,
-              currentContextSnapshot
-            );
+		final Optional<IChiselingContext> localCachedContext = ILocalChiselingContextCache
+																 .getInstance()
+																 .get(ChiselingOperation.CHISELING);
 
-            return currentContextSnapshot.getMutator().isEmpty();
-        }
+		if (localCachedContext.isPresent()
+		  &&
+			  localCachedContext.get().getMode().isStillValid(playerEntity, localCachedContext.get(), ChiselingOperation.CHISELING)
+		)
+		{
+			final IChiselingContext context = localCachedContext.get();
 
-        final Optional<IChiselingContext> localCachedContext = ILocalChiselingContextCache
-                                                                 .getInstance()
-                                                                 .get(ChiselingOperation.CHISELING);
+			if (
+			  context.getMode() == chiselMode
+			)
 
-        if (localCachedContext.isPresent()
-          &&
-              localCachedContext.get().getMode().isStillValid(playerEntity, localCachedContext.get(), ChiselingOperation.CHISELING)
-        )
-        {
-            final IChiselingContext context = localCachedContext.get();
+			if (context.getMutator().isPresent())
+			{
+				return false;
+			}
 
-            if (
-              context.getMode() == chiselMode
-            )
+			return context.getMutator().isEmpty();
+		}
 
-            if (context.getMutator().isPresent())
-            {
-                return false;
-            }
+		final IChiselingContext context = IChiselingManager.getInstance().create(
+		  playerEntity,
+		  chiselMode,
+		  ChiselingOperation.CHISELING,
+		  true,
+		  itemStack);
 
-            return context.getMutator().isEmpty();
-        }
+		//We try a left click render primary.
+		chiselMode.onLeftClickBy(
+		  playerEntity,
+		  context
+		);
 
-        final IChiselingContext context = IChiselingManager.getInstance().create(
-          playerEntity,
-          chiselMode,
-          ChiselingOperation.CHISELING,
-          true,
-          itemStack);
+		//Store it in the local cache.
+		if (!context.isComplete())
+		ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
 
-        //We try a left click render primary.
-        chiselMode.onLeftClickBy(
-          playerEntity,
-          context
-        );
+		return context.getMutator().isEmpty();
+	}
 
-        //Store it in the local cache.
-        if (!context.isComplete())
-        ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
+	@Override
+	public void renderHighlight(
+		final Player playerEntity,
+		final LevelRenderer levelRenderer,
+		final PoseStack poseStack,
+		final MultiBufferSource.BufferSource bufferSource,
+		final LevelRenderState levelRenderState,
+		final float partialTicks)
+	{
+		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
+		if (itemStack.isEmpty() || itemStack.getItem() != this)
+		{
+			return;
+		}
 
-        return context.getMutator().isEmpty();
-    }
+		final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
+		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
-    @Override
-    public void renderHighlight(
-        final Player playerEntity,
-        final LevelRenderer levelRenderer,
-        final PoseStack poseStack,
-        final MultiBufferSource.BufferSource bufferSource,
-        final LevelRenderState levelRenderState,
-        final float partialTicks)
-    {
-        final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
-        if (itemStack.isEmpty() || itemStack.getItem() != this)
-        {
-            return;
-        }
+		final Optional<IChiselingContext> potentiallyExistingContext =
+		  IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
-        final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
-        final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
+		final Optional<IChiselingContext> potentiallyCachedContext = ILocalChiselingContextCache.getInstance()
+																	   .get(ChiselingOperation.CHISELING);
+		IChiselingContext context;
+		if (potentiallyExistingContext.isPresent()) {
+			context = potentiallyExistingContext.get();
 
-        final Optional<IChiselingContext> potentiallyExistingContext =
-          IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+			chiselMode.onLeftClickBy(
+			  playerEntity,
+			  context
+			);
+		}
+		else if (potentiallyCachedContext.isPresent()
+				   && potentiallyCachedContext.get().getMode() == chiselMode
+				   && potentiallyCachedContext.get().getModeOfOperandus() == ChiselingOperation.CHISELING
+				   && chiselMode.isStillValid(playerEntity, potentiallyCachedContext.get(), ChiselingOperation.CHISELING)) {
+			context = potentiallyCachedContext.get();
+		}
+		else
+		{
+			context =  IChiselingManager.getInstance().create(
+			  playerEntity,
+			  chiselMode,
+			  ChiselingOperation.CHISELING,
+			  true,
+			  itemStack
+			);
 
-        final Optional<IChiselingContext> potentiallyCachedContext = ILocalChiselingContextCache.getInstance()
-                                                                       .get(ChiselingOperation.CHISELING);
-        IChiselingContext context;
-        if (potentiallyExistingContext.isPresent()) {
-            context = potentiallyExistingContext.get();
+			chiselMode.onLeftClickBy(
+			  playerEntity,
+			  context
+			);
+		}
 
-            chiselMode.onLeftClickBy(
-              playerEntity,
-              context
-            );
-        }
-        else if (potentiallyCachedContext.isPresent()
-                   && potentiallyCachedContext.get().getMode() == chiselMode
-                   && potentiallyCachedContext.get().getModeOfOperandus() == ChiselingOperation.CHISELING
-                   && chiselMode.isStillValid(playerEntity, potentiallyCachedContext.get(), ChiselingOperation.CHISELING)) {
-            context = potentiallyCachedContext.get();
-        }
-        else
-        {
-            context =  IChiselingManager.getInstance().create(
-              playerEntity,
-              chiselMode,
-              ChiselingOperation.CHISELING,
-              true,
-              itemStack
-            );
+		if (context.getMutator().isEmpty())
+		{
+			ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
+			//No bit was included in the chiseling action
+			//We interacted with something we could not chisel
+			return;
+		}
 
-            chiselMode.onLeftClickBy(
-              playerEntity,
-              context
-            );
-        }
+		if (context.getMutator().isPresent() && context.getError().isEmpty()) {
+			IChiselContextPreviewRendererRegistry.getInstance().getCurrent()
+			  .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
+			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
+		}
+	}
 
-        if (context.getMutator().isEmpty())
-        {
-            ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-            //No bit was included in the chiseling action
-            //We interacted with something we could not chisel
-            return;
-        }
+	@Override
+	public boolean isDamageableDuringChiseling()
+	{
+		return true;
+	}
 
-        if (context.getMutator().isPresent() && context.getError().isEmpty()) {
-            IChiselContextPreviewRendererRegistry.getInstance().getCurrent()
-              .renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
-            ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
-        }
-    }
+	@Override
+	public DataComponentMap components() {
+		final DataComponentMap map = super.components();
+		final DataComponentMap.Builder builder = DataComponentMap.builder();
 
-    @Override
-    public boolean isDamageableDuringChiseling()
-    {
-        return true;
-    }
+		builder.addAll(map);
+		builder.set(DataComponents.MAX_DAMAGE, getMaxBrokenBlocksAsDurability() * StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock());
 
-    @Override
-    public DataComponentMap components() {
-        final DataComponentMap map = super.components();
-        final DataComponentMap.Builder builder = DataComponentMap.builder();
+		return builder.build();
+	}
 
-        builder.addAll(map);
-        builder.set(DataComponents.MAX_DAMAGE, getMaxBrokenBlocksAsDurability() * StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock());
+	public int getMaxBrokenBlocksAsDurability()
+	{
+		return material.durability();
+	}
 
-        return builder.build();
-    }
+	@Override
+	public ItemStack adaptItemStack(final ItemStack currentToolStack)
+	{
+		final Optional<IChiselingContext> chiselingContext =
+		  ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
+		final Optional<IChiselingContext> placingContext =
+		  ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
 
-    public int getMaxBrokenBlocksAsDurability()
-    {
-        return material.durability();
-    }
+		if (chiselingContext.isPresent() && chiselingContext.get().getError().isPresent()) {
+			final ItemStack errorStack = currentToolStack.copy();
+			errorStack.set(ModDataComponentTypes.CHISEL_ERROR.get(), chiselingContext.get().getError().get());
+			return errorStack;
+		}
 
-    @Override
-    public ItemStack adaptItemStack(final ItemStack currentToolStack)
-    {
-        final Optional<IChiselingContext> chiselingContext =
-          ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
-        final Optional<IChiselingContext> placingContext =
-          ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
+		if (placingContext.isPresent() && placingContext.get().getError().isPresent()) {
+			final ItemStack errorStack = currentToolStack.copy();
+			errorStack.set(ModDataComponentTypes.CHISEL_ERROR.get(), placingContext.get().getError().get());
+			return errorStack;
+		}
 
-        if (chiselingContext.isPresent() && chiselingContext.get().getError().isPresent()) {
-            final ItemStack errorStack = currentToolStack.copy();
-            errorStack.set(ModDataComponentTypes.CHISEL_ERROR.get(), chiselingContext.get().getError().get());
-            return errorStack;
-        }
-
-        if (placingContext.isPresent() && placingContext.get().getError().isPresent()) {
-            final ItemStack errorStack = currentToolStack.copy();
-            errorStack.set(ModDataComponentTypes.CHISEL_ERROR.get(), placingContext.get().getError().get());
-            return errorStack;
-        }
-
-        return currentToolStack;
-    }
+		return currentToolStack;
+	}
 }

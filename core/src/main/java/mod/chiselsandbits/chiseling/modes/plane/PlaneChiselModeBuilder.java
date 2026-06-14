@@ -1,41 +1,41 @@
 package mod.chiselsandbits.chiseling.modes.plane;
 
-import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
 
 public class PlaneChiselModeBuilder
 {
-    private int                       depth;
-    private MutableComponent displayName;
-    private MutableComponent multiLineDisplayName;
-    private Identifier       iconName;
+	private int                       depth;
+	private MutableComponent displayName;
+	private MutableComponent multiLineDisplayName;
+	private Identifier       iconName;
 
-    public PlaneChiselModeBuilder setDepth(final int depth)
-    {
-        this.depth = depth;
-        return this;
-    }
+	public PlaneChiselModeBuilder setDepth(final int depth)
+	{
+		this.depth = depth;
+		return this;
+	}
 
-    public PlaneChiselModeBuilder setDisplayName(final MutableComponent displayName)
-    {
-        this.displayName = displayName;
-        return this;
-    }
+	public PlaneChiselModeBuilder setDisplayName(final MutableComponent displayName)
+	{
+		this.displayName = displayName;
+		return this;
+	}
 
-    public PlaneChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
-    {
-        this.multiLineDisplayName = multiLineDisplayName;
-        return this;
-    }
+	public PlaneChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
+	{
+		this.multiLineDisplayName = multiLineDisplayName;
+		return this;
+	}
 
-    public PlaneChiselModeBuilder setIconName(final Identifier iconName)
-    {
-        this.iconName = iconName;
-        return this;
-    }
+	public PlaneChiselModeBuilder setIconName(final Identifier iconName)
+	{
+		this.iconName = iconName;
+		return this;
+	}
 
-    public PlaneChiselMode createPlaneChiselMode()
-    {
-        return new PlaneChiselMode(depth, displayName, multiLineDisplayName, iconName);
-    }
+	public PlaneChiselMode createPlaneChiselMode()
+	{
+		return new PlaneChiselMode(depth, displayName, multiLineDisplayName, iconName);
+	}
 }

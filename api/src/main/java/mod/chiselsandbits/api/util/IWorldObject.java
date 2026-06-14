@@ -11,53 +11,51 @@ import net.minecraft.world.level.LevelAccessor;
  */
 public interface IWorldObject
 {
-
-    /**
+	/**
      * The world the object is in.
      *
      * @return The world.
      */
-    LevelAccessor getWorld();
+	LevelAccessor getWorld();
 
-    /**
+	/**
      * The start point of the object in the world.
      *
      * @return The start point.
      */
-    Vec3 getInWorldStartPoint();
+	Vec3 getInWorldStartPoint();
 
-    /**
+	/**
      * The end point of the object in the world.
      *
      * @return The end point.
      */
-    Vec3 getInWorldEndPoint();
+	Vec3 getInWorldEndPoint();
 
-
-    /**
+	/**
      * The start block point of the object in the world.
      *
      * @return The start point.
      */
-    default BlockPos getInWorldStartBlockPoint() {
-        return VectorUtils.toBlockPos(getInWorldStartPoint());
-    }
+	default BlockPos getInWorldStartBlockPoint() {
+		return VectorUtils.toBlockPos(getInWorldStartPoint());
+	}
 
-    /**
+	/**
      * The end block point of the object in the world.
      *
      * @return The end point.
      */
-    default BlockPos getInWorldEndBlockPoint() {
-        return VectorUtils.toBlockPos(getInWorldEndPoint());
-    }
+	default BlockPos getInWorldEndBlockPoint() {
+		return VectorUtils.toBlockPos(getInWorldEndPoint());
+	}
 
-    /**
+	/**
      * Gives access to the in world axis aligned bounding box of the object.
      *
      * @return The axis aligned bounding box.
      */
-    default AABB getInWorldBoundingBox() {
-        return new AABB(getInWorldStartPoint(), getInWorldEndPoint());
-    }
+	default AABB getInWorldBoundingBox() {
+		return new AABB(getInWorldStartPoint(), getInWorldEndPoint());
+	}
 }

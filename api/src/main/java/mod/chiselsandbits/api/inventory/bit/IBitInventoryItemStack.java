@@ -14,45 +14,44 @@ import java.util.List;
  */
 public interface IBitInventoryItemStack extends IBitInventory, Container
 {
+	record DisplayContents(List<Component> displayComponents, boolean isEmpty, boolean clipped) {};
 
-    record DisplayContents(List<Component> displayComponents, boolean isEmpty, boolean clipped) {};
-
-    /**
+	/**
      * Converts this bit inventory into an itemstack.
      *
      * @return The itemstack which represents this inventory.
      */
-    ItemStack toItemStack();
+	ItemStack toItemStack();
 
-    /**
+	/**
      * This lists the contents of the itemstacks bit inventory.
      *
      * @return The contents.
      */
-    DisplayContents listContents();
+	DisplayContents listContents();
 
-    /**
+	/**
      * Calculates the fullness ratio of the itemstack inventory.
      * Useful to render the fullness ration as durability bar on the item.
      *
      * @return The filled ratio.
      */
-    double getFilledRatio();
+	double getFilledRatio();
 
-    /**
+	/**
      * Clears the bit inventory of the current state.
      *
      * @param state The blockstate to remove from the bit inventory.
      */
-    void clear(BlockInformation state);
+	void clear(BlockInformation state);
 
-    /**
+	/**
      * Sorts the bit inventory.
      */
-    void sort();
+	void sort();
 
-    /**
+	/**
      * Converts the inventory into blocks
      */
-    void convert(Player player);
+	void convert(Player player);
 }

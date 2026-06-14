@@ -16,26 +16,26 @@ package mod.chiselsandbits.api.plugin;
  */
 public interface IChiselsAndBitsPlugin
 {
-    /**
+	/**
      * The id of the plugin.
      * Has to be unique over all plugins.
      *
      * @return The id.
      */
-    String getId();
+	String getId();
 
-    /**
+	/**
      * Invoked when the plugin is constructed.
      */
-    default void onConstruction() {}
+	default void onConstruction() {}
 
-    /**
+	/**
      * Called after ChiselsAndBits client construction completes.
      */
-    default void onClientConstruction() {}
+	default void onClientConstruction() {}
 
-    /**
+	/**
      * Invoked by chisels and bits when the platform it runs on (so forge or fabric) indicates that mod initialization should happen.
      */
-    default void onInitialize() {}
+	default void onInitialize() {}
 }

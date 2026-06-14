@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.chiseling.IChiselingContext;
 import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPreviewRenderer;
 import mod.chiselsandbits.api.util.constants.Constants;
+
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
@@ -11,23 +12,23 @@ import net.minecraft.resources.Identifier;
 
 public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRenderer
 {
-    static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
+	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
-    @Override
-    public Identifier getId()
-    {
-        return ID;
-    }
+	@Override
+	public Identifier getId()
+	{
+		return ID;
+	}
 
-    @Override
-    public void renderExistingContextsBoundingBox(
-        final LevelRenderer levelRenderer,
-        final PoseStack matrixStack,
-        final MultiBufferSource.BufferSource bufferSource,
-        final LevelRenderState levelRenderState,
-        final float partialTicks,
-        final IChiselingContext currentContextSnapshot)
-    {
-        //Some people do not want this, so we have this.
-    }
+	@Override
+	public void renderExistingContextsBoundingBox(
+		final LevelRenderer levelRenderer,
+		final PoseStack matrixStack,
+		final MultiBufferSource.BufferSource bufferSource,
+		final LevelRenderState levelRenderState,
+		final float partialTicks,
+		final IChiselingContext currentContextSnapshot)
+	{
+		//Some people do not want this, so we have this.
+	}
 }

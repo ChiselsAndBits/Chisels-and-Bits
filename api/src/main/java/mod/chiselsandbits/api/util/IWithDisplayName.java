@@ -7,21 +7,20 @@ import net.minecraft.network.chat.Component;
  */
 public interface IWithDisplayName
 {
-
-    /**
+	/**
      * Returns the display name of the object in a text component.
      *
      * @return The display name.
      */
-    Component getDisplayName();
+	Component getDisplayName();
 
-    /**
+	/**
      * Returns the display name of the object in a text component.
      * This display name may contain several newline statements which can be wrapped.
      *
      * @return The multiline display name.
      */
-    default Component getMultiLineDisplayName() {
-        return getDisplayName();
-    }
+	default Component getMultiLineDisplayName() {
+		return getDisplayName();
+	}
 }

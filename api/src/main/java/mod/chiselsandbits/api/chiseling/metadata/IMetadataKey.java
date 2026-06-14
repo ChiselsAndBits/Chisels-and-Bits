@@ -10,12 +10,12 @@ import mod.chiselsandbits.api.chiseling.IChiselingContext;
  */
 public interface IMetadataKey<T> extends ICustomRegistryEntry
 {
-    /**
+	/**
      * Creates a snapshot of the value that is passed to it.
      * The primary task of this method is to create a deep copy of the given value.
      *
      * @param value The value.
      * @return The deep copied value.
      */
-    T snapshot(T value);
+	T snapshot(T value);
 }

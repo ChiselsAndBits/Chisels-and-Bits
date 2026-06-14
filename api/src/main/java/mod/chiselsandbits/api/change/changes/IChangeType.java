@@ -10,14 +10,13 @@ import net.minecraft.network.codec.StreamCodec;
  * The type of registry entry that represents a change.
  */
 public interface IChangeType extends ICustomRegistryEntry {
-
-    /**
+	/**
      * {@return The codec for the change.}
      */
-    MapCodec<? extends IChange> codec();
+	MapCodec<? extends IChange> codec();
 
-    /**
+	/**
      * {@return The stream codec for the change.}
      */
-    StreamCodec<RegistryFriendlyByteBuf, ? extends IChange> streamCodec();
+	StreamCodec<RegistryFriendlyByteBuf, ? extends IChange> streamCodec();
 }

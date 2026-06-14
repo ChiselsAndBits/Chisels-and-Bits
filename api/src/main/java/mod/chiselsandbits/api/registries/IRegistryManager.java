@@ -17,63 +17,62 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IRegistryManager
 {
+	static IRegistryManager getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getRegistryManager();
+	}
 
-    static IRegistryManager getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getRegistryManager();
-    }
-
-    /**
+	/**
      * The registry which controls all available chiseling modes.
      *
      * @return The registry.
      */
-    ICustomRegistry<IChiselMode> getChiselModeRegistry();
+	ICustomRegistry<IChiselMode> getChiselModeRegistry();
 
-    /**
+	/**
      * The registry used for modifications of single use patterns.
      *
      * @return The modification operation registry.
      */
-    @NotNull
-    ICustomRegistry<IModificationOperation> getModificationOperationRegistry();
+	@NotNull
+	ICustomRegistry<IModificationOperation> getModificationOperationRegistry();
 
-    /**
+	/**
      * The registry used for cutting of single use patterns.
      *
      * @return The cutting operation registry.
      */
-    @NotNull
-    ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry();
+	@NotNull
+	ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry();
 
-    /**
+	/**
      * The registry used for glueing of single use patterns.
      *
      * @return The glueing operation registry.
      */
-    @NotNull
-    ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry();
+	@NotNull
+	ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry();
 
-    /**
+	/**
      * The registry used for change types.
      *
      * @return The change type registry.
      */
-    @NotNull
-    ICustomRegistry<IChangeType> getChangeTypeRegistry();
+	@NotNull
+	ICustomRegistry<IChangeType> getChangeTypeRegistry();
 
-    /**
+	/**
      * The registry used for multi state snapshot types.
      *
      * @return The multi state snapshot type registry.
      */
-    @NotNull
-    ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry();
+	@NotNull
+	ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry();
 
-    /**
+	/**
      * The registry used for pattern placement types.
      *
      * @return The pattern placement type registry.
      */
-    @NotNull
-    ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry();
+	@NotNull
+	ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry();
 }

@@ -4,8 +4,7 @@ import mod.chiselsandbits.chiseling.ChiselingManager;
 
 public class ServerStartHandler
 {
-
-    public static void onServerStart() {
-        ChiselingManager.getInstance().onServerStarting();
-    }
+	public static void onServerStart() {
+		ChiselingManager.getInstance().onServerStarting();
+	}
 }

@@ -12,31 +12,30 @@ import net.minecraft.network.codec.StreamCodec;
  */
 public interface INetworkUpdatableEntity<TPayload>
 {
-
-    /**
+	/**
      * {@return The registry access for this entity.}
      */
-    RegistryAccess registryAccess();
+	RegistryAccess registryAccess();
 
-    /**
+	/**
      * {@return The position of the block.}
      */
-    BlockPos blockPos();
+	BlockPos blockPos();
 
-    /**
+	/**
      * {@return The payload to transfer.}
      */
-    TPayload payload();
+	TPayload payload();
 
-    /**
+	/**
      * {@return The stream codec used to serialize the payload.}
      */
-    StreamCodec<RegistryFriendlyByteBuf, TPayload> streamCodec();
+	StreamCodec<RegistryFriendlyByteBuf, TPayload> streamCodec();
 
-    /**
+	/**
      * Called when the client receives a payload useful for updating the entity.
      *
      * @param payload The payload to receive.
      */
-    void receivePayload(final TPayload payload);
+	void receivePayload(final TPayload payload);
 }

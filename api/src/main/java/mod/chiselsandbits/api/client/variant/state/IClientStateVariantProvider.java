@@ -12,16 +12,15 @@ import java.util.List;
  * A state variant provider for client side interactions.
  */
 public interface IClientStateVariantProvider {
-
-    /**
+	/**
      * Retrieves the block model data for the given state variant.
      *
      * @param variant The state variant.
      * @return The block model data.
      */
-    IBlockModelData getBlockModelData(IStateVariant variant);
+	IBlockModelData getBlockModelData(IStateVariant variant);
 
-    /**
+	/**
      * Invoked to add tooltip lines to the tooltip of an item containing the given variant.
      *
      * @param variant The variant contained in the stack in question.
@@ -29,5 +28,5 @@ public interface IClientStateVariantProvider {
      * @param tooltip The tooltip lines
      * @param flags The tooltip flags.
      */
-    void appendHoverText(IStateVariant variant, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags);
+	void appendHoverText(IStateVariant variant, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags);
 }

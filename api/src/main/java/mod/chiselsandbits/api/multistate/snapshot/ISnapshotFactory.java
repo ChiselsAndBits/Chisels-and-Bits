@@ -8,24 +8,22 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
  */
 public interface ISnapshotFactory
 {
+	static ISnapshotFactory getInstance() {
+		return IChiselsAndBitsAPI.getInstance().getSnapshotFactory();
+	}
 
-    static ISnapshotFactory getInstance() {
-        return IChiselsAndBitsAPI.getInstance().getSnapshotFactory();
-    }
-
-    /**
+	/**
      * Creates a new simple single block snapshot.
      *
      * @return The new snapshot.
      */
-    IMultiStateSnapshot singleBlock();
+	IMultiStateSnapshot singleBlock();
 
-
-    /**
+	/**
      * Creates a new simple single block snapshot.
      *
      * @param blockInformation The block information which will fill up the entire snapshot once returned.
      * @return The new snapshot.
      */
-    IMultiStateSnapshot singleBlock(BlockInformation blockInformation);
+	IMultiStateSnapshot singleBlock(BlockInformation blockInformation);
 }

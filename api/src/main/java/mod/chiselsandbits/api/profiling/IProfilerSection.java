@@ -6,6 +6,6 @@ package mod.chiselsandbits.api.profiling;
  */
 public interface IProfilerSection extends AutoCloseable
 {
-    @Override
-    void close();
+	@Override
+	void close();
 }

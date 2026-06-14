@@ -14,58 +14,58 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegistryManager implements IRegistryManager
 {
-    private static final RegistryManager INSTANCE = new RegistryManager();
+	private static final RegistryManager INSTANCE = new RegistryManager();
 
-    private RegistryManager()
-    {
-    }
+	private RegistryManager()
+	{
+	}
 
-    public static RegistryManager getInstance()
-    {
-        return INSTANCE;
-    }
+	public static RegistryManager getInstance()
+	{
+		return INSTANCE;
+	}
 
-    /**
+	/**
      * The registry which controls all available chiseling modes.
      *
      * @return The registry.
      */
-    @Override
-    public ICustomRegistry<IChiselMode> getChiselModeRegistry()
-    {
-        return ModChiselModes.REGISTRY.get();
-    }
+	@Override
+	public ICustomRegistry<IChiselMode> getChiselModeRegistry()
+	{
+		return ModChiselModes.REGISTRY.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry()
-    {
-        return ModModificationOperation.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry()
+	{
+		return ModModificationOperation.REGISTRY_SUPPLIER.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry()
-    {
-        return ModCuttingOperation.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry()
+	{
+		return ModCuttingOperation.REGISTRY_SUPPLIER.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry()
-    {
-        return ModGlueingOperation.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry()
+	{
+		return ModGlueingOperation.REGISTRY_SUPPLIER.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<IChangeType> getChangeTypeRegistry() {
-        return ModChangeTypes.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<IChangeType> getChangeTypeRegistry() {
+		return ModChangeTypes.REGISTRY_SUPPLIER.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry() {
-        return ModMultiStateSnapshotTypes.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry() {
+		return ModMultiStateSnapshotTypes.REGISTRY_SUPPLIER.get();
+	}
 
-    @Override
-    public @NotNull ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry() {
-        return ModPatternPlacementTypes.REGISTRY_SUPPLIER.get();
-    }
+	@Override
+	public @NotNull ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry() {
+		return ModPatternPlacementTypes.REGISTRY_SUPPLIER.get();
+	}
 }

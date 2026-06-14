@@ -8,6 +8,5 @@ import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 
 public interface IChiselingItem extends ILeftClickControllingItem, IWithModeItem<IChiselMode>, IWithHighlightItem, IChangeTrackingItem
 {
-
-    boolean isDamageableDuringChiseling();
+	boolean isDamageableDuringChiseling();
 }

@@ -6,8 +6,8 @@ package mod.chiselsandbits.api.reloading;
 @FunctionalInterface
 public interface ICacheClearingHandler
 {
-    /**
+	/**
      * Invoked when the cache needs to be cleared.
      */
-    void clear();
+	void clear();
 }

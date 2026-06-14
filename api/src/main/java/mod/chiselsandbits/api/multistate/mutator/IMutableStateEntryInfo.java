@@ -6,33 +6,33 @@ import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 
 public interface IMutableStateEntryInfo extends IStateEntryInfo
 {
-    /**
+	/**
      * Sets the current entries block information.
      *
      * @param blockInformation The new block information of the entry.
      * @throws SpaceOccupiedException When the space is not clear and as such the bit can not be set.
      */
-    void setBlockInformation(final BlockInformation blockInformation) throws SpaceOccupiedException;
+	void setBlockInformation(final BlockInformation blockInformation) throws SpaceOccupiedException;
 
-    /**
+	/**
      * Clears the current state entries blockstate.
      * Effectively setting the current blockstate to air.
      */
-    void clear();
+	void clear();
 
-    /**
+	/**
      * Overrides the current entries block information
      *
      * @param blockInformation The new block information of the entry.
      */
-    default void overrideState(final BlockInformation blockInformation) {
-        try
-        {
-            clear();
-            setBlockInformation(blockInformation);
-        }
-        catch (SpaceOccupiedException ignored) //Should never be thrown, due to the clear call;
-        {
-        }
-    }
+	default void overrideState(final BlockInformation blockInformation) {
+		try
+		{
+			clear();
+			setBlockInformation(blockInformation);
+		}
+		catch (SpaceOccupiedException ignored) //Should never be thrown, due to the clear call;
+		{
+		}
+	}
 }
