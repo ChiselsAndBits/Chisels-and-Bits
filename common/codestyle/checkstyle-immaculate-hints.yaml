@@ -1,0 +1,69 @@
+hints:
+  # Placeholder hints for MatchXpath modules in libs/checkstyle/checkstyle.xml.
+  # They intentionally do nothing but keep failOnUnmatchedHints strict in compliance mode.
+  - id: compliance-matchxpath-0
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[0]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-1
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[1]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-2
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[2]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-3
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[3]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-4
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[4]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-5
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[5]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-6
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[6]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-7
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[7]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-8
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[8]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-9
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[9]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+
+  - id: compliance-matchxpath-10
+    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[10]
+    find: '(?!)'
+    replace: ''
+    mode: AGGRESSIVE
+

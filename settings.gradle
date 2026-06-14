@@ -17,6 +17,10 @@ pluginManagement {
             name = 'NeoForged'
             url = 'https://maven.neoforged.net/'
         }
+        maven {
+            name = "Communi-Suggestu"
+            url = "https://maven.communi-suggestu.com"
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -25,6 +29,7 @@ pluginManagement {
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
     id 'com.communi-suggestu.placitum' version '0.0.88'
+    id 'com.communi.suggestu.formatum.adhibe' version '0.2.6'
 }
 
 rootProject.name = "chisels-and-bits"
@@ -44,4 +49,8 @@ platforms {
             owner = "chisels-and-bits"
         }
     }
+}
+
+gradle.beforeProject { Project target ->
+    target.apply(Map.of("from", target.rootProject.file("common/conventions/chiselsandbits.settings.codestyle-conventions.gradle")))
 }

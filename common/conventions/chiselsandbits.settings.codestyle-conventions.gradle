@@ -1,0 +1,9 @@
+immaculate.workflows.register("java") {
+    java()
+    checkstyle('checkstyle') {
+        checkstyleConfig = rootProject.file('common/codestyle/checkstyle.xml')
+        hintsFile = rootProject.file('common/codestyle/checkstyle-immaculate-hints.yaml')
+        fixMode = com.communi.suggestu.formatum.adhibe.checkstyle.hints.FixMode.AGGRESSIVE
+        failOnUnmatchedHints = true
+    }
+}
