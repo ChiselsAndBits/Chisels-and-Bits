@@ -40,20 +40,24 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 
 	@Override
 	protected ItemStack getItem(final int index)
+
 	{
 		return slotMap.getOrDefault(index, ItemStack.EMPTY);
 	}
 
 	@Override
 	protected int getInventorySize()
+
 	{
 		return size;
 	}
 
 	@Override
 	protected void setItem(final int index, final ItemStack stack)
+
 	{
 		if (stack.isEmpty())
+
 		{
 			slotMap.remove(index);
 			onChange();
@@ -70,6 +74,7 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 
 	@Override
 	public IWatch startWatching(final Runnable onChangeCallback)
+
 	{
 		final UUID id = UUID.randomUUID();
 		this.onChangeCallbacks.put(id, onChangeCallback);
@@ -93,6 +98,7 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return this.slotMap.isEmpty() || this.slotMap.values().stream().allMatch(slot -> slot.getCount() == 0);
 	}
@@ -102,31 +108,37 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 		private int count;
 
 		public BitSlot()
+
 		{
 		}
 
 		public BitSlot(final BlockInformation blockInformation, final int count)
+
 		{
 			this.blockInformation = blockInformation;
 			this.count = count;
 		}
 
 		public BlockInformation getBlockInformation()
+
 		{
 			return blockInformation;
 		}
 
 		public int getCount()
+
 		{
 			return count;
 		}
 
 		public void setBlockInformation(final BlockInformation blockInformation)
+
 		{
 			this.blockInformation = blockInformation;
 		}
 
 		public void setCount(final int count)
+
 		{
 			this.count = count;
 		}

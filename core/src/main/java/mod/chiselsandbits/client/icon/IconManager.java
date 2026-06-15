@@ -34,6 +34,7 @@ public class IconManager implements IIconManager
 	public static final Identifier ATLAS_ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "icons");
 
 	public static IconManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -41,6 +42,7 @@ public class IconManager implements IIconManager
 	private AtlasManager.AtlasConfig iconSpriteUploader = null;
 
 	private IconManager()
+
 	{
 	}
 
@@ -59,6 +61,7 @@ public class IconManager implements IIconManager
 	}
 
 	private @NotNull TextureAtlas getAtlasOrThrow()
+
 	{
 		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(ATLAS_ID);
 	}
@@ -110,24 +113,28 @@ public class IconManager implements IIconManager
 
 	@Override
 	public TextureAtlasSprite getFilterBagModeIcon()
+
 	{
 		return getIcon(BAG_MODE_FILTER);
 	}
 
 	@Override
 	public TextureAtlasSprite getNormalBagModeIcon()
+
 	{
 		return getIcon(BAG_MODE_NORMAL);
 	}
 
 	@Override
 	public TextureAtlasSprite getBagPicksUpFirstIcon()
+
 	{
 		return getIcon(BAG_MODE_FIRST);
 	}
 
 	@Override
 	public TextureAtlasSprite getBagPicksUpSecondIcon()
+
 	{
 		return getIcon(BAG_MODE_SECOND);
 	}

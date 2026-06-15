@@ -14,6 +14,7 @@ import net.minecraft.world.phys.AABB;
 public class AABBUtils
 {
 	private AABBUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: AABBUtils. This is a utility class");
 	}

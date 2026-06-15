@@ -22,11 +22,13 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 
 	@Override
 	public void apply(final IGenerallyModifiableAreaMutator source)
+
 	{
 		source.mirror(axis);
 	}
 
 	public static final class Builder
+
 	{
 		private Direction.Axis axis;
 
@@ -35,6 +37,7 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 		public static Builder create() { return new Builder(); }
 
 		public Builder withAxis(Direction.Axis axis)
+
 		{
 			this.axis = axis;
 			return this;
@@ -45,18 +48,21 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return ModModificationOperationGroups.MIRROR.getIcon();
 	}
 
 	@Override
 	public @NotNull Optional<IModificationOperationGroup> getGroup()
+
 	{
 		return Optional.of(ModModificationOperationGroups.MIRROR);
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return switch (axis)
 				 {

@@ -16,6 +16,7 @@ import java.util.UUID;
 public interface IMeasuringManager
 {
 	static IMeasuringManager getInstance()
+
 	{
 		return IChiselsAndBitsAPI.getInstance().getMeasuringManager();
 	}
@@ -27,6 +28,7 @@ public interface IMeasuringManager
      * @return A collection of measurements which are active in the given world.
      */
 	default Collection<? extends IMeasurement> getInWorld(final Level world)
+
 	{
 		return getInWorld(world.dimension().identifier());
 	}
@@ -46,6 +48,7 @@ public interface IMeasuringManager
      * @return A collection of measurements which are active for the given player.
      */
 	default Collection<? extends IMeasurement> getForPlayer(final Player playerEntity)
+
 	{
 		return getForPlayer(playerEntity.getUUID());
 	}
@@ -84,6 +87,7 @@ public interface IMeasuringManager
      * @param playerEntity The player to remove the measurements for.
      */
 	default void resetMeasurementsFor(Player playerEntity)
+
 	{
 		resetMeasurementsFor(playerEntity.getUUID());
 	}
@@ -95,4 +99,3 @@ public interface IMeasuringManager
      */
 	void resetMeasurementsFor(UUID playerId);
 }
-

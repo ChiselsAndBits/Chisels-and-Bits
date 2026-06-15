@@ -33,6 +33,7 @@ public class BlockStateSerializationUtils
 	);
 
 	private BlockStateSerializationUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockStateSerializationUtils. This is a utility class");
 	}
@@ -44,9 +45,11 @@ public class BlockStateSerializationUtils
 
 	public static String serialize(final BlockState blockState) {
 		final DataResult<JsonElement> encodedElement = BlockState.CODEC.encodeStart(JsonOps.INSTANCE, blockState);
+
 		if (encodedElement.result().isEmpty()) {
 			throw new IllegalStateException("Could not encode BlockState: " + blockState + ". Resulting error: " + encodedElement.error().orElseThrow().message());
 		}
+
 		return GSON.toJson(encodedElement.result().get());
 	}
 

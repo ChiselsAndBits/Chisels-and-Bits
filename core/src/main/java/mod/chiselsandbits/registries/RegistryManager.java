@@ -17,10 +17,12 @@ public class RegistryManager implements IRegistryManager
 	private static final RegistryManager INSTANCE = new RegistryManager();
 
 	private RegistryManager()
+
 	{
 	}
 
 	public static RegistryManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -32,24 +34,28 @@ public class RegistryManager implements IRegistryManager
      */
 	@Override
 	public ICustomRegistry<IChiselMode> getChiselModeRegistry()
+
 	{
 		return ModChiselModes.REGISTRY.get();
 	}
 
 	@Override
 	public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry()
+
 	{
 		return ModModificationOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
 	public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry()
+
 	{
 		return ModCuttingOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
 	public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry()
+
 	{
 		return ModGlueingOperation.REGISTRY_SUPPLIER.get();
 	}

@@ -33,6 +33,7 @@ public class BitStorageBlockItem extends BlockItem
 {
 	public BitStorageBlockItem(
 	  final Block block , Properties builder)
+
 	{
 		super( block, builder );
 	}
@@ -54,7 +55,9 @@ public class BitStorageBlockItem extends BlockItem
 
 			HelpTextUtils.build(LocalStrings.HelpBitStorageFilled, tooltipAdder, containedState.blockState().getBlock().getName(), count);
 		}
+
 		else
+
 		{
 			HelpTextUtils.build(LocalStrings.HelpBitStorageEmpty, tooltipAdder);
 		}
@@ -74,6 +77,7 @@ public class BitStorageBlockItem extends BlockItem
 	@Override
 	protected boolean updateCustomBlockEntityTag(
 	  final @NotNull BlockPos pos, final @NotNull Level worldIn, @Nullable final Player player, final @NotNull ItemStack stack, final @NotNull BlockState state)
+
 	{
 		super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
 		if (worldIn.isClientSide())

@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 public class InventoryUtils
 {
 	private InventoryUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: InventoryUtils. This is a utility class");
 	}
@@ -19,6 +20,7 @@ public class InventoryUtils
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++)
+
 		{
 			final ItemStack stack = player.getInventory().getItem(i);
 
@@ -38,6 +40,7 @@ public class InventoryUtils
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++)
+
 		{
 			final ItemStack stack = player.getInventory().getItem(i);
 
@@ -46,6 +49,7 @@ public class InventoryUtils
 				final IMultiStateItemStack stateItemStack = chiseledBlockItem.createItemStack(stack);
 
 				if (stateItemStack.createNewShapeIdentifier().equals(identifier))
+
 				{
 					stack.shrink(1);
 					return;

@@ -28,6 +28,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 	public boolean canExtract(
 	  final BlockInformation blockState,
 	  final int count)
+
 	{
 		final int contained = getMaxExtractAmount(blockState);
 		return count <= contained;
@@ -41,6 +42,7 @@ public abstract class AbstractBitInventory implements IBitInventory
      */
 	@Override
 	public int getMaxExtractAmount(final BlockInformation blockState)
+
 	{
 		return IntStream.range(0, getInventorySize())
 				 .mapToObj(this::getItem)
@@ -48,6 +50,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 				 .mapToInt(stack -> {
 					 IBitItem bitItem = (IBitItem) stack.getItem();
 					 if (bitItem.getBlockInformation(stack).equals(blockState))
+
 					 {
 						 return stack.getCount();
 					 }
@@ -83,6 +86,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 	public void extract(
 	  final BlockInformation blockInformation,
 	  final int count) throws IllegalArgumentException
+
 	{
 		if (count == 0 || blockInformation.isAir())
 			return;
@@ -93,8 +97,10 @@ public abstract class AbstractBitInventory implements IBitInventory
 		int toExtract = count;
 
 		for (int i = getInventorySize() - 1; i >= 0; i--)
+
 		{
 			final ItemStack stack = getItem(i);
+
 			if (stack.getItem() instanceof final IBitItem bitItem) {
 				if (bitItem.getBlockInformation(stack).equals(blockInformation)) {
 					final int stackExtractCount = Math.min(toExtract, stack.getCount());
@@ -125,6 +131,7 @@ public abstract class AbstractBitInventory implements IBitInventory
      */
 	@Override
 	public boolean canInsert(final BlockInformation blockState, final int count)
+
 	{
 		final int insertionCount = getMaxInsertAmount(blockState);
 		return count <= insertionCount;
@@ -146,6 +153,7 @@ public abstract class AbstractBitInventory implements IBitInventory
      */
 	@Override
 	public int getMaxInsertAmount(final BlockInformation blockInformation)
+
 	{
 		return IntStream.range(0, getInventorySize())
 				 .mapToObj(this::getItem)
@@ -156,6 +164,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 
 					 IBitItem bitItem = (IBitItem) stack.getItem();
 					 if (bitItem.getBlockInformation(stack).equals(blockInformation))
+
 					 {
 						 return getMaxBitsFor(stack) - stack.getCount();
 					 }
@@ -174,6 +183,7 @@ public abstract class AbstractBitInventory implements IBitInventory
      */
 	@Override
 	public void insert(final BlockInformation blockInformation, final int count) throws IllegalArgumentException
+
 	{
 		if (count == 0 || blockInformation.isAir())
 			return;
@@ -184,11 +194,13 @@ public abstract class AbstractBitInventory implements IBitInventory
 		int toInsert = count;
 
 		for (int i = 0; i < getInventorySize(); i++)
+
 		{
 			if (toInsert <= 0)
 				break;
 
 			final ItemStack stack = getItem(i);
+
 			if (stack.getItem() instanceof final IBitItem bitItem) {
 				if (bitItem.getBlockInformation(stack).equals(blockInformation)) {
 					final int stackInsertionCount = Math.min(toInsert, getMaxBitsFor(stack) - stack.getCount());
@@ -214,6 +226,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 
 	@Override
 	public Map<BlockInformation, Integer> getContainedStates()
+
 	{
 		return IntStream.range(0, getInventorySize())
 		  .mapToObj(this::getItem)
@@ -240,6 +253,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 
 	@Override
 	public boolean contains(final BlockInformation blockInformation)
+
 	{
 		return IntStream.range(0, getInventorySize())
 			.mapToObj(this::getItem)

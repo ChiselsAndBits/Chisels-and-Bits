@@ -34,6 +34,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 	};
 
 	public BitBlockModelInformation build(final BlockAndTintGetter surroundings)
+
 	{
 		final Map<IntList, List<BakedQuad>> quadsByTints = new HashMap<>();
 
@@ -44,6 +45,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 			.createSingleBlockBlockAndTintGetter();
 
 		for (final Direction myFace : Direction.values())
+
 		{
 			QuadGenerationUtils.generateQuads(
 				information(),
@@ -54,6 +56,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 				myFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? TO : FROM,
 				(layer, quad) -> {
 					if (layer.material().tintIndex() != -1)
+
 					{
 						quad.tintIndex(0);
 					}
@@ -87,6 +90,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 	}
 
 	private List<BlockTintSource> getFluidTintSources()
+
 	{
 		final var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
 			information.blockState().getFluidState()

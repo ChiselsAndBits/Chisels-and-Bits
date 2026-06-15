@@ -11,30 +11,35 @@ public class ConnectedMaterialChiselingModeBuilder
 	private Identifier       iconName;
 
 	public ConnectedMaterialChiselingModeBuilder setDepth(final int depth)
+
 	{
 		this.depth = depth;
 		return this;
 	}
 
 	public ConnectedMaterialChiselingModeBuilder setDisplayName(final MutableComponent displayName)
+
 	{
 		this.displayName = displayName;
 		return this;
 	}
 
 	public ConnectedMaterialChiselingModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
+
 	{
 		this.multiLineDisplayName = multiLineDisplayName;
 		return this;
 	}
 
 	public ConnectedMaterialChiselingModeBuilder setIconName(final Identifier iconName)
+
 	{
 		this.iconName = iconName;
 		return this;
 	}
 
 	public ConnectedMaterialChiselingMode createConnectedMaterialChiselingMode()
+
 	{
 		return new ConnectedMaterialChiselingMode(depth, displayName, multiLineDisplayName, iconName);
 	}

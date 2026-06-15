@@ -108,7 +108,9 @@ public class UnsealItem extends Item implements IUnsealItem {
 			if (!pattern.isEmpty()) {
 				IPlayerInventoryManager.getInstance().giveToPlayer(player, pattern);
 			}
+
 			stack.remove(ModDataComponentTypes.INTERACTION_TARGET.get());
+
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
@@ -134,6 +136,7 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 		InteractionHand otherHand = handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 		ItemStack itemInOtherHand = playerIn.getItemInHand(otherHand);
+
 		if (createPattern(itemInOtherHand).getItem() != itemInOtherHand.getItem() && itemInOtherHand.getItem() instanceof ISupportsUnsealing) {
 			ItemStack item = itemInOtherHand.copy();
 			ItemStack target = item.split(1);

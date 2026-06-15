@@ -10,16 +10,19 @@ public final class SnapshotFactory implements ISnapshotFactory
 	private static final SnapshotFactory INSTANCE = new SnapshotFactory();
 
 	public static SnapshotFactory getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private SnapshotFactory()
+
 	{
 	}
 
 	@Override
 	public IMultiStateSnapshot singleBlock()
+
 	{
 		return new SimpleSnapshot(
 				new StateEntryStorage()
@@ -28,6 +31,7 @@ public final class SnapshotFactory implements ISnapshotFactory
 
 	@Override
 	public IMultiStateSnapshot singleBlock(final BlockInformation blockInformation)
+
 	{
 		return new SimpleSnapshot(blockInformation);
 	}

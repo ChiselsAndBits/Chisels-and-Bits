@@ -114,6 +114,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 						.filter(filter)
 						.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
+
 							if (context.tryDamageItem()) {
 								resultingBitCount.putIfAbsent(currentState, 0);
 								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
@@ -150,6 +151,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+
 			if (heldBlockState.isAir()) {
 				return;
 			}
@@ -165,6 +167,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
 			context.setComplete();
+
 			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 				if (!playerEntity.isCreative()) {
 					playerBitInventory.extract(heldBlockState, missingBitCount);
@@ -188,6 +191,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return ClickProcessingState.DEFAULT;
@@ -196,12 +200,14 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		final Vec3 currentTarget = blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection()));
 
 		Optional<Vec3> anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+
 		if (anchor.isEmpty()) {
 			context.setMetadata(ModMetadataKeys.ANCHOR.get(), currentTarget);
 			anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
 		}
 
 		Optional<Direction.Axis> targetedAxis = context.getMetadata(ModMetadataKeys.TARGETED_AXIS.get());
+
 		if (targetedAxis.isEmpty()) {
 			targetedAxis = Optional.of(getExtensionAxis(blockRayTraceResult.getDirection()));
 			context.setMetadata(ModMetadataKeys.TARGETED_AXIS.get(), targetedAxis.get());
@@ -340,6 +346,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			final Vec3i candidatePos = VectorUtils.toInteger(pos.x(), this.origin.getY(), pos.z());
 
 			final boolean included = this.included.contains(candidatePos);
+
 			if (height < 0) {
 				return included && candidatePos.getY() <= origin.getY() && candidatePos.getY() > origin.getY() + height;
 			} else {

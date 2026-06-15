@@ -63,9 +63,11 @@ public class GreedyMeshBuilder {
 			final int[] calculatedDimensionsOffset = new int[]{0, 0, 0}; //Dimension offset for the already calculated dimensions.
 
 			calculatedDimensionsOffset[dimension] = 1;
+
 			for (dimensionalIterator[dimension] = -1; dimensionalIterator[dimension] < sizePerDimension; ) {
 				//Compute mask
 				int maskIndex = 0;
+
 				for (dimensionalIterator[secondDimensionIter] = 0; dimensionalIterator[secondDimensionIter] < sizePerDimension; ++dimensionalIterator[secondDimensionIter]) {
 					for (dimensionalIterator[firstDimensionIter] = 0; dimensionalIterator[firstDimensionIter] < sizePerDimension; ++dimensionalIterator[firstDimensionIter], ++maskIndex) {
 						int currentMaterial = (0 <= dimensionalIterator[dimension] ? materialProcessor.getMaterialIndex(
@@ -95,10 +97,12 @@ public class GreedyMeshBuilder {
 
 				//Compute the mesh
 				maskIndex = 0;
+
 				for (currentSecondDimensionIter = 0; currentSecondDimensionIter < sizePerDimension; ++currentSecondDimensionIter) {
 					for(currentFirstDimensionIter = 0; currentFirstDimensionIter < sizePerDimension;) {
 						int materialMask = mask[maskIndex];
 						boolean isMaterialMaskTruthy = materialMask != 0;
+
 						if (isMaterialMaskTruthy) {
 							width = computeWidth(materialMask, mask, maskIndex, currentFirstDimensionIter, sizePerDimension);
 							height = computeHeight(currentSecondDimensionIter, sizePerDimension, width, mask, maskIndex, materialMask);
@@ -158,6 +162,7 @@ public class GreedyMeshBuilder {
 		final Direction.Axis axis = Direction.Axis.values()[dimension];
 
 		Direction.AxisDirection axisDirection = Direction.AxisDirection.POSITIVE;
+
 		if (materialMask > 0) {
 			deltaHorizontal[secondDimensionIter] = height;
 			deltaVertical[firstDimensionIter] = width;
@@ -195,6 +200,7 @@ public class GreedyMeshBuilder {
 		int height;
 		int k;
 		boolean done = false;
+
 		for(height = 1; j + height < sizePerDimension; height++) {
 			for(k = 0; k < width; k++) {
 				if(mask[maskIndex + k + height * sizePerDimension] != materialMask) {
@@ -202,18 +208,22 @@ public class GreedyMeshBuilder {
 					break;
 				}
 			}
+
 			if(done) {
 				break;
 			}
 		}
+
 		return height;
 	}
 
 	private static int computeWidth(int materialMask, int[] mask, int maskIndex, int i, int sizePerDimension) {
 		int width = 1;
+
 		while (i + width < sizePerDimension && materialMask == mask[maskIndex + width]) {
 			width++;
 		}
+
 		return width;
 	}
 }

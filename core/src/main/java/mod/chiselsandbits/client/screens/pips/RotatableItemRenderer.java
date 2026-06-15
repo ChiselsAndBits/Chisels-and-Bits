@@ -26,12 +26,14 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	private Quaternionf lastRotY  = null;
 
 	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource)
+
 	{
 		super(bufferSource);
 	}
 
 	@Override
 	protected void renderToTexture(RenderState state, PoseStack poseStack)
+
 	{
 		final var submitNodeCollector = Minecraft.getInstance().gameRenderer.getSubmitNodeStorage();
 		final var featureRenderDispatcher = Minecraft.getInstance().gameRenderer.getFeatureRenderDispatcher();
@@ -67,12 +69,14 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 
 	@Override
 	protected float getTranslateY(int height, int guiScale)
+
 	{
 		return height / 2F;
 	}
 
 	@Override
 	protected boolean textureIsReadyToBlit(RenderState state)
+
 	{
 		if (state.rotation != lastRotY) return false;
 		if (lastModelIdentity == null) return false;
@@ -83,12 +87,14 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 
 	@Override
 	protected @NotNull String getTextureLabel()
+
 	{
 		return "c&B rotatable item renderer";
 	}
 
 	@Override
 	public @NotNull Class<RenderState> getRenderStateClass()
+
 	{
 		return RenderState.class;
 	}
@@ -104,6 +110,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 		@Nullable ScreenRectangle bounds,
 		@Nullable ScreenRectangle scissorArea
 	) implements PictureInPictureRenderState
+
 	{
 		public RenderState(
 			ItemStack stack,
@@ -115,9 +122,9 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 			float scale,
 			@Nullable ScreenRectangle scissorArea
 		)
+
 		{
 			this(stack, rotation, x0, y0, x1, y1, scale, PictureInPictureRenderState.getBounds(x0, y0, x1, y1, scissorArea), scissorArea);
 		}
 	}
 }
-

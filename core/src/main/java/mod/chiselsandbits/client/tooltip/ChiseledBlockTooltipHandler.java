@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 public class ChiseledBlockTooltipHandler
 {
 	public static void configure()
+
 	{
 		IRenderingManager.getInstance().registerClientTooltipComponentConverter(
 			registrar -> registrar.registerConvert(Payload.class, new Converter())
@@ -23,6 +24,7 @@ public class ChiseledBlockTooltipHandler
 
 		IClientEvents.getInstance().getGatherTooltipComponentsEvent().register((itemStack, screenWidth, screenHeight, maxWidth, tooltipElements) -> {
 			if (itemStack.getItem() instanceof IMultiStateItem multiStateItem)
+
 			{
 				tooltipElements.add(new Payload(multiStateItem.createItemStack(itemStack).createSnapshot()));
 			}
@@ -34,21 +36,25 @@ public class ChiseledBlockTooltipHandler
 	public record Payload(IMultiStateSnapshot snapshot) implements TooltipComponent {}
 
 	public record Client(ItemStack component) implements ClientTooltipComponent
+
 	{
 		@Override
 		public int getHeight(final Font font)
+
 		{
 			return 20;
 		}
 
 		@Override
 		public int getWidth(@NotNull Font font)
+
 		{
 			return 20;
 		}
 
 		@Override
 		public void extractImage(final Font font, final int x, final int y, final int w, final int h, final GuiGraphicsExtractor graphics)
+
 		{
 			graphics.item(
 				component,
@@ -58,6 +64,7 @@ public class ChiseledBlockTooltipHandler
 	}
 
 	public record Converter() implements IClientTooltipComponentConverter
+
 	{
 		@Override
 		public ClientTooltipComponent convert(TooltipComponent component) {

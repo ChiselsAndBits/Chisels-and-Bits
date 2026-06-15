@@ -27,10 +27,12 @@ public class ChiselingManager implements IChiselingManager
 	private final ThreadLocal<Table<UUID, Identifier, Long>>              lastUsedChiselMoments = ThreadLocal.withInitial(HashBasedTable::create);
 
 	private ChiselingManager()
+
 	{
 	}
 
 	public static ChiselingManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -44,6 +46,7 @@ public class ChiselingManager implements IChiselingManager
      */
 	@Override
 	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode)
+
 	{
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
@@ -57,6 +60,7 @@ public class ChiselingManager implements IChiselingManager
 
 	@Override
 	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus)
+
 	{
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
@@ -73,6 +77,7 @@ public class ChiselingManager implements IChiselingManager
 
 	@Override
 	public IChiselingContext create(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus, final boolean simulation, final ItemStack causingItemStack)
+
 	{
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
@@ -98,6 +103,7 @@ public class ChiselingManager implements IChiselingManager
 		}, causingItemStack, playerEntity);
 
 		if (!simulation)
+
 		{
 			contexts.get().put(playerId, worldId, newContext);
 		}
@@ -127,12 +133,14 @@ public class ChiselingManager implements IChiselingManager
 	}
 
 	public void onServerStarting()
+
 	{
 		this.activeInstanceId = UUID.randomUUID();
 	}
 
 	private void validateOrSetup() {
 		final UUID threadId = activeThreadId.get();
+
 		if (threadId != activeInstanceId) {
 			this.contexts.get().clear();
 			this.lastUsedChiselMoments.get().clear();
@@ -142,6 +150,7 @@ public class ChiselingManager implements IChiselingManager
 	}
 
 	public void resetLastChiselCountdown(final Player player)
+
 	{
 		this.lastUsedChiselMoments.get().row(player.getUUID()).clear();
 	}

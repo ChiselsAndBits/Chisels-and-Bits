@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState>
 {
 	public BitStorageISTER()
+
 	{
 	}
 
@@ -60,12 +61,14 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 
 	@Override
 	public void getExtents(final @NotNull Consumer<Vector3fc> output)
+
 	{
 		//Noop., for now. Figure out later
 	}
 
 	@Override
 	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
+
 	{
 		return new RenderState(BitStorageBlock.createEntityFromStack(stack));
 	}

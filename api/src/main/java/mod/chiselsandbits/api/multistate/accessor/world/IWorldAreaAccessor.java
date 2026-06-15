@@ -20,6 +20,7 @@ public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject
      * @return A stream with only state entries which actually exist in world.
      */
 	default Stream<IInWorldStateEntryInfo> inWorldStream()
+
 	{
 		return stream()
 				 .filter(IInWorldStateEntryInfo.class::isInstance)
@@ -31,6 +32,7 @@ public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject
      * @return The blocks touched by the accessor.
      */
 	default Stream<BlockPos> coveredAreaStream()
+
 	{
 		final BlockPos startPos = getInWorldStartBlockPoint();
 		final BlockPos endPos = getInWorldEndBlockPoint();

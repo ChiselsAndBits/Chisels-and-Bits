@@ -99,6 +99,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+
 			if (heldBlockState.isAir()) {
 				return ClickProcessingState.DEFAULT;
 			}
@@ -108,6 +109,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
 			context.setComplete();
+
 			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 				if (!playerEntity.isCreative()) {
 					playerBitInventory.extract(heldBlockState, missingBitCount);
@@ -141,6 +143,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private Optional<ClickProcessingState> processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, final Function<Direction, Vec3> placementFacingAdapter, final Function<Direction, Direction> iterationAdaptor, final boolean airOnly) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);

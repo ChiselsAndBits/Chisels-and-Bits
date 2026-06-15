@@ -45,34 +45,44 @@ public class CombinedChange implements IChange
 
 	@Override
 	public boolean canUndo(final Player player)
+
 	{
 		for (IChange change : changes)
+
 		{
 			if (!change.canUndo(player))
+
 			{
 				return false;
 			}
 		}
+
 		return true;
 	}
 
 	@Override
 	public boolean canRedo(final Player player)
+
 	{
 		for (IChange change : changes)
+
 		{
 			if (!change.canRedo(player))
+
 			{
 				return false;
 			}
 		}
+
 		return true;
 	}
 
 	@Override
 	public void undo(final Player player) throws IllegalChangeAttempt
+
 	{
 		for (IChange change : changes)
+
 		{
 			change.undo(player);
 		}
@@ -80,8 +90,10 @@ public class CombinedChange implements IChange
 
 	@Override
 	public void redo(final Player player) throws IllegalChangeAttempt
+
 	{
 		for (IChange change : changes)
+
 		{
 			change.redo(player);
 		}

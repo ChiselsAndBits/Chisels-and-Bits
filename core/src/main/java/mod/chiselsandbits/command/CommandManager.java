@@ -54,6 +54,7 @@ public class CommandManager
 	private static final Logger         LOGGER   = LogManager.getLogger();
 
 	private CommandManager()
+
 	{
 	}
 
@@ -61,11 +62,13 @@ public class CommandManager
 																																	 .toString()));
 
 	public static CommandManager getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	public void register(final CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext pContext)
+
 	{
 		dispatcher.register(
 		  Commands.literal("candb")
@@ -140,6 +143,7 @@ public class CommandManager
 	}
 
 	private int runFillCommand(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Vec3 start = Vec3Argument.getVec3(context, "start");
 		final Vec3 end = Vec3Argument.getVec3(context, "end");
@@ -156,6 +160,7 @@ public class CommandManager
 		);
 
 		if (CommandUtils.hasArgument(context, "state"))
+
 		{
 			final BlockState state = BlockStateArgument.getBlock(context, "state").getState();
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException())) :
@@ -175,7 +180,9 @@ public class CommandManager
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
 			}
 		}
+
 		else
+
 		{
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException())) :
 																																																			mutator.batch())
@@ -213,6 +220,7 @@ public class CommandManager
 	}
 
 	private int runClearCommand(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Vec3 start = Vec3Argument.getVec3(context, "start");
 		final Vec3 end = Vec3Argument.getVec3(context, "end");
@@ -235,6 +243,7 @@ public class CommandManager
 	}
 
 	private int runStatsCommand(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Vec3 start = Vec3Argument.getVec3(context, "start");
 		final Vec3 end = Vec3Argument.getVec3(context, "end");
@@ -258,6 +267,7 @@ public class CommandManager
 	}
 
 	private int runGiveCommand(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Player target = EntityArgument.getPlayer(context, "target");
 		final BlockState state = BlockStateArgument.getBlock(context, "state").getState();
@@ -278,6 +288,7 @@ public class CommandManager
 	}
 
 	private int startProfiling(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		if (ProfilingManager.getInstance().hasProfiler()) {
 			context.getSource().sendFailure(Component.literal("Already profiling!"));
@@ -292,6 +303,7 @@ public class CommandManager
 	}
 
 	private int stopProfiling(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		if (!ProfilingManager.getInstance().hasProfiler()) {
 			context.getSource().sendFailure(Component.literal("Not yet profiling!"));
@@ -305,21 +317,26 @@ public class CommandManager
 	}
 
 	private int redoFor(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Player target = EntityArgument.getPlayer(context, "target");
 		final IChangeTracker tracker = IChangeTrackerManager.getInstance().getChangeTracker(target);
 		if (tracker.getChanges().isEmpty())
+
 		{
 			context.getSource().sendFailure(Component.literal("No changes available to redo"));
 			return 1;
 		}
 
 		try
+
 		{
 			tracker.redo(target);
 			return 0;
 		}
+
 		catch (IllegalChangeAttempt e)
+
 		{
 			context.getSource().sendFailure(Component.literal("Can not redo"));
 			return 2;
@@ -327,21 +344,26 @@ public class CommandManager
 	}
 
 	private int undoFor(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final Player target = EntityArgument.getPlayer(context, "target");
 		final IChangeTracker tracker = IChangeTrackerManager.getInstance().getChangeTracker(target);
 		if (tracker.getChanges().isEmpty())
+
 		{
 			context.getSource().sendFailure(Component.literal("No changes available to undo"));
 			return 1;
 		}
 
 		try
+
 		{
 			tracker.undo(target);
 			return 0;
 		}
+
 		catch (IllegalChangeAttempt e)
+
 		{
 			context.getSource().sendFailure(Component.literal("Can not undo"));
 			return 2;
@@ -349,6 +371,7 @@ public class CommandManager
 	}
 
 	private int savePatternOf(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final BlockPos target = BlockPosArgument.getLoadedBlockPos(context, "target");
 		final String name = StringArgumentType.getString(context, "name");
@@ -362,6 +385,7 @@ public class CommandManager
 	}
 
 	private int loadPatternOf(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException
+
 	{
 		final String name = StringArgumentType.getString(context, "name");
 
@@ -374,6 +398,7 @@ public class CommandManager
 	}
 
 	private static abstract class ReportingBlockInformationOverrider implements Consumer<IMutableStateEntryInfo>
+
 	{
 		private final CommandSourceStack source;
 		private final long count;
@@ -390,20 +415,24 @@ public class CommandManager
 
 		@Override
 		public void accept(final IMutableStateEntryInfo iMutableStateEntryInfo)
+
 		{
 			iMutableStateEntryInfo.overrideState(getNextInformation());
 			if (shouldReport())
+
 			{
 				doReport();
 			}
 		}
 
 		protected boolean shouldReport()
+
 		{
 			return index++ % reportEvery == 0;
 		}
 
 		protected void doReport()
+
 		{
 			final double procent = (double) index / (double) count * 100;
 			final String formatted = String.format("%.0f", procent);

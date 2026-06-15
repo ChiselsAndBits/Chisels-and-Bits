@@ -18,29 +18,34 @@ public final class MeasurementUpdatedPacket extends ModPacket
 	private Measurement measurement;
 
 	public MeasurementUpdatedPacket(final Measurement measurement)
+
 	{
 		this.measurement = measurement;
 	}
 
 	public MeasurementUpdatedPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		Measurement.STREAM_CODEC.encode(buffer, measurement);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.measurement = Measurement.STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		MeasuringManager.getInstance().addOrUpdate(measurement, true);
 	}

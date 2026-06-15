@@ -40,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 {
 	public MeasuringTapeItem(final Properties properties)
+
 	{
 		super(properties);
 	}
@@ -47,12 +48,14 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 	@NotNull
 	@Override
 	public MeasuringMode getMode(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.MEASURING_MODE.get(), MeasuringMode.WHITE_BIT);
 	}
 
 	@Override
 	public void setMode(final ItemStack stack, final IMeasuringMode mode)
+
 	{
 		if (mode == null)
 			throw new IllegalArgumentException("Mode is null");
@@ -65,6 +68,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 
 	@Override
 	public @NotNull Collection<IMeasuringMode> getPossibleModes()
+
 	{
 		return Lists.newArrayList(MeasuringMode.values());
 	}
@@ -72,31 +76,40 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 	@Override
 	public ClickProcessingState handleRightClickProcessing(
 	  final Player playerEntity, final InteractionHand hand, final BlockPos position, final Direction face, final ClickProcessingState currentState)
+
 	{
 		ClickProcessingState result = ClickProcessingState.DEFAULT;
 		final ItemStack stack = playerEntity.getItemInHand(hand);
 		if (stack.getItem() == this)
+
 		{
 			//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
 			if (DistExecutor.unsafeRunForDist(
 			  () -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
 			  () -> () -> { return false; })
 			)
+
 			{
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
 			}
+
 			else
+
 			{
 				final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 				if (rayTraceResult.getType() == HitResult.Type.BLOCK && rayTraceResult instanceof final BlockHitResult blockRayTraceResult)
+
 				{
 					final Optional<Vec3> startPointHandler = getStart(stack);
 					if (startPointHandler.isEmpty())
+
 					{
 						setStart(stack, getMode(stack).getType().adaptClickedPosition(blockRayTraceResult));
 					}
+
 					else
+
 					{
 						final Vec3 startPoint = startPointHandler.get();
 						MeasuringManager.getInstance().createAndSend(
@@ -107,6 +120,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 						);
 						clear(stack);
 					}
+
 					result = ClickProcessingState.ALLOW;
 				}
 			}
@@ -127,6 +141,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 			return;
 
 		final Optional<Vec3> startPointHandler = getStart(stack);
+
 		if (startPointHandler.isEmpty()) {
 			return;
 		}
@@ -139,9 +154,11 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+
 		{
 			return;
 		}
+
 		final Vec3 startPoint = startPointHandler.get();
 
 		MeasuringManager.getInstance().createAndSend(
@@ -154,18 +171,21 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 
 	@Override
 	public @NotNull Optional<Vec3> getStart(final @NotNull ItemStack stack)
+
 	{
 		return Optional.ofNullable(stack.get(ModDataComponentTypes.START.get()));
 	}
 
 	@Override
 	public void setStart(final @NotNull ItemStack stack, final @NotNull Vec3 start)
+
 	{
 		stack.set(ModDataComponentTypes.START.get(), start);
 	}
 
 	@Override
 	public void clear(final @NotNull ItemStack stack)
+
 	{
 		stack.remove(ModDataComponentTypes.START.get());
 	}

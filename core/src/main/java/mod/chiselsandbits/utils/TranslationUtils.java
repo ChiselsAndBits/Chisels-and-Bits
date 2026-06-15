@@ -9,6 +9,7 @@ import net.minecraft.network.chat.MutableComponent;
 public class TranslationUtils
 {
 	private TranslationUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: TranslationUtils. This is a utility class");
 	}
@@ -18,6 +19,7 @@ public class TranslationUtils
 	}
 
 	public static MutableComponent build(final LocalStrings chiselSupportTagBlackListed, final Object... args)
+
 	{
 		return Component.translatable(chiselSupportTagBlackListed.toString(), args);
 	}

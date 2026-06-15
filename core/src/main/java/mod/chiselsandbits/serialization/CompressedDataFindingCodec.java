@@ -22,6 +22,7 @@ public class CompressedDataFindingCodec<V> implements Codec<V> {
 	public <T> DataResult<Pair<V, T>> decode(DynamicOps<T> ops, T input) {
 		final var mapDataResult = ops.getMap(input);
 		final MapLike<T> map;
+
 		try {
 			map = mapDataResult.getPartialOrThrow((s) -> new IllegalStateException("Legacy data is always a map!", new Exception(s)));
 		} catch (IllegalStateException e) {

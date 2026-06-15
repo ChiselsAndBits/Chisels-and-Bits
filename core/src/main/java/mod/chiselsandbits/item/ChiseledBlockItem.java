@@ -66,6 +66,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 									  (StateEntrySize.current().getBitsPerBlockSide() / 4);
 		final List<BlockInformation> blockInformation = new ArrayList<>(blockStateCount);
 		for (int i = 0; i < blockStateCount; i++)
+
 		{
 			blockInformation.add(BlockInformationUtils.getRandomSupportedInformation(random));
 		}
@@ -92,12 +93,14 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 	});
 
 	public ChiseledBlockItem(final Block blockIn, final Properties builder)
+
 	{
 		super(blockIn, builder);
 	}
 
 	@Override
 	public @NotNull Component getName(final @NotNull ItemStack stack)
+
 	{
 		if (stack.getOrDefault(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), false)) {
 			return LocalStrings.DefaultChiseledBlockItemName.getText();
@@ -117,6 +120,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 	@NotNull
 	@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack)
+
 	{
 		return new SingleBlockMultiStateItemStack(stack);
 	}
@@ -124,6 +128,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 	@NotNull
 	@Override
 	public InteractionResult place(@NotNull final BlockPlaceContext context)
+
 	{
 		final Player player = context.getPlayer();
 		if (player == null)
@@ -146,6 +151,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 		final boolean noCollisions = source.stream().sequential()
 		  .allMatch(stateEntryInfo -> {
 			  try
+
 			  {
 				  attemptTarget.setInAreaTarget(
 					stateEntryInfo.getBlockInformation(),
@@ -153,32 +159,41 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
 				  return true;
 			  }
+
 			  catch (SpaceOccupiedException exception)
+
 			  {
 				  return false;
 			  }
 		  });
 
 		if (noCollisions)
+
 		{
 			try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 			{
 				source.stream().forEach(
 				  stateEntryInfo -> {
 					  try
+
 					  {
 						  areaMutator.setInAreaTarget(
 							stateEntryInfo.getBlockInformation(),
 							stateEntryInfo.getStartPoint());
 					  }
+
 					  catch (SpaceOccupiedException ignored1)
+
 					  {
 					  }
 				  }
+
 				);
 			}
 
 			if (getBlock() instanceof ChiseledBlock chiseledBlock)
+
 			{
 				level.gameEvent(player, GameEvent.BLOCK_PLACE, pos);
 				final BlockState state = level.getBlockState(pos);
@@ -189,6 +204,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 			if (context.getPlayer() == null || !context.getPlayer().isCreative()) {
 				context.getItemInHand().shrink(1);
 			}
+
 			return InteractionResult.SUCCESS;
 		}
 
@@ -216,6 +232,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
 	@Override
 	public PlacementResult getPlacementResult(final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
+
 	{
 		final IAreaAccessor source = this.createItemStack(heldStack);
 		final Vec3 target = getTargetedPosition(heldStack, playerEntity, blockRayTraceResult);
@@ -246,18 +263,21 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
 	@Override
 	public @NotNull ItemStack getDefaultInstance()
+
 	{
 		return DEFAULT_INSTANCE.get();
 	}
 
 	@Override
 	public @NotNull IModificationOperation getMode(final ItemStack stack)
+
 	{
 		return ModModificationOperation.ROTATE_AROUND_X.get();
 	}
 
 	@Override
 	public void setMode(final ItemStack stack, final IModificationOperation mode)
+
 	{
 		final IMultiStateItemStack multiStateItemStack = this.createItemStack(stack);
 		final IMultiStateSnapshot snapshot = multiStateItemStack.createSnapshot();
@@ -268,12 +288,14 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
 	@Override
 	public @NotNull Collection<IModificationOperation> getPossibleModes()
+
 	{
 		return ModModificationOperation.REGISTRY_SUPPLIER.get().getValues();
 	}
 
 	@Override
 	public boolean requiresUpdateOnClosure()
+
 	{
 		return false;
 	}

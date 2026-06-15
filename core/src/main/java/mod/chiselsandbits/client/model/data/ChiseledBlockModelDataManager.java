@@ -11,11 +11,13 @@ public class ChiseledBlockModelDataManager
 	private static final ChiseledBlockModelDataManager INSTANCE = new ChiseledBlockModelDataManager();
 
 	public static ChiseledBlockModelDataManager getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private ChiseledBlockModelDataManager()
+
 	{
 	}
 
@@ -28,10 +30,13 @@ public class ChiseledBlockModelDataManager
 	  final Runnable onCompleteCallback,
 	  final boolean force
 	)
+
 	{
 		if (!force)
+
 		{
 			if ( tileEntity == null || !tileEntity.hasLevel() || !Objects.requireNonNull(tileEntity.getLevel()).isClientSide())
+
 			{
 				return;
 			}

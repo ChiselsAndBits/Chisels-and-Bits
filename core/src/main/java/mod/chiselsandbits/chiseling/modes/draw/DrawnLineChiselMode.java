@@ -96,6 +96,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 						.filter(filter)
 						.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
+
 							if (context.tryDamageItem()) {
 								resultingBitCount.putIfAbsent(currentState, 0);
 								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
@@ -132,6 +133,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+
 			if (heldBlockState.isAir()) {
 				return;
 			}
@@ -147,6 +149,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
 			context.setComplete();
+
 			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 				if (!playerEntity.isCreative()) {
 					playerBitInventory.extract(heldBlockState, missingBitCount);
@@ -170,6 +173,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return ClickProcessingState.DEFAULT;
@@ -178,6 +182,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		final Vec3 currentTarget = blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection()));
 
 		Optional<Vec3> anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+
 		if (anchor.isEmpty()) {
 			context.setMetadata(ModMetadataKeys.ANCHOR.get(), currentTarget);
 			anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());

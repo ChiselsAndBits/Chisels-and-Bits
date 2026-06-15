@@ -23,6 +23,7 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider
 	}
 
 	public ItemLike getItemProvider()
+
 	{
 		return itemProvider;
 	}
@@ -53,6 +54,7 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider
 
 		@Override
 		public final @NotNull String getName()
+
 		{
 			return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemProvider.asItem())) + " recipe generator";
 		}

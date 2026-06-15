@@ -496,6 +496,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 
 	@Override
 	public IMultiStateSnapshot limitedToProgression(final float progress)
+
 	{
 		throw new NotImplementedException("MultiBlock Snapshots can not be limited to a progression yet!");
 	}
@@ -529,9 +530,11 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			if (this == o) {
 				return true;
 			}
+
 			if (!(o instanceof final Identifier that)) {
 				return false;
 			}
+
 			return inners.equals(that.inners);
 		}
 	}

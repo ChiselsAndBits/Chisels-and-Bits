@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 public class SelectedObjectHighlightHandler
 {
 	public static boolean onDrawHighlight()
+
 	{
 		final Player playerEntity = Minecraft.getInstance().player;
 		if (playerEntity == null)

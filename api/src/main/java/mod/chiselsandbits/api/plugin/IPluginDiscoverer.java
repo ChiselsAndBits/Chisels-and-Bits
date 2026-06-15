@@ -21,6 +21,7 @@ public interface IPluginDiscoverer
      * @return The platform's plugin manager.
      */
 	static IPluginDiscoverer getInstance()
+
 	{
 		return IChiselsAndBitsAPI.getInstance().getPluginDiscoverer();
 	}
@@ -34,11 +35,13 @@ public interface IPluginDiscoverer
 	Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins();
 
 	abstract class AbstractPluginDiscoverer implements IPluginDiscoverer
+
 	{
 		private static final Logger LOGGER = LogUtils.getLogger();
 
 		@Override
 		public Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins()
+
 		{
 			var serviceLoader = ServiceLoader.load(
 				IChiselsAndBitsPlugin.class,
@@ -52,8 +55,10 @@ public interface IPluginDiscoverer
 		}
 
 		private boolean canLoad(Class<? extends IChiselsAndBitsPlugin> potentialClass)
+
 		{
 			if (!potentialClass.isAnnotationPresent(ChiselsAndBitsPlugin.class))
+
 			{
 				return true;
 			}
@@ -61,8 +66,10 @@ public interface IPluginDiscoverer
 			var annotation = potentialClass.getAnnotation(ChiselsAndBitsPlugin.class);
 			final List<String> requiredMods = Arrays.asList(annotation.requiredMods());
 			if (!requiredMods.isEmpty())
+
 			{
 				if (requiredMods.stream().anyMatch(this::isModNotLoaded))
+
 				{
 					LOGGER.info("Skipping: {} as plugin, its required mods: {} are not all available!", potentialClass.getSimpleName(), String.join(", ", requiredMods));
 					return false;
@@ -71,6 +78,7 @@ public interface IPluginDiscoverer
 
 			final boolean isExperimental = annotation.isExperimental();
 			if (isExperimental && !Boolean.parseBoolean(ILaunchPropertyManager.getInstance().get("plugins.experimental", "false")))
+
 			{
 				LOGGER.info("Skipping: {} as plugin, it is marked as experimental and those plugins are disabled by the configuration.", potentialClass.getSimpleName());
 				return false;

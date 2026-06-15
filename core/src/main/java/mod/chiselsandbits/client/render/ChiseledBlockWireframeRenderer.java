@@ -18,11 +18,13 @@ public class ChiseledBlockWireframeRenderer
 	private static final ChiseledBlockWireframeRenderer INSTANCE = new ChiseledBlockWireframeRenderer();
 
 	public static ChiseledBlockWireframeRenderer getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private ChiseledBlockWireframeRenderer()
+
 	{
 	}
 

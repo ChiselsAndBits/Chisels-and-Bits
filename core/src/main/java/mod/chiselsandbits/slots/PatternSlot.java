@@ -13,12 +13,14 @@ public class PatternSlot extends Slot
 	  final int index,
 	  final int xPosition,
 	  final int yPosition)
+
 	{
 		super(inventoryIn, index, xPosition, yPosition);
 	}
 
 	@Override
 	public boolean mayPlace(final ItemStack itemStack)
+
 	{
 		return itemStack.getItem() instanceof IPatternItem;
 	}

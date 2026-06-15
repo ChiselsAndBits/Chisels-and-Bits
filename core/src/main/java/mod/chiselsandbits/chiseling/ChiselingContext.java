@@ -57,6 +57,7 @@ public class ChiselingContext implements IChiselingContext
 	  final Runnable onCompleteCallback,
 	  final ItemStack causingItemStack,
 	  final Player playerEntity)
+
 	{
 		this.world = world;
 		this.chiselMode = chiselMode;
@@ -68,7 +69,9 @@ public class ChiselingContext implements IChiselingContext
 		if (this.causingItemStack.getItem() instanceof IChiselingItem) {
 			this.supportsDamaging = ((IChiselingItem) this.causingItemStack.getItem()).isDamageableDuringChiseling();
 		}
+
 		else
+
 		{
 			this.supportsDamaging = false;
 		}
@@ -84,6 +87,7 @@ public class ChiselingContext implements IChiselingContext
 	  final IWorldAreaMutator mutator,
 	  final Player playerEntity,
 	  final MutableComponent error)
+
 	{
 		this.world = world;
 		this.chiselMode = chiselMode;
@@ -105,6 +109,7 @@ public class ChiselingContext implements IChiselingContext
 	  final boolean complete,
 	  final Player playerEntity,
 	  final MutableComponent error)
+
 	{
 		this.world = world;
 		this.chiselMode = chiselMode;
@@ -119,12 +124,14 @@ public class ChiselingContext implements IChiselingContext
 	}
 
 	private void setMetadataKeyMap(final Map<IMetadataKey<?>, Object> metadataKeyMap)
+
 	{
 		this.metadataKeyMap = metadataKeyMap;
 	}
 
 	@Override
 	public @NotNull Optional<IWorldAreaMutator> getMutator()
+
 	{
 		if (mutator == null || playerEntity == null || !(world instanceof Level))
 			return Optional.ofNullable(mutator);
@@ -143,22 +150,27 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public @NotNull LevelAccessor getWorld()
+
 	{
 		return world;
 	}
 
 	@Override
 	public @NotNull IChiselMode getMode()
+
 	{
 		return chiselMode;
 	}
 
 	@Override
 	public @NotNull IChiselingContext include(final Vec3 worldPosition)
+
 	{
 		if (getMutator().map(m -> !m.isInside(worldPosition)).orElse(true))
+
 		{
 			if (getMutator().isPresent())
+
 			{
 				final IWorldAreaMutator worldAreaMutator = getMutator().get();
 
@@ -175,7 +187,9 @@ public class ChiselingContext implements IChiselingContext
 
 				this.mutator = IMutatorFactory.getInstance().covering(world, start, end);
 			}
+
 			else
+
 			{
 				this.mutator = IMutatorFactory.getInstance().covering(
 				  world,
@@ -190,6 +204,7 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public void setComplete()
+
 	{
 		this.complete = true;
 		this.onCompleteCallback.run();
@@ -197,28 +212,33 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public boolean isComplete()
+
 	{
 		return complete;
 	}
 
 	@Override
 	public boolean isSimulation()
+
 	{
 		return simulation;
 	}
 
 	@Override
 	public @NotNull ChiselingOperation getModeOfOperandus()
+
 	{
 		return modeOfOperandus;
 	}
 
 	@Override
 	public @NotNull IChiselingContext createSnapshot()
+
 	{
 		final ChiselingContext context = createInnerSnapshot();
 		final Map<IMetadataKey<?>, Object> newMetadata = Maps.newHashMap();
 		for (final IMetadataKey<?> key : this.metadataKeyMap.keySet())
+
 		{
 			final Optional<?> value = snapshotMetadata(key);
 			value.ifPresent(o -> newMetadata.put(key, o));
@@ -262,8 +282,10 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken)
+
 	{
 		if (!this.supportsDamaging || this.simulation)
+
 		{
 			onDamaged.run();
 			return damage;
@@ -281,6 +303,7 @@ public class ChiselingContext implements IChiselingContext
 
 		final AtomicBoolean broken = new AtomicBoolean(false);
 		final int currentDamage = causingItemStack.getDamageValue();
+
 		if (world instanceof ServerLevel level && playerEntity instanceof ServerPlayer player) {
 			final int appliedDamage = damage * StateEntrySize.current().getDamageFactor();
 			this.causingItemStack.hurtAndBreak(damage, level, player, item -> {
@@ -295,26 +318,31 @@ public class ChiselingContext implements IChiselingContext
 		}
 
 		onDamaged.run();
+
 		if (broken.get()) {
 			causingItemStack = ItemStack.EMPTY;
 		}
+
 		return Math.min(damage, currentDamage);
 	}
 
 	@Override
 	public void setStateFilter(final @NotNull Function<IAreaAccessor, Predicate<IStateEntryInfo>> filter)
+
 	{
 		this.filterBuilder = filter;
 	}
 
 	@Override
 	public void clearStateFilter()
+
 	{
 		this.filterBuilder = null;
 	}
 
 	@Override
 	public Optional<Function<IAreaAccessor, Predicate<IStateEntryInfo>>> getStateFilter()
+
 	{
 		return Optional.ofNullable(this.filterBuilder);
 	}
@@ -322,6 +350,7 @@ public class ChiselingContext implements IChiselingContext
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Optional<T> getMetadata(final IMetadataKey<T> key)
+
 	{
 		final Object value = this.metadataKeyMap.get(key);
 		if (value == null)
@@ -337,38 +366,45 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public void removeMetadata(final IMetadataKey<?> key)
+
 	{
 		 this.metadataKeyMap.remove(key);
 	}
 
 	@Override
 	public <T> void setMetadata(final IMetadataKey<T> key, final T value)
+
 	{
 		this.metadataKeyMap.put(key, value);
 	}
 
 	@Override
 	public void resetMutator()
+
 	{
 		this.mutator = null;
 	}
 
 	@Override
 	public void setError(final MutableComponent errorText)
+
 	{
 		this.error = errorText;
 	}
 
 	@Override
 	public Optional<MutableComponent> getError()
+
 	{
 		return Optional.ofNullable(this.error);
 	}
 
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
+
 	{
 		if (getMutator().isPresent() && getMutator().map(m -> m.isInside(inAreaTarget)).orElse(false))
+
 		{
 			return getMutator().flatMap(m -> m.getInAreaTarget(inAreaTarget));
 		}
@@ -386,6 +422,7 @@ public class ChiselingContext implements IChiselingContext
 
 	@Override
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		return getInAreaTarget(Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget));
 	}

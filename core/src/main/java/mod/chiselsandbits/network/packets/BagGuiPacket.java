@@ -19,11 +19,13 @@ public final class BagGuiPacket extends ModPacket
 	private boolean holdingShift = false;
 
 	public BagGuiPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public BagGuiPacket(final int slotNumber, final int mouseButton, final boolean duplicateButton, final boolean holdingShift)
+
 	{
 		this.slotNumber = slotNumber;
 		this.mouseButton = mouseButton;
@@ -40,6 +42,7 @@ public final class BagGuiPacket extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeInt( slotNumber );
 		buffer.writeInt( mouseButton );

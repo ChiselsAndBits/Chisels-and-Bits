@@ -21,26 +21,31 @@ public class SelectedObjectRenderHandler
 		final LevelRenderState levelRenderState,
 		final float partialTicks
 	)
+
 	{
 		final Player playerEntity = Minecraft.getInstance().player;
 		if (playerEntity == null || playerEntity.isSpectator())
+
 		{
 			return;
 		}
 
 		final ItemStack heldStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 		if (heldStack.isEmpty())
+
 		{
 			return;
 		}
 
 		final Item heldItem = heldStack.getItem();
 		if (!(heldItem instanceof final IWithHighlightItem withHighlightItem))
+
 		{
 			return;
 		}
 
 		if (withHighlightItem.shouldDrawDefaultHighlight(playerEntity))
+
 		{
 			return;
 		}

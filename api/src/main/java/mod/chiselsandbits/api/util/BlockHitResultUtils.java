@@ -10,6 +10,7 @@ import net.minecraft.world.phys.Vec3;
 public class BlockHitResultUtils
 {
 	private BlockHitResultUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockHitResultUtils. This is a utility class");
 	}

@@ -28,17 +28,20 @@ public abstract class AbstractChiselsAndBitsButton extends Button implements ICh
 	  final Component narration,
 	  final OnPress pressable,
 	  final CreateNarration tooltip)
+
 	{
 		super(x, y, width, height, narration, pressable, tooltip);
 	}
 
 	@Override
 	public void init()
+
 	{
 	}
 
 	@Override
 	public void removed()
+
 	{
 	}
 }

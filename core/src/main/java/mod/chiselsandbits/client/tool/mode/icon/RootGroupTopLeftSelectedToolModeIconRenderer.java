@@ -21,12 +21,14 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 
 	@Override
 	public Identifier getId()
+
 	{
 		return ID;
 	}
 
 	@Override
 	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
+
 	{
 		if (!(stack.getItem() instanceof final IWithModeItem<?> modeItem))
 			return;
@@ -63,6 +65,7 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 
 	private IRenderableMode getRootRenderableMode(final IRenderableMode mode) {
 		if (mode instanceof IToolMode && ((IToolMode<?>) mode).getGroup().isPresent())
+
 		{
 			return ((IToolMode<?>) mode).getGroup().get();
 		}

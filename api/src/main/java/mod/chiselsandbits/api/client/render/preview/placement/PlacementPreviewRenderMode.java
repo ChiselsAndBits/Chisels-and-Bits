@@ -24,16 +24,19 @@ public enum PlacementPreviewRenderMode
 	WIREFRAME;
 
 	public boolean isGhost()
+
 	{
 		return this == GHOST_BLOCK_MODEL;
 	}
 
 	public boolean isColoredGhost()
+
 	{
 		return this == GHOST_BLOCK_MODEL_SOLID_COLOR;
 	}
 
 	public boolean isWireframe()
+
 	{
 		return this == WIREFRAME;
 	}

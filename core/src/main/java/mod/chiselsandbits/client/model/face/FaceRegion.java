@@ -45,6 +45,7 @@ public class FaceRegion
 	  final float centerZ,
 	  final BlockInformation blockInformation,
 	  final boolean isEdgeFace)
+
 	{
 		face = facingDirection;
 		this.blockInformation = blockInformation;
@@ -67,6 +68,7 @@ public class FaceRegion
 	  final float maxX,
 	  final float maxY,
 	  final float maxZ)
+
 	{
 		this.face = face;
 		this.blockInformation = blockInformation;
@@ -80,56 +82,67 @@ public class FaceRegion
 	}
 
 	public BlockInformation getBlockInformation()
+
 	{
 		return blockInformation;
 	}
 
 	public float getMinX()
+
 	{
 		return minX;
 	}
 
 	public float getMinY()
+
 	{
 		return minY;
 	}
 
 	public float getMinZ()
+
 	{
 		return minZ;
 	}
 
 	public float getMaxX()
+
 	{
 		return maxX;
 	}
 
 	public float getMaxY()
+
 	{
 		return maxY;
 	}
 
 	public float getMaxZ()
+
 	{
 		return maxZ;
 	}
 
 	public boolean isEdge()
+
 	{
 		return isEdge;
 	}
 
 	public Direction getFace()
+
 	{
 		return face;
 	}
 
 	public Vector3f maxVector()
+
 	{
 		return new Vector3f(maxX, maxY, maxZ);
 	}
 
 	public Vector3f minVector()
+
 	{
 		return new Vector3f(minX, minY, minZ);
 	}
@@ -138,14 +151,17 @@ public class FaceRegion
 	  final FaceRegion faceToExtendTo
 	) {
 		if (faceToExtendTo.blockInformation != blockInformation)
+
 		{
 			return false;
 		}
 
 		switch (face)
+
 		{
 			case DOWN:
 			case UP:
+
 			{
 				final boolean a = maxX == faceToExtendTo.minX && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean b = minX == faceToExtendTo.maxX && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
@@ -153,6 +169,7 @@ public class FaceRegion
 				final boolean d = minZ == faceToExtendTo.maxZ && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
 
 				if (a || b || c || d)
+
 				{
 					minX = Math.min(faceToExtendTo.minX, minX);
 					minY = Math.min(faceToExtendTo.minY, minY);
@@ -168,6 +185,7 @@ public class FaceRegion
 
 			case WEST:
 			case EAST:
+
 			{
 				final boolean a = maxY == faceToExtendTo.minY && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean b = minY == faceToExtendTo.maxY && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
@@ -175,6 +193,7 @@ public class FaceRegion
 				final boolean d = minZ == faceToExtendTo.maxZ && maxY == faceToExtendTo.maxY && minY == faceToExtendTo.minY;
 
 				if (a || b || c || d)
+
 				{
 					minX = Math.min(faceToExtendTo.minX, minX);
 					minY = Math.min(faceToExtendTo.minY, minY);
@@ -190,6 +209,7 @@ public class FaceRegion
 
 			case NORTH:
 			case SOUTH:
+
 			{
 				final boolean a = maxY == faceToExtendTo.minY && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
 				final boolean b = minY == faceToExtendTo.maxY && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
@@ -197,6 +217,7 @@ public class FaceRegion
 				final boolean d = minX == faceToExtendTo.maxX && maxY == faceToExtendTo.maxY && minY == faceToExtendTo.minY;
 
 				if (a || b || c || d)
+
 				{
 					minX = Math.min(faceToExtendTo.minX, minX);
 					minY = Math.min(faceToExtendTo.minY, minY);

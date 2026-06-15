@@ -5,6 +5,7 @@ import java.util.Iterator;
 public class StringUtils
 {
 	private StringUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: StringUtils. This is a utility class");
 	}
@@ -14,6 +15,7 @@ public class StringUtils
 
 		while (source.hasNext()) {
 			sb.append(source.next());
+
 			if (source.hasNext()) {
 				sb.append(delimiter);
 			}

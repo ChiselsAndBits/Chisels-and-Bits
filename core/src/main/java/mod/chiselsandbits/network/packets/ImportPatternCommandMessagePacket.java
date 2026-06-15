@@ -17,29 +17,34 @@ public class ImportPatternCommandMessagePacket extends ModPacket
 	private String   name;
 
 	public ImportPatternCommandMessagePacket(final String name)
+
 	{
 		this.name = name;
 	}
 
 	public ImportPatternCommandMessagePacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeUtf(name, 512);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		name = buffer.readUtf(512);
 	}
 
 	@Override
 	public void client()
+
 	{
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPacketHandlers.handleImportPatternCommandMessage(name));
 	}

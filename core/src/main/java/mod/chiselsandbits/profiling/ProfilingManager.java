@@ -16,6 +16,7 @@ public class ProfilingManager implements IProfilingManager
 	private static final ProfilingManager INSTANCE = new ProfilingManager();
 
 	public static ProfilingManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -23,11 +24,13 @@ public class ProfilingManager implements IProfilingManager
 	public IProfiler profiler = null;
 
 	private ProfilingManager()
+
 	{
 	}
 
 	@Override
 	public IProfiler startProfiling(Environment profilingEnvironment)
+
 	{
 		if (JvmProfiler.INSTANCE.isAvailable()) {
 			return new JfrCandBProfiler(profilingEnvironment);
@@ -38,6 +41,7 @@ public class ProfilingManager implements IProfilingManager
 
 	@Override
 	public IProfilerResult endProfiling(final IProfiler profiler)
+
 	{
 		if (!(profiler instanceof final CandBProfiler candBProfiler))
 			throw new IllegalArgumentException("Profiler is not a Chisels and Bits Profiler");
@@ -47,6 +51,7 @@ public class ProfilingManager implements IProfilingManager
 
 	@Override
 	public IProfilerResult stopProfiling(final IProfiler profiler)
+
 	{
 		if (!(profiler instanceof final CandBProfiler candBProfiler))
 			throw new IllegalArgumentException("Profiler is not a Chisels and Bits Profiler");
@@ -56,11 +61,13 @@ public class ProfilingManager implements IProfilingManager
 	}
 
 	public IProfiler getProfiler()
+
 	{
 		return profiler;
 	}
 
 	public void setProfiler(final IProfiler profiler)
+
 	{
 		this.profiler = profiler;
 	}

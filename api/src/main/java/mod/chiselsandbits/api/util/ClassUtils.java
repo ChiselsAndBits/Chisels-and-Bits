@@ -19,6 +19,7 @@ public final class ClassUtils
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private ClassUtils()
+
 	{
 		throw new IllegalStateException("Tried to initialize: ClassUtils but this is a Utility class.");
 	}
@@ -44,11 +45,13 @@ public final class ClassUtils
 			Class<? extends T> subClass = Class.forName(className).asSubclass(baseClass);
 			//First try looking at the fields of the class to see if one of them is specified as the instance
 			Field[] fields = subClass.getDeclaredFields();
+
 			for (Field field : fields) {
 				if (field.isAnnotationPresent(instanceAnnotation)) {
 					if (Modifier.isStatic(field.getModifiers())) {
 						try {
 							Object fieldValue = field.get(null);
+
 							if (baseClass.isInstance(fieldValue)) {
 								T instance = (T) fieldValue;
 								LOGGER.debug("Found specified {} instance for: {}. Using it rather than creating a new instance.", baseClass.getSimpleName(),
@@ -68,18 +71,24 @@ public final class ClassUtils
 					}
 				}
 			}
+
 			return subClass.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
 			LOGGER.error("Failed to load: {}", className, e);
 		}
+
 		catch (InvocationTargetException e)
+
 		{
 			LOGGER.error("Failed to instantiate a new instance of the class: " + className + ". Its constructor threw an exception", e);
 		}
+
 		catch (NoSuchMethodException e)
+
 		{
 			LOGGER.error("Failed to create a new instance of the class. Failed to find a parameterless constructor on: " + className);
 		}
+
 		return null;
 	}
 }

@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 public class ChiseledPrinterBlockItem extends BlockItem
 {
 	public ChiseledPrinterBlockItem(final Block block, final Properties properties)
+
 	{
 		super(block, properties);
 	}

@@ -34,6 +34,7 @@ public class BlockBitItemModelGenerator extends ModelProvider implements DataPro
 
 	@Override
 	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels)
+
 	{
 		actOnBlockWithLoader(ModItems.ITEM_BLOCK_BIT.get(), itemModels);
 	}
@@ -44,12 +45,14 @@ public class BlockBitItemModelGenerator extends ModelProvider implements DataPro
 
 	@Override
 	protected Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	protected Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of(
 			BuiltInRegistries.ITEM.wrapAsHolder(

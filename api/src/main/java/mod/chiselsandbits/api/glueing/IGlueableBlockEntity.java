@@ -22,6 +22,7 @@ public interface IGlueableBlockEntity {
 
 	default Set<BlockPos> connectedPositions() {
 		final Set<Direction> gluedSides = gluedSides();
+
 		if (gluedSides.isEmpty()) {
 			return Set.of(blockPos());
 		}
@@ -41,18 +42,23 @@ public interface IGlueableBlockEntity {
 		while (!toCheck.isEmpty()) {
 			final BlockPos current = toCheck.getFirst();
 			toCheck.remove(current);
+
 			if (walkedPositions.contains(current)) {
 				continue;
 			}
+
 			walkedPositions.add(current);
 
 			final BlockEntity blockEntity = blockGetter().getBlockEntity(current);
+
 			if (blockEntity instanceof IGlueableBlockEntity) {
 				connectedPositions.add(current);
 
 				final Set<Direction> neighborGluedSides = ((IGlueableBlockEntity) blockEntity).gluedSides();
+
 				for (final Direction direction : neighborGluedSides) {
 					final BlockPos offset = current.relative(direction);
+
 					if (!walkedPositions.contains(offset)) {
 						toCheck.add(offset);
 					}

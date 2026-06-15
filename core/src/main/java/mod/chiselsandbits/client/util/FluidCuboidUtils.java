@@ -30,6 +30,7 @@ import net.minecraft.resources.Identifier;
 public class FluidCuboidUtils
 {
 	private FluidCuboidUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: FluidCuboidUtils. This is a utility class");
 	}
@@ -168,9 +169,11 @@ public class FluidCuboidUtils
 	{
 		// safety
 		if (sprite == null)
+
 		{
 			return;
 		}
+
 		float minU;
 		float maxU;
 		float minV;
@@ -178,6 +181,7 @@ public class FluidCuboidUtils
 
 		float size = 1f;
 		if (flowing)
+
 		{
 			size = 0.5f;
 		}
@@ -185,24 +189,30 @@ public class FluidCuboidUtils
 		float xt1 = 0;
 		float xt2 = w;
 		while (xt2 > 1f)
+
 		{
 			xt2 -= 1f;
 		}
+
 		float yt1 = 0;
 		float yt2 = h;
 		while (yt2 > 1f)
+
 		{
 			yt2 -= 1f;
 		}
+
 		float zt1 = 0;
 		float zt2 = d;
 		while (zt2 > 1f)
+
 		{
 			zt2 -= 1f;
 		}
 
 		// flowing stuff should start from the bottom, not from the start
 		if (flowing)
+
 		{
 			float tmp = 1f - yt1;
 			yt1 = 1f - yt2;
@@ -210,8 +220,10 @@ public class FluidCuboidUtils
 		}
 
 		switch (face)
+
 		{
 			case DOWN, UP ->
+
 			{
 				minU = sprite.getU(xt1 * size);
 				maxU = sprite.getU(xt2 * size);
@@ -219,6 +231,7 @@ public class FluidCuboidUtils
 				maxV = sprite.getV(zt2 * size);
 			}
 			case NORTH, SOUTH ->
+
 			{
 				minU = sprite.getU(xt2 * size);
 				maxU = sprite.getU(xt1 * size);
@@ -226,6 +239,7 @@ public class FluidCuboidUtils
 				maxV = sprite.getV(yt2 * size);
 			}
 			case WEST, EAST ->
+
 			{
 				minU = sprite.getU(zt2 * size);
 				maxU = sprite.getU(zt1 * size);
@@ -233,6 +247,7 @@ public class FluidCuboidUtils
 				maxV = sprite.getV(yt2 * size);
 			}
 			default ->
+
 			{
 				minU = sprite.getU0();
 				maxU = sprite.getU1();
@@ -242,6 +257,7 @@ public class FluidCuboidUtils
 		}
 
 		if (flipHorizontally)
+
 		{
 			float tmp = minV;
 			minV = maxV;
@@ -249,6 +265,7 @@ public class FluidCuboidUtils
 		}
 
 		if (flipVertically)
+
 		{
 			float tmp = minU;
 			minU = maxU;
@@ -259,8 +276,10 @@ public class FluidCuboidUtils
 		final Matrix3f normalMatrix = matrices.normal();
 
 		switch (face)
+
 		{
 			case DOWN ->
+
 			{
 				renderer.addVertex(worldMatrix, 0, 0, 0)
 					.setColor(r, g, b, a)
@@ -288,6 +307,7 @@ public class FluidCuboidUtils
 					.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
 			}
 			case UP ->
+
 			{
 				renderer.addVertex(worldMatrix, 0, h, 0)
 					.setColor(r, g, b, a)
@@ -315,6 +335,7 @@ public class FluidCuboidUtils
 					.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
 			}
 			case NORTH ->
+
 			{
 				renderer.addVertex(worldMatrix, 0, 0, 0)
 					.setColor(r, g, b, a)
@@ -342,6 +363,7 @@ public class FluidCuboidUtils
 					.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
 			}
 			case SOUTH ->
+
 			{
 				renderer.addVertex(worldMatrix, 0, 0, d)
 					.setColor(r, g, b, a)
@@ -369,6 +391,7 @@ public class FluidCuboidUtils
 					.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
 			}
 			case WEST ->
+
 			{
 				renderer.addVertex(worldMatrix, 0, 0, 0)
 					.setColor(r, g, b, a)
@@ -396,6 +419,7 @@ public class FluidCuboidUtils
 					.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
 			}
 			case EAST ->
+
 			{
 				renderer.addVertex(worldMatrix, w, 0, 0)
 					.setColor(r, g, b, a)

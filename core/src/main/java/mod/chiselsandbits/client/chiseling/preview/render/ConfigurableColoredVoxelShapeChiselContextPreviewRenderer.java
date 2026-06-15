@@ -29,6 +29,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 
 	@Override
 	public Identifier getId()
+
 	{
 		return ID;
 	}
@@ -43,6 +44,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 		final IChiselingContext currentContextSnapshot)
 	{
 		if (currentContextSnapshot.getMutator().isEmpty())
+
 		{
 			return;
 		}
@@ -100,6 +102,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 		bufferSource.endBatch(ModRenderTypes.CHISEL_PREVIEW_OUTSIDE_BLOCKS.get());
 
 		if (IClientConfiguration.getInstance().getMutatorPreviewDebug().get())
+
 		{
 			ShapeRenderer.renderShape(
 				poseStack,
@@ -119,14 +122,17 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 	}
 
 	private static float getColorValue(final List<? extends Float> values, final int index, final float defaultValue)
+
 	{
 		if (values.size() <= index || index < 0)
+
 		{
 			return defaultValue;
 		}
 
 		final Number value = values.get(index);
 		if (0 <= value.floatValue() && value.floatValue() <= 1f)
+
 		{
 			return value.floatValue();
 		}

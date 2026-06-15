@@ -14,6 +14,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 	private static final SelectedToolModeRendererRegistry INSTANCE = new SelectedToolModeRendererRegistry();
 
 	public static SelectedToolModeRendererRegistry getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -21,6 +22,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 	private final Map<Identifier, ISelectedToolModeIconRenderer> rendererMap = Maps.newConcurrentMap();
 
 	private SelectedToolModeRendererRegistry()
+
 	{
 	   this.register(
 		  new RootGroupTopLeftSelectedToolModeIconRenderer(),
@@ -30,6 +32,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 
 	@Override
 	public ISelectedToolModeIconRenderer getCurrent()
+
 	{
 		return rendererMap.getOrDefault(Identifier.parse(IClientConfiguration.getInstance().getToolModeRenderer().get()),
 		  rendererMap.get(RootGroupTopLeftSelectedToolModeIconRenderer.ID));
@@ -37,12 +40,15 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 
 	@Override
 	public ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer... renderers)
+
 	{
 		for (final ISelectedToolModeIconRenderer renderer : renderers)
+
 		{
 			if (rendererMap.put(renderer.getId(), renderer) != null)
 				throw new IllegalArgumentException("The renderer id: " + renderer.getId() + " is already in use!");
 		}
+
 		return this;
 	}
 }

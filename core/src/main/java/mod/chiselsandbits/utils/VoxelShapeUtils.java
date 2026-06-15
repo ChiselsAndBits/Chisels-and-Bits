@@ -122,12 +122,14 @@ public final class VoxelShapeUtils {
 		List<VoxelShape> rotatedPieces = new ArrayList<>();
 		//Explode the voxel shape into bounding boxes
 		List<AABB> sourceBoundingBoxes = shape.toAabbs();
+
 		//Rotate them and convert them each back into a voxel shape
 		for (AABB sourceBoundingBox : sourceBoundingBoxes) {
 			//Make the bounding box be centered around the middle, and then move it back after rotating
 			rotatedPieces.add(Shapes.create(rotateFunction.apply(sourceBoundingBox.move(fromOrigin.x, fromOrigin.y, fromOrigin.z))
 					.move(-fromOrigin.x, -fromOrigin.z, -fromOrigin.z)));
 		}
+
 		//return the recombined rotated voxel shape
 		return combine(rotatedPieces);
 	}
@@ -180,9 +182,11 @@ public final class VoxelShapeUtils {
      */
 	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, Collection<VoxelShape> shapes) {
 		VoxelShape combinedShape = initial;
+
 		for (VoxelShape shape : shapes) {
 			combinedShape = Shapes.joinUnoptimized(combinedShape, shape, function);
 		}
+
 		return simplify ? combinedShape.optimize() : combinedShape;
 	}
 
@@ -201,9 +205,11 @@ public final class VoxelShapeUtils {
      */
 	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, VoxelShape... shapes) {
 		VoxelShape combinedShape = initial;
+
 		for (VoxelShape shape : shapes) {
 			combinedShape = Shapes.joinUnoptimized(combinedShape, shape, function);
 		}
+
 		return simplify ? combinedShape.optimize() : combinedShape;
 	}
 }

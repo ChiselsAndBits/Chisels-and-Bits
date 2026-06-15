@@ -27,10 +27,12 @@ public record BitBlockQuadCollectionBuilder(BlockInformation information)
 	};
 
 	public QuadCollection build()
+
 	{
 		final QuadCollection.Builder result = new QuadCollection.Builder();
 
 		for (final Direction myFace : Direction.values())
+
 		{
 			QuadGenerationUtils.generateQuads(
 				information,

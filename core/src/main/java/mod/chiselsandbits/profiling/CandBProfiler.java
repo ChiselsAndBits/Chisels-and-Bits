@@ -34,24 +34,28 @@ public class CandBProfiler implements IProfiler
 	private final ActiveProfiler inner = new ActiveProfiler(Util.timeSource, () -> 0, () -> false);
 
 	public CandBProfiler()
+
 	{
 		inner.startTick();
 	}
 
 	@Override
 	public void startSection(final String name)
+
 	{
 		inner.push(name);
 	}
 
 	@Override
 	public void startSection(final Supplier<String> nameSupplier)
+
 	{
 		inner.push(nameSupplier);
 	}
 
 	@Override
 	public void endSection()
+
 	{
 		inner.pop();
 	}

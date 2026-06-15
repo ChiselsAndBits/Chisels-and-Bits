@@ -32,15 +32,18 @@ public class ChiseledBlockStateModelManager
 	);
 
 	private ChiseledBlockStateModelManager()
+
 	{
 	}
 
 	public static ChiseledBlockStateModelManager getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	public void clearCache()
+
 	{
 		cache.clear();
 	}
@@ -74,10 +77,13 @@ public class ChiseledBlockStateModelManager
 		final ISingleBlockAxisAlignedAreaAccessor accessor,
 		final IBlockNeighborhood blockNeighborhood
 	)
+
 	{
 		try (IProfilerSection ignored1 = ProfilingManager.getInstance().withSection("Block based chiseled block model"))
+
 		{
 			if (accessor.getStatistics().getPrimaryState().isAir())
+
 			{
 				return ChiseledBlockModelInformation.EMPTY;
 			}
@@ -102,6 +108,7 @@ public class ChiseledBlockStateModelManager
 			return cache.get(key,
 				() -> {
 					try (IProfilerSection ignored3 = ProfilingManager.getInstance().withSection("Cache mis"))
+
 					{
 						return new ChiseledBlockModelInformationBuilder(
 							accessor,

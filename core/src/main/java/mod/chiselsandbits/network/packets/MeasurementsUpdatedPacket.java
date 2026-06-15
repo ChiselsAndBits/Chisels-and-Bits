@@ -25,17 +25,20 @@ public final class MeasurementsUpdatedPacket extends ModPacket
 	private Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements;
 
 	public MeasurementsUpdatedPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public MeasurementsUpdatedPacket(final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements)
+
 	{
 		this.measurements = measurements;
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeMap(
 				measurements.rowMap(),
@@ -54,6 +57,7 @@ public final class MeasurementsUpdatedPacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		final Map<Identifier, Map<UUID, Map<MeasuringMode, Measurement>>> bufferData = buffer.readMap(
 				FriendlyByteBuf::readIdentifier,
@@ -72,12 +76,14 @@ public final class MeasurementsUpdatedPacket extends ModPacket
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		//Noop
 	}
 
 	@Override
 	public void client()
+
 	{
 		MeasuringManager.getInstance().updateMeasurements(measurements);
 	}

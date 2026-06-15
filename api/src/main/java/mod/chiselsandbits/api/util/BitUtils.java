@@ -3,6 +3,7 @@ package mod.chiselsandbits.api.util;
 public class BitUtils
 {
 	private BitUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BitUtils. This is a utility class");
 	}
@@ -16,11 +17,13 @@ public class BitUtils
 	}
 
 	public static int getByteCount(final int totalBitCount)
+
 	{
 		return (int) Math.ceil(totalBitCount / (float) Byte.SIZE);
 	}
 
 	public static int getMaskWidth(final int bitMask)
+
 	{
 		if (bitMask == 0xFFFFFFFF) {
 			return 32;

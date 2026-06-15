@@ -15,17 +15,20 @@ public class SealantItemModelGenerator extends AbstractInteractableItemModelGene
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new SealantItemModelGenerator(event.getGenerator()));
 	}
 
 	public SealantItemModelGenerator(final DataGenerator generator)
+
 	{
 		super(generator, ModItems.SEALANT_ITEM);
 	}
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Sealant item model generator";
 	}

@@ -22,24 +22,28 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 
 	@Override
 	public void apply(final IGenerallyModifiableAreaMutator source)
+
 	{
 		source.rotate(axis);
 	}
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return ModModificationOperationGroups.ROTATE.getIcon();
 	}
 
 	@Override
 	public @NotNull Optional<IModificationOperationGroup> getGroup()
+
 	{
 		return Optional.of(ModModificationOperationGroups.ROTATE);
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return switch (axis)
 				 {
@@ -50,6 +54,7 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 	}
 
 	public static final class Builder
+
 	{
 		private Direction.Axis axis;
 
@@ -58,6 +63,7 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 		public static Builder create() { return new Builder(); }
 
 		public Builder withAxis(Direction.Axis axis)
+
 		{
 			this.axis = axis;
 			return this;

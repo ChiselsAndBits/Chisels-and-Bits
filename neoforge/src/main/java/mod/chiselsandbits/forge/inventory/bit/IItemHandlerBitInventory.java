@@ -22,6 +22,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected ItemStack getItem(final int index)
+
 	{
 		return itemHandler.getResource(index).toStack();
 	}
@@ -33,6 +34,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected int getInventorySize()
+
 	{
 		return itemHandler.size();
 	}
@@ -45,10 +47,13 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected void setItem(final int index, final ItemStack stack)
+
 	{
 		try(Transaction tx = Transaction.openRoot())
+
 		{
 			itemHandler.extract(index, ItemResource.of(stack), stack.getCount(), tx);
+
 			if (itemHandler.insert(index, ItemResource.of(stack), stack.getCount(), tx) != stack.getCount()) {
 				throw new IllegalStateException("Failed to insert stack.");
 			}
@@ -59,6 +64,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return ResourceHandlerUtil.isEmpty(itemHandler);
 	}

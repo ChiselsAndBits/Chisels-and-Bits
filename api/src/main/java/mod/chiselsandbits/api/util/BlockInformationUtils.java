@@ -17,6 +17,7 @@ import java.util.Optional;
 public class BlockInformationUtils
 {
 	private BlockInformationUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockStateUtils. This is a utility class");
 	}
@@ -41,6 +42,7 @@ public class BlockInformationUtils
 		);
 
 		while (!IEligibilityManager.getInstance().canBeChiseled(blockInformation))
+
 		{
 			candidate = blocks.getValues().stream().skip(
 					random.nextInt(blocks.getValues().size())

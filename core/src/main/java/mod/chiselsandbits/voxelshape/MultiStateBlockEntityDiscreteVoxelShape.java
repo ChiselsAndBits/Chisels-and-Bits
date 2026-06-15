@@ -11,6 +11,7 @@ import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxelShape
 {
 	public MultiStateBlockEntityDiscreteVoxelShape(final BitSet source)
+
 	{
 		super(
 		  StateEntrySize.current().getBitsPerBlockSide(),
@@ -23,6 +24,7 @@ public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxel
 	}
 
 	public MultiStateBlockEntityDiscreteVoxelShape(final BitSet source, int size)
+
 	{
 		super(
 		  size, size, size
@@ -33,6 +35,7 @@ public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxel
 	}
 
 	private void recalculateBounds()
+
 	{
 		this.xMin = this.xSize;
 		this.yMin = this.ySize;

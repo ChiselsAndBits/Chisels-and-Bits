@@ -11,10 +11,12 @@ public class MultiStateItemFactory implements IMultiStateItemFactory
 	private static final MultiStateItemFactory INSTANCE = new MultiStateItemFactory();
 
 	private MultiStateItemFactory()
+
 	{
 	}
 
 	public static MultiStateItemFactory getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -27,6 +29,7 @@ public class MultiStateItemFactory implements IMultiStateItemFactory
      */
 	@Override
 	public ItemStack createBlockFrom(final IStateEntryInfo stateEntryInfo)
+
 	{
 		if (stateEntryInfo.getBlockInformation().isAir())
 			return ItemStack.EMPTY;

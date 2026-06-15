@@ -19,6 +19,7 @@ public class IllegalBitInventory implements IBitInventory
 	public boolean canExtract(
 	  final BlockInformation blockInformation,
 	  final int count)
+
 	{
 		return false;
 	}
@@ -31,6 +32,7 @@ public class IllegalBitInventory implements IBitInventory
      */
 	@Override
 	public int getMaxExtractAmount(final BlockInformation blockState)
+
 	{
 		return 0;
 	}
@@ -46,6 +48,7 @@ public class IllegalBitInventory implements IBitInventory
 	public void extract(
 	  final BlockInformation blockState,
 	  final int count) throws IllegalArgumentException
+
 	{
 	}
 
@@ -58,6 +61,7 @@ public class IllegalBitInventory implements IBitInventory
      */
 	@Override
 	public boolean canInsert(final BlockInformation blockState, final int count)
+
 	{
 		return false;
 	}
@@ -70,6 +74,7 @@ public class IllegalBitInventory implements IBitInventory
      */
 	@Override
 	public int getMaxInsertAmount(final BlockInformation blockState)
+
 	{
 		return 0;
 	}
@@ -83,23 +88,27 @@ public class IllegalBitInventory implements IBitInventory
      */
 	@Override
 	public void insert(final BlockInformation blockState, final int count) throws IllegalArgumentException
+
 	{
 	}
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return true;
 	}
 
 	@Override
 	public Map<BlockInformation, Integer> getContainedStates()
+
 	{
 		return Collections.emptyMap();
 	}
 
 	@Override
 	public boolean contains(final BlockInformation blockInformation)
+
 	{
 		return false;
 	}

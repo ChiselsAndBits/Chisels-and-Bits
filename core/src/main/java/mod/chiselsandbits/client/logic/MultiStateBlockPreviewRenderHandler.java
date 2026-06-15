@@ -33,18 +33,21 @@ public class MultiStateBlockPreviewRenderHandler
 	{
 		final HitResult rayTraceResult = Minecraft.getInstance().hitResult;
 		if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS)
+
 		{
 			return;
 		}
 
 		final Player playerEntity = Minecraft.getInstance().player;
 		if (playerEntity == null || playerEntity.isSpectator())
+
 		{
 			return;
 		}
 
 		final ItemStack heldStack = ItemStackUtils.getMultiStateItemStackFromPlayer(playerEntity);
 		if (!(heldStack.getItem() instanceof IWireframeProvidingItem wireframeItem))
+
 		{
 			return;
 		}
@@ -61,12 +64,15 @@ public class MultiStateBlockPreviewRenderHandler
 		final PlacementResult placementResult;
 		final boolean ignoreDepth, forceWireframe;
 		if (heldStack.getItem() instanceof IPlacementPreviewProvidingItem placementPreviewItem)
+
 		{
 			placementResult = placementPreviewItem.getPlacementResult(heldStack, playerEntity, blockRayTraceResult);
 			ignoreDepth = placementPreviewItem.ignoreDepthForPlacement(heldStack, placementResult);
 			forceWireframe = false;
 		}
+
 		else
+
 		{
 			placementResult = PlacementResult.failure(wireframeItem.getWireFrameColor(heldStack, playerEntity, blockRayTraceResult));
 			ignoreDepth = wireframeItem.ignoreDepth(heldStack);
@@ -119,15 +125,19 @@ public class MultiStateBlockPreviewRenderHandler
 	{
 		final ItemStack renderStack;
 		if (heldStack.getItem() instanceof final IPatternItem patternItem)
+
 		{
 			final IMultiStateItemStack multiSate = patternItem.createItemStack(heldStack);
 			renderStack = multiSate.toBlockStack();
 			if (renderStack.isEmpty())
+
 			{
 				return false;
 			}
 		}
+
 		else
+
 		{
 			renderStack = heldStack;
 		}

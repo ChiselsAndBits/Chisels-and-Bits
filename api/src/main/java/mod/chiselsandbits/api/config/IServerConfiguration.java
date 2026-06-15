@@ -18,6 +18,7 @@ public interface IServerConfiguration
      * @return The server configuration.
      */
 	static IServerConfiguration getInstance()
+
 	{
 		return IChiselsAndBitsConfiguration.getInstance().getServer();
 	}

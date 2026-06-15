@@ -25,6 +25,7 @@ public final class UpdateBlockEntityPacket extends ModPacket
 	private byte[] data;
 
 	public UpdateBlockEntityPacket(final INetworkUpdatableEntity<?> blockEntity)
+
 	{
 		this.blockPos = blockEntity.blockPos();
 		this.data = writeBlockEntity(blockEntity);
@@ -42,12 +43,14 @@ public final class UpdateBlockEntityPacket extends ModPacket
 	}
 
 	public UpdateBlockEntityPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeBlockPos(blockPos);
 		buffer.writeByteArray(data);
@@ -55,6 +58,7 @@ public final class UpdateBlockEntityPacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.blockPos = buffer.readBlockPos();
 		this.data = buffer.readByteArray();
@@ -62,6 +66,7 @@ public final class UpdateBlockEntityPacket extends ModPacket
 
 	@Override
 	public void client()
+
 	{
 		final FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.wrappedBuffer(data));
 		DistExecutor.unsafeRunWhenOn(CLIENT, () -> () -> ClientPacketHandlers.handleChiseledBlockUpdated(blockPos, buf));

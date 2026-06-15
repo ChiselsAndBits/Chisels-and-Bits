@@ -58,6 +58,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 	@Override
 	public ClickProcessingState onLeftClickBy(
 	  final Player playerEntity, final IChiselingContext context)
+
 	{
 		return processRayTraceIntoContext(
 		  playerEntity,
@@ -68,6 +69,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 		onLeftClickBy(playerEntity, context);
 		context.setComplete();
@@ -85,6 +87,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 				  .forEach(state -> {
 					  final BlockInformation currentState = state.getBlockInformation();
 					  if (context.tryDamageItem())
+
 					  {
 						  resultingBitCount.putIfAbsent(currentState, 0);
 						  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
@@ -104,6 +107,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context)
+
 	{
 		return processRayTraceIntoContext(
 		  playerEntity,
@@ -114,6 +118,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 		onRightClickBy(playerEntity, context);
 		context.setComplete();
@@ -124,6 +129,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 			if (heldBlockState.isAir())
+
 			{
 				return;
 			}
@@ -136,8 +142,10 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 			context.setComplete();
 			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative())
+
 			{
 				if (!playerEntity.isCreative())
+
 				{
 					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
@@ -150,12 +158,15 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 					  .forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
 				}
 			}
+
 			else
+
 			{
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}
 
 			if (missingBitCount == 0)
+
 			{
 				context.validateBuildHeights();
 			}
@@ -165,12 +176,14 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+
 		{
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return ClickProcessingState.DEFAULT;
 		}
 
 		Optional<Vec3> anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+
 		if (anchor.isEmpty()) {
 			context.setMetadata(ModMetadataKeys.ANCHOR.get(), blockRayTraceResult.getLocation().add(offsetGenerator.apply(blockRayTraceResult.getDirection())));
 			anchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
@@ -185,6 +198,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
+
 	{
 		return context.getMutator()
 				 .map(IAreaAccessor.class::cast);
@@ -192,6 +206,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context)
+
 	{
 		if (context.getMutator().isEmpty())
 			return Shapes.empty();
@@ -201,24 +216,28 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return iconName;
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.of(ModChiselModeGroups.DRAW);
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return displayName;
 	}
 
 	@Override
 	public Component getMultiLineDisplayName()
+
 	{
 		return multiLineDisplayName;
 	}

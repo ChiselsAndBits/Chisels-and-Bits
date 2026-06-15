@@ -66,6 +66,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	private final ThreadLocal<Boolean> threadLocalBitMergeOperationInProgress = ThreadLocal.withInitial(() -> false);
 
 	public BitItem(final Properties properties)
+
 	{
 		super(properties);
 	}
@@ -83,11 +84,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public void onLeftClickProcessingEnd(final Player player, final ItemStack stack)
+
 	{
 		final IChiselMode chiselMode = getMode(stack);
 		Optional<IChiselingContext> context = IChiselingManager.getInstance().get(player, chiselMode, ChiselingOperation.CHISELING);
 
 		if (context.isEmpty())
+
 		{
 			context = ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
 		}
@@ -95,6 +98,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		context.ifPresent(c -> {
 			chiselMode.onStoppedLeftClicking(player, c);
 			if (c.isComplete())
+
 			{
 				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
@@ -104,9 +108,11 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public boolean canUse(final Player playerEntity, final ItemStack stack)
+
 	{
 		final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
 		if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get())
+
 		{
 			INotificationManager.getInstance().notify(
 				getMode(stack).getIcon(),
@@ -121,6 +127,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	@NotNull
 	@Override
 	public IChiselMode getMode(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
 	}
@@ -128,17 +135,20 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	@NotNull
 	@Override
 	public Component getName(@NotNull final ItemStack stack)
+
 	{
 		final BlockInformation containedStack = getBlockInformation(stack);
 		final Block block = containedStack.blockState().getBlock();
 
 		Component stateName = block.asItem().getName(new ItemStack(block));
 		if (block instanceof final LiquidBlock flowingFluidBlock)
+
 		{
 			stateName = IFluidManager.getInstance().getDisplayName(flowingFluidBlock.fluid);
 		}
 
 		if (containedStack.variant().isPresent())
+
 		{
 			stateName = IStateVariantManager.getInstance().getName(containedStack).orElse(stateName);
 		}
@@ -157,10 +167,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	{
 		final IChiselMode mode = getMode(stack);
 		if (mode.getGroup().isPresent())
+
 		{
 			tooltipAdder.accept(TranslationUtils.build("chiselmode.mode_grouped", mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
 		}
+
 		else
+
 		{
 			tooltipAdder.accept(TranslationUtils.build("chiselmode.mode", mode.getDisplayName()));
 		}
@@ -175,8 +188,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public void setMode(final ItemStack stack, final IChiselMode mode)
+
 	{
 		if (mode == null)
+
 		{
 			return;
 		}
@@ -187,6 +202,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	@NotNull
 	@Override
 	public Collection<IChiselMode> getPossibleModes()
+
 	{
 		return IChiselMode.getRegistry().getValues().stream().sorted(Comparator.comparing(IChiselMode::getRegistryName)).collect(Collectors.toList());
 	}
@@ -204,11 +220,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public void onRightClickProcessingEnd(final Player player, final ItemStack stack)
+
 	{
 		final IChiselMode chiselMode = getMode(stack);
 		Optional<IChiselingContext> context = IChiselingManager.getInstance().get(player, chiselMode, ChiselingOperation.PLACING);
 
 		if (context.isEmpty())
+
 		{
 			context = ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
 		}
@@ -216,6 +234,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		context.ifPresent(c -> {
 			chiselMode.onStoppedRightClicking(player, c);
 			if (c.isComplete())
+
 			{
 				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
@@ -232,14 +251,17 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	{
 		final ItemStack itemStack = playerEntity.getItemInHand(hand);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
+
 		{
 			return currentState;
 		}
 
 		if (modeOfOperation.isChiseling() && IServerConfiguration.getInstance().getRequireChiselInOffHandForBitBreaking().get())
+
 		{
 			final ItemStack offHandStack = playerEntity.getItemInHand(InteractionHand.OFF_HAND);
 			if (offHandStack.isEmpty() || !(offHandStack.getItem() instanceof IChiselItem))
+
 			{
 				playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_ERRORS);
 				INotificationManager.getInstance().notify(
@@ -259,12 +281,14 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final ClickProcessingState resultState = callback.run(chiselMode, playerEntity, context);
 
 		if (context.isComplete())
+
 		{
 			playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 			ILocalChiselingContextCache.getInstance().clear(modeOfOperation);
 		}
 
 		if (context.getError().isPresent() && context.getWorld().isClientSide())
+
 		{
 			INotificationManager.getInstance().notify(
 				context.getMode().getIcon(),
@@ -278,27 +302,32 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public @NotNull BlockInformation getBlockInformation(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.BLOCK_INFORMATION.get(), BlockInformation.AIR);
 	}
 
 	@Override
 	public void onMergeOperationWithBagBeginning()
+
 	{
 		this.threadLocalBitMergeOperationInProgress.set(true);
 	}
 
 	@Override
 	public void onMergeOperationWithBagEnding()
+
 	{
 		this.threadLocalBitMergeOperationInProgress.set(false);
 	}
 
 	@Override
 	public boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity)
+
 	{
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
+
 		{
 			return true;
 		}
@@ -308,10 +337,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		final Optional<IChiselingContext> potentiallyExistingContext = IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 		if (potentiallyExistingContext.isPresent())
+
 		{
 			final IChiselingContext context = potentiallyExistingContext.get();
 
 			if (context.getMutator().isPresent())
+
 			{
 				return false;
 			}
@@ -319,10 +350,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			final IChiselingContext currentContextSnapshot = context.createSnapshot();
 
 			if (currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING)
+
 			{
 				chiselMode.onLeftClickBy(playerEntity, currentContextSnapshot);
 			}
+
 			else
+
 			{
 				chiselMode.onRightClickBy(playerEntity, currentContextSnapshot);
 			}
@@ -333,6 +367,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final Optional<IChiselingContext> localCachedContext = ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
 
 		if (localCachedContext.isPresent())
+
 		{
 			final IChiselingContext context = localCachedContext.get();
 
@@ -340,6 +375,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			{
 				if (context.getMutator().isPresent())
+
 				{
 					return false;
 				}
@@ -354,6 +390,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		chiselMode.onLeftClickBy(playerEntity, context);
 
 		if (context.getMutator().isPresent())
+
 		{
 			return false;
 		}
@@ -374,6 +411,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	{
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
+
 		{
 			return;
 		}
@@ -388,14 +426,18 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final Optional<IChiselingContext> potentialPlacingContext = ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
 
 		if (potentiallyExistingContext.isPresent())
+
 		{
 			final IChiselingContext currentContextSnapshot = potentiallyExistingContext.get().createSnapshot();
 
 			if (currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING)
+
 			{
 				chiselMode.onLeftClickBy(playerEntity, currentContextSnapshot);
 			}
+
 			else
+
 			{
 				chiselMode.onRightClickBy(playerEntity, currentContextSnapshot);
 			}
@@ -406,21 +448,27 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			return;
 		}
+
 		else if (potentialChiselingContext.isPresent())
+
 		{
 			final IChiselingContext chiselingContext = potentialChiselingContext.get();
 			if (potentialChiselingContext.get().getMode() == chiselMode && chiselingContext.getMode().isStillValid(playerEntity, chiselingContext, ChiselingOperation.CHISELING))
+
 			{
 				IChiselContextPreviewRendererRegistry.getInstance()
 					.getCurrent()
 					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
 			}
+
 			else
+
 			{
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
 
 			if (potentialPlacingContext.isPresent())
+
 			{
 				final IChiselingContext placingContext = potentialPlacingContext.get();
 				if (placingContext.getMode() == chiselMode && potentialPlacingContext.get()
@@ -431,7 +479,9 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 						.getCurrent()
 						.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
 				}
+
 				else
+
 				{
 					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
 				}
@@ -439,6 +489,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			return;
 		}
+
 		else if (potentialPlacingContext.isPresent() && potentialPlacingContext.get().getMode() == chiselMode && chiselMode.isStillValid(playerEntity,
 			potentialPlacingContext.get(),
 			ChiselingOperation.PLACING))
@@ -459,13 +510,16 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		chiselMode.onRightClickBy(playerEntity, placingContext);
 
 		if (chiselingContext.getMutator().isPresent() && chiselingContext.getError().isEmpty())
+
 		{
 			IChiselContextPreviewRendererRegistry.getInstance()
 				.getCurrent()
 				.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
 			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, chiselingContext);
 		}
+
 		if (placingContext.getMutator().isPresent() && placingContext.getError().isEmpty())
+
 		{
 			IChiselContextPreviewRendererRegistry.getInstance()
 				.getCurrent()
@@ -476,18 +530,21 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@Override
 	public boolean isDamageableDuringChiseling()
+
 	{
 		return false;
 	}
 
 	@FunctionalInterface
 	private interface ChiselModeInteractionCallback
+
 	{
 		ClickProcessingState run(final IChiselMode chiselMode, final Player playerEntity, final IChiselingContext context);
 	}
 
 	@Override
 	public Map<String, ItemStack> getDocumentableInstances(final Item item)
+
 	{
 		ensureAvailableBitStacksAreLoaded();
 
@@ -501,14 +558,17 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	}
 
 	private void ensureAvailableBitStacksAreLoaded()
+
 	{
 		if (availableBitStacks.isEmpty())
+
 		{
 			ModCreativeTabs.BITS.get().buildContents(new CreativeModeTab.ItemDisplayParameters(FeatureFlagSet.of(), false, null));
 			availableBitStacks.addAll(ModCreativeTabs.BITS.get().getDisplayItems());
 
 			availableBitStacks.sort(Comparator.comparing(stack -> {
 				if (!(stack.getItem() instanceof IBitItem))
+
 				{
 					throw new IllegalStateException("Stack did not contain a bit item.");
 				}

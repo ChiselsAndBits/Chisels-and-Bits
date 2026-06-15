@@ -24,24 +24,28 @@ import net.minecraft.world.level.block.Block;
 public class GenericItemModelGenerator extends ModelProvider
 {
 	public GenericItemModelGenerator(final PackOutput output)
+
 	{
 		super(output, Constants.MOD_ID);
 	}
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new GenericItemModelGenerator(event.getGenerator().getPackOutput()));
 	}
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of(
 			ModItems.ITEM_CHISEL_STONE.get(),
@@ -62,12 +66,14 @@ public class GenericItemModelGenerator extends ModelProvider
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Generic item model provider";
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		getKnownItems().forEach(item -> actOnItem(item, itemModels));
 	}

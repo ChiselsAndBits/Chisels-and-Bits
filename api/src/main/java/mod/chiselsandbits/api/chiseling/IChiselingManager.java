@@ -38,6 +38,7 @@ public interface IChiselingManager
 		final Optional<IChiselingContext> optionalWithCurrent = get(playerEntity, mode, modeOfOperandus);
 
 		if (optionalWithCurrent.isPresent())
+
 		{
 			final IChiselingContext current = optionalWithCurrent.get();
 			return current.createSnapshot();

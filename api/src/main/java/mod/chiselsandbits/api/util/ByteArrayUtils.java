@@ -5,6 +5,7 @@ import java.util.BitSet;
 public class ByteArrayUtils
 {
 	private ByteArrayUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ByteArrayUtils. This is a utility class");
 	}
@@ -18,6 +19,7 @@ public class ByteArrayUtils
 		final BitSet result = new BitSet(totalBitCount);
 
 		for (int insertionIndex = 0; insertionIndex < count; insertionIndex++)
+
 		{
 			final int bitOffset = insertionIndex * bitWidth;
 			setValue(result, value, valueMask, bitOffset);
@@ -40,6 +42,7 @@ public class ByteArrayUtils
 		target.clear(bitOffset, bitOffset + maskWidth);
 
 		for (int i = 0; i < maskWidth; i++)
+
 		{
 			final int inValueOffset = maskWidth - i - 1;
 
@@ -57,6 +60,7 @@ public class ByteArrayUtils
 
 		int result = 0;
 		for (int i = 0; i < maskWidth; i++)
+
 		{
 			final boolean isSet = target.get(bitOffset + i); //Based of the bitset getter.
 			result |= (isSet ? 1 : 0) << i;

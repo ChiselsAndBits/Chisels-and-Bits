@@ -16,6 +16,7 @@ public class VectorUtils
 	public static final Vec3 ONE = new Vec3(1,1,1);
 
 	private VectorUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: VectorUtils. This is a utility class");
 	}
@@ -129,6 +130,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 minimize(final Vec3 a, final Vec3 b)
+
 	{
 		return new Vec3(
 		  Math.min(a.x(), b.x()),
@@ -138,6 +140,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 maximize(final Vec3 a, final Vec3 b)
+
 	{
 		return new Vec3(
 		  Math.max(a.x(), b.x()),
@@ -147,6 +150,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 makePositive(final Vec3 inBlockOffset)
+
 	{
 		return new Vec3(
 		  MathUtil.makePositive(inBlockOffset.x()),
@@ -163,6 +167,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 nullifyNegatives(final Vec3 input)
+
 	{
 		return new Vec3(
 		  Math.max(0, input.x()),
@@ -172,6 +177,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 nullifyPositives(final Vec3 input)
+
 	{
 		return new Vec3(
 		  Math.min(0, input.x()),
@@ -181,6 +187,7 @@ public class VectorUtils
 	}
 
 	public static Vec3 divide(final Vec3 left, final Vec3 right)
+
 	{
 		return new Vec3(
 		  left.x() / right.x(),

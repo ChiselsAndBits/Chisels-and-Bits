@@ -47,6 +47,7 @@ public record ChiseledBlockModelInformation(
 		int result = 0;
 
 		for (final ChiseledBlockModelPart part : parts)
+
 		{
 			result |= part.materialFlags();
 		}
@@ -56,6 +57,7 @@ public record ChiseledBlockModelInformation(
 
 	@Override
 	public void collectParts(final @NonNull RandomSource random, final List<BlockStateModelPart> output)
+
 	{
 		output.addAll(parts());
 	}

@@ -36,6 +36,7 @@ public abstract class AbstractChiselRecipeGenerator extends AbstractRecipeGenera
 
 	@Override
 	protected void buildRecipes()
+
 	{
 		ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, getItemProvider())
 			.pattern(" t")

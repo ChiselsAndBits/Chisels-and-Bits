@@ -44,12 +44,14 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 {
 	@Override
 	public Identifier getIcon()
+
 	{
 		return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_impose");
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
@@ -65,6 +67,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
+
 	{
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
 				context.getClickLocation()
@@ -81,6 +84,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 				.allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
 
 		if (isChiseledBlock)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -96,6 +100,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -123,6 +128,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 				extractedBitsCount.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -134,6 +140,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 				.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -141,16 +148,19 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		}
 
 		if (simulate)
+
 		{
 			return PlacementResult.success();
 		}
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 		{
 			source.stream()
 					.filter(s -> !s.getBlockInformation().isAir())
 					.forEach(
 							stateEntryInfo ->
+
 							{
 								areaMutator.overrideInAreaTarget(
 										stateEntryInfo.getBlockInformation(),
@@ -160,6 +170,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		}
 
 		if (!context.getPlayer().isCreative())
+
 		{
 			extractedBitsCount.forEach(playerBitInventory::insertOrDiscard);
 			source.getStatics().getStateCounts().entrySet().stream()
@@ -175,6 +186,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 			final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
 	{
 		if (playerEntity.isShiftKeyDown())
+
 		{
 			return blockRayTraceResult.getLocation();
 		}
@@ -184,6 +196,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return LocalStrings.PatternPlacementModeImposement.getText();
 	}

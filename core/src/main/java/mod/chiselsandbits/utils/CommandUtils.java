@@ -7,6 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 public class CommandUtils
 {
 	private CommandUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: CommandUtils. This is a utility class");
 	}

@@ -16,6 +16,7 @@ public record GreedyMeshFace(
 )
 {
 	public Vector3f minVector()
+
 	{
 		return new Vector3f(
 			Math.min(lowerLeft.x, Math.min(upperLeft.x, Math.min(lowerRight.x, upperRight.x))),
@@ -25,6 +26,7 @@ public record GreedyMeshFace(
 	}
 
 	public Vector3f maxVector()
+
 	{
 		return new Vector3f(
 			Math.max(lowerLeft.x, Math.max(upperLeft.x, Math.max(lowerRight.x, upperRight.x))),

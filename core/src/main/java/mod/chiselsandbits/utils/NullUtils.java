@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class NullUtils
 {
 	private NullUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: NullUtils. This is a utility class");
 	}

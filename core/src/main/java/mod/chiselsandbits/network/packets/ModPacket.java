@@ -18,6 +18,7 @@ public abstract class ModPacket implements CustomPacketPayload
 	}
 
 	public ModPacket()
+
 	{
 	}
 

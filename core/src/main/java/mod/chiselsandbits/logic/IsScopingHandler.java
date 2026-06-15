@@ -12,11 +12,13 @@ import net.minecraft.world.entity.player.Player;
 public class IsScopingHandler
 {
 	private IsScopingHandler()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: IsScopingHandler. This is a utility class");
 	}
 
 	public static boolean isScoping(Player player)
+
 	{
 		return DistExecutor.unsafeRunForDist(
 		  () -> () -> !ItemStackUtils.getHighlightItemStackFromPlayer(player).isEmpty() &&

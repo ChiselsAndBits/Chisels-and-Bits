@@ -34,12 +34,14 @@ public class ModificationRecipesUpdated extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeVarInt(
 			this.recipes.size()
 		);
 
 		for (final RecipeHolder<ModificationTableRecipe> recipe : this.recipes)
+
 		{
 			RecipeHolder.STREAM_CODEC.encode(buffer, recipe);
 		}
@@ -48,11 +50,13 @@ public class ModificationRecipesUpdated extends ModPacket
 	@SuppressWarnings("unchecked")
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.recipes.clear();
 
 		final int count = buffer.readVarInt();
 		for (int i = 0; i < count; i++)
+
 		{
 			this.recipes.add((RecipeHolder<ModificationTableRecipe>) RecipeHolder.STREAM_CODEC.decode(buffer));
 		}
@@ -60,12 +64,14 @@ public class ModificationRecipesUpdated extends ModPacket
 
 	@Override
 	public @NotNull Type<? extends CustomPacketPayload> type()
+
 	{
 		return TYPE;
 	}
 
 	@Override
 	public void client()
+
 	{
 		DistExecutor.unsafeRunWhenOn(
 			Dist.CLIENT,

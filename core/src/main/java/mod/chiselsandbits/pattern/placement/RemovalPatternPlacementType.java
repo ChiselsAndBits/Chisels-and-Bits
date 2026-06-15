@@ -49,6 +49,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
 	  final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
+
 	{
 		final BlockPos targetedPosition = hitFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? VectorUtils.toBlockPos(targetedPoint) : VectorUtils.toBlockPos(targetedPoint).offset(hitFace.getOpposite().getUnitVec3i());
 		final VoxelShape targetingShape = BlockPosStreamProvider.getForRange(
@@ -86,6 +87,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 	@Override
 	public PlacementResult performPlacement(
 	  final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
+
 	{
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
 											context.getClickLocation()
@@ -102,6 +104,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		  .allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
 
 		if (isChiseledBlock)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -117,6 +120,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		  .allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -147,6 +151,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 										   totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -154,11 +159,13 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		}
 
 		if (simulate)
+
 		{
 			return PlacementResult.success();
 		}
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 		{
 			source.stream()
 			  .filter(s -> !s.getBlockInformation().isAir())
@@ -170,6 +177,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		}
 
 		if (!context.getPlayer().isCreative())
+
 		{
 			totalRemovedBits.forEach(playerBitInventory::insertOrDiscard);
 		}
@@ -179,24 +187,28 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 
 	@Override
 	public Vec3 getTargetedPosition(final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
+
 	{
 		return Vec3.atLowerCornerOf(blockRayTraceResult.getBlockPos());
 	}
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_remove");
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return LocalStrings.PatternPlacementModeRemoval.getText();
 	}

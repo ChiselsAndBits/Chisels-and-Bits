@@ -109,6 +109,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public void initializeWith(final BlockInformation currentState) {
 		clear();
+
 		if (currentState.blockState() == Blocks.AIR.defaultBlockState()) {
 			return;
 		}
@@ -159,6 +160,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	private void ensureCapacity() {
 		final int requiredSize = (int) Math.ceil((getTotalEntryCount() * entryWidth) / (float) Long.SIZE);
+
 		if (data.length() < requiredSize) {
 			final long[] rawData = getRawData();
 			final long[] newData = new long[requiredSize];
@@ -214,6 +216,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			return;
 
 		int count = 0;
+
 		try (IBatchMutation ignored = batch()) {
 			for (int y = 0; y < getSize(); y++) {
 				for (int x = 0; x < getSize(); x++) {
@@ -233,6 +236,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	public StateEntryStorage limitedToProgress(final float progress)
+
 	{
 		final var noneAirCounts = count().entrySet()
 			.stream()
@@ -247,10 +251,13 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 		int currentCount = 0;
 		for (int y = 0; y < this.size; y++)
+
 		{
 			for (int z = 0; z < this.size; z++)
+
 			{
 				for (int x = 0; x < this.size; x++)
+
 				{
 					final BlockInformation target = getBlockInformation(x, y, z);
 					if (target.isAir())
@@ -291,6 +298,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 					for (int z = 0; z < 16; z++) {
 						final Vec3 workingVector = new Vec3(x, y, z);
 						Vec3 rotatedVector = workingVector.subtract(centerVector);
+
 						for (int i = 0; i < rotationCount; i++) {
 							rotatedVector = VectorUtils.rotate90Degrees(rotatedVector, axis);
 						}
@@ -374,6 +382,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		if (this == o) {
 			return true;
 		}
+
 		if (!(o instanceof final StateEntryStorage that)) {
 			return false;
 		}
@@ -381,9 +390,11 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		if (entryWidth != that.entryWidth) {
 			return false;
 		}
+
 		if (!palette.equals(that.palette)) {
 			return false;
 		}
+
 		return getData().equals(that.getData());
 	}
 

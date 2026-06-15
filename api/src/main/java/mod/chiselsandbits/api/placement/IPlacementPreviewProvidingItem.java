@@ -17,6 +17,7 @@ public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem,
 			ItemStack heldStack,
 			PlacementResult placementResult
 	)
+
 	{
 		return !placementResult.isSuccess() || ignoreDepth(heldStack);
 	}
@@ -28,6 +29,7 @@ public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem,
      * @return Whether depth is effectively ignored.
      */
 	default boolean ignoreDepth(ItemStack heldStack)
+
 	{
 		return overridesOccupiedBits(heldStack);
 	}

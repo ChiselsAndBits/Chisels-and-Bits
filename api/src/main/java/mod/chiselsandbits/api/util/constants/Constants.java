@@ -8,6 +8,7 @@ import net.minecraft.resources.Identifier;
 public final class Constants
 {
 	private Constants()
+
 	{
 		throw new IllegalStateException("Tried to initialize: Constants but this is a Utility class.");
 	}

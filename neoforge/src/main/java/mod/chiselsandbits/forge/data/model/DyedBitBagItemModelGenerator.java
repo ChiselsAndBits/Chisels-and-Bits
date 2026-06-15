@@ -25,24 +25,28 @@ import net.minecraft.world.level.block.Block;
 public class DyedBitBagItemModelGenerator extends ModelProvider
 {
 	public DyedBitBagItemModelGenerator(final PackOutput output)
+
 	{
 		super(output, Constants.MOD_ID);
 	}
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new DyedBitBagItemModelGenerator(event.getGenerator().getPackOutput()));
 	}
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of(
 			ModItems.ITEM_BIT_BAG.get()
@@ -51,12 +55,14 @@ public class DyedBitBagItemModelGenerator extends ModelProvider
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Dyed bit bag item model provider";
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		getKnownItems().forEach(item -> actOnItem(item, itemModels));
 	}

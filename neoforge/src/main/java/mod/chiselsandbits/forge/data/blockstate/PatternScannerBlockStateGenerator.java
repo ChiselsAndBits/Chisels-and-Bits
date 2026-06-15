@@ -31,26 +31,31 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new PatternScannerBlockStateGenerator(event.getGenerator()));
 	}
 
 	public PatternScannerBlockStateGenerator(final DataGenerator gen)
+
 	{
 		super(gen.getPackOutput(), Constants.MOD_ID);
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		actOnBlock(ModBlocks.PATTERN_SCANNER.get(), blockModels);
 	}
 
 	public void actOnBlock(final Block block, final BlockModelGenerators generators)
+
 	{
 		generators.createHorizontallyRotatedBlock(block, new TexturedModel.Provider() {
 			@Override
 			public @NotNull TexturedModel get(final @NotNull Block block)
+
 			{
 				return new TexturedModel(
 					new TextureMapping()
@@ -75,6 +80,7 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of(
 			BuiltInRegistries.BLOCK.wrapAsHolder(
@@ -85,12 +91,14 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Pattern scanner blockstate generator";
 	}

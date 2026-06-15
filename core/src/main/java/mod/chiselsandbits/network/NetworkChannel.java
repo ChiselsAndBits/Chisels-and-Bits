@@ -26,6 +26,7 @@ public class NetworkChannel
      * @throws IllegalArgumentException if channelName already exists
      */
 	public NetworkChannel(final String channelName)
+
 	{
 		rawChannel =
 		  INetworkChannel.create(
@@ -37,6 +38,7 @@ public class NetworkChannel
      * Registers all common messages.
      */
 	public void registerCommonMessages()
+
 	{
 		register(HeldToolModeChangedPacket.TYPE, HeldToolModeChangedPacket.streamCodec(HeldToolModeChangedPacket::new));
 		register(UpdateBlockEntityPacket.TYPE, UpdateBlockEntityPacket.streamCodec(UpdateBlockEntityPacket::new));
@@ -63,6 +65,7 @@ public class NetworkChannel
 	}
 
 	private <T extends ModPacket> void register(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec)
+
 	{
 		rawChannel.register(
 				type,
@@ -77,6 +80,7 @@ public class NetworkChannel
      * @param msg message to send
      */
 	public void sendToServer(final ModPacket msg)
+
 	{
 		rawChannel.sendToServer(msg);
 	}
@@ -88,6 +92,7 @@ public class NetworkChannel
      * @param player target player
      */
 	public void sendToPlayer(final ModPacket msg, final ServerPlayer player)
+
 	{
 		rawChannel.sendToPlayer(msg, player);
 	}
@@ -98,6 +103,7 @@ public class NetworkChannel
      * @param msg message to send
      */
 	public void sendToEveryone(final ModPacket msg)
+
 	{
 		rawChannel.sendToEveryone(msg);
 	}
@@ -109,6 +115,7 @@ public class NetworkChannel
      * @param chunk target chunk to look at
      */
 	public void sendToTrackingChunk(final ModPacket msg, final LevelChunk chunk)
+
 	{
 		rawChannel.sendToTrackingChunk(msg, chunk);
 	}

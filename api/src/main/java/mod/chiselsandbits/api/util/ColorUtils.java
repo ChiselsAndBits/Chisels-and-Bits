@@ -17,6 +17,7 @@ public class ColorUtils
 	public static final int EMPTY_CHANNEL = 0;
 
 	private ColorUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ColorUtils. This is a utility class");
 	}
@@ -28,6 +29,7 @@ public class ColorUtils
      * @return A packed integer, representing the color with all three channels set to the same value.
      */
 	public static int pack(final int c)
+
 	{
 		return pack(c, c, c);
 	}
@@ -41,6 +43,7 @@ public class ColorUtils
      * @return A packed integer, representing the color.
      */
 	public static int pack(final int r, final int g, final int b)
+
 	{
 		return pack(r, g, b, FULL_CHANNEL);
 	}
@@ -55,6 +58,7 @@ public class ColorUtils
      * @return A packed integer, representing the color.
      */
 	public static int pack(final int r, final int g, final int b, final int a)
+
 	{
 		int color = 0;
 
@@ -67,6 +71,7 @@ public class ColorUtils
 	}
 
 	public static int pack(final float r, final float g, final float b, final float a)
+
 	{
 		return pack((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
 	}
@@ -74,11 +79,13 @@ public class ColorUtils
 	;
 
 	public static int pack(final float[] color)
+
 	{
 		return pack(color[0], color[1], color[2], color[3]);
 	}
 
 	public static float[] unpack(final int color)
+
 	{
 		return new float[] {
 			ARGB.red(color) / 255f,

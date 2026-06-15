@@ -27,6 +27,7 @@ public enum ChiselingOperation
      * @return {@code true} if this operation processes air, {@code false} otherwise.
      */
 	public boolean processesAir()
+
 	{
 		return processesAir;
 	}

@@ -15,17 +15,20 @@ public class QuillItemModelGenerator extends AbstractInteractableItemModelGenera
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new QuillItemModelGenerator(event.getGenerator()));
 	}
 
 	public QuillItemModelGenerator(final DataGenerator generator)
+
 	{
 		super(generator, ModItems.QUILL);
 	}
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Quill item model generator";
 	}

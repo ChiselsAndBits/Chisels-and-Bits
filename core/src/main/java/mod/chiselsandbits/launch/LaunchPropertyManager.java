@@ -23,6 +23,7 @@ public final class LaunchPropertyManager implements ILaunchPropertyManager {
 	@Override
 	public @NotNull String get(String key, String defaultValue) {
 		final String sysProValue = System.getProperty("chiselsandbits.launch.prop.%s".formatted(key));
+
 		if (sysProValue == null) {
 			return getFromLaunchPropFile(key, defaultValue);
 		}
@@ -33,6 +34,7 @@ public final class LaunchPropertyManager implements ILaunchPropertyManager {
 	private String getFromLaunchPropFile(final String key, final String defaultValue) {
 		try {
 			final Path launchPropertiesFilePath = Path.of("config", "chiselsandbits.launchproperties");
+
 			if (!Files.exists(launchPropertiesFilePath)) {
 				final List<String> launchPropLines = new ArrayList<>();
 				launchPropLines.add("%s=%s".formatted(key, defaultValue));

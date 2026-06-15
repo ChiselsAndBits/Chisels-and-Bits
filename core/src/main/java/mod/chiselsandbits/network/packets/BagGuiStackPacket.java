@@ -20,11 +20,13 @@ public final class BagGuiStackPacket extends ModPacket
 	private ItemStack stack;
 
 	public BagGuiStackPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public BagGuiStackPacket(final int index, @NotNull final ItemStack stack)
+
 	{
 		this.index = index;
 		this.stack = stack;
@@ -32,14 +34,17 @@ public final class BagGuiStackPacket extends ModPacket
 
 	@Override
 	public void client()
+
 	{
 		if (Minecraft.getInstance().player == null)
+
 		{
 			return;
 		}
 
 		final AbstractContainerMenu cc = Minecraft.getInstance().player.containerMenu;
 		if (cc instanceof BagContainer bagContainer)
+
 		{
 			bagContainer.getBitSlots().get(index).set(stack);
 		}
@@ -48,6 +53,7 @@ public final class BagGuiStackPacket extends ModPacket
 	@Override
 	public void readPayload(
 	  final RegistryFriendlyByteBuf buffer)
+
 	{
 		index = buffer.readInt();
 		stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
@@ -56,6 +62,7 @@ public final class BagGuiStackPacket extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeInt(index);
 

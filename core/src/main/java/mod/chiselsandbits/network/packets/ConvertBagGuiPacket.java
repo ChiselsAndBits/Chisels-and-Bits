@@ -19,6 +19,7 @@ public final class ConvertBagGuiPacket extends ModPacket {
 
 	public ConvertBagGuiPacket() {
 	}
+
 	@Override
 	public void writePayload(RegistryFriendlyByteBuf buffer) {
 	}
@@ -36,6 +37,7 @@ public final class ConvertBagGuiPacket extends ModPacket {
 
 	public void execute(final Player player) {
 		if (player.containerMenu instanceof BagContainer)
+
 		{
 			((BagContainer) player.containerMenu).convert(player);
 		}

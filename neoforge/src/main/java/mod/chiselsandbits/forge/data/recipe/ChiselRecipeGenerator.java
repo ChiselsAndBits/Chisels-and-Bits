@@ -36,6 +36,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(
 			true,

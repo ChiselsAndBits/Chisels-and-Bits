@@ -10,6 +10,7 @@ import net.minecraft.world.phys.Vec3;
 public class MeasurementNetworkUtil
 {
 	private MeasurementNetworkUtil()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: MeasurementNetworkUtil. This is a utility class");
 	}
@@ -18,6 +19,7 @@ public class MeasurementNetworkUtil
 	  final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode
 	) {
 		if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null)
+
 		{
 			return;
 		}

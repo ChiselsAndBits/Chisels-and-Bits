@@ -62,6 +62,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	@Override
 	public ClickProcessingState onLeftClickBy(
 	  final Player player, final IChiselingContext context)
+
 	{
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
 		  player,
@@ -69,6 +70,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		);
 
 		if (context.isSimulation())
+
 		{
 			return ClickProcessingState.DEFAULT;
 		}
@@ -79,6 +81,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 			  {
 				  final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
 				  if (heldBlockState.isAir())
+
 				  {
 					  return ClickProcessingState.DEFAULT;
 				  }
@@ -98,6 +101,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 				  final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
 
 				  if (!player.isCreative() && !playerBitInventory.canExtract(heldBlockState, missingBitCount))
+
 				  {
 					  context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 					  return ClickProcessingState.DEFAULT;
@@ -139,24 +143,28 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public void onStoppedLeftClicking(final Player Player, final IChiselingContext context)
+
 	{
 		//NOOP
 	}
 
 	@Override
 	public ClickProcessingState onRightClickBy(final Player Player, final IChiselingContext context)
+
 	{
 		return onLeftClickBy(Player, context);
 	}
 
 	@Override
 	public void onStoppedRightClicking(final Player Player, final IChiselingContext context)
+
 	{
 		//NOOP
 	}
 
 	@Override
 	public boolean isStillValid(final Player Player, final IChiselingContext context, final ChiselingOperation modeOfOperation)
+
 	{
 		final Optional<Set<Vec3i>> validPositions = context.getMetadata(ModMetadataKeys.VALID_POSITIONS.get());
 		final Optional<Direction> targetedSide = context.getMetadata(ModMetadataKeys.TARGETED_SIDE.get());
@@ -167,6 +175,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
 		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult))
+
 		{
 			return false;
 		}
@@ -197,6 +206,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
+
 	{
 		return context.getMutator().map(mutator -> mutator);
 	}
@@ -205,9 +215,11 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	  final Player Player,
 	  final IChiselingContext context
 	)
+
 	{
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
 		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult))
+
 		{
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
@@ -246,6 +258,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		);
 
 		if (targetedInfo.isEmpty())
+
 		{
 			context.setError(LocalStrings.ChiselAttemptFailedTargetedBlockNotChiselable.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
@@ -274,12 +287,14 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public boolean requiresPlaceableEditStack()
+
 	{
 		return true;
 	}
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context)
+
 	{
 		if (context.getMutator().isEmpty())
 			return Shapes.empty();
@@ -289,24 +304,28 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return iconName;
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return displayName;
 	}
 
 	@Override
 	public Component getMultiLineDisplayName()
+
 	{
 		return this.multiLineDisplayName;
 	}
@@ -315,12 +334,14 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		private final Set<Vec3i> validPositions;
 
 		public SelectedBitStateFilter( final Set<Vec3i> validPositions)
+
 		{
 			this.validPositions = validPositions;
 		}
 
 		@Override
 		public boolean test(final IStateEntryInfo iStateEntryInfo)
+
 		{
 			final Vec3i position = VectorUtils.toInteger(
 			  iStateEntryInfo.getStartPoint().x() * StateEntrySize.current().getBitsPerBlockSide(),
@@ -335,12 +356,16 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		@Override
 		public boolean equals(final Object o)
+
 		{
 			if (this == o)
+
 			{
 				return true;
 			}
+
 			if (!(o instanceof final SelectedBitStateFilter that))
+
 			{
 				return false;
 			}
@@ -350,12 +375,14 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		@Override
 		public int hashCode()
+
 		{
 			return validPositions.hashCode();
 		}
 
 		@Override
 		public String toString()
+
 		{
 			return "SelectedBitStateFilter{" +
 					 "validPositions=" + validPositions +

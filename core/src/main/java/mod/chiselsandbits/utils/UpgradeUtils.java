@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 public class UpgradeUtils
 {
 	private UpgradeUtils()
+
 	{
 	}
 

@@ -33,32 +33,39 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 
 	@Override
 	public @NonNull Visibility getWantedVisibility()
+
 	{
 		return this.wantedVisibility;
 	}
 
 	@Override
 	public void update(final ToastManager toastManager, final long visibilityTime)
+
 	{
 		this.wantedVisibility = visibilityTime >= 5000.0 * toastManager.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
 	}
 
 	@Override
 	public void extractRenderState(final GuiGraphicsExtractor guiGraphics, final @NonNull Font font, final long time)
+
 	{
 		guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND_SPRITE, 0, 0, this.width(), this.height());
 
 		List<FormattedCharSequence> list = Minecraft.getInstance().font.split(contents.getText(), 125);
 		if (list.size() == 1)
+
 		{
 			guiGraphics.text(Minecraft.getInstance().font, contents.getText(), 30, 12, -1);
 		}
+
 		else
+
 		{
 			int fontColor = Mth.floor(Mth.clamp((float) (time) / 40.0F, 0.0F, 1.0F) * 252.0F) << 24 | 67108864;
 			int verticalOffset = this.height() / 2 - list.size() * 9 / 2;
 
 			for (FormattedCharSequence formattedcharsequence : list)
+
 			{
 				guiGraphics.text(Minecraft.getInstance().font, formattedcharsequence, 30, verticalOffset, 16777215 | fontColor);
 				verticalOffset += 9;

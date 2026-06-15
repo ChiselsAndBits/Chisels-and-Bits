@@ -19,8 +19,10 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 {
 	@Override
 	public void collect(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final IntList intList)
+
 	{
 		var blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
+
 		if (!(blockEntity instanceof ISingleBlockAxisAlignedAreaAccessor accessor)) {
 			return;
 		}
@@ -39,9 +41,11 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 		intList.size(model.materials().size());
 		List<ChiseledBlockModelMaterial> materials = model.materials();
 		for (int i = 0; i < materials.size(); i++)
+
 		{
 			final ChiseledBlockModelMaterial material = materials.get(i);
 			if (material.tintIndex() == -1)
+
 			{
 				intList.set(i, -1);
 				continue;
@@ -53,6 +57,7 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 			);
 
 			if (tintSource == null)
+
 			{
 				intList.add(i, -1);
 				continue;

@@ -32,6 +32,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 
 	@Override
 	public @NotNull RenderState createRenderState()
+
 	{
 		return new RenderState();
 	}
@@ -51,6 +52,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 
 	@Override
 	public void submit(final @NotNull RenderState renderState, final @NotNull PoseStack poseStack, final @NotNull SubmitNodeCollector nodeCollector, final @NotNull CameraRenderState cameraRenderState)
+
 	{
 		if (renderState.snapshot.getStatics().isEmpty())
 			return;
@@ -58,6 +60,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 		final var shapeKey = renderState.snapshot.createNewShapeIdentifier();
 		final var cacheKey = new CacheKey(shapeKey, renderState.progress);
 		IMultiStateSnapshot innerModelBlob = STORAGE_CONTENTS_BLOB_CACHE.get(cacheKey);
+
 		if (innerModelBlob == null) {
 			innerModelBlob = renderState.snapshot.limitedToProgression(renderState.progress / 100f);
 			STORAGE_CONTENTS_BLOB_CACHE.put(cacheKey, innerModelBlob);

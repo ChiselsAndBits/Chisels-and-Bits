@@ -29,6 +29,7 @@ public class ChangeTracker implements IChangeTracker
 	protected int currentIndex = 0;
 
 	public ChangeTracker()
+
 	{
 		this.player = null;
 	}
@@ -43,6 +44,7 @@ public class ChangeTracker implements IChangeTracker
 	@Override
 	public void onBlocksUpdated(
 	  final Map<BlockPos, IMultiStateSnapshot> beforeStates, final Map<BlockPos, IMultiStateSnapshot> afterState)
+
 	{
 		if (!beforeStates.keySet().containsAll(afterState.keySet()) || !afterState.keySet().containsAll(beforeStates.keySet()))
 			throw new IllegalArgumentException("Initial States and Target States reference difference block positions");
@@ -62,16 +64,19 @@ public class ChangeTracker implements IChangeTracker
 		currentIndex = 0;
 
 		final int maxSize = IChiselsAndBitsAPI.getInstance().getConfiguration().getServer().getChangeTrackerSize().get();
+
 		if (changes.size() > maxSize) {
 			while(changes.size() > maxSize) {
 				changes.removeLast();
 			}
 		}
+
 		sendUpdate();
 	}
 
 	@Override
 	public Deque<IChange> getChanges()
+
 	{
 		return new LinkedList<>(changes);
 	}
@@ -85,12 +90,14 @@ public class ChangeTracker implements IChangeTracker
 
 	@Override
 	public void clear()
+
 	{
 		changes.clear();
 		sendUpdate();
 	}
 
 	public Optional<IChange> getCurrentUndo()
+
 	{
 		if (getChanges().size() <= currentIndex || currentIndex < 0) {
 			return Optional.empty();
@@ -100,6 +107,7 @@ public class ChangeTracker implements IChangeTracker
 	}
 
 	public Optional<IChange> getCurrentRedo()
+
 	{
 		if (getChanges().size() < currentIndex || currentIndex < 1) {
 			return Optional.empty();
@@ -110,18 +118,21 @@ public class ChangeTracker implements IChangeTracker
 
 	@Override
 	public boolean canUndo(final Player player)
+
 	{
 		return getCurrentUndo().map(c -> c.canUndo(player)).orElse(false);
 	}
 
 	@Override
 	public boolean canRedo(final Player player)
+
 	{
 		return getCurrentRedo().map(c -> c.canRedo(player)).orElse(false);
 	}
 
 	@Override
 	public void undo(final Player player) throws IllegalChangeAttempt
+
 	{
 		if (!canUndo(player))
 			throw new IllegalChangeAttempt();
@@ -136,6 +147,7 @@ public class ChangeTracker implements IChangeTracker
 
 	@Override
 	public void redo(final Player player) throws IllegalChangeAttempt
+
 	{
 		if (!canRedo(player))
 			throw new IllegalChangeAttempt();
@@ -150,6 +162,7 @@ public class ChangeTracker implements IChangeTracker
 
 	private void sendUpdate() {
 		if (player != null && player instanceof ServerPlayer serverPlayer && !serverPlayer.level().isClientSide())
+
 		{
 			ChangeTrackerSyncManager.getInstance().add(this, serverPlayer);
 		}

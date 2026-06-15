@@ -37,14 +37,18 @@ public class MeasurementTapeTickHandler
 	}
 
 	private static @NotNull ItemStack getItemStack()
+
 	{
 		ItemStack stack = ItemStack.EMPTY;
+
 		if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof MeasuringTapeItem) {
 			stack = Minecraft.getInstance().player.getMainHandItem();
 		}
+
 		else if (Minecraft.getInstance().player.getOffhandItem().getItem() instanceof MeasuringTapeItem) {
 			stack = Minecraft.getInstance().player.getOffhandItem();
 		}
+
 		return stack;
 	}
 }

@@ -10,11 +10,13 @@ public final class HoldsWithToolItemInHandKeyConflictContext implements IKeyConf
 	private static final HoldsWithToolItemInHandKeyConflictContext INSTANCE = new HoldsWithToolItemInHandKeyConflictContext();
 
 	public static HoldsWithToolItemInHandKeyConflictContext getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private HoldsWithToolItemInHandKeyConflictContext()
+
 	{
 	}
 
@@ -23,6 +25,7 @@ public final class HoldsWithToolItemInHandKeyConflictContext implements IKeyConf
      */
 	@Override
 	public boolean isActive()
+
 	{
 		return Minecraft.getInstance().player != null &&
 				 (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof IWithModeItem ||
@@ -35,6 +38,7 @@ public final class HoldsWithToolItemInHandKeyConflictContext implements IKeyConf
      */
 	@Override
 	public boolean conflicts(final IKeyConflictContext other)
+
 	{
 		return other == this;
 	}

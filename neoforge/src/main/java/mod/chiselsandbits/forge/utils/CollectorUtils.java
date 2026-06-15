@@ -10,6 +10,7 @@ import java.util.stream.Collector;
 public class CollectorUtils
 {
 	private CollectorUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: CollectorUtils. This is a utility class");
 	}
@@ -21,11 +22,13 @@ public class CollectorUtils
 		return Collector.of(
 		  mapConstructor,
 		  new BiConsumer<>()
+
 		  {
 			  char c = 'a';
 
 			  @Override
 			  public void accept(final M m, final T t)
+
 			  {
 				  m.put(c, valueMapper.apply(t));
 
@@ -36,6 +39,7 @@ public class CollectorUtils
 			  m.putAll(m2);
 			  return m;
 		  }
+
 		);
 	}
 

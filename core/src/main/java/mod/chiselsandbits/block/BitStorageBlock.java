@@ -45,6 +45,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	public static final Property<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
 	public BitStorageBlock(Properties properties)
+
 	{
 		super(properties);
 	}
@@ -52,12 +53,14 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(final BlockPlaceContext context)
+
 	{
 		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
 	protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder)
+
 	{
 		builder.add(FACING);
 	}
@@ -65,6 +68,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(final @NotNull BlockPos pos, final @NotNull BlockState state)
+
 	{
 		return new BitStorageBlockEntity(pos, state);
 	}
@@ -81,21 +85,27 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 			return InteractionResult.PASS;
 
 		if (!current.isEmpty())
+
 		{
 			if (tank.addHeldBits(current, player))
+
 			{
 				return InteractionResult.SUCCESS;
 			}
 		}
+
 		else
+
 		{
 			if (tank.addAllPossibleBits(player))
+
 			{
 				return InteractionResult.SUCCESS;
 			}
 		}
 
 		if (tank.extractBits(player))
+
 		{
 			return InteractionResult.SUCCESS;
 		}
@@ -104,11 +114,13 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	}
 
 	public float getShadeBrightness(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos)
+
 	{
 		return 1.0F;
 	}
 
 	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos pos)
+
 	{
 		return true;
 	}
@@ -124,6 +136,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	@Override
 	public @NotNull List<ItemStack> getDrops(final @NotNull BlockState state, final LootParams.Builder builder) {
 		if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) == null)
+
 		{
 			return Lists.newArrayList();
 		}
@@ -132,12 +145,15 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	}
 
 	public ItemStack getTankDrop(final BitStorageBlockEntity bitTank)
+
 	{
 		final ItemStack tankStack = new ItemStack(ModItems.ITEM_BIT_STORAGE.get());
+
 		if (bitTank.getContainedBlockInformation() != null && !bitTank.getContainedBlockInformation().isAir()) {
 			tankStack.set(ModDataComponentTypes.BLOCK_INFORMATION.get(), bitTank.getContainedBlockInformation());
 			tankStack.set(ModDataComponentTypes.COUNT.get(), bitTank.getBits());
 		}
+
 		return tankStack;
 	}
 
@@ -156,6 +172,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 
 	@Override
 	public ItemStack onBitBagInteraction(final ItemStack bitBagStack, final Player player, final BlockHitResult blockRayTraceResult)
+
 	{
 		if (player == null)
 			return bitBagStack;
@@ -175,6 +192,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 			storage.extractBits(bitCountToInsert);
 			bitInventory.insert(containedState, bitCountToInsert);
 		}
+
 		else if (containedState != null && storage.getBits() != 0) {
 			final int maxAmountToInsert = StateEntrySize.current().getBitsPerBlock() - storage.getBits();
 			final int bitCountToInsert = Math.min(bitInventory.getMaxExtractAmount(containedState), maxAmountToInsert);
@@ -182,6 +200,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 			storage.insertBits(bitCountToInsert, containedState);
 			bitInventory.extract(containedState, bitCountToInsert);
 		}
+
 		else if (!player.isShiftKeyDown()) {
 			final Optional<BlockInformation> toExtractCandidate =
 				bitInventory.getContainedStates()

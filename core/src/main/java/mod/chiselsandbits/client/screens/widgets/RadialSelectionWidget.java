@@ -113,6 +113,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final int iconTextSpacer,
 		final Font fontRenderer
 	)
+
 	{
 		super(x, y, width, height, message);
 		this.currentlySelectedModeSupplier = currentlySelectedModeSupplier;
@@ -184,11 +185,13 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
 	@Override
 	protected void extractWidgetRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
+
 	{
 		final IRenderableMode current = currentlySelectedModeSupplier.get();
 
 		final int selectableItemCount = modes.size();
 		if (selectableItemCount == 0)
+
 		{
 			return;
 		}
@@ -210,8 +213,10 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
 		int hoveredItemIndex = !isMouseInSection ? -1 : (int) (inSectionMouseAngle / itemArcAngle);
 		if (!isMouseInSection && current != null && modes.contains(current) && keepSelectionWhenBeyondOuterSelectionRadius)
+
 		{
 			if (mouseIsInSectionArc && mouseRadius >= innerSelectionRadius)
+
 			{
 				//We are at least in our arc bundle
 				//Lets just assume we are in a sub menu of hours and keep the current.
@@ -229,6 +234,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 			final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
 
 			if (mode.isActive())
+
 			{
 				drawSelectableSection(
 					graphics,
@@ -243,7 +249,9 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 					isHovered
 				);
 			}
+
 			else
+
 			{
 				drawDeactivatedSection(
 					graphics,
@@ -259,21 +267,26 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		});
 
 		if (isMouseInSection && hoveredItemIndex >= 0 && hoveredItemIndex < modes.size() && modes.get(hoveredItemIndex).isActive())
+
 		{
 			if (IClientConfiguration.getInstance().getEnableMouseIndicatorInRadialMenu().get())
+
 			{
 				float startOfMouseArcAngle = mouseAngle - (itemArcAngle / 2);
 				float mouseArcAngle = itemArcAngle;
 
 				if (sectionArcAngle != 360)
+
 				{
 					if (startOfMouseArcAngle < sectionStartAngle)
+
 					{
 						mouseArcAngle -= (sectionStartAngle - startOfMouseArcAngle);
 						startOfMouseArcAngle = sectionStartAngle;
 					}
 
 					if ((startOfMouseArcAngle + mouseArcAngle) > (sectionStartAngle + sectionArcAngle))
+
 					{
 						mouseArcAngle = (sectionStartAngle + sectionArcAngle) - startOfMouseArcAngle;
 					}
@@ -291,11 +304,14 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 			}
 
 			if (hoveredItemIndex >= 0 && modes.get(hoveredItemIndex) != current)
+
 			{
 				currentlyHoveredModeCallback.accept(modes.get(hoveredItemIndex));
 			}
 		}
+
 		else if (current != null)
+
 		{
 			currentlyHoveredModeCallback.accept(null);
 		}
@@ -303,9 +319,11 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		graphics.pose().translate(centerX, centerY);
 
 		if (modes.size() > 1 || this.innerRadius != 0f)
+
 		{
 			modes.forEach(mode -> {
 				if (mode.isActive())
+
 				{
 					final int modeIndex = modes.indexOf(mode);
 					final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
@@ -320,19 +338,23 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 	}
 
 	private static float calculateMouseAngle(final float mouseX, final float mouseY, final float centerX, final float centerY)
+
 	{
 		final float xDiff = mouseX - centerX;
 		final float yDiff = mouseY - centerY;
 
 		float mouseAngle = (float) Math.toDegrees(Math.atan2(yDiff, xDiff)) - 270f;
 		while (mouseAngle < 0)
+
 		{
 			mouseAngle += 360;
 		}
+
 		return mouseAngle;
 	}
 
 	private static float calculateMouseRadius(final float mouseX, final float mouseY, final float centerX, final float centerY)
+
 	{
 		final float xDiff = mouseX - centerX;
 		final float yDiff = mouseY - centerY;
@@ -352,6 +374,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final boolean isSelected,
 		final boolean isHovered
 	)
+
 	{
 		final float itemArcAngle = sectionArcAngle / itemCountInSection;
 		final float itemRenderAngle = itemTargetAngle - 90F;
@@ -370,6 +393,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		);
 
 		if (isSelected)
+
 		{
 			drawTorus(
 				graphics,
@@ -384,6 +408,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		}
 
 		if (isHovered)
+
 		{
 			drawTorus(
 				graphics,
@@ -408,6 +433,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final int itemCountInSection,
 		final float itemTargetAngle
 	)
+
 	{
 		final float itemArcAngle = sectionArcAngle / itemCountInSection;
 		final float itemRenderAngle = itemTargetAngle - 90F;
@@ -427,6 +453,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 	}
 
 	private static void drawTorus(GuiGraphicsExtractor graphics, float startAngle, float sizeAngle, float inner, float outer, final int centerX, final int centerY, int color)
+
 	{
 		final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 
@@ -452,6 +479,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 	{
 		float workingAngle = itemTargetAngle - 90;
 		while (workingAngle < 0)
+
 		{
 			workingAngle += 360;
 		}
@@ -525,12 +553,14 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
 		graphics.pose().pushMatrix();
 		if (mode.shouldRenderDisplayNameInMenu())
+
 		{
 			graphics.pose().translate(itemCenterX, itemCenterY);
 			graphics.pose().scale(0.6F * iconScaleFactor, 0.6F * iconScaleFactor);
 
 			int offset = 0;
 			for (final FormattedCharSequence line : lines)
+
 			{
 				graphics.text(fontRenderer, line, (int) (fontRenderer.width(line) / -2f), iconTextSpacer + offset, 0xCCFFFFFF);
 				offset += fontRenderer.lineHeight;
@@ -542,14 +572,17 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
 	@Override
 	public void onClick(final @NotNull MouseButtonEvent event, final boolean isDoubleClick)
+
 	{
 		if (!this.active || !this.visible)
+
 		{
 			return;
 		}
 
 		final int selectableItemCount = modes.size();
 		if (selectableItemCount == 0)
+
 		{
 			return;
 		}
@@ -565,6 +598,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 
 		final int hoveredItemIndex = !isMouseInSection ? -1 : (int) (inSectionMouseAngle / itemArcAngle);
 		if (hoveredItemIndex == -1)
+
 		{
 			return;
 		}

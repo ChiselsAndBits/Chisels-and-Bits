@@ -53,11 +53,13 @@ public class ChiseledBlockGhostRenderer
 	private static final ChiseledBlockGhostRenderer INSTANCE = new ChiseledBlockGhostRenderer();
 
 	public static ChiseledBlockGhostRenderer getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private ChiseledBlockGhostRenderer()
+
 	{
 	}
 
@@ -115,12 +117,15 @@ public class ChiseledBlockGhostRenderer
 	{
 		final RenderType renderType;
 		if (renderColoredGhost)
+
 		{
 			renderType = ignoreDepth
 				? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
 				: ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW.get();
 		}
+
 		else
+
 		{
 			renderType = ignoreDepth
 				? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
@@ -128,6 +133,7 @@ public class ChiseledBlockGhostRenderer
 		}
 
 		if (renderColoredGhost)
+
 		{
 			renderModelLists(
 				model,
@@ -137,7 +143,9 @@ public class ChiseledBlockGhostRenderer
 				renderType
 			);
 		}
+
 		else
+
 		{
 			final BlockPos placementPosition = new BlockPos(
 				(int) targetedRenderPos.x(),
@@ -193,24 +201,28 @@ public class ChiseledBlockGhostRenderer
 		VertexConsumer delegate) implements VertexConsumer
 	{
 		private AlphaSettingVertexConsumer(final float alpha, final VertexConsumer delegate)
+
 		{
 			this((int) (alpha * 255F), delegate);
 		}
 
 		@Override
 		public @NotNull VertexConsumer addVertex(final float x, final float y, final float z)
+
 		{
 			return delegate.addVertex(x, y, z);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setColor(final int red, final int green, final int blue, final int alpha)
+
 		{
 			return delegate.setColor(red, green, blue, this.alpha);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setColor(final int color)
+
 		{
 			//Color is in RGBA format
 			//Extract the channels
@@ -229,30 +241,35 @@ public class ChiseledBlockGhostRenderer
 
 		@Override
 		public @NotNull VertexConsumer setUv(final float u, final float v)
+
 		{
 			return delegate.setUv(u, v);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setUv1(final int u, final int v)
+
 		{
 			return delegate.setUv1(u, v);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setUv2(final int u, final int v)
+
 		{
 			return delegate.setUv2(u, v);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setNormal(final float normalX, final float normalY, final float normalZ)
+
 		{
 			return delegate.setNormal(normalX, normalY, normalZ);
 		}
 
 		@Override
 		public @NotNull VertexConsumer setLineWidth(final float lineWidth)
+
 		{
 			return delegate.setLineWidth(lineWidth);
 		}
@@ -261,10 +278,12 @@ public class ChiseledBlockGhostRenderer
 	private static final float[] DIRECTIONAL_BRIGHTNESS = {0.5f, 1f, 0.7f, 0.7f, 0.6f, 0.6f};
 
 	private static Vector3f[] getShadedColors(final Vector4f color)
+
 	{
 		// Directionally shade the color by the amount MC normally does
 		return Arrays.stream(Direction.values())
 			.map(direction ->
+
 			{
 				final float brightness = DIRECTIONAL_BRIGHTNESS[direction.get3DDataValue()];
 				return new Vector3f(
@@ -275,10 +294,12 @@ public class ChiseledBlockGhostRenderer
 	}
 
 	private static Vector3f[] getNormals(final PoseStack.Pose pose)
+
 	{
 		// Transform the normal vector of each direction by the pose's normal matrix
 		return Arrays.stream(Direction.values())
 			.map(direction ->
+
 			{
 				final Vec3i faceNormal = direction.getUnitVec3i();
 				final Vector3f normal = new Vector3f(faceNormal.getX(), faceNormal.getY(), faceNormal.getZ());
@@ -308,8 +329,10 @@ public class ChiseledBlockGhostRenderer
 		final Vector4f pos = new Vector4f();
 
 		for (final ChiseledBlockModelPart part : model.parts())
+
 		{
 			for (final Direction direction : Direction.values())
+
 			{
 				// Render outer directional quads
 				random.setSeed(42L);
@@ -344,6 +367,7 @@ public class ChiseledBlockGhostRenderer
 		final Vector4f pos)
 	{
 		for (final BakedQuad quad : quads)
+
 		{
 			putBulkData(
 				buffer,
@@ -370,6 +394,7 @@ public class ChiseledBlockGhostRenderer
 		final Vector2f uv = new Vector2f();
 
 		for (int v = 0; v < 4; ++v)
+
 		{
 			final var vertexPos = bakedQuad.position(v);
 			pos.set(vertexPos.x(), vertexPos.y(),vertexPos.z(), 1f);

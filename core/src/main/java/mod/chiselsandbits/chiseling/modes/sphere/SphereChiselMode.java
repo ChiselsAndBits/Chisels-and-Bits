@@ -191,6 +191,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 		return context.getMutator().map(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+
 			if (heldBlockState.isAir()) {
 				return ClickProcessingState.DEFAULT;
 			}
@@ -206,6 +207,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
 			context.setComplete();
+
 			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 				if (!playerEntity.isCreative()) {
 					playerBitInventory.extract(heldBlockState, missingBitCount);
@@ -262,11 +264,13 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 	@Override
 	public VoxelShape getShape(final IChiselingContext context) {
 		final Optional<Vec3> centerCandidate = context.getMetadata(ModMetadataKeys.ANCHOR.get());
+
 		if (centerCandidate.isEmpty()) {
 			return Shapes.empty();
 		}
 
 		final Optional<IWorldAreaMutator> accessor = context.getMutator();
+
 		if (accessor.isEmpty()) {
 			return Shapes.empty();
 		}
@@ -296,6 +300,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final Function<Vec3, Vec3> fullFacingVectorAdapter
 	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			return Optional.empty();
 		}
@@ -332,6 +337,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final Function<Vec3, Vec3> fullFacingVectorAdapter
 	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Either.left(ClickProcessingState.DEFAULT);
@@ -437,6 +443,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			if (this == o) {
 				return true;
 			}
+
 			if (!(o instanceof final SphereAreaFilter that)) {
 				return false;
 			}
@@ -444,6 +451,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			if (!Objects.equals(startPoint, that.startPoint)) {
 				return false;
 			}
+
 			return Objects.equals(center, that.center);
 		}
 	}

@@ -46,6 +46,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	private final Vec3 endPoint;
 
 	public WorldWrappingMutator(final LevelAccessor world, final Vec3 startPoint, final Vec3 endPoint)
+
 	{
 		this.world = world;
 		this.startPoint = new Vec3(
@@ -69,6 +70,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier()
+
 	{
 		final BlockPos startBlockPos = getInWorldStartBlockPoint();
 		final BlockPos endBlockPos = getInWorldEndBlockPoint();
@@ -88,6 +90,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public Stream<IStateEntryInfo> stream()
+
 	{
 		return inWorldMutableStream()
 				 .map(IStateEntryInfo.class::cast);
@@ -101,6 +104,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
+
 	{
 		if (!isInside(inAreaTarget))
 			return Optional.empty();
@@ -124,6 +128,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		if (!isInside(inAreaBlockPosOffset, inBlockTarget))
 			return Optional.empty();
@@ -140,6 +145,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget)
+
 	{
 		return getInWorldBoundingBox().contains(inAreaTarget);
 	}
@@ -153,12 +159,14 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		return isInside(Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget));
 	}
 
 	@Override
 	public IMultiStateSnapshot createSnapshot()
+
 	{
 		final BlockPos startBlockPos = getInWorldStartBlockPoint();
 		final BlockPos endBlockPos = getInWorldEndBlockPoint();
@@ -183,6 +191,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator)
+
 	{
 		return BlockPosStreamProvider.getForRange(
 		  getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
@@ -203,6 +212,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public void forEachWithPositionMutator(
 	  final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
+
 	{
 		BlockPosForEach.forEachInRange(
 		  getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
@@ -217,23 +227,27 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 			  final Optional<IStateEntryInfo> targetCandidate = getInBlockTarget(position, inBlockOffset);
 			  targetCandidate.ifPresent(consumer);
 		  }
+
 		);
 	}
 
 	@Override
 	public LevelAccessor getWorld()
+
 	{
 		return world;
 	}
 
 	@Override
 	public Vec3 getInWorldStartPoint()
+
 	{
 		return startPoint;
 	}
 
 	@Override
 	public Vec3 getInWorldEndPoint()
+
 	{
 		return endPoint;
 	}
@@ -245,6 +259,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream()
+
 	{
 		return inWorldMutableStream()
 				 .map(IMutableStateEntryInfo.class::cast);
@@ -254,6 +269,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public void setInAreaTarget(
 	  final BlockInformation blockInformation,
 	  final Vec3 inAreaTarget) throws SpaceOccupiedException
+
 	{
 		if (inAreaTarget.x() < 0 ||
 			  inAreaTarget.y() < 0 ||
@@ -283,6 +299,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException
+
 	{
 		final BlockPos startPos = getInWorldStartBlockPoint();
 		final BlockPos targetPos = startPos.offset(inAreaBlockPosOffset);
@@ -316,6 +333,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget)
+
 	{
 		if (inAreaTarget.x() < 0 ||
 			  inAreaTarget.y() < 0 ||
@@ -351,6 +369,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		final BlockPos startPos = getInWorldStartBlockPoint();
 		final BlockPos targetPos = startPos.offset(inAreaBlockPosOffset);
@@ -384,6 +403,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream()
+
 	{
 		return BlockPosStreamProvider.getForRange(
 		  getInWorldStartPoint(), getInWorldEndPoint()
@@ -392,6 +412,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	private Stream<IInWorldMutableStateEntryInfo> positionBasedInWorldMutableStream(final BlockPos position)
+
 	{
 		final ChiselAdaptingWorldMutator innerMutator = new ChiselAdaptingWorldMutator(
 		  getWorld(), position
@@ -409,6 +430,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
      */
 	@Override
 	public IBatchMutation batch()
+
 	{
 		return new BatchMutationLock(
 		  BlockPosStreamProvider.getForRange(
@@ -422,6 +444,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public IBatchMutation batch(final IChangeTracker changeTracker)
+
 	{
 		final Map<BlockPos, IMultiStateSnapshot> before = BlockPosStreamProvider.getForRange(
 			getInWorldStartPoint(), getInWorldEndPoint()
@@ -453,6 +476,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public VoxelShape provideShape(final CollisionType type, final BlockPos offset, final boolean simplify)
+
 	{
 		final VoxelShape areaShape = Shapes.create(getInWorldBoundingBox().move(VectorUtils.invert(getInWorldStartBlockPoint())).move(offset));
 		final VoxelShape containedShape = BlockPosStreamProvider.getForRange(
@@ -477,6 +501,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public String toString()
+
 	{
 		return "WorldWrappingMutator{" +
 				 "world=" + world +
@@ -487,6 +512,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public @NotNull AABB getBoundingBox()
+
 	{
 		return new AABB(
 		  startPoint,
@@ -495,6 +521,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	private static final class BatchMutationLock implements IBatchMutation
+
 	{
 		private final Iterable<IBatchMutation> innerLocks;
 
@@ -502,8 +529,10 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		@Override
 		public void close()
+
 		{
 			for (IBatchMutation innerLock : innerLocks)
+
 			{
 				innerLock.close();
 			}
@@ -516,6 +545,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		private final Vec3 endPoint;
 
 		public Identifier(final Collection<IAreaShapeIdentifier> innerSnapshots, final Vec3 startPoint, final Vec3 endPoint)
+
 		{
 			this.inners = innerSnapshots;
 			this.startPoint = startPoint;
@@ -524,20 +554,26 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		@Override
 		public boolean equals(final Object o)
+
 		{
 			if (this == o)
+
 			{
 				return true;
 			}
+
 			if (!(o instanceof final Identifier that))
+
 			{
 				return false;
 			}
+
 			return inners.equals(that.inners) && startPoint.equals(that.startPoint) && endPoint.equals(that.endPoint);
 		}
 
 		@Override
 		public int hashCode()
+
 		{
 			return Objects.hash(inners, startPoint, endPoint);
 		}

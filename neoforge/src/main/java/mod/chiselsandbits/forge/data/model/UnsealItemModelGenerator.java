@@ -15,17 +15,20 @@ public class UnsealItemModelGenerator extends AbstractInteractableItemModelGener
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new UnsealItemModelGenerator(event.getGenerator()));
 	}
 
 	public UnsealItemModelGenerator(final DataGenerator generator)
+
 	{
 		super(generator, ModItems.UNSEAL_ITEM);
 	}
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Unseal item model generator";
 	}

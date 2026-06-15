@@ -28,11 +28,13 @@ public class Forge
 	private ChiselsAndBits chiselsAndBits;
 
 	private void setChiselsAndBits(final ChiselsAndBits chiselsAndBits)
+
 	{
 		this.chiselsAndBits = chiselsAndBits;
 	}
 
 	public Forge(IEventBus modBus)
+
 	{
 		LOGGER.info("Initialized Chisels&Bits - Forge");
 		//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
@@ -50,6 +52,7 @@ public class Forge
 	@Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
 	public static final class Client {
 		public Client(ModContainer container)
+
 		{
 			LOGGER.info("Initialized Chisels&Bits-Forge client");
 			//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
@@ -63,6 +66,7 @@ public class Forge
 		private static ChiselsAndBitsClient chiselsAndBitsClient;
 
 		public static void setChiselsAndBitsClient(final ChiselsAndBitsClient chiselsAndBitsClient)
+
 		{
 			Client.chiselsAndBitsClient = chiselsAndBitsClient;
 		}

@@ -39,30 +39,35 @@ public class SealantItem extends Item implements ISealantItem
 	private final String CONST_SIMULATION = "Simulation";
 
 	public SealantItem(final Properties properties)
+
 	{
 		super(properties.enchantable(5));
 	}
 
 	@Override
 	public boolean isInteracting(final ItemStack stack)
+
 	{
 		return stack.getItem() == this && stack.has(ModDataComponentTypes.INTERACTION_TARGET.get());
 	}
 
 	@Override
 	public ItemStack getInteractionTarget(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.INTERACTION_TARGET.get(), InteractionData.EMPTY).stack();
 	}
 
 	@Override
 	public boolean isRunningASimulatedInteraction(final ItemStack stack)
+
 	{
 		return isInteracting(stack) && stack.getOrDefault(ModDataComponentTypes.IS_SIMULATING.get(), false);
 	}
 
 	@Override
 	public float getBobbingTickCount()
+
 	{
 		return 32;
 	}
@@ -114,7 +119,9 @@ public class SealantItem extends Item implements ISealantItem
 			if (!pattern.isEmpty()) {
 				IPlayerInventoryManager.getInstance().giveToPlayer(player, pattern);
 			}
+
 			stack.remove(ModDataComponentTypes.INTERACTION_TARGET.get());
+
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
@@ -140,6 +147,7 @@ public class SealantItem extends Item implements ISealantItem
 
 		InteractionHand otherHand = handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 		ItemStack itemInOtherHand = playerIn.getItemInHand(otherHand);
+
 		if (createPattern(itemInOtherHand).getItem() != itemInOtherHand.getItem() && itemInOtherHand.getItem() instanceof ISupportsSealing) {
 			ItemStack item = itemInOtherHand.copy();
 			ItemStack target = item.split(1);
@@ -155,10 +163,13 @@ public class SealantItem extends Item implements ISealantItem
 	private static ItemStack createPattern(final ItemStack targetStack) {
 		if (targetStack.getItem() instanceof ISupportsSealing) {
 			try
+
 			{
 				return ((ISupportsSealing) targetStack.getItem()).seal(targetStack);
 			}
+
 			catch (SealingNotSupportedException e)
+
 			{
 				return targetStack;
 			}

@@ -30,6 +30,7 @@ public class FaceManager
 	private static final FaceManager INSTANCE = new FaceManager();
 
 	public static FaceManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -44,6 +45,7 @@ public class FaceManager
 		@Nullable Object modelCacheKey) {}
 
 	private FaceManager()
+
 	{
 	}
 
@@ -69,6 +71,7 @@ public class FaceManager
 			key,
 			() -> buildQuadCollection(key, blockAndTintGetter, pos)
 		))
+
 		{
 			pipeline.accept(component);
 		}
@@ -79,6 +82,7 @@ public class FaceManager
 		final @Nullable BlockAndTintGetter blockAndTintGetter,
 		final BlockPos pos
 	)
+
 	{
 		if (!key.blockInformation().blockState().getFluidState().isEmpty()) {
 			return buildFluidQuadCollection(key);
@@ -141,6 +145,7 @@ public class FaceManager
 	}
 
 	private @BakedQuad.MaterialFlags int computeFlags(final FluidModel model, final Material.Baked material)
+
 	{
 		int materialFlags = 0;
 		materialFlags |= (model.layer().translucent() ? BakedQuad.FLAG_TRANSLUCENT : 0);

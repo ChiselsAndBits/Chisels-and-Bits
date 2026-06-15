@@ -51,60 +51,71 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 
 	@Override
 	public boolean matches(final CraftingInput inv, final @NotNull Level worldIn)
+
 	{
 		return inv.getItem(0).getItem() instanceof IPatternItem && !(inv.getItem(0).getItem() instanceof IMultiUsePatternItem);
 	}
 
 	@Override
 	public @NonNull ItemStack assemble(final CraftingInput input)
+
 	{
 		return getAppliedSnapshot(input).toItemStack().toPatternStack();
 	}
 
 	@Override
 	public boolean showNotification()
+
 	{
 		return false;
 	}
 
 	@Override
 	public @NonNull String group()
+
 	{
 		return "";
 	}
 
 	@Override
 	public @NonNull RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer()
+
 	{
 		return ModRecipeSerializers.MODIFICATION_TABLE.get();
 	}
 
 	@Override
 	public @NonNull RecipeType<? extends Recipe<CraftingInput>> getType()
+
 	{
 		return ModRecipeTypes.MODIFICATION_TABLE.get();
 	}
 
 	@Override
 	public @NonNull PlacementInfo placementInfo()
+
 	{
 		return PlacementInfo.NOT_PLACEABLE;
 	}
 
 	public @NotNull ItemStack getCraftingBlockResult(final CraftingInput inv)
+
 	{
 		return getAppliedSnapshot(inv).toItemStack().toBlockStack();
 	}
 
 	public @NotNull IMultiStateSnapshot getAppliedSnapshot(final CraftingInput inv)
+
 	{
 		final ItemStack multiStateStack = inv.getItem(0);
 		if (multiStateStack.isEmpty())
+
 		{
 			return EmptySnapshot.INSTANCE;
 		}
 
 		if (!(multiStateStack.getItem() instanceof final IMultiStateItem item))
+
 		{
 			return EmptySnapshot.INSTANCE;
 		}
@@ -118,6 +129,7 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 	}
 
 	public Component getDisplayName()
+
 	{
 		return Component.translatable(
 			Objects.requireNonNull(this.operation().getRegistryName()).getNamespace() + ".recipes.chisel.pattern.modification." + this.operation().getRegistryName().getPath());
@@ -125,6 +137,7 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 
 	@Override
 	public @NonNull RecipeBookCategory recipeBookCategory()
+
 	{
 		return RecipeBookCategories.CRAFTING_MISC;
 	}

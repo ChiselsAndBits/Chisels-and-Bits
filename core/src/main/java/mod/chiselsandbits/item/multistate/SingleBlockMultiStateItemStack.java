@@ -250,6 +250,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
 
 	@Override
 	public IMultiStateItemStack copy()
+
 	{
 		return new SingleBlockMultiStateItemStack(sourceStack);
 	}
@@ -329,6 +330,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
 			if (this == o) {
 				return true;
 			}
+
 			if (!(o instanceof final IArrayBackedAreaShapeIdentifier that)) {
 				return false;
 			}

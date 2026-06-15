@@ -17,6 +17,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public int getContainerSize()
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -27,6 +28,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -38,6 +40,7 @@ public class WrappingInventory implements Container
 	@NotNull
 	@Override
 	public ItemStack getItem(final int index)
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -49,6 +52,7 @@ public class WrappingInventory implements Container
 	@NotNull
 	@Override
 	public ItemStack removeItem(final int index, final int count)
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -60,6 +64,7 @@ public class WrappingInventory implements Container
 	@NotNull
 	@Override
 	public ItemStack removeItemNoUpdate(final int index)
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -70,6 +75,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public void setItem(final int index, final @NotNull ItemStack stack)
+
 	{
 		whenNotNull(
 			getWrapped(),
@@ -79,6 +85,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public void setChanged()
+
 	{
 		whenNotNull(
 			getWrapped(),
@@ -88,6 +95,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public boolean stillValid(final @NotNull Player player)
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -98,6 +106,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public void clearContent()
+
 	{
 		whenNotNull(
 			getWrapped(),
@@ -107,6 +116,7 @@ public class WrappingInventory implements Container
 
 	@Override
 	public int getMaxStackSize()
+
 	{
 		return whenNotNull(
 			getWrapped(),
@@ -117,11 +127,13 @@ public class WrappingInventory implements Container
 
 	@Nullable
 	public Container getWrapped()
+
 	{
 		return wrapped;
 	}
 
 	public void setWrapped(@Nullable final Container wrapped)
+
 	{
 		this.wrapped = wrapped;
 	}

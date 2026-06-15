@@ -65,9 +65,11 @@ public record ChiseledBlockItemModel(
 		renderState.appendModelIdentityElement(tintList);
 
 		for (ChiseledBlockModelPart part : blockModelInformation.parts())
+
 		{
 			ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
 			if (stack.hasFoil())
+
 			{
 				ItemStackRenderState.FoilType itemstackrenderstate$foiltype = ItemStackRenderState.FoilType.STANDARD;
 				itemstackrenderstate$layerrenderstate.setFoilType(itemstackrenderstate$foiltype);
@@ -93,20 +95,24 @@ public record ChiseledBlockItemModel(
 
 		List<ChiseledBlockModelMaterial> materials = blockModelInformation.materials();
 		for (int i = 0; i < materials.size(); i++)
+
 		{
 			final ChiseledBlockModelMaterial material = materials.get(i);
 			final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
 			final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
 
 			if (itemModelId == null)
+
 			{
 				if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null)
+
 				{
 					var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
 						material.blockInformation().blockState().getFluidState()
 					);
 
 					if (fluidModel.tintSource() == null)
+
 					{
 						tintList.set(material.tintIndex(), ARGB.color(255, 255, 255, 255));
 						continue;
@@ -138,9 +144,11 @@ public record ChiseledBlockItemModel(
 			);
 
 			if (itemModel instanceof CuboidItemModelWrapper wrapper)
+
 			{
 				final List<ItemTintSource> tintSources = wrapper.tints;
 				if (material.tintIndex() >= tintSources.size() || material.tintIndex() < 0)
+
 				{
 					tintList.set(i, ARGB.color(255, 255, 255, 255));
 					continue;
@@ -161,17 +169,20 @@ public record ChiseledBlockItemModel(
 	}
 
 	public record Unbaked() implements ItemModel.Unbaked
+
 	{
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
 		public @NotNull MapCodec<? extends ItemModel.Unbaked> type()
+
 		{
 			return CODEC;
 		}
 
 		@Override
 		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
+
 		{
 			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new ChiseledBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
@@ -179,6 +190,7 @@ public record ChiseledBlockItemModel(
 
 		@Override
 		public void resolveDependencies(final Resolver resolver)
+
 		{
 			resolver.markDependency(ModelLocationUtils.decorateBlockModelLocation("block"));
 		}

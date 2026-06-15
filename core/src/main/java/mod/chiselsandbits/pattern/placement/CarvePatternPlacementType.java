@@ -40,12 +40,14 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 {
 	@Override
 	public Identifier getIcon()
+
 	{
 		return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_carve");
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
@@ -53,6 +55,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
 	  final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
+
 	{
 		return ModPatternPlacementTypes.CARVING.get().buildVoxelShapeForWireframe(
 		  sourceSnapshot, player, targetedPoint, hitFace
@@ -61,6 +64,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
+
 	{
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
 											context.getClickLocation()
@@ -77,6 +81,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		  .allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
 
 		if (!isChiseledBlock)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -107,6 +112,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 										   totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -114,11 +120,13 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (simulate)
+
 		{
 			return PlacementResult.success();
 		}
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 		{
 			source.stream()
 			  .filter(s -> !s.getBlockInformation().isAir())
@@ -128,6 +136,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (!context.getPlayer().isCreative())
+
 		{
 			totalRemovedBits.forEach(playerBitInventory::insertOrDiscard);
 		}
@@ -138,8 +147,10 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 	@Override
 	public Vec3 getTargetedPosition(
 	  final ItemStack heldStack, final Player player, final BlockHitResult blockRayTraceResult)
+
 	{
 		if (player.isShiftKeyDown())
+
 		{
 			return blockRayTraceResult.getLocation();
 		}
@@ -149,6 +160,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return LocalStrings.PatternPlacementModeCarving.getText();
 	}

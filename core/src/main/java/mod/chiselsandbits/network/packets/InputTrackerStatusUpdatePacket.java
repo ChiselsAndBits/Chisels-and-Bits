@@ -17,6 +17,7 @@ public final class InputTrackerStatusUpdatePacket extends ModPacket
 	private boolean started;
 
 	public InputTrackerStatusUpdatePacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
@@ -28,6 +29,7 @@ public final class InputTrackerStatusUpdatePacket extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeBoolean(this.isLeftMouse);
 		buffer.writeBoolean(this.started);
@@ -35,6 +37,7 @@ public final class InputTrackerStatusUpdatePacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.isLeftMouse = buffer.readBoolean();
 		this.started = buffer.readBoolean();
@@ -42,11 +45,13 @@ public final class InputTrackerStatusUpdatePacket extends ModPacket
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		if (isLeftMouse) {
 			if (started) {
 				ProcessingInputTracker.getInstance().onStartedLeftClicking(playerEntity);
 			}
+
 			else {
 				ProcessingInputTracker.getInstance().onStoppedLeftClicking(playerEntity);
 			}
@@ -54,6 +59,7 @@ public final class InputTrackerStatusUpdatePacket extends ModPacket
 			if (started) {
 				ProcessingInputTracker.getInstance().onStartedRightClicking(playerEntity);
 			}
+
 			else {
 				ProcessingInputTracker.getInstance().onStoppedRightClicking(playerEntity);
 			}

@@ -11,30 +11,35 @@ public class PlaneChiselModeBuilder
 	private Identifier       iconName;
 
 	public PlaneChiselModeBuilder setDepth(final int depth)
+
 	{
 		this.depth = depth;
 		return this;
 	}
 
 	public PlaneChiselModeBuilder setDisplayName(final MutableComponent displayName)
+
 	{
 		this.displayName = displayName;
 		return this;
 	}
 
 	public PlaneChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
+
 	{
 		this.multiLineDisplayName = multiLineDisplayName;
 		return this;
 	}
 
 	public PlaneChiselModeBuilder setIconName(final Identifier iconName)
+
 	{
 		this.iconName = iconName;
 		return this;
 	}
 
 	public PlaneChiselMode createPlaneChiselMode()
+
 	{
 		return new PlaneChiselMode(depth, displayName, multiLineDisplayName, iconName);
 	}

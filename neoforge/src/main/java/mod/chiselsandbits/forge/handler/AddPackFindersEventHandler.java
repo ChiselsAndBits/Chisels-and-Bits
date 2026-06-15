@@ -43,6 +43,7 @@ public class AddPackFindersEventHandler {
 						FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
 					} catch (Exception ignored) {}
 				}
+
 				final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
 
 				final PackLocationInfo packLocationInfo = new PackLocationInfo(

@@ -23,24 +23,28 @@ public final class AddMultiStateItemStackToClipboardPacket extends ModPacket
 	}
 
 	public AddMultiStateItemStackToClipboardPacket(final RegistryFriendlyByteBuf byteBuf)
+
 	{
 		readPayload(byteBuf);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, this.stack);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
 	public void client()
+
 	{
 		DistExecutor.unsafeRunWhenOn(CLIENT, () -> () -> ClientPacketHandlers.handleAddMultiStateToClipboard(stack));
 	}

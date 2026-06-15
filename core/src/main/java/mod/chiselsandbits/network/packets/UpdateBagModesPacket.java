@@ -18,18 +18,21 @@ public class UpdateBagModesPacket extends ModPacket
 	private boolean preferred;
 
 	public UpdateBagModesPacket(final boolean filtered, final boolean preferred)
+
 	{
 		this.filtered = filtered;
 		this.preferred = preferred;
 	}
 
 	public UpdateBagModesPacket(RegistryFriendlyByteBuf buf)
+
 	{
 		readPayload(buf);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeBoolean(filtered);
 		buffer.writeBoolean(preferred);
@@ -37,6 +40,7 @@ public class UpdateBagModesPacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.filtered = buffer.readBoolean();
 		this.preferred = buffer.readBoolean();
@@ -44,18 +48,21 @@ public class UpdateBagModesPacket extends ModPacket
 
 	@Override
 	public Type<? extends CustomPacketPayload> type()
+
 	{
 		return TYPE;
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		execute(playerEntity);
 	}
 
 	public void execute(final Player player) {
 		if (player.containerMenu instanceof BagContainer bagContainer)
+
 		{
 			bagContainer.setBagProperties(filtered, preferred);
 		}

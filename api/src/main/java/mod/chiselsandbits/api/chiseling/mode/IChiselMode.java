@@ -124,6 +124,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 		if (modeOfOperation == ChiselingOperation.CHISELING) {
 			onLeftClickBy(playerEntity, snapshot);
 		}
+
 		else {
 			onRightClickBy(playerEntity, snapshot);
 		}

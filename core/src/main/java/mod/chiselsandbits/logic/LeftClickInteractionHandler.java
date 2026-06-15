@@ -21,6 +21,7 @@ public class LeftClickInteractionHandler
 	  final Direction hitFace,
 	  final boolean currentCancellationState,
 	  final ClickProcessingState.ProcessingResult currentItemUsageState)
+
 	{
 		if (itemStack.getItem() instanceof ILeftClickControllingItem) {
 			try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Left click processing")) {

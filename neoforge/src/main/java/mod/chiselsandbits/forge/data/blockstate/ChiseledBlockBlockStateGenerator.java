@@ -40,6 +40,7 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of(
 			BuiltInRegistries.BLOCK.wrapAsHolder(
@@ -50,12 +51,14 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		actOnBlock(ModBlocks.CHISELED_BLOCK.get(), blockModels);
 	}
@@ -72,18 +75,21 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 			MultiVariant.of(new CustomBlockStateModelBuilder() {
 				@Override
 				public @NotNull CustomBlockStateModelBuilder with(final @NotNull VariantMutator variantMutator)
+
 				{
 					return this;
 				}
 
 				@Override
 				public @NotNull CustomBlockStateModelBuilder with(final @NotNull UnbakedMutator variantMutator)
+
 				{
 					return this;
 				}
 
 				@Override
 				public @NotNull CustomUnbakedBlockStateModel toUnbaked()
+
 				{
 					//noinspection rawtypes,unchecked
 					return new UnbakedCustomModelWrapper(

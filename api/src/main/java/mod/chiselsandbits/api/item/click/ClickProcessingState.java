@@ -32,6 +32,7 @@ public class ClickProcessingState
      * @param nextState The next state to process.
      */
 	public ClickProcessingState(final boolean shouldCancel, final ProcessingResult nextState)
+
 	{
 		this.shouldCancel = shouldCancel;
 		this.nextState = nextState;
@@ -43,6 +44,7 @@ public class ClickProcessingState
      * @return {@code true} if the interaction should be cancelled, {@code false} otherwise.
      */
 	public boolean shouldCancel()
+
 	{
 		return shouldCancel;
 	}
@@ -53,6 +55,7 @@ public class ClickProcessingState
      * @return The next processing state.
      */
 	public ProcessingResult getNextState()
+
 	{
 		return nextState;
 	}
@@ -61,6 +64,7 @@ public class ClickProcessingState
      * The processing result of the click interaction.
      */
 	public enum ProcessingResult
+
 	{
 		/**
          * Deny the further processing of the interaction.

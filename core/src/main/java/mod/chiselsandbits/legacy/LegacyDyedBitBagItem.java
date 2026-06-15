@@ -15,12 +15,14 @@ import net.minecraft.world.item.ItemStack;
 public class LegacyDyedBitBagItem extends Item
 {
 	public LegacyDyedBitBagItem(final Properties properties)
+
 	{
 		super(properties);
 	}
 
 	@Override
 	public void inventoryTick(@NotNull ItemStack stack, final @NotNull ServerLevel level, final @NotNull Entity entity, @Nullable final EquipmentSlot slot)
+
 	{
 		if (!(entity instanceof Player player))
 			return;

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public final class GroupingUtils
 {
 	private GroupingUtils()
+
 	{
 		throw new IllegalStateException("Tried to initialize: GroupingUtils but this is a Utility class.");
 	}
@@ -55,6 +56,7 @@ public final class GroupingUtils
 		  e -> {
 			  groups.put(extractor.apply(e), e);
 		  }
+
 		);
 
 		return groups

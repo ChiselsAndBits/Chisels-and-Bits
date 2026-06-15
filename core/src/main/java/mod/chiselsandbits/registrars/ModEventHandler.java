@@ -71,6 +71,7 @@ public final class ModEventHandler {
 		});
 		IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> {
 			ChiselingManagerCountDownResetHandler.doResetFor(player);
+
 			if (player instanceof ServerPlayer serverPlayer) {
 				MeasuringSynchronisationHandler.syncTo(serverPlayer);
 			}

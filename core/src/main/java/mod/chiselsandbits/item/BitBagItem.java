@@ -45,11 +45,13 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	SimpleInstanceCache<ItemStack, IBitInventoryItemStack> tooltipCache = new SimpleInstanceCache<>();
 
 	public BitBagItem(Properties properties)
+
 	{
 		super(properties.stacksTo(1));
 	}
 
 	public static ItemStack dyeBag(final ItemStack itemStack, final DyeColor color)
+
 	{
 		itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color.getTextureDiffuseColor()));
 		return itemStack;
@@ -57,12 +59,15 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 	@Override
 	public @NotNull Component getName(final @NotNull ItemStack stack)
+
 	{
 		DyedItemColor color = getDyedColor(stack);
 		final Component parent = super.getName(stack);
 		if (parent instanceof MutableComponent mutableComponent && color != null)
+
 		{
 			for (final DyeColor value : DyeColor.values())
+
 			{
 				if (value.getTextureDiffuseColor() == color.rgb()) {
 					return mutableComponent.copy().append(" - ").append(Component.translatable("chiselsandbits.color." + value.getName()));
@@ -73,7 +78,9 @@ public class BitBagItem extends Item implements IBitInventoryItem
 				Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
 			);
 		}
+
 		else
+
 		{
 			return super.getName(stack);
 		}
@@ -100,6 +107,7 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 			final IBitInventoryItemStack inventoryItemStack;
 			if (tooltipCache.needsUpdate(stack))
+
 			{
 				inventoryItemStack = create(stack);
 				tooltipCache.updateCachedValue(inventoryItemStack);
@@ -117,12 +125,15 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	  final @NotNull Level worldIn,
 	  final @NotNull Player playerIn,
 	  final @NotNull InteractionHand hand)
+
 	{
 		final ItemStack itemStackIn = playerIn.getItemInHand(hand);
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerIn);
+
 		if (rayTraceResult.getType() == HitResult.Type.BLOCK && rayTraceResult instanceof final BlockHitResult blockRayTraceResult) {
 			final BlockState hitBlockState = worldIn.getBlockState(blockRayTraceResult.getBlockPos());
+
 			if (hitBlockState.getBlock() instanceof IBitBagAcceptingBlock bitBagAcceptingBlock) {
 				final var resultStack = bitBagAcceptingBlock.onBitBagInteraction(itemStackIn, playerIn, blockRayTraceResult);
 				playerIn.setItemInHand(hand, resultStack);
@@ -131,6 +142,7 @@ public class BitBagItem extends Item implements IBitInventoryItem
 		}
 
 		if (worldIn.isClientSide())
+
 		{
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new OpenBagGuiPacket());
 		}
@@ -140,6 +152,7 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 	@Override
 	public IBitInventoryItemStack create(final ItemStack stack)
+
 	{
 		if (stack.getItem() != this)
 			return new SlottedBitInventoryItemStack(ItemStack.EMPTY, 0);
@@ -152,12 +165,14 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 	@Override
 	public boolean isPreferredPickupInventory(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.BAG_PREFERRED_PICK_UP.get(), false);
 	}
 
 	@Override
 	public boolean isFilteredPickupInventory(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.BAG_FILTERED_PICK_UP.get(), false);
 	}
@@ -173,6 +188,7 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	@SuppressWarnings("unused")
 	public boolean showDurabilityBar(
 	  final ItemStack stack)
+
 	{
 		if (!(stack.getItem() instanceof final IBitInventoryItem item))
 			return false;
@@ -185,6 +201,7 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	@SuppressWarnings("unused")
 	public double getDurabilityForDisplay(
 	  final ItemStack stack)
+
 	{
 		if (!(stack.getItem() instanceof final IBitInventoryItem item))
 			return 0d;
@@ -197,12 +214,14 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 	public static DyedItemColor getDyedColor(
 	  ItemStack stack)
+
 	{
 		return stack.get(DataComponents.DYED_COLOR);
 	}
 
 	@SuppressWarnings("unused")
 	public boolean shouldCauseReequipAnimation(final ItemStack oldStack, final ItemStack newStack, final boolean slotChanged)
+
 	{
 		return false;
 	}

@@ -31,10 +31,12 @@ public final class PluginManger implements IPluginManager {
 	@Override
 	public void run(String action, Consumer<IChiselsAndBitsPlugin> callback) {
 		LOGGER.warn("Running plugin action {}...", action);
+
 		for (PluginData<IChiselsAndBitsPlugin> pluginData : pluginDatas) {
 			LOGGER.info("  - {}", pluginData.plugin().getId());
 			callback.accept(pluginData.plugin());
 		}
+
 		LOGGER.warn("Finished running plugin action {}.", action);
 	}
 

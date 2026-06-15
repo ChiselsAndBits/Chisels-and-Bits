@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public class ComparatorUtils {
 	private ComparatorUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ComparatorUtils. This is a utility class");
 	}

@@ -5,6 +5,7 @@ public class MathUtil
 	private static final double DEFAULT_EPSILON = 1E-7;
 
 	private MathUtil()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: MathUtil. This is a utility class");
 	}

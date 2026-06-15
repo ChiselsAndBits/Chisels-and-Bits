@@ -31,6 +31,7 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 
 	@Override
 	public Collection<IAreaAccessor> apply(final IAreaAccessor source)
+
 	{
 		final AABB box = source.getBoundingBox();
 		final Vec3 size = new Vec3(box.getXsize(), box.getYsize(), box.getZsize());
@@ -58,12 +59,14 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 
 	@Override
 	public @NotNull Optional<ICuttingOperationGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return switch (axis)
 				 {
@@ -75,6 +78,7 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return null;
 	}

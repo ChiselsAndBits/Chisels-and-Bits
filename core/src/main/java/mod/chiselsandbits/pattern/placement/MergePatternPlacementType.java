@@ -40,12 +40,14 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 {
 	@Override
 	public Identifier getIcon()
+
 	{
 		return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_merge");
 	}
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
@@ -53,6 +55,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
 	  final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
+
 	{
 		return ModPatternPlacementTypes.MERGE.get().buildVoxelShapeForWireframe(
 		  sourceSnapshot, player, targetedPoint, hitFace
@@ -61,6 +64,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
+
 	{
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
 											context.getClickLocation()
@@ -77,6 +81,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 										  .allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
 
 		if (!isChiseledBlock)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -107,6 +112,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 										   totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -132,6 +138,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 		  context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits)
+
 		{
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -139,11 +146,13 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (simulate)
+
 		{
 			return PlacementResult.success();
 		}
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 		{
 			source.stream()
 			  .filter(s -> !s.getBlockInformation().isAir())
@@ -157,6 +166,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (!context.getPlayer().isCreative())
+
 		{
 			totalRemovedBits.forEach(playerBitInventory::insertOrDiscard);
 			totalAddedBits.forEach(playerBitInventory::extract);
@@ -168,8 +178,10 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 	@Override
 	public Vec3 getTargetedPosition(
 	  final ItemStack heldStack, final Player player, final BlockHitResult blockHitResult)
+
 	{
 		if (player.isShiftKeyDown())
+
 		{
 			return blockHitResult.getLocation();
 		}
@@ -179,6 +191,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return LocalStrings.PatternPlacementModeMerge.getText();
 	}

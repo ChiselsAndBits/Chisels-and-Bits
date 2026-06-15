@@ -62,6 +62,7 @@ public interface IWireframeProvidingItem
      * @return Whether depth is effectively ignored.
      */
 	default boolean ignoreDepth(ItemStack heldStack)
+
 	{
 		return true;
 	}

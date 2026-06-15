@@ -31,18 +31,21 @@ public interface INotificationManager
 		notify(new INotification() {
 			@Override
 			public @NotNull Vec3 getColorVector()
+
 			{
 				return color;
 			}
 
 			@Override
 			public Identifier getIcon()
+
 			{
 				return icon;
 			}
 
 			@Override
 			public @NotNull Component getText()
+
 			{
 				return message;
 			}

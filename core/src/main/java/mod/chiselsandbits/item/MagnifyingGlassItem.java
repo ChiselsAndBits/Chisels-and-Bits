@@ -30,26 +30,31 @@ import net.minecraft.world.phys.HitResult;
 public class MagnifyingGlassItem extends Item implements IPermanentlyHighlightedNameItem
 {
 	public MagnifyingGlassItem(Properties properties)
+
 	{
 		super(properties.stacksTo(1));
 	}
 
 	@Override
 	public @NotNull Component getName(final @NotNull ItemStack stack)
+
 	{
 		return DistExecutor.unsafeRunForDist(
 				() -> () -> {
 					if (Minecraft.getInstance().level == null)
+
 					{
 						return super.getName(stack);
 					}
 
 					if (Minecraft.getInstance().hitResult == null)
+
 					{
 						return super.getName(stack);
 					}
 
 					if (Minecraft.getInstance().hitResult.getType() != HitResult.Type.BLOCK)
+
 					{
 						return super.getName(stack);
 					}

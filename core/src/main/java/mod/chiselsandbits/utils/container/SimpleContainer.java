@@ -63,6 +63,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	public @NotNull ItemStack removeItem(int index, int count) {
 		ItemStack removeResult = ContainerHelper.removeItem(this.items, index, count);
+
 		if (!removeResult.isEmpty()) {
 			this.setChanged();
 		}
@@ -75,10 +76,12 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 		for(int reversedIndex = this.size - 1; reversedIndex >= 0; --reversedIndex) {
 			ItemStack stack = this.getItem(reversedIndex);
+
 			if (stack.getItem().equals(item)) {
 				int remaining = toExtract - nullStack.getCount();
 				ItemStack splitResult = stack.split(remaining);
 				nullStack.grow(splitResult.getCount());
+
 				if (nullStack.getCount() == toExtract) {
 					break;
 				}
@@ -95,6 +98,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public ItemStack addItem(ItemStack input) {
 		ItemStack var0 = input.copy();
 		this.moveItemToOccupiedSlotsWithSameType(var0);
+
 		if (var0.isEmpty()) {
 			return ItemStack.EMPTY;
 		} else {
@@ -107,8 +111,10 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		boolean foundEmptyOrMatching = false;
 
 		for (final ItemStack stack : this.items)
+
 		{
 			if (stack.isEmpty() || ItemStack.isSameItemSameComponents(stack, input) && stack.getCount() < stack.getMaxStackSize())
+
 			{
 				foundEmptyOrMatching = true;
 				break;
@@ -120,6 +126,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	public @NotNull ItemStack removeItemNoUpdate(int index) {
 		ItemStack stack = this.items.get(index);
+
 		if (stack.isEmpty()) {
 			return ItemStack.EMPTY;
 		} else {
@@ -130,6 +137,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	public void setItem(int index, @NotNull ItemStack stack) {
 		this.items.set(index, stack);
+
 		if (!stack.isEmpty() && stack.getCount() > this.getMaxStackSize()) {
 			stack.setCount(this.getMaxStackSize());
 		}
@@ -139,6 +147,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	@Override
 	public void setChanged()
+
 	{
 	}
 
@@ -166,6 +175,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	private void moveItemToEmptySlots(ItemStack input) {
 		for(int index = 0; index < this.size; ++index) {
 			ItemStack stack = this.getItem(index);
+
 			if (stack.isEmpty()) {
 				this.setItem(index, input.copy());
 				input.setCount(0);
@@ -177,8 +187,10 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	private void moveItemToOccupiedSlotsWithSameType(ItemStack input) {
 		for(int index = 0; index < this.size; ++index) {
 			ItemStack stack = this.getItem(index);
+
 			if (ItemStack.isSameItemSameComponents(stack, input)) {
 				this.moveItemsBetweenStacks(input, stack);
+
 				if (input.isEmpty()) {
 					return;
 				}
@@ -189,6 +201,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	private void moveItemsBetweenStacks(ItemStack leftInput, ItemStack rightInput) {
 		int maxTransfer = Math.min(this.getMaxStackSize(), rightInput.getMaxStackSize());
 		int toTransfer = Math.min(leftInput.getCount(), maxTransfer - rightInput.getCount());
+
 		if (toTransfer > 0) {
 			rightInput.grow(toTransfer);
 			leftInput.shrink(toTransfer);
@@ -197,6 +210,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	public void setSize(int size)
+
 	{
 		this.size = size;
 		this.items = NonNullList.withSize(size, ItemStack.EMPTY);

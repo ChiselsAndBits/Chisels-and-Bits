@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 public class HelpTextUtils
 {
 	private HelpTextUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: HelpTextUtils. This is a utility class");
 	}
@@ -25,6 +26,7 @@ public class HelpTextUtils
      * @param variables The variables to inject.
      */
 	public static void build(final LocalStrings helpText, final List<Component> tooltip, final Object... variables)
+
 	{
 		build(helpText, tooltip::add, variables);
 	}
@@ -37,8 +39,10 @@ public class HelpTextUtils
      * @param variables The variables to inject.
      */
 	public static void build(final LocalStrings helpText, final Consumer<Component> tooltip, final Object... variables)
+
 	{
 		if ( ICommonConfiguration.getInstance().getEnableHelp().get() )
+
 		{
 			helpText.getTextLines(variables).forEach(tooltip);
 		}

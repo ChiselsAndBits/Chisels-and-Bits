@@ -12,6 +12,7 @@ public final class ForgeAdaptingBitInventoryManager implements IAdaptingBitInven
 	public static ForgeAdaptingBitInventoryManager getInstance() {
 		return INSTANCE;
 	}
+
 	private ForgeAdaptingBitInventoryManager() {
 	}
 

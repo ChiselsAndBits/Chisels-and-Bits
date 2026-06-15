@@ -25,29 +25,34 @@ import net.minecraft.world.level.block.Blocks;
 public class ReflectionHelperBlockStateGenerator extends ModelProvider implements DataProvider
 {
 	public ReflectionHelperBlockStateGenerator(final DataGenerator gen)
+
 	{
 		super(gen.getPackOutput(), Constants.MOD_ID);
 	}
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new ReflectionHelperBlockStateGenerator(event.getGenerator()));
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		actOnBlock(ModBlocks.REFLECTION_HELPER_BLOCK.get(), blockModels);
 	}
 
 	public void actOnBlock(final Block block, final BlockModelGenerators blockModels)
+
 	{
 		blockModels.createNonTemplateModelBlock(block, Blocks.AIR);
 	}
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of(
 			BuiltInRegistries.BLOCK.wrapAsHolder(
@@ -58,6 +63,7 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of();
 	}
@@ -65,6 +71,7 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 	@NotNull
 	@Override
 	public String getName()
+
 	{
 		return "Reflection helper block blockstate generator";
 	}

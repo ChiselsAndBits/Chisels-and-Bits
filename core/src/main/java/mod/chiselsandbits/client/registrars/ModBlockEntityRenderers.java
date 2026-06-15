@@ -8,6 +8,7 @@ import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 public final class ModBlockEntityRenderers
 {
 	private ModBlockEntityRenderers()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockEntityRenderers. This is a utility class");
 	}

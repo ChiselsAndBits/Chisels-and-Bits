@@ -66,11 +66,13 @@ public enum ModRenderPipelines
 	private final Supplier<RenderPipeline> getter;
 
 	ModRenderPipelines(final Supplier<RenderPipeline> getter)
+
 	{
 		this.getter = Suppliers.memoize(getter::get);
 	}
 
 	public RenderPipeline pipeline()
+
 	{
 		return getter.get();
 	}

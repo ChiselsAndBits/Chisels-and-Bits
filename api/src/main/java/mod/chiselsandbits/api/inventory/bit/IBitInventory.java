@@ -138,6 +138,7 @@ public interface IBitInventory
      * @return The remainder, or the original stack if it is not an bit item.
      */
 	default ItemStack insert(final ItemStack stack)
+
 	{
 		if (!(stack.getItem() instanceof final IBitItem bitItem))
 			return stack;

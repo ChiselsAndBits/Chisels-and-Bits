@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 public class AABBCompressor
 {
 	private AABBCompressor()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: AABBCompressor. This is a utility class");
 	}
@@ -32,6 +33,7 @@ public class AABBCompressor
 	public static List<AABB> compressStates(
 	  final IAreaAccessor accessor,
 	  final CollisionType sizeType)
+
 	{
 		final BuildingState state = new BuildingState();
 
@@ -42,20 +44,26 @@ public class AABBCompressor
 		accessor.forEachWithPositionMutator(
 		  IPositionMutator.xyz(),
 		  new Consumer<>()
+
 		  {
 			  @Override
 			  public void accept(final IStateEntryInfo stateEntryInfo)
+
 			  {
 				  if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x())
+
 				  {
 					  state.setCurrentBox(null, null);
 				  }
+
 				  state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
 
 				  if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y())
+
 				  {
 					  state.setCurrentBox(null, null);
 				  }
+
 				  state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
 
 				  final Optional<Vec3> previousCenterPoint = state.getLastCenter();
@@ -69,13 +77,16 @@ public class AABBCompressor
 				  final Optional<AABB> potentialEntryData = buildBoundingBox(stateEntryInfo, sizeType);
 
 				  if (potentialEntryData.isEmpty())
+
 				  {
 					  state.setCurrentBox(null, centerPoint);
 					  return;
 				  }
+
 				  final AABB entryData = potentialEntryData.get();
 
 				  if (state.getCurrentBox() != null)
+
 				  {
 					  if (stepDirection
 						.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
@@ -85,6 +96,7 @@ public class AABBCompressor
 						  state.expandCurrentBoxToInclude(entryData, centerPoint);
 
 						  if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox()))
+
 						  {
 							  return;
 						  }
@@ -94,6 +106,7 @@ public class AABBCompressor
 				  }
 
 				  if (attemptMergeWithNeighbors(state, centerPoint, entryData))
+
 				  {
 					  return;
 				  }
@@ -101,13 +114,16 @@ public class AABBCompressor
 				  state.setCurrentBox(potentialEntryData.get(), centerPoint);
 			  }
 		  }
+
 		);
 		return Lists.newArrayList(state.getBoxes());
 	}
 
 	private static boolean attemptMergeWithNeighbors(final BuildingState state, final Vec3 centerPoint, final AABB entryData)
+
 	{
 		for (final Direction offsetDirection :Direction.values())
+
 		{
 			final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getUnitVec3i()).multiply(
 			  StateEntrySize.current().getSizePerBit(),
@@ -118,12 +134,14 @@ public class AABBCompressor
 
 			if (potentialNeighborBox.isPresent()) {
 				final AABB neighborBox = potentialNeighborBox.get();
+
 				if (AABBUtils.areBoxesNeighbors(entryData, neighborBox, offsetDirection)) {
 					state.expandBoxAt(neighborCenter, entryData, centerPoint);
 					return true;
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -147,33 +165,40 @@ public class AABBCompressor
 		private final Multimap<AABB, Vec3> stateAssignments = HashMultimap.create();
 
 		public double getRegionBuildingAxisValue()
+
 		{
 			return regionBuildingAxis;
 		}
 
 		public void setRegionBuildingAxisValue(final double regionBuildingAxis)
+
 		{
 			this.regionBuildingAxis = regionBuildingAxis;
 		}
 
 		public double getFaceBuildingAxisValue()
+
 		{
 			return faceBuildingAxis;
 		}
 
 		public void setFaceBuildingAxisValue(final double faceBuildingAxis)
+
 		{
 			this.faceBuildingAxis = faceBuildingAxis;
 		}
 
 		public AABB getCurrentBox()
+
 		{
 			return currentBox;
 		}
 
 		public void setCurrentBox(final AABB currentBox, final Vec3 centerPoint)
+
 		{
 			this.currentBox = currentBox;
+
 			if (currentBox != null) {
 				boxAssignments.put(centerPoint, currentBox);
 				stateAssignments.put(currentBox, centerPoint);
@@ -193,6 +218,7 @@ public class AABBCompressor
 		}
 
 		public void expandCurrentBoxToInclude(final AABB entryData, final Vec3 centerPoint)
+
 		{
 			final AABB current = this.getCurrentBox();
 			if (current == null)
@@ -212,11 +238,13 @@ public class AABBCompressor
 		}
 
 		public Collection<AABB> getBoxes()
+
 		{
 			return stateAssignments.keySet();
 		}
 
 		public void expandBoxAt(final Vec3 neighborCenter, final AABB entryData, final Vec3 centerPoint)
+
 		{
 			final AABB current = boxAssignments.get(neighborCenter);
 			if (current == null)

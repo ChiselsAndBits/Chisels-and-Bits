@@ -20,17 +20,20 @@ public final class ChangeTrackerUpdatedPacket extends ModPacket
 	private Deque<IChange> changes;
 
 	public ChangeTrackerUpdatedPacket(RegistryFriendlyByteBuf byteBuf)
+
 	{
 		readPayload(byteBuf);
 	}
 
 	public ChangeTrackerUpdatedPacket(final Deque<IChange> changes)
+
 	{
 		this.changes = changes;
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		//We directly use the RFBB here as it is the same instance, and because we need that type.
 		buffer.writeCollection(this.changes, (fbb, change) -> IChange.STREAM_CODEC.encode(buffer, change));
@@ -38,6 +41,7 @@ public final class ChangeTrackerUpdatedPacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.changes = buffer.readCollection(
 				size -> new LinkedList<>(),
@@ -47,6 +51,7 @@ public final class ChangeTrackerUpdatedPacket extends ModPacket
 
 	@Override
 	public void client()
+
 	{
 		ClientPacketHandlers.handleChangeTrackerUpdated(this.changes);
 	}

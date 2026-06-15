@@ -52,6 +52,7 @@ public interface IChiselsAndBitsAPI
      * @return The api.
      */
 	static IChiselsAndBitsAPI getInstance()
+
 	{
 		return Holder.getInstance();
 	}
@@ -182,6 +183,7 @@ public interface IChiselsAndBitsAPI
 		try {
 			return getConfiguration().getServer().getBitSize().get();
 		}
+
 		catch (Exception ignored) {
 			return StateEntrySize.ONE_SIXTEENTH;
 		}
@@ -333,11 +335,13 @@ public interface IChiselsAndBitsAPI
 		private static IChiselsAndBitsAPI apiInstance;
 
 		public static IChiselsAndBitsAPI getInstance()
+
 		{
 			return apiInstance;
 		}
 
 		public static void setInstance(final IChiselsAndBitsAPI instance)
+
 		{
 			if (apiInstance != null)
 				throw new IllegalStateException("Can not setup API twice!");

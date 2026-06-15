@@ -17,6 +17,7 @@ public class ContainerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected ItemStack getItem(final int index)
+
 	{
 		return inventory.getItem(index);
 	}
@@ -28,6 +29,7 @@ public class ContainerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected int getInventorySize()
+
 	{
 		return inventory.getContainerSize();
 	}
@@ -40,12 +42,14 @@ public class ContainerBitInventory extends AbstractBitInventory
      */
 	@Override
 	protected void setItem(final int index, final ItemStack stack)
+
 	{
 		inventory.setItem(index, stack);
 	}
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return inventory.isEmpty();
 	}

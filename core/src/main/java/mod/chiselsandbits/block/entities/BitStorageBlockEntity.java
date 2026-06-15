@@ -46,16 +46,19 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	private int oldLV = -1;
 
 	public BitStorageBlockEntity(BlockPos pos, BlockState state)
+
 	{
 		super(ModBlockEntityTypes.BIT_STORAGE.get(), pos, state);
 	}
 
 	@Override
 	protected void loadAdditional(final @NotNull ValueInput input)
+
 	{
 		super.loadAdditional(input);
 		state = input.read(NbtConstants.BLOCK_INFORMATION, BlockInformation.CODEC).orElse(BlockInformation.AIR);
 		if (!state.isAir())
+
 		{
 			bits = input.getIntOr(NbtConstants.BITS, 0);
 		}
@@ -63,9 +66,11 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	protected void saveAdditional(final @NotNull ValueOutput output)
+
 	{
 		super.saveAdditional(output);
 		if (state != null && !state.isAir())
+
 		{
 			output.store(NbtConstants.BLOCK_INFORMATION, BlockInformation.CODEC, state);
 			output.putInt(NbtConstants.BITS, bits);
@@ -74,12 +79,14 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket()
+
 	{
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookup)
+
 	{
 		return saveWithFullMetadata(lookup);
 	}
@@ -88,6 +95,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		final Player playerIn)
 	{
 		if (playerIn != null && playerIn.isShiftKeyDown() && state != null && !state.isAir())
+
 		{
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(playerIn);
 			final int extractionAmount = Math.min(
@@ -105,21 +113,25 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	private void saveAndUpdate()
+
 	{
 		drawFromAboveIfSpace();
 		pushToBelowIfSpace();
 
 		if (level == null || getLevel() == null)
+
 		{
 			return;
 		}
 
 		if (bits == 0)
+
 		{
 			this.state = null;
 		}
 
 		if (state == null)
+
 		{
 			this.bits = 0;
 		}
@@ -129,6 +141,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 		final int lv = getLightValue();
 		if (oldLV != lv)
+
 		{
 			getLevel().getLightEngine().checkBlock(getBlockPos());
 			oldLV = lv;
@@ -136,13 +149,16 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	private void drawFromAboveIfSpace()
+
 	{
 		if (this.bits >= StateEntrySize.current().getBitsPerBlock())
+
 		{
 			return;
 		}
 
 		if (this.level == null)
+
 		{
 			return;
 		}
@@ -150,8 +166,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		final BlockPos up = getBlockPos().above();
 		final BlockEntity blockEntity = this.level.getBlockEntity(up);
 		if (blockEntity instanceof BitStorageBlockEntity storage)
+
 		{
 			if (storage.getBits() > 0 && (this.state == null || (storage.state != null && storage.state.equals(this.state))))
+
 			{
 				final int toInsert = Math.min(StateEntrySize.current().getBitsPerBlock() - this.bits, storage.getBits());
 				this.bits += toInsert;
@@ -164,13 +182,16 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	private void pushToBelowIfSpace()
+
 	{
 		if (this.bits <= 0)
+
 		{
 			return;
 		}
 
 		if (this.level == null)
+
 		{
 			return;
 		}
@@ -178,12 +199,14 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		final BlockPos down = getBlockPos().below();
 		final BlockEntity blockEntity = this.level.getBlockEntity(down);
 		if (blockEntity instanceof BitStorageBlockEntity storage)
+
 		{
 			storage.saveAndUpdate();
 		}
 	}
 
 	public int getLightValue()
+
 	{
 		return ILevelBasedPropertyAccessor.getInstance().getLightEmission(
 			new SingleBlockLevelReader.Builder()
@@ -201,15 +224,19 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		final Player playerIn)
 	{
 		if (current.isEmpty())
+
 		{
 			return false;
 		}
 
 		if (playerIn.isShiftKeyDown() || this.bits == 0)
+
 		{
 			if (current.getItem() instanceof IBitItem bitItem)
+
 			{
 				if (bitItem.getBlockInformation(current) == state || state == null)
+
 				{
 					state = bitItem.getBlockInformation(current);
 					final int maxToInsert = StateEntrySize.current().getBitsPerBlock() - bits;
@@ -218,31 +245,39 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 					bits += toInsert;
 
 					if (!playerIn.isCreative())
+
 					{
 						current.shrink(toInsert);
 						playerIn.getInventory().setItem(playerIn.getInventory().getSelectedSlot(), current);
 						playerIn.getInventory().setChanged();
 					}
+
 					saveAndUpdate();
 					return true;
 				}
 			}
+
 			else if (IEligibilityManager.getInstance().canBeChiseled(current))
+
 			{
 				final BlockInformation stackState = ItemStackUtils.getStateFromItem(current);
 				if (stackState.blockState().getBlock() != Blocks.AIR)
+
 				{
 					if (this.state == null || state.isAir())
+
 					{
 						this.state = stackState;
 						this.bits = StateEntrySize.current().getBitsPerBlock();
 
 						if (!playerIn.isCreative())
+
 						{
 							current.shrink(1);
 							playerIn.getInventory().setItem(playerIn.getInventory().getSelectedSlot(), current);
 							playerIn.getInventory().setChanged();
 						}
+
 						saveAndUpdate();
 						return true;
 					}
@@ -251,13 +286,16 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 			final Optional<FluidInformation> containedFluid = IFluidManager.getInstance().get(current);
 			if (containedFluid.isPresent() && containedFluid.get().amount() > 0)
+
 			{
 				final BlockState state = containedFluid.get().fluid().defaultFluidState().createLegacyBlock();
 				final BlockInformation blockInformation = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(containedFluid.get()));
 
 				if (IEligibilityManager.getInstance().canBeChiseled(blockInformation))
+
 				{
 					if (this.state == null || blockInformation.isAir())
+
 					{
 						final int maxToInsert = StateEntrySize.current().getBitsPerBlock() - bits;
 						final int toInsert = (int) Math.min(maxToInsert, getBitCountFrom(containedFluid.get()));
@@ -266,11 +304,13 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 						this.bits += toInsert;
 
 						if (!playerIn.isCreative())
+
 						{
 							final ItemStack resultStack = IFluidManager.getInstance().extractFrom(current, toInsert);
 							playerIn.getInventory().setItem(playerIn.getInventory().getSelectedSlot(), resultStack);
 							playerIn.getInventory().setChanged();
 						}
+
 						saveAndUpdate();
 						return true;
 					}
@@ -282,6 +322,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	private float getBitCountFrom(final FluidInformation containedFluid)
+
 	{
 		return StateEntrySize.current()
 			.getBitsPerBlock() * (containedFluid.amount() / (float) IFluidManager.getInstance().getBucketAmount());
@@ -290,13 +331,17 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	public boolean extractBits(
 		final Player playerIn
 	)
+
 	{
 		if (!playerIn.isShiftKeyDown())
+
 		{
 			final ItemStack is = getItem(0);
 			if (!is.isEmpty())
+
 			{
 				if (is.getItem() instanceof final IBitItem bitItem)
+
 				{
 					final BlockInformation blockState = bitItem.getBlockInformation(is);
 
@@ -309,6 +354,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 					removeItem(0, is.getCount());
 				}
 			}
+
 			return true;
 		}
 
@@ -316,16 +362,19 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public BlockInformation getContainedBlockInformation()
+
 	{
 		return state == null ? BlockInformation.AIR : state;
 	}
 
 	public int getBits()
+
 	{
 		return bits;
 	}
 
 	public Direction getFacing()
+
 	{
 		assert getLevel() != null;
 		return getLevel().getBlockState(getBlockPos()).getValue(BitStorageBlock.FACING);
@@ -333,25 +382,30 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public int getContainerSize()
+
 	{
 		return 1;
 	}
 
 	@Override
 	public boolean isEmpty()
+
 	{
 		return state == null || bits == 0;
 	}
 
 	@Override
 	public @NotNull ItemStack getItem(final int index)
+
 	{
 		if (index != 0)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (state == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
@@ -361,8 +415,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public @NotNull ItemStack removeItem(final int index, final int count)
+
 	{
 		if (index != 0)
+
 		{
 			return ItemStack.EMPTY;
 		}
@@ -377,6 +433,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public @NotNull ItemStack removeItemNoUpdate(final int index)
+
 	{
 		//Not supported
 		return ItemStack.EMPTY;
@@ -384,13 +441,17 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public void setItem(final int index, final @NotNull ItemStack itemStack)
+
 	{
 		if (!(itemStack.getItem() instanceof IBitItem bitItem))
+
 		{
 			if (IEligibilityManager.getInstance().canBeChiseled(itemStack) && this.state == null && this.bits == 0)
+
 			{
 				final BlockInformation blockInformation = ItemStackUtils.getStateFromItem(itemStack);
 				if (blockInformation.blockState().getBlock() != Blocks.AIR)
+
 				{
 					this.state = blockInformation;
 					this.bits = StateEntrySize.current().getBitsPerBlock();
@@ -402,6 +463,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		}
 
 		if (index != 0 || bitItem.getBlockInformation(itemStack).equals(state))
+
 		{
 			return;
 		}
@@ -412,13 +474,17 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public boolean stillValid(final @NotNull Player player)
+
 	{
 		assert this.level != null;
 		if (this.level.getBlockEntity(this.worldPosition) != this)
+
 		{
 			return false;
 		}
+
 		else
+
 		{
 			return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
 		}
@@ -426,6 +492,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	@Override
 	public void clearContent()
+
 	{
 		this.state = null;
 		this.bits = 0;
@@ -433,8 +500,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public Optional<FluidInformation> getFluid()
+
 	{
 		if (!containsFluid())
+
 		{
 			return Optional.empty();
 		}
@@ -444,6 +513,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 			.getFluidInformation(this.state, amount);
 
 		if (dynamicFluid.isPresent())
+
 		{
 			return dynamicFluid;
 		}
@@ -456,8 +526,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public boolean containsFluid()
+
 	{
 		if (this.state == null)
+
 		{
 			return false;
 		}
@@ -467,6 +539,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 			.getFluidInformation(this.state, amount);
 
 		if (dynamicFluid.isPresent())
+
 		{
 			return true;
 		}
@@ -476,18 +549,23 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public void extractBits(final int count)
+
 	{
 		this.bits = Math.max(0, this.bits - count);
 		if (this.bits <= 0)
+
 		{
 			this.state = null;
 		}
+
 		saveAndUpdate();
 	}
 
 	public void insertBits(final int bitCountToInsert, final BlockInformation blockInformation)
+
 	{
 		if (state == null || blockInformation.equals(state))
+
 		{
 			this.bits = Math.max(StateEntrySize.current().getBitsPerBlock(), bitCountToInsert + bits);
 			this.state = blockInformation;
@@ -496,6 +574,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public void insertBitsFromFluid(final FluidInformation fluidInformation)
+
 	{
 		final BlockInformation fluidBlockInformation = new BlockInformation(
 			fluidInformation.fluid().defaultFluidState().createLegacyBlock(),
@@ -503,6 +582,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 		);
 
 		if (state == null || state.equals(fluidBlockInformation))
+
 		{
 			this.bits = (int) Math.max(StateEntrySize.current().getBitsPerBlock(), getBitCountFrom(fluidInformation) + bits);
 			this.state = fluidBlockInformation;
@@ -511,6 +591,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public void setContents(final BlockInformation blockInformation, final int count)
+
 	{
 		this.state = blockInformation;
 		this.bits = count;

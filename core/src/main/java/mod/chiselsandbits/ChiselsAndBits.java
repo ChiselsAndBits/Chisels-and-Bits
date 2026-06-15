@@ -67,6 +67,7 @@ public class ChiselsAndBits
 	}
 
 	public IChiselsAndBitsConfiguration getConfiguration()
+
 	{
 		return configuration;
 	}

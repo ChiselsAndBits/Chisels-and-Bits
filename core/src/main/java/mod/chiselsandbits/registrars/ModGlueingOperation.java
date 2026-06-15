@@ -19,11 +19,13 @@ public final class ModGlueingOperation
 	);
 
 	private ModGlueingOperation()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModGlueingOperation. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded modification operation configuration.");
 	}

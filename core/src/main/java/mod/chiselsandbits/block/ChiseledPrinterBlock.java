@@ -54,6 +54,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 															   .build();
 
 	private static VoxelShape createForDirection(final Direction direction)
+
 	{
 		return Shapes.join(Shapes.join(Stream.of(
 		  Block.box(0, 5, 0, 2, 16, 2),
@@ -77,38 +78,45 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 	}
 
 	public ChiseledPrinterBlock(final Properties builder)
+
 	{
 		super(builder);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 
 	public BlockState getStateForPlacement(BlockPlaceContext context)
+
 	{
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	public @NotNull RenderShape getRenderShape(@NotNull BlockState state)
+
 	{
 		return RenderShape.MODEL;
 	}
 
 	public @NotNull BlockState rotate(BlockState state, Rotation rot)
+
 	{
 		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn)
+
 	{
 		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
+
 	{
 		builder.add(FACING);
 	}
 
 	@Override
 	public @NotNull VoxelShape getShape(final BlockState state, final @NotNull BlockGetter worldIn, final @NotNull BlockPos pos, final @NotNull CollisionContext context)
+
 	{
 		return VS_MAP.getOrDefault(state.getValue(FACING), Shapes.empty());
 	}
@@ -116,6 +124,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(final @NotNull BlockPos pos, final @NotNull BlockState state)
+
 	{
 		return new ChiseledPrinterBlockEntity(pos, state);
 	}
@@ -124,6 +133,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
 	  final @NotNull Level world, final @NotNull BlockState state, final @NotNull BlockEntityType<T> type)
+
 	{
 		return (world1, pos, state1, tileEntity) -> {
 			if (tileEntity instanceof ChiseledPrinterBlockEntity entity) {
@@ -135,8 +145,10 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 
 	@Override
 	protected @NotNull InteractionResult useWithoutItem(final @NotNull BlockState state, final Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull BlockHitResult hitResult)
+
 	{
 		if (!level.isClientSide())
+
 		{
 			player.openMenu((MenuProvider) level.getBlockEntity(pos));
 		}

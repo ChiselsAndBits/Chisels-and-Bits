@@ -14,6 +14,7 @@ public class ReadonlySlot extends Slot
 	  final int index,
 	  final int xPosition,
 	  final int yPosition)
+
 	{
 		super(inventoryIn, index, xPosition, yPosition);
 	}
@@ -21,6 +22,7 @@ public class ReadonlySlot extends Slot
 	@Override
 	public boolean mayPlace(
 	  final @NotNull ItemStack stack)
+
 	{
 		return false;
 	}
@@ -28,6 +30,7 @@ public class ReadonlySlot extends Slot
 	@Override
 	public boolean mayPickup(
 	  final @NotNull Player playerIn)
+
 	{
 		return false;
 	}

@@ -15,26 +15,31 @@ public final class ClearChangeTrackerPacket extends ModPacket
 	public static final CustomPacketPayload.Type<ClearChangeTrackerPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	public ClearChangeTrackerPacket(RegistryFriendlyByteBuf byteBuf)
+
 	{
 		this.readPayload(byteBuf);
 	}
 
 	public ClearChangeTrackerPacket()
+
 	{
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		final IChangeTracker tracker = IChangeTrackerManager.getInstance().getChangeTracker(playerEntity);
 		tracker.clear();

@@ -110,6 +110,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	@SuppressWarnings({"SuspiciousMethodCalls", "unchecked"})
 	@Override
 	public void init()
+
 	{
 		super.init();
 
@@ -128,6 +129,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		allPagesCombined.addAll(noneGroupedModes);
 		allPagesCombined.sort(Comparator.comparingInt(renderableMode -> {
 			if (noneGroupedModes.contains(renderableMode))
+
 			{
 				return modes.indexOf(renderableMode);
 			}
@@ -136,20 +138,25 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		}));
 
 		if (allPagesCombined.isEmpty())
+
 		{
 			return;
 		}
 
 		while (!allPagesCombined.isEmpty())
+
 		{
 			final List<IRenderableMode> page = new LinkedList<>();
 			for (int i = 0; i < PAGE_SIZE; i++)
+
 			{
 				if (!allPagesCombined.isEmpty())
+
 				{
 					page.add(allPagesCombined.remove(0));
 				}
 			}
+
 			pages.addLast(page);
 		}
 
@@ -160,12 +167,15 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 	@Override
 	protected void extractWidgetRenderState(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
+
 	{
 	}
 
 	private void nextPage()
+
 	{
 		if (!nextMode.isActive())
+
 		{
 			return;
 		}
@@ -176,8 +186,10 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void previousPage()
+
 	{
 		if (!previousMode.isActive())
+
 		{
 			return;
 		}
@@ -188,6 +200,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void rebuildPagingControl()
+
 	{
 		removePagingControl();
 
@@ -215,6 +228,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		));
 
 		if (pages.size() == 1)
+
 		{
 			this.pageSelectionWidget.visible = false;
 			this.pageSelectionWidget.active = false;
@@ -222,6 +236,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void rebuildPageControl()
+
 	{
 		removePageControl();
 
@@ -257,10 +272,12 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 	@SuppressWarnings("SuspiciousMethodCalls")
 	private void rebuildGroupControl()
+
 	{
 		removeGroupWidget();
 
 		if (this.selectedOuterToolMode != null && this.mainSelectedToolMode instanceof IToolModeGroup)
+
 		{
 			this.currentGroupSelectionWidget = owner.addRenderableWidget(new RadialSelectionWidget(
 				this,
@@ -287,8 +304,10 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void removePagingControl()
+
 	{
 		if (this.pageSelectionWidget == null)
+
 		{
 			return;
 		}
@@ -297,8 +316,10 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void removePageControl()
+
 	{
 		if (currentPageSelectionWidget == null)
+
 		{
 			return;
 		}
@@ -307,8 +328,10 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void removeGroupWidget()
+
 	{
 		if (currentGroupSelectionWidget == null)
+
 		{
 			return;
 		}
@@ -317,39 +340,48 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void removeWidget(final GuiEventListener widget)
+
 	{
 		owner.removeWidget(widget);
 	}
 
 	private void onPageSelected(IRenderableMode iRenderableMode)
+
 	{
 		if (iRenderableMode == nextMode)
+
 		{
 			nextPage();
 		}
+
 		else
+
 		{
 			previousPage();
 		}
 	}
 
 	private void onPageSelectorHover(final IRenderableMode mode)
+
 	{
 		this.currentHoveredPage = mode;
 	}
 
 	@SuppressWarnings("unchecked")
 	private void onMainToolModeHover(final IRenderableMode mode)
+
 	{
 		this.mainSelectedToolMode = mode;
 
 		if (this.lastFrameMainSelectedToolMode == null && this.mainSelectedToolMode == null)
+
 		{
 			rebuildGroupControl();
 			return;
 		}
 
 		if (this.lastFrameMainSelectedToolMode != null && this.mainSelectedToolMode == null)
+
 		{
 			this.lastFrameMainSelectedToolMode = null;
 			this.selectedOuterToolMode = null;
@@ -358,6 +390,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		}
 
 		if ((this.lastFrameMainSelectedToolMode == null || this.lastFrameMainSelectedToolMode != this.mainSelectedToolMode) && this.mainSelectedToolMode instanceof IToolModeGroup)
+
 		{
 			this.lastFrameMainSelectedToolMode = this.mainSelectedToolMode;
 			this.selectedOuterToolMode = this.groupings.get((G) this.mainSelectedToolMode).get(0);
@@ -366,6 +399,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		}
 
 		if (this.mainSelectedToolMode instanceof IToolMode)
+
 		{
 			this.lastFrameMainSelectedToolMode = this.mainSelectedToolMode;
 			this.selectedOuterToolMode = null;
@@ -374,9 +408,11 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private void onMainToolModeClick(final IRenderableMode mode)
+
 	{
 		this.onMainToolModeHover(mode);
 		if (!(mode instanceof IToolModeGroup))
+
 		{
 			this.mainSelectedToolMode = mode;
 			updateSelection();
@@ -386,11 +422,13 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 	@SuppressWarnings("unchecked")
 	private void onGroupedToolModeHover(final IRenderableMode mode)
+
 	{
 		this.selectedOuterToolMode = (M) mode;
 	}
 
 	private void onGroupedToolModeClick(final IRenderableMode mode)
+
 	{
 		this.mainSelectedToolMode = mode;
 		updateSelection();
@@ -399,8 +437,10 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 	@Override
 	public void removed()
+
 	{
 		if (toolModeItem.requiresUpdateOnClosure())
+
 		{
 			updateSelection();
 		}
@@ -408,14 +448,17 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 	@SuppressWarnings("unchecked")
 	public void updateSelection()
+
 	{
 		if (this.mainSelectedToolMode != null)
+
 		{
 			final M mainToolModeSelection =
 				this.mainSelectedToolMode instanceof IToolModeGroup ? this.selectedOuterToolMode : (this.mainSelectedToolMode instanceof IToolMode) ? (M) this.mainSelectedToolMode
 					: toolModeItem.getMode(this.sourceStack);
 
 			if (mainToolModeSelection != null)
+
 			{
 				toolModeItem.setMode(
 					ItemStackUtils.getModeItemStackFromPlayer(Minecraft.getInstance().player),
@@ -428,6 +471,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	private final class PageSelectionMode implements IRenderableMode
+
 	{
 		private final boolean isPrevious;
 
@@ -435,6 +479,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 		@Override
 		public Identifier getIcon()
+
 		{
 			return
 				isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo") :
@@ -443,6 +488,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 		@Override
 		public Component getDisplayName()
+
 		{
 			return isPrevious ? LocalStrings.ToolMenuPreviousPageName.getText() :
 				LocalStrings.ToolMenuNextPageName.getText();
@@ -450,6 +496,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 		@Override
 		public boolean isActive()
+
 		{
 			return isPrevious ? currentPageIndex != 0 : currentPageIndex != pages.size() - 1;
 		}

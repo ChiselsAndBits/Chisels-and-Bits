@@ -15,12 +15,14 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
 	private static final Identifier GUI_TEXTURES = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/chisel_printer.png");
 
 	public ChiseledPrinterScreen(final ChiseledPrinterContainer screenContainer, final Inventory inv, final Component titleIn)
+
 	{
 		super(screenContainer, inv, titleIn);
 	}
 
 	@Override
 	protected void init()
+
 	{
 		super.init();
 
@@ -29,6 +31,7 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
 
 	@Override
 	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
+
 	{
 		graphics.blit(
 			RenderPipelines.GUI_TEXTURED,

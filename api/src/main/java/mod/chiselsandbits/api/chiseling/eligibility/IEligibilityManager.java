@@ -34,6 +34,7 @@ public interface IEligibilityManager
      * @return True when chiselable or already chiseled.
      */
 	default boolean canBeChiseled(@NotNull final ItemStack provider)
+
 	{
 		return analyse(provider).canBeChiseled();
 	}

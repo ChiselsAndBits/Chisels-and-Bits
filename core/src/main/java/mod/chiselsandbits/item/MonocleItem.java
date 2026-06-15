@@ -34,6 +34,7 @@ public class MonocleItem extends Item
 	private static boolean dispenseArmor(BlockSource source, ItemStack stack) {
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		List<LivingEntity> list = source.level().getEntitiesOfClass(LivingEntity.class, new AABB(blockpos), EntitySelector.NO_SPECTATORS.and(new MobCanWearArmorEntitySelector(stack)));
+
 		if (list.isEmpty()) {
 			return false;
 		} else {
@@ -41,6 +42,7 @@ public class MonocleItem extends Item
 			EquipmentSlot slot = targetEntity.getEquipmentSlotForItem(stack);
 			ItemStack stackToDispense = stack.split(1);
 			targetEntity.setItemSlot(slot, stackToDispense);
+
 			if (targetEntity instanceof Mob) {
 				((Mob)targetEntity).setDropChance(slot, 2.0F);
 				((Mob)targetEntity).setPersistenceRequired();
@@ -51,6 +53,7 @@ public class MonocleItem extends Item
 	}
 
 	public MonocleItem(final Properties itemProperties)
+
 	{
 		super(itemProperties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(ArmorMaterials.GOLD.equipSound()).build()));
 
@@ -58,6 +61,7 @@ public class MonocleItem extends Item
 	}
 
 	public static class MobCanWearArmorEntitySelector implements Predicate<Entity>
+
 	{
 		private final ItemStack itemStack;
 
@@ -74,6 +78,7 @@ public class MonocleItem extends Item
 
 			Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
 			assert equippable != null;
+
 			if (!equippable.canBeEquippedBy(entity.typeHolder())) {
 				return false;
 			}

@@ -177,6 +177,7 @@ public interface CBStreamCodecs {
 			public @NotNull T decode(@NotNull RegistryFriendlyByteBuf buffer) {
 				final byte[] compressedData = buffer.readByteArray();
 				final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(compressedData);
+
 				try {
 					final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
 					final ByteBuf buf = Unpooled.wrappedBuffer(lz4FrameInputStream.readAllBytes());
@@ -286,6 +287,7 @@ public interface CBStreamCodecs {
 					@Override
 					public void encode(@NotNull B buffer, @Nullable S value) {
 						buffer.writeBoolean(value != null);
+
 						if (value != null) {
 							codec.encode(buffer, value);
 						}

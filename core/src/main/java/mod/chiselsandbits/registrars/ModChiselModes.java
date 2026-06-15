@@ -353,11 +353,13 @@ public final class ModChiselModes
 		};
 
 	private ModChiselModes()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModChiselModes. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		REGISTRY = MODE_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 		LOGGER.info("Loaded chisel mode configuration.");

@@ -12,6 +12,7 @@ import net.minecraft.world.phys.Vec3;
 public class RayTracingUtils
 {
 	private RayTracingUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: RayTracingUtils. This is a utility class");
 	}

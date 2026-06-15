@@ -19,12 +19,14 @@ public class CandBProfilingResult implements IProfilerResult
 
 	@Override
 	public void writeToFile(final Path file)
+
 	{
 		innerResult.saveResults(file);
 	}
 
 	@Override
 	public void writeAsResponse(final Consumer<String> lineConsumer)
+
 	{
 		if (!(innerResult instanceof final FilledProfileResults filledProfileResult))
 			return;
@@ -44,6 +46,7 @@ public class CandBProfilingResult implements IProfilerResult
 				  writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
 			  }
 		  }
+
 		);
 	}
 }

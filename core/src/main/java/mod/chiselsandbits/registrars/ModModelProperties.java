@@ -11,11 +11,13 @@ public final class ModModelProperties
 	public static IModelDataKey<ChiseledBlockModelInformation> MODEL  = IModelDataKey.create();
 
 	private ModModelProperties()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModModelProperties. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded model property configuration.");
 	}

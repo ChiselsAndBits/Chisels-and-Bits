@@ -110,6 +110,7 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	  .build();
 
 	public PatternScannerBlock(final Properties properties)
+
 	{
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -121,11 +122,13 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	}
 
 	public BlockState getStateForPlacement(BlockPlaceContext context)
+
 	{
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
+
 	{
 		builder.add(FACING);
 	}
@@ -137,15 +140,19 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	  @NotNull Player player,
 	  @NotNull InteractionHand hand,
 	  @NotNull BlockHitResult hitResult)
+
 	{
 		if (true)
 			return InteractionResult.PASS;
 
 		if (level.isClientSide())
+
 		{
 			return InteractionResult.SUCCESS;
 		}
+
 		else
+
 		{
 			player.openMenu(state.getMenuProvider(level, pos));
 			player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
@@ -154,6 +161,7 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	}
 
 	public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos post)
+
 	{
 		return new SimpleMenuProvider((screenIndex, inventory, player) -> new CraftingMenu(screenIndex, inventory, ContainerLevelAccess.create(level, post)), Component.literal(""));
 	}
@@ -161,6 +169,7 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	@Override
 	public @NotNull VoxelShape getShape(
 	  final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos pos, final @NotNull CollisionContext context)
+
 	{
 		return SHAPES.get(state.getValue(FACING));
 	}

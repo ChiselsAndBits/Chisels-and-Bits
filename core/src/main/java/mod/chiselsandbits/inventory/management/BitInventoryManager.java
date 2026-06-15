@@ -18,22 +18,26 @@ public class BitInventoryManager implements IBitInventoryManager
 	private static final BitInventoryManager INSTANCE = new BitInventoryManager();
 
 	private BitInventoryManager()
+
 	{
 	}
 
 	public static BitInventoryManager getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	@Override
 	public IBitInventory create(final Player playerEntity)
+
 	{
 		return new PlayerBitInventory(new PlayerMainAndOffhandInventoryWrapper(playerEntity.getInventory()));
 	}
 
 	@Override
 	public IBitInventory create(final Object target)
+
 	{
 		return IAdaptingBitInventoryManager.getInstance()
 				 .create(target)
@@ -44,12 +48,14 @@ public class BitInventoryManager implements IBitInventoryManager
 
 	@Override
 	public IBitInventory create(final Container inventory)
+
 	{
 		return new ContainerBitInventory(inventory);
 	}
 
 	@Override
 	public IBitInventoryItemStack create(final ItemStack stack)
+
 	{
 		if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 			return bitInventoryItem.create(stack);

@@ -49,6 +49,7 @@ public class ChiseledBlockModelDataExecutor {
 				},
 				direction -> {
 					final BlockEntity otherTileEntity = Objects.requireNonNull(tileEntity.getLevel()).getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
+
 					if (otherTileEntity instanceof IAreaAccessor) {
 						return (IAreaAccessor) otherTileEntity;
 					}
@@ -82,6 +83,7 @@ public class ChiseledBlockModelDataExecutor {
 				.thenRunAsync(() -> {
 					try {
 						IModelDataManager.getInstance().requestModelDataRefresh(tileEntity);
+
 						if (tileEntity.getLevel() != null) {
 							tileEntity.getLevel().sendBlockUpdated(
 									tileEntity.getBlockPos(),

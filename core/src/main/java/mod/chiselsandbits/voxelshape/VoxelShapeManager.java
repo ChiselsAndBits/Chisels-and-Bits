@@ -26,10 +26,12 @@ public class VoxelShapeManager implements IVoxelShapeManager
 	);
 
 	private VoxelShapeManager()
+
 	{
 	}
 
 	public static VoxelShapeManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -40,6 +42,7 @@ public class VoxelShapeManager implements IVoxelShapeManager
 	  final BlockPos offset,
 	  final CollisionType sizeType,
 	  final boolean simplify)
+
 	{
 		final Key cacheKey = new Key(
 		  accessor.createNewShapeIdentifier(),
@@ -63,6 +66,7 @@ public class VoxelShapeManager implements IVoxelShapeManager
 	  final BlockPos offset,
 	  final CollisionType sizeType,
 	  final boolean simplify)
+
 	{
 		final Key key = new Key(
 		  identifier,
@@ -73,6 +77,7 @@ public class VoxelShapeManager implements IVoxelShapeManager
 	}
 
 	public void clearCache()
+
 	{
 		this.cache.clear();
 	}
@@ -92,6 +97,7 @@ public class VoxelShapeManager implements IVoxelShapeManager
 
 		@Override
 		public String toString()
+
 		{
 			return "Key{" +
 					 "identifier=" + identifier.toString() +
@@ -103,33 +109,44 @@ public class VoxelShapeManager implements IVoxelShapeManager
 
 		@Override
 		public boolean equals(final Object o)
+
 		{
 			if (this == o)
+
 			{
 				return true;
 			}
+
 			if (!(o instanceof final Key key))
+
 			{
 				return false;
 			}
 
 			if (simplify != key.simplify)
+
 			{
 				return false;
 			}
+
 			if (!Objects.equals(identifier, key.identifier))
+
 			{
 				return false;
 			}
+
 			if (!Objects.equals(offset, key.offset))
+
 			{
 				return false;
 			}
+
 			return Objects.equals(sizeType, key.sizeType);
 		}
 
 		@Override
 		public int hashCode()
+
 		{
 			int result = identifier != null ? identifier.hashCode() : 0;
 			result = 31 * result + (offset != null ? offset.hashCode() : 0);

@@ -58,6 +58,7 @@ public class ModificationTableBlock extends Block
 	}
 
 	public ModificationTableBlock(final Properties properties)
+
 	{
 		super(properties);
 	}
@@ -65,12 +66,14 @@ public class ModificationTableBlock extends Block
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(final BlockPlaceContext context)
+
 	{
 		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
 	protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder)
+
 	{
 		builder.add(FACING);
 	}

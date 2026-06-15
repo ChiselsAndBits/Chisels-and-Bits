@@ -31,6 +31,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 	private static final CreativeClipboardManager INSTANCE = new CreativeClipboardManager();
 
 	public static CreativeClipboardManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -40,16 +41,19 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 	);
 
 	private CreativeClipboardManager()
+
 	{
 	}
 
 	public void load(HolderLookup.Provider provider) {
 		final File file = new File(Constants.MOD_ID + "/clipboard.dat");
+
 		if (!file.exists()) {
 			return;
 		}
 
 		try
+
 		{
 			final CompoundTag data = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
 			final ListTag tags = data.getList("clipboard").orElse(new ListTag());
@@ -63,7 +67,9 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			  .map(SingleBlockMultiStateItemStack::new)
 			  .forEach(cache::add);
 		}
+
 		catch (IOException e)
+
 		{
 			LOGGER.fatal("Failed to read a clipboard file!", e);
 		}
@@ -84,20 +90,26 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 		data.put("clipboard", tags);
 
 		final File file = new File(Constants.MOD_ID + "/clipboard.dat");
+
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
 		}
+
 		else
+
 		{
 			file.delete();
 		}
 
 		try
+
 		{
 			file.createNewFile();
 			NbtIo.writeCompressed(data, file.toPath());
 		}
+
 		catch (IOException e)
+
 		{
 			LOGGER.fatal("Failed to create a clipboard file!", e);
 		}
@@ -105,12 +117,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 	@Override
 	public List<IMultiStateItemStack> getClipboard()
+
 	{
 		return ImmutableList.copyOf(cache);
 	}
 
 	@Override
 	public void addEntry(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider)
+
 	{
 		synchronized (cache) {
 			if (cache.contains(multiStateItemStack))
@@ -155,6 +169,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 	@Override
 	public void clear(final HolderLookup.Provider provider)
+
 	{
 		synchronized (cache) {
 			cache.clear();

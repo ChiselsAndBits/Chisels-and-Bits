@@ -37,6 +37,7 @@ public record BitBlockItemModel(
 	{
 		renderState.appendModelIdentityElement(this);
 		if (!(stack.getItem() instanceof IBitItem bitItem))
+
 		{
 			return;
 		}
@@ -55,12 +56,14 @@ public record BitBlockItemModel(
 			ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
 
 			if (modelInformation.isBlock())
+
 			{
 				itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
 				itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
 			}
 
 			if (stack.hasFoil())
+
 			{
 				itemstackrenderstate$layerrenderstate.setFoilType(ItemStackRenderState.FoilType.STANDARD);
 				renderState.setAnimated();
@@ -80,17 +83,20 @@ public record BitBlockItemModel(
 	}
 
 	public record Unbaked() implements ItemModel.Unbaked
+
 	{
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
 		public @NotNull MapCodec<? extends ItemModel.Unbaked> type()
+
 		{
 			return CODEC;
 		}
 
 		@Override
 		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
+
 		{
 			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new BitBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
@@ -98,6 +104,7 @@ public record BitBlockItemModel(
 
 		@Override
 		public void resolveDependencies(final Resolver resolver)
+
 		{
 			resolver.markDependency(ModelLocationUtils.decorateBlockModelLocation("block"));
 		}

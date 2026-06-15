@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 public class BitInventoryUtils
 {
 	private BitInventoryUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BitInventoryUtils. This is a utility class");
 	}
@@ -31,6 +32,7 @@ public class BitInventoryUtils
 			if (inventory.canInsertOne(blockState)) {
 				inventory.insertOne(blockState);
 			}
+
 			return;
 		}
 

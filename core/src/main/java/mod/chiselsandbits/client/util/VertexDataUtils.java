@@ -35,6 +35,7 @@ public final class VertexDataUtils {
 		);
 
 		final List<VertexData> adaptedVertices = new ArrayList<>();
+
 		for (Vector2f newPosition : boxCorners) {
 			interpolationHelper.locate(newPosition.x(), newPosition.y());
 			final float u = interpolationHelper.interpolate(
@@ -51,9 +52,11 @@ public final class VertexDataUtils {
 			);
 
 			final Vector3f position = VectorUtils.unprojectFromPlaneOf(newPosition, from, cullDirection);
+
 			if (!closestCorners.containsKey(newPosition) || closestCorners.get(newPosition) == null) {
 				throw new IllegalStateException("Could not find a vertex for the given position: %s".formatted(newPosition));
 			}
+
 			final VertexData vertex = new VertexData(position, new Vector2f(u,v), closestCorners.get(newPosition).vertexIndex());
 			adaptedVertices.add(vertex);
 		}
@@ -65,15 +68,19 @@ public final class VertexDataUtils {
 
 	private static Map<Vector2f, VertexData> buildClosestVertices(final VertexData[] vertexData, final Collection<Vector2f> boxCorners, Direction cullDirection) {
 		final Vector2f center = new Vector2f();
+
 		for (final Vector2f corner : boxCorners) {
 			center.add(corner);
 		}
+
 		center.mul(1f / boxCorners.size());
 
 		final Vector2f centerOfVertices = new Vector2f();
+
 		for (final VertexData vertex : vertexData) {
 			centerOfVertices.add(vertex.projectOntoPlaneOf(cullDirection));
 		}
+
 		centerOfVertices.mul(1f / vertexData.length);
 
 		enum Corner {
@@ -103,6 +110,7 @@ public final class VertexDataUtils {
 		boxCorners.forEach(corner -> boxCornersByCorner.put(Corner.closest(corner, center), corner));
 
 		final BiMap<Corner, VertexData> vertexByCorner = HashBiMap.create();
+
 		for (VertexData vertexDatum : vertexData) {
 			vertexByCorner.put(Corner.closest(vertexDatum.projectOntoPlaneOf(cullDirection), centerOfVertices), vertexDatum);
 		}

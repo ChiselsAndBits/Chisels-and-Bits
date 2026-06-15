@@ -19,12 +19,16 @@ public final class BlockNeighborhood implements IBlockNeighborhood
 
 	@Override
 	public boolean equals(final Object o)
+
 	{
 		if (this == o)
+
 		{
 			return true;
 		}
+
 		if (!(o instanceof BlockNeighborhood))
+
 		{
 			return false;
 		}
@@ -36,20 +40,24 @@ public final class BlockNeighborhood implements IBlockNeighborhood
 
 	@Override
 	public int hashCode()
+
 	{
 		return neighborhoodMap != null ? neighborhoodMap.hashCode() : 0;
 	}
 
 	@Override
 	public @NotNull BlockInformation getBlockInformation(final Direction direction)
+
 	{
 		return neighborhoodMap.get(direction).getBlockInformation();
 	}
 
 	@Override
 	public @Nullable IAreaAccessor getAreaAccessor(final Direction direction)
+
 	{
 		if (!neighborhoodMap.containsKey(direction))
+
 		{
 			return null;
 		}

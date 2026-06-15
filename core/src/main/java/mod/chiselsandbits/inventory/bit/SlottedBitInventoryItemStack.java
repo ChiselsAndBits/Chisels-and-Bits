@@ -61,6 +61,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	@Override
 	public DisplayContents listContents() {
 		final var count = getContents().count();
+
 		if (count == 0) {
 			return new DisplayContents(List.of(LocalStrings.BitBagEmpty.getText()), true, false);
 		}
@@ -92,8 +93,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		this.slotMap.clear();
 		int slotIndex = 0;
+
 		for (ItemStack bitSlot : slots.values()) {
 			final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
+
 			if (!blockInformation.equals(state)) {
 				this.slotMap.put(slotIndex, bitSlot);
 				slotIndex++;
@@ -117,8 +120,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 		toSort.sort(Map.Entry.<BlockInformation, Integer>comparingByValue().reversed());
 
 		int slotIndex = 0;
+
 		for (Map.Entry<BlockInformation, Integer> e : toSort) {
 			int count = e.getValue();
+
 			if (count == 0) {
 				continue;
 			}
@@ -127,6 +132,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 			while (count >= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock()) {
 				// Give the block to the player
 				ItemStack block = new ItemStack(e.getKey().blockState().getBlock().asItem());
+
 				if (player.getInventory().add(block)) {
 					count -= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock();
 				} else {
@@ -134,6 +140,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 					break;
 				}
 			}
+
 			// Sort the remaining bits into stacks.
 			while (count > IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
@@ -164,6 +171,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 		toSort.sort(Map.Entry.<BlockInformation, Integer>comparingByValue().reversed());
 
 		int slotIndex = 0;
+
 		for (Map.Entry<BlockInformation, Integer> e : toSort) {
 			int count = e.getValue();
 			if (count == 0)

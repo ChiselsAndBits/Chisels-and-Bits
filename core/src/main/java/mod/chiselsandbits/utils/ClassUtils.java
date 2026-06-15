@@ -25,6 +25,7 @@ public class ClassUtils {
 			final String methodName,
 			final Class<?>... args) {
 		final ClassLookupResult result = lookupResult(blkClass, methodName, args);
+
 		if (result.isPresent()) {
 			return result.clazz();
 		}

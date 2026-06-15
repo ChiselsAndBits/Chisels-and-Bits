@@ -13,6 +13,7 @@ public final class BlockNeighborhoodEntry
 	private final IAreaShapeIdentifier identifier;
 
 	public BlockNeighborhoodEntry(final BlockInformation blockInformation, final IAreaAccessor accessor)
+
 	{
 		this.blockInformation = blockInformation;
 		this.accessor = accessor;
@@ -20,6 +21,7 @@ public final class BlockNeighborhoodEntry
 	}
 
 	public BlockNeighborhoodEntry(final BlockInformation blockInformation)
+
 	{
 		this.blockInformation = blockInformation;
 		this.accessor = null;
@@ -28,6 +30,7 @@ public final class BlockNeighborhoodEntry
 
 	@Override
 	public int hashCode()
+
 	{
 		int result = blockInformation != null ? blockInformation.hashCode() : 0;
 		result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
@@ -36,34 +39,43 @@ public final class BlockNeighborhoodEntry
 
 	@Override
 	public boolean equals(final Object o)
+
 	{
 		if (this == o)
+
 		{
 			return true;
 		}
+
 		if (!(o instanceof final BlockNeighborhoodEntry that))
+
 		{
 			return false;
 		}
 
 		if (!Objects.equals(blockInformation, that.blockInformation))
+
 		{
 			return false;
 		}
+
 		return Objects.equals(identifier, that.identifier);
 	}
 
 	public BlockInformation getBlockInformation()
+
 	{
 		return blockInformation;
 	}
 
 	public IAreaAccessor getAccessor()
+
 	{
 		return accessor;
 	}
 
 	public IAreaShapeIdentifier getIdentifier()
+
 	{
 		return identifier;
 	}

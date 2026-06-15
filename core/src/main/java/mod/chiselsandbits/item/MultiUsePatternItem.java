@@ -29,18 +29,21 @@ import net.minecraft.world.level.Level;
 public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiUsePatternItem
 {
 	public MultiUsePatternItem(final Properties builder)
+
 	{
 		super(builder);
 	}
 
 	@Override
 	protected InteractionResult determineSuccessResult(final BlockPlaceContext context, final ItemStack resultingStack)
+
 	{
 		return InteractionResult.SUCCESS;
 	}
 
 	@Override
 	public @NotNull ItemStack seal(final @NotNull ItemStack source) throws SealingNotSupportedException
+
 	{
 		throw new SealingNotSupportedException();
 	}
@@ -55,10 +58,13 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 	{
 		final IPatternPlacementType mode = getMode(stack);
 		if (mode.getGroup().isPresent())
+
 		{
 			tooltipAdder.accept(LocalStrings.PatternItemTooltipModeGrouped.getText(mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
 		}
+
 		else
+
 		{
 			tooltipAdder.accept(LocalStrings.PatternItemTooltipModeSimple.getText(mode.getDisplayName()));
 		}
@@ -77,8 +83,10 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 
 	@Override
 	public @NotNull ItemStack unseal(@NotNull final ItemStack source) throws SealingNotSupportedException
+
 	{
 		if (source.getItem() instanceof ISupportsUnsealing)
+
 		{
 			final ItemStack seal = new ItemStack(ModItems.SINGLE_USE_PATTERN_ITEM.get());
 			final IMultiStateItemStack stack = createItemStack(source);

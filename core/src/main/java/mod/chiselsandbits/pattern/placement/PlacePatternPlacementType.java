@@ -63,6 +63,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 			.allMatch(BlockBehaviour.BlockStateBase::isAir);
 
 		if (!isAir)
+
 		{
 			return PlacementResult.failure(
 				IClientConfiguration::getNotFittingPatternPlacementColor,
@@ -75,6 +76,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 			.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits)
+
 		{
 			return PlacementResult.failure(
 				IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
@@ -82,21 +84,26 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (simulate)
+
 		{
 			return PlacementResult.success();
 		}
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
+
 		{
 			source.stream().sequential().forEach(
 				stateEntryInfo -> {
 					try
+
 					{
 						areaMutator.setInAreaTarget(
 							stateEntryInfo.getBlockInformation(),
 							stateEntryInfo.getStartPoint());
 					}
+
 					catch (SpaceOccupiedException ignored1)
+
 					{
 					}
 				}
@@ -104,6 +111,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		if (!context.getPlayer().isCreative())
+
 		{
 			source.getStatics().getStateCounts().entrySet().stream()
 				.filter(e -> !e.getKey().isAir())
@@ -118,6 +126,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
 	{
 		if (playerEntity.isShiftKeyDown())
+
 		{
 			return blockRayTraceResult.getLocation();
 		}
@@ -127,12 +136,14 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public boolean overridesOccupiedBits(ItemStack heldStack)
+
 	{
 		return false;
 	}
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return Identifier.fromNamespaceAndPath(
 			MOD_ID, "pattern_place"
@@ -141,12 +152,14 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public @NotNull Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return LocalStrings.PatternPlacementModePlacement.getText();
 	}

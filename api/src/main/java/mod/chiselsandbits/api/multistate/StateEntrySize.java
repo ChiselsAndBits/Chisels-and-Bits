@@ -56,6 +56,7 @@ public enum StateEntrySize
 	private final int damageScaleFactor;
 
 	StateEntrySize(final int bitsPerBlockSide)
+
 	{
 		this.bitsPerBlockSide = bitsPerBlockSide;
 		this.bitsPerBlock = this.bitsPerBlockSide * this.bitsPerBlockSide * this.bitsPerBlockSide;
@@ -71,6 +72,7 @@ public enum StateEntrySize
      * @return The amount of bits in a layer on a single side of the block.
      */
 	public int getBitsPerBlockSide()
+
 	{
 		return bitsPerBlockSide;
 	}
@@ -82,6 +84,7 @@ public enum StateEntrySize
      * @return The total amount of bits in a block.
      */
 	public int getBitsPerBlock()
+
 	{
 		return bitsPerBlock;
 	}
@@ -93,6 +96,7 @@ public enum StateEntrySize
      * @return The total amount of bits in a layer.
      */
 	public int getBitsPerLayer()
+
 	{
 		return bitsPerLayer;
 	}
@@ -104,6 +108,7 @@ public enum StateEntrySize
      * @return The size of a bit.
      */
 	public float getSizePerBit()
+
 	{
 		return sizePerBit;
 	}
@@ -115,6 +120,7 @@ public enum StateEntrySize
      * @return The scaling vector.
      */
 	public Vec3 getSizePerBitScalingVector()
+
 	{
 		return new Vec3(sizePerBit, sizePerBit, sizePerBit);
 	}
@@ -126,6 +132,7 @@ public enum StateEntrySize
      * @return The scaling vector.
      */
 	public Vec3 getSizePerHalfBitScalingVector()
+
 	{
 		return new Vec3(sizePerHalfBit, sizePerHalfBit, sizePerHalfBit);
 	}
@@ -137,6 +144,7 @@ public enum StateEntrySize
      * @return The scaling vector.
      */
 	public Vec3 getBitsPerBlockSideScalingVector()
+
 	{
 		return new Vec3(bitsPerBlockSide, bitsPerBlockSide, bitsPerBlockSide);
 	}
@@ -148,6 +156,7 @@ public enum StateEntrySize
      * @return The size of half a single bit.
      */
 	public float getSizePerHalfBit()
+
 	{
 		return sizePerHalfBit;
 	}

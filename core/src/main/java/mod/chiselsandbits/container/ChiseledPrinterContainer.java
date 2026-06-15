@@ -30,6 +30,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 	public ChiseledPrinterContainer(
 	  final int id,
 	  final Inventory playerInventory)
+
 	{
 		this(id, playerInventory, new SimpleContainer(1), new SimpleContainer(1), new SimpleContainer(1), new SimpleContainerData(1));
 	}
@@ -41,6 +42,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 	  final SimpleContainer toolHandler,
 	  final SimpleContainer resultHandler,
 	  final ContainerData stationData)
+
 	{
 		super(ModContainerTypes.CHISELED_PRINTER_CONTAINER.get(), id);
 		this.stationData = stationData;
@@ -55,10 +57,12 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 		  ) {
 			  @Override
 			  public boolean mayPlace(@NotNull final ItemStack stack)
+
 			  {
 				  return stack.isEmpty() || stack.getItem() instanceof IPatternItem;
 			  }
 		  }
+
 		);
 
 		this.addSlot(
@@ -70,10 +74,12 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 		  ) {
 			  @Override
 			  public boolean mayPlace(@NotNull final ItemStack stack)
+
 			  {
 				  return stack.getItem() instanceof IChiselItem;
 			  }
 		  }
+
 		);
 
 		this.addSlot(
@@ -85,10 +91,12 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 		  ) {
 			  @Override
 			  public boolean mayPlace(@NotNull final ItemStack stack)
+
 			  {
 				  return false;
 			  }
 		  }
+
 		);
 
 		for(int rowIndex = 0; rowIndex < PLAYER_INVENTORY_ROWS; ++rowIndex) {
@@ -112,17 +120,20 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 
 	@Override
 	public boolean stillValid(final Player playerIn)
+
 	{
 		return true;
 	}
 
 	public int getChiselProgressionScaled()
+
 	{
 		int progress = this.stationData.get(0);
 		return progress != 0 ? progress * 16 / 100 : 0;
 	}
 
 	public ItemStack getToolStack()
+
 	{
 		return toolHandler.getItem(0);
 	}
@@ -130,12 +141,15 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu
 	@NotNull
 	@Override
 	public ItemStack quickMoveStack(final Player playerIn, final int index)
+
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
+
 		if (slot.hasItem()) {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
+
 			if (index == 2) {
 				if (!this.moveItemStackTo(itemstack1, 3, 39, true)) {
 					return ItemStack.EMPTY;

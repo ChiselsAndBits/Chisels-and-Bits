@@ -35,23 +35,28 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ItemStackUtils
 {
 	private ItemStackUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ItemStackUtils. This is a utility class");
 	}
 
 	public static ItemStack getModeItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IWithModeItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IWithModeItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -60,18 +65,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getHighlightItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IWithHighlightItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IWithHighlightItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -80,18 +89,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getMultiStateItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IMultiStateItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IMultiStateItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -100,18 +113,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getPatternItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IPatternItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -120,13 +137,16 @@ public class ItemStackUtils
 	}
 
 	public static InteractionHand getPatternHandFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return InteractionHand.MAIN_HAND;
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem)
+
 		{
 			return InteractionHand.OFF_HAND;
 		}
@@ -135,18 +155,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getBitItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -155,18 +179,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getLeftClickControllingItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof ILeftClickControllingItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof ILeftClickControllingItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -175,18 +203,22 @@ public class ItemStackUtils
 	}
 
 	public static ItemStack getRightClickControllingItemStackFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IRightClickControllingItem)
+
 		{
 			return playerEntity.getMainHandItem();
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IRightClickControllingItem)
+
 		{
 			return playerEntity.getOffhandItem();
 		}
@@ -195,18 +227,22 @@ public class ItemStackUtils
 	}
 
 	public static BlockInformation getHeldBitBlockInformationFromPlayer(@Nullable final Player playerEntity)
+
 	{
 		if (playerEntity == null)
+
 		{
 			return BlockInformation.AIR;
 		}
 
 		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem)
+
 		{
 			return ((IBitItem) playerEntity.getMainHandItem().getItem()).getBlockInformation(playerEntity.getMainHandItem());
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem)
+
 		{
 			return ((IBitItem) playerEntity.getOffhandItem().getItem()).getBlockInformation(playerEntity.getOffhandItem());
 		}
@@ -218,8 +254,10 @@ public class ItemStackUtils
 		final ItemStack is)
 	{
 		try
+
 		{
 			if (!is.isEmpty() && is.getItem() instanceof final BlockItem blockItem)
+
 			{
 				final BlockState blockState = blockItem.getBlock().defaultBlockState();
 				return new BlockInformation(
@@ -228,7 +266,9 @@ public class ItemStackUtils
 				);
 			}
 		}
+
 		catch (final Throwable ignored)
+
 		{
 		}
 

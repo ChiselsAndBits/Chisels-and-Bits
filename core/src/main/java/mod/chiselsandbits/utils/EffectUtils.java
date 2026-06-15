@@ -25,13 +25,16 @@ public class EffectUtils
 	private static final Random RANDOM = new Random();
 
 	private EffectUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: EffectUtils. This is a utility class");
 	}
 
 	public static void addBlockDestroyEffects(final LevelReader levelReader, final BlockPos pos, final BlockState primaryState, final ParticleEngine manager, final Level renderingWorld)
+
 	{
 		if (!primaryState.isAir())
+
 		{
 			final VoxelShape voxelshape = levelReader.getBlockState(pos).getShape(levelReader, pos);
 			voxelshape.forAllBoxes((p_228348_3_, p_228348_5_, p_228348_7_, p_228348_9_, p_228348_11_, p_228348_13_) -> {
@@ -43,10 +46,13 @@ public class EffectUtils
 				final int k = Math.max(2, Mth.ceil(d3 / 0.25D));
 
 				for (int l = 0; l < i; ++l)
+
 				{
 					for (int i1 = 0; i1 < j; ++i1)
+
 					{
 						for (int j1 = 0; j1 < k; ++j1)
+
 						{
 							final double d4 = ((double) l + 0.5D) / (double) i;
 							final double d5 = ((double) i1 + 0.5D) / (double) j;
@@ -70,6 +76,7 @@ public class EffectUtils
 	}
 
 	public static boolean addHitEffects(final Level world, final BlockPos blockPos, final Direction hitDirection, final BlockState primaryState, final ParticleEngine manager)
+
 	{
 		if (Minecraft.getInstance().player == null)
 			return false;
@@ -77,6 +84,7 @@ public class EffectUtils
 		final ItemStack hitWith = Minecraft.getInstance().player.getMainHandItem();
 
 		if (!hitWith.isEmpty() && hitWith.getItem() instanceof INoHitEffectsItem)
+
 		{
 			return true;
 		}
@@ -90,6 +98,7 @@ public class EffectUtils
 		double z = blockPos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
 
 		switch (hitDirection)
+
 		{
 			case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
 			case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
@@ -98,6 +107,7 @@ public class EffectUtils
 			case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
 			case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
 			default ->
+
 			{
 			}
 		}

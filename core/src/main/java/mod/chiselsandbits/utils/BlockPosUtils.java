@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 public class BlockPosUtils
 {
 	private BlockPosUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockPosUtils. This is a utility class");
 	}

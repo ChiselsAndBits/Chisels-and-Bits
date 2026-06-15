@@ -16,6 +16,7 @@ public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRe
 
 	@Override
 	public Identifier getId()
+
 	{
 		return ID;
 	}

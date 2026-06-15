@@ -16,6 +16,7 @@ public final class PermissionHandler implements IPermissionHandler
 	private static final PermissionHandler INSTANCE = new PermissionHandler();
 
 	public static PermissionHandler getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -23,15 +24,18 @@ public final class PermissionHandler implements IPermissionHandler
 	private final Map<ICheckerRegistration, IPermissionChecker> checkers = Maps.newConcurrentMap();
 
 	private PermissionHandler()
+
 	{
 	}
 
 	@Override
 	public ICheckerRegistration registerChecker(final IPermissionChecker checker)
+
 	{
 		final ICheckerRegistration registration = new ICheckerRegistration() {
 			@Override
 			public void close()
+
 			{
 				checkers.remove(this);
 			}
@@ -45,6 +49,7 @@ public final class PermissionHandler implements IPermissionHandler
 	@Override
 	public boolean canManipulate(
 	  final @NotNull Player player, final IWorldAreaAccessor worldAreaAccessor)
+
 	{
 		if (checkers.size() == 0)
 			return true;

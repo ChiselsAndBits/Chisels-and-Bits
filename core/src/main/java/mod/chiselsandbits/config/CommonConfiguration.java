@@ -31,12 +31,14 @@ public class CommonConfiguration implements ICommonConfiguration
 
 	@Override
 	public Supplier<Boolean> getEnableHelp()
+
 	{
 		return enableHelp;
 	}
 
 	@Override
 	public Supplier<Long> getCollisionBoxCacheSize()
+
 	{
 		return collisionBoxCacheSize;
 	}
@@ -48,6 +50,7 @@ public class CommonConfiguration implements ICommonConfiguration
 
 	@Override
 	public Supplier<Integer> getBlockSaveThreadCount()
+
 	{
 		return blockSaveThreadCount;
 	}

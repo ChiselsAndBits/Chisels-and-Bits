@@ -16,6 +16,7 @@ public class TagGeneratorEventHandler
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		DataGenerator gen = event.getGenerator();
 		PackOutput packOutput = gen.getPackOutput();

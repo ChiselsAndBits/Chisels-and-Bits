@@ -25,24 +25,28 @@ public class GivePlayerPatternCommandPacket extends ModPacket
 	}
 
 	public GivePlayerPatternCommandPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		IMultiStateSnapshot.STREAM_CODEC.encode(buffer, snapshot);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		snapshot = IMultiStateSnapshot.STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		final Item item = ModItems.SINGLE_USE_PATTERN_ITEM.get();
 		final IMultiStateItemStack patternStack = this.snapshot.toItemStack();

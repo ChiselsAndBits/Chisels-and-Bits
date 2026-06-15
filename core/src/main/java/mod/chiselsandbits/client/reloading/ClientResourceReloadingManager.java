@@ -26,6 +26,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	private static final ClientResourceReloadingManager INSTANCE = new ClientResourceReloadingManager();
 
 	public static ClientResourceReloadingManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -33,22 +34,26 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	private final Set<ICacheClearingHandler> cacheClearingHandlers = Sets.newConcurrentHashSet();
 
 	private ClientResourceReloadingManager()
+
 	{
 	}
 
 	@Override
 	public void onResourceManagerReload(final @NotNull ResourceManager manager)
+
 	{
 		clearCaches();
 	}
 
 	public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler)
+
 	{
 		this.cacheClearingHandlers.add(cacheClearingHandler);
 		return this;
 	}
 
 	public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar)
+
 	{
 		LOGGER.info("Setting up client reloading resource manager.");
 		registrar.addListener(
@@ -68,6 +73,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	}
 
 	public void clearCaches()
+
 	{
 		LOGGER.info("Resetting client caches");
 		cacheClearingHandlers.forEach(ICacheClearingHandler::clear);

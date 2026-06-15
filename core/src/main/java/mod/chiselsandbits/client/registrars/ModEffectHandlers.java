@@ -17,11 +17,13 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ModEffectHandlers
 {
 	private ModEffectHandlers()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockColors. This is a utility class");
 	}
 
 	public static void onClientConstruction()
+
 	{
 		IEffectManager.getInstance()
 			.setupHitEffects(registrar -> {
@@ -29,9 +31,11 @@ public class ModEffectHandlers
 								   {
 									   @Nullable
 									   private BlockState getPrimaryState(Level level, BlockPos pos)
+
 									   {
 										   final BlockEntity blockEntity = level.getBlockEntity(pos);
 										   if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity))
+
 										   {
 											   return null;
 										   }
@@ -49,6 +53,7 @@ public class ModEffectHandlers
 									   {
 										   final BlockState primaryState = getPrimaryState(level, blockPos);
 										   if (primaryState == null)
+
 										   {
 											   return false;
 										   }
@@ -65,9 +70,11 @@ public class ModEffectHandlers
 								   {
 									   @Nullable
 									   private BlockState getPrimaryState(Level level, BlockPos pos)
+
 									   {
 										   final BlockEntity blockEntity = level.getBlockEntity(pos);
 										   if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity))
+
 										   {
 											   return null;
 										   }
@@ -77,9 +84,11 @@ public class ModEffectHandlers
 
 									   @Override
 									   public boolean addDestroyEffects(final BlockState blockState, final Level level, final BlockPos blockPos, final ParticleEngine particleEngine)
+
 									   {
 										   final BlockState primaryState = getPrimaryState(level, blockPos);
 										   if (primaryState == null)
+
 										   {
 											   return false;
 										   }

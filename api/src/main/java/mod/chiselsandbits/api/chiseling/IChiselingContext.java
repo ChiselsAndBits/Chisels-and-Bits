@@ -305,14 +305,17 @@ public interface IChiselingContext extends IStateAccessor
 		return getMutator().map(mutator -> {
 			final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
 			if (heightPos.getY() >= getWorld().getMaxY())
+
 			{
 				setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
 				return false;
 			}
+
 			else if (heightPos.getY() <= getWorld().getMinY()) {
 				setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
 				return false;
 			}
+
 			return true;
 		}).orElse(true);
 	}

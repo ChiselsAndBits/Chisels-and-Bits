@@ -12,11 +12,13 @@ public final class ProcessingInputTracker
 	private static final ProcessingInputTracker INSTANCE = new ProcessingInputTracker();
 
 	public static ProcessingInputTracker getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	private ProcessingInputTracker()
+
 	{
 	}
 
@@ -31,6 +33,7 @@ public final class ProcessingInputTracker
 	public void onStoppedLeftClicking(final Player player) {
 		final ItemStack leftClickHandlingStack = ItemStackUtils.getLeftClickControllingItemStackFromPlayer(player);
 		if (leftClickHandlingStack.isEmpty())
+
 		{
 			return;
 		}
@@ -45,6 +48,7 @@ public final class ProcessingInputTracker
 	public void onStoppedRightClicking(final Player player) {
 		final ItemStack rightClickHandlingStack = ItemStackUtils.getRightClickControllingItemStackFromPlayer(player);
 		if (rightClickHandlingStack.isEmpty())
+
 		{
 			return;
 		}

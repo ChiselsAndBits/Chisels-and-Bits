@@ -29,24 +29,28 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 
 	@Override
 	public @Nullable Class<Config> getConfigClass()
+
 	{
 		return Config.class;
 	}
 
 	@Override
 	public boolean isEnabled(final boolean client)
+
 	{
 		return !client;
 	}
 
 	@Override
 	public String name()
+
 	{
 		return NAME;
 	}
 
 	@Override
 	public ExporterModule create(final ExportContext context, @Nullable TagExporterFactory.Config config)
+
 	{
 		if (config == null)
 			throw new IllegalStateException();
@@ -60,13 +64,16 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 	) implements NamespacedModuleConfig {}
 
 	public record Exporter(Config config) implements ExporterModule
+
 	{
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 		@Override
 		public void run(final Path output) throws Exception
+
 		{
 			for (final String registryName : config.registries())
+
 			{
 				var registryIdentifier = Identifier.parse(registryName);
 				var registryKey = ResourceKey.createRegistryKey(registryIdentifier);
@@ -82,8 +89,10 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 		}
 
 		private <T> void runFor(final Path output, final Registry<T> registry, final Identifier registryIdentifier) throws IOException
+
 		{
 			for (final HolderSet.Named<T> tagHolder : registry.getTags().toList())
+
 			{
 				if (!config().namespaces().contains(tagHolder.key().location().getNamespace()))
 					continue;
@@ -108,6 +117,7 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 		}
 
 		private static void write(final Path output, final List<String> contents) throws IOException
+
 		{
 			if (!Files.exists(output.getParent()))
 				Files.createDirectories(output.getParent());

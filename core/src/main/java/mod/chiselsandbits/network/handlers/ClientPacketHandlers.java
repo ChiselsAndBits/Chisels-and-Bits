@@ -36,6 +36,7 @@ import net.minecraft.world.level.redstone.Orientation;
 public final class ClientPacketHandlers
 {
 	private ClientPacketHandlers()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ClientPacketHandlers. This is a utility class");
 	}
@@ -44,6 +45,7 @@ public final class ClientPacketHandlers
 		try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Handling tile entity update packet")) {
 			if (Minecraft.getInstance().level != null) {
 				BlockEntity tileEntity = Minecraft.getInstance().level.getBlockEntity(blockPos);
+
 				if (tileEntity == null) {
 					Minecraft.getInstance().level.setBlock(blockPos, ModBlocks.CHISELED_BLOCK.get().defaultBlockState(), Block.UPDATE_ALL_IMMEDIATE);
 					tileEntity = Minecraft.getInstance().level.getBlockEntity(blockPos);
@@ -68,6 +70,7 @@ public final class ClientPacketHandlers
 	public static void handleChangeTrackerUpdated(final Deque<IChange> tag) {
 		IChangeTrackerManager.getInstance().getChangeTracker(Minecraft.getInstance().player).setChanges(tag);
 		if(Minecraft.getInstance().screen instanceof AbstractChiselsAndBitsScreen)
+
 		{
 			((AbstractChiselsAndBitsScreen) Minecraft.getInstance().screen).getWidgets()
 			  .stream()
@@ -96,6 +99,7 @@ public final class ClientPacketHandlers
 	public static void handleExportPatternCommandMessage(final BlockPos target, final String name) {
 		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(target);
 		if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity))
+
 		{
 			Minecraft.getInstance().getChatListener().handleSystemMessage(Component.literal("Failed to export pattern: " + name + " - Not a multistate block."), false);
 			return;

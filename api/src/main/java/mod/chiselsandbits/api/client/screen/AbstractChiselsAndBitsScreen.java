@@ -29,12 +29,14 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
      * @param narrationMessage The narration message for the screen.
      */
 	protected AbstractChiselsAndBitsScreen(final Component narrationMessage)
+
 	{
 		super(narrationMessage);
 	}
 
 	@Override
 	protected void init()
+
 	{
 		super.init();
 		this.isInitialized = true;
@@ -46,14 +48,17 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	public <T extends GuiEventListener & Renderable & NarratableEntry> @NotNull T addRenderableWidget(final @NotNull T button)
+
 	{
 		return super.addRenderableWidget(button);
 	}
 
 	@Override
 	protected <T extends Renderable> @NotNull T addRenderableOnly(final @NotNull T widget)
+
 	{
 		final T resultingWidget =  super.addRenderableOnly(widget);
+
 		if (resultingWidget instanceof Renderable) {
 			this.renderables.add(resultingWidget);
 		}
@@ -63,10 +68,12 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	public <T extends GuiEventListener & NarratableEntry> @NotNull T addWidget(final @NotNull T widget)
+
 	{
 		final T resultingWidget = super.addWidget(widget);
 
 		if (isInitialized() && widget instanceof IChiselsAndBitsWidget)
+
 		{
 			widgets.add((IChiselsAndBitsWidget) resultingWidget);
 			((IChiselsAndBitsWidget) widget).init();
@@ -81,13 +88,16 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	public void removeWidget(final @NotNull GuiEventListener listener)
+
 	{
 		super.removeWidget(listener);
 		if (listener instanceof IChiselsAndBitsWidget)
+
 		{
 			this.widgets.remove(listener);
 			((IChiselsAndBitsWidget) listener).removed();
 		}
+
 		if (listener instanceof Renderable) {
 			this.renderables.remove(listener);
 		}
@@ -95,6 +105,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	protected void clearWidgets()
+
 	{
 		this.widgets.stream()
 		  .filter(IChiselsAndBitsWidget.class::isInstance)
@@ -108,6 +119,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	public void removed()
+
 	{
 		this.widgets.stream()
 		  .filter(IChiselsAndBitsWidget.class::isInstance)
@@ -117,6 +129,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	@Override
 	public boolean isInitialized()
+
 	{
 		return isInitialized;
 	}
@@ -127,14 +140,17 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
      * @return The widgets on this screen.
      */
 	public List<IChiselsAndBitsWidget> getWidgets()
+
 	{
 		return widgets;
 	}
 
 	@Override
 	public void extractRenderState(final @NotNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float partialTickTime)
+
 	{
 		final  List<Renderable> renderTargets = new ArrayList<>(this.renderables);
+
 		for(Renderable widget : renderTargets) {
 			widget.extractRenderState(guiGraphics, mouseX, mouseY, partialTickTime);
 		}

@@ -38,6 +38,7 @@ public enum CollisionType
 	}
 
 	public BlockState getExampleState()
+
 	{
 		return exampleState;
 	}

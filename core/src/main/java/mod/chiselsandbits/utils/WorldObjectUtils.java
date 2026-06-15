@@ -7,6 +7,7 @@ import net.minecraft.world.phys.Vec3;
 public class WorldObjectUtils
 {
 	private WorldObjectUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: WorldObjectUtils. This is a utility class");
 	}

@@ -56,9 +56,11 @@ public class InterpolationHelper {
 		this.p00 = 0;// Bottom Left is always primary.
 		this.x0 = this.posCache[this.p00][0];
 		this.y0 = this.posCache[this.p00][1];
+
 		for (int i = 1; i < 4; i++) {
 			float x = this.posCache[i][0];
 			float y = this.posCache[i][1];
+
 			if (this.y0 == y) {
 				this.p10 = i;// Bottom right.
 				this.x1 = x;

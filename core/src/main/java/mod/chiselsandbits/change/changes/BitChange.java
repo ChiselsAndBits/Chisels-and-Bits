@@ -87,8 +87,10 @@ public class BitChange implements IChange
 
 	@Override
 	public boolean canUndo(@NotNull final Player player)
+
 	{
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
+
 		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
 			final BlockState state = player.level().getBlockState(blockPos);
 			final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
@@ -104,9 +106,11 @@ public class BitChange implements IChange
 
 	@Override
 	public boolean canRedo(final Player player)
+
 	{
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
 		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity))
+
 		{
 			final BlockState state = player.level().getBlockState(blockPos);
 			final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
@@ -122,11 +126,13 @@ public class BitChange implements IChange
 
 	@Override
 	public void undo(final Player player) throws IllegalChangeAttempt
+
 	{
 		if (!canUndo(player))
 			throw new IllegalChangeAttempt();
 
 		BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
+
 		if (!(tileEntity instanceof IMultiStateBlockEntity)) {
 			BlockState currentState = player.level().getBlockState(blockPos);
 			final Optional<Block> convertedState = IConversionManager.getInstance().getChiseledVariantOf(currentState);
@@ -155,14 +161,18 @@ public class BitChange implements IChange
 			before.stream().forEach(
 			  iStateEntryInfo -> {
 				  try
+
 				  {
 					  multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
 				  }
+
 				  catch (SpaceOccupiedException e)
+
 				  {
 					  //Noop
 				  }
 			  }
+
 			);
 		}
 
@@ -182,14 +192,17 @@ public class BitChange implements IChange
 
 	@Override
 	public void redo(final Player player) throws IllegalChangeAttempt
+
 	{
 		if (!canRedo(player))
 			throw new IllegalChangeAttempt();
 
 		BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
+
 		if (!(tileEntity instanceof IMultiStateBlockEntity)) {
 			BlockState currentState = player.level().getBlockState(blockPos);
 			BlockState initializationState = currentState;
+
 			if (currentState.isAir()) {
 				currentState = Blocks.STONE.defaultBlockState();
 			}
@@ -220,18 +233,23 @@ public class BitChange implements IChange
 			after.stream().forEach(
 			  s -> {
 				  try
+
 				  {
 					  multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
 				  }
+
 				  catch (SpaceOccupiedException e)
+
 				  {
 					  //Noop
 				  }
 			  }
+
 			);
 		}
 
 		if (!player.isCreative())
+
 		{
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {

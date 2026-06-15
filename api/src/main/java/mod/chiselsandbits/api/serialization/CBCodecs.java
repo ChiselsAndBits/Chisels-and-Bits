@@ -77,6 +77,7 @@ public interface CBCodecs {
 							if (key != 0) {
 								throw new IllegalStateException("Wrong version stored for single version codec.");
 							}
+
 							return singleVersionCodec;
 						}),
 				fallback
@@ -99,6 +100,7 @@ public interface CBCodecs {
 							if (!versions.containsKey(key)) {
 								throw new IllegalStateException("Unknown version: " + key);
 							}
+
 							return versions.get(key);
 						}),
 				fallback.codec()
@@ -118,6 +120,7 @@ public interface CBCodecs {
 					byteBuffer.get(bytes);
 
 					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
 					try {
 						final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
 						final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
@@ -149,6 +152,7 @@ public interface CBCodecs {
 					byteBuffer.get(bytes);
 
 					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
 					try {
 						final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
 						final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
@@ -166,6 +170,7 @@ public interface CBCodecs {
 					final Tag tag = inner.encodeStart(ops, t).getOrThrow((s) -> new IllegalStateException("Failed to encode data: " + s));
 
 					final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
 					try {
 						final OutputStream lz4Stream = new LZ4FrameOutputStream(outputStream);
 						final DataOutput dataOutput = new DataOutputStream(lz4Stream);
@@ -239,6 +244,7 @@ public interface CBCodecs {
 				if (lazyTag != null) {
 					lazyTag.keySet().forEach(key -> {
 						final Tag tag = lazyTag.get(key);
+
 						if (tag != null) {
 							prefix.add(key, nbtOps.convertTo(ops, tag));
 						}
@@ -281,19 +287,25 @@ public interface CBCodecs {
 		@Override
 		public <T> DataResult<Pair<F, T>> decode(final DynamicOps<T> ops, final T input) {
 			final DataResult<Pair<F, T>> firstRead = primary.decode(ops, input);
+
 			if (firstRead.isSuccess()) {
 				return firstRead;
 			}
+
 			final DataResult<Pair<F, T>> secondRead = fallback.decode(ops, input);
+
 			if (secondRead.isSuccess()) {
 				return secondRead;
 			}
+
 			if (firstRead.hasResultOrPartial()) {
 				return firstRead;
 			}
+
 			if (secondRead.hasResultOrPartial()) {
 				return secondRead;
 			}
+
 			return DataResult.error(() -> "Failed to parse either. First: " + firstRead.error().orElseThrow().message() + "; Second: " + secondRead.error().orElseThrow().message());
 		}
 

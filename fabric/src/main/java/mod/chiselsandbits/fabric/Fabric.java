@@ -17,6 +17,7 @@ public class Fabric implements ModInitializer {
 	private ChiselsAndBits chiselsAndBits;
 
 	public Fabric()
+
 	{
 		LOGGER.info("Initialized chisels-and-bits for Fabric");
 		PlatformInitializationHandler.getInstance().onInit(platform -> setChiselsAndBits(new ChiselsAndBits(
@@ -28,8 +29,10 @@ public class Fabric implements ModInitializer {
 
 	@Override
 	public void onInitialize()
+
 	{
 		if (chiselsAndBits != null)
+
 		{
 			chiselsAndBits.onInitialize();
 			return;
@@ -37,6 +40,7 @@ public class Fabric implements ModInitializer {
 
 		PlatformInitializationHandler.getInstance().onInit(platform -> {
 			if (chiselsAndBits == null)
+
 			{
 				throw new IllegalStateException("Chisels and bits was not initialized properly.");
 			}
@@ -46,6 +50,7 @@ public class Fabric implements ModInitializer {
 	}
 
 	public void setChiselsAndBits(final ChiselsAndBits chiselsAndBits)
+
 	{
 		this.chiselsAndBits = chiselsAndBits;
 	}

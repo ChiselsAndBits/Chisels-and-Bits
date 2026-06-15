@@ -66,6 +66,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true,
 			new AbstractRecipeGenerator.Runner(
@@ -204,8 +205,10 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 
 	@Override
 	protected void buildRecipes()
+
 	{
 		if (this.shapeless)
+
 		{
 			final ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.TOOLS, getItemProvider());
 			tagMap.forEach((ingredientKey, tag) -> {
@@ -218,7 +221,9 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 			});
 			builder.save(this.output);
 		}
+
 		else
+
 		{
 			final ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(this.items, RecipeCategory.TOOLS, getItemProvider());
 			pattern.forEach(builder::pattern);

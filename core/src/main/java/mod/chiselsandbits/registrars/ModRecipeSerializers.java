@@ -18,11 +18,13 @@ public final class ModRecipeSerializers
 	  .register("modification_table", () -> new RecipeSerializer<>(ModificationTableRecipe.CODEC, ModificationTableRecipe.STREAM_CODEC));
 
 	private ModRecipeSerializers()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModRecipeSerializers. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded recipe serializer configuration.");
 	}

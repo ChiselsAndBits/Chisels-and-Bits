@@ -31,6 +31,7 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true,
 			new Runner(
@@ -42,18 +43,21 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider
 
 	private static final class Runner extends RecipeProvider.Runner {
 		Runner(final PackOutput packOutput, final CompletableFuture<HolderLookup.Provider> registries)
+
 		{
 			super(packOutput, registries);
 		}
 
 		@Override
 		protected @NonNull RecipeProvider createRecipeProvider(final HolderLookup.@NonNull Provider registries, final @NonNull RecipeOutput output)
+
 		{
 			return new DyeableItemsRecipeGenerator(registries, output);
 		}
 
 		@Override
 		public @NonNull String getName()
+
 		{
 			return "Dyeable Chisels & Bits Items";
 		}
@@ -61,6 +65,7 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider
 
 	@Override
 	protected void buildRecipes()
+
 	{
 		dyedItem(ModItems.ITEM_BIT_BAG.get(), "dyed_bit_bag");
 	}

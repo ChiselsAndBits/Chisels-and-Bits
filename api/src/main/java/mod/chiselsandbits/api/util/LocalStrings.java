@@ -256,17 +256,20 @@ public enum LocalStrings
 
 	LocalStrings(
 	  final String postFix)
+
 	{
 		string = "mod.chiselsandbits." + postFix;
 	}
 
 	@Override
 	public String toString()
+
 	{
 		return string;
 	}
 
 	public MutableComponent getText()
+
 	{
 		return Component.translatable(string);
 	}
@@ -274,6 +277,7 @@ public enum LocalStrings
 	public MutableComponent getText(
 	  final Object... args
 	)
+
 	{
 		return Component.translatable(string, args);
 	}
@@ -281,6 +285,7 @@ public enum LocalStrings
 	public List<MutableComponent> getTextLines(
 	  final Object... args
 	)
+
 	{
 		final MutableComponent component = Component.translatable(string, args);
 		final String componentString = component.getString();

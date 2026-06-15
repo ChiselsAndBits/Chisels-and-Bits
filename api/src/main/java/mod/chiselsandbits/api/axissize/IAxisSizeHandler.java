@@ -10,12 +10,14 @@ public interface IAxisSizeHandler
 		return new IAxisSizeHandler() {
 			@Override
 			public int getLowest()
+
 			{
 				return 0;
 			}
 
 			@Override
 			public int getHighest()
+
 			{
 				return 0;
 			}

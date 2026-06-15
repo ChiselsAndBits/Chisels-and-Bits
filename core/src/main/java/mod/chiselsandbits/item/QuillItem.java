@@ -43,30 +43,35 @@ public class QuillItem extends Item implements IQuillItem
 	private final String CONST_SIMULATION = "Simulation";
 
 	public QuillItem(final Properties properties)
+
 	{
 		super(properties.enchantable(5));
 	}
 
 	@Override
 	public boolean isInteracting(final ItemStack stack)
+
 	{
 		return stack.getItem() == this && stack.has(ModDataComponentTypes.INTERACTION_TARGET.get());
 	}
 
 	@Override
 	public ItemStack getInteractionTarget(final ItemStack stack)
+
 	{
 		return stack.getOrDefault(ModDataComponentTypes.INTERACTION_TARGET.get(), InteractionData.EMPTY).stack();
 	}
 
 	@Override
 	public boolean isRunningASimulatedInteraction(final ItemStack stack)
+
 	{
 		return isInteracting(stack) && stack.getOrDefault(ModDataComponentTypes.IS_SIMULATING.get(), false);
 	}
 
 	@Override
 	public float getBobbingTickCount()
+
 	{
 		return 4f;
 	}
@@ -119,7 +124,9 @@ public class QuillItem extends Item implements IQuillItem
 				IPlayerInventoryManager.getInstance()
 				  .giveToPlayer(player, pattern);
 			}
+
 			stack.remove(ModDataComponentTypes.INTERACTION_TARGET.get());
+
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
@@ -145,6 +152,7 @@ public class QuillItem extends Item implements IQuillItem
 
 		InteractionHand otherHand = handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 		ItemStack itemInOtherHand = playerIn.getItemInHand(otherHand);
+
 		if (createPattern(playerIn).getItem() != Items.PAPER && itemInOtherHand.getItem() == Items.PAPER) {
 			ItemStack item = itemInOtherHand.copy();
 			ItemStack target = item.split(1);
@@ -160,6 +168,7 @@ public class QuillItem extends Item implements IQuillItem
 	private static ItemStack createPattern(final Player playerEntity) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+
 		{
 			return new ItemStack(Items.PAPER);
 		}

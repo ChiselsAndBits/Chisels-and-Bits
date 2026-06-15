@@ -87,11 +87,13 @@ public final class ModBlocks
 	);
 
 	private ModBlocks()
+
 	{
 		throw new IllegalStateException("Tried to initialize: ModBlocks but this is a Utility class.");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded block configuration.");
 	}

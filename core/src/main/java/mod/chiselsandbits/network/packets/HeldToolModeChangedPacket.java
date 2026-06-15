@@ -18,31 +18,37 @@ public final class HeldToolModeChangedPacket extends ModPacket
 	private int modeIndex;
 
 	public HeldToolModeChangedPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public HeldToolModeChangedPacket(final int modeIndex)
+
 	{
 		this.modeIndex = modeIndex;
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeVarInt(this.modeIndex);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.modeIndex = buffer.readVarInt();
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		final ItemStack stack = ItemStackUtils.getModeItemStackFromPlayer(playerEntity);
+
 		if (stack.getItem() instanceof IWithModeItem) {
 			final IWithModeItem<?> modeItem = (IWithModeItem<?>) stack.getItem();
 			modeItem.setMode(stack, modeIndex);

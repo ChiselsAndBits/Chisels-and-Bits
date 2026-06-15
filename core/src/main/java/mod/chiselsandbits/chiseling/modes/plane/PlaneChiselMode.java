@@ -55,15 +55,18 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	  final MutableComponent displayName,
 	  final MutableComponent multiLineDisplayName,
 	  final Identifier iconName)
+
 	{
 		this.depth = depth;
 		this.displayName = displayName;
 		this.multiLineDisplayName = multiLineDisplayName;
 		this.iconName = iconName;
 	}
+
 	@Override
 	public ClickProcessingState onLeftClickBy(
 	  final Player playerEntity, final IChiselingContext context)
+
 	{
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
 		  playerEntity,
@@ -73,6 +76,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		);
 
 		if (context.isSimulation())
+
 		{
 			return ClickProcessingState.DEFAULT;
 		}
@@ -122,11 +126,13 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 	}
 
 	@Override
 	public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context)
+
 	{
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
 		  playerEntity,
@@ -136,6 +142,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		);
 
 		if (context.isSimulation())
+
 		{
 			return ClickProcessingState.DEFAULT;
 		}
@@ -143,6 +150,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 			  if (heldBlockState.isAir())
+
 			  {
 				  return ClickProcessingState.DEFAULT;
 			  }
@@ -155,8 +163,10 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  context.setComplete();
 			  if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative())
+
 			  {
 				  if (!playerEntity.isCreative())
+
 				  {
 					  playerBitInventory.extract(heldBlockState, missingBitCount);
 				  }
@@ -169,7 +179,9 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
 				  }
 			  }
+
 			  else
+
 			  {
 				  context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			  }
@@ -187,11 +199,13 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 	}
 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
+
 	{
 		return context.getMutator().map(mutator -> mutator);
 	}
@@ -202,9 +216,11 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	  final Function<Direction, Vec3> placementFacingAdapter,
 	  final Function<Direction, Direction> iterationAdaptor
 	)
+
 	{
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+
 		{
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
@@ -221,6 +237,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		final Direction iterationDirection = iterationAdaptor.apply(blockRayTraceResult.getDirection());
 		switch (iterationDirection)
+
 		{
 			case DOWN -> includeDownAxis(context, hitBlockPosVector, inBlockBitVector);
 			case UP -> includeUpAxis(context, hitBlockPosVector, inBlockBitVector);
@@ -234,6 +251,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeDownAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(0, inBlockBitVector.y() - depth, 0).add(Vec3.atLowerCornerOf(Direction.UP.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -244,6 +262,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeUpAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(0, inBlockBitVector.y() + depth, 0).add(Vec3.atLowerCornerOf(Direction.DOWN.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -254,6 +273,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeNorthAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(0, 0, inBlockBitVector.z() - depth).add(Vec3.atLowerCornerOf(Direction.SOUTH.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -264,6 +284,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeSouthAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(0, 0, inBlockBitVector.z() + depth).add(Vec3.atLowerCornerOf(Direction.NORTH.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -274,6 +295,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeWestAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(inBlockBitVector.x() - depth, 0, 0).add(Vec3.atLowerCornerOf(Direction.EAST.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -284,6 +306,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private void includeEastAxis(final IChiselingContext context, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector)
+
 	{
 		final BlockPos position = VectorUtils.toBlockPos(hitBlockPosVector);
 		context.include(position, clampVectorToBlock(new Vec3(inBlockBitVector.x() + depth, 0, 0).add(Vec3.atLowerCornerOf(Direction.WEST.getUnitVec3i())).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())));
@@ -294,6 +317,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	}
 
 	private Vec3 clampVectorToBlock(final Vec3 v)
+
 	{
 		return new Vec3(
 		  v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()),
@@ -304,6 +328,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context)
+
 	{
 		if (context.getMutator().isEmpty())
 			return Shapes.empty();
@@ -313,18 +338,21 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return iconName;
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return this.displayName;
 	}
 
 	@Override
 	public Component getMultiLineDisplayName()
+
 	{
 		return this.multiLineDisplayName;
 	}
@@ -332,6 +360,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	@NotNull
 	@Override
 	public Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.of(ModChiselModeGroups.PLANE);
 	}

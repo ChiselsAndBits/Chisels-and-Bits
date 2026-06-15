@@ -15,6 +15,7 @@ public final class FrameBasedInputTracker
 	private static final FrameBasedInputTracker INSTANCE = new FrameBasedInputTracker();
 
 	public static FrameBasedInputTracker getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -31,6 +32,7 @@ public final class FrameBasedInputTracker
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedLeftClicking(Minecraft.getInstance().player));
 	  }
+
 	);
 
 	private final InputTracker rightMouseTracker = new InputTracker(
@@ -45,9 +47,11 @@ public final class FrameBasedInputTracker
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedRightClicking(Minecraft.getInstance().player));
 	  }
+
 	);
 
 	private FrameBasedInputTracker()
+
 	{
 	}
 
@@ -71,10 +75,12 @@ public final class FrameBasedInputTracker
 
 		public void tick() {
 			final boolean newPotentialState = isActiveChecker.get();
+
 			if (isActive && !newPotentialState) {
 				onToggleOff.run();
 				isActive = false;
 			}
+
 			else if (!isActive && newPotentialState) {
 				onToggleOn.run();
 				isActive = true;

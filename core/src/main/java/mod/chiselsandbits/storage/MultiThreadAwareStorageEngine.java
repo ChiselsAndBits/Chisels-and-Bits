@@ -35,6 +35,7 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 				  thread.setDaemon(true);
 				  return thread;
 			  }
+
 			);
 		}
 	}

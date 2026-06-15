@@ -24,6 +24,7 @@ public class LangEntryLangGenerator implements DataProvider
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new LangEntryLangGenerator(event.getGenerator().getPackOutput()));
 	}
@@ -39,6 +40,7 @@ public class LangEntryLangGenerator implements DataProvider
 		final JsonObject returnValue = new JsonObject();
 
 		for (String langKey : langKeys)
+
 		{
 			returnValue.addProperty(langKey, "");
 		}
@@ -52,6 +54,7 @@ public class LangEntryLangGenerator implements DataProvider
 	@NotNull
 	@Override
 	public String getName()
+
 	{
 		return "Local strings lang generator";
 	}

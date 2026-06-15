@@ -17,6 +17,7 @@ public class SimpleMaxSizedCache<K, V>
 	private final LongSupplier maxSizeSupplier;
 
 	public SimpleMaxSizedCache(final long maxSize)
+
 	{
 		Validate.exclusiveBetween(0, 10000000000L, maxSize);
 		this.maxSizeSupplier = () -> maxSize;
@@ -42,6 +43,7 @@ public class SimpleMaxSizedCache<K, V>
 
 	public V get(final K key, final Supplier<V> valueSupplier) {
 		if (!cache.containsKey(key))
+
 		{
 			final V value = valueSupplier.get();
 			put(key, value);

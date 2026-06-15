@@ -35,6 +35,7 @@ public final class BlockNeighborhoodBuilder implements IBlockNeighborhoodBuilder
 			for (final Direction value : Direction.values()) {
 				final BlockInformation state = neighborhoodBlockStateProvider != null ? neighborhoodBlockStateProvider.apply(value) : BlockInformation.AIR;
 				final IAreaAccessor accessor = neighborhoodAreaAccessorProvider != null ? neighborhoodAreaAccessorProvider.apply(value) : null;
+
 				if (accessor == null) {
 					neighborhoodMap.put(value, new BlockNeighborhoodEntry(state));
 				} else {

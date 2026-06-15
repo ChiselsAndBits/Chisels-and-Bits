@@ -23,11 +23,13 @@ public class ModMultiStateSnapshotTypes {
 	public static final IRegistryObject<MultiStateSnapshotTypes> SIMPLE = REGISTRAR.register("simple", () -> MultiStateSnapshotTypes.SIMPLE);
 
 	private ModMultiStateSnapshotTypes()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModMultiStateSnapshotTypes. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded change type configuration.");
 	}

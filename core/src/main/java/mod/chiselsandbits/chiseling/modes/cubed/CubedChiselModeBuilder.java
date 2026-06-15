@@ -11,36 +11,42 @@ public class CubedChiselModeBuilder {
 	private Identifier       iconName;
 
 	public CubedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
+
 	{
 		this.bitsPerSide = bitsPerSide;
 		return this;
 	}
 
 	public CubedChiselModeBuilder setAligned(final boolean aligned)
+
 	{
 		this.aligned = aligned;
 		return this;
 	}
 
 	public CubedChiselModeBuilder setDisplayName(final MutableComponent displayName)
+
 	{
 		this.displayName = displayName;
 		return this;
 	}
 
 	public CubedChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
+
 	{
 		this.multiLineDisplayName = multiLineDisplayName;
 		return this;
 	}
 
 	public CubedChiselModeBuilder setIconName(final Identifier iconName)
+
 	{
 		this.iconName = iconName;
 		return this;
 	}
 
 	public CubedChiselMode createCubedChiselMode()
+
 	{
 		return new CubedChiselMode(bitsPerSide, aligned, displayName, multiLineDisplayName, iconName);
 	}

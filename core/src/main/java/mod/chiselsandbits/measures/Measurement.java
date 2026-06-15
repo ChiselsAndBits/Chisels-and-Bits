@@ -79,10 +79,12 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 	}
 
 	public Measurement()
+
 	{
 	}
 
 	private void adaptPositions(final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode)
+
 	{
 		this.from = mode.getType().isNeedsNormalization() ? new Vec3(
 		  Math.min(from.x(), to.x()),
@@ -102,30 +104,35 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 
 	@Override
 	public UUID getOwner()
+
 	{
 		return owner;
 	}
 
 	@Override
 	public Vec3 getFrom()
+
 	{
 		return from;
 	}
 
 	@Override
 	public Vec3 getTo()
+
 	{
 		return to;
 	}
 
 	@Override
 	public MeasuringMode getMode()
+
 	{
 		return mode;
 	}
 
 	@Override
 	public Identifier getWorldKey()
+
 	{
 		return worldKey;
 	}

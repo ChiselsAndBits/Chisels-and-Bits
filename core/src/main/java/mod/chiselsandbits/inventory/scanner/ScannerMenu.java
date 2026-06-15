@@ -24,6 +24,7 @@ public class ScannerMenu extends ScenaContainerMenu
 	}
 
 	public ScannerMenu(final int screenIndex, final Inventory inventory, final ContainerLevelAccess containerLevelAccess)
+
 	{
 		super(ModContainerTypes.PATTERN_SCANNER_CONTAINER.get(), screenIndex);
 		this.containerLevelAccess = containerLevelAccess;
@@ -32,6 +33,7 @@ public class ScannerMenu extends ScenaContainerMenu
 
 	@Override
 	public boolean stillValid(final @NotNull Player player)
+
 	{
 		return stillValid(containerLevelAccess, player, ModBlocks.PATTERN_SCANNER.get());
 	}

@@ -34,18 +34,21 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 
 	@Override
 	default Vector4f getWireFrameColor(ItemStack heldStack, Player player, BlockHitResult blockHitResult)
+
 	{
 		return getPlacementResult(heldStack, player, blockHitResult).getColor();
 	}
 
 	@Override
 	default Vec3 getTargetedPosition(ItemStack heldStack, Player player, BlockHitResult blockHitResult)
+
 	{
 		return getMode(heldStack).getTargetedPosition(heldStack, player, blockHitResult);
 	}
 
 	@Override
 	default PlacementResult getPlacementResult(ItemStack heldStack, Player player, BlockHitResult blockHitResult)
+
 	{
 		return this.getMode(heldStack).performPlacement(
 				createItemStack(heldStack).createSnapshot(),
@@ -62,6 +65,7 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 
 	@Override
 	default boolean overridesOccupiedBits(ItemStack heldStack)
+
 	{
 		return getMode(heldStack).overridesOccupiedBits(heldStack);
 	}

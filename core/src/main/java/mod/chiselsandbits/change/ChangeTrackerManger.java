@@ -15,6 +15,7 @@ public class ChangeTrackerManger implements IChangeTrackerManager
 	private static final ChangeTrackerManger INSTANCE = new ChangeTrackerManger();
 
 	public static ChangeTrackerManger getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -23,11 +24,13 @@ public class ChangeTrackerManger implements IChangeTrackerManager
 	private final ChangeTracker clientChangeTracker = new ChangeTracker();
 
 	private ChangeTrackerManger()
+
 	{
 	}
 
 	@Override
 	public @NotNull IChangeTracker getChangeTracker(final Player player)
+
 	{
 		if (player.level().isClientSide())
 			return clientChangeTracker;

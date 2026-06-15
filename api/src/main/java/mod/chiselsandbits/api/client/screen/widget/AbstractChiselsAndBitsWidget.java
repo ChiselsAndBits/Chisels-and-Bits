@@ -25,6 +25,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
      * @param narration The narration text when selected.
      */
 	public AbstractChiselsAndBitsWidget(final int x, final int y, final int width, final int height, final Component narration)
+
 	{
 		super(x, y, width, height, narration);
 	}

@@ -39,24 +39,28 @@ public class ServerConfiguration implements IServerConfiguration
 
 	@Override
 	public Supplier<Boolean> getBlackListRandomTickingBlocks()
+
 	{
 		return blockListRandomTickingBlocks;
 	}
 
 	@Override
 	public Supplier<Boolean> getCompatabilityMode()
+
 	{
 		return compatibilityMode;
 	}
 
 	@Override
 	public Supplier<Integer> getBagStackSize()
+
 	{
 		return bagStackSize;
 	}
 
 	@Override
 	public Supplier<StateEntrySize> getBitSize()
+
 	{
 		return () -> {
 			try {
@@ -69,18 +73,21 @@ public class ServerConfiguration implements IServerConfiguration
 
 	@Override
 	public Supplier<Integer> getChangeTrackerSize()
+
 	{
 		return changeTrackerSize;
 	}
 
 	@Override
 	public Supplier<Boolean> getDeleteExcessBits()
+
 	{
 		return deleteExcessBits;
 	}
 
 	@Override
 	public Supplier<Double> getLightFactorMultiplier()
+
 	{
 		return lightFactorMultiplier;
 	}

@@ -34,7 +34,9 @@ public class ScrollBasedModeChangeHandler
 		if (scrollDelta < 0) {
 			workingIndex++;
 		}
+
 		else
+
 		{
 			workingIndex--;
 		}

@@ -17,11 +17,13 @@ public final class OpenBagGuiPacket extends ModPacket
 	public static final CustomPacketPayload.Type<OpenBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	public OpenBagGuiPacket(RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public OpenBagGuiPacket()
+
 	{
 	}
 
@@ -37,6 +39,7 @@ public final class OpenBagGuiPacket extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 	}
 

@@ -19,12 +19,14 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
 
 	@Override
 	public String getId()
+
 	{
 		return "tag-exporter";
 	}
 
 	@Override
 	public void onConstruction()
+
 	{
 		LOGGER.warn("Loading wiki C&B Plugin.");
 		if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE)
@@ -41,6 +43,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
 	}
 
 	static MinecraftServer getServer()
+
 	{
 		if (server == null)
 			throw new IllegalStateException("Entrypoint was not invoked properly!");
@@ -49,6 +52,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
 	}
 
 	private static void setServer(final MinecraftServer server)
+
 	{
 		TagExporterEntrypoint.server = server;
 	}

@@ -12,6 +12,7 @@ import net.minecraft.core.HolderLookup;
 public final class CreativeClipboardUtils
 {
 	private CreativeClipboardUtils()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: CreativeClipboardUtils. This is a utility class");
 	}

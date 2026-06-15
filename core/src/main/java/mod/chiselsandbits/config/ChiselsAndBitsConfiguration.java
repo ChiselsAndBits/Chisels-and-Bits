@@ -21,18 +21,21 @@ public class ChiselsAndBitsConfiguration implements IChiselsAndBitsConfiguration
 
 	@Override
 	public IClientConfiguration getClient()
+
 	{
 		return client;
 	}
 
 	@Override
 	public ICommonConfiguration getCommon()
+
 	{
 		return common;
 	}
 
 	@Override
 	public IServerConfiguration getServer()
+
 	{
 		return server;
 	}

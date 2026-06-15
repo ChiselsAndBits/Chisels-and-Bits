@@ -32,6 +32,7 @@ public class BagContainer extends AbstractContainerMenu
 	private ReadonlySlot           bagSlot;
 
 	public BagContainer(final int id, final Inventory playerInventory)
+
 	{
 		super(ModContainerTypes.BIT_BAG.get(), id);
 		thePlayer = playerInventory.player;
@@ -39,16 +40,20 @@ public class BagContainer extends AbstractContainerMenu
 		final int playerInventoryOffset = (7 - 4) * OUTER_SLOT_SIZE;
 
 		for (int yOffset = 0; yOffset < 7; ++yOffset)
+
 		{
 			for (int xOffset = 0; xOffset < 9; ++xOffset)
+
 			{
 				addCustomSlot(new BitSlot(visibleInventory, xOffset + yOffset * 9, 8 + xOffset * OUTER_SLOT_SIZE, 18 + yOffset * OUTER_SLOT_SIZE));
 			}
 		}
 
 		for (int xPlayerInventory = 0; xPlayerInventory < 3; ++xPlayerInventory)
+
 		{
 			for (int yPlayerInventory = 0; yPlayerInventory < 9; ++yPlayerInventory)
+
 			{
 				addSlot(new Slot(thePlayer.getInventory(),
 				  yPlayerInventory + xPlayerInventory * 9 + 9,
@@ -58,12 +63,16 @@ public class BagContainer extends AbstractContainerMenu
 		}
 
 		for (int xToolbar = 0; xToolbar < 9; ++xToolbar)
+
 		{
 			if (thePlayer.getInventory().getSelectedSlot() == xToolbar)
+
 			{
 				addSlot(bagSlot = new ReadonlySlot(thePlayer.getInventory(), xToolbar, 8 + xToolbar * OUTER_SLOT_SIZE, 162 + playerInventoryOffset));
 			}
+
 			else
+
 			{
 				addSlot(new Slot(thePlayer.getInventory(), xToolbar, 8 + xToolbar * OUTER_SLOT_SIZE, 162 + playerInventoryOffset));
 			}
@@ -74,14 +83,18 @@ public class BagContainer extends AbstractContainerMenu
 
 	private void setBag(
 	  final ItemStack bagItem)
+
 	{
 		if (!bagItem.isEmpty() && bagItem.getItem() instanceof final IBitInventoryItem bitInventoryItem)
+
 		{
 			bagInv = bitInventoryItem.create(bagItem);
 			visibleInventory.setWrapped(bagInv);
 			bagSlot.set(bagItem);
 		}
+
 		else
+
 		{
 			bagInv = null;
 			visibleInventory.setWrapped(null);
@@ -91,6 +104,7 @@ public class BagContainer extends AbstractContainerMenu
 
 	private void addCustomSlot(
 	  final BitSlot newSlot)
+
 	{
 		newSlot.index = bitSlots.size();
 		bitSlots.add(newSlot);
@@ -101,13 +115,17 @@ public class BagContainer extends AbstractContainerMenu
 	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
+
 		if (slot.hasItem()) {
 			ItemStack slotStack = slot.getItem();
 			ItemStack original = slotStack;
+
 			if (slot instanceof BitSlot) {
 				slotStack = slotStack.split(ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize());
 			}
+
 			itemstack = slotStack.copy();
+
 			//Source is the bag:
 			if (index < this.bitSlots.size()) {
 				if (!this.moveItemStackTo(slotStack, this.bitSlots.size(), this.slots.size(), true)) {
@@ -133,15 +151,18 @@ public class BagContainer extends AbstractContainerMenu
 	@Override
 	public boolean stillValid(
 	  @NotNull final Player playerIn)
+
 	{
 		return bagInv != null && playerIn == thePlayer && hasBagInHand(thePlayer);
 	}
 
 	private boolean hasBagInHand(
 	  final Player player)
+
 	{
 		final ItemStack bagStack = bagInv.toItemStack();
 		if (bagStack.getItem() == player.getMainHandItem().getItem())
+
 		{
 			setBag(bagStack);
 			player.setItemInHand(InteractionHand.MAIN_HAND, bagStack);
@@ -152,11 +173,14 @@ public class BagContainer extends AbstractContainerMenu
 
 	public void clear(
 	  final ItemStack stack)
+
 	{
 		if (!stack.isEmpty() && stack.getItem() instanceof final IBitItem bitItem)
+
 		{
 			bagInv.clear(bitItem.getBlockInformation(stack));
 		}
+
 		else {
 			bagInv.clearContent();
 		}
@@ -166,18 +190,21 @@ public class BagContainer extends AbstractContainerMenu
 	}
 
 	public void sort()
+
 	{
 		bagInv.sort();
 		broadcastChanges();
 	}
 
 	public void convert(Player player)
+
 	{
 		bagInv.convert(player);
 		broadcastChanges();
 	}
 
 	public void setBagProperties(final boolean filtered, final boolean preferred)
+
 	{
 		if (getBagStack().getItem() instanceof BitBagItem bitBagItem) {
 			bitBagItem.setFilteredPickupInventory(thePlayer.getMainHandItem(), filtered);
@@ -188,11 +215,13 @@ public class BagContainer extends AbstractContainerMenu
 	}
 
 	public List<BitSlot> getBitSlots()
+
 	{
 		return bitSlots;
 	}
 
 	public ItemStack getBagStack()
+
 	{
 		return bagSlot.getItem();
 	}

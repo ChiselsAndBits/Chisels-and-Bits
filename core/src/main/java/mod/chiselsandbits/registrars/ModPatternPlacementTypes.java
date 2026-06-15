@@ -36,11 +36,13 @@ public final class ModPatternPlacementTypes
 	);
 
 	private ModPatternPlacementTypes()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModPatternPlacementTypes. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded pattern placement type configuration.");
 	}

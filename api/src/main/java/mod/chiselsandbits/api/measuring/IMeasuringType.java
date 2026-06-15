@@ -22,6 +22,7 @@ public interface IMeasuringType extends IToolModeGroup
 
 	@FunctionalInterface
 	public interface IPositionAdapter
+
 	{
 		@NotNull
 		Vec3 adapt(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace);
@@ -29,8 +30,10 @@ public interface IMeasuringType extends IToolModeGroup
 
 	@FunctionalInterface
 	public interface IClickedPositionAdapter
+
 	{
 		static IClickedPositionAdapter identity()
+
 		{
 			return HitResult::getLocation;
 		}

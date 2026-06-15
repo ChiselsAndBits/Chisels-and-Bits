@@ -30,26 +30,31 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new ChiseledPrinterBlockStateGenerator(event.getGenerator()));
 	}
 
 	public ChiseledPrinterBlockStateGenerator(final DataGenerator gen)
+
 	{
 		super(gen.getPackOutput(), Constants.MOD_ID);
 	}
 
 	@Override
 	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
+
 	{
 		actOnBlock(ModBlocks.CHISELED_PRINTER.get(), blockModels);
 	}
 
 	public void actOnBlock(final Block block, final BlockModelGenerators generators)
+
 	{
 		generators.createHorizontallyRotatedBlock(block, new TexturedModel.Provider() {
 			@Override
 			public @NotNull TexturedModel get(final @NotNull Block block)
+
 			{
 				return new TexturedModel(
 					new TextureMapping()
@@ -74,6 +79,7 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
+
 	{
 		return Stream.of(
 			BuiltInRegistries.BLOCK.wrapAsHolder(
@@ -84,12 +90,14 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
 
 	@Override
 	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
+
 	{
 		return Stream.of();
 	}
 
 	@Override
 	public @NotNull String getName()
+
 	{
 		return "Chiseled printer blockstate generator";
 	}

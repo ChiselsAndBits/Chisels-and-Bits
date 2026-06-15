@@ -37,6 +37,7 @@ public final class StateVariantManager implements IStateVariantManager
 	private static final StateVariantManager INSTANCE = new StateVariantManager();
 
 	public static StateVariantManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -46,6 +47,7 @@ public final class StateVariantManager implements IStateVariantManager
 	private final Map<Identifier, IStateVariantProvider> providersByNames = new ConcurrentHashMap<>();
 
 	private StateVariantManager()
+
 	{
 	}
 
@@ -95,6 +97,7 @@ public final class StateVariantManager implements IStateVariantManager
 	@Override
 	public Optional<IStateVariant> getStateVariant(
 	  final BlockState blockState, final Optional<BlockEntity> blockEntity)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(blockState.getBlock()))
@@ -105,6 +108,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Optional<IStateVariant> getStateVariant(final FluidState fluidStateIn)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(fluidStateIn.createLegacyBlock().getBlock()))
@@ -115,6 +119,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Optional<IStateVariant> getStateVariant(final BlockState blockState, final ItemStack itemStack)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(blockState.getBlock()))
@@ -125,6 +130,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Optional<IStateVariant> getStateVariant(final FluidInformation fluidInformation)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock()))
@@ -136,6 +142,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Collection<BlockInformation> getAllDefaultVariants(final BlockState state)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(state.getBlock()))
@@ -150,6 +157,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Optional<ItemStack> getItemStack(final BlockInformation blockInformation)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(blockInformation.blockState().getBlock()))
@@ -160,6 +168,7 @@ public final class StateVariantManager implements IStateVariantManager
 
 	@Override
 	public Optional<FluidInformation> getFluidInformation(final BlockInformation blockInformation, final long amount)
+
 	{
 		bakeProviders();
 		if (!providers.containsKey(blockInformation.blockState().getBlock()))
@@ -180,6 +189,7 @@ public final class StateVariantManager implements IStateVariantManager
 	@Override
 	public void setFullBlock(LevelAccessor levelAccessor, BlockPos inWorldPos, BlockInformation primaryState) {
 		bakeProviders();
+
 		if (primaryState.variant().isEmpty()) {
 			levelAccessor.setBlock(
 					inWorldPos,
@@ -197,6 +207,7 @@ public final class StateVariantManager implements IStateVariantManager
 		bakeProviders();
 
 		if (!providers.containsKey(blockInformation.blockState().getBlock()))
+
 		{
 			return Optional.ofNullable(ILevelBasedPropertyAccessor.getInstance().getBeaconColorMultiplier(
 				new SingleBlockLevelReader.Builder()

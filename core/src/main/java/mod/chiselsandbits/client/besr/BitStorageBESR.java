@@ -42,16 +42,19 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 	private static final RandomSource                                     RANDOM_SOURCE               = RandomSource.createThreadLocalInstance(42L);
 
 	public BitStorageBESR()
+
 	{
 	}
 
 	public static void clearCache()
+
 	{
 		STORAGE_CONTENTS_BLOB_CACHE.clear();
 	}
 
 	@Override
 	public @NotNull RenderState createRenderState()
+
 	{
 		return new RenderState();
 	}
@@ -78,6 +81,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		final @NotNull CameraRenderState cameraRenderState)
 	{
 		if (renderState.containedFluid != null)
+
 		{
 			final FluidInformation fluidStack = renderState.containedFluid;
 
@@ -103,6 +107,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		final int bits = renderState.bitCount;
 		final BlockInformation blockInformation = renderState.blockInformation;
 		if (bits <= 0 || blockInformation == null)
+
 		{
 			return;
 		}
@@ -110,6 +115,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		final CacheKey cacheKey = new CacheKey(blockInformation, bits);
 		StateEntryStorage innerModelBlob = STORAGE_CONTENTS_BLOB_CACHE.get(cacheKey);
 		if (innerModelBlob == null)
+
 		{
 			innerModelBlob = new StateEntryStorage();
 
@@ -173,6 +179,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		int bitCount) {}
 
 	public static final class RenderState extends BlockEntityRenderState
+
 	{
 		@Nullable
 		private FluidInformation containedFluid = null;

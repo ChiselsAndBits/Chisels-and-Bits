@@ -39,6 +39,7 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
 	  final int x,
 	  final int y,
 	  final AbstractChiselsAndBitsScreen owner)
+
 	{
 		super(
 		  x,
@@ -52,6 +53,7 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
 
 	@Override
 	public void init()
+
 	{
 		super.init();
 		this.undoButton = owner.addRenderableWidget(
@@ -92,6 +94,7 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
 
 	@Override
 	protected void extractWidgetRenderState(final @NonNull GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
+
 	{
 	}
 

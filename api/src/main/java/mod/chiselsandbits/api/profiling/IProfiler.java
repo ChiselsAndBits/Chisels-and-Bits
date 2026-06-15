@@ -36,6 +36,7 @@ public interface IProfiler
 		endSection();
 		startSection(name);
 	}
+
 	/**
      * End the current section and start a new section with the name supplied by the given supplier.
      *

@@ -20,6 +20,7 @@ public class JfrCandBProfiler extends CandBProfiler
 	private final ThreadLocal<LinkedList<String>> nameStack =  ThreadLocal.withInitial(LinkedList::new);
 
 	public JfrCandBProfiler(final Environment profilingEnvironment)
+
 	{
 		super();
 
@@ -36,6 +37,7 @@ public class JfrCandBProfiler extends CandBProfiler
 
 	@Override
 	public void startSection(final String name)
+
 	{
 		onNewSectionWith(name);
 
@@ -44,6 +46,7 @@ public class JfrCandBProfiler extends CandBProfiler
 
 	@Override
 	public void startSection(final Supplier<String> nameSupplier)
+
 	{
 		onNewSectionWith(nameSupplier.get());
 
@@ -51,6 +54,7 @@ public class JfrCandBProfiler extends CandBProfiler
 	}
 
 	private void onNewSectionWith(final String name)
+
 	{
 		nameStack.get().addFirst(name);
 
@@ -63,6 +67,7 @@ public class JfrCandBProfiler extends CandBProfiler
 
 	@Override
 	public void endSection()
+
 	{
 		super.endSection();
 
@@ -74,6 +79,7 @@ public class JfrCandBProfiler extends CandBProfiler
 
 	@Override
 	public IProfilerResult getResult()
+
 	{
 		new CandBProfilingFinishedEvent().commit();
 		final IProfilerResult result = super.getResult();
@@ -84,6 +90,7 @@ public class JfrCandBProfiler extends CandBProfiler
 
 	@Override
 	public IProfilerResult stop()
+
 	{
 		new CandBProfilingFinishedEvent().commit();
 		final IProfilerResult result = super.getResult();

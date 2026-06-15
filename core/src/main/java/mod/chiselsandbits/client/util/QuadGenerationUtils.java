@@ -20,6 +20,7 @@ import net.minecraft.core.Direction;
 public final class QuadGenerationUtils
 {
 	private QuadGenerationUtils()
+
 	{
 		throw new IllegalStateException("Tried to instantiate: 'QuadGenerationUtils', but this is a utility class.");
 	}
@@ -63,10 +64,13 @@ public final class QuadGenerationUtils
 			(layer) -> {
 				final Collection<VertexData> adaptedVertices;
 				try
+
 				{
 					adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
 				}
+
 				catch (IllegalStateException e)
+
 				{
 					return;
 				}

@@ -50,6 +50,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 	  final MutableComponent displayName,
 	  final MutableComponent multiLineDisplayName,
 	  final Identifier iconName)
+
 	{
 		this.bitsPerSide = bitsPerSide;
 		this.aligned = aligned;
@@ -61,6 +62,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 	@Override
 	public ClickProcessingState onLeftClickBy(
 	  final Player playerEntity, final IChiselingContext context)
+
 	{
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
 		  playerEntity,
@@ -70,6 +72,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		);
 
 		if (context.isSimulation())
+
 		{
 			return ClickProcessingState.DEFAULT;
 		}
@@ -107,12 +110,14 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 		//Noop.
 	}
 
 	@Override
 	public ClickProcessingState onRightClickBy(final Player playerEntity, final IChiselingContext context)
+
 	{
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
 		  playerEntity,
@@ -122,6 +127,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		);
 
 		if (context.isSimulation())
+
 		{
 			return ClickProcessingState.DEFAULT;
 		}
@@ -129,6 +135,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 			  if (heldBlockState.isAir())
+
 			  {
 				  return ClickProcessingState.DEFAULT;
 			  }
@@ -141,8 +148,10 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  context.setComplete();
 			  if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative())
+
 			  {
 				  if (!playerEntity.isCreative())
+
 				  {
 					  playerBitInventory.extract(heldBlockState, missingBitCount);
 				  }
@@ -155,12 +164,15 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
 				  }
 			  }
+
 			  else
+
 			  {
 				  context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			  }
 
 			  if (missingBitCount == 0)
+
 			  {
 				  if (!context.validateBuildHeights()) {
 					  return ClickProcessingState.DENIED;
@@ -174,18 +186,21 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context)
+
 	{
 		//Noop.
 	}
 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
+
 	{
 		return context.getMutator().map(mutator -> mutator);
 	}
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context)
+
 	{
 		if (context.getMutator().isEmpty())
 			return Shapes.empty();
@@ -199,9 +214,11 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 	  final Function<Direction, Vec3> placementFacingAdapter,
 	  final Function<Vec3, Vec3> fullFacingVectorAdapter
 	)
+
 	{
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
+
 		{
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
@@ -218,6 +235,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		));
 
 		if (aligned)
+
 		{
 			final Vec3 inBlockOffset = hitVector.subtract(Vec3.atLowerCornerOf(VectorUtils.toInteger(hitVector)));
 			final BlockPos bitsInBlockOffset = VectorUtils.toBlockPos(
@@ -260,18 +278,21 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return iconName;
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return this.displayName;
 	}
 
 	@Override
 	public Component getMultiLineDisplayName()
+
 	{
 		return this.multiLineDisplayName;
 	}
@@ -279,6 +300,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 	@NotNull
 	@Override
 	public Optional<IToolModeGroup> getGroup()
+
 	{
 		return Optional.of(
 		  aligned ? ModChiselModeGroups.CUBED_ALIGNED : ModChiselModeGroups.CUBED

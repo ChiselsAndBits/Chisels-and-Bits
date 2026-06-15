@@ -23,11 +23,13 @@ public final class ModBlockEntityTypes
 	private static final IRegistrar<BlockEntityType<?>> REGISTRAR = IRegistrar.create(Registries.BLOCK_ENTITY_TYPE, Constants.MOD_ID);
 
 	private ModBlockEntityTypes()
+
 	{
 		throw new IllegalStateException("Tried to initialize: ModTileEntityTypes but this is a Utility class.");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded block entity configuration.");
 	}
@@ -54,6 +56,7 @@ public final class ModBlockEntityTypes
 
 	private record BlockEntityTypeBuilder<T extends BlockEntity>(BlockEntityType.BlockEntitySupplier<T> factory, Set<Block> allowedBlocks) {
 		private BlockEntityTypeBuilder(final BlockEntityType.BlockEntitySupplier<T> factory, Block... allowedBlocks)
+
 		{
 			this(factory, Set.of(allowedBlocks));
 		}

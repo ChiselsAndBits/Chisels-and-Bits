@@ -43,6 +43,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 		final Inventory playerInventory,
 		final Component title
 	)
+
 	{
 		super(container, playerInventory, title, 176, 240);
 		inventoryLabelY = this.imageHeight - 94;
@@ -50,20 +51,25 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 
 	@Override
 	protected void init()
+
 	{
 		super.init();
 
 		trashBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 3, LocalStrings.Trash.getText(), IconManager.getInstance().getTrashIcon(),
 			button -> {
 				if (requireConfirm)
+
 				{
 					dontThrow = true;
 					if (isValidBitItem())
+
 					{
 						requireConfirm = false;
 					}
 				}
+
 				else
+
 				{
 					requireConfirm = true;
 					// server side!
@@ -106,6 +112,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 			Tooltip.create(LocalStrings.NonPreferredPickup.getText())) {
 			@Override
 			protected TextureAtlasSprite getDefaultIcon()
+
 			{
 				if (isCurrentlyPreferred()) {
 					return IconManager.getInstance().getBagPicksUpFirstIcon();
@@ -128,6 +135,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 			Tooltip.create(LocalStrings.FilteredPickup.getText())) {
 			@Override
 			protected TextureAtlasSprite getDefaultIcon()
+
 			{
 				if (isCurrentlyFiltered()) {
 					return IconManager.getInstance().getFilterBagModeIcon();
@@ -142,6 +150,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 	}
 
 	private BagContainer getBagContainer()
+
 	{
 		return menu;
 	}
@@ -166,21 +175,27 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 
 	@Override
 	protected boolean hasClickedOutside(final double x, final double y, final int left, final int top)
+
 	{
 		final boolean doThrow = !dontThrow;
 		if (requireConfirm && dontThrow)
+
 		{
 			dontThrow = false;
 		}
+
 		return doThrow && super.hasClickedOutside(x, y, left, top);
 	}
 
 	@Override
 	public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
+
 	{
 		if (trashBtn.isMouseOver(mouseX, mouseY))
+
 		{
 			if (isValidBitItem())
+
 			{
 				final Component msgNotConfirm =
 					!getInHandItem().isEmpty() ? LocalStrings.TrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.Trash.getText();
@@ -189,12 +204,16 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 
 				this.trashBtn.setTooltip(Tooltip.create(requireConfirm ? msgNotConfirm : msgConfirm));
 			}
+
 			else
+
 			{
 				this.trashBtn.setTooltip(Tooltip.create(LocalStrings.TrashInvalidItem.getText(getInHandItem().getHoverName().getString())));
 			}
 		}
+
 		else
+
 		{
 			requireConfirm = true;
 		}
@@ -204,8 +223,10 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 
 	@Override
 	protected void extractSlot(final GuiGraphicsExtractor guiGraphics, final Slot slot, final int mouseX, final int mouseY)
+
 	{
 		if (!(slot instanceof BitSlot bitSlot))
+
 		{
 			super.extractSlot(guiGraphics, slot, mouseX, mouseY);
 			return;
@@ -234,6 +255,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 
 	@Override
 	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
+
 	{
 		graphics.blit(
 			RenderPipelines.GUI_TEXTURED,
@@ -250,11 +272,13 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer>
 	}
 
 	private ItemStack getInHandItem()
+
 	{
 		return getBagContainer().getCarried();
 	}
 
 	private boolean isValidBitItem()
+
 	{
 		return getInHandItem().isEmpty() || getInHandItem().getItem() == ModItems.ITEM_BLOCK_BIT.get();
 	}

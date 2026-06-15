@@ -21,22 +21,26 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory
 	private static final MutatorFactory INSTANCE = new MutatorFactory();
 
 	private MutatorFactory()
+
 	{
 	}
 
 	public static MutatorFactory getInstance()
+
 	{
 		return INSTANCE;
 	}
 
 	@Override
 	public @NotNull IWorldAreaMutator in(final LevelAccessor world, final BlockPos pos)
+
 	{
 		return new ChiselAdaptingWorldMutator(world, pos);
 	}
 
 	@Override
 	public @NotNull IWorldAreaMutator covering(final LevelAccessor world, final BlockPos from, final BlockPos to)
+
 	{
 		return new WorldWrappingMutator(
 		  world,
@@ -50,6 +54,7 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory
 
 	@Override
 	public @NotNull IWorldAreaMutator covering(final LevelAccessor world, final Vec3 from, final Vec3 to)
+
 	{
 		return new WorldWrappingMutator(
 		  world,
@@ -60,6 +65,7 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory
 
 	@Override
 	public @NotNull IGenerallyModifiableAreaMutator clonedFromAccessor(final IAreaAccessor source)
+
 	{
 		return source.createSnapshot();
 	}

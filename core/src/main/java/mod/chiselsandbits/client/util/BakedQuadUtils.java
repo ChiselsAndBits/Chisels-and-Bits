@@ -29,6 +29,7 @@ public class BakedQuadUtils
 	}
 
 	public static VertexData[] getVertexData(final BakedQuad quad)
+
 	{
 		final var data = new VertexData[4];
 		data[0] = VertexData.from(quad, 0);

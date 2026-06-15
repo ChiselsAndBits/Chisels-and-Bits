@@ -20,6 +20,7 @@ public abstract class CreativeModeTabMixin
 	)
 	public void onHasAnyItems(final CallbackInfoReturnable<Boolean> cir) {
 		final CreativeModeTab self = (CreativeModeTab) ((Object) this);
+
 		if (self == ModCreativeTabs.CLIPBOARD.get()) {
 			cir.setReturnValue(true);
 		}

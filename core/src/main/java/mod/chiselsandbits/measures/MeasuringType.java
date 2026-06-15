@@ -75,42 +75,49 @@ public enum MeasuringType implements IMeasuringType
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return icon;
 	}
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return displayName;
 	}
 
 	@Override
 	public @NotNull Vec3 adaptClickedPosition(@NotNull final BlockHitResult blockHitResult)
+
 	{
 		return this.clickedPositionAdapter.adapt(blockHitResult);
 	}
 
 	@Override
 	public @NotNull Vec3 adaptStartCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace)
+
 	{
 		return this.finalStartPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 
 	@Override
 	public @NotNull Vec3 adaptEndCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace)
+
 	{
 		return this.finalEndPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 
 	@Override
 	public Vec3 getResolution()
+
 	{
 		return new Vec3(1, 1, 1);
 	}
 
 	@Override
 	public boolean isNeedsNormalization()
+
 	{
 		return needsNormalization;
 	}

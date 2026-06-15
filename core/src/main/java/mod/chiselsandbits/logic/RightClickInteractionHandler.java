@@ -28,6 +28,7 @@ public class RightClickInteractionHandler
 	  final boolean currentCancellationState,
 	  final ClickProcessingState.ProcessingResult currentItemUsageState
 	)
+
 	{
 		if (level.getBlockState(position).getBlock() == ModBlocks.BIT_STORAGE.get()) {
 			return ClickProcessingState.ALLOW_NO_CANCEL;
@@ -64,6 +65,7 @@ public class RightClickInteractionHandler
 	  final ItemStack itemStack,
 	  final boolean currentCancellationState,
 	  final ClickProcessingState.ProcessingResult currentItemUsageState)
+
 	{
 		HitResult rayTrace = RayTracingUtils.rayTracePlayer(player);
 

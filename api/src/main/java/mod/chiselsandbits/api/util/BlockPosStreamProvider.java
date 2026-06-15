@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 public class BlockPosStreamProvider
 {
 	private BlockPosStreamProvider()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: BlockPosStreamProvider. This is a utility class");
 	}
@@ -132,6 +133,7 @@ public class BlockPosStreamProvider
      * @return The block position stream within the given range.
      */
 	public static Stream<BlockPos> getForRange(final double minX, final double minY, final double minZ, final double maxX, final double maxY, final double maxZ)
+
 	{
 		return getForRange(
 		  new Vec3(minX, minY, minZ),
@@ -153,6 +155,7 @@ public class BlockPosStreamProvider
      * @return The block position stream within the given range.
      */
 	public static Stream<BlockPos> getForRange(final int minX, final int minY, final int minZ, final int maxX, final int maxY, final int maxZ)
+
 	{
 		if (minX == maxX && minY == maxY && minZ == maxZ) {
 			return Stream.of(new BlockPos(minX, minY, minZ));

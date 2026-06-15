@@ -206,6 +206,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 	@Override
 	public IStatistics getStatistics()
+
 	{
 		return stateObjectStatistics;
 	}
@@ -245,6 +246,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				StateEntrySize.current().getBitsPerBlockSide()));
 
 		final BlockInformation currentState = this.chunkSection.getBlockInformation(inAreaPos.getX(), inAreaPos.getY(), inAreaPos.getZ());
+
 		if (!currentState.isAir()) {
 			throw new SpaceOccupiedException();
 		}
@@ -390,6 +392,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 	@Override
 	public IMultiStateSnapshot limitedToProgression(final float progress)
+
 	{
 		return new SimpleSnapshot(
 			this.chunkSection.limitedToProgress(progress)
@@ -466,9 +469,11 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 			if (this == o) {
 				return true;
 			}
+
 			if (!(o instanceof final IArrayBackedAreaShapeIdentifier that)) {
 				return false;
 			}
+
 			return Arrays.equals(this.getBackingData(), that.getBackingData()) && that.getPalette().equals(this.getPalette());
 		}
 
@@ -522,6 +527,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 			BlockInformation maxState = BlockInformation.AIR;
 			int maxCount = 0;
+
 			for (final Map.Entry<BlockInformation, Integer> blockStateIntegerEntry : countMap.entrySet()) {
 				if (maxCount < blockStateIntegerEntry.getValue() && !blockStateIntegerEntry.getKey().isAir()) {
 					maxState = blockStateIntegerEntry.getKey();
@@ -538,66 +544,77 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 		@Override
 		public BlockInformation getPrimaryState ()
+
 		{
 			return primaryState;
 		}
 
 		@Override
 		public Map<BlockInformation, Integer> getStateCounts ()
+
 		{
 			return stateCounts;
 		}
 
 		@Override
 		public boolean shouldCheckWeakPower ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public float getFullnessFactor ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public float getSlipperiness ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public float getLightEmissionFactor ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public float getLightBlockingFactor ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public float getRelativeBlockHardness ( final Player player)
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public boolean canPropagateSkylight ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public boolean canSustainGrassBelow ()
+
 		{
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
 		public boolean isEmpty ()
+
 		{
 			return primaryState.isAir();
 		}

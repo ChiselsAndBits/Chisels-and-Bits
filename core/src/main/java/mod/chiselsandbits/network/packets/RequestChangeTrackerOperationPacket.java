@@ -20,31 +20,37 @@ public final class RequestChangeTrackerOperationPacket extends ModPacket
 	private boolean redo;
 
 	public RequestChangeTrackerOperationPacket(RegistryFriendlyByteBuf byteBuf)
+
 	{
 		this.readPayload(byteBuf);
 	}
 
 	public RequestChangeTrackerOperationPacket(final boolean redo)
+
 	{
 		this.redo = redo;
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeBoolean(this.redo);
 	}
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.redo = buffer.readBoolean();
 	}
 
 	@Override
 	public void server(final ServerPlayer playerEntity)
+
 	{
 		final IChangeTracker tracker = IChangeTrackerManager.getInstance().getChangeTracker(playerEntity);
+
 		if (redo) {
 			if (!tracker.canRedo(playerEntity)) {
 				playerEntity.sendSystemMessage(LocalStrings.CanNotRedo.getText().withStyle(ChatFormatting.RED));
@@ -52,11 +58,14 @@ public final class RequestChangeTrackerOperationPacket extends ModPacket
 			}
 
 			try
+
 			{
 				tracker.redo(playerEntity);
 				playerEntity.sendSystemMessage(LocalStrings.RedoSuccessful.getText().withStyle(ChatFormatting.GREEN));
 			}
+
 			catch (IllegalChangeAttempt e)
+
 			{
 				playerEntity.sendSystemMessage(LocalStrings.CanNotRedo.getText().withStyle(ChatFormatting.RED));
 			}
@@ -70,11 +79,14 @@ public final class RequestChangeTrackerOperationPacket extends ModPacket
 		}
 
 		try
+
 		{
 			tracker.undo(playerEntity);
 			playerEntity.sendSystemMessage(LocalStrings.UndoSuccessful.getText().withStyle(ChatFormatting.GREEN));
 		}
+
 		catch (IllegalChangeAttempt e)
+
 		{
 			playerEntity.sendSystemMessage(LocalStrings.CanNotUndo.getText().withStyle(ChatFormatting.RED));
 		}

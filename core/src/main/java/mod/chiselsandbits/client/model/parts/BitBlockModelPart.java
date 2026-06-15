@@ -13,6 +13,7 @@ public record BitBlockModelPart(
 )
 {
 	public boolean hasTints()
+
 	{
 		return !tints.isEmpty();
 	}

@@ -55,66 +55,77 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 		@Override
 		public BlockInformation getPrimaryState()
+
 		{
 			return BlockInformation.AIR;
 		}
 
 		@Override
 		public boolean isEmpty()
+
 		{
 			return true;
 		}
 
 		@Override
 		public Map<BlockInformation, Integer> getStateCounts()
+
 		{
 			return ImmutableMap.<BlockInformation, Integer>builder().build();
 		}
 
 		@Override
 		public boolean shouldCheckWeakPower()
+
 		{
 			return false;
 		}
 
 		@Override
 		public float getFullnessFactor()
+
 		{
 			return 0;
 		}
 
 		@Override
 		public float getSlipperiness()
+
 		{
 			return 0;
 		}
 
 		@Override
 		public float getLightEmissionFactor()
+
 		{
 			return 0;
 		}
 
 		@Override
 		public float getLightBlockingFactor()
+
 		{
 			return 0;
 		}
 
 		@Override
 		public float getRelativeBlockHardness(final Player player)
+
 		{
 			return 0;
 		}
 
 		@Override
 		public boolean canPropagateSkylight()
+
 		{
 			return true;
 		}
 
 		@Override
 		public boolean canSustainGrassBelow()
+
 		{
 			return false;
 		}
@@ -122,48 +133,56 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier()
+
 	{
 		return Identifier.INSTANCE;
 	}
 
 	@Override
 	public Stream<IStateEntryInfo> stream()
+
 	{
 		return Stream.empty();
 	}
 
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		return Optional.empty();
 	}
 
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget)
+
 	{
 		return false;
 	}
 
 	@Override
 	public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 		return false;
 	}
 
 	@Override
 	public IMultiStateSnapshot createSnapshot()
+
 	{
 		return this;
 	}
 
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator)
+
 	{
 		return Stream.empty();
 	}
@@ -171,12 +190,14 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	@Override
 	public void forEachWithPositionMutator(
 	  final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
+
 	{
 		//Noop
 	}
 
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream()
+
 	{
 		return Stream.empty();
 	}
@@ -185,21 +206,25 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	public void setInAreaTarget(
 	  final BlockInformation blockState,
 	  final Vec3 inAreaTarget) throws SpaceOccupiedException
+
 	{
 	}
 
 	@Override
 	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException
+
 	{
 	}
 
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget)
+
 	{
 	}
 
 	@Override
 	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 	{
 	}
 
@@ -210,12 +235,14 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 	@Override
 	public IMultiStateItemStack toItemStack()
+
 	{
 		return Stack.INSTANCE;
 	}
 
 	@Override
 	public IMultiStateObjectStatistics getStatics()
+
 	{
 		return EMPTY_STATISTICS;
 	}
@@ -223,36 +250,42 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	@SuppressWarnings("MethodDoesntCallSuperMethod")
 	@Override
 	public IMultiStateSnapshot clone()
+
 	{
 		return this;
 	}
 
 	@Override
 	public IMultiStateSnapshot limitedToProgression(final float progress)
+
 	{
 		return this;
 	}
 
 	@Override
 	public void rotate(final Direction.Axis axis, final int rotationCount)
+
 	{
 		//Noop
 	}
 
 	@Override
 	public void mirror(final Direction.Axis axis)
+
 	{
 		//Noop
 	}
 
 	@Override
 	public @NotNull AABB getBoundingBox()
+
 	{
 		return new AABB(0,0,0,1,1,1);
 	}
 
 	@Override
 	public IStatistics getStatistics()
+
 	{
 		return EMPTY_STATISTICS;
 	}
@@ -282,12 +315,14 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 			@Override
 			public BlockInformation getPrimaryState()
+
 			{
 				return BlockInformation.AIR;
 			}
 
 			@Override
 			public boolean isEmpty()
+
 			{
 				return true;
 			}
@@ -300,12 +335,14 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 		@Override
 		public ItemStack toBlockStack()
+
 		{
 			return ItemStack.EMPTY;
 		}
 
 		@Override
 		public ItemStack toPatternStack()
+
 		{
 			return ItemStack.EMPTY;
 		}
@@ -317,54 +354,63 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 		@Override
 		public IMultiStateItemStack copy()
+
 		{
 			return this;
 		}
 
 		@Override
 		public IAreaShapeIdentifier createNewShapeIdentifier()
+
 		{
 			return Identifier.INSTANCE;
 		}
 
 		@Override
 		public Stream<IStateEntryInfo> stream()
+
 		{
 			return Stream.empty();
 		}
 
 		@Override
 		public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
+
 		{
 			return Optional.empty();
 		}
 
 		@Override
 		public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 		{
 			return Optional.empty();
 		}
 
 		@Override
 		public boolean isInside(final Vec3 inAreaTarget)
+
 		{
 			return false;
 		}
 
 		@Override
 		public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
+
 		{
 			return false;
 		}
 
 		@Override
 		public IMultiStateSnapshot createSnapshot()
+
 		{
 			return EmptySnapshot.INSTANCE;
 		}
 
 		@Override
 		public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator)
+
 		{
 			return Stream.empty();
 		}
@@ -372,28 +418,33 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		@Override
 		public void forEachWithPositionMutator(
 		  final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
+
 		{
 			//Noop
 		}
 
 		@Override
 		public void rotate(final Direction.Axis axis, final int rotationCount)
+
 		{
 		}
 
 		@Override
 		public void mirror(final Direction.Axis axis)
+
 		{
 		}
 
 		@Override
 		public @NotNull AABB getBoundingBox()
+
 		{
 			return new AABB(0,0,0,1,1,1);
 		}
 
 		@Override
 		public IStatistics getStatistics()
+
 		{
 			return EMPTY_STATISTICS;
 		}

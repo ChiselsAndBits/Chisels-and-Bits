@@ -15,6 +15,7 @@ public class CandBProfilingSectionEvent extends Event
 	public String name;
 
 	public CandBProfilingSectionEvent(final String name)
+
 	{
 		this.name = name;
 	}

@@ -16,6 +16,7 @@ public class AABBManager
 	private static final AABBManager INSTANCE = new AABBManager();
 
 	public static AABBManager getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -25,6 +26,7 @@ public class AABBManager
 	);
 
 	private AABBManager()
+
 	{
 	}
 
@@ -44,6 +46,7 @@ public class AABBManager
 	}
 
 	public void clearCache()
+
 	{
 		this.cache.clear();
 	}
@@ -59,20 +62,26 @@ public class AABBManager
 
 		@Override
 		public boolean equals(final Object o)
+
 		{
 			if (this == o)
+
 			{
 				return true;
 			}
+
 			if (!(o instanceof final Key key))
+
 			{
 				return false;
 			}
+
 			return Objects.equals(identifier, key.identifier) && Objects.equals(predicate, key.predicate);
 		}
 
 		@Override
 		public int hashCode()
+
 		{
 			return Objects.hash(identifier, predicate);
 		}

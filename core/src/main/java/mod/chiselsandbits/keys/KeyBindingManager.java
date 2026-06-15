@@ -141,10 +141,12 @@ public class KeyBindingManager {
 
 		if (mc.screen == null) {
 			boolean toolMenuKeyIsDown = isOpenToolMenuKeyPressed();
+
 			if (toolMenuKeyIsDown && !toolMenuKeyWasDown) {
 				if (isOpenToolMenuKeyPressed()) {
 					if (mc.screen == null) {
 						ItemStack inHand = ItemStackUtils.getModeItemStackFromPlayer(mc.player);
+
 						if (!inHand.isEmpty() && inHand.getItem() instanceof IWithModeItem) {
 							try {
 								mc.setScreen(ToolModeSelectionScreen.create(inHand));
@@ -154,6 +156,7 @@ public class KeyBindingManager {
 					}
 				}
 			}
+
 			toolMenuKeyWasDown = toolMenuKeyIsDown;
 		} else {
 			toolMenuKeyWasDown = true;
@@ -169,6 +172,7 @@ public class KeyBindingManager {
 
 			if (toolModeSelectionPlusCoolDown == 15 && isCycleToolMenuRightKeyPressed()) {
 				workingIndex++;
+
 				if (workingIndex >= candidates.size()) {
 					workingIndex = 0;
 				}
@@ -179,6 +183,7 @@ public class KeyBindingManager {
 				toolModeSelectionPlusCoolDown++;
 			} else if (toolModeSelectionMinusCoolDown == 15 && isCycleToolMenuLeftKeyPressed()) {
 				workingIndex--;
+
 				if (workingIndex < 0) {
 					workingIndex = candidates.size() - 1;
 				}

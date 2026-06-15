@@ -78,6 +78,7 @@ public enum MeasuringMode implements IMeasuringMode
 	private final Identifier    icon;
 
 	MeasuringMode(final DyeColor color, final MeasuringType type, final Component displayName, final Identifier icon)
+
 	{
 		this.color = color;
 		this.type = type;
@@ -87,24 +88,28 @@ public enum MeasuringMode implements IMeasuringMode
 
 	@Override
 	public Identifier getIcon()
+
 	{
 		return icon;
 	}
 
 	@Override
 	public @NotNull Optional<IMeasuringType> getGroup()
+
 	{
 		return Optional.of(getType());
 	}
 
 	@Override
 	public boolean shouldRenderDisplayNameInMenu()
+
 	{
 		return false;
 	}
 
 	@Override
 	public @NotNull Vec3 getColorVector()
+
 	{
 		final int color = getColor().getTextColor();
 
@@ -117,18 +122,21 @@ public enum MeasuringMode implements IMeasuringMode
 
 	@Override
 	public Component getDisplayName()
+
 	{
 		return this.displayName;
 	}
 
 	@Override
 	public DyeColor getColor()
+
 	{
 		return this.color;
 	}
 
 	@Override
 	public MeasuringType getType()
+
 	{
 		return this.type;
 	}

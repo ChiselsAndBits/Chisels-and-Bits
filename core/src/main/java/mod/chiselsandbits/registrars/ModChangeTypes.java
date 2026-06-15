@@ -22,11 +22,13 @@ public class ModChangeTypes {
 	public static final IRegistryObject<ChangeType> COMBINED = REGISTRAR.register("combined", () -> ChangeType.COMBINED);
 
 	private ModChangeTypes()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModChangeTypes. This is a utility class");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded change type configuration.");
 	}

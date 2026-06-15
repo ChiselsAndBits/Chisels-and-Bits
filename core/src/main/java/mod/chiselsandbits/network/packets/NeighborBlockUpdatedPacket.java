@@ -24,6 +24,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
 	private @Nullable Orientation orientation = null;
 
 	public NeighborBlockUpdatedPacket(final BlockPos toUpdate, final Block neighborBlock, @Nullable final Orientation orientation)
+
 	{
 		this.toUpdate = toUpdate;
 		this.neighborBlock = neighborBlock;
@@ -31,6 +32,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
 	}
 
 	public NeighborBlockUpdatedPacket(RegistryFriendlyByteBuf buffer)
+
 	{
 		super();
 		readPayload(buffer);
@@ -38,6 +40,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		buffer.writeBlockPos(this.toUpdate);
 		buffer.writeById(buffer.registryAccess().lookupOrThrow(Registries.BLOCK)::getId, this.neighborBlock);
@@ -49,6 +52,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
 
 	@Override
 	public void readPayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		this.toUpdate = buffer.readBlockPos();
 		this.neighborBlock = buffer.readById(buffer.registryAccess().lookupOrThrow(Registries.BLOCK)::byIdOrThrow);
@@ -57,6 +61,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket
 
 	@Override
 	public void client()
+
 	{
 		ClientPacketHandlers.handleNeighborUpdated(toUpdate, neighborBlock, orientation);
 	}

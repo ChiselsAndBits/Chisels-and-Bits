@@ -22,6 +22,7 @@ public final class ModContainerTypes
 	private static final IRegistrar<MenuType<?>> CONTAINER_TYPE_REGISTRAR = IRegistrar.create(Registries.MENU, Constants.MOD_ID);
 
 	private ModContainerTypes()
+
 	{
 		throw new IllegalStateException("Can not instantiate an instance of: ModContainers. This is a utility class");
 	}
@@ -47,6 +48,7 @@ public final class ModContainerTypes
 	);
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded container type configuration.");
 	}

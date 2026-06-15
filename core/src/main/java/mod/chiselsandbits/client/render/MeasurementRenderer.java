@@ -39,10 +39,12 @@ public final class MeasurementRenderer
 	private static final MeasurementRenderer INSTANCE = new MeasurementRenderer();
 
 	private MeasurementRenderer()
+
 	{
 	}
 
 	public static MeasurementRenderer getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -53,6 +55,7 @@ public final class MeasurementRenderer
 		final float partialTickTime)
 	{
 		if (Minecraft.getInstance().level == null)
+
 		{
 			return;
 		}
@@ -86,6 +89,7 @@ public final class MeasurementRenderer
 		final VoxelShape boundingShape = Shapes.create(measurementBB);
 
 		if (measurement.getMode().getGroup().map(g -> g != MeasuringType.DISTANCE).orElse(false))
+
 		{
 			ShapeRenderer.renderShape(
 				poseStack,
@@ -107,6 +111,7 @@ public final class MeasurementRenderer
 			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
 
 			if (lengths.y() > 1 / 16d)
+
 			{
 				renderMeasurementSize(
 					poseStack,
@@ -115,7 +120,9 @@ public final class MeasurementRenderer
 					lengths.y(),
 					new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
 			}
+
 			if (lengths.x() > 1 / 16d)
+
 			{
 				renderMeasurementSize(
 					poseStack,
@@ -124,7 +131,9 @@ public final class MeasurementRenderer
 					lengths.x(),
 					new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
 			}
+
 			if (lengths.z() > 1 / 16d)
+
 			{
 				renderMeasurementSize(
 					poseStack,
@@ -134,7 +143,9 @@ public final class MeasurementRenderer
 					new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()), partialTickTime);
 			}
 		}
+
 		else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false))
+
 		{
 			final VertexConsumer bufferIn = bufferSource.getBuffer(RenderTypes.LINES);
 			bufferIn.addVertex(poseStack.last().pose(),
@@ -168,6 +179,7 @@ public final class MeasurementRenderer
 			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
 
 			if (totalLength > 1 / 16d)
+
 			{
 				renderMeasurementSize(
 					poseStack,
@@ -237,14 +249,18 @@ public final class MeasurementRenderer
 		final IMeasuringMode mode,
 		final double length
 	)
+
 	{
 		final IMeasuringType type = mode.getType();
 
 		if (type == MeasuringType.DISTANCE)
+
 		{
 			return Component.literal(new DecimalFormat("#.0#").format(length));
 		}
+
 		else if (type == MeasuringType.BLOCK)
+
 		{
 			return Component.translatable(Constants.MOD_ID + ".measurements.lengths.block", new DecimalFormat("#").format(Math.floor(length + 1)));
 		}
@@ -262,6 +278,7 @@ public final class MeasurementRenderer
 		double scale = maxFontSize * delta + minFontSize * (1.0 - delta);
 
 		if (maxLen < 0.25)
+
 		{
 			scale = minFontSize;
 		}
@@ -275,6 +292,7 @@ public final class MeasurementRenderer
 	{
 		final Entity view = Minecraft.getInstance().getCameraEntity() != null ? Minecraft.getInstance().getCameraEntity() : Minecraft.getInstance().player;
 		if (view != null)
+
 		{
 			final float yaw = view.yRotO + (view.getYRot() - view.yRotO) * partialTickTime;
 			matrixStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, 180 - yaw, 0), true));
@@ -285,14 +303,17 @@ public final class MeasurementRenderer
 	}
 
 	private Component getOwnerName(final UUID id)
+
 	{
 		if (id == (Minecraft.getInstance().player != null ? Minecraft.getInstance().player.getUUID() : UUID.randomUUID()))
+
 		{
 			return Component.translatable(Constants.MOD_ID + ".measurements.owners.you");
 		}
 
 		final PlayerInfo playerInfo = Minecraft.getInstance().getConnection() != null ? Minecraft.getInstance().getConnection().getPlayerInfo(id) : null;
 		if (playerInfo == null)
+
 		{
 			return Component.translatable(Constants.MOD_ID + ".measurements.owners.unknown");
 		}
@@ -304,6 +325,7 @@ public final class MeasurementRenderer
 	}
 
 	private Component formatPlayerDisplayName(PlayerInfo p_238524_1_, MutableComponent p_238524_2_)
+
 	{
 		return p_238524_1_.getGameMode() == GameType.SPECTATOR ? p_238524_2_.withStyle(ChatFormatting.ITALIC) : p_238524_2_;
 	}

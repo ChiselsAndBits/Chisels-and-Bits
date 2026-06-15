@@ -34,16 +34,19 @@ public class BlockEligibilityAnalysisData
 	}
 
 	public boolean isCompatible()
+
 	{
 		return isCompatible;
 	}
 
 	public float getHardness()
+
 	{
 		return hardness;
 	}
 
 	public float getExplosionResistance()
+
 	{
 		return explosionResistance;
 	}
@@ -53,6 +56,7 @@ public class BlockEligibilityAnalysisData
 		final BlockInformation state)
 	{
 		try
+
 		{
 			// require basic hardness behavior...
 			final ReflectionHelperBlock reflectBlock = ModBlocks.REFLECTION_HELPER_BLOCK.get();
@@ -78,6 +82,7 @@ public class BlockEligibilityAnalysisData
 
 			// is it perfect?
 			if (test_b && test_c && test_d && !isFluid)
+
 			{
 				final float blockHardness = state.blockState().getDestroySpeed(
 					new SingleBlockBlockAndLightGetter.Builder()
@@ -88,6 +93,7 @@ public class BlockEligibilityAnalysisData
 				float resistance = blk.getExplosionResistance();
 
 				if (blk instanceof IBlockWithWorldlyProperties blockWithWorldlyProperties)
+
 				{
 					resistance = blockWithWorldlyProperties.getExplosionResistance(state.blockState(), new SingleBlockBlockAndLightGetter.Builder()
 							.withBlockState(state.blockState())
@@ -98,17 +104,23 @@ public class BlockEligibilityAnalysisData
 
 				return new BlockEligibilityAnalysisData(true, blockHardness, resistance);
 			}
+
 			else if (test_b && test_c && test_d)
+
 			{
 				//TODO Adapt this
 				return new BlockEligibilityAnalysisData(true, 2f, 6f);
 			}
+
 			else
+
 			{
 				return new BlockEligibilityAnalysisData(IServerConfiguration.getInstance().getCompatabilityMode().get(), 2f, 6f);
 			}
 		}
+
 		catch (final Exception err)
+
 		{
 			return new BlockEligibilityAnalysisData(false, -1, -1);
 		}

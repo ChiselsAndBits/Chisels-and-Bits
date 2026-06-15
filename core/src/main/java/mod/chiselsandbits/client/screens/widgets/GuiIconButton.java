@@ -37,6 +37,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
 	  final Component narration,
 	  final TextureAtlasSprite defaultIcon,
 	  final OnPress pressable)
+
 	{
 		super(x, y, SIZE, SIZE, narration, pressable, Button.DEFAULT_NARRATION);
 		this.defaultIcon = defaultIcon;
@@ -48,6 +49,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
 	  final TextureAtlasSprite defaultIcon,
 	  final OnPress pressable,
 	  final Tooltip tooltip)
+
 	{
 		super(x, y, SIZE, SIZE, narration, pressable, Button.DEFAULT_NARRATION);
 		this.defaultIcon = defaultIcon;
@@ -55,12 +57,14 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
 	}
 
 	protected TextureAtlasSprite getDefaultIcon()
+
 	{
 		return defaultIcon;
 	}
 
 	@Override
 	protected void extractContents(final @NonNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float a)
+
 	{
 		guiGraphics.blitSprite(
 			RenderPipelines.GUI_TEXTURED,

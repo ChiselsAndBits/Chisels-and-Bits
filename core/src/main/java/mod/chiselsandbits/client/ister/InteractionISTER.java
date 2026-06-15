@@ -63,6 +63,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		boolean simulation = item.isRunningASimulatedInteraction(argument.stack());
 
 		int modifier = leftHand ? -1 : 1;
+
 		if (item.isInteracting(argument.stack())) {
 			poseStack.pushPose();
 
@@ -76,10 +77,12 @@ public record InteractionISTER(InteractableItemModel mainModel,
 			// Reverse bobbing
 			float time = 0;
 			if (player != null)
+
 			{
 				time = (float) (!simulation ? player.getUseItemRemainingTicks()
 					: (-TickHandler.getNonePausedTicks()) % stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player))) - partialTicks + 1.0F;
 			}
+
 			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) < 0.8F) {
 				float bobbing = -Mth.abs(Mth.cos(time / item.getBobbingTickCount() * (float) Math.PI) * 0.1F);
 
@@ -108,6 +111,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 
 		if (firstPerson && player != null) {
 			int itemInUseCount = player.getUseItemRemainingTicks();
+
 			if (itemInUseCount > 0) {
 				poseStack.translate(modifier * .5f, 0, -.25f);
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
@@ -117,6 +121,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		}
 
 		if (!item.isInteracting(stack))
+
 		{
 			ItemModelUtils.render(
 				stack,
@@ -132,7 +137,9 @@ public record InteractionISTER(InteractableItemModel mainModel,
 				0
 			);
 		}
+
 		else
+
 		{
 			poseStack.pushPose();
 			poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * -90, 0), true));
@@ -159,12 +166,14 @@ public record InteractionISTER(InteractableItemModel mainModel,
 
 	@Override
 	public void getExtents(final @NotNull Consumer<Vector3fc> output)
+
 	{
 		//No clue how to do this, we do not have access to the outer layer!
 	}
 
 	@Override
 	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
+
 	{
 		if (stack.getItem() instanceof IInteractableItem item) {
 			return new RenderState(stack, item);

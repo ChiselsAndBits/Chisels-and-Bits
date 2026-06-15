@@ -43,9 +43,11 @@ public record ChiseledBlockModelInformationBuilder(
 )
 {
 	public ChiseledBlockModelInformation build()
+
 	{
 		//Handle the case where we have no bits in the system.
 		if (key().primaryState().isAir())
+
 		{
 			return ChiseledBlockModelInformation.EMPTY;
 		}
@@ -54,8 +56,10 @@ public record ChiseledBlockModelInformationBuilder(
 		final GreedyMeshFace[] faces = generateFaces();
 
 		try (final IProfilerSection ignoredQuadGeneration = ProfilingManager.getInstance().withSection("quadGeneration"))
+
 		{
 			for (final GreedyMeshFace region : faces)
+
 			{
 				final Direction cullDirection = region.normalDirection();
 
@@ -85,18 +89,22 @@ public record ChiseledBlockModelInformationBuilder(
 	}
 
 	private GreedyMeshFace @NotNull [] generateFaces()
+
 	{
 		final GreedyMeshFace[] faces;
 		try (final IProfilerSection ignoredFaceProcessing = ProfilingManager.getInstance().withSection("processing"))
+
 		{
 			faces = GreedyMeshBuilder.buildMesh(this::getBlockInformationForOffset);
 		}
+
 		return faces;
 	}
 
 	private BlockInformation getBlockInformationForOffset(
 		int x, int y, int z
 	)
+
 	{
 		final Vec3 targetOffset = new Vec3(x, y, z).multiply(StateEntrySize.current().getSizePerBitScalingVector());
 		final Vec3 nominalTargetOffset = Vec3.ZERO.add(targetOffset);
@@ -115,15 +123,19 @@ public record ChiseledBlockModelInformationBuilder(
 			targetOffset.y() >= 0 && targetOffset.y() < 1 &&
 			targetOffset.z() >= 0 && targetOffset.z() < 1
 		)
+
 		{
 			neighborAccessor = data();
 		}
+
 		else
+
 		{
 			neighborAccessor = key().neighborhood().getAreaAccessor(offsetDirection);
 		}
 
 		if (neighborAccessor != null)
+
 		{
 			return neighborAccessor.getInAreaTarget(inBlockOffsetTarget)
 				.map(IStateEntryInfo::getBlockInformation)
@@ -134,6 +146,7 @@ public record ChiseledBlockModelInformationBuilder(
 	}
 
 	private static final class PartsBuilder
+
 	{
 		private final Set<ChiseledBlockModelMaterial>                        knownMaterials            = new HashSet<>();
 		private final List<ChiseledBlockModelMaterial>                       materialRegistrationOrder = new ArrayList<>();
@@ -172,10 +185,13 @@ public record ChiseledBlockModelInformationBuilder(
 				var bakedQuad = quadBuilder.build();
 
 				if (region.isOnOuterFace() && cullDirection != null)
+
 				{
 					builder.addCulledFace(cullDirection, bakedQuad);
 				}
+
 				else
+
 				{
 					builder.addUnculledFace(bakedQuad);
 				}
@@ -189,6 +205,7 @@ public record ChiseledBlockModelInformationBuilder(
 		}
 
 		private List<ChiseledBlockModelMaterial> materials()
+
 		{
 			return Collections.unmodifiableList(materialRegistrationOrder);
 		}

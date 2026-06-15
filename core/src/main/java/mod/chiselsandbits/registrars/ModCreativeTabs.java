@@ -48,9 +48,11 @@ public final class ModCreativeTabs
 				output.accept(new ItemStack(ModItems.ITEM_CHISEL_DIAMOND.get()));
 				output.accept(new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()));
 				for (DyeColor color : DyeColor.values())
+
 				{
 					output.accept(BitBagItem.dyeBag(new ItemStack(ModItems.ITEM_BIT_BAG.get()), color));
 				}
+
 				output.accept(new ItemStack(ModItems.MAGNIFYING_GLASS.get()));
 				output.accept(new ItemStack(ModItems.ITEM_BIT_STORAGE.get()));
 				output.accept(new ItemStack(ModItems.ITEM_MODIFICATION_TABLE.get()));
@@ -95,6 +97,7 @@ public final class ModCreativeTabs
 							//We need to make sure that we only have still fluids in the interface!
 							if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
 								final Fluid fluid = liquidBlock.fluid;
+
 								if (fluid instanceof FlowingFluid flowingFluid) {
 									blockState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
 								}
@@ -127,11 +130,13 @@ public final class ModCreativeTabs
 			.build());
 
 	private ModCreativeTabs()
+
 	{
 		throw new IllegalStateException("Tried to initialize: ModItemGroups but this is a Utility class.");
 	}
 
 	public static void onModConstruction()
+
 	{
 		LOGGER.info("Loaded item group configuration.");
 	}

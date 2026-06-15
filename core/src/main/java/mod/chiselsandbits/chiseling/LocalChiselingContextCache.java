@@ -13,6 +13,7 @@ public class LocalChiselingContextCache implements ILocalChiselingContextCache
 	private static final LocalChiselingContextCache INSTANCE = new LocalChiselingContextCache();
 
 	public static LocalChiselingContextCache getInstance()
+
 	{
 		return INSTANCE;
 	}
@@ -20,28 +21,33 @@ public class LocalChiselingContextCache implements ILocalChiselingContextCache
 	private final EnumMap<ChiselingOperation, IChiselingContext> contexts = new EnumMap<>(ChiselingOperation.class);
 
 	private LocalChiselingContextCache()
+
 	{
 	}
 
 	@Override
 	public Optional<IChiselingContext> get(ChiselingOperation operation)
+
 	{
 		return Optional.ofNullable(contexts.get(operation));
 	}
 
 	@Override
 	public void set(ChiselingOperation operation, final IChiselingContext context)
+
 	{
 		this.contexts.put(operation, context);
 	}
 
 	@Override
 	public void clear(ChiselingOperation operation)
+
 	{
 		this.contexts.remove(operation);
 	}
 
 	public void clearCache()
+
 	{
 		Arrays.stream(ChiselingOperation.values()).forEach(this::clear);
 	}

@@ -15,8 +15,10 @@ import net.minecraft.world.item.ItemStack;
 public class BitStackPickupHandler
 {
 	public static boolean pickupItems(final ItemEntity entityItem, final Player player)
+
 	{
 		if (entityItem != null)
+
 		{
 			final ItemStack itemStack = entityItem.getItem();
 			if (!itemStack.isEmpty()
@@ -32,6 +34,7 @@ public class BitStackPickupHandler
 				itemStack.setCount(itemStack.getCount() - insertionCount);
 
 				if (itemStack.isEmpty())
+
 				{
 					entityItem.remove(Entity.RemovalReason.DISCARDED);
 				}

@@ -13,12 +13,14 @@ public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRe
 
 	@Override
 	public Identifier getId()
+
 	{
 		return ID;
 	}
 
 	@Override
 	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
+
 	{
 		//Noop
 	}

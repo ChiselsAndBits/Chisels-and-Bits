@@ -19,6 +19,7 @@ public class BitSlot extends Slot
 	  final int index,
 	  final int xPosition,
 	  final int yPosition)
+
 	{
 		super(inventoryIn, index, xPosition, yPosition);
 	}
@@ -26,6 +27,7 @@ public class BitSlot extends Slot
 	@Override
 	public boolean mayPlace(
 	  final @NotNull ItemStack stack)
+
 	{
 		return !stack.isEmpty() && stack.getItem() instanceof BitItem;
 	}

@@ -58,12 +58,14 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
 
 		@Override
 		public @NotNull MapCodec<? extends ItemModel.Unbaked> type()
+
 		{
 			return CODEC;
 		}
 
 		@Override
 		public @NonNull ItemModel bake(final @NonNull BakingContext context, final @NonNull Matrix4fc transformation)
+
 		{
 			final ItemModel wrapper = model().bake(context, transformation);
 			return new InteractableItemModel(wrapper);
@@ -71,6 +73,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
 
 		@Override
 		public void resolveDependencies(final @NotNull Resolver resolver)
+
 		{
 			model().resolveDependencies(resolver);
 		}

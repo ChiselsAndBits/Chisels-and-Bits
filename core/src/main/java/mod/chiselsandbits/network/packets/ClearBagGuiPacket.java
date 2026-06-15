@@ -18,12 +18,14 @@ public final class ClearBagGuiPacket extends ModPacket
 	private ItemStack stack = null;
 
 	public ClearBagGuiPacket(final RegistryFriendlyByteBuf buffer)
+
 	{
 		readPayload(buffer);
 	}
 
 	public ClearBagGuiPacket(
 	  final ItemStack inHandItem)
+
 	{
 		stack = inHandItem;
 	}
@@ -31,12 +33,14 @@ public final class ClearBagGuiPacket extends ModPacket
 	@Override
 	public void server(
 	  final ServerPlayer player)
+
 	{
 		execute(player);
 	}
 
 	public void execute(final Player player) {
 		if (player.containerMenu instanceof BagContainer)
+
 		{
 			((BagContainer) player.containerMenu).clear(stack);
 		}
@@ -45,12 +49,14 @@ public final class ClearBagGuiPacket extends ModPacket
 	@Override
 	public void readPayload(
 	  final RegistryFriendlyByteBuf buffer)
+
 	{
 		stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer)
+
 	{
 		ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, stack);
 	}

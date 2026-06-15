@@ -130,11 +130,13 @@ public class ItemModelUtils
 		@Nullable ItemOwner owner,
 		int seed
 	)
+
 	{
 		final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
 		final QuadCollection.Builder result = new QuadCollection.Builder();
 
 		for (final ItemStackRenderState.LayerRenderState layer : renderState.layers)
+
 		{
 			layer.prepareQuadList()
 					.forEach(result::addUnculledFace);
@@ -165,10 +167,12 @@ public class ItemModelUtils
 	) {
 		final QuadCollection.Builder builder = new QuadCollection.Builder();
 		for (final Direction direction : Direction.values())
+
 		{
 			input.getQuads(direction)
 				.forEach(inputQuad -> builder.addCulledFace(direction, adapter.apply(inputQuad)));
 		}
+
 		input.getQuads(null)
 			.forEach(inputQuad -> builder.addUnculledFace(adapter.apply(inputQuad)));
 

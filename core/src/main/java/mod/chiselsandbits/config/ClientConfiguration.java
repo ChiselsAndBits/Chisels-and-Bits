@@ -46,6 +46,7 @@ public class ClientConfiguration implements IClientConfiguration
 	private final Supplier<Boolean> shouldScrollInteractionsChangeMode;
 
 	public ClientConfiguration()
+
 	{
 		final IConfigurationBuilder builder = IConfigurationManager.getInstance().createBuilder(
 				ConfigurationType.CLIENT_ONLY, Constants.MOD_ID + "-client", "mod.chiselsandbits.config");
@@ -87,144 +88,168 @@ public class ClientConfiguration implements IClientConfiguration
 
 	@Override
 	public Supplier<Boolean> getInvertBitBagFullness()
+
 	{
 		return bitBagFullness;
 	}
 
 	@Override
 	public Supplier<PlacementPreviewRenderMode> getSuccessfulPlacementRenderMode()
+
 	{
 		return successfulPlacementRenderMode;
 	}
 
 	@Override
 	public Supplier<PlacementPreviewRenderMode> getFailedPlacementRenderMode()
+
 	{
 		return failedPlacementRenderMode;
 	}
 
 	@Override
 	public Supplier<Vector4f> getSuccessfulPlacementColor()
+
 	{
 		return successfulPlacementColor;
 	}
 
 	@Override
 	public Supplier<Vector4f> getNotFittingPatternPlacementColor()
+
 	{
 		return notFittingPatternPlacementColor;
 	}
 
 	@Override
 	public Supplier<Vector4f> getMissingBitsOrSpacePatternPlacementColor()
+
 	{
 		return missingBitsOrSpacePatternPlacementColor;
 	}
 
 	@Override
 	public Supplier<List<? extends Float>> getPreviewChiselingColor()
+
 	{
 		return previewChiselingColor;
 	}
 
 	@Override
 	public Supplier<List<? extends Float>> getPreviewPlacementColor()
+
 	{
 		return previewPlacementColor;
 	}
 
 	@Override
 	public Supplier<String> getPreviewRenderer()
+
 	{
 		return previewRenderer;
 	}
 
 	@Override
 	public Supplier<String> getToolModeRenderer()
+
 	{
 		return toolModeRenderer;
 	}
 
 	@Override
 	public Supplier<Boolean> getInvertPickBlockBehaviour()
+
 	{
 		return invertPickBlockBehaviour;
 	}
 
 	@Override
 	public Supplier<Long> getBitStorageContentCacheSize()
+
 	{
 		return bitStorageContentCacheSize;
 	}
 
 	@Override
 	public Supplier<Long> getPrinterContentCacheSize()
+
 	{
 		return printerContentCacheSize;
 	}
 
 	@Override
 	public Supplier<Boolean> getEnableFaceLightmapExtraction()
+
 	{
 		return faceLightMapExtraction;
 	}
 
 	@Override
 	public Supplier<Boolean> getUseGetLightValue()
+
 	{
 		return blockLightEmissionExtraction;
 	}
 
 	@Override
 	public Supplier<Boolean> getEnableMouseIndicatorInRadialMenu()
+
 	{
 		return radialMenuMouseIndicator;
 	}
 
 	@Override
 	public Supplier<Long> getModelCacheSize()
+
 	{
 		return modelCacheSize;
 	}
 
 	@Override
 	public Supplier<Long> getFaceLayerCacheSize()
+
 	{
 		return faceLayerCacheSize;
 	}
 
 	@Override
 	public Supplier<Integer> getModelBuildingThreadCount()
+
 	{
 		return modelBuildingThreadCount;
 	}
 
 	@Override
 	public Supplier<Integer> getClipboardSize()
+
 	{
 		return clipboardSize;
 	}
 
 	@Override
 	public Supplier<Boolean> getShouldBrokenBlocksBeAddedToClipboard()
+
 	{
 		return addBrokenBlocksToClipboard;
 	}
 
 	@Override
 	public Supplier<Boolean> getShouldPickedBlocksBeAddedToClipboard()
+
 	{
 		return addPickedBlocksToClipboard;
 	}
 
 	@Override
 	public Supplier<String> getPatternExportPath()
+
 	{
 		return patternExportPath;
 	}
 
 	@Override
 	public Supplier<Long> getStackModelCacheSize()
+
 	{
 		return stackModelCacheSize;
 	}
@@ -236,18 +261,21 @@ public class ClientConfiguration implements IClientConfiguration
 
 	@Override
 	public Supplier<List<? extends Float>> getMutatorPreviewChiselingColor()
+
 	{
 		return mutatorPreviewChiselingColor;
 	}
 
 	@Override
 	public Supplier<List<? extends Float>> getMutatorPreviewPlacementColor()
+
 	{
 		return mutatorPreviewPlacementColor;
 	}
 
 	@Override
 	public Supplier<Boolean> getMutatorPreviewDebug()
+
 	{
 		return mutatorPreviewDebug;
 	}

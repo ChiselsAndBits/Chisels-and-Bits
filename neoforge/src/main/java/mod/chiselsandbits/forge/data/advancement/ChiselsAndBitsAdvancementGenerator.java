@@ -32,6 +32,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
 {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true, new ChiselsAndBitsAdvancementGenerator(event.getGenerator().getPackOutput(), event.getLookupProvider()));
 	}

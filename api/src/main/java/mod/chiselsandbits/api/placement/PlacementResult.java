@@ -21,6 +21,7 @@ public class PlacementResult
      * @return A new result indicating successful placement.
      */
 	public static PlacementResult success()
+
 	{
 		return success(IClientConfiguration::getSuccessfulPlacementColor);
 	}
@@ -32,6 +33,7 @@ public class PlacementResult
      * @return A new result indicating successful placement.
      */
 	public static PlacementResult success(final Function<IClientConfiguration, Supplier<Vector4f>> clientColor)
+
 	{
 		return new PlacementResult(true, clientColor, Component.empty());
 	}
@@ -43,6 +45,7 @@ public class PlacementResult
      * @return A new result indicating failed placement.
      */
 	public static PlacementResult failure(final Function<IClientConfiguration, Supplier<Vector4f>> clientColor)
+
 	{
 		return failure(clientColor, Component.empty());
 	}
@@ -55,6 +58,7 @@ public class PlacementResult
      * @return A new result indicating failed placement.
      */
 	public static PlacementResult failure(final Function<IClientConfiguration, Supplier<Vector4f>> clientColor, final Component message)
+
 	{
 		return new PlacementResult(false, clientColor, message);
 	}
@@ -66,6 +70,7 @@ public class PlacementResult
      * @return A new result indicating successful placement.
      */
 	public static PlacementResult success(final Vector4f color)
+
 	{
 		return new PlacementResult(true, color, Component.empty());
 	}
@@ -77,6 +82,7 @@ public class PlacementResult
      * @return A new result indicating failed placement.
      */
 	public static PlacementResult failure(final Vector4f color)
+
 	{
 		return failure(color, Component.empty());
 	}
@@ -89,6 +95,7 @@ public class PlacementResult
      * @return A new result indicating failed placement.
      */
 	public static PlacementResult failure(final Vector4f color, final Component message)
+
 	{
 		return new PlacementResult(false, color, message);
 	}
@@ -98,6 +105,7 @@ public class PlacementResult
 	private final Component failureMessage;
 
 	private PlacementResult(final boolean success, final Function<IClientConfiguration, Supplier<Vector4f>> clientColor, final Component failureMessage)
+
 	{
 		this(success,
 				DistExecutor.unsafeRunForDist(
@@ -107,6 +115,7 @@ public class PlacementResult
 	}
 
 	private PlacementResult(final boolean success, final Vector4f color, final Component failureMessage)
+
 	{
 		this.success = success;
 		this.color = color;
@@ -114,16 +123,19 @@ public class PlacementResult
 	}
 
 	public boolean isSuccess()
+
 	{
 		return success;
 	}
 
 	public Vector4f getColor()
+
 	{
 		return color;
 	}
 
 	public Component getFailureMessage()
+
 	{
 		return failureMessage;
 	}

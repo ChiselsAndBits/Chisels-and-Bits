@@ -68,6 +68,7 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
 			int centerX, int centerY,
 			float outerRadius
 		)
+
 		{
 			return new ScreenRectangle(
 				(int) (centerX - outerRadius),
@@ -79,30 +80,35 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
 
 		@Override
 		public float scale()
+
 		{
 			return 1f;
 		}
 	}
 
 	public Torus(final MultiBufferSource.BufferSource bufferSource)
+
 	{
 		super(bufferSource);
 	}
 
 	@Override
 	public @NotNull Class<RenderState> getRenderStateClass()
+
 	{
 		return Torus.RenderState.class;
 	}
 
 	@Override
 	protected void renderToTexture(final RenderState renderState, final @NotNull PoseStack poseStack)
+
 	{
 		VertexConsumer vertexBuffer = this.bufferSource.getBuffer(RenderTypes.debugFilledBox());
 		poseStack.pushPose();
 		Matrix4f matrix4f = poseStack.last().pose();
 		float draws = DRAWS * (renderState.sizeAngle() / 360F);
 		for (int i = 0; i < draws; i++)
+
 		{
 			float angle = (float) Math.toRadians(renderState.startAngle() + (i / DRAWS) * 360);
 			float endAngle = ((float) Math.toRadians(renderState.startAngle() + ((i + 1) / DRAWS) * 360));
@@ -121,17 +127,20 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
 				.addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
 				.setColor(renderState.color());
 		}
+
 		poseStack.popPose();
 	}
 
 	@Override
 	protected @NotNull String getTextureLabel()
+
 	{
 		return "C&B Torus";
 	}
 
 	@Override
 	protected float getTranslateY(final int height, final int guiScale)
+
 	{
 		return (float) height / 2;
 	}

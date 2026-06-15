@@ -18,23 +18,27 @@ import net.minecraft.resources.ResourceKey;
 public class ModificationOperationRecipeProvider extends RecipeProvider
 {
 	protected ModificationOperationRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output)
+
 	{
 		super(registries, output);
 	}
 
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
+
 	{
 		event.getGenerator().addProvider(true,
 			new Runner(event.getGenerator().getPackOutput(), event.getLookupProvider()) {
 				@Override
 				protected @NotNull RecipeProvider createRecipeProvider(final HolderLookup.@NotNull Provider registries, final @NotNull RecipeOutput output)
+
 				{
 					return new ModificationOperationRecipeProvider(registries, output);
 				}
 
 				@Override
 				public @NotNull String getName()
+
 				{
 					return "Modification table recipes";
 				}
@@ -44,6 +48,7 @@ public class ModificationOperationRecipeProvider extends RecipeProvider
 
 	@Override
 	protected void buildRecipes()
+
 	{
 		ModModificationOperation.REGISTRY_SUPPLIER.get().forEach(
 			operation -> {

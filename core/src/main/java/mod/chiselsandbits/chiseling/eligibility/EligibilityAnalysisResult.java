@@ -23,6 +23,7 @@ public class EligibilityAnalysisResult implements IEligibilityAnalysisResult
      */
 	@Override
 	public boolean canBeChiseled()
+
 	{
 		return canBeChiseled;
 	}
@@ -34,6 +35,7 @@ public class EligibilityAnalysisResult implements IEligibilityAnalysisResult
      */
 	@Override
 	public boolean isAlreadyChiseled()
+
 	{
 		return isAlreadyChiseled;
 	}
@@ -45,6 +47,7 @@ public class EligibilityAnalysisResult implements IEligibilityAnalysisResult
      */
 	@Override
 	public MutableComponent getReason()
+
 	{
 		return displayName;
 	}
