@@ -7,3 +7,9 @@ immaculate.workflows.register("java") {
         failOnUnmatchedHints = true
     }
 }
+
+afterEvaluate {
+    tasks.named("javaImmaculateApply").configure {
+        it.outputs.upToDateWhen { false }
+    }
+}
