@@ -9,8 +9,7 @@ import net.minecraft.world.level.LevelAccessor;
 /**
  * Represents a 3D object in world.
  */
-public interface IWorldObject
-{
+public interface IWorldObject {
 	/**
      * The world the object is in.
      *

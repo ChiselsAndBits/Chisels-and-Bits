@@ -11,8 +11,7 @@ import mod.chiselsandbits.profiling.jvm.jfr.JfrCandBProfiler;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.util.profiling.jfr.JvmProfiler;
 
-public class ProfilingManager implements IProfilingManager
-{
+public class ProfilingManager implements IProfilingManager {
 	private static final ProfilingManager INSTANCE = new ProfilingManager();
 
 	public static ProfilingManager getInstance()
@@ -43,8 +42,9 @@ public class ProfilingManager implements IProfilingManager
 	public IProfilerResult endProfiling(final IProfiler profiler)
 
 	{
-		if (!(profiler instanceof final CandBProfiler candBProfiler))
+		if (!(profiler instanceof final CandBProfiler candBProfiler)) {
 			throw new IllegalArgumentException("Profiler is not a Chisels and Bits Profiler");
+		}
 
 		return candBProfiler.getResult();
 	}
@@ -53,8 +53,9 @@ public class ProfilingManager implements IProfilingManager
 	public IProfilerResult stopProfiling(final IProfiler profiler)
 
 	{
-		if (!(profiler instanceof final CandBProfiler candBProfiler))
+		if (!(profiler instanceof final CandBProfiler candBProfiler)) {
 			throw new IllegalArgumentException("Profiler is not a Chisels and Bits Profiler");
+		}
 
 		this.profiler = null;
 		return candBProfiler.stop();
@@ -77,19 +78,23 @@ public class ProfilingManager implements IProfilingManager
 	}
 
 	public void withProfiler(final Consumer<IProfiler> callback) {
-		if (hasProfiler())
+		if (hasProfiler()) {
 			callback.accept(getProfiler());
+		}
 	}
 
 	public IProfilerSection withSection(final String name) {
 		final IProfiler profiler = getProfiler();
 
-		if (profiler != null)
+		if (profiler != null) {
 			profiler.startSection(name);
+		}
 
 		return () -> {
-			if (profiler != null)
+			if (profiler != null) {
 				profiler.endSection();
-		};
+			}
+		}
+		;
 	}
 }

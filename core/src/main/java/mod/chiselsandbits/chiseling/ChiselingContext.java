@@ -32,8 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
-public class ChiselingContext implements IChiselingContext
-{
+public class ChiselingContext implements IChiselingContext {
 	private final LevelAccessor             world;
 	private final IChiselMode        chiselMode;
 	private final ChiselingOperation modeOfOperandus;
@@ -133,8 +132,9 @@ public class ChiselingContext implements IChiselingContext
 	public @NotNull Optional<IWorldAreaMutator> getMutator()
 
 	{
-		if (mutator == null || playerEntity == null || !(world instanceof Level))
+		if (mutator == null || playerEntity == null || !(world instanceof Level)) {
 			return Optional.ofNullable(mutator);
+		}
 
 		if (!IPermissionHandler.getInstance().canManipulate(
 		  playerEntity, mutator
@@ -310,11 +310,13 @@ public class ChiselingContext implements IChiselingContext
 				broken.set(true);
 
 				EquipmentSlot hand = EquipmentSlot.MAINHAND;
-				if (playerEntity.getOffhandItem() == causingItemStack)
+				if (playerEntity.getOffhandItem() == causingItemStack) {
 					hand = EquipmentSlot.OFFHAND;
+				}
 
 				player.onEquippedItemBroken(item, hand);
-			});
+			}
+			);
 		}
 
 		onDamaged.run();
@@ -353,8 +355,9 @@ public class ChiselingContext implements IChiselingContext
 
 	{
 		final Object value = this.metadataKeyMap.get(key);
-		if (value == null)
+		if (value == null) {
 			return Optional.empty();
+		}
 
 		try {
 			final T castValue = (T) value;

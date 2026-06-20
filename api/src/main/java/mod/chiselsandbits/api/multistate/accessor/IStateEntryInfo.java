@@ -13,8 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @see mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor
  * @see mod.chiselsandbits.api.multistate.accessor.world.IInWorldStateEntryInfo
  */
-public interface IStateEntryInfo extends IAABBOwner
-{
+public interface IStateEntryInfo extends IAABBOwner {
 	/**
      * The state that this entry represents.
      *

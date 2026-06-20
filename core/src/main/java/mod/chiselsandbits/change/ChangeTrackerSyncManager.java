@@ -33,7 +33,8 @@ public final class ChangeTrackerSyncManager {
 					new ChangeTrackerUpdatedPacket(e.tracker().getChanges()),
 					e.serverPlayer()
 			);
-		});
+		}
+		);
 		entries.clear();
 	}
 }

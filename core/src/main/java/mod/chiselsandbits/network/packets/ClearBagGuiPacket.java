@@ -10,8 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public final class ClearBagGuiPacket extends ModPacket
-{
+public final class ClearBagGuiPacket extends ModPacket {
 	public static final Identifier                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "clear_bag_gui");
 	public static final CustomPacketPayload.Type<ClearBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

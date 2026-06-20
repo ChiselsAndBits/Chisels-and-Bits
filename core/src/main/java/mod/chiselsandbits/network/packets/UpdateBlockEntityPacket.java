@@ -16,8 +16,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-public final class UpdateBlockEntityPacket extends ModPacket
-{
+public final class UpdateBlockEntityPacket extends ModPacket {
 	public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "update_block_entity");
 	public static final CustomPacketPayload.Type<UpdateBlockEntityPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

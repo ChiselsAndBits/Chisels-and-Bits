@@ -5,8 +5,7 @@ import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class ModModelProperties
-{
+public final class ModModelProperties {
 	private static final Logger                                LOGGER = LogManager.getLogger();
 	public static IModelDataKey<ChiseledBlockModelInformation> MODEL  = IModelDataKey.create();
 

@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
  * Registry for registering possible selected tool mode icon renderers,
  * and for getting the current renderer back out.
  */
-public interface ISelectedToolModeIconRendererRegistry
-{
+public interface ISelectedToolModeIconRendererRegistry {
 	static ISelectedToolModeIconRendererRegistry getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getSelectedToolModeIconRenderer();
 	}

@@ -10,8 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 /**
  * Marks the entity as a network updatable entity.
  */
-public interface INetworkUpdatableEntity<TPayload>
-{
+public interface INetworkUpdatableEntity<TPayload> {
 	/**
      * {@return The registry access for this entity.}
      */

@@ -14,6 +14,5 @@ import java.lang.annotation.RetentionPolicy;
  * releasing usage.
  */
 @Retention( RetentionPolicy.RUNTIME )
-public @interface IgnoreBlockLogic
-{
+public @interface IgnoreBlockLogic {
 }

@@ -13,8 +13,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 
-public class ChiseledBlockTooltipHandler
-{
+public class ChiseledBlockTooltipHandler {
 	public static void configure()
 
 	{
@@ -30,7 +29,8 @@ public class ChiseledBlockTooltipHandler
 			}
 
 			return true;
-		});
+		}
+		);
 	}
 
 	public record Payload(IMultiStateSnapshot snapshot) implements TooltipComponent {}

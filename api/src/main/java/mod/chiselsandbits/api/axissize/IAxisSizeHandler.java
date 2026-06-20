@@ -4,8 +4,7 @@ package mod.chiselsandbits.api.axissize;
  * Represents a handler which can indicate the current active maximum and minimum size
  * of the multistate object.
  */
-public interface IAxisSizeHandler
-{
+public interface IAxisSizeHandler {
 	static IAxisSizeHandler empty() {
 		return new IAxisSizeHandler() {
 			@Override
@@ -21,7 +20,8 @@ public interface IAxisSizeHandler
 			{
 				return 0;
 			}
-		};
+		}
+		;
 	}
 
 	/**

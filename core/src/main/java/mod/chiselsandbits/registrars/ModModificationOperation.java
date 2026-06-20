@@ -14,8 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.core.Direction;
 
-public final class ModModificationOperation
-{
+public final class ModModificationOperation {
 	private static final Logger                                   LOGGER              = LogManager.getLogger();
 	private static final ICustomRegistrar<IModificationOperation> OPERATION_REGISTRAR = ICustomRegistrar.create(IModificationOperation.class, Constants.MOD_ID);
 

@@ -12,8 +12,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public class GuiIconButton extends AbstractChiselsAndBitsButton
-{
+public class GuiIconButton extends AbstractChiselsAndBitsButton {
 	private static final WidgetSprites SPRITES = new WidgetSprites(
 			Identifier.withDefaultNamespace("widget/button"), Identifier.withDefaultNamespace("widget/button_disabled"), Identifier.withDefaultNamespace("widget/button_highlighted")
 	);
@@ -25,8 +24,7 @@ public class GuiIconButton extends AbstractChiselsAndBitsButton
 			final int y,
 			final TextureAtlasSprite defaultIcon,
 			Button.OnPress pressedAction,
-			Tooltip tooltip)
-	{
+			Tooltip tooltip) {
 		super( x, y, SIZE, SIZE, Component.empty(), pressedAction, Button.DEFAULT_NARRATION);
 		this.defaultIcon = defaultIcon;
 		this.setTooltip(tooltip);

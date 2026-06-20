@@ -15,8 +15,7 @@ import java.util.stream.Stream;
  * Gives access to all states in a given area.
  * Might be larger than a single block.
  */
-public interface IAreaAccessor extends IStateAccessor, IAABBOwner
-{
+public interface IAreaAccessor extends IStateAccessor, IAABBOwner {
 	/**
      * Creates a new area shape identifier.
      *

@@ -39,8 +39,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWithVoxelShape
-{
+public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWithVoxelShape {
 	private final LevelAccessor   world;
 	private final Vec3 startPoint;
 	private final Vec3 endPoint;
@@ -106,8 +105,9 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
 
 	{
-		if (!isInside(inAreaTarget))
+		if (!isInside(inAreaTarget)) {
 			return Optional.empty();
+		}
 
 		final BlockPos exactPosition = VectorUtils.toBlockPos(inAreaTarget);
 		final Vec3 exactInBlockOffset = inAreaTarget.subtract(
@@ -130,8 +130,9 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
 
 	{
-		if (!isInside(inAreaBlockPosOffset, inBlockTarget))
+		if (!isInside(inAreaBlockPosOffset, inBlockTarget)) {
 			return Optional.empty();
+		}
 
 		return new ChiselAdaptingWorldMutator(getWorld(), inAreaBlockPosOffset)
 													 .getInAreaTarget(inBlockTarget);
@@ -204,7 +205,8 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 					 final Vec3 inBlockOffset = position.subtract(Vec3.atLowerCornerOf(blockPos));
 
 					 return getInBlockTarget(blockPos, inBlockOffset);
-				 })
+				 }
+				 )
 				 .filter(Optional::isPresent)
 				 .map(Optional::get);
 	}
@@ -273,8 +275,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	{
 		if (inAreaTarget.x() < 0 ||
 			  inAreaTarget.y() < 0 ||
-			  inAreaTarget.z() < 0)
-		{
+			  inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
 		}
 
@@ -282,8 +283,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		if (actualTarget.x() >= getInWorldEndPoint().x() ||
 			  actualTarget.y() >= getInWorldEndPoint().y() ||
-			  actualTarget.z() >= getInWorldEndPoint().z())
-		{
+			  actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
 		}
 
@@ -307,15 +307,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		if (target.x() < getInWorldStartPoint().x() ||
 			  target.y() < getInWorldStartPoint().y() ||
-			  target.z() < getInWorldStartPoint().z())
-		{
+			  target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
 		}
 
 		if (target.x() >= getInWorldEndPoint().x() ||
 			  target.y() >= getInWorldEndPoint().y() ||
-			  target.z() >= getInWorldEndPoint().z())
-		{
+			  target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
 		}
 
@@ -337,8 +335,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	{
 		if (inAreaTarget.x() < 0 ||
 			  inAreaTarget.y() < 0 ||
-			  inAreaTarget.z() < 0)
-		{
+			  inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
 		}
 
@@ -346,8 +343,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		if (actualTarget.x() >= getInWorldEndPoint().x() ||
 			  actualTarget.y() >= getInWorldEndPoint().y() ||
-			  actualTarget.z() >= getInWorldEndPoint().z())
-		{
+			  actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
 		}
 
@@ -377,15 +373,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		if (target.x() < getInWorldStartPoint().x() ||
 			  target.y() < getInWorldStartPoint().y() ||
-			  target.z() < getInWorldStartPoint().z())
-		{
+			  target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
 		}
 
 		if (target.x() >= getInWorldEndPoint().x() ||
 			  target.y() >= getInWorldEndPoint().y() ||
-			  target.z() >= getInWorldEndPoint().z())
-		{
+			  target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
 		}
 
@@ -471,7 +465,8 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 			changeTracker.onBlocksUpdated(
 			  before, after
 			);
-		};
+		}
+		;
 	}
 
 	@Override

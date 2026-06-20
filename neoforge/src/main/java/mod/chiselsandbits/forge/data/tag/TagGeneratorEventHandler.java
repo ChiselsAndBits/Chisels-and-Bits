@@ -12,8 +12,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class TagGeneratorEventHandler
-{
+public class TagGeneratorEventHandler {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
 

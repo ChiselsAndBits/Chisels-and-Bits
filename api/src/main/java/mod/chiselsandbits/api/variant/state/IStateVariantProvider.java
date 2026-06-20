@@ -22,8 +22,7 @@ import java.util.Optional;
 /**
  * Represents the state variant provider, which allows external mods to provide their own state variants.
  */
-public interface IStateVariantProvider
-{
+public interface IStateVariantProvider {
 	/**
      * Returns the registry name of the provider.
      *

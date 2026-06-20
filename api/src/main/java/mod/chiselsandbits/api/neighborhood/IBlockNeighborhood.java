@@ -16,8 +16,7 @@ import java.util.Optional;
 /**
  * Marker interface used to detect block neighborhoods in cache keys.
  */
-public interface IBlockNeighborhood
-{
+public interface IBlockNeighborhood {
 	/**
      * Empty neighborhood.
      */
@@ -37,7 +36,8 @@ public interface IBlockNeighborhood
 		{
 			return null;
 		}
-	};
+	}
+	;
 
 	/**
      * Creates a block neighborhood around the given block entity.
@@ -64,7 +64,8 @@ public interface IBlockNeighborhood
 				);
 
 				return new BlockInformation(state, additionalStateInfo);
-			},
+			}
+			,
 			direction -> {
 				final Level level = blockEntity.getLevel();
 				if (level == null)

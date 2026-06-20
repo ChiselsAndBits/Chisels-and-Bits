@@ -12,8 +12,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.resources.Identifier;
 
-public class IconManager implements IIconManager
-{
+public class IconManager implements IIconManager {
 	public static final  Identifier  TEXTURE_MAP_NAME = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/atlases/icons.png");
 	private static final IconManager INSTANCE         = new IconManager();
 

@@ -9,8 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class ClearChangeTrackerPacket extends ModPacket
-{
+public final class ClearChangeTrackerPacket extends ModPacket {
 	public static final Identifier                                         ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "clear_change_tracker");
 	public static final CustomPacketPayload.Type<ClearChangeTrackerPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

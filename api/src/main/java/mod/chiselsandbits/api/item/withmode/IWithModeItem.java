@@ -12,8 +12,7 @@ import java.util.List;
  *
  * @param <M> The enum specifying the mode.
  */
-public interface IWithModeItem<M extends IToolMode<?>>
-{
+public interface IWithModeItem<M extends IToolMode<?>> {
 	/**
      * Indicates to the ux system that this item requires an additional
      * update when the player closes the interface.
@@ -47,8 +46,9 @@ public interface IWithModeItem<M extends IToolMode<?>>
      * @param modeIndex The modes index to set on the stack.
      */
 	default void setMode(final ItemStack stack, final int modeIndex) {
-		if (modeIndex == -1)
+		if (modeIndex == -1) {
 			return;
+		}
 
 		final List<M> modes = Lists.newArrayList(getPossibleModes());
 		setMode(stack, modes.get(modeIndex));

@@ -13,8 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 
-public class MagnifyingGlassTooltipHandler
-{
+public class MagnifyingGlassTooltipHandler {
 	public static void onItemTooltip(final ItemStack itemStack, final List<Component> toolTips)
 
 	{

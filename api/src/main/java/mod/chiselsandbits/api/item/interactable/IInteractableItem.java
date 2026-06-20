@@ -5,8 +5,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Represents an item which can be used to interact with other items in the other hand.
  */
-public interface IInteractableItem
-{
+public interface IInteractableItem {
 	/**
      * Indicates if the current given itemstack is in use during an interaction.
      * @param stack The stack in question.

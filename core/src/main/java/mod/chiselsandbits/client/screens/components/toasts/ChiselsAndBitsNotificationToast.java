@@ -19,8 +19,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
-public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & IWithText> implements Toast
-{
+public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & IWithText> implements Toast {
 	private static final Identifier BACKGROUND_SPRITE = Identifier.withDefaultNamespace("toast/advancement");
 	private final        T          contents;
 	private Toast.Visibility wantedVisibility = Toast.Visibility.HIDE;

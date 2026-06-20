@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.multistate.StateEntrySize;
 
 import net.minecraft.core.BlockPos;
 
-public class BlockPosUtils
-{
+public class BlockPosUtils {
 	private BlockPosUtils()
 
 	{

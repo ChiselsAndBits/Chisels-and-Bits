@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
 import net.minecraft.server.MinecraftServer;
 
 @ChiselsAndBitsPlugin
-public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
-{
+public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TagExporterEntrypoint.class);
 	private static MinecraftServer server;
 
@@ -29,15 +28,17 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
 
 	{
 		LOGGER.warn("Loading wiki C&B Plugin.");
-		if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE)
+		if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE) {
 			return;
+		}
 
 		IGameEvents.getInstance().getServerStartedEvent()
 			.register(minecraftServer -> {
 				LOGGER.info("Starting wiki C&B Plugin data exporter.");
 				setServer(minecraftServer);
 				WikiDataExporter.runModule(TagExporterFactory.NAME);
-			});
+			}
+			);
 
 		LOGGER.info("Loaded wiki C&B Plugin.");
 	}
@@ -45,8 +46,9 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin
 	static MinecraftServer getServer()
 
 	{
-		if (server == null)
+		if (server == null) {
 			throw new IllegalStateException("Entrypoint was not invoked properly!");
+		}
 
 		return server;
 	}

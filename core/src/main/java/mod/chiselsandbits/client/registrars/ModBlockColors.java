@@ -4,8 +4,7 @@ import com.communi.suggestu.scena.core.client.rendering.IColorManager;
 import mod.chiselsandbits.client.colors.ChiseledBlockColorProvider;
 import mod.chiselsandbits.registrars.ModBlocks;
 
-public final class ModBlockColors
-{
+public final class ModBlockColors {
 	private ModBlockColors()
 
 	{

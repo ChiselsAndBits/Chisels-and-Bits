@@ -32,8 +32,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public record ModificationTableRecipe(IModificationOperation operation) implements Recipe<CraftingInput>
-{
+public record ModificationTableRecipe(IModificationOperation operation) implements Recipe<CraftingInput> {
 	public static final MapCodec<ModificationTableRecipe> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			Identifier.CODEC.xmap(

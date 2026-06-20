@@ -9,8 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Manager which handles notifying players of events in the game.
  */
-public interface INotificationManager
-{
+public interface INotificationManager {
 	/**
      * The current instance of the notification manager.
      *
@@ -49,7 +48,8 @@ public interface INotificationManager
 			{
 				return message;
 			}
-		});
+		}
+		);
 	}
 
 	/**

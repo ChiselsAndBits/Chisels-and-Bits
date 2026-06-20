@@ -10,8 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
-public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrinterContainer>
-{
+public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrinterContainer> {
 	private static final Identifier GUI_TEXTURES = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/chisel_printer.png");
 
 	public ChiseledPrinterScreen(final ChiseledPrinterContainer screenContainer, final Inventory inv, final Component titleIn)
@@ -46,8 +45,9 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
 			256
 		);
 
-		if (this.menu.getToolStack().isEmpty())
+		if (this.menu.getToolStack().isEmpty()) {
 			return;
+		}
 
 		graphics.item(this.menu.getToolStack(), this.leftPos + 81, this.topPos + 47);
 

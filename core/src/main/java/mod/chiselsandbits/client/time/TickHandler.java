@@ -2,8 +2,7 @@ package mod.chiselsandbits.client.time;
 
 import net.minecraft.client.Minecraft;
 
-public class TickHandler
-{
+public class TickHandler {
 	private static long clientTicks = 0;
 
 	private static long nonePausedTicks = 0;

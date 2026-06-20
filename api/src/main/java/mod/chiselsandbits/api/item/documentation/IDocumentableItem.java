@@ -10,8 +10,7 @@ import java.util.Map;
 /**
  * Represents an item that is documented via the Chisels and Bits documentation export system.
  */
-public interface IDocumentableItem
-{
+public interface IDocumentableItem {
 	/**
      * Gives access to the variants of the item that are exportable.
      * @param item The item instance in question.

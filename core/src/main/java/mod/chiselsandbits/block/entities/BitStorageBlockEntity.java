@@ -38,8 +38,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public class BitStorageBlockEntity extends BlockEntity implements Container
-{
+public class BitStorageBlockEntity extends BlockEntity implements Container {
 	private BlockInformation state = null;
 	private int              bits  = 0;
 
@@ -92,8 +91,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 	}
 
 	public boolean addAllPossibleBits(
-		final Player playerIn)
-	{
+		final Player playerIn) {
 		if (playerIn != null && playerIn.isShiftKeyDown() && state != null && !state.isAir())
 
 		{
@@ -221,8 +219,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container
 
 	public boolean addHeldBits(
 		final ItemStack current,
-		final Player playerIn)
-	{
+		final Player playerIn) {
 		if (current.isEmpty())
 
 		{

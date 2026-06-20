@@ -9,8 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * An object which can manage the eligibility of chiseling of blocks, blockstates,
  * or itemstacks (which contain blocks eligible) for chiseling.
  */
-public interface IEligibilityManager
-{
+public interface IEligibilityManager {
 	static IEligibilityManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getEligibilityManager();
 	}

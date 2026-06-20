@@ -4,7 +4,6 @@ import java.util.concurrent.CompletableFuture;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModItems;
-import mod.chiselsandbits.registrars.ModTags;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -12,20 +11,15 @@ import org.jspecify.annotations.NonNull;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class DyeableItemsRecipeGenerator extends RecipeProvider
-{
+public class DyeableItemsRecipeGenerator extends RecipeProvider {
 	public DyeableItemsRecipeGenerator(
 		final HolderLookup.Provider registries,
 		final RecipeOutput output
-		)
-	{
+		) {
 		super(registries, output);
 	}
 

@@ -2,13 +2,11 @@ package mod.chiselsandbits.api.util;
 
 import java.util.function.Function;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class BlockHitResultUtils
-{
+public class BlockHitResultUtils {
 	private BlockHitResultUtils()
 
 	{

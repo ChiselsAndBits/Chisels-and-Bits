@@ -1,7 +1,6 @@
 package mod.chiselsandbits.utils;
 
-public class SimpleInstanceCache<X, Y>
-{
+public class SimpleInstanceCache<X, Y> {
 	X equalityValue;
 	Y cacheInstance;
 

@@ -8,7 +8,6 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
 import com.communi.suggestu.scena.core.IScenaPlatform;
 import com.communi.suggestu.scena.core.blockstate.ILevelBasedPropertyAccessor;
 import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
@@ -71,9 +70,8 @@ import mod.chiselsandbits.voxelshape.SingleBlockVoxelShapeCache;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -106,8 +104,7 @@ import net.minecraft.world.phys.shapes.CubeVoxelShape;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ChiseledBlockEntity extends BlockEntity implements
-	IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IBlockEntityWithModelData
-{
+	IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IBlockEntityWithModelData {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final float ONE_THOUSANDS = 1 / 1000f;
@@ -126,7 +123,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 		new SingleObjectCache<>(() -> {
 			final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
 			return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
-		}, BlockStack::copy);
+		}
+		, BlockStack::copy);
 	private       boolean                              isLoading            = false;
 	private final Deque<Runnable>                      afterCurrentLoad     = new ArrayDeque<>();
 
@@ -267,8 +265,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			inAreaTarget.z() < 0 ||
 			inAreaTarget.x() >= 1 ||
 			inAreaTarget.y() >= 1 ||
-			inAreaTarget.z() >= 1)
-		{
+			inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -394,7 +391,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				{
 					this.afterCurrentLoad.pop().run();
 				}
-			}, getExecutor());
+			}
+			, getExecutor());
 
 		if (dataInput instanceof CopyableTagValueInput copyableTagValueInput)
 
@@ -570,7 +568,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 						this.lastTag = writeableTagValueOutput.asInput();
 					}
 				}
-			});
+			}
+			);
 	}
 
 	private CompletableFuture<Payload> readAsync(ValueInput valueInput)
@@ -664,8 +663,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			inAreaTarget.z() < 0 ||
 			inAreaTarget.x() >= 1 ||
 			inAreaTarget.y() >= 1 ||
-			inAreaTarget.z() >= 1)
-		{
+			inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -773,8 +771,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			inAreaTarget.z() < 0 ||
 			inAreaTarget.x() >= 1 ||
 			inAreaTarget.y() >= 1 ||
-			inAreaTarget.z() >= 1)
-		{
+			inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -899,7 +896,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this.storage.rotate(axis, rotationCount);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -920,7 +918,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this.storage.mirror(axis);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -961,8 +960,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 	{
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos ->
-				{
+			.map(blockPos -> {
 					final Vec3i pos = positionMutator.mutate(blockPos);
 					return new StateEntry(
 						storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
@@ -977,8 +975,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 	@Override
 	public void forEachWithPositionMutator(
-		final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
-	{
+		final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) ->
 
 		{
@@ -990,7 +987,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				pos,
 				this::setInAreaTarget,
 				this::clearInAreaTarget));
-		});
+		}
+		);
 	}
 
 	@SuppressWarnings("resource")
@@ -1012,7 +1010,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			{
 				setChanged();
 			}
-		}));
+		}
+		));
 		return this.batchMutations.get(id);
 	}
 
@@ -1029,7 +1028,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			final IMultiStateSnapshot after = this.createSnapshot();
 			innerMutation.close();
 			changeTracker.onBlockUpdated(getBlockPos(), before, after);
-		};
+		}
+		;
 	}
 
 	public void setModelData(final IBlockModelData modelData)
@@ -1047,8 +1047,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 	@Override
 	public VoxelShape provideShape(
-		final CollisionType type, final BlockPos offset, final boolean simplify)
-	{
+		final CollisionType type, final BlockPos offset, final boolean simplify) {
 		VoxelShape shape = new CubeVoxelShape(new MultiStateBlockEntityDiscreteVoxelShape(
 			this.mutableStatistics.getCollideableEntries(type, storage)
 		));
@@ -1100,8 +1099,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			final BlockPos blockPos,
 			final Vec3i startPoint,
 			final StateSetter stateSetter,
-			final StateClearer stateClearer)
-		{
+			final StateClearer stateClearer) {
 			this(
 				blockInformation,
 				reader,
@@ -1121,8 +1119,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			final Vec3 startPoint,
 			final Vec3 endPoint,
 			final StateSetter stateSetter,
-			final StateClearer stateClearer)
-		{
+			final StateClearer stateClearer) {
 			this.blockInformation = blockInformation;
 			this.reader = reader;
 			this.blockPos = blockPos;
@@ -1369,8 +1366,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			int totalLightBlockLevel,
 			boolean canBeFlooded,
 			boolean emitsLightBasedOnFullBlock,
-			boolean requiresRecalculation)
-		{
+			boolean requiresRecalculation) {
 			this.inWorldPos = inWorldPos;
 			this.countMap = new ConcurrentHashMap<>(countMap);
 			this.columnStatisticsTable = columnStatisticsTable;
@@ -1577,7 +1573,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				));
 
 				return bitSet;
-			});
+			}
+			);
 		}
 
 		private void onBlockStateAdded(final LevelAccessor levelAccessor, final BlockInformation blockInformation, final BlockPos inAreaPos, final boolean updateWorld)
@@ -1688,8 +1685,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			final BlockInformation currentInformation,
 			final BlockInformation newInformation,
 			final BlockPos pos,
-			final boolean updateWorld)
-		{
+			final boolean updateWorld) {
 			onBlockStateRemoved(levelAccessor, currentInformation, pos, false);
 			onBlockStateAdded(levelAccessor, newInformation, pos, updateWorld);
 		}
@@ -1730,7 +1726,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 						final ColumnStatistics columnStatistics = new ColumnStatistics(inWorldPos);
 						columnStatistics.initializeWith(levelAccessor, blockInformation);
 						this.columnStatisticsTable.put(x, z, columnStatistics);
-					}));
+					}
+					));
 
 			this.collisionData.clear();
 			for (final CollisionType collisionType : CollisionType.values())
@@ -1805,7 +1802,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 				this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockState, LIGHT_BLOCK_GETTER)
                     * count;
-			});
+			}
+			);
 
 			BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.forEach(pos ->
@@ -1820,7 +1818,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 					}
 
 					Objects.requireNonNull(this.columnStatisticsTable.get(pos.getX(), pos.getZ())).onBlockStateAdded(levelAccessor, blockState, pos);
-				});
+				}
+				);
 
 			this.collisionData.clear();
 			for (final CollisionType collisionType : CollisionType.values())
@@ -1943,8 +1942,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			short highestBit,
 			float highestBitFriction,
 			boolean canPropagateSkylightDown,
-			boolean canLowestBitSustainGrass)
-		{
+			boolean canLowestBitSustainGrass) {
 			this.inWorldPos = inWorldPos;
 			this.noneAirBits = noneAirBits;
 			this.skylightBlockingBits = skylightBlockingBits;
@@ -2042,8 +2040,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 		}
 
 		private Integer getLightBlockInto(
-			final BlockInformation blockInformation)
-		{
+			final BlockInformation blockInformation) {
 			return LightEngine.getLightBlockInto(
 				Blocks.GRASS_BLOCK.defaultBlockState(),
 				blockInformation.blockState(),
@@ -2077,7 +2074,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 						int i = getLightBlockInto(blockState);
 						return i < LightEngine.MAX_LEVEL;
 					}
-				});
+				}
+				);
 		}
 
 		private void onBlockStateAdded(LevelAccessor levelAccessor, final BlockInformation blockState, final BlockPos inAreaPos)
@@ -2196,8 +2194,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 	public record Payload(
 		StateEntryStorage storage,
-		MutableStatistics mutableStatistics)
-	{
+		MutableStatistics mutableStatistics) {
 		public static final Codec<Payload> CODEC = CBCodecs.compressed(
 			RecordCodecBuilder.create(instance -> instance.group(
 				StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(Payload::storage),

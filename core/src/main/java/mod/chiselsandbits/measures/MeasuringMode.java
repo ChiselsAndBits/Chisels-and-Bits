@@ -1,6 +1,21 @@
 package mod.chiselsandbits.measures;
 
-import static net.minecraft.world.item.DyeColor.*;
+import static net.minecraft.world.item.DyeColor.BLACK;
+import static net.minecraft.world.item.DyeColor.BLUE;
+import static net.minecraft.world.item.DyeColor.BROWN;
+import static net.minecraft.world.item.DyeColor.CYAN;
+import static net.minecraft.world.item.DyeColor.GRAY;
+import static net.minecraft.world.item.DyeColor.GREEN;
+import static net.minecraft.world.item.DyeColor.LIGHT_BLUE;
+import static net.minecraft.world.item.DyeColor.LIGHT_GRAY;
+import static net.minecraft.world.item.DyeColor.LIME;
+import static net.minecraft.world.item.DyeColor.MAGENTA;
+import static net.minecraft.world.item.DyeColor.ORANGE;
+import static net.minecraft.world.item.DyeColor.PINK;
+import static net.minecraft.world.item.DyeColor.PURPLE;
+import static net.minecraft.world.item.DyeColor.RED;
+import static net.minecraft.world.item.DyeColor.WHITE;
+import static net.minecraft.world.item.DyeColor.YELLOW;
 
 import java.util.Optional;
 

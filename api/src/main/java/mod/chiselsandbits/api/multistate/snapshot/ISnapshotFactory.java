@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 /**
  * A factory to create simple snapshots.
  */
-public interface ISnapshotFactory
-{
+public interface ISnapshotFactory {
 	static ISnapshotFactory getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getSnapshotFactory();
 	}

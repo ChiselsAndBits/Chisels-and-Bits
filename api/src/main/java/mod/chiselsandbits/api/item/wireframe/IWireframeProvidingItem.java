@@ -11,8 +11,7 @@ import org.joml.Vector4f;
  * Represents an item which can provide a wireframe for different purposes,
  * including rendering a preview.
  */
-public interface IWireframeProvidingItem
-{
+public interface IWireframeProvidingItem {
 	/**
      * Provides access to the wire frame of the item.
      *

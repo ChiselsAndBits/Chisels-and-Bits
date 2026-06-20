@@ -46,8 +46,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final int              depth;
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
@@ -92,8 +91,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-			  {
+					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 				  context.setComplete();
 
 				  final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
@@ -113,8 +111,10 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							  state.clear();
-						  });
-					}).sum();
+						  }
+						  );
+					}
+					).sum();
 
 				  if (totalDamage == 0) {
 					  context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
@@ -128,7 +128,8 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -187,7 +188,8 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 					)
 					.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 				);
-		  },
+		  }
+		  ,
 		  position -> IMutatorFactory.getInstance().covering(
 			context.getWorld(),
 			VectorUtils.toBlockPos(position.subtract(1, 1, 1)),
@@ -236,8 +238,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 				  }
 
 				  try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-				  {
+						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 					  mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
@@ -259,7 +260,8 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -434,8 +436,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 					);
 					if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide() &&
 						  newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide() &&
-						  newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide())
-					{
+						  newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
 						final Vec3i relevantNewTargetAxisVector =
 						  new Vec3i(
 							newTarget.getX() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getX()),
@@ -465,7 +466,8 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 					{
 						processed.add(newTarget);
 					}
-				});
+				}
+				);
 			}
 		}
 
@@ -484,8 +486,9 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

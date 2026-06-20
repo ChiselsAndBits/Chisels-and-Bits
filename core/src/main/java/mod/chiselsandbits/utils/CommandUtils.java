@@ -4,8 +4,7 @@ import com.mojang.brigadier.context.CommandContext;
 
 import net.minecraft.commands.CommandSourceStack;
 
-public class CommandUtils
-{
+public class CommandUtils {
 	private CommandUtils()
 
 	{

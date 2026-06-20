@@ -14,8 +14,7 @@ import java.util.Optional;
 /**
  * Utility class for handling {@link BlockState}s.
  */
-public class BlockInformationUtils
-{
+public class BlockInformationUtils {
 	private BlockInformationUtils()
 
 	{

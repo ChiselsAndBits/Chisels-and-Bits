@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
  * Utility class for managing grouping of objects
  * in a collection, based on some key.
  */
-public final class GroupingUtils
-{
+public final class GroupingUtils {
 	private GroupingUtils()
 
 	{

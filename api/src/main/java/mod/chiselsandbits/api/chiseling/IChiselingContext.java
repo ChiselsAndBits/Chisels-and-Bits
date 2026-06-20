@@ -20,8 +20,7 @@ import java.util.function.Predicate;
 /**
  * The current context for the running chiseling operation.
  */
-public interface IChiselingContext extends IStateAccessor
-{
+public interface IChiselingContext extends IStateAccessor {
 	/**
      * Returns the current {@link IWorldAreaMutator} if there is one.
      * If a new chiseling operation is started no {@link IWorldAreaMutator} is available,
@@ -143,7 +142,8 @@ public interface IChiselingContext extends IStateAccessor
      */
 	default boolean tryDamageItem() {
 		return tryDamageItem(1);
-	};
+	}
+	;
 
 	/**
      * Invoked to try to damage the item that caused the chiseling operation.
@@ -317,6 +317,7 @@ public interface IChiselingContext extends IStateAccessor
 			}
 
 			return true;
-		}).orElse(true);
+		}
+		).orElse(true);
 	}
 }

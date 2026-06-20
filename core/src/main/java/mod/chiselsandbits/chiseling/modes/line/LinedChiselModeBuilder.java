@@ -3,8 +3,7 @@ package mod.chiselsandbits.chiseling.modes.line;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
-public class LinedChiselModeBuilder
-{
+public class LinedChiselModeBuilder {
 	private int                       bitsPerSide;
 	private MutableComponent displayName;
 	private MutableComponent multiLineDisplayName;

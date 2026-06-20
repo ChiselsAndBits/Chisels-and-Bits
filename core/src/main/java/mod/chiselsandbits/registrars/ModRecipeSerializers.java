@@ -10,8 +10,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-public final class ModRecipeSerializers
-{
+public final class ModRecipeSerializers {
 	private static final Logger                                                   LOGGER              = LogManager.getLogger();
 	private static final IRegistrar<RecipeSerializer<?>>                            SERIALIZER_REGISTER = IRegistrar.create(Registries.RECIPE_SERIALIZER, Constants.MOD_ID);
 	public static        IRegistryObject<RecipeSerializer<ModificationTableRecipe>> MODIFICATION_TABLE  = SERIALIZER_REGISTER

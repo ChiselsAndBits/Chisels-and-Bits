@@ -22,8 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class DyedBitBagItemModelGenerator extends ModelProvider
-{
+public class DyedBitBagItemModelGenerator extends ModelProvider {
 	public DyedBitBagItemModelGenerator(final PackOutput output)
 
 	{

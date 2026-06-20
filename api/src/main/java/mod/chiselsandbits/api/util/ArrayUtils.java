@@ -5,8 +5,7 @@ import java.util.function.IntFunction;
 /**
  * Utility class for manipulating arrays.
  */
-public class ArrayUtils
-{
+public class ArrayUtils {
 	private ArrayUtils()
 
 	{

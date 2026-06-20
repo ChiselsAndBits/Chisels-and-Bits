@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.client.models.processing.BakedQuadBuilder;
-import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
@@ -27,8 +25,7 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPartKey;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import mod.chiselsandbits.profiling.ProfilingManager;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.core.BlockPos;
@@ -40,8 +37,7 @@ public record ChiseledBlockModelInformationBuilder(
 	ChiseledBlockModelCacheKey key,
 	BlockAndTintGetter blockAndTintGetter,
 	BlockPos pos
-)
-{
+) {
 	public ChiseledBlockModelInformation build()
 
 	{
@@ -195,7 +191,8 @@ public record ChiseledBlockModelInformationBuilder(
 				{
 					builder.addUnculledFace(bakedQuad);
 				}
-			};
+			}
+			;
 		}
 
 		public List<ChiseledBlockModelPart> build() {

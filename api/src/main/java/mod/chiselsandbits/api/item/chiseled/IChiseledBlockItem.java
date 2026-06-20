@@ -16,8 +16,7 @@ import org.joml.Vector4f;
 /**
  * Represents items which represent a broken chiseled block.
  */
-public interface IChiseledBlockItem extends IMultiStateItem, IPlacementPreviewProvidingItem, IWithModeItem<IModificationOperation>
-{
+public interface IChiseledBlockItem extends IMultiStateItem, IPlacementPreviewProvidingItem, IWithModeItem<IModificationOperation> {
 	@Override
 	default VoxelShape getWireFrame(
 	  final ItemStack stack, final Player player, final BlockHitResult rayTraceResult)

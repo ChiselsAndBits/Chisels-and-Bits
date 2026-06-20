@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a tool mode which can be rendered.
  */
-public interface IRenderableMode extends IWithDisplayName, IWithIconAndColor
-{
+public interface IRenderableMode extends IWithDisplayName, IWithIconAndColor {
 	/**
      * Indicates if the mode is currently active and as such should be rendered or not.
      *

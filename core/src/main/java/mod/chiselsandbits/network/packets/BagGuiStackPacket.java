@@ -11,8 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public final class BagGuiStackPacket extends ModPacket
-{
+public final class BagGuiStackPacket extends ModPacket {
 	public static final Identifier                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui_stack");
 	public static final CustomPacketPayload.Type<BagGuiStackPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

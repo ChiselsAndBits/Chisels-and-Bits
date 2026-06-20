@@ -11,8 +11,7 @@ import mod.chiselsandbits.client.screens.widgets.ToolModeSelectionWidget;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolModeGroup> extends AbstractChiselsAndBitsScreen
-{
+public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolModeGroup> extends AbstractChiselsAndBitsScreen {
 	@SuppressWarnings("unchecked")
 	public static <M extends IToolMode<G>, G extends IToolModeGroup> ToolModeSelectionScreen<M, G> create(
 	  final ItemStack sourceStack
@@ -20,8 +19,9 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 
 	{
 		final Item item = sourceStack.getItem();
-		if (!(item instanceof IWithModeItem))
+		if (!(item instanceof IWithModeItem)) {
 			throw new IllegalArgumentException("Can not open ToolMode UI for none ToolMode item!");
+		}
 
 		final IWithModeItem<M> withModeItem = (IWithModeItem<M>) item;
 

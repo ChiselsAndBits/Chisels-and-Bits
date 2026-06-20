@@ -44,8 +44,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
 	private final Identifier       iconName;
@@ -77,8 +76,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player)))
-			  {
+					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
 				  final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
 				  if (heldBlockState.isAir())
 
@@ -118,16 +116,19 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							  state.overrideState(heldBlockState);
-						  });
-					}))
+						  }
+						  );
+					}
+					))
 					.sum();
 
 				  if (totalModifiedStates == 0) {
 					  context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
 				  }
 
-				  if (!player.isCreative())
-						playerBitInventory.extract(heldBlockState, missingBitCount);
+				  if (!player.isCreative()) {
+					  playerBitInventory.extract(heldBlockState, missingBitCount);
+				  }
 
 				  resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 					player,
@@ -137,7 +138,8 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -170,8 +172,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		final Optional<Direction> targetedSide = context.getMetadata(ModMetadataKeys.TARGETED_SIDE.get());
 		final Optional<BlockPos> targetedBlockPos = context.getMetadata(ModMetadataKeys.TARGETED_BLOCK.get());
 
-		if (validPositions.isEmpty() || targetedSide.isEmpty() || targetedBlockPos.isEmpty())
+		if (validPositions.isEmpty() || targetedSide.isEmpty() || targetedBlockPos.isEmpty()) {
 			return false;
+		}
 
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
 		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult))
@@ -180,8 +183,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 			return false;
 		}
 
-		if (blockHitResult.getDirection() != targetedSide.get())
+		if (blockHitResult.getDirection() != targetedSide.get()) {
 			return false;
+		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING ?
 																	   face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
@@ -296,8 +300,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

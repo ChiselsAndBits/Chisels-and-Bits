@@ -6,8 +6,7 @@ import mod.chiselsandbits.client.screens.ChiseledPrinterScreen;
 import mod.chiselsandbits.client.screens.ModificationTableScreen;
 import mod.chiselsandbits.registrars.ModContainerTypes;
 
-public final class ModScreens
-{
+public final class ModScreens {
 	private ModScreens() {
 		throw new IllegalStateException("Can not instantiate an instance of: Screens. This is a utility class");
 	}
@@ -26,6 +25,7 @@ public final class ModScreens
 					ModContainerTypes.CHISELED_PRINTER_CONTAINER.get(),
 					ChiseledPrinterScreen::new
 			);
-		});
+		}
+		);
 	}
 }

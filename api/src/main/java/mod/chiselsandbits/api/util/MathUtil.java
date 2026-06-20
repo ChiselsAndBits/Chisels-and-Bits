@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-public class MathUtil
-{
+public class MathUtil {
 	private static final double DEFAULT_EPSILON = 1E-7;
 
 	private MathUtil()
@@ -23,8 +22,9 @@ public class MathUtil
 		final double absL = Math.abs(l);
 		final double absR = Math.abs(r);
 
-		if (absL <= absR)
+		if (absL <= absR) {
 			return l;
+		}
 
 		return r;
 	}
@@ -33,15 +33,17 @@ public class MathUtil
 		final double absL = Math.abs(l);
 		final double absR = Math.abs(r);
 
-		if (absL >= absR)
+		if (absL >= absR) {
 			return l;
+		}
 
 		return r;
 	}
 
 	public static double makePositive(double d) {
-		while(d < 0)
+		while (d < 0) {
 			d++;
+		}
 
 		return d;
 	}

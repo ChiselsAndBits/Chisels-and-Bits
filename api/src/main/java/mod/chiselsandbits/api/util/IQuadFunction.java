@@ -1,8 +1,7 @@
 package mod.chiselsandbits.api.util;
 
 @FunctionalInterface
-public interface IQuadFunction<T1,T2,T3,T4,R>
-{
+public interface IQuadFunction<T1,T2,T3,T4,R> {
 	/**
      * Applies to the function to the four arguments, getting the result out.
      *

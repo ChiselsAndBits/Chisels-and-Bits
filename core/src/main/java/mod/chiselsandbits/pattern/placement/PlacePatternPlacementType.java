@@ -34,20 +34,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PlacePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
-{
+public class PlacePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
-		final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
-	{
+		final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return VoxelShapeManager.getInstance()
 			.get(sourceSnapshot, CollisionType.NONE_AIR);
 	}
 
 	@Override
 	public PlacementResult performPlacement(
-		final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
-	{
+		final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown() ?
 			context.getClickLocation()
 			: Vec3.atLowerCornerOf(context.getClickedPos());
@@ -123,8 +120,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public Vec3 getTargetedPosition(
-		final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
-	{
+		final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult) {
 		if (playerEntity.isShiftKeyDown())
 
 		{

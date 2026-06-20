@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util.constants;
 
-public class NbtConstants
-{
+public class NbtConstants {
 	public static final String VERSION = "version";
 	public static final String SKYLIGHT_BLOCKING_BITS = "skylight_blocking_bits";
 	public static final String HIGHEST_BIT = "highestBit";

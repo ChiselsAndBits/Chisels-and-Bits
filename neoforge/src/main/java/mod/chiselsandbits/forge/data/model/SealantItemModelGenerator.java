@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.data.DataGenerator;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class SealantItemModelGenerator extends AbstractInteractableItemModelGenerator
-{
+public class SealantItemModelGenerator extends AbstractInteractableItemModelGenerator {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
 

@@ -12,8 +12,7 @@ import net.minecraft.network.codec.StreamCodec;
  * @param <TSelf> The type of the implementing class.
  * @param <TBuffer> The type of the buffer to serialize to/from.
  */
-public interface Serializable<TSelf, TBuffer extends FriendlyByteBuf> extends RawSerializable
-{
+public interface Serializable<TSelf, TBuffer extends FriendlyByteBuf> extends RawSerializable {
 	/**
      * {@return The codec used for direct serialization.}
      */

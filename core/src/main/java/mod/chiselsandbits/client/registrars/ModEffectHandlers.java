@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.block.entity.IMultiStateBlockEntity;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.utils.EffectUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,8 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ModEffectHandlers
-{
+public class ModEffectHandlers {
 	private ModEffectHandlers()
 
 	{
@@ -27,8 +25,7 @@ public class ModEffectHandlers
 	{
 		IEffectManager.getInstance()
 			.setupHitEffects(registrar -> {
-				registrar.register(new IEffectManager.IHitEffectHandler()
-								   {
+				registrar.register(new IEffectManager.IHitEffectHandler() {
 									   @Nullable
 									   private BlockState getPrimaryState(Level level, BlockPos pos)
 
@@ -49,8 +46,7 @@ public class ModEffectHandlers
 										   @NotNull final Level level,
 										   @NotNull final BlockPos blockPos,
 										   @NotNull final Direction direction,
-										   @NotNull final ParticleEngine particleEngine)
-									   {
+										   @NotNull final ParticleEngine particleEngine) {
 										   final BlockState primaryState = getPrimaryState(level, blockPos);
 										   if (primaryState == null)
 
@@ -60,14 +56,15 @@ public class ModEffectHandlers
 
 										   return EffectUtils.addHitEffects(level, blockPos, direction, primaryState, particleEngine);
 									   }
-								   },
+								   }
+								   ,
 					ModBlocks.CHISELED_BLOCK.get());
-			});
+			}
+			);
 
 		IEffectManager.getInstance()
 			.setupDestroyEffects(registrar -> {
-				registrar.register(new IEffectManager.IDestroyEffectHandler()
-								   {
+				registrar.register(new IEffectManager.IDestroyEffectHandler() {
 									   @Nullable
 									   private BlockState getPrimaryState(Level level, BlockPos pos)
 
@@ -96,8 +93,10 @@ public class ModEffectHandlers
 										   EffectUtils.addBlockDestroyEffects(level, blockPos, primaryState, particleEngine, level);
 										   return true;
 									   }
-								   },
+								   }
+								   ,
 					ModBlocks.CHISELED_BLOCK.get());
-			});
+			}
+			);
 	}
 }

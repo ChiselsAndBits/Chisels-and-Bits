@@ -2,8 +2,7 @@ package mod.chiselsandbits.utils;
 
 import java.util.Iterator;
 
-public class StringUtils
-{
+public class StringUtils {
 	private StringUtils()
 
 	{

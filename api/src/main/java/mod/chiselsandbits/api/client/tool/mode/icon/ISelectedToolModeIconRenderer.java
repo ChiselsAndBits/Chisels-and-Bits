@@ -7,8 +7,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Used to render the icons on the hot bar for the selected tool mode.
  */
-public interface ISelectedToolModeIconRenderer
-{
+public interface ISelectedToolModeIconRenderer {
 	/**
      * The id of the renderer.
      * Used to give the player a selection option for the preview renderer.

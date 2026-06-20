@@ -80,8 +80,9 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		onLeftClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			try (IBatchMutation ignored =
@@ -103,7 +104,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 								state.clear();
 							}
-						});
+						}
+						);
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 						playerEntity,
@@ -111,7 +113,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 						count
 				));
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -128,8 +131,9 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		onRightClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
@@ -168,7 +172,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			if (missingBitCount == 0) {
 				context.validateBuildHeights();
 			}
-		});
+		}
+		);
 	}
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
@@ -199,7 +204,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			}
 
 			return (s) -> false;
-		});
+		}
+		);
 
 		return ClickProcessingState.ALLOW;
 	}
@@ -212,18 +218,21 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context) {
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		final IWorldAreaMutator mutator = context.getMutator().get();
 
 		final Optional<Predicate<IStateEntryInfo>> filter = context.getStateFilter().map(factory -> factory.apply(mutator));
-		if (filter.isEmpty())
+		if (filter.isEmpty()) {
 			return Shapes.empty();
+		}
 
 		final Predicate<IStateEntryInfo> stateFilter = filter.get();
-		if (!(stateFilter instanceof LineAreaFilter lineAreaFilter))
+		if (!(stateFilter instanceof LineAreaFilter lineAreaFilter)) {
 			return Shapes.empty();
+		}
 
 		final BlockPos offset = VectorUtils.invert(mutator.getInWorldEndBlockPoint());
 

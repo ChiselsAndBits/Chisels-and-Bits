@@ -40,8 +40,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ImposePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
-{
+public class ImposePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
 	public Identifier getIcon()
 
@@ -58,8 +57,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
-			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
-	{
+			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.IMPOSEMENT.get().buildVoxelShapeForWireframe(
 				sourceSnapshot, player, targetedPoint, hitFace
 		);
@@ -96,7 +94,8 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-				})
+				}
+				)
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported)
@@ -183,8 +182,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 
 	@Override
 	public Vec3 getTargetedPosition(
-			final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult)
-	{
+			final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult) {
 		if (playerEntity.isShiftKeyDown())
 
 		{

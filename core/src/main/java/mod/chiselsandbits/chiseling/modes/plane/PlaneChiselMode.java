@@ -43,8 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final int                       depth;
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
@@ -83,8 +82,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-			  {
+					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 				  context.setComplete();
 
 				  final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
@@ -104,8 +102,10 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							  state.clear();
-						  });
-					})
+						  }
+						  );
+					}
+					)
 					.sum();
 
 				  if (totalModifiedStates == 0) {
@@ -120,7 +120,8 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -172,8 +173,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 				  }
 
 				  try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-				  {
+						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 					  mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir())
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
@@ -193,7 +193,8 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -330,8 +331,9 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

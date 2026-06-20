@@ -8,8 +8,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class MeasurementsResetPacket extends ModPacket
-{
+public final class MeasurementsResetPacket extends ModPacket {
 	public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_reset");
 	public static final CustomPacketPayload.Type<MeasurementsResetPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

@@ -32,8 +32,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 
-public final class StateVariantManager implements IStateVariantManager
-{
+public final class StateVariantManager implements IStateVariantManager {
 	private static final StateVariantManager INSTANCE = new StateVariantManager();
 
 	public static StateVariantManager getInstance()
@@ -71,24 +70,28 @@ public final class StateVariantManager implements IStateVariantManager
 			public void encode(@NotNull RegistryFriendlyByteBuf buffer, @NotNull IStateVariantProvider value) {
 				buffer.writeIdentifier(value.getRegistryName());
 			}
-		};
+		}
+		;
 	}
 
 	@SafeVarargs
 	@Override
 	public final IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block) {
-		if (providersByNames.containsKey(provider.getRegistryName()))
+		if (providersByNames.containsKey(provider.getRegistryName())) {
 			throw new IllegalStateException("Provider with name " + provider.getRegistryName() + " already exists!");
+		}
 
 		providersByNames.put(provider.getRegistryName(), provider);
-		for (Supplier<Block> blockSupplier : block)
+		for (Supplier<Block> blockSupplier : block) {
 			preBakeProviders.put(blockSupplier, provider);
+		}
 		return provider;
 	}
 
 	private void bakeProviders() {
-		if (!providers.isEmpty())
+		if (!providers.isEmpty()) {
 			return;
+		}
 
 		preBakeProviders.forEach((block, provider) -> providers.put(block.get(), provider));
 		preBakeProviders.clear();
@@ -100,8 +103,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(blockState.getBlock()))
+		if (!providers.containsKey(blockState.getBlock())) {
 			return Optional.empty();
+		}
 
 		return Optional.of(providers.get(blockState.getBlock())).flatMap(provider -> provider.getStateVariant(blockState, blockEntity));
 	}
@@ -111,8 +115,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(fluidStateIn.createLegacyBlock().getBlock()))
+		if (!providers.containsKey(fluidStateIn.createLegacyBlock().getBlock())) {
 			return Optional.empty();
+		}
 
 		return Optional.of(providers.get(fluidStateIn.createLegacyBlock().getBlock())).flatMap(provider -> provider.getStateVariant(fluidStateIn));
 	}
@@ -122,8 +127,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(blockState.getBlock()))
+		if (!providers.containsKey(blockState.getBlock())) {
 			return Optional.empty();
+		}
 
 		return Optional.of(providers.get(blockState.getBlock())).flatMap(provider -> provider.getStateVariant(blockState, itemStack));
 	}
@@ -133,8 +139,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock()))
+		if (!providers.containsKey(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock())) {
 			return Optional.empty();
+		}
 
 		return Optional.of(providers.get(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock()))
 		  .flatMap(provider -> provider.getStateVariant(fluidInformation));
@@ -145,8 +152,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(state.getBlock()))
+		if (!providers.containsKey(state.getBlock())) {
 			return Collections.emptyList();
+		}
 
 		return Optional.of(providers.get(state.getBlock())).map(provider -> provider.getAllDefaultVariants(state))
 				 .stream()
@@ -160,8 +168,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(blockInformation.blockState().getBlock()))
+		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
+		}
 
 		return blockInformation.variant().flatMap(stateVariant -> providers.get(blockInformation.blockState().getBlock()).getItemStack(blockInformation));
 	}
@@ -171,8 +180,9 @@ public final class StateVariantManager implements IStateVariantManager
 
 	{
 		bakeProviders();
-		if (!providers.containsKey(blockInformation.blockState().getBlock()))
+		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
+		}
 
 		return blockInformation.variant().flatMap(variant -> providers.get(blockInformation.blockState().getBlock()).getFluidInformation(variant, amount));
 	}
@@ -180,8 +190,9 @@ public final class StateVariantManager implements IStateVariantManager
 	@Override
 	public Optional<Component> getName(BlockInformation blockInformation) {
 		bakeProviders();
-		if (!providers.containsKey(blockInformation.blockState().getBlock()))
+		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
+		}
 
 		return blockInformation.variant().flatMap(variant -> providers.get(blockInformation.blockState().getBlock()).getName(blockInformation));
 	}

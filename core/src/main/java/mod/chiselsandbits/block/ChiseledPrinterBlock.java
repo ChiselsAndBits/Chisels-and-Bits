@@ -2,12 +2,10 @@ package mod.chiselsandbits.block;
 
 import java.util.Map;
 import java.util.stream.Stream;
-
 import com.google.common.collect.ImmutableMap;
 import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -30,8 +28,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ChiseledPrinterBlock extends Block implements EntityBlock
-{
+public class ChiseledPrinterBlock extends Block implements EntityBlock {
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
 	private static final Map<Direction, VoxelShape> BUTTON_VS_MAP = ImmutableMap.<Direction, VoxelShape>builder()
@@ -140,7 +137,8 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock
 				entity.setLevel(world1);
 				entity.tick();
 			}
-		};
+		}
+		;
 	}
 
 	@Override

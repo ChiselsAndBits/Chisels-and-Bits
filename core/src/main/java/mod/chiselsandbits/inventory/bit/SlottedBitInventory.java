@@ -1,32 +1,21 @@
 package mod.chiselsandbits.inventory.bit;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Maps;
-import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.inventory.bit.watchable.IWatch;
 import mod.chiselsandbits.api.inventory.bit.watchable.IWatchableBitInventory;
 import mod.chiselsandbits.api.item.bit.IBitItem;
-import mod.chiselsandbits.api.item.bit.IBitItemManager;
-import mod.chiselsandbits.api.serialization.Serializable;
-import mod.chiselsandbits.api.util.constants.NbtConstants;
-import org.jetbrains.annotations.NotNull;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 
-public class SlottedBitInventory extends AbstractBitInventory implements IWatchableBitInventory
-{
+public class SlottedBitInventory extends AbstractBitInventory implements IWatchableBitInventory {
 	protected final int size;
 	protected final Int2ObjectMap<ItemStack> slotMap = new Int2ObjectArrayMap<>();
 
@@ -64,8 +53,9 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 			return;
 		}
 
-		if (!(stack.getItem() instanceof IBitItem))
+		if (!(stack.getItem() instanceof IBitItem)) {
 			throw new IllegalArgumentException("Can not insert a none bit item into the inventory.");
+		}
 
 		slotMap.put(index, stack);
 

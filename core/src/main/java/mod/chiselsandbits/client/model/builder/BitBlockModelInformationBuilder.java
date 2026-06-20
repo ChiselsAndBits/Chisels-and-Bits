@@ -21,8 +21,7 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
-public record BitBlockModelInformationBuilder(BlockInformation information, boolean isLarge)
-{
+public record BitBlockModelInformationBuilder(BlockInformation information, boolean isLarge) {
 	private static final float    BIT_BEGIN = 4f / 16;
 	public static final  Vector3f FROM      = new Vector3f(BIT_BEGIN, BIT_BEGIN, BIT_BEGIN);
 	private static final float    BIT_END   = 12f / 16;
@@ -31,7 +30,8 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 	public static final Vector3f[] EXTENDS = new Vector3f[] {
 		FROM,
 		TO
-	};
+	}
+	;
 
 	public BitBlockModelInformation build(final BlockAndTintGetter surroundings)
 
@@ -60,7 +60,8 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 					{
 						quad.tintIndex(0);
 					}
-				},
+				}
+				,
 				generatedQuad -> {
 					final List<BlockTintSource> tintSources =
 						information.isFluid() ?
@@ -73,7 +74,8 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 								blockAndTintGetter,
 								BlockPos.ZERO)
 						);
-					});
+					}
+					);
 
 					quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
 						.add(generatedQuad.quad());
@@ -97,8 +99,9 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 		);
 		final var tintSource = fluidModel.tintSource();
 
-		if (tintSource == null)
+		if (tintSource == null) {
 			return List.of();
+		}
 
 		return List.of(tintSource);
 	}

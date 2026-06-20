@@ -7,8 +7,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * A special {@link IAreaAccessor} that is capable of determining its own voxelshape.
  */
-public interface IAreaAccessorWithVoxelShape extends IAreaAccessor
-{
+public interface IAreaAccessorWithVoxelShape extends IAreaAccessor {
 	/**
      * Determines the voxelshape of the {@link IAreaAccessorWithVoxelShape} at the given position.
      *

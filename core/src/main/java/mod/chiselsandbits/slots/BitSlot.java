@@ -12,8 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class BitSlot extends Slot
-{
+public class BitSlot extends Slot {
 	public BitSlot(
 	  final Container inventoryIn,
 	  final int index,
@@ -59,8 +58,9 @@ public class BitSlot extends Slot
 			int remainingFree = getMaxStackSize() - currentStack.getCount();
 			int i = Math.min(remainingFree, increment);
 
-			if (i == 0)
+			if (i == 0) {
 				return toInsert;
+			}
 
 			if (currentStack.isEmpty()) {
 				this.setByPlayer(toInsert.split(i));

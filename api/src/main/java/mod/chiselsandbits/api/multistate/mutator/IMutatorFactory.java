@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Allows for the creation of new mutators used to modify chiselable areas.
  */
-public interface IMutatorFactory
-{
+public interface IMutatorFactory {
 	/**
      * Gives access to the the mutator factory.
      * @return The mutator factory.

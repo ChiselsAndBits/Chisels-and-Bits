@@ -22,8 +22,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public abstract class AbstractInteractableItemModelGenerator extends ModelProvider
-{
+public abstract class AbstractInteractableItemModelGenerator extends ModelProvider {
 	private final IRegistryObject<? extends Item> targetRegistryObject;
 
 	protected AbstractInteractableItemModelGenerator(

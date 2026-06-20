@@ -12,8 +12,7 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
 import mod.chiselsandbits.registrars.*;
 import org.jetbrains.annotations.NotNull;
 
-public class RegistryManager implements IRegistryManager
-{
+public class RegistryManager implements IRegistryManager {
 	private static final RegistryManager INSTANCE = new RegistryManager();
 
 	private RegistryManager()

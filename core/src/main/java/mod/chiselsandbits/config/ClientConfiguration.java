@@ -12,8 +12,7 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.util.constants.Constants;
 import org.joml.Vector4f;
 
-public class ClientConfiguration implements IClientConfiguration
-{
+public class ClientConfiguration implements IClientConfiguration {
 	private final Supplier<Boolean>                    bitBagFullness;
 	private final Supplier<PlacementPreviewRenderMode> successfulPlacementRenderMode;
 	private final Supplier<PlacementPreviewRenderMode> failedPlacementRenderMode;

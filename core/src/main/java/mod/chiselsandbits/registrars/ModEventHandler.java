@@ -1,11 +1,22 @@
 package mod.chiselsandbits.registrars;
 
 import com.communi.suggestu.scena.core.entity.block.IBlockEntityPositionManager;
-import com.communi.suggestu.scena.core.event.*;
+import com.communi.suggestu.scena.core.event.IGameEvents;
+import com.communi.suggestu.scena.core.event.IPlayerLeftClickBlockEvent;
+import com.communi.suggestu.scena.core.event.IPlayerRightClickBlockEvent;
+import com.communi.suggestu.scena.core.event.ProcessingResult;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.click.ClickProcessingState;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
-import mod.chiselsandbits.logic.*;
+import mod.chiselsandbits.logic.BitStackPickupHandler;
+import mod.chiselsandbits.logic.ChiselingManagerCountDownResetHandler;
+import mod.chiselsandbits.logic.CommandRegistrationHandler;
+import mod.chiselsandbits.logic.IsScopingHandler;
+import mod.chiselsandbits.logic.LeftClickInteractionHandler;
+import mod.chiselsandbits.logic.MeasuringSynchronisationHandler;
+import mod.chiselsandbits.logic.RightClickInteractionHandler;
+import mod.chiselsandbits.logic.ServerStartHandler;
+import mod.chiselsandbits.logic.ServerTickHandler;
 import mod.chiselsandbits.network.packets.UpdateBlockEntityPacket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,37 +56,39 @@ public final class ModEventHandler {
 			}
 
 			private static ClickProcessingState.ProcessingResult mapResult(
-					final IPlayerLeftClickBlockEvent.Result result)
-			{
-				return switch (result.useItemResult())
-						{
+					final IPlayerLeftClickBlockEvent.Result result) {
+				return switch (result.useItemResult()) {
 							case DENY -> ClickProcessingState.ProcessingResult.DENY;
 							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
-						};
+						}
+						;
 			}
 
 			private static ProcessingResult mapResult(
 					final ClickProcessingState.ProcessingResult processingResult
 			) {
-				return switch (processingResult)
-						{
+				return switch (processingResult) {
 							case DENY -> ProcessingResult.DENY;
 							case DEFAULT -> ProcessingResult.DEFAULT;
 							case ALLOW -> ProcessingResult.ALLOW;
-						};
+						}
+						;
 			}
-		});
+		}
+		);
 		IGameEvents.getInstance().getDataPackSyncEvent().register((list, players, recipeTypeSynchroniser) -> {
 			MeasuringSynchronisationHandler.syncToAll();
-		});
+		}
+		);
 		IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> {
 			ChiselingManagerCountDownResetHandler.doResetFor(player);
 
 			if (player instanceof ServerPlayer serverPlayer) {
 				MeasuringSynchronisationHandler.syncTo(serverPlayer);
 			}
-		});
+		}
+		);
 		IGameEvents.getInstance().getRegisterCommandsEvent().register(CommandRegistrationHandler::registerCommandsTo);
 		IGameEvents.getInstance().getPlayerRightClickEvent().register(new IPlayerRightClickBlockEvent() {
 			@Override
@@ -95,28 +108,28 @@ public final class ModEventHandler {
 			}
 
 			private static ClickProcessingState.ProcessingResult mapItemResult(
-					final IPlayerRightClickBlockEvent.Result result)
-			{
-				return switch (result.useItemResult())
-						{
+					final IPlayerRightClickBlockEvent.Result result) {
+				return switch (result.useItemResult()) {
 							case DENY -> ClickProcessingState.ProcessingResult.DENY;
 							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
-						};
+						}
+						;
 			}
 
 			private static ProcessingResult mapResult(
 					final ClickProcessingState.ProcessingResult processingResult,
 					final ProcessingResult current
 			) {
-				return switch (processingResult)
-						{
+				return switch (processingResult) {
 							case DENY -> ProcessingResult.DENY;
 							case DEFAULT -> current;
 							case ALLOW -> ProcessingResult.ALLOW;
-						};
+						}
+						;
 			}
-		});
+		}
+		);
 		IGameEvents.getInstance().getServerAboutToStartEvent().register(minecraftServer -> ServerStartHandler.onServerStart());
 		IGameEvents.getInstance().getServerPostTickEvent().register(minecraftServer -> ServerTickHandler.onPostServerTick());
 
@@ -131,8 +144,10 @@ public final class ModEventHandler {
 								new UpdateBlockEntityPacket(chiseledBlockEntity),
 								serverLevel.getChunkAt(chiseledBlockEntity.getBlockPos())
 						);
-					});
-		});
+					}
+					);
+		}
+		);
 
 		IGameEvents.getInstance().getIsPlayerScopingEvent().register(IsScopingHandler::isScoping);
 	}

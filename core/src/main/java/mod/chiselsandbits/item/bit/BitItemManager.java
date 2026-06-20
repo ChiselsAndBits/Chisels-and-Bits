@@ -8,8 +8,7 @@ import mod.chiselsandbits.registrars.ModItems;
 
 import net.minecraft.world.item.ItemStack;
 
-public class BitItemManager implements IBitItemManager
-{
+public class BitItemManager implements IBitItemManager {
 	private static final BitItemManager INSTANCE = new BitItemManager();
 
 	private BitItemManager()

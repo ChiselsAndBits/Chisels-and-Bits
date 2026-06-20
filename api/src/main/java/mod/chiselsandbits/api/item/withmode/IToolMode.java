@@ -9,8 +9,7 @@ import java.util.Optional;
 /**
  * A mode of a given tool.
  */
-public interface IToolMode<G extends IToolModeGroup> extends IWithDisplayName, IRenderableMode
-{
+public interface IToolMode<G extends IToolModeGroup> extends IWithDisplayName, IRenderableMode {
 	/**
      * An optional which indicates the group this tool mode
      * is part of.

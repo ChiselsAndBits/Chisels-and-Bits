@@ -48,8 +48,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class CommandManager
-{
+public class CommandManager {
 	private static final CommandManager INSTANCE = new CommandManager();
 	private static final Logger         LOGGER   = LogManager.getLogger();
 
@@ -164,8 +163,7 @@ public class CommandManager
 		{
 			final BlockState state = BlockStateArgument.getBlock(context, "state").getState();
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException())) :
-												  mutator.batch())
-			{
+												  mutator.batch()) {
 				final long bitCount = mutator.mutableStream().count();
 				final BlockInformation information = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.empty()));
 				final ReportingBlockInformationOverrider reporter = new ReportingBlockInformationOverrider(context.getSource(), bitCount) {
@@ -173,7 +171,8 @@ public class CommandManager
 					protected BlockInformation getNextInformation() {
 						return information;
 					}
-				};
+				}
+				;
 
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
@@ -185,8 +184,7 @@ public class CommandManager
 
 		{
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException())) :
-																																																			mutator.batch())
-			{
+																																																			mutator.batch()) {
 				final long bitCount = mutator.mutableStream().count();
 				final ReportingBlockInformationOverrider reporter = new ReportingBlockInformationOverrider(context.getSource(), bitCount) {
 					BlockInformation[] lookup = null;
@@ -207,7 +205,8 @@ public class CommandManager
 
 						return blockInformation;
 					}
-				};
+				}
+				;
 
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
@@ -232,8 +231,7 @@ public class CommandManager
 		);
 
 		try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException())) :
-																																																	   mutator.batch())
-		{
+																																																	   mutator.batch()) {
 			mutator.mutableStream().forEach(
 			  IMutableStateEntryInfo::clear
 			);
@@ -261,7 +259,8 @@ public class CommandManager
 		mutator.createSnapshot().getStatics()
 		  .getStateCounts().forEach((state, count) -> {
 			context.getSource().sendSuccess(() -> Component.literal(" > ").append(state.blockState().getBlock().getName()).append(Component.literal(": " + count)), true);
-		});
+		}
+		);
 
 		return 0;
 	}
@@ -273,8 +272,9 @@ public class CommandManager
 		final BlockState state = BlockStateArgument.getBlock(context, "state").getState();
 		final BlockInformation information = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.empty()));
 
-		if (!IEligibilityManager.getInstance().canBeChiseled(information))
+		if (!IEligibilityManager.getInstance().canBeChiseled(information)) {
 			throw GIVE_NOT_CHISELABLE_EXCEPTION.create();
+		}
 
 		final int count = CommandUtils.hasArgument(context, "count") ? IntegerArgumentType.getInteger(context, "count") : 4096;
 

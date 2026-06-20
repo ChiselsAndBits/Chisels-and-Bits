@@ -3,7 +3,6 @@ package mod.chiselsandbits.forge.data.model;
 import java.util.stream.Stream;
 
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.model.item.BitBlockItemModel;
 import mod.chiselsandbits.client.model.item.ChiseledBlockItemModel;
 import mod.chiselsandbits.registrars.ModItems;
 import net.neoforged.api.distmarker.Dist;

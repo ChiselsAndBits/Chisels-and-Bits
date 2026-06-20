@@ -10,8 +10,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Represents a multithreaded storage engine, which can process data for IO purposes.
  */
-public interface IMultiThreadedStorageEngine<TPayload>
-{
+public interface IMultiThreadedStorageEngine<TPayload> {
 	/**
      * Encodes the given payload off-thread.
      *

@@ -12,8 +12,7 @@ import java.util.Collection;
 /**
  * A Cutting operation that can be performed in the Cutting table.
  */
-public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICuttingOperationGroup>
-{
+public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICuttingOperationGroup> {
 	/**
      * The default Cutting operation.
      * @return The default operation.

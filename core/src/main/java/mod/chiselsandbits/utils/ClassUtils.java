@@ -1,10 +1,8 @@
 package mod.chiselsandbits.utils;
 
 import mod.chiselsandbits.api.config.ICommonConfiguration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class ClassUtils {
 	private record Key(Class<?> sourceClass, String methodName, Class<?>... args) {
@@ -69,6 +67,7 @@ public class ClassUtils {
 							blkClass.getSuperclass(),
 							methodName,
 							args);
-				});
+				}
+				);
 	}
 }

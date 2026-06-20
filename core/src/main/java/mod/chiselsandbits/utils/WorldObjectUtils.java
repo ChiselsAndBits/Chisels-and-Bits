@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.util.IWorldObject;
 
 import net.minecraft.world.phys.Vec3;
 
-public class WorldObjectUtils
-{
+public class WorldObjectUtils {
 	private WorldObjectUtils()
 
 	{

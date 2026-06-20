@@ -10,8 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 
-public class ChangeTrackerManger implements IChangeTrackerManager
-{
+public class ChangeTrackerManger implements IChangeTrackerManager {
 	private static final ChangeTrackerManger INSTANCE = new ChangeTrackerManger();
 
 	public static ChangeTrackerManger getInstance()
@@ -32,8 +31,9 @@ public class ChangeTrackerManger implements IChangeTrackerManager
 	public @NotNull IChangeTracker getChangeTracker(final Player player)
 
 	{
-		if (player.level().isClientSide())
+		if (player.level().isClientSide()) {
 			return clientChangeTracker;
+		}
 
 		return changeTrackers.computeIfAbsent(
 		  player.getUUID(),

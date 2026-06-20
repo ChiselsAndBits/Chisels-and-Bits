@@ -3,8 +3,7 @@ package mod.chiselsandbits.chiseling.modes.draw;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
-public class DrawnWallChiselModeBuilder
-{
+public class DrawnWallChiselModeBuilder {
 	private MutableComponent displayName;
 	private MutableComponent multiLineDisplayName;
 	private Identifier       iconName;

@@ -10,8 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-public final class HeldToolModeChangedPacket extends ModPacket
-{
+public final class HeldToolModeChangedPacket extends ModPacket {
 	public static final Identifier                                          ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "held_tool_mode_changed");
 	public static final CustomPacketPayload.Type<HeldToolModeChangedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

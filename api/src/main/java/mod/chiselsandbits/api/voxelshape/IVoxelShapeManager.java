@@ -12,8 +12,7 @@ import java.util.Optional;
 /**
  * A manager for dealing with voxelshapes related to chiseled blocks and areas.
  */
-public interface IVoxelShapeManager
-{
+public interface IVoxelShapeManager {
 	static IVoxelShapeManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getVoxelShapeManager();
 	}
@@ -107,7 +106,8 @@ public interface IVoxelShapeManager
 	  final IAreaShapeIdentifier identifier,
 	  final BlockPos offset) {
 		return getCached(identifier, offset, CollisionType.NONE_AIR);
-	};
+	}
+	;
 
 	/**
      * Returns the shape that is referenced by a given area shape identifier.

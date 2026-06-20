@@ -1,15 +1,12 @@
 package mod.chiselsandbits.utils;
 
 import java.util.AbstractList;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 import java.util.function.Supplier;
 
 import com.google.common.collect.Lists;
 
-public class SimpleMaxSizedList<E> extends AbstractList<E>
-{
+public class SimpleMaxSizedList<E> extends AbstractList<E> {
 	private final Supplier<Integer>      maxSize;
 	private final LinkedList<E> delegate     = Lists.newLinkedList();
 

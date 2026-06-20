@@ -87,7 +87,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final double posRange = blockPos.distSqr(centerPos);
 
 			bits.set(index, posRange <= range);
-		});
+		}
+		);
 
 		return new CubeVoxelShape(new MultiStateBlockEntityDiscreteVoxelShape(bits, fullBitAccuracy));
 	}
@@ -140,8 +141,10 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 										state.clear();
-									});
-						})
+									}
+									);
+						}
+						)
 						.sum();
 
 				if (totalModifiedStates == 0) {
@@ -156,7 +159,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			}
 
 			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT);
+		}
+		).orElse(ClickProcessingState.DEFAULT);
 	}
 
 	@Override
@@ -230,7 +234,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			}
 
 			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT);
+		}
+		).orElse(ClickProcessingState.DEFAULT);
 	}
 
 	@Override
@@ -371,7 +376,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			}
 
 			return new SphereAreaFilter(context.getModeOfOperandus(), Vec3.ZERO, center);
-		});
+		}
+		);
 
 		BlockPosStreamProvider.getForRange(diameter)
 				.forEach(bitPos -> {
@@ -382,7 +388,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 					context.include(
 							target
 					);
-				});
+				}
+				);
 
 		return Either.right(center);
 	}

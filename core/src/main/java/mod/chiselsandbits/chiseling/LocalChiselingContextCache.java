@@ -8,8 +8,7 @@ import mod.chiselsandbits.api.chiseling.ChiselingOperation;
 import mod.chiselsandbits.api.chiseling.IChiselingContext;
 import mod.chiselsandbits.api.chiseling.ILocalChiselingContextCache;
 
-public class LocalChiselingContextCache implements ILocalChiselingContextCache
-{
+public class LocalChiselingContextCache implements ILocalChiselingContextCache {
 	private static final LocalChiselingContextCache INSTANCE = new LocalChiselingContextCache();
 
 	public static LocalChiselingContextCache getInstance()

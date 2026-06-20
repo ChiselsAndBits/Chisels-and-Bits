@@ -23,8 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
-public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolModeGroup> extends AbstractChiselsAndBitsWidget
-{
+public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolModeGroup> extends AbstractChiselsAndBitsWidget {
 	private static final int PAGE_SIZE = 6;
 
 	private static final int     PAGING_WIDGET_SIZE                = 35;
@@ -91,8 +90,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	public ToolModeSelectionWidget(
 		final AbstractChiselsAndBitsScreen screen,
 		final IWithModeItem<M> toolModeItem,
-		final ItemStack sourceStack)
-	{
+		final ItemStack sourceStack) {
 		super(
 			screen.width / 2 - (Math.min(screen.width, screen.height) / 2),
 			screen.height / 2 - (Math.min(screen.width, screen.height) / 2),
@@ -135,7 +133,8 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 			}
 
 			return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
-		}));
+		}
+		));
 
 		if (allPagesCombined.isEmpty())
 

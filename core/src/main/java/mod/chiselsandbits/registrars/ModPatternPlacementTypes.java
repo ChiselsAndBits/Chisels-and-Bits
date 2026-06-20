@@ -7,12 +7,15 @@ import com.communi.suggestu.scena.core.registries.deferred.ICustomRegistrar;
 import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.pattern.placement.*;
+import mod.chiselsandbits.pattern.placement.CarvePatternPlacementType;
+import mod.chiselsandbits.pattern.placement.ImposePatternPlacementType;
+import mod.chiselsandbits.pattern.placement.MergePatternPlacementType;
+import mod.chiselsandbits.pattern.placement.PlacePatternPlacementType;
+import mod.chiselsandbits.pattern.placement.RemovalPatternPlacementType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class ModPatternPlacementTypes
-{
+public final class ModPatternPlacementTypes {
 	private static final Logger                                  LOGGER         = LogManager.getLogger();
 	private static final ICustomRegistrar<IPatternPlacementType> TYPE_REGISTRAR = ICustomRegistrar.create(IPatternPlacementType.class, Constants.MOD_ID);
 

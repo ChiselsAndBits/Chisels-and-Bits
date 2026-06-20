@@ -6,8 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an object with a text associated with it.
  */
-public interface IWithText
-{
+public interface IWithText {
 	/**
      * The text associated with this object.
      *

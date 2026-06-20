@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.item.wireframe.IWireframeProvidingItem;
 
 import net.minecraft.world.item.ItemStack;
 
-public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem, IPlaceable, IPlacementProperties
-{
+public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem, IPlaceable, IPlacementProperties {
 	/**
      * Returns whether to effectively ignore the depth buffer and render in front of everything for a given placement result.
      *

@@ -9,8 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-public class ImportPatternCommandMessagePacket extends ModPacket
-{
+public class ImportPatternCommandMessagePacket extends ModPacket {
 	public static final Identifier                                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "import_pattern_command_message");
 	public static final CustomPacketPayload.Type<ImportPatternCommandMessagePacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

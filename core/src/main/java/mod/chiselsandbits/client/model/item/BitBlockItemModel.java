@@ -6,10 +6,9 @@ import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
-
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
@@ -23,8 +22,7 @@ import net.minecraft.world.item.ItemStack;
 
 public record BitBlockItemModel(
 	boolean usesBlockLight,
-	ItemTransforms transforms) implements ItemModel
-{
+	ItemTransforms transforms) implements ItemModel {
 	@Override
 	public void update(
 		final ItemStackRenderState renderState,
@@ -33,8 +31,7 @@ public record BitBlockItemModel(
 		final @NotNull ItemDisplayContext displayContext,
 		@Nullable final ClientLevel level,
 		@Nullable final ItemOwner owner,
-		final int seed)
-	{
+		final int seed) {
 		renderState.appendModelIdentityElement(this);
 		if (!(stack.getItem() instanceof IBitItem bitItem))
 
@@ -79,7 +76,8 @@ public record BitBlockItemModel(
 
 			itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
 			itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());
-		});
+		}
+		);
 	}
 
 	public record Unbaked() implements ItemModel.Unbaked

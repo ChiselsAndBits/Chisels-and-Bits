@@ -10,8 +10,7 @@ import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
-public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableAreaMutator
-{
+public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableAreaMutator {
 	Codec<IMultiStateSnapshot> CODEC = Codec.lazyInitialized(() -> IRegistryManager.getInstance().getMultiStateSnapshotTypeRegistry()
 			.byNameCodec().dispatch(IMultiStateSnapshot::getType, IMultiStateSnapshotType::codec));
 

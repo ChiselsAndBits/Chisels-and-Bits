@@ -2,8 +2,7 @@ package mod.chiselsandbits.api.util;
 
 import java.util.BitSet;
 
-public class ByteArrayUtils
-{
+public class ByteArrayUtils {
 	private ByteArrayUtils()
 
 	{

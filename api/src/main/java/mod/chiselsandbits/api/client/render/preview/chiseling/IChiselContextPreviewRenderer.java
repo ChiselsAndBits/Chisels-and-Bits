@@ -10,8 +10,7 @@ import net.minecraft.resources.Identifier;
 /**
  * Renderer which is used to render the chiseling preview.
  */
-public interface IChiselContextPreviewRenderer
-{
+public interface IChiselContextPreviewRenderer {
 	/**
      * The id of teh renderer.
      * Used to give the player a selection option for the preview renderer.

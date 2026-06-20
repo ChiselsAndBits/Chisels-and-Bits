@@ -13,8 +13,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 
 @SuppressWarnings("unchecked")
-public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.ItemTagsProvider
-{
+public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.ItemTagsProvider {
 	public ModItemTagGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> holderProvider) {
 		super(packOutput, holderProvider, Constants.MOD_ID);
 	}

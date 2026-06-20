@@ -8,8 +8,7 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
-public class ToolNameHighlightTickHandler
-{
+public class ToolNameHighlightTickHandler {
 	public static void handleClientTickForMagnifyingGlass()
 
 	{
@@ -17,8 +16,7 @@ public class ToolNameHighlightTickHandler
 
 		{
 			if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof IPermanentlyHighlightedNameItem
-				  || Minecraft.getInstance().player.getOffhandItem().getItem() instanceof IPermanentlyHighlightedNameItem)
-			{
+				  || Minecraft.getInstance().player.getOffhandItem().getItem() instanceof IPermanentlyHighlightedNameItem) {
 				Minecraft.getInstance().gui.toolHighlightTimer = 40;
 			}
 

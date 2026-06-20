@@ -8,8 +8,7 @@ import java.util.UUID;
 /**
  * Represents a measurement made in a given world by a given player.
  */
-public interface IMeasurement
-{
+public interface IMeasurement {
 	/**
      * The id of the player who made the measurement.
      *

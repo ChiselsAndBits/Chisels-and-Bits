@@ -17,8 +17,7 @@ import org.jspecify.annotations.NonNull;
 /**
  * An {@link ItemModel} which indicates interaction with it.
  */
-public record InteractableItemModel(ItemModel model) implements ItemModel
-{
+public record InteractableItemModel(ItemModel model) implements ItemModel {
 	@Override
 	public void update(
 		final @NotNull ItemStackRenderState renderState,
@@ -27,12 +26,12 @@ public record InteractableItemModel(ItemModel model) implements ItemModel
 		final @NotNull ItemDisplayContext displayContext,
 		@Nullable final ClientLevel level,
 		@Nullable final ItemOwner owner,
-		final int seed)
-	{
+		final int seed) {
 		final var renderer = new InteractionISTER(this, displayContext);
 		final var specialRenderState = renderer.extractArgument(stack);
-		if (specialRenderState == null)
+		if (specialRenderState == null) {
 			return;
+		}
 
 		renderState.appendModelIdentityElement(this);
 		renderState.appendModelIdentityElement(stack.getItem());

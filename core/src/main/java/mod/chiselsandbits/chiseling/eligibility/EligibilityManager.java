@@ -31,14 +31,14 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 @SuppressWarnings("ConstantConditions")
-public class EligibilityManager implements IEligibilityManager
-{
+public class EligibilityManager implements IEligibilityManager {
 	private static final EligibilityManager INSTANCE = new EligibilityManager();
 
 	private static final SimpleMaxSizedCache<BlockInformation, IEligibilityAnalysisResult> cache =
 		new SimpleMaxSizedCache<>(() -> {
 			return IPlatformRegistryManager.getInstance().getBlockStateIdMap().size() == 0 ? 1000 : IPlatformRegistryManager.getInstance().getBlockStateIdMap().size();
-		});
+		}
+		);
 
 	private EligibilityManager()
 
@@ -239,7 +239,8 @@ public class EligibilityManager implements IEligibilityManager
 				  TranslationUtils.build(LocalStrings.ChiselSupportFailureToAnalyze)
 				);
 			}
-		});
+		}
+		);
 	}
 
 	/**

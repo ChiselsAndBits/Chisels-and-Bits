@@ -8,8 +8,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public interface IMeasuringType extends IToolModeGroup
-{
+public interface IMeasuringType extends IToolModeGroup {
 	@NotNull Vec3 adaptClickedPosition(@NotNull BlockHitResult blockHitResult);
 
 	@NotNull Vec3 adaptStartCorner(@NotNull Vec3 startPosition, @NotNull Vec3 endPosition, @NotNull Direction hitFace);

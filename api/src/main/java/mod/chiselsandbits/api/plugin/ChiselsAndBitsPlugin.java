@@ -10,8 +10,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ChiselsAndBitsPlugin
-{
+public @interface ChiselsAndBitsPlugin {
 	/**
      * Mod ids of the mods required to load this plugin.
      * Leave on the default empty to not care for mod specific filtering.

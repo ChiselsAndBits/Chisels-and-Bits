@@ -12,8 +12,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an item which is a single bit.
  */
-public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem, IWithModeItem<IChiselMode>, IChangeTrackingItem
-{
+public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem, IWithModeItem<IChiselMode>, IChangeTrackingItem {
 	/**
      * Returns the block information which is contained in a stack with the
      * given bit item.

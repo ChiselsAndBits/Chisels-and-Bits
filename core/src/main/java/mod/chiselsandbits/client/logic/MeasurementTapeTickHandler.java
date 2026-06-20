@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
-public class MeasurementTapeTickHandler
-{
+public class MeasurementTapeTickHandler {
 	public static void tick() {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			if (KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed()) {
@@ -33,7 +32,8 @@ public class MeasurementTapeTickHandler
 					);
 				}
 			}
-		});
+		}
+		);
 	}
 
 	private static @NotNull ItemStack getItemStack()

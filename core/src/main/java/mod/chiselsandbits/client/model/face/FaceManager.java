@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
 import com.communi.suggestu.scena.core.client.models.processing.ProtoStateModelPart;
@@ -13,8 +12,7 @@ import com.mojang.blaze3d.platform.Transparency;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidModel;
@@ -25,8 +23,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.TriState;
 import net.minecraft.world.level.material.Fluid;
 
-public class FaceManager
-{
+public class FaceManager {
 	private static final FaceManager INSTANCE = new FaceManager();
 
 	public static FaceManager getInstance()
@@ -54,8 +51,7 @@ public class FaceManager
 		final @Nullable Direction cullDirection,
 		final @Nullable BlockAndTintGetter blockAndTintGetter,
 		final BlockPos pos,
-		final Consumer<DeconstructedModelPartComponent> pipeline)
-	{
+		final Consumer<DeconstructedModelPartComponent> pipeline) {
 		final Key key = new Key(
 			blockInformation,
 			cullDirection,
@@ -128,8 +124,9 @@ public class FaceManager
 
 		builder.part(new ProtoStateModelPart(TriState.DEFAULT, model.stillMaterial(), computeFlags(model, material)));
 
-		if (key.direction() != null)
+		if (key.direction() != null) {
 			builder.cullDirection(key.direction());
+		}
 
 		float minV = material.sprite().getV0();
 		float maxU = material.sprite().getU(16f / material.sprite().contents().width());
@@ -161,93 +158,118 @@ public class FaceManager
 	}
 
 	private static void injectFluidVertexDataForSide(final DeconstructedModelPartComponent.Builder builder, final float minU, final float maxU, final float minV, final float maxV, final Direction cullDirection) {
-		if (cullDirection == null)
+		if (cullDirection == null) {
 			return;
+		}
 
 		switch (cullDirection) {
 			case DOWN -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 			case UP -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 			case NORTH -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 			case SOUTH -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 			case WEST -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 			case EAST -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
-				});
+				}
+				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
-				});
+				}
+				);
 			}
 		}
 	}

@@ -11,8 +11,7 @@ import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 
 import net.minecraft.world.phys.AABB;
 
-public class AABBManager
-{
+public class AABBManager {
 	private static final AABBManager INSTANCE = new AABBManager();
 
 	public static AABBManager getInstance()

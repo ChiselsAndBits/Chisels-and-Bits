@@ -9,8 +9,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Utility class for dealing with raytracing.
  */
-public class RayTracingUtils
-{
+public class RayTracingUtils {
 	private RayTracingUtils()
 
 	{

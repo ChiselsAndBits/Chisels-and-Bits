@@ -15,8 +15,7 @@ import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorProvider
-{
+public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorProvider {
 	@Override
 	public void collect(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final IntList intList)
 

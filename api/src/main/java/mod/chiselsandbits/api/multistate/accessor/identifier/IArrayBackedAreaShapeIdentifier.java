@@ -8,8 +8,7 @@ import java.util.List;
  * Indicates that the {@link IAreaShapeIdentifier} is backed by a long array and as such its core data can directly be used to
  * compare the identifiers.
  */
-public interface IArrayBackedAreaShapeIdentifier extends IAreaShapeIdentifier
-{
+public interface IArrayBackedAreaShapeIdentifier extends IAreaShapeIdentifier {
 	/**
      * Gives access to the backing long array.
      *

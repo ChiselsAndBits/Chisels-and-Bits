@@ -201,7 +201,8 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 					target,
 					this::setInAreaTarget,
 					this::clearInAreaTarget));
-		});
+		}
+		);
 	}
 
 	@Override

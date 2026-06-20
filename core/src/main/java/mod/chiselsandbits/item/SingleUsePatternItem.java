@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-
 import com.communi.suggestu.scena.core.dist.Dist;
 import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.exceptions.SealingNotSupportedException;
@@ -26,8 +25,7 @@ import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -41,8 +39,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.Vec3;
 
-public class SingleUsePatternItem extends Item implements IPatternItem
-{
+public class SingleUsePatternItem extends Item implements IPatternItem {
 	public SingleUsePatternItem(final Properties builder)
 
 	{
@@ -89,14 +86,17 @@ public class SingleUsePatternItem extends Item implements IPatternItem
 		final IMultiStateItemStack contents = createItemStack(context.getItemInHand());
 
 		if (contents.getStatistics().isEmpty()) {
-			if (context.getPlayer() == null)
+			if (context.getPlayer() == null) {
 				return InteractionResult.FAIL;
+			}
 
-			if (!context.getPlayer().isCreative())
+			if (!context.getPlayer().isCreative()) {
 				return InteractionResult.FAIL;
+			}
 
-			if (!context.getPlayer().isShiftKeyDown())
+			if (!context.getPlayer().isShiftKeyDown()) {
 				return InteractionResult.FAIL;
+			}
 
 			final IWorldAreaMutator areaMutator = IMutatorFactory.getInstance().in(context.getLevel(), context.getClickedPos());
 			areaMutator.createSnapshot().toItemStack().writeDataTo(context.getItemInHand());
@@ -110,8 +110,9 @@ public class SingleUsePatternItem extends Item implements IPatternItem
 	public InteractionResult tryPlace(@NotNull final BlockPlaceContext context)
 
 	{
-		if (context.getPlayer() == null)
+		if (context.getPlayer() == null) {
 			return InteractionResult.FAIL;
+		}
 
 		final IAreaAccessor source = this.createItemStack(context.getItemInHand());
 		final IMultiStateSnapshot sourceSnapshot = source.createSnapshot();
@@ -176,8 +177,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		final IPatternPlacementType mode = getMode(stack);
 		if (mode.getGroup().isPresent())
 
@@ -198,7 +198,8 @@ public class SingleUsePatternItem extends Item implements IPatternItem
 
 				HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltipAdder);
 			}
-		});
+		}
+		);
 	}
 
 	@Override

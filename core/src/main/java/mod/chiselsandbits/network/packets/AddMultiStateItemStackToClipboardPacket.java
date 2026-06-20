@@ -11,8 +11,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
-public final class AddMultiStateItemStackToClipboardPacket extends ModPacket
-{
+public final class AddMultiStateItemStackToClipboardPacket extends ModPacket {
 	public static final Identifier                                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "add_multi_state_item_stack_to_clipboard");
 	public static final CustomPacketPayload.Type<AddMultiStateItemStackToClipboardPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

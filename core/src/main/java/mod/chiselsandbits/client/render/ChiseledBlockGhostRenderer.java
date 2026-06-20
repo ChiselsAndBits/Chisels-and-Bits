@@ -48,8 +48,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class ChiseledBlockGhostRenderer
-{
+public class ChiseledBlockGhostRenderer {
 	private static final ChiseledBlockGhostRenderer INSTANCE = new ChiseledBlockGhostRenderer();
 
 	public static ChiseledBlockGhostRenderer getInstance()
@@ -71,8 +70,7 @@ public class ChiseledBlockGhostRenderer
 		final PlacementResult placementResult,
 		final PlacementPreviewRenderMode success,
 		final PlacementPreviewRenderMode failure,
-		final boolean ignoreDepth)
-	{
+		final boolean ignoreDepth) {
 		poseStack.pushPose();
 
 		// Offset/scale by an unnoticeable amount to prevent z-fighting
@@ -113,8 +111,7 @@ public class ChiseledBlockGhostRenderer
 		final boolean renderColoredGhost,
 		final Vector4f color,
 		final Vec3 targetedRenderPos,
-		final boolean ignoreDepth)
-	{
+		final boolean ignoreDepth) {
 		final RenderType renderType;
 		if (renderColoredGhost)
 
@@ -198,8 +195,7 @@ public class ChiseledBlockGhostRenderer
 
 	private record AlphaSettingVertexConsumer(
 		int alpha,
-		VertexConsumer delegate) implements VertexConsumer
-	{
+		VertexConsumer delegate) implements VertexConsumer {
 		private AlphaSettingVertexConsumer(final float alpha, final VertexConsumer delegate)
 
 		{
@@ -290,7 +286,8 @@ public class ChiseledBlockGhostRenderer
 					color.x() * brightness,
 					color.y() * brightness,
 					color.z() * brightness);
-			}).toArray(Vector3f[]::new);
+			}
+			).toArray(Vector3f[]::new);
 	}
 
 	private static Vector3f[] getNormals(final PoseStack.Pose pose)
@@ -305,7 +302,8 @@ public class ChiseledBlockGhostRenderer
 				final Vector3f normal = new Vector3f(faceNormal.getX(), faceNormal.getY(), faceNormal.getZ());
 				normal.mul(pose.normal());
 				return normal;
-			}).toArray(Vector3f[]::new);
+			}
+			).toArray(Vector3f[]::new);
 	}
 
 	/**
@@ -317,8 +315,7 @@ public class ChiseledBlockGhostRenderer
 		final PoseStack poseStack,
 		final MultiBufferSource.BufferSource bufferSource,
 		final Vector4f color,
-		final RenderType renderType)
-	{
+		final RenderType renderType) {
 		final RandomSource random = RandomSource.create(42);
 
 		// Setup normals and shaded colors for each direction
@@ -364,8 +361,7 @@ public class ChiseledBlockGhostRenderer
 		final List<BakedQuad> quads,
 		final Vector3f[] normals,
 		final Vector3f[] shadedColors,
-		final Vector4f pos)
-	{
+		final Vector4f pos) {
 		for (final BakedQuad quad : quads)
 
 		{
@@ -388,8 +384,7 @@ public class ChiseledBlockGhostRenderer
 		final BakedQuad bakedQuad,
 		final Vector3f color,
 		final Vector3f normal,
-		final Vector4f pos)
-	{
+		final Vector4f pos) {
 		// Get vertex data
 		final Vector2f uv = new Vector2f();
 

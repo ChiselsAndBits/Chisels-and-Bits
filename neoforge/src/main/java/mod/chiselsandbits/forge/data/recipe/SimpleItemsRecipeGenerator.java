@@ -27,8 +27,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
-{
+public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 	private final boolean                      shapeless;
 	private final List<String>                 pattern;
 	private final Map<Character, TagKey<Item>> tagMap;
@@ -41,8 +40,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 		final String pattern,
 		final Map<Character, TagKey<Item>> tagMap,
 		final Map<Character, ItemLike> itemMap
-		)
-	{
+		) {
 		super(registries, output, itemProvider);
 		this.shapeless = false;
 		this.pattern = Arrays.asList(pattern.split(";"));
@@ -55,8 +53,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 		final RecipeOutput output,
 		final ItemLike itemProvider,
 		final List<TagKey<Item>> tagMap,
-		final List<ItemLike> itemMap)
-	{
+		final List<ItemLike> itemMap) {
 		super(registries, output, itemProvider);
 		this.shapeless = true;
 		this.pattern = ImmutableList.of("   ", "   ", "   ");
@@ -214,11 +211,13 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 			tagMap.forEach((ingredientKey, tag) -> {
 				builder.requires(tag);
 				builder.unlockedBy("has_tag_" + ingredientKey, has(tag));
-			});
+			}
+			);
 			itemMap.forEach((ingredientKey, item) -> {
 				builder.requires(item);
 				builder.unlockedBy("has_item_" + ingredientKey, has(item));
-			});
+			}
+			);
 			builder.save(this.output);
 		}
 
@@ -230,11 +229,13 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator
 			tagMap.forEach((ingredientKey, tag) -> {
 				builder.define(ingredientKey, tag);
 				builder.unlockedBy("has_" + ingredientKey, has(tag));
-			});
+			}
+			);
 			itemMap.forEach((ingredientKey, item) -> {
 				builder.define(ingredientKey, item);
 				builder.unlockedBy("has_" + ingredientKey, has(item));
-			});
+			}
+			);
 			builder.save(this.output);
 		}
 	}

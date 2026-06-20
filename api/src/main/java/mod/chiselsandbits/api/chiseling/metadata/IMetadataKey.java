@@ -8,8 +8,7 @@ import mod.chiselsandbits.api.chiseling.IChiselingContext;
  * on the context.
  * @param <T> The internal type.
  */
-public interface IMetadataKey<T> extends ICustomRegistryEntry
-{
+public interface IMetadataKey<T> extends ICustomRegistryEntry {
 	/**
      * Creates a snapshot of the value that is passed to it.
      * The primary task of this method is to create a deep copy of the given value.

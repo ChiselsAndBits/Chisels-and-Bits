@@ -8,8 +8,7 @@ import com.communi.suggestu.scena.core.config.IConfigurationManager;
 import mod.chiselsandbits.api.config.ICommonConfiguration;
 import mod.chiselsandbits.api.util.constants.Constants;
 
-public class CommonConfiguration implements ICommonConfiguration
-{
+public class CommonConfiguration implements ICommonConfiguration {
 	private final Supplier<Boolean> enableHelp;
 	private final Supplier<Long> collisionBoxCacheSize;
 	private final Supplier<Long> classMetadataCacheSize;

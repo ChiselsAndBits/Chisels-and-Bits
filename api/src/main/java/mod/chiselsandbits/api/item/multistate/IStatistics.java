@@ -8,8 +8,7 @@ import java.util.Set;
 /**
  * The statistics of a multi state itemstack.
  */
-public interface IStatistics extends RawSerializable
-{
+public interface IStatistics extends RawSerializable {
 	/**
      * The primary state of the mutli state itemstacks this statistics object
      * belongs to.

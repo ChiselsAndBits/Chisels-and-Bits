@@ -38,8 +38,9 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 	}
 
 	private void bakeProviders() {
-		if (!providers.isEmpty())
+		if (!providers.isEmpty()) {
 			return;
+		}
 
 		preBakeProviders.forEach((block, provider) -> providers.put(block.get(), provider));
 		preBakeProviders.clear();
@@ -48,8 +49,9 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 	@Override
 	public IBlockModelData getBlockModelData(BlockInformation blockInformation) {
 		bakeProviders();
-		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock()))
+		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock())) {
 			return IBlockModelData.empty();
+		}
 
 		return providers.get(blockInformation.blockState().getBlock()).getBlockModelData(blockInformation.variant().get());
 	}
@@ -60,16 +62,17 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 		final Item.TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		bakeProviders();
-		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock()))
+		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock())) {
 			return;
+		}
 
 		final List<Component> variantLines = new ArrayList<>();
 		blockInformation.variant().ifPresent(variant -> {
 			providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
-		});
+		}
+		);
 
 		if (!variantLines.isEmpty()) {
 			tooltipAdder.accept(Component.literal(""));

@@ -25,8 +25,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackLinkedSet;
 
-public final class CreativeClipboardManager implements ICreativeClipboardManager
-{
+public final class CreativeClipboardManager implements ICreativeClipboardManager {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final CreativeClipboardManager INSTANCE = new CreativeClipboardManager();
 
@@ -63,7 +62,8 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			  .map(tag -> {
 				  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 				  return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
-			  })
+			  }
+			  )
 			  .map(SingleBlockMultiStateItemStack::new)
 			  .forEach(cache::add);
 		}
@@ -84,7 +84,8 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 		  .map(stack -> {
 			  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 			  return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
-		  })
+		  }
+		  )
 		  .forEach(tags::add);
 
 		data.put("clipboard", tags);
@@ -127,8 +128,9 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 	{
 		synchronized (cache) {
-			if (cache.contains(multiStateItemStack))
+			if (cache.contains(multiStateItemStack)) {
 				return;
+			}
 
 			cache.add(multiStateItemStack);
 			writeContentsToDisk(provider);
@@ -146,7 +148,8 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 		cache.forEach(stack -> {
 			ModCreativeTabs.CLIPBOARD.get()
 					.displayItems.add(stack.toBlockStack());
-		});
+		}
+		);
 
 		if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {
 			screen.refreshCurrentTabContents(this.cache.stream().map(IMultiStateItemStack::toBlockStack).toList());

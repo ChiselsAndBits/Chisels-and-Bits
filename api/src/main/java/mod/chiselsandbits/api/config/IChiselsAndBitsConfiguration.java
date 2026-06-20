@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 /**
  * Represents the configuration of chisels and bits.
  */
-public interface IChiselsAndBitsConfiguration
-{
+public interface IChiselsAndBitsConfiguration {
 	/**
      * Gives access to the current configuration of C{@literal &}B.
      * @return The current configuration.

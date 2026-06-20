@@ -2,20 +2,18 @@ package mod.chiselsandbits.item;
 
 import java.util.List;
 import java.util.function.Predicate;
-
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorMaterials;
@@ -23,13 +21,13 @@ import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.AABB;
 
-public class MonocleItem extends Item
-{
+public class MonocleItem extends Item {
 	public static final DispenseItemBehavior DISPENSE_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior() {
 		protected @NotNull ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
 			return dispenseArmor(source, stack) ? stack : super.execute(source, stack);
 		}
-	};
+	}
+	;
 
 	private static boolean dispenseArmor(BlockSource source, ItemStack stack) {
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
@@ -70,11 +68,13 @@ public class MonocleItem extends Item
 		}
 
 		public boolean test(@Nullable Entity entity) {
-			if (!(entity instanceof LivingEntity livingEntity))
+			if (!(entity instanceof LivingEntity livingEntity)) {
 				return false;
+			}
 
-			if (!itemStack.has(DataComponents.EQUIPPABLE))
+			if (!itemStack.has(DataComponents.EQUIPPABLE)) {
 				return false;
+			}
 
 			Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
 			assert equippable != null;

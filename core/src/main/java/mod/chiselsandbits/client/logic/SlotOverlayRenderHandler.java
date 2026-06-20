@@ -6,12 +6,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 
-public class SlotOverlayRenderHandler
-{
+public class SlotOverlayRenderHandler {
 	public static void renderSlotOverlays(final GuiGraphicsExtractor graphics) {
 		Player player = Minecraft.getInstance().player;
-		if (player == null || player.isSpectator())
+		if (player == null || player.isSpectator()) {
 			return;
+		}
 
 		int centerOfScreen = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
 

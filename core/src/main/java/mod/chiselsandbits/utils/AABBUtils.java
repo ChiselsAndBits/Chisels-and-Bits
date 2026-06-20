@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 
-public class AABBUtils
-{
+public class AABBUtils {
 	private AABBUtils()
 
 	{

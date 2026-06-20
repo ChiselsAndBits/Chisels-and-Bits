@@ -1,6 +1,5 @@
 package mod.chiselsandbits.item;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -21,14 +20,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class MagnifyingGlassItem extends Item implements IPermanentlyHighlightedNameItem
-{
+public class MagnifyingGlassItem extends Item implements IPermanentlyHighlightedNameItem {
 	public MagnifyingGlassItem(Properties properties)
 
 	{
@@ -72,7 +69,8 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 					return result.isAlreadyChiseled() || result.canBeChiseled() ?
 							result.getReason().withStyle(ChatFormatting.GREEN) :
 							result.getReason().withStyle(ChatFormatting.RED);
-				},
+				}
+				,
 				() -> () -> super.getName(stack)
 		);
 	}
@@ -84,8 +82,7 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		HelpTextUtils.build(
 			LocalStrings.HelpMagnifyingGlass, tooltipAdder

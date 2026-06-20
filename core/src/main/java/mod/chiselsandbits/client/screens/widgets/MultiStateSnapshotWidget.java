@@ -16,8 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
-{
+public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 	private ItemStack snapshotBlockStack = ItemStack.EMPTY;
 
 	private Vec3 facingVector = Vec3.ZERO;
@@ -65,8 +64,9 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget
 	public IMultiStateSnapshot getSnapshot()
 
 	{
-		if (!(snapshotBlockStack.getItem() instanceof IMultiStateItem))
+		if (!(snapshotBlockStack.getItem() instanceof IMultiStateItem)) {
 			return EmptySnapshot.INSTANCE;
+		}
 
 		return ((IMultiStateItem) snapshotBlockStack.getItem()).createItemStack(snapshotBlockStack).createSnapshot();
 	}

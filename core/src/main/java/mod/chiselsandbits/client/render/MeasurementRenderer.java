@@ -34,8 +34,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.scores.PlayerTeam;
 
-public final class MeasurementRenderer
-{
+public final class MeasurementRenderer {
 	private static final MeasurementRenderer INSTANCE = new MeasurementRenderer();
 
 	private MeasurementRenderer()
@@ -52,8 +51,7 @@ public final class MeasurementRenderer
 	public void renderMeasurements(
 		final PoseStack poseStack,
 		final MultiBufferSource.BufferSource bufferSource,
-		final float partialTickTime)
-	{
+		final float partialTickTime) {
 		if (Minecraft.getInstance().level == null)
 
 		{
@@ -69,7 +67,8 @@ public final class MeasurementRenderer
 
 		measurements.forEach(measurement -> {
 			renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
-		});
+		}
+		);
 	}
 
 	private void renderMeasurement(
@@ -79,8 +78,7 @@ public final class MeasurementRenderer
 		final double xView,
 		final double yView,
 		final double zView,
-		final float partialTickTime)
-	{
+		final float partialTickTime) {
 		final Vec3 startPos = measurement.getFrom();
 
 		final AABB measurementBB = new AABB(
@@ -199,8 +197,7 @@ public final class MeasurementRenderer
 		final IMeasurement measurement,
 		final double length,
 		final Vec3 position,
-		final float partialTickTime)
-	{
+		final float partialTickTime) {
 		final double letterSize = 5.0;
 		final double zScale = 0.001;
 
@@ -269,8 +266,7 @@ public final class MeasurementRenderer
 	}
 
 	private float getScale(
-		final double maxLen)
-	{
+		final double maxLen) {
 		final double maxFontSize = 0.04;
 		final double minFontSize = 0.004;
 
@@ -288,8 +284,7 @@ public final class MeasurementRenderer
 
 	private void performBillboardRotations(
 		final PoseStack matrixStack,
-		final float partialTickTime)
-	{
+		final float partialTickTime) {
 		final Entity view = Minecraft.getInstance().getCameraEntity() != null ? Minecraft.getInstance().getCameraEntity() : Minecraft.getInstance().player;
 		if (view != null)
 

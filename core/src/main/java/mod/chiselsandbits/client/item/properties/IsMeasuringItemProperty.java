@@ -2,8 +2,7 @@ package mod.chiselsandbits.client.item.properties;
 
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.registrars.ModItems;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
@@ -12,8 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public record IsMeasuringItemProperty() implements ConditionalItemModelProperty
-{
+public record IsMeasuringItemProperty() implements ConditionalItemModelProperty {
 	public static final MapCodec<IsMeasuringItemProperty> CODEC = MapCodec.unit(IsMeasuringItemProperty::new);
 
 	@Override

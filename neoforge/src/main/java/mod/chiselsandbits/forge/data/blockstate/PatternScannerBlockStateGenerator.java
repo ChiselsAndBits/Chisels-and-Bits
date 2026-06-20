@@ -15,8 +15,11 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.BlockStateModelWrapper;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Holder;
@@ -27,8 +30,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class PatternScannerBlockStateGenerator extends ModelProvider implements DataProvider
-{
+public class PatternScannerBlockStateGenerator extends ModelProvider implements DataProvider {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
 
@@ -69,7 +71,8 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 					)
 				);
 			}
-		});
+		}
+		);
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
 			ModelLocationUtils.getModelLocation(block),

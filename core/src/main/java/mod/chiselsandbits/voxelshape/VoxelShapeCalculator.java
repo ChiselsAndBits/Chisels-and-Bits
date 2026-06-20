@@ -10,15 +10,15 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class VoxelShapeCalculator
-{
+public class VoxelShapeCalculator {
 	public static VoxelShape calculate(
 	  final IAreaAccessor areaAccessor,
 	  final BlockPos offset,
 	  final CollisionType sizeType,
 	  final boolean simplify) {
-		if (areaAccessor instanceof IAreaAccessorWithVoxelShape)
+		if (areaAccessor instanceof IAreaAccessorWithVoxelShape) {
 			return ((IAreaAccessorWithVoxelShape) areaAccessor).provideShape(sizeType, offset, simplify);
+		}
 
 		final VoxelShape shape =
 			AABBManager.getInstance()
@@ -30,7 +30,8 @@ public class VoxelShapeCalculator
 		  (voxelShape, axisAlignedBB) -> {
 			  final VoxelShape bbShape = Shapes.create(axisAlignedBB);
 			  return Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR);
-		  },
+		  }
+		  ,
 		  (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
 		);
 

@@ -56,8 +56,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
-{
+public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	private static final Supplier<ItemStack> DEFAULT_INSTANCE = Suppliers.memoize(() -> {
 		final RandomSource random = RandomSource.createThreadLocalInstance(42L);
 
@@ -85,12 +84,14 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 			  final int blockInformationIndex = index.getX() + (index.getY() * size) + (index.getZ() * size * size);
 			  final BlockInformation info = blockInformation.get(blockInformationIndex);
 			  stateEntryInfo.overrideState(info);
-		  });
+		  }
+		  );
 
 		final ItemStack stack = results.toItemStack().toBlockStack();
 		stack.set(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), true);
 		return stack;
-	});
+	}
+	);
 
 	public ChiseledBlockItem(final Block blockIn, final Properties builder)
 
@@ -131,8 +132,9 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 
 	{
 		final Player player = context.getPlayer();
-		if (player == null)
+		if (player == null) {
 			return InteractionResult.FAIL;
+		}
 
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
@@ -165,7 +167,8 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 			  {
 				  return false;
 			  }
-		  });
+		  }
+		  );
 
 		if (noCollisions)
 
@@ -217,8 +220,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 		final @NotNull TooltipContext context,
 		final @NotNull TooltipDisplay tooltipDisplay,
 		final @NotNull Consumer<Component> tooltipAdder,
-		final @NotNull TooltipFlag flag)
-	{
+		final @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		DistExecutor.unsafeExecuteForDist(
 			() -> () ->
@@ -253,7 +255,8 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem
 					} catch (SpaceOccupiedException exception) {
 						return false;
 					}
-				});
+				}
+				);
 		return noSpaceOccupied
 				? PlacementResult.success()
 				: PlacementResult.failure(

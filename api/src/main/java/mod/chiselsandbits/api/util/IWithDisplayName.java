@@ -5,8 +5,7 @@ import net.minecraft.network.chat.Component;
 /**
  * Represents an object that is translatable.
  */
-public interface IWithDisplayName
-{
+public interface IWithDisplayName {
 	/**
      * Returns the display name of the object in a text component.
      *

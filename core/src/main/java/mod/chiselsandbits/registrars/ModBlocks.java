@@ -14,8 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public final class ModBlocks
-{
+public final class ModBlocks {
 	private static final Logger                           LOGGER          = LogManager.getLogger();
 	private static final IRegistrar<Block>                BLOCK_REGISTRAR = IRegistrar.create(Registries.BLOCK, Constants.MOD_ID);
 	public static final  IRegistryObject<BitStorageBlock> BIT_STORAGE     =

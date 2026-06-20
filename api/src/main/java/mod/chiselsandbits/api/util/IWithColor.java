@@ -6,8 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * An object with a color associated with it.
  */
-public interface IWithColor
-{
+public interface IWithColor {
 	/**
      * The color used to render.
      *

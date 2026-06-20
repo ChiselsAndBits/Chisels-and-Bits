@@ -14,8 +14,7 @@ import mod.chiselsandbits.utils.StringUtils;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.util.profiling.jfr.JvmProfiler;
 
-public class JfrCandBProfiler extends CandBProfiler
-{
+public class JfrCandBProfiler extends CandBProfiler {
 	private final ThreadLocal<LinkedList<CandBProfilingSectionEvent>> eventStack = ThreadLocal.withInitial(LinkedList::new);
 	private final ThreadLocal<LinkedList<String>> nameStack =  ThreadLocal.withInitial(LinkedList::new);
 

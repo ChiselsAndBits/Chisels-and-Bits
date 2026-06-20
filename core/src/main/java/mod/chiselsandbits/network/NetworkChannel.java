@@ -11,8 +11,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 /**
  * Our wrapper for Forge network layer
  */
-public class NetworkChannel
-{
+public class NetworkChannel {
 	private static final String LATEST_PROTO_VER = "1.0";
 	/**
      * Forge network channel

@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 /**
  * Bit inventory variant which can be watched for changes.
  */
-public interface IWatchableBitInventory extends IBitInventory
-{
+public interface IWatchableBitInventory extends IBitInventory {
 	/**
      * Invoke to start receiving change callbacks on this given callback.
      *

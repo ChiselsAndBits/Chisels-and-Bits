@@ -30,8 +30,7 @@ import java.util.function.Consumer;
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
 public record InteractionISTER(InteractableItemModel mainModel,
-							   ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState>
-{
+							   ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState> {
 	public record RenderState(ItemStack stack, IInteractableItem item) {}
 
 	@Override
@@ -42,10 +41,10 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		final int lightCoords,
 		final int overlayCoords,
 		final boolean hasFoil,
-		final int outlineColor)
-	{
-		if (argument == null)
+		final int outlineColor) {
+		if (argument == null) {
 			return;
+		}
 
 		final ItemStack stack = argument.stack();
 		final LocalPlayer player = Minecraft.getInstance().player;
@@ -86,10 +85,12 @@ public record InteractionISTER(InteractableItemModel mainModel,
 			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) < 0.8F) {
 				float bobbing = -Mth.abs(Mth.cos(time / item.getBobbingTickCount() * (float) Math.PI) * 0.1F);
 
-				if (displayContext == ItemDisplayContext.GUI)
+				if (displayContext == ItemDisplayContext.GUI) {
 					poseStack.translate(bobbing, bobbing, 0.0F);
-				else
+				}
+				else {
 					poseStack.translate(0.0f, bobbing, 0.0F);
+				}
 			}
 
 			ItemModelUtils.render(

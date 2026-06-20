@@ -30,8 +30,7 @@ public final class ConvertBagGuiPacket extends ModPacket {
 
 	@Override
 	public void server(
-			final ServerPlayer player)
-	{
+			final ServerPlayer player) {
 		execute(player);
 	}
 

@@ -3,8 +3,7 @@ package mod.chiselsandbits.chiseling.modes.connected.material;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
-public class ConnectedMaterialChiselingModeBuilder
-{
+public class ConnectedMaterialChiselingModeBuilder {
 	private int                       depth;
 	private MutableComponent          displayName;
 	private MutableComponent multiLineDisplayName;

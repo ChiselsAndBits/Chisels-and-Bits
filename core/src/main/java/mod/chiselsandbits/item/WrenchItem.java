@@ -27,8 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class WrenchItem extends Item implements IWithModeItem<IModificationOperation>, IRightClickControllingItem
-{
+public class WrenchItem extends Item implements IWithModeItem<IModificationOperation>, IRightClickControllingItem {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public WrenchItem(final Properties properties)
@@ -65,8 +64,9 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	{
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
-		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK)
+		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
 			return false;
+		}
 
 		final BlockEntity blockEntity = playerEntity.level().getBlockEntity(blockHitResult.getBlockPos());
 		return (blockEntity instanceof IMultiStateBlockEntity);
@@ -78,12 +78,14 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	{
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
-		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK)
+		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
 			return ClickProcessingState.DENIED;
+		}
 
 		final BlockEntity blockEntity = playerEntity.level().getBlockEntity(blockHitResult.getBlockPos());
-		if (!(blockEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity))
+		if (!(blockEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
 			return ClickProcessingState.DENIED;
+		}
 
 		try(IBatchMutation ignored = multiStateBlockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
 

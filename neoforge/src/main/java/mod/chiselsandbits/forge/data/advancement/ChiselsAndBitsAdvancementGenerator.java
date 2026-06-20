@@ -28,8 +28,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider
-{
+public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
 

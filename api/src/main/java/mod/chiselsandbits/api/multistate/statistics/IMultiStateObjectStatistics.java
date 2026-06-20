@@ -13,8 +13,7 @@ import java.util.Set;
 /**
  * The statistics of a multistate block.
  */
-public interface IMultiStateObjectStatistics extends IStatistics
-{
+public interface IMultiStateObjectStatistics extends IStatistics {
 	/**
      * The primary blockstate.
      * If the multistate block is empty, then {@link AirBlock#defaultBlockState()} is returned.

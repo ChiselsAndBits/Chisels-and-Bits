@@ -3,22 +3,19 @@ package mod.chiselsandbits.client.util;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 import com.communi.suggestu.scena.core.client.models.processing.BakedQuadBuilder;
 import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
 import com.communi.suggestu.scena.core.client.models.processing.VertexData;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.face.FaceManager;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Vector3f;
-
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
-public final class QuadGenerationUtils
-{
+public final class QuadGenerationUtils {
 	private QuadGenerationUtils()
 
 	{
@@ -32,8 +29,7 @@ public final class QuadGenerationUtils
 		@Nullable final BlockPos pos,
 		final Vector3f from,
 		final Vector3f to,
-		final Consumer<GeneratedQuad> target)
-	{
+		final Consumer<GeneratedQuad> target) {
 		generateQuads(
 			blockInformation,
 			facingDirection,
@@ -54,8 +50,7 @@ public final class QuadGenerationUtils
 		final Vector3f from,
 		final Vector3f to,
 		final BiConsumer<DeconstructedModelPartComponent, BakedQuadBuilder> quadAdapter,
-		final Consumer<GeneratedQuad> target)
-	{
+		final Consumer<GeneratedQuad> target) {
 		FaceManager.getInstance().extractQuads(
 			blockInformation,
 			facingDirection,
@@ -93,7 +88,6 @@ public final class QuadGenerationUtils
 
 	public record GeneratedQuad(
 		DeconstructedModelPartComponent source,
-		BakedQuad quad)
-	{
+		BakedQuad quad) {
 	}
 }

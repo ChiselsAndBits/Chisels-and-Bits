@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * A bit inventory which can be converted to an itemstack.
  */
-public interface IBitInventoryItemStack extends IBitInventory, Container
-{
+public interface IBitInventoryItemStack extends IBitInventory, Container {
 	record DisplayContents(List<Component> displayComponents, boolean isEmpty, boolean clipped) {};
 
 	/**

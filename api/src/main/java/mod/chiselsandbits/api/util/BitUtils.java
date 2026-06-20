@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-public class BitUtils
-{
+public class BitUtils {
 	private BitUtils()
 
 	{

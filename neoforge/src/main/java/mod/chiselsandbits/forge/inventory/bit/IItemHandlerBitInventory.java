@@ -8,8 +8,7 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import net.minecraft.world.item.ItemStack;
 
-public class IItemHandlerBitInventory extends AbstractBitInventory
-{
+public class IItemHandlerBitInventory extends AbstractBitInventory {
 	private final ResourceHandler<ItemResource> itemHandler;
 
 	public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {this.itemHandler = itemHandler;}

@@ -12,8 +12,7 @@ import java.util.stream.Stream;
 /**
  * Utility class which provides a stream of BlockPos objects within a given range.
  */
-public class BlockPosStreamProvider
-{
+public class BlockPosStreamProvider {
 	private BlockPosStreamProvider()
 
 	{

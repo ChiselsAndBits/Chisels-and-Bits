@@ -13,8 +13,7 @@ import net.minecraft.core.Vec3i;
  * the performance degradation of sorting.
  */
 @FunctionalInterface
-public interface IPositionMutator
-{
+public interface IPositionMutator {
 	/**
      * Applies the mutation that this mutator performs on a given position.
      *
@@ -109,11 +108,11 @@ public interface IPositionMutator
      * @return The position mutator for the given axis.
      */
 	static IPositionMutator fromAxis(final Direction.Axis axis) {
-		return switch (axis)
-				 {
+		return switch (axis) {
 					 case X -> IPositionMutator.xyz();
 					 case Y -> IPositionMutator.yxz();
 					 case Z -> IPositionMutator.zxy();
-				 };
+				 }
+				 ;
 	}
 }

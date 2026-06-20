@@ -15,7 +15,10 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,8 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class MeasuringTapeModelGenerator extends ModelProvider
-{
+public class MeasuringTapeModelGenerator extends ModelProvider {
 	private static final ModelTemplate FLAT_ITEM_IS_MEASURING = new ModelTemplate(
 		ModelTemplates.FLAT_ITEM.model,
 		Optional.of("_is_measuring"),

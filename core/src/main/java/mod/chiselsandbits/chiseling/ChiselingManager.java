@@ -15,8 +15,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class ChiselingManager implements IChiselingManager
-{
+public class ChiselingManager implements IChiselingManager {
 	private static final ChiselingManager INSTANCE = new ChiselingManager();
 
 	private UUID activeInstanceId = UUID.randomUUID();
@@ -52,8 +51,9 @@ public class ChiselingManager implements IChiselingManager
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
-		if (currentStored == null)
+		if (currentStored == null) {
 			return Optional.empty();
+		}
 
 		return Optional.of(currentStored);
 	}
@@ -66,11 +66,13 @@ public class ChiselingManager implements IChiselingManager
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
-		if (currentStored == null)
+		if (currentStored == null) {
 			return Optional.empty();
+		}
 
-		if (currentStored.getModeOfOperandus() == modeOfOperandus)
+		if (currentStored.getModeOfOperandus() == modeOfOperandus) {
 			return Optional.of(currentStored);
+		}
 
 		return Optional.empty();
 	}
@@ -95,12 +97,14 @@ public class ChiselingManager implements IChiselingManager
 		  mode,
 		  modeOfOperandus,
 		  simulation, () -> {
-			if (simulation)
+			if (simulation) {
 				return;
+			}
 
 			this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
 			contexts.get().remove(playerId, worldId);
-		}, causingItemStack, playerEntity);
+		}
+		, causingItemStack, playerEntity);
 
 		if (!simulation)
 
@@ -118,8 +122,9 @@ public class ChiselingManager implements IChiselingManager
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final Long lastChiselTime = this.lastUsedChiselMoments.get().get(playerId, worldId);
-		if (lastChiselTime == null)
+		if (lastChiselTime == null) {
 			return true;
+		}
 
 		final long time = playerEntity.tickCount;
 		final long diffSinceLastUse = time - lastChiselTime;

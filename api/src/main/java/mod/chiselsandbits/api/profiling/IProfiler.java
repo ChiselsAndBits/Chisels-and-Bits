@@ -6,8 +6,7 @@ import java.util.function.Supplier;
 /**
  * A profiler used to track the time certain operations inside Chisels and Bits take.
  */
-public interface IProfiler
-{
+public interface IProfiler {
 	/**
      * Start a section with the given name.
      *

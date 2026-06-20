@@ -13,8 +13,7 @@ public record GreedyMeshFace(
 	Vector3f upperRight,
 	Direction normalDirection,
 	boolean isOnOuterFace
-)
-{
+) {
 	public Vector3f minVector()
 
 	{

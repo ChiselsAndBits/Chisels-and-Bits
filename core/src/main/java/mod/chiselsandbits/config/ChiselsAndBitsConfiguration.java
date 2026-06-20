@@ -7,8 +7,7 @@ import mod.chiselsandbits.api.config.ICommonConfiguration;
 import mod.chiselsandbits.api.config.IServerConfiguration;
 import mod.chiselsandbits.api.util.constants.Constants;
 
-public class ChiselsAndBitsConfiguration implements IChiselsAndBitsConfiguration
-{
+public class ChiselsAndBitsConfiguration implements IChiselsAndBitsConfiguration {
 	static {
 		//Load the language file.
 		final String fileLoc = "assets/" + Constants.MOD_ID + "/lang/%s.json";

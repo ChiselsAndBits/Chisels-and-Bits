@@ -76,8 +76,9 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 	@Override
 	public boolean releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
-		if (!(entityLiving instanceof Player player))
+		if (!(entityLiving instanceof Player player)) {
 			return false;
+		}
 
 		if (isInteracting(stack)) {
 			ItemStack interactionTarget = getInteractionTarget(stack);
@@ -91,8 +92,9 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 	@Override
 	public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving) {
-		if (!(entityLiving instanceof Player player))
+		if (!(entityLiving instanceof Player player)) {
 			return stack;
+		}
 		if (isInteracting(stack)) {
 			ItemStack target = getInteractionTarget(stack);
 			ItemStack pattern = createPattern(target);
@@ -114,11 +116,13 @@ public class UnsealItem extends Item implements IUnsealItem {
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
-					if (playerEntity.getOffhandItem() == stack)
+					if (playerEntity.getOffhandItem() == stack) {
 						hand = EquipmentSlot.OFFHAND;
+					}
 
 					player.onEquippedItemBroken(item, hand);
-				});
+				}
+				);
 			}
 		}
 
@@ -168,8 +172,7 @@ public class UnsealItem extends Item implements IUnsealItem {
 		final @NotNull TooltipContext context,
 		final @NotNull TooltipDisplay tooltipDisplay,
 		final @NotNull Consumer<Component> tooltipAdder,
-		final @NotNull TooltipFlag flag)
-	{
+		final @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		DistExecutor.unsafeExecuteForDist(

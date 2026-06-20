@@ -9,8 +9,7 @@ import mod.chiselsandbits.api.config.IClientConfiguration;
 
 import net.minecraft.resources.Identifier;
 
-public class ChiselContextPreviewRendererRegistry implements IChiselContextPreviewRendererRegistry
-{
+public class ChiselContextPreviewRendererRegistry implements IChiselContextPreviewRendererRegistry {
 	private static final ChiselContextPreviewRendererRegistry INSTANCE = new ChiselContextPreviewRendererRegistry();
 
 	public static ChiselContextPreviewRendererRegistry getInstance()
@@ -45,8 +44,9 @@ public class ChiselContextPreviewRendererRegistry implements IChiselContextPrevi
 		for (final IChiselContextPreviewRenderer renderer : renderers)
 
 		{
-			if (rendererMap.put(renderer.getId(), renderer) != null)
+			if (rendererMap.put(renderer.getId(), renderer) != null) {
 				throw new IllegalArgumentException("The renderer id: " + renderer.getId() + " is already in use!");
+			}
 		}
 
 		return this;

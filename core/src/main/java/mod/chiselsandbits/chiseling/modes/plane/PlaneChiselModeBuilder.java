@@ -3,8 +3,7 @@ package mod.chiselsandbits.chiseling.modes.plane;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
-public class PlaneChiselModeBuilder
-{
+public class PlaneChiselModeBuilder {
 	private int                       depth;
 	private MutableComponent displayName;
 	private MutableComponent multiLineDisplayName;

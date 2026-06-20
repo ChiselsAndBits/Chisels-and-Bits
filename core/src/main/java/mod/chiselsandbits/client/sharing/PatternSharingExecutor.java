@@ -49,8 +49,7 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public final class PatternSharingExecutor
-{
+public final class PatternSharingExecutor {
 	private PatternSharingExecutor()
 
 	{
@@ -190,12 +189,14 @@ public final class PatternSharingExecutor
 
 	{
 		final ItemStack blockStack = multiStateItemStack.toBlockStack();
-		if (!blockStack.has(DataComponents.ITEM_MODEL))
+		if (!blockStack.has(DataComponents.ITEM_MODEL)) {
 			throw new IllegalStateException("BlockStage does not have model for export!");
+		}
 
 		final Identifier itemModelLocation = blockStack.get(DataComponents.ITEM_MODEL);
-		if (itemModelLocation == null)
+		if (itemModelLocation == null) {
 			throw new IllegalStateException("BlockStage has empty model location for export!");
+		}
 
 		final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(itemModelLocation);
 		final ItemStackRenderState state = new ItemStackRenderState();

@@ -5,8 +5,7 @@ import net.minecraft.util.ARGB;
 /**
  * Utility class for processing colors.
  */
-public class ColorUtils
-{
+public class ColorUtils {
 	/**
      * The maximal value for a given color channel.
      */
@@ -92,6 +91,7 @@ public class ColorUtils
 			ARGB.green(color) / 255f,
 			ARGB.blue(color) / 255f,
 			ARGB.alpha(color) / 255f
-		};
+		}
+		;
 	}
 }

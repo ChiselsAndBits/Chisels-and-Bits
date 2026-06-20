@@ -9,8 +9,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Deals with the way items are able to handle left click interactions.
  */
-public interface IRightClickControllingItem
-{
+public interface IRightClickControllingItem {
 	/**
      * Callback invoked when a supported item is used to right click.
      *

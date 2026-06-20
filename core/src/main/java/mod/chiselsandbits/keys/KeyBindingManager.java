@@ -263,7 +263,8 @@ public class KeyBindingManager {
 			case MOUSE ->
 					GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
 			default -> false;
-		};
+		}
+		;
 		return (isDown || keybinding.isDown()) && IKeyBindingManager.getInstance().isKeyConflictOfActive(keybinding) &&
 				IKeyBindingManager.getInstance().isKeyModifierActive(keybinding);
 	}

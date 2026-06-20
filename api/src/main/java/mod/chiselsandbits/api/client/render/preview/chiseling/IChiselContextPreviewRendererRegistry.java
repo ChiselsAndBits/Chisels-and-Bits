@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
  * Registry for registering possible chiseling context preview renderers,
  * and for getting the current renderer back out.
  */
-public interface IChiselContextPreviewRendererRegistry
-{
+public interface IChiselContextPreviewRendererRegistry {
 	static IChiselContextPreviewRendererRegistry getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getChiselContextPreviewRendererRegistry();
 	}

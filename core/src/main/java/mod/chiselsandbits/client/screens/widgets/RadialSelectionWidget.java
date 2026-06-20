@@ -23,8 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 
-public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
-{
+public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 	private final Supplier<IRenderableMode>       currentlySelectedModeSupplier;
 	private final Consumer<IRenderableMode>       currentlyHoveredModeCallback;
 	private final Consumer<IRenderableMode>       currentlyClickedModeCallback;
@@ -64,8 +63,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final float iconSize,
 		final float iconScaleFactor,
 		final int iconTextSpacer,
-		final Font fontRenderer)
-	{
+		final Font fontRenderer) {
 		this(
 			(int) (screen.width / 2f - (width / 2f)),
 			(int) (screen.height / 2f - (height / 2f)),
@@ -156,8 +154,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final float iconSize,
 		final float iconScaleFactor,
 		final int iconTextSpacer,
-		final Font fontRenderer)
-	{
+		final Font fontRenderer) {
 		this(
 			(int) (widget.getX() + (widget.getWidth() / 2f) - (width / 2f)),
 			(int) (widget.getY() + (widget.getHeight() / 2f) - (height / 2f)),
@@ -264,7 +261,8 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 					itemTargetAngle
 				);
 			}
-		});
+		}
+		);
 
 		if (isMouseInSection && hoveredItemIndex >= 0 && hoveredItemIndex < modes.size() && modes.get(hoveredItemIndex).isActive())
 
@@ -329,7 +327,8 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 					final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
 					renderModeIconAtAngle(graphics, innerRadius, outerRadius, itemTargetAngle, iconScaleFactor, iconTextSpacer, mode, fontRenderer);
 				}
-			});
+			}
+			);
 		} else if (modes.size() == 1) {
 			renderModeIconCentered(graphics, iconScaleFactor, iconTextSpacer, modes.getFirst(), fontRenderer);
 		}
@@ -475,8 +474,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final float iconScaleFactor,
 		final int iconTextSpacer,
 		final @NotNull IRenderableMode mode,
-		final Font fontRenderer)
-	{
+		final Font fontRenderer) {
 		float workingAngle = itemTargetAngle - 90;
 		while (workingAngle < 0)
 
@@ -533,8 +531,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget
 		final int iconStartY,
 		final float itemCenterX,
 		final float itemCenterY,
-		final List<FormattedCharSequence> lines)
-	{
+		final List<FormattedCharSequence> lines) {
 		graphics.pose().pushMatrix();
 		graphics.pose().scale(iconScaleFactor);
 		graphics.blitSprite(

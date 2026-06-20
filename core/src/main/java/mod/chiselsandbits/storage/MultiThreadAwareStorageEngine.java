@@ -18,8 +18,7 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedStorageEngine<TPayload>
-{
+final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedStorageEngine<TPayload> {
 	private static ExecutorService saveService;
 
 	private static synchronized void ensureThreadPoolSetup() {
@@ -52,7 +51,8 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 		ensureThreadPoolSetup();
 		return CompletableFuture.runAsync(() -> {
 			output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
-		}, saveService);
+		}
+		, saveService);
 	}
 
 	@SuppressWarnings("deprecation")

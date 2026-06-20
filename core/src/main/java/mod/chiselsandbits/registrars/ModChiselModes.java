@@ -24,8 +24,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.resources.Identifier;
 
 @SuppressWarnings("unused")
-public final class ModChiselModes
-{
+public final class ModChiselModes {
 	private static final Logger                        LOGGER         = LogManager.getLogger();
 	private static final ICustomRegistrar<IChiselMode> MODE_REGISTRAR = ICustomRegistrar.create(IChiselMode.class, Constants.MOD_ID);
 	public static final  IRegistryObject<IChiselMode>  SINGLE_BIT     = MODE_REGISTRAR.register(
@@ -350,7 +349,8 @@ public final class ModChiselModes
 	public static Supplier<ICustomRegistry<IChiselMode>> REGISTRY =
 		() -> {
 			throw new IllegalStateException("Registry is not setup yet. Use a Deferred Register!");
-		};
+		}
+		;
 
 	private ModChiselModes()
 

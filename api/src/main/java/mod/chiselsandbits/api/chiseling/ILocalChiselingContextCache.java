@@ -8,8 +8,7 @@ import java.util.Optional;
  * This small cache is used on the client side, primarily, to store a single active context
  * which is valid across multiple frames.
  */
-public interface ILocalChiselingContextCache
-{
+public interface ILocalChiselingContextCache {
 	/**
      * Gives access to the instance.
      * @return The instance.

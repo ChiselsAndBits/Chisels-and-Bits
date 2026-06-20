@@ -7,8 +7,7 @@ import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 
 import net.minecraft.core.HolderLookup;
 
-public interface ICreativeClipboardManager
-{
+public interface ICreativeClipboardManager {
 	static ICreativeClipboardManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getCreativeClipboardManager();
 	}

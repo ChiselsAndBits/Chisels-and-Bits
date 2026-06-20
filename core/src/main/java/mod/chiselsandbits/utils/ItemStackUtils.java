@@ -1,8 +1,5 @@
 package mod.chiselsandbits.utils;
 
-import java.util.Optional;
-
-import com.communi.suggestu.scena.core.util.SingleBlockLevelReader;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.item.click.ILeftClickControllingItem;
@@ -12,28 +9,14 @@ import mod.chiselsandbits.api.item.pattern.IPatternItem;
 import mod.chiselsandbits.api.item.withhighlight.IWithHighlightItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.core.BlockPos;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.DirtPathBlock;
-import net.minecraft.world.level.block.FarmlandBlock;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ItemStackUtils
-{
+public class ItemStackUtils {
 	private ItemStackUtils()
 
 	{
@@ -251,8 +234,7 @@ public class ItemStackUtils
 	}
 
 	public static BlockInformation getStateFromItem(
-		final ItemStack is)
-	{
+		final ItemStack is) {
 		try
 
 		{

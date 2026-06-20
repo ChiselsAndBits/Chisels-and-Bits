@@ -121,8 +121,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	public void loadFromChunkSection(final LevelChunkSection chunkSection) {
-		if (this.size != StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide())
+		if (this.size != StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide()) {
 			throw new IllegalStateException("Updating to the new storage format is only possible on the default 1/16th size.");
+		}
 
 		this.clear();
 
@@ -212,8 +213,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	public void fillFromBottom(final BlockInformation state, final int entries) {
 		clear();
 		final int loopCount = Math.max(0, Math.min(entries, StateEntrySize.current().getBitsPerBlock()));
-		if (loopCount == 0)
+		if (loopCount == 0) {
 			return;
+		}
 
 		int count = 0;
 
@@ -227,8 +229,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 						);
 
 						count++;
-						if (count == loopCount)
+						if (count == loopCount) {
 							return;
+						}
 					}
 				}
 			}
@@ -246,8 +249,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 		final var allowedCounts = (int) Math.floor(noneAirCounts * progress);
 		final var result = new StateEntryStorage();
-		if (allowedCounts == 0)
+		if (allowedCounts == 0) {
 			return result;
+		}
 
 		int currentCount = 0;
 		for (int y = 0; y < this.size; y++)
@@ -260,14 +264,16 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 				{
 					final BlockInformation target = getBlockInformation(x, y, z);
-					if (target.isAir())
+					if (target.isAir()) {
 						continue;
+					}
 
 					currentCount++;
 					result.setBlockInformation(x,y,z, target);
 
-					if (currentCount == allowedCounts)
+					if (currentCount == allowedCounts) {
 						return result;
+					}
 				}
 			}
 		}
@@ -284,8 +290,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	public void rotate(final Direction.Axis axis, final int rotationCount) {
-		if (rotationCount == 0)
+		if (rotationCount == 0) {
 			return;
+		}
 
 		final StateEntryStorage clone = this.createSnapshot();
 		resetData();
@@ -369,7 +376,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			public void close() {
 				StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
-		};
+		}
+		;
 
 		ongoingBatchMutations.add(mutation);
 

@@ -5,8 +5,7 @@ import net.minecraft.network.chat.MutableComponent;
 /**
  * The results of an eligibility analysis.
  */
-public interface IEligibilityAnalysisResult
-{
+public interface IEligibilityAnalysisResult {
 	/**
      * Indicates if the requested object can be chiseled.
      *

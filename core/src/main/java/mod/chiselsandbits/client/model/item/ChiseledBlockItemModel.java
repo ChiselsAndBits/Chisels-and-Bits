@@ -1,7 +1,6 @@
 package mod.chiselsandbits.client.model.item;
 
 import java.util.List;
-
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -13,10 +12,9 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.client.util.BakedQuadUtils;
 import mod.chiselsandbits.client.util.ItemModelUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -40,8 +38,7 @@ import net.minecraft.world.item.ItemStack;
 public record ChiseledBlockItemModel(
 	boolean usesBlockLight,
 	ItemTransforms transforms
-) implements ItemModel
-{
+) implements ItemModel {
 	@Override
 	public void update(
 		final ItemStackRenderState renderState,
@@ -50,8 +47,7 @@ public record ChiseledBlockItemModel(
 		final @NotNull ItemDisplayContext displayContext,
 		@Nullable final ClientLevel level,
 		@Nullable final ItemOwner owner,
-		final int seed)
-	{
+		final int seed) {
 		renderState.appendModelIdentityElement(this);
 		final ChiseledBlockModelInformation blockModelInformation = ChiseledBlockStateModelManager
 			.getInstance().get(stack);
@@ -89,8 +85,7 @@ public record ChiseledBlockItemModel(
 		final @org.jspecify.annotations.Nullable ClientLevel level,
 		final @org.jspecify.annotations.Nullable ItemOwner owner,
 		final IntList tintList,
-		final ChiseledBlockModelInformation blockModelInformation)
-	{
+		final ChiseledBlockModelInformation blockModelInformation) {
 		tintList.size(blockModelInformation.materials().size());
 
 		List<ChiseledBlockModelMaterial> materials = blockModelInformation.materials();

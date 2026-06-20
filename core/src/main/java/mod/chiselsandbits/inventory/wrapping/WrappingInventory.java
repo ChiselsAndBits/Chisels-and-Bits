@@ -1,17 +1,14 @@
 package mod.chiselsandbits.inventory.wrapping;
 
 import static mod.chiselsandbits.utils.NullUtils.whenNotNull;
-
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class WrappingInventory implements Container
-{
+public class WrappingInventory implements Container {
 	@Nullable
 	private Container wrapped = null;
 

@@ -9,8 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public class UpdateBagModesPacket extends ModPacket
-{
+public class UpdateBagModesPacket extends ModPacket {
 	public static final Identifier                                     ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "update_bag_modes");
 	public static final CustomPacketPayload.Type<UpdateBagModesPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

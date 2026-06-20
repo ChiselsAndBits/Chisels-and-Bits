@@ -5,8 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraft.resources.Identifier;
 
-public final class Constants
-{
+public final class Constants {
 	private Constants()
 
 	{

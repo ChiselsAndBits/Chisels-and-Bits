@@ -12,8 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * Implemented by Chisels and Bits Blocks, can be used to request a material that represents
  * the largest quantity of a Chisels and Bits block.
  */
-public interface IMultiStateBlock extends EntityBlock, IBlockWithWorldlyProperties
-{
+public interface IMultiStateBlock extends EntityBlock, IBlockWithWorldlyProperties {
 	/**
      * Returns the primary state of the block.
      * In terms of Chisels and Bits this is the blockstate that is represented the most inside the block.

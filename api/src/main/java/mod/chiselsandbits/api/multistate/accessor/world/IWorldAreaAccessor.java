@@ -10,8 +10,7 @@ import java.util.stream.Stream;
 /**
  * Represents an area accessor which actually exists in the world.
  */
-public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject
-{
+public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject {
 	/**
      * Gives access to a stream of in world state entries.
      * Filters out all "virtual"-none-in-world state entries that might or might not be included
@@ -38,8 +37,9 @@ public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject
 		final BlockPos endPos = getInWorldEndBlockPoint();
 
 		//Short circuit the stream builder if the area covered is exactly one block.
-		if (startPos.equals(endPos))
+		if (startPos.equals(endPos)) {
 			return Stream.of(startPos);
+		}
 
 		return BlockPosStreamProvider.getForRange(
 		  startPos.getX(), startPos.getY(), startPos.getZ(),

@@ -11,8 +11,7 @@ import mod.chiselsandbits.inventory.player.PlayerMainAndOffhandInventoryWrapper;
 
 import net.minecraft.world.item.ItemStack;
 
-public class PlayerBitInventory extends ContainerBitInventory
-{
+public class PlayerBitInventory extends ContainerBitInventory {
 	public PlayerBitInventory(final PlayerMainAndOffhandInventoryWrapper inventory)
 
 	{
@@ -39,7 +38,8 @@ public class PlayerBitInventory extends ContainerBitInventory
 				}
 
 				return 0;
-			})
+			}
+			)
 			.sum();
 	}
 
@@ -69,7 +69,8 @@ public class PlayerBitInventory extends ContainerBitInventory
 				}
 
 				return 0;
-			})
+			}
+			)
 			.sum();
 	}
 

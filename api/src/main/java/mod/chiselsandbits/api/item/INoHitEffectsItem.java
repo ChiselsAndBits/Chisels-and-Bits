@@ -6,6 +6,5 @@ package mod.chiselsandbits.api.item;
  * not cause Chisels and Bits Chiseled blocks to spawn
  * hit particles.
  */
-public interface INoHitEffectsItem
-{
+public interface INoHitEffectsItem {
 }

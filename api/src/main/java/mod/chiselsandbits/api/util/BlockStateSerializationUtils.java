@@ -1,28 +1,17 @@
 package mod.chiselsandbits.api.util;
 
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.ToIntFunction;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.client.main.GameConfig;
-import net.minecraft.nbt.NbtAccounter;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BlockStateSerializationUtils
-{
+public class BlockStateSerializationUtils {
 	private static final Gson GSON = new Gson();
 
 	public static Codec<BlockState> LEGACY_BLOCK_STATE_CODEC = Codec.STRING.comapFlatMap(

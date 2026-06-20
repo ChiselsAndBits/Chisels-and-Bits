@@ -4,8 +4,7 @@ import mod.chiselsandbits.measures.MeasuringManager;
 
 import net.minecraft.server.level.ServerPlayer;
 
-public class MeasuringSynchronisationHandler
-{
+public class MeasuringSynchronisationHandler {
 	public static void syncToAll() {
 		MeasuringManager.getInstance().syncToAll();
 	}

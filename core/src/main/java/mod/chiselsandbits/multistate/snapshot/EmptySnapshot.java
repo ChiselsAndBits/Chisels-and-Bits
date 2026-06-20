@@ -33,8 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlignedAreaAccessor
-{
+public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlignedAreaAccessor {
 	public static final EmptySnapshot INSTANCE = new EmptySnapshot();
 
 	private static final IMultiStateObjectStatistics EMPTY_STATISTICS = new IMultiStateObjectStatistics() {
@@ -129,7 +128,8 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		{
 			return false;
 		}
-	};
+	}
+	;
 
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier()
@@ -331,7 +331,8 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 			public Set<BlockInformation> getContainedStates() {
 				return Collections.emptySet();
 			}
-		};
+		}
+		;
 
 		@Override
 		public ItemStack toBlockStack()

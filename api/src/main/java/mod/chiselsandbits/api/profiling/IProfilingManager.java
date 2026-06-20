@@ -6,8 +6,7 @@ import net.minecraft.util.profiling.jfr.Environment;
 /**
  * A profiling manager to handle the profiling of different interactions or managements.
  */
-public interface IProfilingManager
-{
+public interface IProfilingManager {
 	/**
      * Gives access to the current profiling manager.
      *

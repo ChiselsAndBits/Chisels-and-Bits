@@ -44,8 +44,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Do not implement it can be accessed via its {@link #getInstance()}-method.
  */
-public interface IChiselsAndBitsAPI
-{
+public interface IChiselsAndBitsAPI {
 	/**
      * Gives access to the api instance.
      *
@@ -343,8 +342,9 @@ public interface IChiselsAndBitsAPI
 		public static void setInstance(final IChiselsAndBitsAPI instance)
 
 		{
-			if (apiInstance != null)
+			if (apiInstance != null) {
 				throw new IllegalStateException("Can not setup API twice!");
+			}
 
 			apiInstance = instance;
 		}

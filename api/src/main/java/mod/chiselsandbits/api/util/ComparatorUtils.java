@@ -25,6 +25,7 @@ public class ComparatorUtils {
 			} else {
 				return 0;
 			}
-		};
+		}
+		;
 	}
 }

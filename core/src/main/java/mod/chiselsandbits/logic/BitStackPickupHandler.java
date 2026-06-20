@@ -12,8 +12,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class BitStackPickupHandler
-{
+public class BitStackPickupHandler {
 	public static boolean pickupItems(final ItemEntity entityItem, final Player player)
 
 	{

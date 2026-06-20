@@ -6,8 +6,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class PatternSlot extends Slot
-{
+public class PatternSlot extends Slot {
 	public PatternSlot(
 	  final Container inventoryIn,
 	  final int index,

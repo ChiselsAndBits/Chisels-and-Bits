@@ -11,8 +11,7 @@ import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class BitInventoryUtils
-{
+public class BitInventoryUtils {
 	private BitInventoryUtils()
 
 	{
@@ -20,14 +19,16 @@ public class BitInventoryUtils
 	}
 
 	public static void insertIntoOrSpawn(final Player playerEntity, final BlockInformation blockState, final int count) {
-		if (playerEntity == null || playerEntity.level().isClientSide() || count <= 0)
+		if (playerEntity == null || playerEntity.level().isClientSide() || count <= 0) {
 			return;
+		}
 
 		final IBitInventory inventory = IBitInventoryManager.getInstance().create(playerEntity);
 
 		if (playerEntity.isCreative()) {
-			if (inventory.canExtractOne(blockState))
+			if (inventory.canExtractOne(blockState)) {
 				return;
+			}
 
 			if (inventory.canInsertOne(blockState)) {
 				inventory.insertOne(blockState);
@@ -42,14 +43,16 @@ public class BitInventoryUtils
 		inventory.insert(blockState, insertionCount);
 
 		int leftOverCount = count - insertionCount;
-		if (leftOverCount <= 0)
+		if (leftOverCount <= 0) {
 			return;
+		}
 
 		if (!IServerConfiguration.getInstance().getDeleteExcessBits().get()) {
 			while(leftOverCount > 0) {
 				final int spawnCount = Math.min(ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize(), leftOverCount);
-				if (spawnCount <= 0)
+				if (spawnCount <= 0) {
 					break;
+				}
 
 				leftOverCount -= spawnCount;
 

@@ -8,23 +8,20 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.sinytra.wiki.exporter.ExportContext;
 import org.sinytra.wiki.exporter.NamespacedModuleConfig;
 import org.sinytra.wiki.exporter.platform.services.ExporterModule;
 import org.sinytra.wiki.exporter.platform.services.ExporterModuleFactory;
-
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 
-public class TagExporterFactory implements ExporterModuleFactory<TagExporterFactory.Config>
-{
+public class TagExporterFactory implements ExporterModuleFactory<TagExporterFactory.Config> {
 	public static final String NAME = "tags";
 
 	@Override
@@ -49,11 +46,12 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 	}
 
 	@Override
-	public ExporterModule create(final ExportContext context, @Nullable TagExporterFactory.Config config)
+	public ExporterModule create(final ExportContext context, TagExporterFactory.@Nullable Config config)
 
 	{
-		if (config == null)
+		if (config == null) {
 			throw new IllegalStateException();
+		}
 
 		return new Exporter(config);
 	}
@@ -94,8 +92,9 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 			for (final HolderSet.Named<T> tagHolder : registry.getTags().toList())
 
 			{
-				if (!config().namespaces().contains(tagHolder.key().location().getNamespace()))
+				if (!config().namespaces().contains(tagHolder.key().location().getNamespace())) {
 					continue;
+				}
 
 				write(
 					output.resolve(
@@ -119,8 +118,9 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 		private static void write(final Path output, final List<String> contents) throws IOException
 
 		{
-			if (!Files.exists(output.getParent()))
+			if (!Files.exists(output.getParent())) {
 				Files.createDirectories(output.getParent());
+			}
 			try(FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
 				OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
 				JsonWriter jsonWriter = new JsonWriter(writer)) {

@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-public class TranslationUtils
-{
+public class TranslationUtils {
 	private TranslationUtils()
 
 	{

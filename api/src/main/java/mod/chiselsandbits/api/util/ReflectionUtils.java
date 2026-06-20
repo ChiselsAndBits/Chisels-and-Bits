@@ -2,8 +2,7 @@ package mod.chiselsandbits.api.util;
 
 import java.lang.reflect.Field;
 
-public class ReflectionUtils
-{
+public class ReflectionUtils {
 	private ReflectionUtils()
 
 	{

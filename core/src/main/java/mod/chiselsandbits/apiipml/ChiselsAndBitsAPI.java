@@ -73,8 +73,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 @SuppressWarnings("DataFlowIssue")
-public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI
-{
+public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	private final IEligibilityOptions eligibilityOptions;
 	private final IAdaptingBitInventoryManager adaptingBitInventoryManager;
 	private final IPluginDiscoverer pluginDiscoverer;

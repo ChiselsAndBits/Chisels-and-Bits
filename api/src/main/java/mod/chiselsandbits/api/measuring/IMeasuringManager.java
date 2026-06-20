@@ -13,8 +13,7 @@ import java.util.UUID;
 /**
  * A manager for dealing with measurements made by different players in different worlds.
  */
-public interface IMeasuringManager
-{
+public interface IMeasuringManager {
 	static IMeasuringManager getInstance()
 
 	{

@@ -14,8 +14,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class ScannerMenu extends ScenaContainerMenu
-{
+public class ScannerMenu extends ScenaContainerMenu {
 	private final ContainerLevelAccess containerLevelAccess;
 	private final SimpleContainer      scannerSlotContainer;
 

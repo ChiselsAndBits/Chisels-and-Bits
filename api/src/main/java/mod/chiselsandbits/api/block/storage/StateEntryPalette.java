@@ -1,6 +1,8 @@
 package mod.chiselsandbits.api.block.storage;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -132,11 +134,13 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 	}
 
 	public BlockInformation getBlockState(final int blockStateId) {
-		if (this.paletteEntries().isEmpty())
+		if (this.paletteEntries().isEmpty()) {
 			return BlockInformation.AIR;
+		}
 
-		if (blockStateId < 0 || blockStateId >= this.paletteEntries.size())
+		if (blockStateId < 0 || blockStateId >= this.paletteEntries.size()) {
 			return getBlockState(0);
+		}
 
 		return this.paletteEntries.get(blockStateId).blockInformation();
 	}
@@ -159,13 +163,15 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 			return instance.group(
 					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 			).apply(instance, Entry::new);
-		});
+		}
+		);
 
 		public static final MapCodec<Entry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> {
 			return instance.group(
 					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 			).apply(instance, Entry::new);
-		});
+		}
+		);
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, Entry> STREAM_CODEC = StreamCodec.composite(
 				BlockInformation.STREAM_CODEC,

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import com.google.common.collect.ImmutableList;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.block.entity.INetworkUpdatableEntity;
@@ -30,8 +29,7 @@ import mod.chiselsandbits.utils.container.SimpleContainer;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -57,8 +55,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, INetworkUpdatableEntity<ChiseledPrinterBlockEntity.Payload>
-{
+public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, INetworkUpdatableEntity<ChiseledPrinterBlockEntity.Payload> {
 	private final MutableObject<ItemStack> currentRealisedWorkingStack = new MutableObject<>(ItemStack.EMPTY);
 	private SimpleContainer tool_handler = new SimpleContainer(1);
 	private SimpleContainer pattern_handler = new SimpleContainer(1);
@@ -82,7 +79,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		public int getCount() {
 			return 1;
 		}
-	};
+	}
+	;
 	private long lastTickTime = 0L;
 
 	public ChiseledPrinterBlockEntity(BlockPos pos, BlockState state) {
@@ -433,7 +431,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case DOWN -> new int[] { 2 };
 			case UP -> new int[] { 1 };
 			case NORTH, SOUTH, WEST, EAST -> new int[] { 0 };
-		};
+		}
+		;
 	}
 
 	@Override
@@ -442,7 +441,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case DOWN -> false;
 			case UP -> itemStack.getItem() instanceof IChiselItem;
 			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
-		};
+		}
+		;
 	}
 
 	@Override
@@ -451,7 +451,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case DOWN -> true;
 			case UP -> itemStack.getItem() instanceof IChiselItem;
 			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
-		};
+		}
+		;
 	}
 
 	@Override
@@ -473,7 +474,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case 1 -> getToolStack();
 			case 2 -> getOutputStack();
 			default -> ItemStack.EMPTY;
-		};
+		}
+		;
 	}
 
 	@Override
@@ -483,7 +485,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case 1 -> getToolHandler().removeItem(0, count);
 			case 2 -> getResultHandler().removeItem(0, count);
 			default -> ItemStack.EMPTY;
-		};
+		}
+		;
 	}
 
 	@Override
@@ -493,7 +496,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			case 1 -> getToolHandler().removeItemNoUpdate(0);
 			case 2 -> getResultHandler().removeItemNoUpdate(0);
 			default -> ItemStack.EMPTY;
-		};
+		}
+		;
 	}
 
 	@Override

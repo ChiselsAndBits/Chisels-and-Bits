@@ -36,8 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final int              bitsPerSide;
 	private final boolean          aligned;
 	private final MutableComponent displayName;
@@ -80,8 +79,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		context.setComplete();
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-			  {
+					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 				  final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
 				  final int totalItemDamage = mutator.inWorldMutableStream()
@@ -93,8 +91,10 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							  state.clear();
-						  });
-					}).sum();
+						  }
+						  );
+					}
+					).sum();
 
 				  resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 					playerEntity,
@@ -104,7 +104,8 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -157,8 +158,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 				  }
 
 				  try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-				  {
+						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 					  mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir())
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
@@ -180,7 +180,8 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -202,8 +203,9 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

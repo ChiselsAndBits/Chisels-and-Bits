@@ -10,8 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class MeasurementUpdatedPacket extends ModPacket
-{
+public final class MeasurementUpdatedPacket extends ModPacket {
 	public static final Identifier                                         ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurement_updated");
 	public static final CustomPacketPayload.Type<MeasurementUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

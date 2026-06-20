@@ -14,8 +14,7 @@ package mod.chiselsandbits.api.plugin;
  *     then additional metadata is checked, like required mods or experimental flags.
  * </p>
  */
-public interface IChiselsAndBitsPlugin
-{
+public interface IChiselsAndBitsPlugin {
 	/**
      * The id of the plugin.
      * Has to be unique over all plugins.

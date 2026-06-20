@@ -12,8 +12,7 @@ import java.util.Optional;
 /**
  * Manages converting none chiseled objects into chiseled variants and back.
  */
-public interface IConversionManager
-{
+public interface IConversionManager {
 	/**
      * The instance of the manager.
      *
@@ -53,8 +52,9 @@ public interface IConversionManager
      */
 	default Optional<Block> getChiseledVariantOf(final ItemLike provider) {
 		final Item targetItem = provider.asItem();
-		if (targetItem instanceof BlockItem)
+		if (targetItem instanceof BlockItem) {
 			return getChiseledVariantOf(((BlockItem) targetItem).getBlock());
+		}
 
 		return Optional.empty();
 	}

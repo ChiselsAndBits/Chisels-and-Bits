@@ -1,5 +1,4 @@
 package mod.chiselsandbits.api.item.named;
 
-public interface IPermanentlyHighlightedNameItem
-{
+public interface IPermanentlyHighlightedNameItem {
 }

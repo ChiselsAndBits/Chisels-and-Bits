@@ -9,8 +9,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public final class ModModificationOperationGroups
-{
+public final class ModModificationOperationGroups {
 	private static final Logger                      LOGGER = LogManager.getLogger();
 	public static final  IModificationOperationGroup ROTATE = new IModificationOperationGroup()
 
@@ -28,7 +27,8 @@ public final class ModModificationOperationGroups
 		{
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
-	};
+	}
+	;
 	public static final  IModificationOperationGroup MIRROR = new IModificationOperationGroup()
 
 	{
@@ -45,7 +45,8 @@ public final class ModModificationOperationGroups
 		{
 			return LocalStrings.PatternModificationGroupMirror.getText();
 		}
-	};
+	}
+	;
 
 	private ModModificationOperationGroups()
 

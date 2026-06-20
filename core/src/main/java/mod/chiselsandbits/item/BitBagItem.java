@@ -38,8 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class BitBagItem extends Item implements IBitInventoryItem
-{
+public class BitBagItem extends Item implements IBitInventoryItem {
 	private static final int BAG_STORAGE_SLOTS = 63;
 
 	SimpleInstanceCache<ItemStack, IBitInventoryItemStack> tooltipCache = new SimpleInstanceCache<>();
@@ -117,7 +116,8 @@ public class BitBagItem extends Item implements IBitInventoryItem
 
 			var contents = inventoryItemStack.listContents();
 			contents.displayComponents().forEach(tooltipAdder);
-		});
+		}
+		);
 	}
 
 	@Override
@@ -154,8 +154,9 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	public IBitInventoryItemStack create(final ItemStack stack)
 
 	{
-		if (stack.getItem() != this)
+		if (stack.getItem() != this) {
 			return new SlottedBitInventoryItemStack(ItemStack.EMPTY, 0);
+		}
 
 		return new SlottedBitInventoryItemStack(
 		  stack,
@@ -190,8 +191,9 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	  final ItemStack stack)
 
 	{
-		if (!(stack.getItem() instanceof final IBitInventoryItem item))
+		if (!(stack.getItem() instanceof final IBitInventoryItem item)) {
 			return false;
+		}
 
 		final IBitInventoryItemStack inventoryItemStack = item.create(stack);
 
@@ -203,8 +205,9 @@ public class BitBagItem extends Item implements IBitInventoryItem
 	  final ItemStack stack)
 
 	{
-		if (!(stack.getItem() instanceof final IBitInventoryItem item))
+		if (!(stack.getItem() instanceof final IBitInventoryItem item)) {
 			return 0d;
+		}
 
 		final IBitInventoryItemStack inventoryItemStack = item.create(stack);
 

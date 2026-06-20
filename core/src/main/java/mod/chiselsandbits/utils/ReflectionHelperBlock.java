@@ -1,12 +1,10 @@
 package mod.chiselsandbits.utils;
 
 import java.util.List;
-
 import com.communi.suggestu.saecularia.caudices.core.block.IBlockWithWorldlyProperties;
 import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.util.constants.Constants;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +14,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.SignalGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -30,8 +32,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings({"deprecation", "NullableProblems"})
-public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyProperties
-{
+public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyProperties {
 	private final ThreadLocal<String> lastInvokedThreadLocalMethodName = ThreadLocal.withInitial(() -> "unknown");
 
 	private void markMethod()

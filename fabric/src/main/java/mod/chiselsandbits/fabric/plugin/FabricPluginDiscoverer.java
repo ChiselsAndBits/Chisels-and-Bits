@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.plugin.IPluginDiscoverer;
 
 import net.fabricmc.loader.api.FabricLoader;
 
-public final class FabricPluginDiscoverer extends IPluginDiscoverer.AbstractPluginDiscoverer
-{
+public final class FabricPluginDiscoverer extends IPluginDiscoverer.AbstractPluginDiscoverer {
 	private static final FabricPluginDiscoverer INSTANCE = new FabricPluginDiscoverer();
 
 	public static FabricPluginDiscoverer getInstance()

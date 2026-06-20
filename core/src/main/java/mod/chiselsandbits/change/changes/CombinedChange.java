@@ -21,8 +21,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 
-public class CombinedChange implements IChange
-{
+public class CombinedChange implements IChange {
 	public static final MapCodec<CombinedChange> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					IChange.CODEC.listOf().fieldOf("changes").forGetter(CombinedChange::getChanges)

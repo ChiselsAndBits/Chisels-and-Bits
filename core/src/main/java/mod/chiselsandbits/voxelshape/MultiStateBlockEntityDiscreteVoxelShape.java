@@ -5,11 +5,9 @@ import java.util.BitSet;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.utils.BlockPosUtils;
 
-import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 
-public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxelShape
-{
+public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxelShape {
 	public MultiStateBlockEntityDiscreteVoxelShape(final BitSet source)
 
 	{

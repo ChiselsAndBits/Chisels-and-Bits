@@ -4,8 +4,10 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableSet;
-import com.mojang.logging.LogUtils;
-import mod.chiselsandbits.api.plugin.*;
+import mod.chiselsandbits.api.plugin.IChiselsAndBitsPlugin;
+import mod.chiselsandbits.api.plugin.IPluginDiscoverer;
+import mod.chiselsandbits.api.plugin.IPluginManager;
+import mod.chiselsandbits.api.plugin.PluginData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

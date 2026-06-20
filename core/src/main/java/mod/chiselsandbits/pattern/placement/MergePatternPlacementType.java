@@ -36,8 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class MergePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
-{
+public class MergePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
 	public Identifier getIcon()
 
@@ -97,7 +96,8 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 				.filter(os -> !os.getBlockInformation().isAir())
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
-		  })
+		  }
+		  )
 		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 		  .filter(Optional::isPresent)
 		  .map(Optional::get)
@@ -127,7 +127,8 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 			  return o
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
-		  })
+		  }
+		  )
 		  .collect(Collectors.toMap(
 			IStateEntryInfo::getBlockInformation,
 			s -> 1,

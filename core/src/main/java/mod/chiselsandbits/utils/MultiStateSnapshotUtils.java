@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.block.storage.StateEntryStorage;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 
-public class MultiStateSnapshotUtils
-{
+public class MultiStateSnapshotUtils {
 	private MultiStateSnapshotUtils()
 
 	{

@@ -8,8 +8,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class BagGuiPacket extends ModPacket
-{
+public final class BagGuiPacket extends ModPacket {
 	public static final Identifier                             ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui");
 	public static final CustomPacketPayload.Type<BagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
@@ -35,8 +34,7 @@ public final class BagGuiPacket extends ModPacket
 
 	@Override
 	public void server(
-			final ServerPlayer player )
-	{
+			final ServerPlayer player ) {
 		//doAction( player );
 	}
 
@@ -52,8 +50,7 @@ public final class BagGuiPacket extends ModPacket
 
 	@Override
 	public void readPayload(
-			final RegistryFriendlyByteBuf buffer )
-	{
+			final RegistryFriendlyByteBuf buffer ) {
 		slotNumber = buffer.readInt();
 		mouseButton = buffer.readInt();
 		duplicateButton = buffer.readBoolean();

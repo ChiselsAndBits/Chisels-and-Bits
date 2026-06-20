@@ -11,8 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 
-public final class OpenBagGuiPacket extends ModPacket
-{
+public final class OpenBagGuiPacket extends ModPacket {
 	public static final Identifier                                 ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "open_bag_gui");
 	public static final CustomPacketPayload.Type<OpenBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
@@ -29,8 +28,7 @@ public final class OpenBagGuiPacket extends ModPacket
 
 	@Override
 	public void server(
-			final ServerPlayer player )
-	{
+			final ServerPlayer player ) {
 		player.openMenu(new SimpleMenuProvider(
 		  (id, playerInventory, playerEntity) -> new BagContainer(id, playerInventory),
 		  Component.translatable(LocalStrings.ContainerBitBag.toString())
@@ -45,8 +43,7 @@ public final class OpenBagGuiPacket extends ModPacket
 
 	@Override
 	public void readPayload(
-			final RegistryFriendlyByteBuf buffer )
-	{
+			final RegistryFriendlyByteBuf buffer ) {
 	}
 
 	@Override

@@ -11,8 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeType;
 
-public final class ModRecipeTypes
-{
+public final class ModRecipeTypes {
 	private static final Logger                              LOGGER             = LogManager.getLogger();
 	private static final IRegistrar<RecipeType<?>> REGISTRAR = IRegistrar.create(Registries.RECIPE_TYPE, Constants.MOD_ID);
 
@@ -21,7 +20,8 @@ public final class ModRecipeTypes
 		public String toString() {
 			return Constants.MOD_ID + ":modification_table";
 		}
-	});
+	}
+	);
 
 	public static void onModConstruction() {
 		LOGGER.info("Registering recipe types.");

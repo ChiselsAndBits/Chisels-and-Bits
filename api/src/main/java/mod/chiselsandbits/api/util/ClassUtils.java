@@ -14,8 +14,7 @@ import java.util.function.Function;
 /**
  * Utility class for processing classes.
  */
-public final class ClassUtils
-{
+public final class ClassUtils {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private ClassUtils()

@@ -10,8 +10,7 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
 /**
  * A modification operation that can be performed in the modification table.
  */
-public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<IModificationOperationGroup>
-{
+public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<IModificationOperationGroup> {
 	/**
      * The default modification operation.
      * @return The default operation.

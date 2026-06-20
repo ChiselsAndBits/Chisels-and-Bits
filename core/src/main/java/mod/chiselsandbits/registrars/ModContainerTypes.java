@@ -15,8 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 
-public final class ModContainerTypes
-{
+public final class ModContainerTypes {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private static final IRegistrar<MenuType<?>> CONTAINER_TYPE_REGISTRAR = IRegistrar.create(Registries.MENU, Constants.MOD_ID);

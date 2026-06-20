@@ -8,8 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Permission handler for checking if a particular user can manipulate a particular area.
  */
-public interface IPermissionHandler
-{
+public interface IPermissionHandler {
 	/**
      * Gives access to the current permission handler.
      *

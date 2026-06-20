@@ -21,8 +21,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class BagContainer extends AbstractContainerMenu
-{
+public class BagContainer extends AbstractContainerMenu {
 	private static final int OUTER_SLOT_SIZE = 18;
 	private final List<BitSlot> bitSlots = new ArrayList<>();
 	private final Player      thePlayer;
@@ -133,8 +132,7 @@ public class BagContainer extends AbstractContainerMenu
 				}
 			//Source is the player inventory.
 			} else if (
-					!this.moveItemStackTo(slotStack, 0, this.bitSlots.size(), false))
-			{
+					!this.moveItemStackTo(slotStack, 0, this.bitSlots.size(), false)) {
 				return ItemStack.EMPTY;
 			}
 

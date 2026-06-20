@@ -6,8 +6,7 @@ import java.util.Map;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 
-public class IllegalBitInventory implements IBitInventory
-{
+public class IllegalBitInventory implements IBitInventory {
 	/**
      * Checks if it is possible to extract a given amount of bits with the given blockstate from the the current inventory.
      *

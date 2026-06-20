@@ -1,31 +1,31 @@
 package mod.chiselsandbits.api.serialization;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
-
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.google.common.collect.Tables;
 import com.mojang.datafixers.util.Function12;
 import com.mojang.datafixers.util.Function7;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import net.jpountz.lz4.LZ4FrameInputStream;
 import net.jpountz.lz4.LZ4FrameOutputStream;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public interface CBStreamCodecs {
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
@@ -36,7 +36,8 @@ public interface CBStreamCodecs {
 		public void encode(FriendlyByteBuf buffer, long @NotNull [] payload) {
 			buffer.writeLongArray(payload);
 		}
-	};
+	}
+	;
 
 	StreamCodec<FriendlyByteBuf, BitSet> BIT_SET = LONG_ARRAY.map(
 			BitSet::valueOf,
@@ -51,7 +52,8 @@ public interface CBStreamCodecs {
 						}
 
 						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
-					},
+					}
+					,
 					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
 			));
 
@@ -80,9 +82,11 @@ public interface CBStreamCodecs {
 					final Table<R, C, V> table = HashBasedTable.create();
 					rMapMap.forEach((row, columnMap) -> {
 						columnMap.forEach((column, value) -> table.put(row, column, value));
-					});
+					}
+					);
 					return table;
-				},
+				}
+				,
 				Table::rowMap
 		);
 	}
@@ -109,7 +113,8 @@ public interface CBStreamCodecs {
 				codec6.encode(buffer, getter6.apply(instance));
 				codec7.encode(buffer, getter7.apply(instance));
 			}
-		};
+		}
+		;
 	}
 
 	public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
@@ -168,7 +173,8 @@ public interface CBStreamCodecs {
 				codec11.encode(buffer, getter11.apply(instance));
 				codec12.encode(buffer, getter12.apply(instance));
 			}
-		};
+		}
+		;
 	}
 
 	static <T> StreamCodec<RegistryFriendlyByteBuf, T> compressed(StreamCodec<RegistryFriendlyByteBuf, T> codec) {
@@ -221,7 +227,8 @@ public interface CBStreamCodecs {
 					throw new RuntimeException("Failed to compress data.", e);
 				}
 			}
-		};
+		}
+		;
 	}
 
 	static <B, R, D> StreamCodec<B, R> dispatch(
@@ -245,7 +252,8 @@ public interface CBStreamCodecs {
 				StreamCodec<B, R> codec = (StreamCodec<B, R>) decoderFactory.apply(dispatcher);
 				codec.encode(buffer, value);
 			}
-		};
+		}
+		;
 	}
 
 	static <B, T> StreamCodec<B, T> lazyInitialized(Supplier<StreamCodec<B, T>> supplier) {
@@ -269,7 +277,8 @@ public interface CBStreamCodecs {
 
 				codec.encode(buffer, value);
 			}
-		};
+		}
+		;
 	}
 
 	static <B extends FriendlyByteBuf, S> StreamCodec.CodecOperation<B, S, S> nullable() {
@@ -292,8 +301,10 @@ public interface CBStreamCodecs {
 							codec.encode(buffer, value);
 						}
 					}
-				};
+				}
+				;
 			}
-		};
+		}
+		;
 	}
 }

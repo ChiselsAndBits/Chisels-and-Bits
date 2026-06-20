@@ -9,8 +9,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Can create multistate items from a given source.
  */
-public interface IMultiStateItemFactory
-{
+public interface IMultiStateItemFactory {
 	/**
      * The instance of the manager.
      * @return The instance.

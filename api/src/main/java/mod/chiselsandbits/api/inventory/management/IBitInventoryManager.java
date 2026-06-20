@@ -10,8 +10,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Manager which deals with bit inventories.
  */
-public interface IBitInventoryManager
-{
+public interface IBitInventoryManager {
 	/**
      * Gives access to the bit inventory manager.
      *

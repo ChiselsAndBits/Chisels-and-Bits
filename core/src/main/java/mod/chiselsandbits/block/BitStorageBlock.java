@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-
 import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.block.bitbag.IBitBagAcceptingBlock;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -17,8 +16,7 @@ import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -40,8 +38,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BitStorageBlock extends Block implements EntityBlock, IBitBagAcceptingBlock
-{
+public class BitStorageBlock extends Block implements EntityBlock, IBitBagAcceptingBlock {
 	public static final Property<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
 	public BitStorageBlock(Properties properties)
@@ -76,13 +73,15 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	@Override
 	protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
 		final BlockEntity tileEntity = level.getBlockEntity(blockPos);
-		if (!(tileEntity instanceof final BitStorageBlockEntity tank))
+		if (!(tileEntity instanceof final BitStorageBlockEntity tank)) {
 			return InteractionResult.FAIL;
+		}
 
 		final ItemStack current = player.getInventory().getSelectedItem();
 
-		if (current.getItem() instanceof BitBagItem)
+		if (current.getItem() instanceof BitBagItem) {
 			return InteractionResult.PASS;
+		}
 
 		if (!current.isEmpty())
 
@@ -127,8 +126,9 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 
 	@Override
 	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
-		if (!(level.getBlockEntity(pos) instanceof BitStorageBlockEntity bitStorageBlockEntity))
+		if (!(level.getBlockEntity(pos) instanceof BitStorageBlockEntity bitStorageBlockEntity)) {
 			return super.getCloneItemStack(level, pos, state, includeData);
+		}
 
 		return getTankDrop(bitStorageBlockEntity);
 	}
@@ -174,12 +174,14 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	public ItemStack onBitBagInteraction(final ItemStack bitBagStack, final Player player, final BlockHitResult blockRayTraceResult)
 
 	{
-		if (player == null)
+		if (player == null) {
 			return bitBagStack;
+		}
 
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockRayTraceResult.getBlockPos());
-		if (!(tileEntity instanceof final BitStorageBlockEntity storage))
+		if (!(tileEntity instanceof final BitStorageBlockEntity storage)) {
 			return bitBagStack;
+		}
 
 		final IBitInventoryItemStack bitInventory = IBitInventoryManager.getInstance().create(bitBagStack);
 

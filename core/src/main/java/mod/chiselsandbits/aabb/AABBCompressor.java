@@ -22,8 +22,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class AABBCompressor
-{
+public class AABBCompressor {
 	private AABBCompressor()
 
 	{
@@ -91,8 +90,7 @@ public class AABBCompressor
 					  if (stepDirection
 						.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
 						.filter(b -> b)
-						.isPresent())
-					  {
+						.isPresent()) {
 						  state.expandCurrentBoxToInclude(entryData, centerPoint);
 
 						  if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox()))
@@ -148,8 +146,9 @@ public class AABBCompressor
 	public static Optional<AABB> buildBoundingBox(
 	  final IStateEntryInfo stateEntryInfo,
 	  final CollisionType sizeType) {
-		if (!sizeType.isValidFor(stateEntryInfo))
+		if (!sizeType.isValidFor(stateEntryInfo)) {
 			return Optional.empty();
+		}
 
 		return Optional.of(stateEntryInfo.getBoundingBox());
 	}
@@ -221,8 +220,9 @@ public class AABBCompressor
 
 		{
 			final AABB current = this.getCurrentBox();
-			if (current == null)
+			if (current == null) {
 				throw new IllegalStateException("Can not expand current box, if current is not set.");
+			}
 
 			final AABB expanded = current.minmax(entryData);
 
@@ -247,8 +247,9 @@ public class AABBCompressor
 
 		{
 			final AABB current = boxAssignments.get(neighborCenter);
-			if (current == null)
+			if (current == null) {
 				throw new IllegalStateException(String.format("Can not expand box at: %s, if current is not set.", neighborCenter));
+			}
 
 			final AABB expanded = current.minmax(entryData);
 

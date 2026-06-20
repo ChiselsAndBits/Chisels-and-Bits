@@ -36,7 +36,8 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 			final BlockInformation blockInformation = slotData.blockInformation();
 			final int count = slotData.count();
 			this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(blockInformation, count));
-		});
+		}
+		);
 	}
 
 	@Override
@@ -174,8 +175,9 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		for (Map.Entry<BlockInformation, Integer> e : toSort) {
 			int count = e.getValue();
-			if (count == 0)
+			if (count == 0) {
 				continue;
+			}
 
 			while (count > IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
@@ -202,13 +204,15 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 	@Override
 	public @NotNull ItemStack removeItem(final int index, final int count) {
-		if (!this.slotMap.containsKey(index))
+		if (!this.slotMap.containsKey(index)) {
 			return ItemStack.EMPTY;
+		}
 
 		final ItemStack bitSlot = this.slotMap.get(index);
 		final ItemStack removed = bitSlot.split(count);
-		if (bitSlot.isEmpty())
+		if (bitSlot.isEmpty()) {
 			this.slotMap.remove(index);
+		}
 
 		return removed;
 	}

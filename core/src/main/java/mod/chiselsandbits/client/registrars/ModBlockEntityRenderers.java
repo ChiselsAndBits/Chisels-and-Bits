@@ -5,8 +5,7 @@ import mod.chiselsandbits.client.besr.BitStorageBESR;
 import mod.chiselsandbits.client.besr.ChiseledPrinterBESR;
 import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 
-public final class ModBlockEntityRenderers
-{
+public final class ModBlockEntityRenderers {
 	private ModBlockEntityRenderers()
 
 	{

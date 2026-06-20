@@ -9,8 +9,7 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class ModCuttingOperation
-{
+public final class ModCuttingOperation {
 	private static final Logger                                   LOGGER              = LogManager.getLogger();
 	private static final ICustomRegistrar<ICuttingOperation> OPERATION_REGISTRAR = ICustomRegistrar.create(ICuttingOperation.class, Constants.MOD_ID);
 

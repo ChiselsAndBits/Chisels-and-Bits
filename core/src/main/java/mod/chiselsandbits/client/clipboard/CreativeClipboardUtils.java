@@ -9,8 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.HolderLookup;
 
-public final class CreativeClipboardUtils
-{
+public final class CreativeClipboardUtils {
 	private CreativeClipboardUtils()
 
 	{
@@ -30,14 +29,17 @@ public final class CreativeClipboardUtils
 	}
 
 	public static void deleteHoveredClipboardEntry(final Minecraft minecraft, final CreativeModeInventoryScreen screen) {
-		if (CreativeModeInventoryScreen.selectedTab != ModCreativeTabs.CLIPBOARD.get())
+		if (CreativeModeInventoryScreen.selectedTab != ModCreativeTabs.CLIPBOARD.get()) {
 			return;
+		}
 
-		if (screen.hoveredSlot == null)
+		if (screen.hoveredSlot == null) {
 			return;
+		}
 
-		if (minecraft.level == null)
+		if (minecraft.level == null) {
 			return;
+		}
 
 		if (screen.isCreativeSlot(screen.hoveredSlot)) {
 			ICreativeClipboardManager.getInstance().removeEntry(screen.hoveredSlot.index, minecraft.level.registryAccess());
@@ -45,11 +47,13 @@ public final class CreativeClipboardUtils
 	}
 
 	public static void clearClipboard(final Minecraft minecraft) {
-		if (CreativeModeInventoryScreen.selectedTab != ModCreativeTabs.CLIPBOARD.get())
+		if (CreativeModeInventoryScreen.selectedTab != ModCreativeTabs.CLIPBOARD.get()) {
 			return;
+		}
 
-		if (minecraft.level == null)
+		if (minecraft.level == null) {
 			return;
+		}
 
 		ICreativeClipboardManager.getInstance().clear(minecraft.level.registryAccess());
 	}

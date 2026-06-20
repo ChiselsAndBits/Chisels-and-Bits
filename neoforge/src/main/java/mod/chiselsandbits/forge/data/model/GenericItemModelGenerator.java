@@ -21,8 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class GenericItemModelGenerator extends ModelProvider
-{
+public class GenericItemModelGenerator extends ModelProvider {
 	public GenericItemModelGenerator(final PackOutput output)
 
 	{

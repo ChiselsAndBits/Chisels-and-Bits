@@ -12,8 +12,7 @@ import java.util.Collection;
 /**
  * A Glueing operation that can be performed in the Glueing table.
  */
-public interface IGlueingOperation extends ICustomRegistryEntry, IToolMode<IGlueingOperationGroup>
-{
+public interface IGlueingOperation extends ICustomRegistryEntry, IToolMode<IGlueingOperationGroup> {
 	/**
      * The default Glueing operation.
      * @return The default operation.

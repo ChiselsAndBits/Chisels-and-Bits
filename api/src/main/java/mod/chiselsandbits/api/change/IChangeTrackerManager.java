@@ -13,8 +13,7 @@ import java.util.UUID;
  *
  * All change trackers are reset upon server restart or datapack reload.
  */
-public interface IChangeTrackerManager
-{
+public interface IChangeTrackerManager {
 	/**
      * Short circuit method to get the manager instance from the api.
      *

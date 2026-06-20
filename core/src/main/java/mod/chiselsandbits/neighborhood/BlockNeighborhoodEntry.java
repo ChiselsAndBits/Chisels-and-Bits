@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 
-public final class BlockNeighborhoodEntry
-{
+public final class BlockNeighborhoodEntry {
 	private final BlockInformation blockInformation;
 	private final IAreaAccessor    accessor;
 	private final IAreaShapeIdentifier identifier;

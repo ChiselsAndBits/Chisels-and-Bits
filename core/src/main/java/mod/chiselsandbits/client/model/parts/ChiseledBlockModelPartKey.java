@@ -13,8 +13,7 @@ public record ChiseledBlockModelPartKey(
 	TriState ambientOcclusion,
 	Material.Baked particleMaterial,
 	int materialFlags
-)
-{
+) {
 	public ChiseledBlockModelPart toPart(QuadCollection quads) {
 		return new ChiseledBlockModelPart(
 			source(),

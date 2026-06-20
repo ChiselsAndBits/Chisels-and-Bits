@@ -167,7 +167,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 					final Vec3 inBlockOffset = position.subtract(Vec3.atLowerCornerOf(blockPos));
 
 					return getInBlockTarget(blockPos, inBlockOffset);
-				})
+				}
+				)
 				.filter(Optional::isPresent)
 				.map(Optional::get);
 	}
@@ -416,7 +417,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			public boolean canSustainGrassBelow() {
 				throw new NotImplementedException("Is a snapshot");
 			}
-		};
+		}
+		;
 	}
 
 	@Override
@@ -431,7 +433,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									final Vec3 offSetPos = Vec3.atLowerCornerOf(e.getKey()).subtract(center);
 									final Vec3 rotatedOffset = VectorUtils.rotateMultipleTimes90Degrees(offSetPos, axis, rotationCount);
 									return VectorUtils.toBlockPos(startPoint.add(rotatedOffset));
-								},
+								}
+								,
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.rotate(axis, rotationCount);
@@ -467,7 +470,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 											axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
 
 									return new BlockPos(mirroredX, mirroredY, mirroredZ);
-								},
+								}
+								,
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.mirror(axis);

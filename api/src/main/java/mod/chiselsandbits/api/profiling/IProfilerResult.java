@@ -6,8 +6,7 @@ import java.util.function.Consumer;
 /**
  * The result of a profiling operation.
  */
-public interface IProfilerResult
-{
+public interface IProfilerResult {
 	/**
      * Writes all profiling result data to the given file. Creating it if necessary.
      * @param file The file to write to.

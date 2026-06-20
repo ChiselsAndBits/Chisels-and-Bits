@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * Indicates an item that is used to draw custom highlights,
  * using custom logic instead of the default one.
  */
-public interface IWithHighlightItem
-{
+public interface IWithHighlightItem {
 	/**
      * Indicates if the given player is allowed to use the
      * default render method.

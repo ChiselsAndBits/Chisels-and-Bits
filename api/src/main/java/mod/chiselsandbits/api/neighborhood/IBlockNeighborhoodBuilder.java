@@ -12,8 +12,7 @@ import java.util.function.Function;
 /**
  * Represents a system which can build unique block neighborhoods.
  */
-public interface IBlockNeighborhoodBuilder
-{
+public interface IBlockNeighborhoodBuilder {
 	/**
      * Gives access to the current builder instance.
      * Short circuit method for the central API call.

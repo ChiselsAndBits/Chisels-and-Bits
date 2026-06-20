@@ -13,8 +13,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
-public class GivePlayerPatternCommandPacket extends ModPacket
-{
+public class GivePlayerPatternCommandPacket extends ModPacket {
 	public static final Identifier                                               ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "give_player_pattern_command");
 	public static final CustomPacketPayload.Type<GivePlayerPatternCommandPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

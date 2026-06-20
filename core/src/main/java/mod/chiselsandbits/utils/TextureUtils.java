@@ -1,7 +1,6 @@
 package mod.chiselsandbits.utils;
 
 import java.nio.ByteBuffer;
-import java.util.function.Consumer;
 
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.platform.NativeImage;
@@ -10,8 +9,7 @@ import com.mojang.blaze3d.systems.GpuDevice;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTexture;
 
-public class TextureUtils
-{
+public class TextureUtils {
 	private TextureUtils()
 
 	{
@@ -50,7 +48,8 @@ public class TextureUtils
 			}
 
 			buffer.close();
-		}, 0);
+		}
+		, 0);
 		return destImage;
 	}
 }

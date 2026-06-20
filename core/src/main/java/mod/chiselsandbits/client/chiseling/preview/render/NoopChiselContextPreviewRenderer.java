@@ -10,8 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.resources.Identifier;
 
-public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRenderer
-{
+public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRenderer {
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
 	@Override
@@ -28,8 +27,7 @@ public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRe
 		final MultiBufferSource.BufferSource bufferSource,
 		final LevelRenderState levelRenderState,
 		final float partialTicks,
-		final IChiselingContext currentContextSnapshot)
-	{
+		final IChiselingContext currentContextSnapshot) {
 		//Some people do not want this, so we have this.
 	}
 }

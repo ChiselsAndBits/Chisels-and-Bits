@@ -15,8 +15,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
-public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedToolModeIconRenderer
-{
+public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedToolModeIconRenderer {
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group");
 
 	@Override
@@ -30,8 +29,9 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
 
 	{
-		if (!(stack.getItem() instanceof final IWithModeItem<?> modeItem))
+		if (!(stack.getItem() instanceof final IWithModeItem<?> modeItem)) {
 			return;
+		}
 
 		final IToolMode<?> mode = modeItem.getMode(stack);
 		final IRenderableMode renderableMode = getRootRenderableMode(mode);

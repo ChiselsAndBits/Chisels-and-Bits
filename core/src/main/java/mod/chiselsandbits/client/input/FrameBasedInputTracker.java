@@ -10,8 +10,7 @@ import mod.chiselsandbits.network.packets.InputTrackerStatusUpdatePacket;
 
 import net.minecraft.client.Minecraft;
 
-public final class FrameBasedInputTracker
-{
+public final class FrameBasedInputTracker {
 	private static final FrameBasedInputTracker INSTANCE = new FrameBasedInputTracker();
 
 	public static FrameBasedInputTracker getInstance()
@@ -26,7 +25,8 @@ public final class FrameBasedInputTracker
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, true));
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedLeftClicking(Minecraft.getInstance().player));
-	  },
+	  }
+	  ,
 	  () -> {
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, false));
 
@@ -41,7 +41,8 @@ public final class FrameBasedInputTracker
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, true));
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedRightClicking(Minecraft.getInstance().player));
-	  },
+	  }
+	  ,
 	  () -> {
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, false));
 

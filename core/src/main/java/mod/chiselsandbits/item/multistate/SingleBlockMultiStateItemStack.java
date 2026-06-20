@@ -47,8 +47,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
-{
+public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	private final ItemStack sourceStack;
 	private final StateEntryStorage compressedSection;
 	private Statistics statistics = new Statistics();
@@ -66,8 +65,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
 	}
 
 	public SingleBlockMultiStateItemStack(final Item item, final StateEntryStorage compressedSection) {
-		if (!(item instanceof IMultiStateItem))
+		if (!(item instanceof IMultiStateItem)) {
 			throw new IllegalArgumentException("The given item is not a MultiState Item");
+		}
 
 		this.sourceStack = new ItemStack(item);
 
@@ -275,7 +275,8 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
 					this.compressedSection.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
 					pos
 			));
-		});
+		}
+		);
 	}
 
 	@Override
@@ -307,8 +308,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof IAreaAccessor accessor))
+		if (!(obj instanceof IAreaAccessor accessor)) {
 			return false;
+		}
 
 		return createNewShapeIdentifier().equals(accessor.createNewShapeIdentifier());
 	}

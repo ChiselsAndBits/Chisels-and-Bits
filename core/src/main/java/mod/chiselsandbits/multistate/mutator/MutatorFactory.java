@@ -16,8 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
-public class MutatorFactory implements IMutatorFactory, IAccessorFactory
-{
+public class MutatorFactory implements IMutatorFactory, IAccessorFactory {
 	private static final MutatorFactory INSTANCE = new MutatorFactory();
 
 	private MutatorFactory()

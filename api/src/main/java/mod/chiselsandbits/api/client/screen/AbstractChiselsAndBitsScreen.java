@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * Custom screens which inherit from this class implement custom logic related to chisels and bits widgets and buttons.
  */
-public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndBitsScreen
-{
+public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndBitsScreen {
 	private boolean isInitialized = false;
 
 	private final List<IChiselsAndBitsWidget> widgets = Lists.newArrayList();

@@ -18,8 +18,7 @@ import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableItemRenderer.RenderState>
-{
+public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableItemRenderer.RenderState> {
 	@Nullable
 	private ItemStack lastModelIdentity = null;
 	@Nullable

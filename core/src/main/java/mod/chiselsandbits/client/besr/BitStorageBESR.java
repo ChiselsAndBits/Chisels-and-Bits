@@ -1,7 +1,6 @@
 package mod.chiselsandbits.client.besr;
 
 import java.util.ArrayList;
-
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.communi.suggestu.scena.core.fluid.IFluidManager;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
@@ -17,8 +16,7 @@ import mod.chiselsandbits.client.util.FluidCuboidUtils;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.Sheets;
@@ -35,8 +33,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
-public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity, BitStorageBESR.RenderState>
-{
+public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity, BitStorageBESR.RenderState> {
 	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE =
 		new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
 	private static final RandomSource                                     RANDOM_SOURCE               = RandomSource.createThreadLocalInstance(42L);
@@ -65,8 +62,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		final @NotNull RenderState renderState,
 		final float partialTick,
 		final @NotNull Vec3 cameraPosition,
-		@Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress)
-	{
+		final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.containedFluid = blockEntity.getFluid().orElse(null);
 		renderState.bitCount = blockEntity.getBits();
@@ -78,8 +74,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		final @NotNull RenderState renderState,
 		final @NotNull PoseStack poseStack,
 		final @NotNull SubmitNodeCollector nodeCollector,
-		final @NotNull CameraRenderState cameraRenderState)
-	{
+		final @NotNull CameraRenderState cameraRenderState) {
 		if (renderState.containedFluid != null)
 
 		{

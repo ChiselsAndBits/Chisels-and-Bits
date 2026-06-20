@@ -13,8 +13,7 @@ import mod.chiselsandbits.network.NetworkChannel;
 import mod.chiselsandbits.plugin.PluginManger;
 import mod.chiselsandbits.registrars.*;
 
-public class ChiselsAndBits
-{
+public class ChiselsAndBits {
 	private static ChiselsAndBits     instance;
 	private final  NetworkChannel     networkChannel = new NetworkChannel(Constants.MOD_ID);
 
@@ -23,8 +22,7 @@ public class ChiselsAndBits
 	public ChiselsAndBits(
 			IEligibilityOptions eligibilityOptions,
 			IAdaptingBitInventoryManager adaptingBitInventoryManager,
-			IPluginDiscoverer pluginDiscoverer)
-	{
+			IPluginDiscoverer pluginDiscoverer) {
 		instance = this;
 
 		this.configuration = new ChiselsAndBitsConfiguration();

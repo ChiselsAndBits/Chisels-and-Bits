@@ -20,8 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
-public class ClientResourceReloadingManager implements ResourceManagerReloadListener
-{
+public class ClientResourceReloadingManager implements ResourceManagerReloadListener {
 	private static final Logger                         LOGGER   = LogManager.getLogger();
 	private static final ClientResourceReloadingManager INSTANCE = new ClientResourceReloadingManager();
 

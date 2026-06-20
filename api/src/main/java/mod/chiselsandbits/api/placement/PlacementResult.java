@@ -11,8 +11,7 @@ import java.util.function.Supplier;
 /**
  * Represents a result of a placement attempt.
  */
-public class PlacementResult
-{
+public class PlacementResult {
 	private static final Vector4f ZERO = new Vector4f(0,0,0,0);
 
 	/**

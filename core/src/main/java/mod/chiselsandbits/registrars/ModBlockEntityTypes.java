@@ -17,8 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @SuppressWarnings("ConstantConditions")
-public final class ModBlockEntityTypes
-{
+public final class ModBlockEntityTypes {
 	private static final Logger                         LOGGER    = LogManager.getLogger();
 	private static final IRegistrar<BlockEntityType<?>> REGISTRAR = IRegistrar.create(Registries.BLOCK_ENTITY_TYPE, Constants.MOD_ID);
 

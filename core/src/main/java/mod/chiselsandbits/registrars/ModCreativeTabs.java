@@ -32,8 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 
-public final class ModCreativeTabs
-{
+public final class ModCreativeTabs {
 	private static final Logger                         LOGGER    = LogManager.getLogger();
 	private static final IRegistrar<CreativeModeTab> REGISTRAR = IRegistrar.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
 
@@ -63,7 +62,8 @@ public final class ModCreativeTabs
 				output.accept(new ItemStack(ModItems.SEALANT_ITEM.get()));
 				output.accept(new ItemStack(ModItems.CHISELED_PRINTER.get()));
 				output.accept(new ItemStack(ModItems.MONOCLE_ITEM.get()));
-			})
+			}
+			)
 			.build());
 
 	public static IRegistryObject<CreativeModeTab> BITS = REGISTRAR.register("bits", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
@@ -73,8 +73,9 @@ public final class ModCreativeTabs
 				final Set<BlockInformation> states = Sets.newHashSet();
 				IPlatformRegistryManager.getInstance().getBlockRegistry().getValues()
 						.forEach(block -> {
-							if (block instanceof ChiseledBlock)
+							if (block instanceof ChiseledBlock) {
 								return;
+							}
 
 							BlockState blockState = block.defaultBlockState();
 							final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
@@ -85,11 +86,13 @@ public final class ModCreativeTabs
 										if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
 											final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
 
-											if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem)
+											if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
 												output.accept(resultStack);
+											}
 										}
 									}
-								});
+								}
+								);
 
 								return;
 							}
@@ -114,8 +117,10 @@ public final class ModCreativeTabs
 									}
 								}
 							}
-						});
-			})
+						}
+						);
+			}
+			)
 			.build());
 
 	public static IRegistryObject<CreativeModeTab> CLIPBOARD = REGISTRAR.register("clipboard", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
@@ -126,7 +131,8 @@ public final class ModCreativeTabs
 						.stream()
 						.map(IMultiStateItemStack::toBlockStack)
 						.toList());
-			})
+			}
+			)
 			.build());
 
 	private ModCreativeTabs()

@@ -10,8 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public final class ModTags
-{
+public final class ModTags {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public static final class Items

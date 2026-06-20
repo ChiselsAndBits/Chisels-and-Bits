@@ -2,14 +2,12 @@ package mod.chiselsandbits.block;
 
 import java.util.Map;
 import java.util.stream.Stream;
-
 import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.utils.VoxelShapeUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -32,8 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ModificationTableBlock extends Block
-{
+public class ModificationTableBlock extends Block {
 	private static final Component      CONTAINER_NAME = Component.translatable("block." + Constants.MOD_ID + ".modification_table");
 	private static final Property<Direction> FACING         = HorizontalDirectionalBlock.FACING;
 

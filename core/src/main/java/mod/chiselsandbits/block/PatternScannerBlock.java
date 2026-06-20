@@ -31,8 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PatternScannerBlock extends HorizontalDirectionalBlock
-{
+public class PatternScannerBlock extends HorizontalDirectionalBlock {
 	private static final MapCodec<PatternScannerBlock> CODEC = simpleCodec(PatternScannerBlock::new);
 	private static final Map<Direction, VoxelShape> SHAPES = ImmutableMap.<Direction, VoxelShape>builder()
 	  .put(Direction.NORTH, Stream.of(
@@ -142,8 +141,9 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock
 	  @NotNull BlockHitResult hitResult)
 
 	{
-		if (true)
+		if (true) {
 			return InteractionResult.PASS;
+		}
 
 		if (level.isClientSide())
 

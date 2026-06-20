@@ -15,8 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Manages all registries which are used by Chisels and Bits.
  */
-public interface IRegistryManager
-{
+public interface IRegistryManager {
 	static IRegistryManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getRegistryManager();
 	}

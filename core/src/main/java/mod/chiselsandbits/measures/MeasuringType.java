@@ -63,8 +63,7 @@ public enum MeasuringType implements IMeasuringType
 		final Identifier icon,
 		final IClickedPositionAdapter startPositionAdapter,
 		IPositionAdapter finalStartPositionAdapter,
-		IPositionAdapter finalEndPositionAdapter, final boolean needsNormalization)
-	{
+		IPositionAdapter finalEndPositionAdapter, final boolean needsNormalization) {
 		this.displayName = displayName;
 		this.icon = icon;
 		this.clickedPositionAdapter = startPositionAdapter;

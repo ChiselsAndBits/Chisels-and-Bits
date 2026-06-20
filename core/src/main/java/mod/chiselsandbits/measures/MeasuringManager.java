@@ -21,8 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class MeasuringManager implements IMeasuringManager
-{
+public class MeasuringManager implements IMeasuringManager {
 	private static final MeasuringManager INSTANCE = new MeasuringManager();
 
 	public static MeasuringManager getInstance()
@@ -98,8 +97,9 @@ public class MeasuringManager implements IMeasuringManager
 	public void addOrUpdate(final Measurement measurement, final boolean updateAll)
 
 	{
-		if (!this.measurements.contains(measurement.getWorldKey(), measurement.getOwner()))
+		if (!this.measurements.contains(measurement.getWorldKey(), measurement.getOwner())) {
 			this.measurements.put(measurement.getWorldKey(), measurement.getOwner(), new HashMap<>());
+		}
 
 		Objects.requireNonNull(this.measurements.get(measurement.getWorldKey(), measurement.getOwner())).put(measurement.getMode(), measurement);
 

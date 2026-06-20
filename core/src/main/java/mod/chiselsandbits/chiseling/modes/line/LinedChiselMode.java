@@ -76,13 +76,15 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 						state.clear();
 					}
-				});
+				}
+				);
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(playerEntity, blockState, count));
 			}
 
 			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT));
+		}
+		).orElse(ClickProcessingState.DEFAULT));
 	}
 
 	@Override
@@ -129,7 +131,8 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			}
 
 			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT));
+		}
+		).orElse(ClickProcessingState.DEFAULT));
 	}
 
 	@Override

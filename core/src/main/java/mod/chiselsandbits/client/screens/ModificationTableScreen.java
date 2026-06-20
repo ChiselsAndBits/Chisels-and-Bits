@@ -25,8 +25,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class ModificationTableScreen extends AbstractContainerScreen<ModificationTableContainer>
-{
+public class ModificationTableScreen extends AbstractContainerScreen<ModificationTableContainer> {
 	private static final Identifier RECIPE_SELECTED_SPRITE    = Identifier.withDefaultNamespace("container/stonecutter/recipe_selected");
 	private static final Identifier RECIPE_HIGHLIGHTED_SPRITE = Identifier.withDefaultNamespace("container/stonecutter/recipe_highlighted");
 	private static final Identifier RECIPE_SPRITE             = Identifier.withDefaultNamespace("container/stonecutter/recipe");
@@ -183,8 +182,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 				double d0 = mouseX - (double)(i + i1 % 4 * 16);
 				double d1 = mouseY - (double)(j + i1 / 4 * 18);
 				if (this.minecraft != null && this.minecraft.player != null && d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D
-					  && this.menu.clickMenuButton(this.minecraft.player, l))
-				{
+					  && this.menu.clickMenuButton(this.minecraft.player, l)) {
 					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
 					if (this.minecraft.gameMode != null)
 

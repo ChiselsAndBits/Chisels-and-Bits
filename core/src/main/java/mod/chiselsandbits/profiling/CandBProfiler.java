@@ -9,8 +9,7 @@ import mod.chiselsandbits.api.profiling.IProfilerResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.profiling.ActiveProfiler;
 
-public class CandBProfiler implements IProfiler
-{
+public class CandBProfiler implements IProfiler {
 	/**
      * Creates a callback to pass to {@link ProfilingManager#withProfiler(Consumer)} to start a new section.
      *

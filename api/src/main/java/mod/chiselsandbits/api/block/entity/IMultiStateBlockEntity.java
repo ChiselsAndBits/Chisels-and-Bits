@@ -24,8 +24,7 @@ public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
 	IBatchedAreaMutator,
 	IGenerallyModifiableAreaMutator,
 	IAreaAccessorWithVoxelShape,
-	ISingleBlockAxisAlignedAreaAccessor
-{
+	ISingleBlockAxisAlignedAreaAccessor {
 	/**
      * Indicates whether the current block entity can be flooded with water.
      *

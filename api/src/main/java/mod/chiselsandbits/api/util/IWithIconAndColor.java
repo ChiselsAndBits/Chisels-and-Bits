@@ -1,5 +1,4 @@
 package mod.chiselsandbits.api.util;
 
-public interface IWithIconAndColor extends IWithIcon, IWithColor
-{
+public interface IWithIconAndColor extends IWithIcon, IWithColor {
 }

@@ -8,8 +8,7 @@ import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
 import mod.chiselsandbits.client.util.ItemModelUtils;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -43,8 +42,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 		final @NotNull RenderState renderState,
 		final float partialTick,
 		final @NotNull Vec3 cameraPosition,
-		@Nullable final ModelFeatureRenderer.CrumblingOverlay breakProgress)
-	{
+		final ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.progress = blockEntity.getProgress();
 		renderState.snapshot = blockEntity.getRealisedPattern();
@@ -54,8 +52,9 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 	public void submit(final @NotNull RenderState renderState, final @NotNull PoseStack poseStack, final @NotNull SubmitNodeCollector nodeCollector, final @NotNull CameraRenderState cameraRenderState)
 
 	{
-		if (renderState.snapshot.getStatics().isEmpty())
+		if (renderState.snapshot.getStatics().isEmpty()) {
 			return;
+		}
 
 		final var shapeKey = renderState.snapshot.createNewShapeIdentifier();
 		final var cacheKey = new CacheKey(shapeKey, renderState.progress);

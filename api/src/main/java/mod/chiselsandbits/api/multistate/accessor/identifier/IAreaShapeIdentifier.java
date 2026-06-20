@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
  * Marker interface that uniquely identifies the shape of the contents that can be accessed
  * via a given {@link IAreaAccessor}.
  */
-public interface IAreaShapeIdentifier
-{
+public interface IAreaShapeIdentifier {
 	/**
      * The dummy instance of the identifier, in-case it is not relevant in the current context,
      * but needs to be supplied.
@@ -26,5 +25,6 @@ public interface IAreaShapeIdentifier
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 }

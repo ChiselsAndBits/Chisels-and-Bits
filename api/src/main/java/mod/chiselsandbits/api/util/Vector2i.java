@@ -10,8 +10,7 @@ import net.minecraft.core.Position;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 
-public class Vector2i implements Comparable<Vector2i>
-{
+public class Vector2i implements Comparable<Vector2i> {
 	public static final Codec<Vector2i> CODEC       =
 	  Codec.INT_STREAM.comapFlatMap((stream) -> Util.fixedSize(stream, 3).map((componentArray) -> new Vector2i(componentArray[0], componentArray[1])),
 		(vector) -> IntStream.of(vector.getX(), vector.getY()));

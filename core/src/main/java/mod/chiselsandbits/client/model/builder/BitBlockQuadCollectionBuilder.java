@@ -1,21 +1,14 @@
 package mod.chiselsandbits.client.model.builder;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
-import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import org.joml.Vector3f;
 
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
-public record BitBlockQuadCollectionBuilder(BlockInformation information)
-{
+public record BitBlockQuadCollectionBuilder(BlockInformation information) {
 	private static final float    BIT_BEGIN = 4f / 16;
 	public static final  Vector3f FROM      = new Vector3f(BIT_BEGIN, BIT_BEGIN, BIT_BEGIN);
 	private static final float    BIT_END   = 12f / 16;
@@ -24,7 +17,8 @@ public record BitBlockQuadCollectionBuilder(BlockInformation information)
 	public static final Vector3f[] EXTENDS = new Vector3f[] {
 		FROM,
 		TO
-	};
+	}
+	;
 
 	public QuadCollection build()
 

@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 
 import net.minecraft.client.Minecraft;
 
-public final class HoldsWithToolItemInHandKeyConflictContext implements IKeyConflictContext
-{
+public final class HoldsWithToolItemInHandKeyConflictContext implements IKeyConflictContext {
 	private static final HoldsWithToolItemInHandKeyConflictContext INSTANCE = new HoldsWithToolItemInHandKeyConflictContext();
 
 	public static HoldsWithToolItemInHandKeyConflictContext getInstance()

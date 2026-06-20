@@ -2,17 +2,14 @@ package mod.chiselsandbits.neighborhood;
 
 import java.util.EnumMap;
 import java.util.Objects;
-
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.Direction;
 
-public final class BlockNeighborhood implements IBlockNeighborhood
-{
+public final class BlockNeighborhood implements IBlockNeighborhood {
 	private final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap;
 
 	public BlockNeighborhood(final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap) {this.neighborhoodMap = neighborhoodMap;}

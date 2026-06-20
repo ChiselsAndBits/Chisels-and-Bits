@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityAnalysisResult;
 
 import net.minecraft.network.chat.MutableComponent;
 
-public class EligibilityAnalysisResult implements IEligibilityAnalysisResult
-{
+public class EligibilityAnalysisResult implements IEligibilityAnalysisResult {
 	private final boolean canBeChiseled;
 	private final boolean isAlreadyChiseled;
 	private final MutableComponent displayName;

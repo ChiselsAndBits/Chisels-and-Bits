@@ -18,8 +18,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
-public class Measurement implements IMeasurement, Serializable<Measurement, FriendlyByteBuf>
-{
+public class Measurement implements IMeasurement, Serializable<Measurement, FriendlyByteBuf> {
 	public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 	  UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
 	  Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
@@ -63,8 +62,9 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 		this.mode = mode instanceof MeasuringMode m ? m : null;
 		this.worldKey = worldKey;
 
-		if (this.mode == null)
+		if (this.mode == null) {
 			throw new IllegalStateException("The measuring mode for now needs to be a built in mode!");
+		}
 	}
 
 	public Measurement(final UUID owner, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode, final Identifier worldKey) {
@@ -72,8 +72,9 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 		this.mode = mode instanceof MeasuringMode m ? m : null;
 		this.worldKey = worldKey;
 
-		if (this.mode == null)
+		if (this.mode == null) {
 			throw new IllegalStateException("The measuring mode for now needs to be a built in mode!");
+		}
 
 		adaptPositions(from, to, hitFace, mode);
 	}

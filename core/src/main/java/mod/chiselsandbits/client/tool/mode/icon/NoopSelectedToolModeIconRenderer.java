@@ -7,8 +7,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
-public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRenderer
-{
+public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRenderer {
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
 	@Override

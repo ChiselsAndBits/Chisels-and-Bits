@@ -13,8 +13,7 @@ import java.util.function.Supplier;
  * These options are only available on the client, and are not synced between
  * the server and the client.
  */
-public interface IClientConfiguration
-{
+public interface IClientConfiguration {
 	/**
      * The client configuration.
      * Elements in this configuration are only relevant for the client side of C{@literal &}B.

@@ -2,7 +2,6 @@ package mod.chiselsandbits.forge;
 
 import java.util.function.Consumer;
 
-import com.communi.suggestu.scena.core.dist.DistExecutor;
 import com.communi.suggestu.scena.core.init.PlatformInitializationHandler;
 import com.mojang.logging.LogUtils;
 import mod.chiselsandbits.ChiselsAndBits;
@@ -21,8 +20,7 @@ import net.neoforged.neoforge.common.extensions.IBlockExtension;
 import org.slf4j.Logger;
 
 @Mod(Constants.MOD_ID)
-public class Forge
-{
+public class Forge {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	private ChiselsAndBits chiselsAndBits;
@@ -44,7 +42,8 @@ public class Forge
 					ForgeAdaptingBitInventoryManager.getInstance(),
 					ForgePluginDiscoverer.getInstance()
 			));
-		});
+		}
+		);
 
 		modBus.addListener((Consumer<FMLCommonSetupEvent>) event -> chiselsAndBits.onInitialize());
 	}
@@ -58,7 +57,8 @@ public class Forge
 			//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
 			PlatformInitializationHandler.getInstance().onInit(platform -> {
 				setChiselsAndBitsClient(new ChiselsAndBitsClient());
-			});
+			}
+			);
 
 			container.registerExtensionPoint(IConfigScreenFactory.class, (mc, parent) -> new ConfigurationScreen(container, parent));
 		}

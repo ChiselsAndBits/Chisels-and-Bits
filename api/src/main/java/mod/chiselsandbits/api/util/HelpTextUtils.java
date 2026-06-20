@@ -10,8 +10,7 @@ import java.util.function.Consumer;
  * Utility class for processing help texts,
  * most notably used in tooltips of items and blocks.
  */
-public class HelpTextUtils
-{
+public class HelpTextUtils {
 	private HelpTextUtils()
 
 	{

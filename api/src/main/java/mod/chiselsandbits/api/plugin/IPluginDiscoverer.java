@@ -13,8 +13,7 @@ import java.util.stream.Stream;
 /**
  * The platform plugin manager which can load the plugins for C{@literal &}B on a given platform.
  */
-public interface IPluginDiscoverer
-{
+public interface IPluginDiscoverer {
 	/**
      * Gives access to the platform's plugin manager.
      *

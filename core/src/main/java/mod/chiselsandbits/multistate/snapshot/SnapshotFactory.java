@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.multistate.snapshot.ISnapshotFactory;
 
-public final class SnapshotFactory implements ISnapshotFactory
-{
+public final class SnapshotFactory implements ISnapshotFactory {
 	private static final SnapshotFactory INSTANCE = new SnapshotFactory();
 
 	public static SnapshotFactory getInstance()

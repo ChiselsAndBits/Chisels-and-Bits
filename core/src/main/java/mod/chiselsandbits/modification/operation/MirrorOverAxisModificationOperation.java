@@ -14,8 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryEntry implements IModificationOperation
-{
+public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryEntry implements IModificationOperation {
 	private final Direction.Axis axis;
 
 	private MirrorOverAxisModificationOperation(final Direction.Axis axis) {this.axis = axis;}
@@ -64,11 +63,11 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 	public Component getDisplayName()
 
 	{
-		return switch (axis)
-				 {
+		return switch (axis) {
 					 case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
 					 case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
 					 case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
-				 };
+				 }
+				 ;
 	}
 }

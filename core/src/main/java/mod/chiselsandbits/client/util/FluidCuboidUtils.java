@@ -8,7 +8,6 @@ import static net.minecraft.core.Direction.UP;
 import static net.minecraft.core.Direction.WEST;
 
 import com.communi.suggestu.scena.core.client.fluid.IClientFluidManager;
-import com.communi.suggestu.scena.core.client.rendering.IRenderingManager;
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,16 +18,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.data.AtlasIds;
-import net.minecraft.resources.Identifier;
 
-public class FluidCuboidUtils
-{
+public class FluidCuboidUtils {
 	private FluidCuboidUtils()
 
 	{
@@ -49,8 +44,7 @@ public class FluidCuboidUtils
 		final float z1,
 		final float x2,
 		final float y2,
-		final float z2)
-	{
+		final float z2) {
 		renderFluidCuboid(fluid, matrices, nodeCollector, combinedLight, combinedOverlay, x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
 	}
 
@@ -68,8 +62,7 @@ public class FluidCuboidUtils
 		float z1,
 		float x2,
 		float y2,
-		float z2)
-	{
+		float z2) {
 		int color = IClientFluidManager.getInstance().getFluidColor(fluid);
 		renderFluidCuboid(fluid, matrices, nodeCollector, combinedLight, combinedOverlay, x1, y1, z1, x2, y2, z2, color);
 	}
@@ -89,8 +82,7 @@ public class FluidCuboidUtils
 		float x2,
 		float y2,
 		float z2,
-		int color)
-	{
+		int color) {
 		final FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet()
 			.get(fluid.fluid().defaultFluidState());
 
@@ -111,8 +103,7 @@ public class FluidCuboidUtils
 		float z1,
 		float x2,
 		float y2,
-		float z2)
-	{
+		float z2) {
 		matrices.pushPose();
 		matrices.translate(x1, y1, z1);
 
@@ -138,15 +129,13 @@ public class FluidCuboidUtils
 
 	public static void putTexturedQuad(
 		VertexConsumer renderer, PoseStack.Pose matrix, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
-		int color, final int overlay, int brightness, boolean flowing)
-	{
+		int color, final int overlay, int brightness, boolean flowing) {
 		putTexturedQuad(renderer, matrix, sprite, w, h, d, face, color, overlay, brightness, flowing, false, false);
 	}
 
 	public static void putTexturedQuad(
 		VertexConsumer renderer, PoseStack.Pose matrix, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
-		int color, final int overlay, int brightness, boolean flowing, boolean flipHorizontally, boolean flipVertically)
-	{
+		int color, final int overlay, int brightness, boolean flowing, boolean flipHorizontally, boolean flipVertically) {
 		int l1 = brightness >> 0x10 & 0xFFFF;
 		int l2 = brightness & 0xFFFF;
 
@@ -165,8 +154,7 @@ public class FluidCuboidUtils
 // x and x+w has to be within [0,1], same for y/h and z/d
 	public static void putTexturedQuad(
 		VertexConsumer renderer, PoseStack.Pose matrices, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
-		int r, int g, int b, int a, int light1, int light2, final int overlay1, final int overlay2, boolean flowing, boolean flipHorizontally, boolean flipVertically)
-	{
+		int r, int g, int b, int a, int light1, int light2, final int overlay1, final int overlay2, boolean flowing, boolean flipHorizontally, boolean flipVertically) {
 		// safety
 		if (sprite == null)
 

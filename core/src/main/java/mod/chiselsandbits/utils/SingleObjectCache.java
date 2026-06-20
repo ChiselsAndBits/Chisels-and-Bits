@@ -2,14 +2,10 @@ package mod.chiselsandbits.utils;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-import net.minecraft.world.item.ItemStack;
-
-public class SingleObjectCache<T>
-{
+public class SingleObjectCache<T> {
 	@Nullable
 	private T value;
 
@@ -25,8 +21,9 @@ public class SingleObjectCache<T>
 	}
 
 	public T get() {
-		if (value == null)
+		if (value == null) {
 			value = builder.get();
+		}
 
 		return cloner.apply(value);
 	}

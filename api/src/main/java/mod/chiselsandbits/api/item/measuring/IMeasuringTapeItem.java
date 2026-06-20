@@ -12,8 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMeasuringMode>, IRightClickControllingItem
-{
+public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMeasuringMode>, IRightClickControllingItem {
 	/**
      * Determines the start point stored in the stack of the item.
      *

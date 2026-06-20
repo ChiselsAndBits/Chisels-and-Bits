@@ -4,8 +4,7 @@ import java.util.function.Predicate;
 
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 
-public class StateEntryPredicates
-{
+public class StateEntryPredicates {
 	private StateEntryPredicates()
 
 	{
@@ -35,7 +34,8 @@ public class StateEntryPredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 
 	public static final Predicate<IStateEntryInfo> ALL = new Predicate<>()
 
@@ -60,7 +60,8 @@ public class StateEntryPredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 
 	public static final Predicate<IStateEntryInfo> COLLIDEABLE_ONLY = new Predicate<>()
 
@@ -85,5 +86,6 @@ public class StateEntryPredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 }

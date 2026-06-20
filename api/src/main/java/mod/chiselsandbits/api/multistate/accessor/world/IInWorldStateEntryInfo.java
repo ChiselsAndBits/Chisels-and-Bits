@@ -11,8 +11,7 @@ import net.minecraft.world.phys.Vec3;
  * @see IStateEntryInfo
  * @see IWorldAreaAccessor
  */
-public interface IInWorldStateEntryInfo extends IStateEntryInfo, IWorldObject
-{
+public interface IInWorldStateEntryInfo extends IStateEntryInfo, IWorldObject {
 	/**
      * The position of the block that this state entry is part of.
      *

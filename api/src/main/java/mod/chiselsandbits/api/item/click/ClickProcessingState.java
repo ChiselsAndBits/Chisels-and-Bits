@@ -3,8 +3,7 @@ package mod.chiselsandbits.api.item.click;
 /**
  * Represents the continuous processing state of a click interaction.
  */
-public class ClickProcessingState
-{
+public class ClickProcessingState {
 	/**
      * The click was successfully processed, and not further processing is needed.
      */

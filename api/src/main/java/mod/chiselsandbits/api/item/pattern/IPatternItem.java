@@ -19,8 +19,7 @@ import org.joml.Vector4f;
 /**
  * Represents an item that can be a pattern
  */
-public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithModeItem<IPatternPlacementType>, IPlacementPreviewProvidingItem, IChangeTrackingItem
-{
+public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithModeItem<IPatternPlacementType>, IPlacementPreviewProvidingItem, IChangeTrackingItem {
 	@Override
 	default VoxelShape getWireFrame(
 	  final ItemStack stack, final Player player, final BlockHitResult rayTraceResult) {

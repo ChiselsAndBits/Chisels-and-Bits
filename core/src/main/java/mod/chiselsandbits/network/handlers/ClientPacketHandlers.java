@@ -33,8 +33,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
 
-public final class ClientPacketHandlers
-{
+public final class ClientPacketHandlers {
 	private ClientPacketHandlers()
 
 	{
@@ -114,9 +113,11 @@ public final class ClientPacketHandlers
 		importResult.ifLeft(stack -> {
 			ChiselsAndBits.getInstance().getNetworkChannel()
 			  .sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
-		});
+		}
+		);
 		importResult.ifRight(e -> {
 			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
-		});
+		}
+		);
 	}
 }

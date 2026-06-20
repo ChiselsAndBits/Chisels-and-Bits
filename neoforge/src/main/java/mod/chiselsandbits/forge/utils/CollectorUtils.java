@@ -7,8 +7,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-public class CollectorUtils
-{
+public class CollectorUtils {
 	private CollectorUtils()
 
 	{
@@ -34,7 +33,8 @@ public class CollectorUtils
 
 				  c += 1;
 			  }
-		  },
+		  }
+		  ,
 		  (m, m2) -> {
 			  m.putAll(m2);
 			  return m;

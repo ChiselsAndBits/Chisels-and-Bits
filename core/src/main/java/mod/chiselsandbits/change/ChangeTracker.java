@@ -22,8 +22,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public class ChangeTracker implements IChangeTracker
-{
+public class ChangeTracker implements IChangeTracker {
 	protected final Player player;
 	protected final LinkedList<IChange> changes = new LinkedList<>();
 	protected int currentIndex = 0;
@@ -46,8 +45,9 @@ public class ChangeTracker implements IChangeTracker
 	  final Map<BlockPos, IMultiStateSnapshot> beforeStates, final Map<BlockPos, IMultiStateSnapshot> afterState)
 
 	{
-		if (!beforeStates.keySet().containsAll(afterState.keySet()) || !afterState.keySet().containsAll(beforeStates.keySet()))
+		if (!beforeStates.keySet().containsAll(afterState.keySet()) || !afterState.keySet().containsAll(beforeStates.keySet())) {
 			throw new IllegalArgumentException("Initial States and Target States reference difference block positions");
+		}
 
 		changes.addFirst(
 		  new CombinedChange(
@@ -134,8 +134,9 @@ public class ChangeTracker implements IChangeTracker
 	public void undo(final Player player) throws IllegalChangeAttempt
 
 	{
-		if (!canUndo(player))
+		if (!canUndo(player)) {
 			throw new IllegalChangeAttempt();
+		}
 
 		if (getCurrentUndo().isPresent()) {
 			final IChange change = getCurrentUndo().get();
@@ -149,8 +150,9 @@ public class ChangeTracker implements IChangeTracker
 	public void redo(final Player player) throws IllegalChangeAttempt
 
 	{
-		if (!canRedo(player))
+		if (!canRedo(player)) {
 			throw new IllegalChangeAttempt();
+		}
 
 		if (getCurrentRedo().isPresent()) {
 			final IChange change = getCurrentRedo().get();

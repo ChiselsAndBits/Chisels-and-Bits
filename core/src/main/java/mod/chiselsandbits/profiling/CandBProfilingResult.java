@@ -11,8 +11,7 @@ import net.minecraft.util.profiling.FilledProfileResults;
 import net.minecraft.util.profiling.ProfileResults;
 import net.minecraft.util.profiling.ResultField;
 
-public class CandBProfilingResult implements IProfilerResult
-{
+public class CandBProfilingResult implements IProfilerResult {
 	private final ProfileResults innerResult;
 
 	public CandBProfilingResult(final ProfileResults innerResult) {this.innerResult = innerResult;}
@@ -28,8 +27,9 @@ public class CandBProfilingResult implements IProfilerResult
 	public void writeAsResponse(final Consumer<String> lineConsumer)
 
 	{
-		if (!(innerResult instanceof final FilledProfileResults filledProfileResult))
+		if (!(innerResult instanceof final FilledProfileResults filledProfileResult)) {
 			return;
+		}
 
 		lineConsumer.accept("Results:");
 		writeDatapointsAsResponse("root", filledProfileResult::getTimes, lineConsumer, " ");

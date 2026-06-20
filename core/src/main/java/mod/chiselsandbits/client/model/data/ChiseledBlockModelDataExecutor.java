@@ -46,7 +46,8 @@ public class ChiseledBlockModelDataExecutor {
 					);
 
 					return new BlockInformation(state, additionalStateInfo);
-				},
+				}
+				,
 				direction -> {
 					final BlockEntity otherTileEntity = Objects.requireNonNull(tileEntity.getLevel()).getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
 
@@ -77,7 +78,8 @@ public class ChiseledBlockModelDataExecutor {
 									ModModelProperties.MODEL, chiseledBlockModelInformation
 							)
 							.build();
-				}, recalculationService)
+				}
+				, recalculationService)
 				.thenAcceptAsync(tileEntity::setModelData, recalculationService)
 				.thenRunAsync(onCompleteCallback, recalculationService)
 				.thenRunAsync(() -> {
@@ -94,11 +96,13 @@ public class ChiseledBlockModelDataExecutor {
 						}
 					} catch (Exception ignored) {
 					}
-				}, Minecraft.getInstance())
+				}
+				, Minecraft.getInstance())
 				.exceptionally(throwable -> {
 					LOGGER.error("Failed to update model data for chiseled block entity", throwable);
 					return null;
-				});
+				}
+				);
 	}
 
 	private static synchronized void ensureThreadPoolSetup() {

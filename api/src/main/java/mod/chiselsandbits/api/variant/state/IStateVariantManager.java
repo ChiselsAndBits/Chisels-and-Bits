@@ -23,8 +23,7 @@ import java.util.function.Supplier;
 /**
  * Represents the state variant manager, which allows external mods to provide their own state variants.
  */
-public interface IStateVariantManager
-{
+public interface IStateVariantManager {
 	/**
      * The codec for the state variant provider.
      * <p>

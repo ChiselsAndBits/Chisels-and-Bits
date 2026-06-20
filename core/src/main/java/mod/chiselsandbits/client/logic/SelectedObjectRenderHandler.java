@@ -12,8 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class SelectedObjectRenderHandler
-{
+public class SelectedObjectRenderHandler {
 	public static void renderCustomWorldHighlight(
 		final LevelRenderer levelRenderer,
 		final PoseStack poseStack,

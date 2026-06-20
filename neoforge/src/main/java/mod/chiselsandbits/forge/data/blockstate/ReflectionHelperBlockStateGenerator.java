@@ -22,8 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class ReflectionHelperBlockStateGenerator extends ModelProvider implements DataProvider
-{
+public class ReflectionHelperBlockStateGenerator extends ModelProvider implements DataProvider {
 	public ReflectionHelperBlockStateGenerator(final DataGenerator gen)
 
 	{

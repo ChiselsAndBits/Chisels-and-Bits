@@ -9,8 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public final class SortBagGuiPacket extends ModPacket
-{
+public final class SortBagGuiPacket extends ModPacket {
 	public static final Identifier                                 ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sort_bag_gui");
 	public static final CustomPacketPayload.Type<SortBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
@@ -49,8 +48,7 @@ public final class SortBagGuiPacket extends ModPacket
 
 	@Override
 	public void readPayload(
-			RegistryFriendlyByteBuf buffer)
-	{
+			RegistryFriendlyByteBuf buffer) {
 	}
 
 	@Override

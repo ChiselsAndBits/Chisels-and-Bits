@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -19,8 +18,7 @@ import mod.chiselsandbits.client.util.ItemModelUtils;
 import mod.chiselsandbits.registrars.ModCreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
@@ -33,8 +31,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LiquidBlock;
 
-public class BitBlockBakedModelManager
-{
+public class BitBlockBakedModelManager {
 	private static final Logger                                                   LOGGER            = LogManager.getLogger();
 	private static final BitBlockBakedModelManager                                INSTANCE          = new BitBlockBakedModelManager();
 	private final        Cache<BlockInformation, BitBlockModelInformation> modelCache        = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
@@ -61,8 +58,7 @@ public class BitBlockBakedModelManager
 
 	public BitBlockModelInformation get(
 		ItemStack stack,
-		final ClientLevel world)
-	{
+		final ClientLevel world) {
 		return get(
 			stack,
 			world,
@@ -94,8 +90,7 @@ public class BitBlockBakedModelManager
 	public BitBlockModelInformation get(
 		final boolean large,
 		@Nullable BlockInformation blockInformation,
-		ClientLevel level)
-	{
+		ClientLevel level) {
 		if (level == null)
 
 		{
@@ -178,7 +173,8 @@ public class BitBlockBakedModelManager
 				{
 					return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
 				}
-			});
+			}
+			);
 		}
 
 		catch (ExecutionException e)

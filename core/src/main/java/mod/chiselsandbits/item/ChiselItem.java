@@ -46,8 +46,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 
-public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlightedNameItem
-{
+public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlightedNameItem {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final ToolMaterial material;
 
@@ -77,8 +76,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		final IChiselMode mode = getMode(stack);
 		if (mode.getGroup().isPresent())
 
@@ -194,7 +192,8 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 				LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -289,8 +288,9 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		);
 
 		//Store it in the local cache.
-		if (!context.isComplete())
-		ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
+		if (!context.isComplete()) {
+			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
+		}
 
 		return context.getMutator().isEmpty();
 	}
@@ -302,8 +302,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final PoseStack poseStack,
 		final MultiBufferSource.BufferSource bufferSource,
 		final LevelRenderState levelRenderState,
-		final float partialTicks)
-	{
+		final float partialTicks) {
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
 

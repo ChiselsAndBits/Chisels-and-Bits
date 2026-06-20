@@ -1,10 +1,8 @@
 package mod.chiselsandbits.item;
 
 import static org.lwjgl.system.linux.X11.True;
-
 import java.util.List;
 import java.util.function.Consumer;
-
 import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.util.HelpTextUtils;
@@ -14,8 +12,7 @@ import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -29,8 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BitStorageBlockItem extends BlockItem
-{
+public class BitStorageBlockItem extends BlockItem {
 	public BitStorageBlockItem(
 	  final Block block , Properties builder)
 
@@ -45,8 +41,7 @@ public class BitStorageBlockItem extends BlockItem
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		if (stack.has(ModDataComponentTypes.BLOCK_INFORMATION.get()) && stack.has(ModDataComponentTypes.COUNT.get())) {
@@ -80,12 +75,14 @@ public class BitStorageBlockItem extends BlockItem
 
 	{
 		super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
-		if (worldIn.isClientSide())
+		if (worldIn.isClientSide()) {
 			return false;
+		}
 
 		final BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-		if (!(blockEntity instanceof final BitStorageBlockEntity bitStorage))
+		if (!(blockEntity instanceof final BitStorageBlockEntity bitStorage)) {
 			return false;
+		}
 
 		BitStorageBlock.updateEntityFromStack(stack, bitStorage);
 		return true;

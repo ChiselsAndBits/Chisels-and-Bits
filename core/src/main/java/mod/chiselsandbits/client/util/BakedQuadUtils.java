@@ -4,8 +4,7 @@ import com.communi.suggestu.scena.core.client.models.processing.VertexData;
 
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 
-public class BakedQuadUtils
-{
+public class BakedQuadUtils {
 	public static BakedQuad withTintIndex(BakedQuad input, int tintIndex) {
 		return new BakedQuad(
 			input.position0(),

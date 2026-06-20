@@ -54,8 +54,7 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 		final SharedState sharedState,
 		final Executor exectutor,
 		final PreparationBarrier barrier,
-		final Executor applyExectutor)
-	{
+		final Executor applyExectutor) {
 		return barrier.wait(Unit.INSTANCE).thenRunAsync(() -> {
 			ProfilerFiller profilerfiller = Profiler.get();
 			profilerfiller.startTick();
@@ -63,7 +62,8 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 			this.onResourceManagerReload();
 			profilerfiller.pop();
 			profilerfiller.endTick();
-		}, applyExectutor);
+		}
+		, applyExectutor);
 	}
 
 	public void clearCaches() {

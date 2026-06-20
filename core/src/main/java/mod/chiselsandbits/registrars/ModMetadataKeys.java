@@ -17,8 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
 
-public final class ModMetadataKeys
-{
+public final class ModMetadataKeys {
 	private static final Logger                            LOGGER        = LogManager.getLogger();
 	private static final ICustomRegistrar<IMetadataKey<?>> KEY_REGISTRAR = ICustomRegistrar.create(IMetadataKey.class, Constants.MOD_ID);
 
@@ -35,7 +34,8 @@ public final class ModMetadataKeys
 		{
 			return new Vec3(value.x(), value.y(), value.z());
 		}
-	});
+	}
+	);
 
 	public static final Supplier<IMetadataKey<Vec3>> END_POINT = KEY_REGISTRAR.register("endpoint", () -> new SimpleMetadataKey<>()
 
@@ -46,7 +46,8 @@ public final class ModMetadataKeys
 		{
 			return new Vec3(value.x(), value.y(), value.z());
 		}
-	});
+	}
+	);
 
 	public static final Supplier<IMetadataKey<Direction>> TARGETED_SIDE = KEY_REGISTRAR.register("targeted_side", () -> new SimpleMetadataKey<>()
 
@@ -57,7 +58,8 @@ public final class ModMetadataKeys
 		{
 			return value;
 		}
-	});
+	}
+	);
 
 	public static final Supplier<IMetadataKey<Set<Vec3i>>> VALID_POSITIONS = KEY_REGISTRAR.register("valid_positions", () -> new SimpleMetadataKey<>()
 
@@ -70,7 +72,8 @@ public final class ModMetadataKeys
 			  .map(val -> new Vec3i(val.getX(), val.getY(), val.getZ()))
 			  .collect(Collectors.toSet());
 		}
-	});
+	}
+	);
 
 	public static final Supplier<IMetadataKey<BlockPos>> TARGETED_BLOCK = KEY_REGISTRAR.register("targeted_block", () -> new SimpleMetadataKey<>()
 
@@ -81,7 +84,8 @@ public final class ModMetadataKeys
 		{
 			return value;
 		}
-	});
+	}
+	);
 
 	public static final Supplier<IMetadataKey<Direction.Axis>> TARGETED_AXIS = KEY_REGISTRAR.register("targeted_axis", () -> new SimpleMetadataKey<>()
 
@@ -92,7 +96,8 @@ public final class ModMetadataKeys
 		{
 			return value;
 		}
-	});
+	}
+	);
 
 	private ModMetadataKeys()
 

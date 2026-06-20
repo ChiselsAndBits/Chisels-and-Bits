@@ -22,8 +22,7 @@ public record ChiseledBlockModelInformation(
 	List<ChiseledBlockModelPart> parts,
 	List<ChiseledBlockModelMaterial> materials,
 	ChiseledBlockModelCacheKey key
-) implements BlockStateModel
-{
+) implements BlockStateModel {
 	public static final ChiseledBlockModelInformation EMPTY = new ChiseledBlockModelInformation(
 		new Material.Baked(
 			Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation()))
@@ -38,8 +37,7 @@ public record ChiseledBlockModelInformation(
 		final Material.Baked particleMaterial,
 		final List<ChiseledBlockModelPart> parts,
 		final List<ChiseledBlockModelMaterial> materials,
-		final ChiseledBlockModelCacheKey key)
-	{
+		final ChiseledBlockModelCacheKey key) {
 		this(particleMaterial, computeMaterialFlags(parts), parts, materials, key);
 	}
 

@@ -3,8 +3,7 @@ package mod.chiselsandbits.network.packets;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,8 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.redstone.Orientation;
 
-public final class NeighborBlockUpdatedPacket extends ModPacket
-{
+public final class NeighborBlockUpdatedPacket extends ModPacket {
 	public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "neighbor_block_updated");
 	public static final CustomPacketPayload.Type<NeighborBlockUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

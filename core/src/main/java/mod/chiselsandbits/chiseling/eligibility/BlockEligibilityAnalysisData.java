@@ -17,8 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BlockEligibilityAnalysisData
-{
+public class BlockEligibilityAnalysisData {
 	private final boolean isCompatible;
 	private final float   hardness;
 	private final float   explosionResistance;
@@ -26,8 +25,7 @@ public class BlockEligibilityAnalysisData
 	private BlockEligibilityAnalysisData(
 		final boolean isCompatible,
 		final float hardness,
-		final float explosionResistance)
-	{
+		final float explosionResistance) {
 		this.isCompatible = isCompatible;
 		this.hardness = hardness;
 		this.explosionResistance = explosionResistance;
@@ -53,8 +51,7 @@ public class BlockEligibilityAnalysisData
 
 	@SuppressWarnings("DataFlowIssue") //We need to pass null in as a level.
 	public static BlockEligibilityAnalysisData createFromState(
-		final BlockInformation state)
-	{
+		final BlockInformation state) {
 		try
 
 		{

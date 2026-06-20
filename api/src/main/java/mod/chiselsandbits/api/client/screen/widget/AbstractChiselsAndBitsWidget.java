@@ -13,8 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * All chisels and bits widgets inherit from this class.
  * Most notably provides init support, invoked when the window itself has its init method called.
  */
-public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implements IChiselsAndBitsWidget
-{
+public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implements IChiselsAndBitsWidget {
 	/**
      * Creates a new widget.
      *

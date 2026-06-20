@@ -46,8 +46,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final int              depth;
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
@@ -92,8 +91,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
 			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player)))
-			  {
+					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player))) {
 				  context.setComplete();
 
 				  final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
@@ -113,8 +111,10 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							  state.clear();
-						  });
-					})
+						  }
+						  );
+					}
+					)
 					.sum();
 
 				  if (totalModifiedStates == 0) {
@@ -129,7 +129,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -188,7 +189,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 					)
 					.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 				);
-		  },
+		  }
+		  ,
 		  position -> IMutatorFactory.getInstance().covering(
 			context.getWorld(),
 			VectorUtils.toBlockPos(position.subtract(1, 1, 1)),
@@ -237,8 +239,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 				  }
 
 				  try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player)))
-				  {
+						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
 					  mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
@@ -260,7 +261,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 			  }
 
 			  return ClickProcessingState.ALLOW;
-		  }).orElse(ClickProcessingState.DEFAULT)
+		  }
+		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -439,8 +441,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 					);
 					if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide() &&
 						  newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide() &&
-						  newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide())
-					{
+						  newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
 						final Vec3i relevantNewTargetAxisVector =
 						  new Vec3i(
 							newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
@@ -470,7 +471,8 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 					{
 						processed.add(newTarget);
 					}
-				});
+				}
+				);
 			}
 		}
 
@@ -517,8 +519,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

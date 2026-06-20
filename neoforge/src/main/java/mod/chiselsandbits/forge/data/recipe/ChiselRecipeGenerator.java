@@ -14,15 +14,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator
-{
+public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 	private ChiselRecipeGenerator(
 		final HolderLookup.Provider registries,
 		final RecipeOutput output,
 		final ItemLike itemProvider,
 		final TagKey<Item> rodTag,
-		final TagKey<Item> ingredientTag)
-	{
+		final TagKey<Item> ingredientTag) {
 		super(registries, output, itemProvider, rodTag, ingredientTag);
 	}
 

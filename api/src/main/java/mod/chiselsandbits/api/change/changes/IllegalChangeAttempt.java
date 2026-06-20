@@ -3,8 +3,7 @@ package mod.chiselsandbits.api.change.changes;
 /**
  * Exception thrown when change attempt is made before checking if the change attempt is possible.
  */
-public class IllegalChangeAttempt extends Exception
-{
+public class IllegalChangeAttempt extends Exception {
 	public IllegalChangeAttempt()
 
 	{

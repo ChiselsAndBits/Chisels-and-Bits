@@ -20,8 +20,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class LangEntryLangGenerator implements DataProvider
-{
+public class LangEntryLangGenerator implements DataProvider {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
 

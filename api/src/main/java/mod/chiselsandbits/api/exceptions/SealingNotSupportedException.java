@@ -1,5 +1,4 @@
 package mod.chiselsandbits.api.exceptions;
 
-public class SealingNotSupportedException extends Exception
-{
+public class SealingNotSupportedException extends Exception {
 }

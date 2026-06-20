@@ -39,10 +39,12 @@ public enum StateEntrySize
 
 	public static StateEntrySize current() {
 		if (_current == null) {
-			if (IChiselsAndBitsAPI.getInstance() == null)
+			if (IChiselsAndBitsAPI.getInstance() == null) {
 				_current = StateEntrySize.ONE_SIXTEENTH;
-			else
+			}
+			else {
 				_current = IChiselsAndBitsAPI.getInstance().getStateEntrySize();
+			}
 		}
 
 		return _current;

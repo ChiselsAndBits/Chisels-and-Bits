@@ -13,8 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class BitInventoryManager implements IBitInventoryManager
-{
+public class BitInventoryManager implements IBitInventoryManager {
 	private static final BitInventoryManager INSTANCE = new BitInventoryManager();
 
 	private BitInventoryManager()

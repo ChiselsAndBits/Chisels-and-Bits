@@ -12,8 +12,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class RequestChangeTrackerOperationPacket extends ModPacket
-{
+public final class RequestChangeTrackerOperationPacket extends ModPacket {
 	public static final Identifier                                                    ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "request_change_tracker_operation");
 	public static final CustomPacketPayload.Type<RequestChangeTrackerOperationPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

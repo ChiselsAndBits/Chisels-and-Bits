@@ -2,8 +2,7 @@ package mod.chiselsandbits.api.client.sharing;
 
 import net.minecraft.network.chat.Component;
 
-public class PatternIOException extends Exception
-{
+public class PatternIOException extends Exception {
 	private final Component errorMessage;
 
 	public PatternIOException(final Component errorMessage, final String logMessage) {

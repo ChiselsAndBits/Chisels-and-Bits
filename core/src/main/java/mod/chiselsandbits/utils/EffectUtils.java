@@ -16,12 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class EffectUtils
-{
+public class EffectUtils {
 	private static final Random RANDOM = new Random();
 
 	private EffectUtils()
@@ -71,15 +69,17 @@ public class EffectUtils
 						}
 					}
 				}
-			});
+			}
+			);
 		}
 	}
 
 	public static boolean addHitEffects(final Level world, final BlockPos blockPos, final Direction hitDirection, final BlockState primaryState, final ParticleEngine manager)
 
 	{
-		if (Minecraft.getInstance().player == null)
+		if (Minecraft.getInstance().player == null) {
 			return false;
+		}
 
 		final ItemStack hitWith = Minecraft.getInstance().player.getMainHandItem();
 

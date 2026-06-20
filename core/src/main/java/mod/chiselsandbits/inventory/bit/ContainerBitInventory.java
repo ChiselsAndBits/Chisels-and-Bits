@@ -3,8 +3,7 @@ package mod.chiselsandbits.inventory.bit;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-public class ContainerBitInventory extends AbstractBitInventory
-{
+public class ContainerBitInventory extends AbstractBitInventory {
 	private final Container inventory;
 
 	public ContainerBitInventory(final Container inventory) {this.inventory = inventory;}

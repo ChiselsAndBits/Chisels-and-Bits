@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
-public class ParamValidator
-{
+public class ParamValidator {
 	private ParamValidator()
 
 	{
@@ -9,8 +8,9 @@ public class ParamValidator
 	}
 
 	public static <O, T> O isInstanceOf(final O target, final Class<T> cls) {
-		if (cls.isInstance(target))
+		if (cls.isInstance(target)) {
 			return target;
+		}
 
 		throw new IllegalStateException(String.format("%s is not an instance of: %s", target, cls.getName()));
 	}

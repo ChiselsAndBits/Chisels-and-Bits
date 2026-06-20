@@ -8,8 +8,7 @@ import java.util.function.Consumer;
 /**
  * The manager for plugins.
  */
-public interface IPluginManager
-{
+public interface IPluginManager {
 	/**
      * The instance of the plugin manager.
      *

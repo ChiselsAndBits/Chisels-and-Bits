@@ -1,6 +1,6 @@
 package mod.chiselsandbits.client.render;
 
-import static net.minecraft.client.renderer.RenderPipelines.*;
+import static net.minecraft.client.renderer.RenderPipelines.LINES_SNIPPET;
 
 import java.util.function.Supplier;
 

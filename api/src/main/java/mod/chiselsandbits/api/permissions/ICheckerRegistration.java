@@ -7,6 +7,5 @@ package mod.chiselsandbits.api.permissions;
  * If the {@link #close()} is called then the {@link IPermissionChecker} will be
  * unregistered from the {@link IPermissionHandler}.
  */
-public interface ICheckerRegistration extends AutoCloseable
-{
+public interface ICheckerRegistration extends AutoCloseable {
 }

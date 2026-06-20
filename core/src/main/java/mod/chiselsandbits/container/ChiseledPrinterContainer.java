@@ -14,8 +14,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class ChiseledPrinterContainer extends AbstractContainerMenu
-{
+public class ChiseledPrinterContainer extends AbstractContainerMenu {
 	public static final int PLAYER_INVENTORY_ROWS = 3;
 	public static final int PLAYER_INVENTORY_COLUMNS = 9;
 	public static final int PLAYER_INVENTORY_X_OFFSET = 8;

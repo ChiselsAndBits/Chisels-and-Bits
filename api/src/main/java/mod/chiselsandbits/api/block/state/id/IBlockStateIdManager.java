@@ -9,8 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * Generally this manager is comparable to the relevant methods in the game registry.
  */
-public interface IBlockStateIdManager
-{
+public interface IBlockStateIdManager {
 	static IBlockStateIdManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBlockStateIdManager();
 	}

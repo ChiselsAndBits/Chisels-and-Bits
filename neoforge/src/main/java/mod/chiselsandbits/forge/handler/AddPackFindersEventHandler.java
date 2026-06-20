@@ -1,9 +1,6 @@
 package mod.chiselsandbits.forge.handler;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Map;
@@ -71,7 +68,8 @@ public class AddPackFindersEventHandler {
 			} catch (Exception e) {
 				LOGGER.error("Failed to inject Core Resource Pack. C&B Assets will not be loaded!", e);
 			}
-		});
+		}
+		);
 	}
 
 	private record SinglePackResourceResourcesSupplier(PackResources packResources) implements Pack.ResourcesSupplier {

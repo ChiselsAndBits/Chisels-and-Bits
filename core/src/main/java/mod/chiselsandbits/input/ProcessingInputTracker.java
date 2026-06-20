@@ -7,8 +7,7 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public final class ProcessingInputTracker
-{
+public final class ProcessingInputTracker {
 	private static final ProcessingInputTracker INSTANCE = new ProcessingInputTracker();
 
 	public static ProcessingInputTracker getInstance()

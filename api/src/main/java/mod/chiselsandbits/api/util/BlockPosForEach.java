@@ -5,8 +5,7 @@ import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 
-public class BlockPosForEach
-{
+public class BlockPosForEach {
 	private BlockPosForEach()
 
 	{

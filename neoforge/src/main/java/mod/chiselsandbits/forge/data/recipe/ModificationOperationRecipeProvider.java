@@ -15,8 +15,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
-public class ModificationOperationRecipeProvider extends RecipeProvider
-{
+public class ModificationOperationRecipeProvider extends RecipeProvider {
 	protected ModificationOperationRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output)
 
 	{

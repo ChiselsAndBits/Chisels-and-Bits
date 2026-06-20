@@ -6,8 +6,7 @@ import org.joml.Vector3f;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
-public class FaceRegion
-{
+public class FaceRegion {
 	private final Direction        face;
 	private final BlockInformation blockInformation;
 	private final boolean          isEdge;

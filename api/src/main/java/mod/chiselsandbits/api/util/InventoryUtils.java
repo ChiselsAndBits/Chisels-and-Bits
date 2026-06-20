@@ -8,8 +8,7 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class InventoryUtils
-{
+public class InventoryUtils {
 	private InventoryUtils()
 
 	{
@@ -28,8 +27,9 @@ public class InventoryUtils
 				final IChiseledBlockItem chiseledBlockItem = (IChiseledBlockItem) stack.getItem();
 				final IMultiStateItemStack stateItemStack = chiseledBlockItem.createItemStack(stack);
 
-				if (stateItemStack.createNewShapeIdentifier().equals(identifier))
+				if (stateItemStack.createNewShapeIdentifier().equals(identifier)) {
 					return stack;
+				}
 			}
 		}
 

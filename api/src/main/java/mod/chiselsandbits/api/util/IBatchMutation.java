@@ -7,8 +7,7 @@ import java.io.Closeable;
  * update handler, which can be used with a try-with-resources
  * mechanic to control the update process of a batch mutation.
  */
-public interface IBatchMutation extends AutoCloseable
-{
+public interface IBatchMutation extends AutoCloseable {
 	/**
      * Closes this resource, relinquishing any underlying resources. This method is invoked automatically on objects managed by the {@code try}-with-resources statement.
      *

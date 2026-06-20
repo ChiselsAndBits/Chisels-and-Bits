@@ -9,8 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.world.item.CreativeModeTab;
 
 @Mixin(CreativeModeTab.class)
-public abstract class CreativeModeTabMixin
-{
+public abstract class CreativeModeTabMixin {
 	@Inject(
 		method = "hasAnyItems()Z",
 		at = @At(

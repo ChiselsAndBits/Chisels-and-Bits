@@ -12,8 +12,7 @@ import org.jetbrains.annotations.Nullable;
  * then the edit is not allowed.
  */
 @FunctionalInterface
-public interface IPermissionChecker
-{
+public interface IPermissionChecker {
 	/**
      *
      * @param player

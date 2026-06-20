@@ -79,7 +79,8 @@ public interface CBCodecs {
 							}
 
 							return singleVersionCodec;
-						}),
+						}
+						),
 				fallback
 		);
 	}
@@ -102,7 +103,8 @@ public interface CBCodecs {
 							}
 
 							return versions.get(key);
-						}),
+						}
+						),
 				fallback.codec()
 		);
 	}
@@ -132,7 +134,8 @@ public interface CBCodecs {
 					} catch (IOException e) {
 						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 					}
-				},
+				}
+				,
 				t -> {
 					throw new IllegalStateException("Legacy compression data can not be written!");
 				}
@@ -164,7 +167,8 @@ public interface CBCodecs {
 					} catch (IOException e) {
 						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 					}
-				},
+				}
+				,
 				t -> {
 					final NbtOps ops = NbtOps.INSTANCE;
 					final Tag tag = inner.encodeStart(ops, t).getOrThrow((s) -> new IllegalStateException("Failed to encode data: " + s));
@@ -198,7 +202,8 @@ public interface CBCodecs {
 					final Table<R, C, V> table = HashBasedTable.create();
 					rMapMap.forEach((r, cMap) -> cMap.forEach((c, v) -> table.put(r, c, v)));
 					return table;
-				},
+				}
+				,
 				Table::rowMap
 		);
 	}
@@ -221,7 +226,8 @@ public interface CBCodecs {
 
 				return codec.encode(input, ops, prefix);
 			}
-		};
+		}
+		;
 	}
 
 	static <T> MapCodec<T> lazyNbtAware(MapCodec<T> codec, Function<T, CompoundTag> lazyTagSupplier) {
@@ -248,14 +254,16 @@ public interface CBCodecs {
 						if (tag != null) {
 							prefix.add(key, nbtOps.convertTo(ops, tag));
 						}
-					});
+					}
+					);
 
 					return prefix;
 				}
 
 				return codec.encode(input, ops, prefix);
 			}
-		};
+		}
+		;
 	}
 
 	static <K, V> Codec<Map<K, V>> unboundedComplexMap(Codec<K> keyCodec, Codec<V> valueCodec) {
@@ -278,7 +286,8 @@ public interface CBCodecs {
 					final Map<K, V> map = new HashMap<>();
 					entries.forEach(entry -> map.put(entry.getKey(), entry.getValue()));
 					return map;
-				},
+				}
+				,
 				map -> map.entrySet().stream().map(entry -> Map.entry(entry.getKey(), entry.getValue())).toList()
 		);
 	}

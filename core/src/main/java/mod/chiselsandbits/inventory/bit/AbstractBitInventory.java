@@ -13,8 +13,7 @@ import mod.chiselsandbits.api.item.bit.IBitItemManager;
 
 import net.minecraft.world.item.ItemStack;
 
-public abstract class AbstractBitInventory implements IBitInventory
-{
+public abstract class AbstractBitInventory implements IBitInventory {
 	protected AbstractBitInventory() {}
 
 	/**
@@ -56,7 +55,8 @@ public abstract class AbstractBitInventory implements IBitInventory
 					 }
 
 					 return 0;
-				 })
+				 }
+				 )
 				 .sum();
 	}
 
@@ -88,11 +88,13 @@ public abstract class AbstractBitInventory implements IBitInventory
 	  final int count) throws IllegalArgumentException
 
 	{
-		if (count == 0 || blockInformation.isAir())
+		if (count == 0 || blockInformation.isAir()) {
 			return;
+		}
 
-		if (!canExtract(blockInformation, count))
+		if (!canExtract(blockInformation, count)) {
 			throw new IllegalArgumentException("Can not extract: " + blockInformation);
+		}
 
 		int toExtract = count;
 
@@ -138,8 +140,9 @@ public abstract class AbstractBitInventory implements IBitInventory
 	}
 
 	protected int getMaxBitsFor(ItemStack stack) {
-		if (stack.isEmpty())
+		if (stack.isEmpty()) {
 			return 64;
+		}
 
 		//TODO: Figure this out......
 		return stack.getMaxStackSize();
@@ -159,8 +162,9 @@ public abstract class AbstractBitInventory implements IBitInventory
 				 .mapToObj(this::getItem)
 				 .filter(stack -> stack.getItem() instanceof IBitItem || stack.isEmpty())
 				 .mapToInt(stack -> {
-					 if (stack.isEmpty())
+					 if (stack.isEmpty()) {
 						 return getMaxBitsFor(stack);
+					 }
 
 					 IBitItem bitItem = (IBitItem) stack.getItem();
 					 if (bitItem.getBlockInformation(stack).equals(blockInformation))
@@ -170,7 +174,8 @@ public abstract class AbstractBitInventory implements IBitInventory
 					 }
 
 					 return 0;
-				 })
+				 }
+				 )
 				 .sum();
 	}
 
@@ -185,19 +190,22 @@ public abstract class AbstractBitInventory implements IBitInventory
 	public void insert(final BlockInformation blockInformation, final int count) throws IllegalArgumentException
 
 	{
-		if (count == 0 || blockInformation.isAir())
+		if (count == 0 || blockInformation.isAir()) {
 			return;
+		}
 
-		if (!canInsert(blockInformation, count))
+		if (!canInsert(blockInformation, count)) {
 			throw new IllegalArgumentException("Can not insert: " + blockInformation);
+		}
 
 		int toInsert = count;
 
 		for (int i = 0; i < getInventorySize(); i++)
 
 		{
-			if (toInsert <= 0)
+			if (toInsert <= 0) {
 				break;
+			}
 
 			final ItemStack stack = getItem(i);
 
@@ -234,17 +242,21 @@ public abstract class AbstractBitInventory implements IBitInventory
 		  .map(stack -> {
 			  IBitItem bitItem = (IBitItem) stack.getItem();
 			  return Maps.newHashMap(ImmutableMap.of(bitItem.getBlockInformation(stack), stack.getCount()));
-		  })
+		  }
+		  )
 		  .reduce(
 			Maps.newHashMap(),
 			(blockStateIntegerHashMap, blockStateIntegerHashMap2) -> {
 				final HashMap<BlockInformation, Integer> result = Maps.newHashMap(blockStateIntegerHashMap);
 				blockStateIntegerHashMap2.forEach((state, count) -> {
-					if (!result.containsKey(state))
+					if (!result.containsKey(state)) {
 						result.put(state, count);
-					else
+					}
+					else {
 						result.put(state, result.get(state) + count);
-				});
+					}
+				}
+				);
 
 				return result;
 			}
@@ -263,6 +275,7 @@ public abstract class AbstractBitInventory implements IBitInventory
 				}
 
 				return false;
-			});
+			}
+			);
 	}
 }

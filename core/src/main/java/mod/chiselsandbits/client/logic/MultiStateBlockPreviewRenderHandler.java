@@ -25,12 +25,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class MultiStateBlockPreviewRenderHandler
-{
+public class MultiStateBlockPreviewRenderHandler {
 	public static void renderMultiStateBlockPreview(
 		final PoseStack poseStack,
-		final MultiBufferSource.BufferSource bufferSource)
-	{
+		final MultiBufferSource.BufferSource bufferSource) {
 		final HitResult rayTraceResult = Minecraft.getInstance().hitResult;
 		if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS)
 
@@ -85,8 +83,7 @@ public class MultiStateBlockPreviewRenderHandler
 		if (forceWireframe
 			|| (placementResult.isSuccess() && success.isWireframe())
 			|| (!placementResult.isSuccess() && failure.isWireframe())
-			|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth))
-		{
+			|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
 			renderWireFrame(poseStack, bufferSource, playerEntity, heldStack, wireframeItem, blockRayTraceResult, targetedRenderPos, placementResult.getColor(), ignoreDepth);
 		}
 	}
@@ -100,8 +97,7 @@ public class MultiStateBlockPreviewRenderHandler
 		final BlockHitResult blockRayTraceResult,
 		final Vec3 targetedRenderPos,
 		final Vector4f color,
-		final boolean ignoreDepth)
-	{
+		final boolean ignoreDepth) {
 		final VoxelShape wireFrame = wireframeItem.getWireFrame(heldStack, playerEntity, blockRayTraceResult);
 
 		ChiseledBlockWireframeRenderer.getInstance().renderShape(
@@ -121,8 +117,7 @@ public class MultiStateBlockPreviewRenderHandler
 		final PlacementResult placementResult,
 		final PlacementPreviewRenderMode success,
 		final PlacementPreviewRenderMode failure,
-		final boolean ignoreDepth)
-	{
+		final boolean ignoreDepth) {
 		final ItemStack renderStack;
 		if (heldStack.getItem() instanceof final IPatternItem patternItem)
 

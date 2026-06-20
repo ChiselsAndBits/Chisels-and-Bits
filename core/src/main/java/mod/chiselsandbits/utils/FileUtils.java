@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class FileUtils
-{
+public class FileUtils {
 	private FileUtils()
 
 	{

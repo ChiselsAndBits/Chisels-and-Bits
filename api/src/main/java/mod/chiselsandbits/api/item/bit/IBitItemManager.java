@@ -7,8 +7,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * A manager which deals with items for bits.
  */
-public interface IBitItemManager
-{
+public interface IBitItemManager {
 	static IBitItemManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBitItemManager();
 	}

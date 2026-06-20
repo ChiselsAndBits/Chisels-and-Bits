@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents something which supports the sealing of itemstacks.
  */
-public interface ISupportsSealing
-{
+public interface ISupportsSealing {
 	/**
      * Performs the sealing operation on the given itemstack.
      *

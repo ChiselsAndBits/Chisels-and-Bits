@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.item.multistate.IStatistics;
 /**
  * Represents a single block axis aligned area accessor
  */
-public interface ISingleBlockAxisAlignedAreaAccessor extends IAreaAccessor
-{
+public interface ISingleBlockAxisAlignedAreaAccessor extends IAreaAccessor {
 	/**
      * The statistics of the itemstack.
      *

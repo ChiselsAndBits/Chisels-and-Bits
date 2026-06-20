@@ -7,8 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
-public class MeasurementNetworkUtil
-{
+public class MeasurementNetworkUtil {
 	private MeasurementNetworkUtil()
 
 	{

@@ -13,8 +13,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.ItemLike;
 
 @SuppressWarnings("unused")
-public abstract class AbstractRecipeGenerator extends RecipeProvider
-{
+public abstract class AbstractRecipeGenerator extends RecipeProvider {
 	private final ItemLike itemProvider;
 
 	public AbstractRecipeGenerator(HolderLookup.Provider registries, RecipeOutput output, ItemLike itemProvider) {

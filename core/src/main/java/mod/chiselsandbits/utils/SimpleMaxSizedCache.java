@@ -1,6 +1,8 @@
 package mod.chiselsandbits.utils;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.IntSupplier;
@@ -9,8 +11,7 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.Validate;
 
-public class SimpleMaxSizedCache<K, V>
-{
+public class SimpleMaxSizedCache<K, V> {
 	private final Map<K, V> cache = new ConcurrentHashMap<>();
 	private final Queue<K> keyQueue = new ConcurrentLinkedQueue<>();
 

@@ -8,8 +8,7 @@ import net.minecraft.world.phys.Vec3;
  * Functional callback interface for setting the state of a bit.
  */
 @FunctionalInterface
-public interface StateSetter
-{
+public interface StateSetter {
 	/**
      * Sets the block information of the targeted bit to the given block information.
      *

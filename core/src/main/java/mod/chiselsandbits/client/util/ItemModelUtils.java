@@ -25,8 +25,7 @@ import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemModelUtils
-{
+public class ItemModelUtils {
 	public static Supplier<Vector3fc[]> redirectExtendsTo(
 		ItemStack stack,
 		ItemModel model,
@@ -40,7 +39,8 @@ public class ItemModelUtils
 			final List<Vector3f> vectors = new ArrayList<>();
 			renderState.visitExtents(v -> vectors.add(new Vector3f(v)));
 			return vectors.toArray(Vector3f[]::new);
-		};
+		}
+		;
 	}
 
 	public static ItemStackRenderState update(

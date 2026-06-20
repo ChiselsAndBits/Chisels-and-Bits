@@ -4,8 +4,7 @@ import mod.chiselsandbits.registrars.ModItems;
 
 import net.minecraft.world.item.ItemStack;
 
-public class UpgradeUtils
-{
+public class UpgradeUtils {
 	private UpgradeUtils()
 
 	{

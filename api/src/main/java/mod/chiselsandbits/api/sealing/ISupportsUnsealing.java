@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents something which supports the unsealing of itemstacks.
  */
-public interface ISupportsUnsealing
-{
+public interface ISupportsUnsealing {
 	/**
      * Performs the unsealing operation on the given itemstack.
      *

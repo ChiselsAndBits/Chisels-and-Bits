@@ -1,7 +1,5 @@
 package mod.chiselsandbits.api.util;
 
-import java.util.Random;
-
 import org.joml.Vector4f;
 
 import net.minecraft.core.BlockPos;
@@ -10,8 +8,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
-public class VectorUtils
-{
+public class VectorUtils {
 	public final static double DEG_TO_RAD_FACTOR = (2*Math.PI) / 360d;
 	public static final Vec3 ONE = new Vec3(1,1,1);
 
@@ -64,8 +61,9 @@ public class VectorUtils
 
 	public static Vec3 scaleToOne(final Vec3 v) {
 		final double maxSize = Math.abs(getMaximalComponent(v));
-		if (MathUtil.almostEqual(maxSize, 0))
+		if (MathUtil.almostEqual(maxSize, 0)) {
 			return Vec3.ZERO;
+		}
 
 		final double scale = 1 / maxSize;
 

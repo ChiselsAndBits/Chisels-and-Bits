@@ -10,8 +10,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public final class ModChiselModeGroups
-{
+public final class ModChiselModeGroups {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public static IToolModeGroup CUBED = new IToolModeGroup()
@@ -32,7 +31,8 @@ public final class ModChiselModeGroups
 				"chiselmode.cubed"
 			);
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup()
 
@@ -52,7 +52,8 @@ public final class ModChiselModeGroups
 				"chiselmode.snap"
 			);
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup LINE = new IToolModeGroup()
 
@@ -72,7 +73,8 @@ public final class ModChiselModeGroups
 				"chiselmode.line"
 			);
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup PLANE = new IToolModeGroup()
 
@@ -92,7 +94,8 @@ public final class ModChiselModeGroups
 				"chiselmode.plane"
 			);
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup SPHERE = new IToolModeGroup()
 
@@ -112,7 +115,8 @@ public final class ModChiselModeGroups
 				"chiselmode.sphere"
 			);
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup()
 
@@ -130,7 +134,8 @@ public final class ModChiselModeGroups
 		{
 			return LocalStrings.ChiselModeConnectedPlane.getText();
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup()
 
@@ -148,7 +153,8 @@ public final class ModChiselModeGroups
 		{
 			return LocalStrings.ChiselModeConnectedMaterial.getText();
 		}
-	};
+	}
+	;
 
 	public static IToolModeGroup DRAW = new IToolModeGroup()
 
@@ -166,7 +172,8 @@ public final class ModChiselModeGroups
 		{
 			return LocalStrings.ChiselModeDrawnCube.getText();
 		}
-	};
+	}
+	;
 
 	private ModChiselModeGroups()
 

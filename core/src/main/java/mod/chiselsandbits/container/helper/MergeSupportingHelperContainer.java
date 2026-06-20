@@ -7,8 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class MergeSupportingHelperContainer extends AbstractContainerMenu
-{
+public class MergeSupportingHelperContainer extends AbstractContainerMenu {
 	private final int slotCount;
 
 	public MergeSupportingHelperContainer(int slotCount)

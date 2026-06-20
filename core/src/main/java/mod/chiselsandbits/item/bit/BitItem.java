@@ -57,8 +57,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.phys.Vec3;
 
-public class BitItem extends Item implements IChiselingItem, IBitItem, IDocumentableItem
-{
+public class BitItem extends Item implements IChiselingItem, IBitItem, IDocumentableItem {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private final List<ItemStack> availableBitStacks = Lists.newLinkedList();
@@ -77,8 +76,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final InteractionHand hand,
 		final BlockPos position,
 		final Direction face,
-		final ClickProcessingState currentState)
-	{
+		final ClickProcessingState currentState) {
 		return handleClickProcessing(playerEntity, hand, currentState, ChiselingOperation.CHISELING, IChiselMode::onLeftClickBy);
 	}
 
@@ -103,7 +101,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -163,8 +162,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		final IChiselMode mode = getMode(stack);
 		if (mode.getGroup().isPresent())
 
@@ -181,7 +179,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final BlockInformation blockInformation = getBlockInformation(stack);
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			IClientStateVariantManager.getInstance().appendHoverText(blockInformation, context, tooltipDisplay, tooltipAdder, flag);
-		});
+		}
+		);
 
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 	}
@@ -213,8 +212,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final InteractionHand hand,
 		final BlockPos position,
 		final Direction face,
-		final ClickProcessingState currentState)
-	{
+		final ClickProcessingState currentState) {
 		return handleClickProcessing(playerEntity, hand, currentState, ChiselingOperation.PLACING, IChiselMode::onRightClickBy);
 	}
 
@@ -239,7 +237,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
 			}
-		});
+		}
+		);
 	}
 
 	private ClickProcessingState handleClickProcessing(
@@ -247,8 +246,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final InteractionHand hand,
 		final ClickProcessingState currentState,
 		final ChiselingOperation modeOfOperation,
-		final ChiselModeInteractionCallback callback)
-	{
+		final ChiselModeInteractionCallback callback) {
 		final ItemStack itemStack = playerEntity.getItemInHand(hand);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
 
@@ -407,8 +405,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		final PoseStack matrixStack,
 		final MultiBufferSource.BufferSource bufferSource,
 		final LevelRenderState levelRenderState,
-		final float partialTicks)
-	{
+		final float partialTicks) {
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 		if (itemStack.isEmpty() || itemStack.getItem() != this)
 
@@ -473,8 +470,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				final IChiselingContext placingContext = potentialPlacingContext.get();
 				if (placingContext.getMode() == chiselMode && potentialPlacingContext.get()
 					.getMode()
-					.isStillValid(playerEntity, potentialPlacingContext.get(), ChiselingOperation.PLACING))
-				{
+					.isStillValid(playerEntity, potentialPlacingContext.get(), ChiselingOperation.PLACING)) {
 					IChiselContextPreviewRendererRegistry.getInstance()
 						.getCurrent()
 						.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
@@ -492,8 +488,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		else if (potentialPlacingContext.isPresent() && potentialPlacingContext.get().getMode() == chiselMode && chiselMode.isStillValid(playerEntity,
 			potentialPlacingContext.get(),
-			ChiselingOperation.PLACING))
-		{
+			ChiselingOperation.PLACING)) {
 			final IChiselingContext context = potentialPlacingContext.get();
 
 			IChiselContextPreviewRendererRegistry.getInstance()
@@ -574,7 +569,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				}
 
 				return ((IBitItem) stack.getItem()).getBlockInformation(stack);
-			}));
+			}
+			));
 		}
 	}
 }

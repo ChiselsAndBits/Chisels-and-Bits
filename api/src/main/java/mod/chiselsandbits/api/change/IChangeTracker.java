@@ -13,8 +13,7 @@ import java.util.Map;
  * The change tracker for tracking changes to bit blocks.
  * Currently still work in progress.
  */
-public interface IChangeTracker extends IChangeHandler
-{
+public interface IChangeTracker extends IChangeHandler {
 	/**
      * Invoked when a chiseled block is updated from one state to the next.
      *

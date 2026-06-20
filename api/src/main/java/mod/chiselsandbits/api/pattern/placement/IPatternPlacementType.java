@@ -17,8 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * Presents a way placing a pattern in the world.
  */
-public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<IToolModeGroup>, IPlacementProperties
-{
+public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<IToolModeGroup>, IPlacementProperties {
 	/**
      * Used to build a voxelshape for rendering in the preview.
      *

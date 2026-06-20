@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.notifications.INotification;
 import mod.chiselsandbits.api.notifications.INotificationManager;
 import mod.chiselsandbits.client.screens.components.toasts.ChiselsAndBitsNotificationToast;
 
-public final class NotificationManager implements INotificationManager
-{
+public final class NotificationManager implements INotificationManager {
 	private static final NotificationManager INSTANCE = new NotificationManager();
 
 	public static NotificationManager getInstance()

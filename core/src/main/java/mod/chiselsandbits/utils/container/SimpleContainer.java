@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -22,8 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class SimpleContainer implements Container, Serializable.Registry<SimpleContainer>
-{
+public class SimpleContainer implements Container, Serializable.Registry<SimpleContainer> {
 	public static final Codec<SimpleContainer> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).forGetter(SimpleContainer::slots)

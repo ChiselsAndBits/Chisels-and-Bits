@@ -1,10 +1,8 @@
 package mod.chiselsandbits.api.config;
 
-import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
-public interface ICommonConfiguration
-{
+public interface ICommonConfiguration {
 	/**
      * The common configuration.
      * Elements in this configuration are relevant for both the server and the client side of C{@literal &}B.

@@ -9,8 +9,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public final class ModCuttingOperationGroups
-{
+public final class ModCuttingOperationGroups {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public static IModificationOperationGroup ACROSS_AXIS = new IModificationOperationGroup()
@@ -29,7 +28,8 @@ public final class ModCuttingOperationGroups
 		{
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
-	};
+	}
+	;
 	public static IModificationOperationGroup ALL_AXI     = new IModificationOperationGroup()
 
 	{
@@ -46,7 +46,8 @@ public final class ModCuttingOperationGroups
 		{
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
-	};
+	}
+	;
 
 	private ModCuttingOperationGroups()
 

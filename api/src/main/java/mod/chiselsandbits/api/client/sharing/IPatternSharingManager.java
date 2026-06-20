@@ -8,8 +8,7 @@ import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
  * Central manager which handles sharing of patterns.
  * This manager only works on the client side, and does nothing on the server side.
  */
-public interface IPatternSharingManager
-{
+public interface IPatternSharingManager {
 	static IPatternSharingManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getPatternSharingManager();
 	}

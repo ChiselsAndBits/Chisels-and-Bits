@@ -1,16 +1,13 @@
 package mod.chiselsandbits.chiseling.eligibility;
 
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.core.BlockPos;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
 
-public class EligibilityExplosion implements Explosion
-{
+public class EligibilityExplosion implements Explosion {
 	private static final EligibilityExplosion INSTANCE = new EligibilityExplosion();
 
 	public static EligibilityExplosion getInstance() {

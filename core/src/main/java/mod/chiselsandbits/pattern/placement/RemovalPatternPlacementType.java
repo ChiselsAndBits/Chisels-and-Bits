@@ -44,8 +44,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType
-{
+public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
 	  final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
@@ -116,7 +115,8 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-				})
+				}
+				)
 		  .allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported)
@@ -136,7 +136,8 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 				.filter(os -> !os.getBlockInformation().isAir())
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
-		  })
+		  }
+		  )
 		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 		  .filter(Optional::isPresent)
 		  .map(Optional::get)

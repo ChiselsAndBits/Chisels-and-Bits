@@ -6,8 +6,7 @@ import mod.chiselsandbits.client.item.properties.IsMeasuringItemProperty;
 
 import net.minecraft.resources.Identifier;
 
-public final class ModItemProperties
-{
+public final class ModItemProperties {
 	private ModItemProperties() {
 		throw new IllegalStateException("Can not instantiate an instance of: ItemProperties. This is a utility class");
 	}
@@ -18,6 +17,7 @@ public final class ModItemProperties
 				Identifier.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"),
 				IsMeasuringItemProperty.CODEC
 			);
-		});
+		}
+		);
 	}
 }

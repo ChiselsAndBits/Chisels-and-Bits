@@ -9,8 +9,7 @@ import mod.chiselsandbits.api.config.IServerConfiguration;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.util.constants.Constants;
 
-public class ServerConfiguration implements IServerConfiguration
-{
+public class ServerConfiguration implements IServerConfiguration {
 	private final Supplier<Boolean> blockListRandomTickingBlocks;
 	private final Supplier<Boolean> compatibilityMode;
 	private final Supplier<Integer>        bagStackSize;
@@ -68,7 +67,8 @@ public class ServerConfiguration implements IServerConfiguration
 			} catch (Exception ignored) {
 				return StateEntrySize.ONE_SIXTEENTH;
 			}
-		};
+		}
+		;
 	}
 
 	@Override

@@ -4,8 +4,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 
-public interface IMutableStateEntryInfo extends IStateEntryInfo
-{
+public interface IMutableStateEntryInfo extends IStateEntryInfo {
 	/**
      * Sets the current entries block information.
      *

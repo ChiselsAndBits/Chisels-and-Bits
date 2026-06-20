@@ -23,8 +23,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implements IChiselContextPreviewRenderer
-{
+public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implements IChiselContextPreviewRenderer {
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "default");
 
 	@Override
@@ -41,8 +40,7 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 		final MultiBufferSource.BufferSource bufferSource,
 		final LevelRenderState levelRenderState,
 		final float partialTicks,
-		final IChiselingContext currentContextSnapshot)
-	{
+		final IChiselingContext currentContextSnapshot) {
 		if (currentContextSnapshot.getMutator().isEmpty())
 
 		{

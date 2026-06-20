@@ -16,8 +16,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class ModificationRecipesUpdated extends ModPacket
-{
+public class ModificationRecipesUpdated extends ModPacket {
 	public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "modification_recipes_updated");
 	public static final CustomPacketPayload.Type<ModificationRecipesUpdated> TYPE = new CustomPacketPayload.Type<>(ID);
 

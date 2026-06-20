@@ -16,8 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class VoxelShapeManager implements IVoxelShapeManager
-{
+public class VoxelShapeManager implements IVoxelShapeManager {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final VoxelShapeManager INSTANCE = new VoxelShapeManager();
 
@@ -53,11 +52,13 @@ public class VoxelShapeManager implements IVoxelShapeManager
 		return cache.get(cacheKey,
 		  () -> {
 			final VoxelShape calculatedShape = VoxelShapeCalculator.calculate(accessor, offset, sizeType, simplify);
-			if (calculatedShape.isEmpty())
+			if (calculatedShape.isEmpty()) {
 				return Shapes.empty();
+			}
 
 			return calculatedShape;
-		});
+		}
+		);
 	}
 
 	@Override

@@ -1,27 +1,21 @@
 package mod.chiselsandbits.client.ister;
 
-import java.util.Set;
 import java.util.function.Consumer;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.joml.Vector3fc;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState>
-{
+public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState> {
 	public BitStorageISTER()
 
 	{
@@ -31,14 +25,13 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 
 	@Override
 	public void submit(
-		@Nullable final BitStorageISTER.@NotNull RenderState argument,
+		final BitStorageISTER.@NotNull RenderState argument,
 		final PoseStack poseStack,
-		final SubmitNodeCollector submitNodeCollector,
+		final @NonNull SubmitNodeCollector submitNodeCollector,
 		final int lightCoords,
 		final int overlayCoords,
 		final boolean hasFoil,
-		final int outlineColor)
-	{
+		final int outlineColor) {
 		poseStack.pushPose();
 
 		assert argument != null;

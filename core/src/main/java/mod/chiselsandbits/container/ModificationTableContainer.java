@@ -34,8 +34,7 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
-public class ModificationTableContainer extends AbstractContainerMenu
-{
+public class ModificationTableContainer extends AbstractContainerMenu {
 	private final ContainerLevelAccess                        worldPosCallable;
 	private final DataSlot                                    selectedRecipe          = DataSlot.standalone();
 	private final Level                                       world;
@@ -56,7 +55,8 @@ public class ModificationTableContainer extends AbstractContainerMenu
 			ModificationTableContainer.this.slotsChanged(this);
 			ModificationTableContainer.this.inventoryUpdateListener.run();
 		}
-	};
+	}
+	;
 	private final ResultContainer                             inventory               = new ResultContainer();
 
 	public ModificationTableContainer(int windowIdIn, Inventory playerInventoryIn)
@@ -104,10 +104,12 @@ public class ModificationTableContainer extends AbstractContainerMenu
 						p_216954_1_.playSound(null, p_216954_2_, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
 						ModificationTableContainer.this.lastOnTake = l;
 					}
-				});
+				}
+				);
 				super.onTake(thePlayer, stack);
 			}
-		});
+		}
+		);
 
 		for (int i = 0; i < 3; ++i)
 
@@ -309,8 +311,7 @@ public class ModificationTableContainer extends AbstractContainerMenu
 			else if (this.world.getServer() != null && this.world.getServer()
 				.getRecipeManager()
 				.getRecipeFor(ModRecipeTypes.MODIFICATION_TABLE.get(), CraftingInput.of(1, 1, List.of(inputItemStack)), this.world)
-				.isPresent())
-			{
+				.isPresent()) {
 				if (!this.moveItemStackTo(itemstack1, 0, 1, false))
 
 				{

@@ -6,8 +6,7 @@ import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 
 import net.minecraft.world.item.ItemStack;
 
-public class MultiStateItemFactory implements IMultiStateItemFactory
-{
+public class MultiStateItemFactory implements IMultiStateItemFactory {
 	private static final MultiStateItemFactory INSTANCE = new MultiStateItemFactory();
 
 	private MultiStateItemFactory()
@@ -31,8 +30,9 @@ public class MultiStateItemFactory implements IMultiStateItemFactory
 	public ItemStack createBlockFrom(final IStateEntryInfo stateEntryInfo)
 
 	{
-		if (stateEntryInfo.getBlockInformation().isAir())
+		if (stateEntryInfo.getBlockInformation().isAir()) {
 			return ItemStack.EMPTY;
+		}
 
 		return IBitItemManager.getInstance().create(stateEntryInfo.getBlockInformation());
 	}

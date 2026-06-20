@@ -15,8 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
 
-public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
-{
+public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget {
 	public static final int BUTTON_COUNT      = 3;
 	public static final int WIDTH             = 18;
 	public static final int ELEMENT_SEPARATOR = 3;
@@ -101,13 +100,16 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget
 	public void updateState() {
 		final IChangeTracker changeTracker = IChangeTrackerManager.getInstance().getChangeTracker(Minecraft.getInstance().player);
 
-		if (this.undoButton != null)
+		if (this.undoButton != null) {
 			this.undoButton.active = changeTracker.canUndo(Minecraft.getInstance().player);
+		}
 
-		if (this.redoButton != null)
+		if (this.redoButton != null) {
 			this.redoButton.active = changeTracker.canRedo(Minecraft.getInstance().player);
+		}
 
-		if (this.clearButton != null)
+		if (this.clearButton != null) {
 			this.clearButton.active = !changeTracker.getChanges().isEmpty();
+		}
 	}
 }

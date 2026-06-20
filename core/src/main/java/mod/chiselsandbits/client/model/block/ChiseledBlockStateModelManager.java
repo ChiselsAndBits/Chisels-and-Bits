@@ -1,7 +1,6 @@
 package mod.chiselsandbits.client.model.block;
 
 import java.util.List;
-
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -16,15 +15,13 @@ import mod.chiselsandbits.components.data.MultiStateItemStackData;
 import mod.chiselsandbits.profiling.ProfilingManager;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
-public class ChiseledBlockStateModelManager
-{
+public class ChiseledBlockStateModelManager {
 	private static final ChiseledBlockStateModelManager INSTANCE = new ChiseledBlockStateModelManager();
 
 	private final SimpleMaxSizedCache<ChiseledBlockModelCacheKey, ChiseledBlockModelInformation> cache = new SimpleMaxSizedCache<>(
@@ -52,12 +49,14 @@ public class ChiseledBlockStateModelManager
 		ItemStack stack
 	) {
 		final MultiStateItemStackData data = stack.get(ModDataComponentTypes.MULTI_STATE_ITEM_STACK_DATA.get());
-		if (data == null)
+		if (data == null) {
 			return ChiseledBlockModelInformation.EMPTY;
+		}
 
 		final IMultiStateSnapshot multiStateSnapshot = data.asSnapshot();
-		if (!(multiStateSnapshot instanceof ISingleBlockAxisAlignedAreaAccessor singleBlockSnapshot))
+		if (!(multiStateSnapshot instanceof ISingleBlockAxisAlignedAreaAccessor singleBlockSnapshot)) {
 			return ChiseledBlockModelInformation.EMPTY;
+		}
 
 		final BlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
 			.withBlockState(Blocks.AIR.defaultBlockState())
@@ -117,7 +116,8 @@ public class ChiseledBlockStateModelManager
 							blockPos
 						).build();
 					}
-				});
+				}
+				);
 		}
 	}
 }

@@ -1,12 +1,10 @@
 package mod.chiselsandbits.client.model.data;
 
 import java.util.Objects;
-
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-public class ChiseledBlockModelDataManager
-{
+public class ChiseledBlockModelDataManager {
 	private static final Runnable NOOP = () -> {};
 	private static final ChiseledBlockModelDataManager INSTANCE = new ChiseledBlockModelDataManager();
 

@@ -4,8 +4,7 @@ import java.util.function.Predicate;
 
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BlockStatePredicates
-{
+public class BlockStatePredicates {
 	private BlockStatePredicates()
 
 	{
@@ -35,7 +34,8 @@ public class BlockStatePredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 
 	public static final Predicate<BlockState> ALL = new Predicate<>()
 
@@ -60,7 +60,8 @@ public class BlockStatePredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 
 	public static final Predicate<BlockState> COLLIDEABLE_ONLY = new Predicate<>()
 
@@ -85,5 +86,6 @@ public class BlockStatePredicates
 		{
 			return obj == this;
 		}
-	};
+	}
+	;
 }

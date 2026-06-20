@@ -12,8 +12,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-public final class ChangeTrackerUpdatedPacket extends ModPacket
-{
+public final class ChangeTrackerUpdatedPacket extends ModPacket {
 	public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "change_tracker_updated");
 	public static final CustomPacketPayload.Type<ChangeTrackerUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 

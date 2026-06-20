@@ -9,8 +9,7 @@ import java.util.Map;
 /**
  * Represents an inventory in which bits are contained.
  */
-public interface IBitInventory
-{
+public interface IBitInventory {
 	/**
      * Checks if it is possible to extract exactly one bit with the given block information from
      * the current inventory.
@@ -140,8 +139,9 @@ public interface IBitInventory
 	default ItemStack insert(final ItemStack stack)
 
 	{
-		if (!(stack.getItem() instanceof final IBitItem bitItem))
+		if (!(stack.getItem() instanceof final IBitItem bitItem)) {
 			return stack;
+		}
 
 		final BlockInformation blockInformation = bitItem.getBlockInformation(stack);
 

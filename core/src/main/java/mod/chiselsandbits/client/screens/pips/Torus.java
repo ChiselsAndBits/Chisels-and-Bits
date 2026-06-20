@@ -3,17 +3,15 @@ package mod.chiselsandbits.client.screens.pips;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 
-public class Torus extends PictureInPictureRenderer<Torus.RenderState>
-{
+public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 	private static final float DRAWS = 720;
 
 	public record RenderState(
@@ -27,14 +25,12 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
 		int x1,
 		int y1,
 		@Nullable ScreenRectangle scissorArea,
-		@Nullable ScreenRectangle bounds) implements PictureInPictureRenderState
-	{
+		@Nullable ScreenRectangle bounds) implements PictureInPictureRenderState {
 		public RenderState(
 			final float startAngle, final float sizeAngle,
 			final float inner, final float outer, final int color,
 			final int centerX, final int centerY,
-			@Nullable final ScreenRectangle scissorArea)
-		{
+			@Nullable final ScreenRectangle scissorArea) {
 			this(
 				startAngle,sizeAngle,
 				inner,outer,color,
@@ -47,8 +43,7 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState>
 			final float startAngle, final float sizeAngle,
 			final float inner, final float outer, final int color,
 			final ScreenRectangle bounds,
-			@Nullable final ScreenRectangle scissorArea)
-		{
+			@Nullable final ScreenRectangle scissorArea) {
 			this(
 				startAngle,
 				sizeAngle,

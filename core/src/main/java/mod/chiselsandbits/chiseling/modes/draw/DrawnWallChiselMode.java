@@ -67,7 +67,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		return switch (hitDirection) {
 			case DOWN, NORTH, SOUTH -> Direction.Axis.X;
 			case UP, WEST, EAST -> Direction.Axis.Z;
-		};
+		}
+		;
 	}
 
 	private static Vec3i getOffsetPosition(final Vec3i source, final int offset, Direction.Axis axis) {
@@ -75,7 +76,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			case X -> new Vec3i(source.getX() + offset, source.getY(), source.getZ());
 			case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
 			case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
-		};
+		}
+		;
 	}
 
 	@Override
@@ -98,8 +100,9 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		onLeftClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			try (IBatchMutation ignored =
@@ -121,7 +124,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 								state.clear();
 							}
-						});
+						}
+						);
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 						playerEntity,
@@ -129,7 +133,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 						count
 				));
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -146,8 +151,9 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		onRightClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
@@ -186,7 +192,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			if (missingBitCount == 0) {
 				context.validateBuildHeights();
 			}
-		});
+		}
+		);
 	}
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
@@ -225,7 +232,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			}
 
 			return (s) -> false;
-		});
+		}
+		);
 
 		return ClickProcessingState.ALLOW;
 	}
@@ -238,18 +246,21 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 	@Override
 	public VoxelShape getShape(final IChiselingContext context) {
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		final IWorldAreaMutator mutator = context.getMutator().get();
 
 		final Optional<Predicate<IStateEntryInfo>> filter = context.getStateFilter().map(factory -> factory.apply(mutator));
-		if (filter.isEmpty())
+		if (filter.isEmpty()) {
 			return Shapes.empty();
+		}
 
 		final Predicate<IStateEntryInfo> stateFilter = filter.get();
-		if (!(stateFilter instanceof WallAreaFilter lineAreaFilter))
+		if (!(stateFilter instanceof WallAreaFilter lineAreaFilter)) {
 			return Shapes.empty();
+		}
 
 		final BlockPos offset = VectorUtils.invert(mutator.getInWorldStartBlockPoint());
 
@@ -272,7 +283,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 							min.x(), min.y(), min.z(),
 							max.x(), max.y(), max.z()
 					);
-				})
+				}
+				)
 				.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
 	}
 
@@ -332,7 +344,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 						}
 
 						return builder.build();
-					})
+					}
+					)
 					.collect(Collectors.toList());
 		}
 

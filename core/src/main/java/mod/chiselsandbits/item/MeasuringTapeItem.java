@@ -37,8 +37,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
-{
+public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 	public MeasuringTapeItem(final Properties properties)
 
 	{
@@ -57,11 +56,13 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 	public void setMode(final ItemStack stack, final IMeasuringMode mode)
 
 	{
-		if (mode == null)
+		if (mode == null) {
 			throw new IllegalArgumentException("Mode is null");
+		}
 
-		if (!(mode instanceof MeasuringMode m))
+		if (!(mode instanceof MeasuringMode m)) {
 			throw new IllegalArgumentException("Mode is not of a known type: " + mode.getClass());
+		}
 
 		stack.set(ModDataComponentTypes.MEASURING_MODE.get(), m);
 	}
@@ -129,16 +130,18 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 		return result;
 	}
 
-	public void clientTick(final ItemStack stack, final Level level, final Entity entity)
-   {
-		if (!level.isClientSide())
+	public void clientTick(final ItemStack stack, final Level level, final Entity entity) {
+		if (!level.isClientSide()) {
 			return;
+		}
 
-		if (!(entity instanceof final Player playerEntity))
+		if (!(entity instanceof final Player playerEntity)) {
 			return;
+		}
 
-		if (stack.getItem() != this)
+		if (stack.getItem() != this) {
 			return;
+		}
 
 		final Optional<Vec3> startPointHandler = getStart(stack);
 
@@ -196,8 +199,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 		final TooltipContext context,
 		final TooltipDisplay tooltipDisplay,
 		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag)
-	{
+		final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			if (KeyBindingManager.getInstance().hasBeenInitialized()) {
@@ -209,6 +211,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem
 				  KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
 				);
 			}
-		  });
+		  }
+		  );
 	}
 }

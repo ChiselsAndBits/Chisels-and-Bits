@@ -4,8 +4,7 @@ import java.util.Optional;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 
-public interface IAdaptingBitInventoryManager
-{
+public interface IAdaptingBitInventoryManager {
 	static IAdaptingBitInventoryManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getAdaptingBitInventoryManager();
 	}

@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 
-public final class PermissionHandler implements IPermissionHandler
-{
+public final class PermissionHandler implements IPermissionHandler {
 	private static final PermissionHandler INSTANCE = new PermissionHandler();
 
 	public static PermissionHandler getInstance()
@@ -39,7 +38,8 @@ public final class PermissionHandler implements IPermissionHandler
 			{
 				checkers.remove(this);
 			}
-		};
+		}
+		;
 
 		checkers.put(registration, checker);
 
@@ -51,8 +51,9 @@ public final class PermissionHandler implements IPermissionHandler
 	  final @NotNull Player player, final IWorldAreaAccessor worldAreaAccessor)
 
 	{
-		if (checkers.size() == 0)
+		if (checkers.size() == 0) {
 			return true;
+		}
 
 		return checkers.values().stream().allMatch(c -> c.isAllowed(player, worldAreaAccessor));
 	}

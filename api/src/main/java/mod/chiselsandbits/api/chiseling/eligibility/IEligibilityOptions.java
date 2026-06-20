@@ -5,8 +5,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 /**
  * Determines the additional eligibility options for a given platform.
  */
-public interface IEligibilityOptions
-{
+public interface IEligibilityOptions {
 	/**
      * The eligibility manager that is active for the current platform.
      * Allows for the modification of the eligibility analysis on the given platform.

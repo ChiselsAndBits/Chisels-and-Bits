@@ -13,8 +13,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 
-public class ModBlockTagGenerator extends BlockTagsProvider
-{
+public class ModBlockTagGenerator extends BlockTagsProvider {
 	public ModBlockTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, lookupProvider, Constants.MOD_ID);
 	}

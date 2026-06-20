@@ -38,8 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements IChiselMode
-{
+public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
 	private final Identifier       iconName;
@@ -74,13 +73,13 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 		onLeftClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			try (IBatchMutation ignored =
-				   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-			{
+				   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
 				mutator.inWorldMutableStream()
@@ -94,7 +93,8 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 
 						  state.clear();
 					  }
-				  });
+				  }
+				  );
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 				  playerEntity,
@@ -102,7 +102,8 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 				  count
 				));
 			}
-		});
+		}
+		);
 	}
 
 	@Override
@@ -123,8 +124,9 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 		onRightClickBy(playerEntity, context);
 		context.setComplete();
 
-		if (context.isSimulation())
+		if (context.isSimulation()) {
 			return;
+		}
 
 		context.getMutator().ifPresent(mutator -> {
 			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
@@ -151,8 +153,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 				}
 
 				try (IBatchMutation ignored =
-					   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-				{
+					   mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 					mutator.inWorldMutableStream()
 					  .filter(state -> state.getBlockInformation().isAir())
 					  .forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
@@ -170,7 +171,8 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 			{
 				context.validateBuildHeights();
 			}
-		});
+		}
+		);
 	}
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
@@ -208,8 +210,9 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 	public VoxelShape getShape(final IChiselingContext context)
 
 	{
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
+		}
 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}

@@ -6,18 +6,17 @@ import mod.chiselsandbits.client.render.MeasurementRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 
-public class MeasurementsRenderHandler
-{
+public class MeasurementsRenderHandler {
 	public static void renderMeasurements(
 		final PoseStack poseStack,
 		final MultiBufferSource.BufferSource bufferSource,
-		final float partialTickTime)
-	{
-		if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isSpectator())
+		final float partialTickTime) {
+		if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isSpectator()) {
 			MeasurementRenderer.getInstance().renderMeasurements(
 				poseStack,
 				bufferSource,
 				partialTickTime
 			);
+		}
 	}
 }

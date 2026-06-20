@@ -23,8 +23,7 @@ import java.util.Optional;
  * <p>
  *     Has to be immutable as it is used in data components.
  */
-public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGroup>
-{
+public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGroup> {
 	/**
      * The default mode of the chisel or bit.
      * @return The default mode.
@@ -129,11 +128,13 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 			onRightClickBy(playerEntity, snapshot);
 		}
 
-		if (snapshot.getMutator().isEmpty())
+		if (snapshot.getMutator().isEmpty()) {
 			return context.getMutator().isEmpty();
+		}
 
-		if (context.getMutator().isEmpty())
+		if (context.getMutator().isEmpty()) {
 			return false;
+		}
 
 		return context.getMutator().get().getInWorldBoundingBox().equals(snapshot.getMutator().get().getInWorldBoundingBox());
 	}
