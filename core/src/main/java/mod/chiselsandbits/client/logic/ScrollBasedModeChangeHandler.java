@@ -19,6 +19,7 @@ public class ScrollBasedModeChangeHandler {
 		}
 
 		final ItemStack stack = ItemStackUtils.getModeItemStackFromPlayer(Minecraft.getInstance().player);
+
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -47,6 +48,7 @@ public class ScrollBasedModeChangeHandler {
 		if (workingIndex < 0) {
 			workingIndex = modes.size() + workingIndex;
 		}
+
 		else if (workingIndex >= modes.size())
 			workingIndex -= modes.size();
 

@@ -43,6 +43,7 @@ public class BitInventoryUtils {
 		inventory.insert(blockState, insertionCount);
 
 		int leftOverCount = count - insertionCount;
+
 		if (leftOverCount <= 0) {
 			return;
 		}
@@ -50,6 +51,7 @@ public class BitInventoryUtils {
 		if (!IServerConfiguration.getInstance().getDeleteExcessBits().get()) {
 			while(leftOverCount > 0) {
 				final int spawnCount = Math.min(ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize(), leftOverCount);
+
 				if (spawnCount <= 0) {
 					break;
 				}

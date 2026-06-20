@@ -310,12 +310,14 @@ public class ChiselingContext implements IChiselingContext {
 				broken.set(true);
 
 				EquipmentSlot hand = EquipmentSlot.MAINHAND;
+
 				if (playerEntity.getOffhandItem() == causingItemStack) {
 					hand = EquipmentSlot.OFFHAND;
 				}
 
 				player.onEquippedItemBroken(item, hand);
 			}
+
 			);
 		}
 
@@ -355,6 +357,7 @@ public class ChiselingContext implements IChiselingContext {
 
 	{
 		final Object value = this.metadataKeyMap.get(key);
+
 		if (value == null) {
 			return Optional.empty();
 		}

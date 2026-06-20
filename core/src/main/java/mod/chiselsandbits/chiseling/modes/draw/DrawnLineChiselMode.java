@@ -105,6 +105,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 								state.clear();
 							}
 						}
+
 						);
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
@@ -114,6 +115,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 				));
 			}
 		}
+
 		);
 	}
 
@@ -173,6 +175,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 				context.validateBuildHeights();
 			}
 		}
+
 		);
 	}
 
@@ -205,6 +208,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 			return (s) -> false;
 		}
+
 		);
 
 		return ClickProcessingState.ALLOW;
@@ -225,11 +229,13 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		final IWorldAreaMutator mutator = context.getMutator().get();
 
 		final Optional<Predicate<IStateEntryInfo>> filter = context.getStateFilter().map(factory -> factory.apply(mutator));
+
 		if (filter.isEmpty()) {
 			return Shapes.empty();
 		}
 
 		final Predicate<IStateEntryInfo> stateFilter = filter.get();
+
 		if (!(stateFilter instanceof LineAreaFilter lineAreaFilter)) {
 			return Shapes.empty();
 		}

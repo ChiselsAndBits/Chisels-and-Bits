@@ -80,6 +80,7 @@ public interface CBCodecs {
 
 							return singleVersionCodec;
 						}
+
 						),
 				fallback
 		);
@@ -104,6 +105,7 @@ public interface CBCodecs {
 
 							return versions.get(key);
 						}
+
 						),
 				fallback.codec()
 		);
@@ -135,6 +137,7 @@ public interface CBCodecs {
 						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 					}
 				}
+
 				,
 				t -> {
 					throw new IllegalStateException("Legacy compression data can not be written!");
@@ -168,6 +171,7 @@ public interface CBCodecs {
 						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 					}
 				}
+
 				,
 				t -> {
 					final NbtOps ops = NbtOps.INSTANCE;
@@ -203,6 +207,7 @@ public interface CBCodecs {
 					rMapMap.forEach((r, cMap) -> cMap.forEach((c, v) -> table.put(r, c, v)));
 					return table;
 				}
+
 				,
 				Table::rowMap
 		);
@@ -227,6 +232,7 @@ public interface CBCodecs {
 				return codec.encode(input, ops, prefix);
 			}
 		}
+
 		;
 	}
 
@@ -255,6 +261,7 @@ public interface CBCodecs {
 							prefix.add(key, nbtOps.convertTo(ops, tag));
 						}
 					}
+
 					);
 
 					return prefix;
@@ -263,6 +270,7 @@ public interface CBCodecs {
 				return codec.encode(input, ops, prefix);
 			}
 		}
+
 		;
 	}
 
@@ -287,6 +295,7 @@ public interface CBCodecs {
 					entries.forEach(entry -> map.put(entry.getKey(), entry.getValue()));
 					return map;
 				}
+
 				,
 				map -> map.entrySet().stream().map(entry -> Map.entry(entry.getKey(), entry.getValue())).toList()
 		);

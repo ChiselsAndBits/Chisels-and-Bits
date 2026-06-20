@@ -262,6 +262,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 				);
 			}
 		}
+
 		);
 
 		if (isMouseInSection && hoveredItemIndex >= 0 && hoveredItemIndex < modes.size() && modes.get(hoveredItemIndex).isActive())
@@ -328,6 +329,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 					renderModeIconAtAngle(graphics, innerRadius, outerRadius, itemTargetAngle, iconScaleFactor, iconTextSpacer, mode, fontRenderer);
 				}
 			}
+
 			);
 		} else if (modes.size() == 1) {
 			renderModeIconCentered(graphics, iconScaleFactor, iconTextSpacer, modes.getFirst(), fontRenderer);

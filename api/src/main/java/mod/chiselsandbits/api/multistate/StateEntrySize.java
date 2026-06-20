@@ -42,6 +42,7 @@ public enum StateEntrySize
 			if (IChiselsAndBitsAPI.getInstance() == null) {
 				_current = StateEntrySize.ONE_SIXTEENTH;
 			}
+
 			else {
 				_current = IChiselsAndBitsAPI.getInstance().getStateEntrySize();
 			}

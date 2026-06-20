@@ -52,12 +52,14 @@ public class VoxelShapeManager implements IVoxelShapeManager {
 		return cache.get(cacheKey,
 		  () -> {
 			final VoxelShape calculatedShape = VoxelShapeCalculator.calculate(accessor, offset, sizeType, simplify);
+
 			if (calculatedShape.isEmpty()) {
 				return Shapes.empty();
 			}
 
 			return calculatedShape;
 		}
+
 		);
 	}
 

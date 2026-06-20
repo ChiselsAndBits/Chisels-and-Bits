@@ -92,6 +92,7 @@ public class ColorUtils {
 			ARGB.blue(color) / 255f,
 			ARGB.alpha(color) / 255f
 		}
+
 		;
 	}
 }

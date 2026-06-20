@@ -37,6 +37,7 @@ public final class VoxelShapeUtils {
 			case WEST -> new AABB(box.minY, -box.minZ, -box.minX, box.maxY, -box.maxZ, -box.maxX);
 			case EAST -> new AABB(-box.minY, -box.minZ, box.minX, -box.maxY, -box.maxZ, box.maxX);
 		}
+
 		;
 	}
 
@@ -55,6 +56,7 @@ public final class VoxelShapeUtils {
 			case CLOCKWISE_180 -> new AABB(-box.minX, box.minY, -box.minZ, -box.maxX, box.maxY, -box.maxZ);
 			case COUNTERCLOCKWISE_90 -> new AABB(box.minZ, box.minY, -box.minX, box.maxZ, box.maxY, -box.maxX);
 		}
+
 		;
 	}
 
@@ -74,6 +76,7 @@ public final class VoxelShapeUtils {
 			case EAST -> rotate(box, Rotation.CLOCKWISE_90);
 			default -> box;
 		}
+
 		;
 	}
 

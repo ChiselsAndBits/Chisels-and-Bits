@@ -3,13 +3,15 @@ package mod.chiselsandbits.client.util;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
 import com.communi.suggestu.scena.core.client.models.processing.BakedQuadBuilder;
 import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
 import com.communi.suggestu.scena.core.client.models.processing.VertexData;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.client.model.face.FaceManager;
-import org.jspecify.annotations.Nullable;
 import org.joml.Vector3f;
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;

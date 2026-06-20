@@ -1,7 +1,11 @@
 package mod.chiselsandbits.api.block.storage;
 
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import com.google.common.collect.Maps;
@@ -17,7 +21,11 @@ import mod.chiselsandbits.api.multistate.mutator.IMirrorAndRotateble;
 import mod.chiselsandbits.api.serialization.CBCodecs;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import mod.chiselsandbits.api.serialization.Serializable;
-import mod.chiselsandbits.api.util.*;
+import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.ByteArrayUtils;
+import mod.chiselsandbits.api.util.IBatchMutation;
+import mod.chiselsandbits.api.util.IWithBatchableMutationSupport;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 
 import net.minecraft.core.BlockPos;
@@ -213,6 +221,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	public void fillFromBottom(final BlockInformation state, final int entries) {
 		clear();
 		final int loopCount = Math.max(0, Math.min(entries, StateEntrySize.current().getBitsPerBlock()));
+
 		if (loopCount == 0) {
 			return;
 		}
@@ -229,6 +238,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 						);
 
 						count++;
+
 						if (count == loopCount) {
 							return;
 						}
@@ -249,6 +259,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 		final var allowedCounts = (int) Math.floor(noneAirCounts * progress);
 		final var result = new StateEntryStorage();
+
 		if (allowedCounts == 0) {
 			return result;
 		}
@@ -264,6 +275,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 				{
 					final BlockInformation target = getBlockInformation(x, y, z);
+
 					if (target.isAir()) {
 						continue;
 					}
@@ -377,6 +389,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 				StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
 		}
+
 		;
 
 		ongoingBatchMutations.add(mutation);

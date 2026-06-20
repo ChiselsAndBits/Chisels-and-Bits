@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.google.common.collect.Maps;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.api.block.entity.IMultiStateBlockEntity;
@@ -16,27 +15,18 @@ import mod.chiselsandbits.api.chiseling.conversion.IConversionManager;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.inventory.bit.IBitInventory;
 import mod.chiselsandbits.api.inventory.management.IBitInventoryManager;
-import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
-import mod.chiselsandbits.api.serialization.CBCodecs;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
 import mod.chiselsandbits.utils.BitInventoryUtils;
-import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -136,12 +126,14 @@ public class BitChange implements IChange {
 		if (!(tileEntity instanceof IMultiStateBlockEntity)) {
 			BlockState currentState = player.level().getBlockState(blockPos);
 			final Optional<Block> convertedState = IConversionManager.getInstance().getChiseledVariantOf(currentState);
+
 			if (convertedState.isEmpty()) {
 				throw new IllegalChangeAttempt();
 			}
 
 			player.level().setBlock(blockPos, convertedState.get().defaultBlockState(), Block.UPDATE_ALL);
 			tileEntity = player.level().getBlockEntity(blockPos);
+
 			if (!(tileEntity instanceof IMultiStateBlockEntity)) {
 				throw new IllegalChangeAttempt();
 			}
@@ -158,6 +150,7 @@ public class BitChange implements IChange {
 				difference.put(state, count);
 			}
 		}
+
 		);
 
 		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
@@ -190,10 +183,12 @@ public class BitChange implements IChange {
 				if (diff < 0) {
 					bitInventory.extract(state, -diff);
 				}
+
 				else {
 					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
 				}
 			}
+
 			);
 		}
 	}
@@ -217,12 +212,14 @@ public class BitChange implements IChange {
 			}
 
 			final Optional<Block> convertedState = IConversionManager.getInstance().getChiseledVariantOf(currentState);
+
 			if (convertedState.isEmpty()) {
 				throw new IllegalChangeAttempt();
 			}
 
 			player.level().setBlock(blockPos, convertedState.get().defaultBlockState(), Block.UPDATE_ALL);
 			tileEntity = player.level().getBlockEntity(blockPos);
+
 			if (!(tileEntity instanceof IMultiStateBlockEntity)) {
 				throw new IllegalChangeAttempt();
 			}
@@ -239,6 +236,7 @@ public class BitChange implements IChange {
 				difference.put(state, -count);
 			}
 		}
+
 		);
 
 		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
@@ -269,10 +267,12 @@ public class BitChange implements IChange {
 				if (diff < 0) {
 					bitInventory.extract(state, -diff);
 				}
+
 				else {
 					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
 				}
 			}
+
 			);
 		}
 	}
@@ -292,6 +292,7 @@ public class BitChange implements IChange {
 				difference.put(state, count);
 			}
 		}
+
 		);
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
@@ -315,6 +316,7 @@ public class BitChange implements IChange {
 				difference.put(state, -count);
 			}
 		}
+
 		);
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);

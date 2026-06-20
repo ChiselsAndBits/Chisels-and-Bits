@@ -72,6 +72,7 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 					 case Y -> LocalStrings.PatternCuttingAcrossYAxis.getText();
 					 case Z -> LocalStrings.PatternCuttingAcrossZAxis.getText();
 				 }
+
 				 ;
 	}
 

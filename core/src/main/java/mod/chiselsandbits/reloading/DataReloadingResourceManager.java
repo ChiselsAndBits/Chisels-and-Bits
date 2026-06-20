@@ -63,6 +63,7 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 			profilerfiller.pop();
 			profilerfiller.endTick();
 		}
+
 		, applyExectutor);
 	}
 

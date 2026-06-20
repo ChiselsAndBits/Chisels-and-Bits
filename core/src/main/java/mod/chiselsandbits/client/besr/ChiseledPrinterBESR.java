@@ -9,6 +9,7 @@ import mod.chiselsandbits.client.util.ItemModelUtils;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;

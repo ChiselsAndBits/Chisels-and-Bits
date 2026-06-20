@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.client.models.processing.DeconstructedModelPartComponent;
 import com.communi.suggestu.scena.core.client.models.processing.ProtoStateModelPart;
@@ -13,6 +14,7 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidModel;
@@ -167,108 +169,132 @@ public class FaceManager {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 			case UP -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 			case NORTH -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 			case SOUTH -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 			case WEST -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 			case EAST -> {
 				builder.vertex(v -> {
 					v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
 				}
+
 				);
 				builder.vertex(v -> {
 					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
 				}
+
 				);
 			}
 		}

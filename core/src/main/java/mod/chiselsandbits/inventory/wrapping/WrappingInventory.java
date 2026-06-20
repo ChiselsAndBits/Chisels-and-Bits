@@ -1,8 +1,10 @@
 package mod.chiselsandbits.inventory.wrapping;
 
 import static mod.chiselsandbits.utils.NullUtils.whenNotNull;
+
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

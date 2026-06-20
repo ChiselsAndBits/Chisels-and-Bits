@@ -28,6 +28,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 
 	{
 		LOGGER.warn("Loading wiki C&B Plugin.");
+
 		if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE) {
 			return;
 		}
@@ -38,6 +39,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 				setServer(minecraftServer);
 				WikiDataExporter.runModule(TagExporterFactory.NAME);
 			}
+
 			);
 
 		LOGGER.info("Loaded wiki C&B Plugin.");

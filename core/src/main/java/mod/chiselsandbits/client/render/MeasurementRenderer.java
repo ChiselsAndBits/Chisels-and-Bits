@@ -68,6 +68,7 @@ public final class MeasurementRenderer {
 		measurements.forEach(measurement -> {
 			renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
 		}
+
 		);
 	}
 

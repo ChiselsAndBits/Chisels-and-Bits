@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Dynamic;
 import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
 import mod.chiselsandbits.api.config.IClientConfiguration;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
@@ -19,9 +18,13 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtAccounter;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackLinkedSet;
 
@@ -63,6 +66,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 				  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 				  return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
 			  }
+
 			  )
 			  .map(SingleBlockMultiStateItemStack::new)
 			  .forEach(cache::add);
@@ -85,6 +89,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 			  return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
 		  }
+
 		  )
 		  .forEach(tags::add);
 
@@ -149,6 +154,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			ModCreativeTabs.CLIPBOARD.get()
 					.displayItems.add(stack.toBlockStack());
 		}
+
 		);
 
 		if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {

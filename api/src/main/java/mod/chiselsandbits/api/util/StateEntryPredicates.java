@@ -35,6 +35,7 @@ public class StateEntryPredicates {
 			return obj == this;
 		}
 	}
+
 	;
 
 	public static final Predicate<IStateEntryInfo> ALL = new Predicate<>()
@@ -61,6 +62,7 @@ public class StateEntryPredicates {
 			return obj == this;
 		}
 	}
+
 	;
 
 	public static final Predicate<IStateEntryInfo> COLLIDEABLE_ONLY = new Predicate<>()
@@ -87,5 +89,6 @@ public class StateEntryPredicates {
 			return obj == this;
 		}
 	}
+
 	;
 }

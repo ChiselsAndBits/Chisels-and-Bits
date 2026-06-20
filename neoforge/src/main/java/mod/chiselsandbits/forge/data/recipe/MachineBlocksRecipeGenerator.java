@@ -121,11 +121,13 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 			builder.define(ingredientKey, tag);
 			builder.unlockedBy("has_" + ingredientKey, has(tag));
 		}
+
 		);
 		itemMap.forEach((ingredientKey, item) -> {
 			builder.define(ingredientKey, item);
 			builder.unlockedBy("has_" + ingredientKey, has(item));
 		}
+
 		);
 		builder.save(this.output);
 	}

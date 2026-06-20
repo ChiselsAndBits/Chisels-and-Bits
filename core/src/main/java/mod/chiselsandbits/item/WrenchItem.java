@@ -64,6 +64,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	{
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
 			return false;
 		}
@@ -78,11 +79,13 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	{
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
+
 		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
 			return ClickProcessingState.DENIED;
 		}
 
 		final BlockEntity blockEntity = playerEntity.level().getBlockEntity(blockHitResult.getBlockPos());
+
 		if (!(blockEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
 			return ClickProcessingState.DENIED;
 		}

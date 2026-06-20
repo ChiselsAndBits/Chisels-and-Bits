@@ -352,6 +352,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 					this::setInAreaTarget,
 					this::clearInAreaTarget));
 			}
+
 			);
 		}
 	}
@@ -417,6 +418,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				throw new NotImplementedException("A chisel adapting world mutator statistics are ephemeral.");
 			}
 		}
+
 		;
 	}
 
@@ -739,6 +741,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return () -> {
 				//Noop
 			}
+
 			;
 		}
 
@@ -770,6 +773,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return () -> {
 				//Noop
 			}
+
 			;
 		}
 
@@ -799,6 +803,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		return () -> {
 			//Noop
 		}
+
 		;
 	}
 
@@ -812,6 +817,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return () -> {
 				//Noop
 			}
+
 			;
 		}
 
@@ -827,6 +833,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return () -> {
 				//Noop
 			}
+
 			;
 		}
 
@@ -840,6 +847,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				innerMutation.close();
 				changeTracker.onBlockUpdated(getPos(), before, after);
 			}
+
 			;
 		}
 

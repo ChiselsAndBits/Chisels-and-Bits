@@ -47,6 +47,7 @@ public class Fabric implements ModInitializer {
 
 			chiselsAndBits.onInitialize();
 		}
+
 		);
 	}
 

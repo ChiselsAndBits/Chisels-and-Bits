@@ -2,8 +2,10 @@ package mod.chiselsandbits.item;
 
 import java.util.List;
 import java.util.function.Predicate;
+
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
@@ -27,6 +29,7 @@ public class MonocleItem extends Item {
 			return dispenseArmor(source, stack) ? stack : super.execute(source, stack);
 		}
 	}
+
 	;
 
 	private static boolean dispenseArmor(BlockSource source, ItemStack stack) {

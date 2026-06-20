@@ -206,6 +206,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 					 return getInBlockTarget(blockPos, inBlockOffset);
 				 }
+
 				 )
 				 .filter(Optional::isPresent)
 				 .map(Optional::get);
@@ -466,6 +467,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 			  before, after
 			);
 		}
+
 		;
 	}
 

@@ -29,6 +29,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 		final int seed) {
 		final var renderer = new InteractionISTER(this, displayContext);
 		final var specialRenderState = renderer.extractArgument(stack);
+
 		if (specialRenderState == null) {
 			return;
 		}

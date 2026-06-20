@@ -129,6 +129,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 			return false;
 		}
 	}
+
 	;
 
 	@Override
@@ -332,6 +333,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 				return Collections.emptySet();
 			}
 		}
+
 		;
 
 		@Override

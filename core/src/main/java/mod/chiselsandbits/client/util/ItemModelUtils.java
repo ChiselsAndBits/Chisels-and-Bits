@@ -40,6 +40,7 @@ public class ItemModelUtils {
 			renderState.visitExtents(v -> vectors.add(new Vector3f(v)));
 			return vectors.toArray(Vector3f[]::new);
 		}
+
 		;
 	}
 

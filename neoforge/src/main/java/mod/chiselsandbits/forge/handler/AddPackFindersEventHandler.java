@@ -69,6 +69,7 @@ public class AddPackFindersEventHandler {
 				LOGGER.error("Failed to inject Core Resource Pack. C&B Assets will not be loaded!", e);
 			}
 		}
+
 		);
 	}
 

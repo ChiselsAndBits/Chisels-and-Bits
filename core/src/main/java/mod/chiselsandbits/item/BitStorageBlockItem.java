@@ -1,18 +1,17 @@
 package mod.chiselsandbits.item;
 
-import static org.lwjgl.system.linux.X11.True;
-import java.util.List;
 import java.util.function.Consumer;
+
 import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
-import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -75,11 +74,13 @@ public class BitStorageBlockItem extends BlockItem {
 
 	{
 		super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
+
 		if (worldIn.isClientSide()) {
 			return false;
 		}
 
 		final BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+
 		if (!(blockEntity instanceof final BitStorageBlockEntity bitStorage)) {
 			return false;
 		}

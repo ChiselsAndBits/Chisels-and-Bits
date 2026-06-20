@@ -37,6 +37,7 @@ public interface IBlockNeighborhood {
 			return null;
 		}
 	}
+
 	;
 
 	/**
@@ -65,6 +66,7 @@ public interface IBlockNeighborhood {
 
 				return new BlockInformation(state, additionalStateInfo);
 			}
+
 			,
 			direction -> {
 				final Level level = blockEntity.getLevel();

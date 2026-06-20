@@ -212,11 +212,13 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 				builder.requires(tag);
 				builder.unlockedBy("has_tag_" + ingredientKey, has(tag));
 			}
+
 			);
 			itemMap.forEach((ingredientKey, item) -> {
 				builder.requires(item);
 				builder.unlockedBy("has_item_" + ingredientKey, has(item));
 			}
+
 			);
 			builder.save(this.output);
 		}
@@ -230,11 +232,13 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 				builder.define(ingredientKey, tag);
 				builder.unlockedBy("has_" + ingredientKey, has(tag));
 			}
+
 			);
 			itemMap.forEach((ingredientKey, item) -> {
 				builder.define(ingredientKey, item);
 				builder.unlockedBy("has_" + ingredientKey, has(item));
 			}
+
 			);
 			builder.save(this.output);
 		}

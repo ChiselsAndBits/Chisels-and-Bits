@@ -2,12 +2,14 @@ package mod.chiselsandbits.block;
 
 import java.util.Map;
 import java.util.stream.Stream;
+
 import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.utils.VoxelShapeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

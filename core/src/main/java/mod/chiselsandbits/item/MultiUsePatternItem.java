@@ -1,7 +1,7 @@
 package mod.chiselsandbits.item;
 
-import java.util.List;
 import java.util.function.Consumer;
+
 import com.communi.suggestu.scena.core.dist.Dist;
 import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.exceptions.SealingNotSupportedException;
@@ -13,16 +13,14 @@ import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.registrars.ModItems;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
 
 public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiUsePatternItem {
 	public MultiUsePatternItem(final Properties builder)
@@ -75,6 +73,7 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 				);
 			}
 		}
+
 		);
 	}
 

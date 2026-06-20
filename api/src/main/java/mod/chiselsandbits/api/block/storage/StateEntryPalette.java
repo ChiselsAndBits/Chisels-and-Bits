@@ -164,6 +164,7 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 			).apply(instance, Entry::new);
 		}
+
 		);
 
 		public static final MapCodec<Entry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -171,6 +172,7 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 			).apply(instance, Entry::new);
 		}
+
 		);
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, Entry> STREAM_CODEC = StreamCodec.composite(

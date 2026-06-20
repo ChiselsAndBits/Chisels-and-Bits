@@ -37,6 +37,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 			final int count = slotData.count();
 			this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(blockInformation, count));
 		}
+
 		);
 	}
 
@@ -175,6 +176,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		for (Map.Entry<BlockInformation, Integer> e : toSort) {
 			int count = e.getValue();
+
 			if (count == 0) {
 				continue;
 			}
@@ -210,6 +212,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		final ItemStack bitSlot = this.slotMap.get(index);
 		final ItemStack removed = bitSlot.split(count);
+
 		if (bitSlot.isEmpty()) {
 			this.slotMap.remove(index);
 		}

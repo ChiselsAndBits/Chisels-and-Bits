@@ -22,7 +22,6 @@ import mod.chiselsandbits.registrars.ModBlocks;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -30,7 +29,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
 
 public final class ClientPacketHandlers {
@@ -114,10 +112,12 @@ public final class ClientPacketHandlers {
 			ChiselsAndBits.getInstance().getNetworkChannel()
 			  .sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
 		}
+
 		);
 		importResult.ifRight(e -> {
 			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
 		}
+
 		);
 	}
 }

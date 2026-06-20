@@ -9,7 +9,6 @@ import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator
 import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.util.VectorUtils;
-import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.model.data;
 
 import java.util.Objects;
+
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import org.jspecify.annotations.Nullable;
 

@@ -143,6 +143,7 @@ public interface IChiselingContext extends IStateAccessor {
 	default boolean tryDamageItem() {
 		return tryDamageItem(1);
 	}
+
 	;
 
 	/**
@@ -318,6 +319,7 @@ public interface IChiselingContext extends IStateAccessor {
 
 			return true;
 		}
+
 		).orElse(true);
 	}
 }

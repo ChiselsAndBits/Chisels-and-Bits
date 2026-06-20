@@ -97,6 +97,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
 		  }
+
 		  )
 		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 		  .filter(Optional::isPresent)
@@ -128,6 +129,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
 		  }
+
 		  )
 		  .collect(Collectors.toMap(
 			IStateEntryInfo::getBlockInformation,

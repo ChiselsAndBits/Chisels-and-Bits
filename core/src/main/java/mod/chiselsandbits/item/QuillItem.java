@@ -109,6 +109,7 @@ public class QuillItem extends Item implements IQuillItem {
 		if (!(entityLiving instanceof Player player)) {
 			return stack;
 		}
+
 		if (isInteracting(stack)) {
 			ItemStack target = getInteractionTarget(stack);
 			ItemStack pattern = createPattern(player);
@@ -131,12 +132,14 @@ public class QuillItem extends Item implements IQuillItem {
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+
 					if (playerEntity.getOffhandItem() == stack) {
 						hand = EquipmentSlot.OFFHAND;
 					}
 
 					player.onEquippedItemBroken(item, hand);
 				}
+
 				);
 			}
 		}

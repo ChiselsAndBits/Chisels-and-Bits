@@ -6,9 +6,10 @@ import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
@@ -77,6 +78,7 @@ public record BitBlockItemModel(
 			itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
 			itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());
 		}
+
 		);
 	}
 

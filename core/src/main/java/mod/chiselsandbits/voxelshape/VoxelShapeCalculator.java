@@ -31,6 +31,7 @@ public class VoxelShapeCalculator {
 			  final VoxelShape bbShape = Shapes.create(axisAlignedBB);
 			  return Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR);
 		  }
+
 		  ,
 		  (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
 		);

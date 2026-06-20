@@ -1,6 +1,7 @@
 package mod.chiselsandbits.block;
 
 import java.util.Optional;
+
 import com.communi.suggestu.saecularia.caudices.core.block.IBlockWithWorldlyProperties;
 import com.communi.suggestu.scena.core.blockstate.ILevelBasedPropertyAccessor;
 import com.communi.suggestu.scena.core.dist.Dist;
@@ -33,6 +34,7 @@ import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.network.packets.NeighborBlockUpdatedPacket;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
@@ -190,6 +192,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					player
 				);
 			}
+
 			)
 			.orElse(true);
 	}
@@ -216,6 +219,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreativeClipboardUtils.addPickedBlock(result.multiStateItemStack(), Minecraft.getInstance().level.registryAccess()));
 						return result.stack();
 					}
+
 					)
 					.orElse(ItemStack.EMPTY);
 		}
@@ -249,6 +253,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					return Optional.empty();
 				}
 			}
+
 			)
 			.map(targetedStateEntry -> IMultiStateItemFactory.getInstance().createBlockFrom(targetedStateEntry))
 			.orElseGet(() -> getBlockEntity(blockGetter, pos)
@@ -256,6 +261,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					final IMultiStateSnapshot snapshot = e.createSnapshot();
 					return snapshot.toItemStack().toBlockStack();
 				}
+
 				)
 				.orElse(ItemStack.EMPTY));
 	}
@@ -294,6 +300,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				case LEFT_RIGHT -> Direction.Axis.Z;
 				case FRONT_BACK -> Direction.Axis.X;
 			}
+
 			));
 
 		return blockState;
@@ -381,6 +388,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
 				super.setPlacedBy(worldIn, pos, state, placer, stack);
 			}
+
 			);
 	}
 
@@ -526,6 +534,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 				return true;
 			}
+
 			)
 			.orElse(false);
 	}
@@ -611,6 +620,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return result;
 				}
+
 				)
 				.filter(result -> result.length > 0)
 				.flatMap(summedResult -> getBlockEntity(levelReader, pos)
@@ -719,6 +729,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 							.count();
 					}
 				}
+
 				)
 				.map(count -> {
 					if (count > 0)
@@ -732,6 +743,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return count > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 				}
+
 				)
 				.orElse(InteractionResult.PASS);
 		}
@@ -750,6 +762,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return InteractionResult.PASS;
 				}
+
 				)
 				.orElse(InteractionResult.PASS);
 		}
@@ -768,6 +781,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return InteractionResult.PASS;
 				}
+
 				)
 				.orElse(InteractionResult.PASS);
 		}
@@ -786,6 +800,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return InteractionResult.PASS;
 				}
+
 				).orElse(InteractionResult.PASS);
 		}
 
@@ -809,6 +824,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					return InteractionResult.PASS;
 				}
+
 				).orElse(InteractionResult.PASS);
 		}
 

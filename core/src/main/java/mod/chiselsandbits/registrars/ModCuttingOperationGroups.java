@@ -29,6 +29,7 @@ public final class ModCuttingOperationGroups {
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
 	}
+
 	;
 	public static IModificationOperationGroup ALL_AXI     = new IModificationOperationGroup()
 
@@ -47,6 +48,7 @@ public final class ModCuttingOperationGroups {
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
 	}
+
 	;
 
 	private ModCuttingOperationGroups()

@@ -16,6 +16,7 @@ public class LambdaExceptionUtils {
 				throwAsUnchecked(exception);
 			}
 		}
+
 		;
 	}
 
@@ -28,6 +29,7 @@ public class LambdaExceptionUtils {
 				return -1; //Never reached :D
 			}
 		}
+
 		;
 	}
 

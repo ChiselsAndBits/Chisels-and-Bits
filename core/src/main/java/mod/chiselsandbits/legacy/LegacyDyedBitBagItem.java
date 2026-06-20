@@ -3,6 +3,7 @@ package mod.chiselsandbits.legacy;
 import mod.chiselsandbits.utils.UpgradeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

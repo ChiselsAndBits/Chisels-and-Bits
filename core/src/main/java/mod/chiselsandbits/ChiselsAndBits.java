@@ -11,7 +11,25 @@ import mod.chiselsandbits.apiipml.ChiselsAndBitsAPI;
 import mod.chiselsandbits.config.ChiselsAndBitsConfiguration;
 import mod.chiselsandbits.network.NetworkChannel;
 import mod.chiselsandbits.plugin.PluginManger;
-import mod.chiselsandbits.registrars.*;
+import mod.chiselsandbits.registrars.ModBlockEntityTypes;
+import mod.chiselsandbits.registrars.ModBlocks;
+import mod.chiselsandbits.registrars.ModChangeTypes;
+import mod.chiselsandbits.registrars.ModChiselModeGroups;
+import mod.chiselsandbits.registrars.ModChiselModes;
+import mod.chiselsandbits.registrars.ModContainerTypes;
+import mod.chiselsandbits.registrars.ModCreativeTabs;
+import mod.chiselsandbits.registrars.ModDataComponentTypes;
+import mod.chiselsandbits.registrars.ModEventHandler;
+import mod.chiselsandbits.registrars.ModItems;
+import mod.chiselsandbits.registrars.ModMetadataKeys;
+import mod.chiselsandbits.registrars.ModModelProperties;
+import mod.chiselsandbits.registrars.ModModificationOperation;
+import mod.chiselsandbits.registrars.ModModificationOperationGroups;
+import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
+import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
+import mod.chiselsandbits.registrars.ModRecipeSerializers;
+import mod.chiselsandbits.registrars.ModRecipeTypes;
+import mod.chiselsandbits.registrars.ModTags;
 
 public class ChiselsAndBits {
 	private static ChiselsAndBits     instance;

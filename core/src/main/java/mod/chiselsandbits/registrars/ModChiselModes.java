@@ -350,6 +350,7 @@ public final class ModChiselModes {
 		() -> {
 			throw new IllegalStateException("Registry is not setup yet. Use a Deferred Register!");
 		}
+
 		;
 
 	private ModChiselModes()

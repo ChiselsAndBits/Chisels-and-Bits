@@ -2,6 +2,7 @@ package mod.chiselsandbits.client.model.information;
 
 import java.util.Collection;
 import java.util.List;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;

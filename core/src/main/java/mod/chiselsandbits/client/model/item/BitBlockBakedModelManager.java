@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -19,6 +20,7 @@ import mod.chiselsandbits.registrars.ModCreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
@@ -174,6 +176,7 @@ public class BitBlockBakedModelManager {
 					return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
 				}
 			}
+
 			);
 		}
 

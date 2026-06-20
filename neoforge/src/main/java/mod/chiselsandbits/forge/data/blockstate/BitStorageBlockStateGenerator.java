@@ -72,6 +72,7 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 				);
 			}
 		}
+
 		);
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(

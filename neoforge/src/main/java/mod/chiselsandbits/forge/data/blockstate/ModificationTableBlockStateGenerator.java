@@ -72,6 +72,7 @@ public class ModificationTableBlockStateGenerator extends ModelProvider implemen
 				);
 			}
 		}
+
 		);
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(

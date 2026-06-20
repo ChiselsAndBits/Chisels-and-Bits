@@ -19,6 +19,7 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 
 	{
 		final Item item = sourceStack.getItem();
+
 		if (!(item instanceof IWithModeItem)) {
 			throw new IllegalArgumentException("Can not open ToolMode UI for none ToolMode item!");
 		}

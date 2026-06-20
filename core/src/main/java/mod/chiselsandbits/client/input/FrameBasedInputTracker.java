@@ -26,6 +26,7 @@ public final class FrameBasedInputTracker {
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedLeftClicking(Minecraft.getInstance().player));
 	  }
+
 	  ,
 	  () -> {
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, false));
@@ -42,6 +43,7 @@ public final class FrameBasedInputTracker {
 
 		  DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedRightClicking(Minecraft.getInstance().player));
 	  }
+
 	  ,
 	  () -> {
 		  ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, false));

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
@@ -16,6 +17,7 @@ import org.sinytra.wiki.exporter.ExportContext;
 import org.sinytra.wiki.exporter.NamespacedModuleConfig;
 import org.sinytra.wiki.exporter.platform.services.ExporterModule;
 import org.sinytra.wiki.exporter.platform.services.ExporterModuleFactory;
+
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
@@ -121,6 +123,7 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 			if (!Files.exists(output.getParent())) {
 				Files.createDirectories(output.getParent());
 			}
+
 			try(FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
 				OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
 				JsonWriter jsonWriter = new JsonWriter(writer)) {

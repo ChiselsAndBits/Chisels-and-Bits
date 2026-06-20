@@ -107,6 +107,7 @@ public interface IVoxelShapeManager {
 	  final BlockPos offset) {
 		return getCached(identifier, offset, CollisionType.NONE_AIR);
 	}
+
 	;
 
 	/**

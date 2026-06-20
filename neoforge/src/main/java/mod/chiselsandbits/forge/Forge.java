@@ -43,6 +43,7 @@ public class Forge {
 					ForgePluginDiscoverer.getInstance()
 			));
 		}
+
 		);
 
 		modBus.addListener((Consumer<FMLCommonSetupEvent>) event -> chiselsAndBits.onInitialize());
@@ -58,6 +59,7 @@ public class Forge {
 			PlatformInitializationHandler.getInstance().onInit(platform -> {
 				setChiselsAndBitsClient(new ChiselsAndBitsClient());
 			}
+
 			);
 
 			container.registerExtensionPoint(IConfigScreenFactory.class, (mc, parent) -> new ConfigurationScreen(container, parent));

@@ -1,6 +1,12 @@
 package mod.chiselsandbits.chiseling.modes.connected.material;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -112,8 +118,10 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 							  state.clear();
 						  }
+
 						  );
 					}
+
 					)
 					.sum();
 
@@ -130,6 +138,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -190,6 +199,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 					.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 				);
 		  }
+
 		  ,
 		  position -> IMutatorFactory.getInstance().covering(
 			context.getWorld(),
@@ -262,6 +272,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -472,6 +483,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 						processed.add(newTarget);
 					}
 				}
+
 				);
 			}
 		}

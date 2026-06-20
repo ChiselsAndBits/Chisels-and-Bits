@@ -3,10 +3,9 @@ package mod.chiselsandbits.client.item.properties;
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.registrars.ModItems;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
-import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
-import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;

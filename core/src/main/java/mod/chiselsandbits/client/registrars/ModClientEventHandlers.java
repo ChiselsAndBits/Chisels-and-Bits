@@ -6,7 +6,15 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardManager;
 import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.client.input.FrameBasedInputTracker;
-import mod.chiselsandbits.client.logic.*;
+import mod.chiselsandbits.client.logic.ChiseledBlockModelUpdateHandler;
+import mod.chiselsandbits.client.logic.MeasurementTapeTickHandler;
+import mod.chiselsandbits.client.logic.MeasurementsRenderHandler;
+import mod.chiselsandbits.client.logic.MultiStateBlockPreviewRenderHandler;
+import mod.chiselsandbits.client.logic.ScrollBasedModeChangeHandler;
+import mod.chiselsandbits.client.logic.SelectedObjectHighlightHandler;
+import mod.chiselsandbits.client.logic.SelectedObjectRenderHandler;
+import mod.chiselsandbits.client.logic.SlotOverlayRenderHandler;
+import mod.chiselsandbits.client.logic.ToolNameHighlightTickHandler;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModel;
 import mod.chiselsandbits.client.model.item.BitBlockItemModel;
 import mod.chiselsandbits.client.model.item.ChiseledBlockItemModel;
@@ -32,6 +40,7 @@ public final class ModClientEventHandlers {
 				ChiseledBlockModelUpdateHandler.updateAllModelDataInChunk(levelChunk);
 			}
 		}
+
 		);
 		IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((_, level) -> CreativeClipboardManager.getInstance().load(level.registryAccess()));
 		IClientEvents.getInstance().getClientTickStartedEvent().register(() -> {
@@ -40,6 +49,7 @@ public final class ModClientEventHandlers {
 			TickHandler.onClientTick();
 			MeasurementTapeTickHandler.tick();
 		}
+
 		);
 		IClientEvents.getInstance().getScrollEvent().register(ScrollBasedModeChangeHandler::onScroll);
 		IClientEvents.getInstance().getHUDRenderEvent().register(SlotOverlayRenderHandler::renderSlotOverlays);
@@ -66,30 +76,36 @@ public final class ModClientEventHandlers {
 
 			FrameBasedInputTracker.getInstance().onRenderFrame();
 		}
+
 		);
 		IClientEvents.getInstance().getGatherTooltipEvent().register((itemStack, _, _, list) -> {
 			MagnifyingGlassTooltipHandler.onItemTooltip(itemStack, list);
 		}
+
 		);
 		IClientEvents.getInstance().getRegisterTextureAtlasesEvent().register(consumer -> {
 			IconManager.getInstance().initialize(consumer);
 		}
+
 		);
 		IClientEvents.getInstance().getRegisterClientResourceReloadListenersEvent().register(ClientResourceReloadingManager::setup);
 		IClientEvents.getInstance().getRegisterPIPRenderersEvent().register(registrar -> {
 			registrar.register(RotatableItemRenderer.RenderState.class, RotatableItemRenderer::new);
 			registrar.register(Torus.RenderState.class, Torus::new);
 		}
+
 		);
 		IClientEvents.getInstance().getRegisterBlockStateModelEvent().register(registrar -> {
 			registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockStateModel.Unbaked.CODEC);
 		}
+
 		);
 		IClientEvents.getInstance().getRegisterItemModelEvent().register(registrar -> {
 			registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit_block"), BitBlockItemModel.Unbaked.CODEC);
 			registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block"), ChiseledBlockItemModel.Unbaked.CODEC);
 			registrar.registerModel(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "interactable"), InteractableItemModel.Unbaked.CODEC);
 		}
+
 		);
 	}
 }

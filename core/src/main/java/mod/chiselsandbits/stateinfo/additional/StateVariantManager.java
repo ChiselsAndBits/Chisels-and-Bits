@@ -71,6 +71,7 @@ public final class StateVariantManager implements IStateVariantManager {
 				buffer.writeIdentifier(value.getRegistryName());
 			}
 		}
+
 		;
 	}
 
@@ -82,9 +83,11 @@ public final class StateVariantManager implements IStateVariantManager {
 		}
 
 		providersByNames.put(provider.getRegistryName(), provider);
+
 		for (Supplier<Block> blockSupplier : block) {
 			preBakeProviders.put(blockSupplier, provider);
 		}
+
 		return provider;
 	}
 
@@ -103,6 +106,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(blockState.getBlock())) {
 			return Optional.empty();
 		}
@@ -115,6 +119,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(fluidStateIn.createLegacyBlock().getBlock())) {
 			return Optional.empty();
 		}
@@ -127,6 +132,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(blockState.getBlock())) {
 			return Optional.empty();
 		}
@@ -139,6 +145,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock())) {
 			return Optional.empty();
 		}
@@ -152,6 +159,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(state.getBlock())) {
 			return Collections.emptyList();
 		}
@@ -168,6 +176,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
 		}
@@ -180,6 +189,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	{
 		bakeProviders();
+
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
 		}
@@ -190,6 +200,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	@Override
 	public Optional<Component> getName(BlockInformation blockInformation) {
 		bakeProviders();
+
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.empty();
 		}

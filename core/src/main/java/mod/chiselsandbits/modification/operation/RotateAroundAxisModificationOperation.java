@@ -49,6 +49,7 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 					 case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
 					 case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
 				 }
+
 				 ;
 	}
 

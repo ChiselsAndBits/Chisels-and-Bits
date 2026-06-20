@@ -1,6 +1,10 @@
 package mod.chiselsandbits.item.bit;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -102,6 +106,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
 		}
+
 		);
 	}
 
@@ -180,6 +185,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			IClientStateVariantManager.getInstance().appendHoverText(blockInformation, context, tooltipDisplay, tooltipAdder, flag);
 		}
+
 		);
 
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
@@ -238,6 +244,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
 			}
 		}
+
 		);
 	}
 
@@ -570,6 +577,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 				return ((IBitItem) stack.getItem()).getBlockInformation(stack);
 			}
+
 			));
 		}
 	}

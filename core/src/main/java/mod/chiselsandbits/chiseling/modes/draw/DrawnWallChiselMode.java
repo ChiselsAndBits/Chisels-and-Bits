@@ -68,6 +68,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			case DOWN, NORTH, SOUTH -> Direction.Axis.X;
 			case UP, WEST, EAST -> Direction.Axis.Z;
 		}
+
 		;
 	}
 
@@ -77,6 +78,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
 			case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
 		}
+
 		;
 	}
 
@@ -125,6 +127,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 								state.clear();
 							}
 						}
+
 						);
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
@@ -134,6 +137,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 				));
 			}
 		}
+
 		);
 	}
 
@@ -193,6 +197,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 				context.validateBuildHeights();
 			}
 		}
+
 		);
 	}
 
@@ -233,6 +238,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 			return (s) -> false;
 		}
+
 		);
 
 		return ClickProcessingState.ALLOW;
@@ -253,11 +259,13 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		final IWorldAreaMutator mutator = context.getMutator().get();
 
 		final Optional<Predicate<IStateEntryInfo>> filter = context.getStateFilter().map(factory -> factory.apply(mutator));
+
 		if (filter.isEmpty()) {
 			return Shapes.empty();
 		}
 
 		final Predicate<IStateEntryInfo> stateFilter = filter.get();
+
 		if (!(stateFilter instanceof WallAreaFilter lineAreaFilter)) {
 			return Shapes.empty();
 		}
@@ -284,6 +292,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 							max.x(), max.y(), max.z()
 					);
 				}
+
 				)
 				.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
 	}
@@ -345,6 +354,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 						return builder.build();
 					}
+
 					)
 					.collect(Collectors.toList());
 		}

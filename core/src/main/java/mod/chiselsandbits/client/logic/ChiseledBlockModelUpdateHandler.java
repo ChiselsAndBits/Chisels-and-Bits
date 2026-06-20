@@ -17,6 +17,7 @@ public class ChiseledBlockModelUpdateHandler {
 						chiseledBlockEntity.updateModelData();
 					}
 				}
+
 				);
 	}
 }

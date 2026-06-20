@@ -56,6 +56,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 					 return 0;
 				 }
+
 				 )
 				 .sum();
 	}
@@ -175,6 +176,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 					 return 0;
 				 }
+
 				 )
 				 .sum();
 	}
@@ -243,6 +245,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 			  IBitItem bitItem = (IBitItem) stack.getItem();
 			  return Maps.newHashMap(ImmutableMap.of(bitItem.getBlockInformation(stack), stack.getCount()));
 		  }
+
 		  )
 		  .reduce(
 			Maps.newHashMap(),
@@ -252,10 +255,12 @@ public abstract class AbstractBitInventory implements IBitInventory {
 					if (!result.containsKey(state)) {
 						result.put(state, count);
 					}
+
 					else {
 						result.put(state, result.get(state) + count);
 					}
 				}
+
 				);
 
 				return result;
@@ -276,6 +281,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 				return false;
 			}
+
 			);
 	}
 }

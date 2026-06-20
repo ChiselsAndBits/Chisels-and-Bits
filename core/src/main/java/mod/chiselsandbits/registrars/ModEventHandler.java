@@ -62,6 +62,7 @@ public final class ModEventHandler {
 							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 						}
+
 						;
 			}
 
@@ -73,13 +74,16 @@ public final class ModEventHandler {
 							case DEFAULT -> ProcessingResult.DEFAULT;
 							case ALLOW -> ProcessingResult.ALLOW;
 						}
+
 						;
 			}
 		}
+
 		);
 		IGameEvents.getInstance().getDataPackSyncEvent().register((list, players, recipeTypeSynchroniser) -> {
 			MeasuringSynchronisationHandler.syncToAll();
 		}
+
 		);
 		IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((player, level) -> {
 			ChiselingManagerCountDownResetHandler.doResetFor(player);
@@ -88,6 +92,7 @@ public final class ModEventHandler {
 				MeasuringSynchronisationHandler.syncTo(serverPlayer);
 			}
 		}
+
 		);
 		IGameEvents.getInstance().getRegisterCommandsEvent().register(CommandRegistrationHandler::registerCommandsTo);
 		IGameEvents.getInstance().getPlayerRightClickEvent().register(new IPlayerRightClickBlockEvent() {
@@ -114,6 +119,7 @@ public final class ModEventHandler {
 							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 						}
+
 						;
 			}
 
@@ -126,9 +132,11 @@ public final class ModEventHandler {
 							case DEFAULT -> current;
 							case ALLOW -> ProcessingResult.ALLOW;
 						}
+
 						;
 			}
 		}
+
 		);
 		IGameEvents.getInstance().getServerAboutToStartEvent().register(minecraftServer -> ServerStartHandler.onServerStart());
 		IGameEvents.getInstance().getServerPostTickEvent().register(minecraftServer -> ServerTickHandler.onPostServerTick());
@@ -145,8 +153,10 @@ public final class ModEventHandler {
 								serverLevel.getChunkAt(chiseledBlockEntity.getBlockPos())
 						);
 					}
+
 					);
 		}
+
 		);
 
 		IGameEvents.getInstance().getIsPlayerScopingEvent().register(IsScopingHandler::isScoping);

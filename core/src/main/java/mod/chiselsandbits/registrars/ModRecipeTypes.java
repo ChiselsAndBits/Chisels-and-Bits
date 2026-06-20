@@ -7,7 +7,6 @@ import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -21,6 +20,7 @@ public final class ModRecipeTypes {
 			return Constants.MOD_ID + ":modification_table";
 		}
 	}
+
 	);
 
 	public static void onModConstruction() {

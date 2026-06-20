@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.model.block;
 
 import java.util.List;
+
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -16,6 +17,7 @@ import mod.chiselsandbits.profiling.ProfilingManager;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -49,11 +51,13 @@ public class ChiseledBlockStateModelManager {
 		ItemStack stack
 	) {
 		final MultiStateItemStackData data = stack.get(ModDataComponentTypes.MULTI_STATE_ITEM_STACK_DATA.get());
+
 		if (data == null) {
 			return ChiseledBlockModelInformation.EMPTY;
 		}
 
 		final IMultiStateSnapshot multiStateSnapshot = data.asSnapshot();
+
 		if (!(multiStateSnapshot instanceof ISingleBlockAxisAlignedAreaAccessor singleBlockSnapshot)) {
 			return ChiseledBlockModelInformation.EMPTY;
 		}
@@ -117,6 +121,7 @@ public class ChiseledBlockStateModelManager {
 						).build();
 					}
 				}
+
 				);
 		}
 	}

@@ -2,6 +2,7 @@ package mod.chiselsandbits.utils;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;

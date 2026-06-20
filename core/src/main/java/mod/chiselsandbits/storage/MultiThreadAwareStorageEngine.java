@@ -6,15 +6,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.config.ICommonConfiguration;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
@@ -52,6 +47,7 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 		return CompletableFuture.runAsync(() -> {
 			output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
 		}
+
 		, saveService);
 	}
 

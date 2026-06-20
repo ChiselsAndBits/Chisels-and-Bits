@@ -30,6 +30,7 @@ public class ChiseledBlockTooltipHandler {
 
 			return true;
 		}
+
 		);
 	}
 

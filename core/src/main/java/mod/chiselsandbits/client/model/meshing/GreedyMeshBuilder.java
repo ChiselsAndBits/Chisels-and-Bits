@@ -46,6 +46,7 @@ public class GreedyMeshBuilder {
 					materialByIndex.put(index, blockInformation);
 					return index;
 				}
+
 				);
 			}
 		}

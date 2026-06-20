@@ -103,8 +103,10 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 							  state.clear();
 						  }
+
 						  );
 					}
+
 					)
 					.sum();
 
@@ -121,6 +123,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -194,6 +197,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}

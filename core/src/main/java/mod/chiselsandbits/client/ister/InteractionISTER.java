@@ -42,6 +42,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		final int overlayCoords,
 		final boolean hasFoil,
 		final int outlineColor) {
+
 		if (argument == null) {
 			return;
 		}
@@ -88,6 +89,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 				if (displayContext == ItemDisplayContext.GUI) {
 					poseStack.translate(bobbing, bobbing, 0.0F);
 				}
+
 				else {
 					poseStack.translate(0.0f, bobbing, 0.0F);
 				}

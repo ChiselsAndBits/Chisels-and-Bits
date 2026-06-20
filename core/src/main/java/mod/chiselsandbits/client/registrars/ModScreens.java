@@ -26,6 +26,7 @@ public final class ModScreens {
 					ChiseledPrinterScreen::new
 			);
 		}
+
 		);
 	}
 }

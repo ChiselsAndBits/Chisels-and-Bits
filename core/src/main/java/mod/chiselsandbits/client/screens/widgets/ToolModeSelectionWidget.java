@@ -1,6 +1,11 @@
 package mod.chiselsandbits.client.screens.widgets;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.Lists;
 import mod.chiselsandbits.ChiselsAndBits;
@@ -134,6 +139,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 			return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
 		}
+
 		));
 
 		if (allPagesCombined.isEmpty())

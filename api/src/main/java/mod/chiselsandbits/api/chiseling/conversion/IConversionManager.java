@@ -52,6 +52,7 @@ public interface IConversionManager {
      */
 	default Optional<Block> getChiseledVariantOf(final ItemLike provider) {
 		final Item targetItem = provider.asItem();
+
 		if (targetItem instanceof BlockItem) {
 			return getChiseledVariantOf(((BlockItem) targetItem).getBlock());
 		}

@@ -95,6 +95,7 @@ public class ProfilingManager implements IProfilingManager {
 				profiler.endSection();
 			}
 		}
+
 		;
 	}
 }

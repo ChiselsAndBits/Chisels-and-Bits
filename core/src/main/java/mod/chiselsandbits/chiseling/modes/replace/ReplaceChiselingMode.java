@@ -1,6 +1,11 @@
 package mod.chiselsandbits.chiseling.modes.replace;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -117,8 +122,10 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 							  state.overrideState(heldBlockState);
 						  }
+
 						  );
 					}
+
 					))
 					.sum();
 
@@ -139,6 +146,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}

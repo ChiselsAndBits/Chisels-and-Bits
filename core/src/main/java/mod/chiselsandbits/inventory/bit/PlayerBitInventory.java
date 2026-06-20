@@ -39,6 +39,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 
 				return 0;
 			}
+
 			)
 			.sum();
 	}
@@ -70,6 +71,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 
 				return 0;
 			}
+
 			)
 			.sum();
 	}

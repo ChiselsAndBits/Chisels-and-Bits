@@ -72,6 +72,7 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 				);
 			}
 		}
+
 		);
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(

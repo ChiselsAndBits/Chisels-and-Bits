@@ -61,6 +61,7 @@ public class VectorUtils {
 
 	public static Vec3 scaleToOne(final Vec3 v) {
 		final double maxSize = Math.abs(getMaximalComponent(v));
+
 		if (MathUtil.almostEqual(maxSize, 0)) {
 			return Vec3.ZERO;
 		}

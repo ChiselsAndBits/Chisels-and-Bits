@@ -116,6 +116,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
 				}
+
 				)
 		  .allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
@@ -137,6 +138,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
 		  }
+
 		  )
 		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 		  .filter(Optional::isPresent)

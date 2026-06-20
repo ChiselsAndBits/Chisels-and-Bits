@@ -20,7 +20,6 @@ import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
-import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.api.util.BlockInformationUtils;
 import mod.chiselsandbits.api.util.HelpTextUtils;
@@ -35,7 +34,6 @@ import mod.chiselsandbits.registrars.ModModificationOperation;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -85,12 +83,14 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 			  final BlockInformation info = blockInformation.get(blockInformationIndex);
 			  stateEntryInfo.overrideState(info);
 		  }
+
 		  );
 
 		final ItemStack stack = results.toItemStack().toBlockStack();
 		stack.set(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), true);
 		return stack;
 	}
+
 	);
 
 	public ChiseledBlockItem(final Block blockIn, final Properties builder)
@@ -132,6 +132,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 	{
 		final Player player = context.getPlayer();
+
 		if (player == null) {
 			return InteractionResult.FAIL;
 		}
@@ -168,6 +169,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 				  return false;
 			  }
 		  }
+
 		  );
 
 		if (noCollisions)
@@ -256,6 +258,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						return false;
 					}
 				}
+
 				);
 		return noSpaceOccupied
 				? PlacementResult.success()

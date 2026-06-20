@@ -35,6 +35,7 @@ public class BlockStatePredicates {
 			return obj == this;
 		}
 	}
+
 	;
 
 	public static final Predicate<BlockState> ALL = new Predicate<>()
@@ -61,6 +62,7 @@ public class BlockStatePredicates {
 			return obj == this;
 		}
 	}
+
 	;
 
 	public static final Predicate<BlockState> COLLIDEABLE_ONLY = new Predicate<>()
@@ -87,5 +89,6 @@ public class BlockStatePredicates {
 			return obj == this;
 		}
 	}
+
 	;
 }

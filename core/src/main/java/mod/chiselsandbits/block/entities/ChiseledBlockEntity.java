@@ -1,6 +1,16 @@
 package mod.chiselsandbits.block.entities;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
@@ -8,6 +18,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
 import com.communi.suggestu.scena.core.IScenaPlatform;
 import com.communi.suggestu.scena.core.blockstate.ILevelBasedPropertyAccessor;
 import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
@@ -38,7 +49,6 @@ import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
-import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IArrayBackedAreaShapeIdentifier;
@@ -52,7 +62,10 @@ import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
 import mod.chiselsandbits.api.serialization.CBCodecs;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import mod.chiselsandbits.api.serialization.Serializable;
-import mod.chiselsandbits.api.util.*;
+import mod.chiselsandbits.api.util.BlockPosForEach;
+import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.IBatchMutation;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.block.ChiseledBlock;
@@ -72,6 +85,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,7 +99,6 @@ import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -124,6 +137,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
 			return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
 		}
+
 		, BlockStack::copy);
 	private       boolean                              isLoading            = false;
 	private final Deque<Runnable>                      afterCurrentLoad     = new ArrayDeque<>();
@@ -392,6 +406,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 					this.afterCurrentLoad.pop().run();
 				}
 			}
+
 			, getExecutor());
 
 		if (dataInput instanceof CopyableTagValueInput copyableTagValueInput)
@@ -569,6 +584,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 					}
 				}
 			}
+
 			);
 	}
 
@@ -897,6 +913,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
 		}
+
 		);
 	}
 
@@ -919,6 +936,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
 		}
+
 		);
 	}
 
@@ -988,6 +1006,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this::setInAreaTarget,
 				this::clearInAreaTarget));
 		}
+
 		);
 	}
 
@@ -1011,6 +1030,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				setChanged();
 			}
 		}
+
 		));
 		return this.batchMutations.get(id);
 	}
@@ -1029,6 +1049,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 			innerMutation.close();
 			changeTracker.onBlockUpdated(getBlockPos(), before, after);
 		}
+
 		;
 	}
 
@@ -1574,6 +1595,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 				return bitSet;
 			}
+
 			);
 		}
 
@@ -1727,6 +1749,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 						columnStatistics.initializeWith(levelAccessor, blockInformation);
 						this.columnStatisticsTable.put(x, z, columnStatistics);
 					}
+
 					));
 
 			this.collisionData.clear();
@@ -1803,6 +1826,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 				this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockState, LIGHT_BLOCK_GETTER)
                     * count;
 			}
+
 			);
 
 			BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
@@ -1819,6 +1843,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 					Objects.requireNonNull(this.columnStatisticsTable.get(pos.getX(), pos.getZ())).onBlockStateAdded(levelAccessor, blockState, pos);
 				}
+
 				);
 
 			this.collisionData.clear();
@@ -2075,6 +2100,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 						return i < LightEngine.MAX_LEVEL;
 					}
 				}
+
 				);
 		}
 

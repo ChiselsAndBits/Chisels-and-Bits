@@ -3,6 +3,7 @@ package mod.chiselsandbits.storage;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.api.serialization.CBCodecs;

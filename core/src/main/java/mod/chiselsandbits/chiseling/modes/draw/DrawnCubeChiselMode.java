@@ -94,6 +94,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 						  state.clear();
 					  }
 				  }
+
 				  );
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
@@ -103,6 +104,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 				));
 			}
 		}
+
 		);
 	}
 
@@ -172,6 +174,7 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 				context.validateBuildHeights();
 			}
 		}
+
 		);
 	}
 

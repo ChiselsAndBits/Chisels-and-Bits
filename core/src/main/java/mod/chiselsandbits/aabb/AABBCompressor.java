@@ -220,6 +220,7 @@ public class AABBCompressor {
 
 		{
 			final AABB current = this.getCurrentBox();
+
 			if (current == null) {
 				throw new IllegalStateException("Can not expand current box, if current is not set.");
 			}
@@ -247,6 +248,7 @@ public class AABBCompressor {
 
 		{
 			final AABB current = boxAssignments.get(neighborCenter);
+
 			if (current == null) {
 				throw new IllegalStateException(String.format("Can not expand box at: %s, if current is not set.", neighborCenter));
 			}

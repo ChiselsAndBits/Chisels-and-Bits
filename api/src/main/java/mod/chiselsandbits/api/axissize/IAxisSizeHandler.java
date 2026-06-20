@@ -21,6 +21,7 @@ public interface IAxisSizeHandler {
 				return 0;
 			}
 		}
+
 		;
 	}
 

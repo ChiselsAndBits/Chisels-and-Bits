@@ -97,6 +97,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 				.orElse(false);
 		  }
+
 		  )
 		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 		  .filter(Optional::isPresent)

@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.besr;
 
 import java.util.ArrayList;
+
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.communi.suggestu.scena.core.fluid.IFluidManager;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
@@ -17,6 +18,7 @@ import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.Sheets;

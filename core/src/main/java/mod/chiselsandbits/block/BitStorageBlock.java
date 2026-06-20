@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
 import com.google.common.collect.Lists;
 import mod.chiselsandbits.api.block.bitbag.IBitBagAcceptingBlock;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -17,6 +18,7 @@ import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -73,6 +75,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	@Override
 	protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
 		final BlockEntity tileEntity = level.getBlockEntity(blockPos);
+
 		if (!(tileEntity instanceof final BitStorageBlockEntity tank)) {
 			return InteractionResult.FAIL;
 		}
@@ -179,6 +182,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 		}
 
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockRayTraceResult.getBlockPos());
+
 		if (!(tileEntity instanceof final BitStorageBlockEntity storage)) {
 			return bitBagStack;
 		}

@@ -9,7 +9,13 @@ import mod.chiselsandbits.api.modification.operation.IModificationOperation;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
 import mod.chiselsandbits.api.registries.IRegistryManager;
-import mod.chiselsandbits.registrars.*;
+import mod.chiselsandbits.registrars.ModChangeTypes;
+import mod.chiselsandbits.registrars.ModChiselModes;
+import mod.chiselsandbits.registrars.ModCuttingOperation;
+import mod.chiselsandbits.registrars.ModGlueingOperation;
+import mod.chiselsandbits.registrars.ModModificationOperation;
+import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
+import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class RegistryManager implements IRegistryManager {

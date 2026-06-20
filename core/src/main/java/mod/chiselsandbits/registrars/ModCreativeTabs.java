@@ -25,7 +25,6 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,6 +62,7 @@ public final class ModCreativeTabs {
 				output.accept(new ItemStack(ModItems.CHISELED_PRINTER.get()));
 				output.accept(new ItemStack(ModItems.MONOCLE_ITEM.get()));
 			}
+
 			)
 			.build());
 
@@ -92,6 +92,7 @@ public final class ModCreativeTabs {
 										}
 									}
 								}
+
 								);
 
 								return;
@@ -118,8 +119,10 @@ public final class ModCreativeTabs {
 								}
 							}
 						}
+
 						);
 			}
+
 			)
 			.build());
 
@@ -132,6 +135,7 @@ public final class ModCreativeTabs {
 						.map(IMultiStateItemStack::toBlockStack)
 						.toList());
 			}
+
 			)
 			.build());
 

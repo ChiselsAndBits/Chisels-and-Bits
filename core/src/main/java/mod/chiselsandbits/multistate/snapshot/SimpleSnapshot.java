@@ -1,6 +1,10 @@
 package mod.chiselsandbits.multistate.snapshot;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -202,6 +206,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 					this::setInAreaTarget,
 					this::clearInAreaTarget));
 		}
+
 		);
 	}
 

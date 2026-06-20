@@ -31,6 +31,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 		FROM,
 		TO
 	}
+
 	;
 
 	public BitBlockModelInformation build(final BlockAndTintGetter surroundings)
@@ -61,6 +62,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 						quad.tintIndex(0);
 					}
 				}
+
 				,
 				generatedQuad -> {
 					final List<BlockTintSource> tintSources =
@@ -75,6 +77,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 								BlockPos.ZERO)
 						);
 					}
+
 					);
 
 					quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())

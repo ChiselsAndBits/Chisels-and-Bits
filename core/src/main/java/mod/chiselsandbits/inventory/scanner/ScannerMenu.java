@@ -3,16 +3,12 @@ package mod.chiselsandbits.inventory.scanner;
 import com.communi.suggestu.scena.core.inventory.ScenaContainerMenu;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModContainerTypes;
-import mod.chiselsandbits.slots.PatternSlot;
 import mod.chiselsandbits.utils.container.SimpleContainer;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 
 public class ScannerMenu extends ScenaContainerMenu {
 	private final ContainerLevelAccess containerLevelAccess;

@@ -1,6 +1,11 @@
 package mod.chiselsandbits.multistate.snapshot;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -9,8 +14,6 @@ import java.util.stream.Stream;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
-import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
@@ -36,9 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -168,6 +169,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 
 					return getInBlockTarget(blockPos, inBlockOffset);
 				}
+
 				)
 				.filter(Optional::isPresent)
 				.map(Optional::get);
@@ -418,6 +420,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				throw new NotImplementedException("Is a snapshot");
 			}
 		}
+
 		;
 	}
 
@@ -434,6 +437,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									final Vec3 rotatedOffset = VectorUtils.rotateMultipleTimes90Degrees(offSetPos, axis, rotationCount);
 									return VectorUtils.toBlockPos(startPoint.add(rotatedOffset));
 								}
+
 								,
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();
@@ -471,6 +475,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 
 									return new BlockPos(mirroredX, mirroredY, mirroredZ);
 								}
+
 								,
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();

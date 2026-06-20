@@ -42,7 +42,6 @@ import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.permissions.LevelBasedPermissionSet;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -172,6 +171,7 @@ public class CommandManager {
 						return information;
 					}
 				}
+
 				;
 
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
@@ -206,6 +206,7 @@ public class CommandManager {
 						return blockInformation;
 					}
 				}
+
 				;
 
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
@@ -260,6 +261,7 @@ public class CommandManager {
 		  .getStateCounts().forEach((state, count) -> {
 			context.getSource().sendSuccess(() -> Component.literal(" > ").append(state.blockState().getBlock().getName()).append(Component.literal(": " + count)), true);
 		}
+
 		);
 
 		return 0;

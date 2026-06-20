@@ -1,6 +1,12 @@
 package mod.chiselsandbits.chiseling.modes.connected.plane;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -112,8 +118,10 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 							  state.clear();
 						  }
+
 						  );
 					}
+
 					).sum();
 
 				  if (totalDamage == 0) {
@@ -129,6 +137,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -189,6 +198,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 					.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 				);
 		  }
+
 		  ,
 		  position -> IMutatorFactory.getInstance().covering(
 			context.getWorld(),
@@ -261,6 +271,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -467,6 +478,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 						processed.add(newTarget);
 					}
 				}
+
 				);
 			}
 		}

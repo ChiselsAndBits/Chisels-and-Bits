@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.mojang.datafixers.util.Function12;
@@ -20,12 +21,12 @@ import net.jpountz.lz4.LZ4FrameInputStream;
 import net.jpountz.lz4.LZ4FrameOutputStream;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
 
 public interface CBStreamCodecs {
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
@@ -37,6 +38,7 @@ public interface CBStreamCodecs {
 			buffer.writeLongArray(payload);
 		}
 	}
+
 	;
 
 	StreamCodec<FriendlyByteBuf, BitSet> BIT_SET = LONG_ARRAY.map(
@@ -53,6 +55,7 @@ public interface CBStreamCodecs {
 
 						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
 					}
+
 					,
 					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
 			));
@@ -83,9 +86,11 @@ public interface CBStreamCodecs {
 					rMapMap.forEach((row, columnMap) -> {
 						columnMap.forEach((column, value) -> table.put(row, column, value));
 					}
+
 					);
 					return table;
 				}
+
 				,
 				Table::rowMap
 		);
@@ -114,6 +119,7 @@ public interface CBStreamCodecs {
 				codec7.encode(buffer, getter7.apply(instance));
 			}
 		}
+
 		;
 	}
 
@@ -174,6 +180,7 @@ public interface CBStreamCodecs {
 				codec12.encode(buffer, getter12.apply(instance));
 			}
 		}
+
 		;
 	}
 
@@ -228,6 +235,7 @@ public interface CBStreamCodecs {
 				}
 			}
 		}
+
 		;
 	}
 
@@ -253,6 +261,7 @@ public interface CBStreamCodecs {
 				codec.encode(buffer, value);
 			}
 		}
+
 		;
 	}
 
@@ -278,6 +287,7 @@ public interface CBStreamCodecs {
 				codec.encode(buffer, value);
 			}
 		}
+
 		;
 	}
 
@@ -302,9 +312,11 @@ public interface CBStreamCodecs {
 						}
 					}
 				}
+
 				;
 			}
 		}
+
 		;
 	}
 }

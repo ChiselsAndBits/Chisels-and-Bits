@@ -117,6 +117,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 			var contents = inventoryItemStack.listContents();
 			contents.displayComponents().forEach(tooltipAdder);
 		}
+
 		);
 	}
 

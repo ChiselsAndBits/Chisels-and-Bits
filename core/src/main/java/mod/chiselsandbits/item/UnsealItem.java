@@ -95,6 +95,7 @@ public class UnsealItem extends Item implements IUnsealItem {
 		if (!(entityLiving instanceof Player player)) {
 			return stack;
 		}
+
 		if (isInteracting(stack)) {
 			ItemStack target = getInteractionTarget(stack);
 			ItemStack pattern = createPattern(target);
@@ -116,12 +117,14 @@ public class UnsealItem extends Item implements IUnsealItem {
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
 					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+
 					if (playerEntity.getOffhandItem() == stack) {
 						hand = EquipmentSlot.OFFHAND;
 					}
 
 					player.onEquippedItemBroken(item, hand);
 				}
+
 				);
 			}
 		}

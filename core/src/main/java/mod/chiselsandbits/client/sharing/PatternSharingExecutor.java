@@ -189,11 +189,13 @@ public final class PatternSharingExecutor {
 
 	{
 		final ItemStack blockStack = multiStateItemStack.toBlockStack();
+
 		if (!blockStack.has(DataComponents.ITEM_MODEL)) {
 			throw new IllegalStateException("BlockStage does not have model for export!");
 		}
 
 		final Identifier itemModelLocation = blockStack.get(DataComponents.ITEM_MODEL);
+
 		if (itemModelLocation == null) {
 			throw new IllegalStateException("BlockStage has empty model location for export!");
 		}

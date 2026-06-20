@@ -13,16 +13,19 @@ public class SelectedObjectHighlightHandler {
 
 	{
 		final Player playerEntity = Minecraft.getInstance().player;
+
 		if (playerEntity == null) {
 			return false;
 		}
 
 		final ItemStack heldStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
+
 		if (heldStack.isEmpty()) {
 			return false;
 		}
 
 		final Item stackItem = heldStack.getItem();
+
 		if (!(stackItem instanceof IWithHighlightItem)) {
 			return false;
 		}

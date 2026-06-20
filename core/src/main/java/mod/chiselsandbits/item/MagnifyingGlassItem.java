@@ -70,6 +70,7 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 							result.getReason().withStyle(ChatFormatting.GREEN) :
 							result.getReason().withStyle(ChatFormatting.RED);
 				}
+
 				,
 				() -> () -> super.getName(stack)
 		);

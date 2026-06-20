@@ -32,6 +32,7 @@ public final class ModChiselModeGroups {
 			);
 		}
 	}
+
 	;
 
 	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup()
@@ -53,6 +54,7 @@ public final class ModChiselModeGroups {
 			);
 		}
 	}
+
 	;
 
 	public static IToolModeGroup LINE = new IToolModeGroup()
@@ -74,6 +76,7 @@ public final class ModChiselModeGroups {
 			);
 		}
 	}
+
 	;
 
 	public static IToolModeGroup PLANE = new IToolModeGroup()
@@ -95,6 +98,7 @@ public final class ModChiselModeGroups {
 			);
 		}
 	}
+
 	;
 
 	public static IToolModeGroup SPHERE = new IToolModeGroup()
@@ -116,6 +120,7 @@ public final class ModChiselModeGroups {
 			);
 		}
 	}
+
 	;
 
 	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup()
@@ -135,6 +140,7 @@ public final class ModChiselModeGroups {
 			return LocalStrings.ChiselModeConnectedPlane.getText();
 		}
 	}
+
 	;
 
 	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup()
@@ -154,6 +160,7 @@ public final class ModChiselModeGroups {
 			return LocalStrings.ChiselModeConnectedMaterial.getText();
 		}
 	}
+
 	;
 
 	public static IToolModeGroup DRAW = new IToolModeGroup()
@@ -173,6 +180,7 @@ public final class ModChiselModeGroups {
 			return LocalStrings.ChiselModeDrawnCube.getText();
 		}
 	}
+
 	;
 
 	private ModChiselModeGroups()

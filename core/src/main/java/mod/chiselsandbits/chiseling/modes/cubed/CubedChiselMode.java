@@ -17,7 +17,11 @@ import mod.chiselsandbits.api.item.click.ClickProcessingState;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
-import mod.chiselsandbits.api.util.*;
+import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.IBatchMutation;
+import mod.chiselsandbits.api.util.LocalStrings;
+import mod.chiselsandbits.api.util.RayTracingUtils;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
@@ -92,8 +96,10 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 							  state.clear();
 						  }
+
 						  );
 					}
+
 					).sum();
 
 				  resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
@@ -105,6 +111,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
@@ -181,6 +188,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 			  return ClickProcessingState.ALLOW;
 		  }
+
 		  ).orElse(ClickProcessingState.DEFAULT)
 		);
 	}

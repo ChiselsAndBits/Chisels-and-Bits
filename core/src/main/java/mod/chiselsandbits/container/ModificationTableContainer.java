@@ -56,6 +56,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			ModificationTableContainer.this.inventoryUpdateListener.run();
 		}
 	}
+
 	;
 	private final ResultContainer                             inventory               = new ResultContainer();
 
@@ -105,10 +106,12 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 						ModificationTableContainer.this.lastOnTake = l;
 					}
 				}
+
 				);
 				super.onTake(thePlayer, stack);
 			}
 		}
+
 		);
 
 		for (int i = 0; i < 3; ++i)

@@ -18,6 +18,7 @@ public final class ModItemProperties {
 				IsMeasuringItemProperty.CODEC
 			);
 		}
+
 		);
 	}
 }

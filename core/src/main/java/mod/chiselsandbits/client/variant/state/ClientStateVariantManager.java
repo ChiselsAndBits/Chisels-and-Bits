@@ -49,6 +49,7 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 	@Override
 	public IBlockModelData getBlockModelData(BlockInformation blockInformation) {
 		bakeProviders();
+
 		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock())) {
 			return IBlockModelData.empty();
 		}
@@ -64,6 +65,7 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 		final Consumer<Component> tooltipAdder,
 		final TooltipFlag flag) {
 		bakeProviders();
+
 		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock())) {
 			return;
 		}
@@ -72,6 +74,7 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 		blockInformation.variant().ifPresent(variant -> {
 			providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
 		}
+
 		);
 
 		if (!variantLines.isEmpty()) {

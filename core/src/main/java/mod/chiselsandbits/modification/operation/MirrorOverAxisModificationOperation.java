@@ -68,6 +68,7 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 					 case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
 					 case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
 				 }
+
 				 ;
 	}
 }

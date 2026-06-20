@@ -2,6 +2,7 @@ package mod.chiselsandbits.neighborhood;
 
 import java.util.EnumMap;
 import java.util.function.Function;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
@@ -10,6 +11,7 @@ import mod.chiselsandbits.api.profiling.IProfilerSection;
 import mod.chiselsandbits.profiling.ProfilingManager;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.Direction;
 
 public final class BlockNeighborhoodBuilder implements IBlockNeighborhoodBuilder {

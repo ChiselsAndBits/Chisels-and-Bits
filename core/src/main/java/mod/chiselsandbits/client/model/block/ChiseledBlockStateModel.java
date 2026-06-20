@@ -1,15 +1,16 @@
 package mod.chiselsandbits.client.model.block;
 
 import java.util.List;
+
 import com.communi.suggestu.scena.core.client.rendering.DataAwareBlockStateModel;
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
-import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.registrars.ModModelProperties;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -53,6 +54,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	{
 		final BlockEntity blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
+
 		if (!(blockEntity instanceof ChiseledBlockEntity chiseledBlockEntity)) {
 			return null;
 		}
@@ -67,6 +69,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 		final BlockState blockState,
 		final RandomSource randomSource) {
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
+
 		if (modelInformation == null) {
 			return null;
 		}
@@ -82,6 +85,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 		final RandomSource randomSource,
 		final List<BlockStateModelPart> list) {
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
+
 		if (modelInformation == null) {
 			return;
 		}
@@ -94,6 +98,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	{
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
+
 		if (modelInformation == null) {
 			return particleMaterial();
 		}
@@ -106,6 +111,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	{
 		var information = getInformation(blockAndTintGetter, blockPos);
+
 		if (information == null) {
 			return materialFlags();
 		}

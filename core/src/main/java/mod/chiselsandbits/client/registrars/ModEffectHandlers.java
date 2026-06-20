@@ -6,6 +6,7 @@ import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.utils.EffectUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -57,9 +58,11 @@ public class ModEffectHandlers {
 										   return EffectUtils.addHitEffects(level, blockPos, direction, primaryState, particleEngine);
 									   }
 								   }
+
 								   ,
 					ModBlocks.CHISELED_BLOCK.get());
 			}
+
 			);
 
 		IEffectManager.getInstance()
@@ -94,9 +97,11 @@ public class ModEffectHandlers {
 										   return true;
 									   }
 								   }
+
 								   ,
 					ModBlocks.CHISELED_BLOCK.get());
 			}
+
 			);
 	}
 }

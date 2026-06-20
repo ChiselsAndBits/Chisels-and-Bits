@@ -113,6 +113,7 @@ public interface IPositionMutator {
 					 case Y -> IPositionMutator.yxz();
 					 case Z -> IPositionMutator.zxy();
 				 }
+
 				 ;
 	}
 }

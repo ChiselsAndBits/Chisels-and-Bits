@@ -97,6 +97,7 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 					);
 				}
 			}
+
 			)
 		));
 	}

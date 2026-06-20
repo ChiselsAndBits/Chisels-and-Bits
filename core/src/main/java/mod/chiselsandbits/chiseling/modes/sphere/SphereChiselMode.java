@@ -25,7 +25,12 @@ import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.world.IInWorldStateEntryInfo;
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
-import mod.chiselsandbits.api.util.*;
+import mod.chiselsandbits.api.util.BlockPosForEach;
+import mod.chiselsandbits.api.util.BlockPosStreamProvider;
+import mod.chiselsandbits.api.util.IBatchMutation;
+import mod.chiselsandbits.api.util.LocalStrings;
+import mod.chiselsandbits.api.util.RayTracingUtils;
+import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
@@ -88,6 +93,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 			bits.set(index, posRange <= range);
 		}
+
 		);
 
 		return new CubeVoxelShape(new MultiStateBlockEntityDiscreteVoxelShape(bits, fullBitAccuracy));
@@ -142,8 +148,10 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 										state.clear();
 									}
+
 									);
 						}
+
 						)
 						.sum();
 
@@ -160,6 +168,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 			return ClickProcessingState.ALLOW;
 		}
+
 		).orElse(ClickProcessingState.DEFAULT);
 	}
 
@@ -235,6 +244,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 			return ClickProcessingState.ALLOW;
 		}
+
 		).orElse(ClickProcessingState.DEFAULT);
 	}
 
@@ -377,6 +387,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 			return new SphereAreaFilter(context.getModeOfOperandus(), Vec3.ZERO, center);
 		}
+
 		);
 
 		BlockPosStreamProvider.getForRange(diameter)
@@ -389,6 +400,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 							target
 					);
 				}
+
 				);
 
 		return Either.right(center);

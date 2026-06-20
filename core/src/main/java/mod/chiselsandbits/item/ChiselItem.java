@@ -1,6 +1,9 @@
 package mod.chiselsandbits.item;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -193,6 +196,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
 		}
+
 		);
 	}
 

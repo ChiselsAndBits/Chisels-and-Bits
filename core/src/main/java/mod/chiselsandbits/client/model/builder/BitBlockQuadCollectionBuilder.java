@@ -18,6 +18,7 @@ public record BitBlockQuadCollectionBuilder(BlockInformation information) {
 		FROM,
 		TO
 	}
+
 	;
 
 	public QuadCollection build()

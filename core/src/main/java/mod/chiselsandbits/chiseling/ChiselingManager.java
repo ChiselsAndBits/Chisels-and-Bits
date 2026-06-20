@@ -51,6 +51,7 @@ public class ChiselingManager implements IChiselingManager {
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
+
 		if (currentStored == null) {
 			return Optional.empty();
 		}
@@ -66,6 +67,7 @@ public class ChiselingManager implements IChiselingManager {
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final IChiselingContext currentStored = contexts.get().get(playerId, worldId);
+
 		if (currentStored == null) {
 			return Optional.empty();
 		}
@@ -104,6 +106,7 @@ public class ChiselingManager implements IChiselingManager {
 			this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
 			contexts.get().remove(playerId, worldId);
 		}
+
 		, causingItemStack, playerEntity);
 
 		if (!simulation)
@@ -122,6 +125,7 @@ public class ChiselingManager implements IChiselingManager {
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
 		final Long lastChiselTime = this.lastUsedChiselMoments.get().get(playerId, worldId);
+
 		if (lastChiselTime == null) {
 			return true;
 		}
