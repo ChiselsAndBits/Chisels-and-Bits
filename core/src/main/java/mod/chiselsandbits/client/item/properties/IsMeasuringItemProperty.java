@@ -14,19 +14,13 @@ public record IsMeasuringItemProperty() implements ConditionalItemModelProperty 
 	public static final MapCodec<IsMeasuringItemProperty> CODEC = MapCodec.unit(IsMeasuringItemProperty::new);
 
 	@Override
-	public MapCodec<? extends ConditionalItemModelProperty> type()
-
-	{
+	public MapCodec<? extends ConditionalItemModelProperty> type() {
 		return CODEC;
 	}
 
 	@Override
-	public boolean get(final ItemStack stack, @Nullable final ClientLevel level, @Nullable final LivingEntity entity, final int seed, final ItemDisplayContext displayContext)
-
-	{
-		if (stack.getItem() != ModItems.MEASURING_TAPE.get())
-
-		{
+	public boolean get(final ItemStack stack, @Nullable final ClientLevel level, @Nullable final LivingEntity entity, final int seed, final ItemDisplayContext displayContext) {
+		if (stack.getItem() != ModItems.MEASURING_TAPE.get()) {
 			return false;
 		}
 

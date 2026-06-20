@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class BagGuiPacket extends ModPacket {
-	public static final Identifier                             ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bag_gui");
 	public static final CustomPacketPayload.Type<BagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private int slotNumber = -1;
@@ -17,15 +17,11 @@ public final class BagGuiPacket extends ModPacket {
 	private boolean duplicateButton = false;
 	private boolean holdingShift = false;
 
-	public BagGuiPacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public BagGuiPacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
-	public BagGuiPacket(final int slotNumber, final int mouseButton, final boolean duplicateButton, final boolean holdingShift)
-
-	{
+	public BagGuiPacket(final int slotNumber, final int mouseButton, final boolean duplicateButton, final boolean holdingShift) {
 		this.slotNumber = slotNumber;
 		this.mouseButton = mouseButton;
 		this.duplicateButton = duplicateButton;
@@ -34,23 +30,21 @@ public final class BagGuiPacket extends ModPacket {
 
 	@Override
 	public void server(
-			final ServerPlayer player ) {
-		//doAction( player );
+			final ServerPlayer player) {
+			//doAction(player);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
-		buffer.writeInt( slotNumber );
-		buffer.writeInt( mouseButton );
-		buffer.writeBoolean( duplicateButton );
-		buffer.writeBoolean( holdingShift );
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
+		buffer.writeInt(slotNumber);
+		buffer.writeInt(mouseButton);
+		buffer.writeBoolean(duplicateButton);
+		buffer.writeBoolean(holdingShift);
 	}
 
 	@Override
 	public void readPayload(
-			final RegistryFriendlyByteBuf buffer ) {
+			final RegistryFriendlyByteBuf buffer) {
 		slotNumber = buffer.readInt();
 		mouseButton = buffer.readInt();
 		duplicateButton = buffer.readBoolean();

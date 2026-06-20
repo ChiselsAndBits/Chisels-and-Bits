@@ -14,48 +14,41 @@ import net.minecraft.world.item.ItemStack;
 
 public class SelectedObjectRenderHandler {
 	public static void renderCustomWorldHighlight(
-		final LevelRenderer levelRenderer,
-		final PoseStack poseStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final LevelRenderState levelRenderState,
-		final float partialTicks
-	)
-
-	{
+			final LevelRenderer levelRenderer,
+			final PoseStack poseStack,
+			final MultiBufferSource.BufferSource bufferSource,
+			final LevelRenderState levelRenderState,
+			final float partialTicks
+			) {
 		final Player playerEntity = Minecraft.getInstance().player;
-		if (playerEntity == null || playerEntity.isSpectator())
 
-		{
+		if (playerEntity == null || playerEntity.isSpectator()) {
 			return;
 		}
 
 		final ItemStack heldStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
-		if (heldStack.isEmpty())
 
-		{
+		if (heldStack.isEmpty()) {
 			return;
 		}
 
 		final Item heldItem = heldStack.getItem();
-		if (!(heldItem instanceof final IWithHighlightItem withHighlightItem))
 
-		{
+		if (!(heldItem instanceof final IWithHighlightItem withHighlightItem)) {
 			return;
 		}
 
-		if (withHighlightItem.shouldDrawDefaultHighlight(playerEntity))
-
-		{
+		if (withHighlightItem.shouldDrawDefaultHighlight(playerEntity)) {
 			return;
 		}
 
 		withHighlightItem.renderHighlight(
-			playerEntity,
-			levelRenderer,
-			poseStack,
-			bufferSource,
-			levelRenderState,
-			partialTicks
+				playerEntity,
+				levelRenderer,
+				poseStack,
+				bufferSource,
+				levelRenderState,
+				partialTicks
 		);
 	}
 }

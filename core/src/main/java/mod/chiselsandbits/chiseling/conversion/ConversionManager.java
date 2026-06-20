@@ -12,16 +12,12 @@ import net.minecraft.world.level.block.Block;
 public class ConversionManager implements IConversionManager {
 	private static final ConversionManager INSTANCE = new ConversionManager();
 
-	public static ConversionManager getInstance()
-
-	{
+	public static ConversionManager getInstance() {
 		return INSTANCE;
 	}
 
 	@Override
-	public Optional<Block> getChiseledVariantOf(final Block block)
-
-	{
+	public Optional<Block> getChiseledVariantOf(final Block block) {
 		if (!IEligibilityManager.getInstance().canBeChiseled(new BlockInformation(block.defaultBlockState(), Optional.empty()))) {
 			return Optional.empty();
 		}
@@ -29,8 +25,6 @@ public class ConversionManager implements IConversionManager {
 		return Optional.of(ModBlocks.CHISELED_BLOCK.get());
 	}
 
-	private ConversionManager()
-
-	{
+	private ConversionManager() {
 	}
 }

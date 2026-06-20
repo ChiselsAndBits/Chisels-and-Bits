@@ -27,32 +27,24 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockStateModel {
 	@Override
-	public void collectParts(final @NotNull RandomSource random, final @NotNull List<BlockStateModelPart> output)
-
-	{
-		//Noop
+	public void collectParts(final @NotNull RandomSource random, final @NotNull List<BlockStateModelPart> output) {
+	//Noop
 	}
 
 	@Override
-	public Material.@NonNull Baked particleMaterial()
-
-	{
-		 return new Material.Baked(
-			 Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(MissingTextureAtlasSprite.getLocation()),
-			 false
-		 );
+	public Material.@NonNull Baked particleMaterial() {
+		return new Material.Baked(
+				Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(MissingTextureAtlasSprite.getLocation()),
+				false
+		);
 	}
 
 	@Override
-	public @BakedQuad.MaterialFlags int materialFlags()
-
-	{
+	public @BakedQuad.MaterialFlags int materialFlags() {
 		return 0;
 	}
 
-	protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos)
-
-	{
+	protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos) {
 		final BlockEntity blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
 
 		if (!(blockEntity instanceof ChiseledBlockEntity chiseledBlockEntity)) {
@@ -64,10 +56,10 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	@Override
 	public @Nullable Object createGeometryKey(
-		final BlockAndTintGetter blockAndTintGetter,
-		final BlockPos blockPos,
-		final BlockState blockState,
-		final RandomSource randomSource) {
+			final BlockAndTintGetter blockAndTintGetter,
+			final BlockPos blockPos,
+			final BlockState blockState,
+			final RandomSource randomSource) {
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
 
 		if (modelInformation == null) {
@@ -79,11 +71,11 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	@Override
 	public void collectParts(
-		final BlockAndTintGetter blockAndTintGetter,
-		final BlockPos blockPos,
-		final BlockState blockState,
-		final RandomSource randomSource,
-		final List<BlockStateModelPart> list) {
+			final BlockAndTintGetter blockAndTintGetter,
+			final BlockPos blockPos,
+			final BlockState blockState,
+			final RandomSource randomSource,
+			final List<BlockStateModelPart> list) {
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
 
 		if (modelInformation == null) {
@@ -94,9 +86,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 	}
 
 	@Override
-	public Material.Baked particleMaterial(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState)
-
-	{
+	public Material.Baked particleMaterial(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState) {
 		final ChiseledBlockModelInformation modelInformation = getInformation(blockAndTintGetter, blockPos);
 
 		if (modelInformation == null) {
@@ -107,9 +97,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 	}
 
 	@Override
-	public @BakedQuad.MaterialFlags int materialFlags(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState)
-
-	{
+	public @BakedQuad.MaterialFlags int materialFlags(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState) {
 		var information = getInformation(blockAndTintGetter, blockPos);
 
 		if (information == null) {
@@ -122,12 +110,10 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 	public final static class Direct extends ChiseledBlockStateModel {
 		private final ChiseledBlockModelInformation directInformation;
 
-		public Direct(final ChiseledBlockModelInformation directInformation) {this.directInformation = directInformation;}
+		public Direct(final ChiseledBlockModelInformation directInformation) {this.directInformation = directInformation; }
 
 		@Override
-		protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos)
-
-		{
+		protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos) {
 			return directInformation;
 		}
 	}
@@ -136,15 +122,11 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(new Unbaked());
 
 		@Override
-		public void resolveDependencies(final @NotNull Resolver resolver)
-
-		{
+		public void resolveDependencies(final @NotNull Resolver resolver) {
 		}
 
 		@Override
-		public @NotNull BlockStateModel bake(final @NotNull ModelBaker baker)
-
-		{
+		public @NotNull BlockStateModel bake(final @NotNull ModelBaker baker) {
 			return new ChiseledBlockStateModel();
 		}
 	}

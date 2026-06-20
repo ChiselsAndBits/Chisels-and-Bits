@@ -32,19 +32,15 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final CreativeClipboardManager INSTANCE = new CreativeClipboardManager();
 
-	public static CreativeClipboardManager getInstance()
-
-	{
+	public static CreativeClipboardManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final SimpleMaxSizedList<IMultiStateItemStack> cache = new SimpleMaxSizedList<>(
-	  IClientConfiguration.getInstance().getClipboardSize()
+			IClientConfiguration.getInstance().getClipboardSize()
 	);
 
-	private CreativeClipboardManager()
-
-	{
+	private CreativeClipboardManager() {
 	}
 
 	public void load(HolderLookup.Provider provider) {
@@ -54,27 +50,21 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			return;
 		}
 
-		try
-
-		{
+		try {
 			final CompoundTag data = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
 			final ListTag tags = data.getList("clipboard").orElse(new ListTag());
 			tags.stream()
-			  .filter(CompoundTag.class::isInstance)
-			  .map(CompoundTag.class::cast)
-			  .map(tag -> {
-				  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
-				  return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
-			  }
+				.filter(CompoundTag.class::isInstance)
+				.map(CompoundTag.class::cast)
+				.map(tag -> {
+						final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
+						return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
+				}
 
-			  )
-			  .map(SingleBlockMultiStateItemStack::new)
-			  .forEach(cache::add);
-		}
-
-		catch (IOException e)
-
-		{
+				)
+				.map(SingleBlockMultiStateItemStack::new)
+				.forEach(cache::add);
+		} catch (IOException e) {
 			LOGGER.fatal("Failed to read a clipboard file!", e);
 		}
 	}
@@ -84,14 +74,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 		final ListTag tags = new ListTag();
 
 		cache.stream()
-		  .map(IMultiStateItemStack::toBlockStack)
-		  .map(stack -> {
-			  final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
-			  return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
-		  }
+			.map(IMultiStateItemStack::toBlockStack)
+			.map(stack -> {
+					final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
+					return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
+			}
 
-		  )
-		  .forEach(tags::add);
+			)
+			.forEach(tags::add);
 
 		data.put("clipboard", tags);
 
@@ -99,39 +89,25 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
-		}
-
-		else
-
-		{
+		} else {
 			file.delete();
 		}
 
-		try
-
-		{
+		try {
 			file.createNewFile();
 			NbtIo.writeCompressed(data, file.toPath());
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			LOGGER.fatal("Failed to create a clipboard file!", e);
 		}
 	}
 
 	@Override
-	public List<IMultiStateItemStack> getClipboard()
-
-	{
+	public List<IMultiStateItemStack> getClipboard() {
 		return ImmutableList.copyOf(cache);
 	}
 
 	@Override
-	public void addEntry(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider)
-
-	{
+	public void addEntry(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider) {
 		synchronized (cache) {
 			if (cache.contains(multiStateItemStack)) {
 				return;
@@ -146,13 +122,13 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 	private void updateCreativeTab() {
 		ModCreativeTabs.CLIPBOARD.get()
-				.displayItems = ItemStackLinkedSet.createTypeAndComponentsSet();
+			.displayItems = ItemStackLinkedSet.createTypeAndComponentsSet();
 		ModCreativeTabs.CLIPBOARD.get()
-				.displayItemsSearchTab = ItemStackLinkedSet.createTypeAndComponentsSet();
+			.displayItemsSearchTab = ItemStackLinkedSet.createTypeAndComponentsSet();
 
 		cache.forEach(stack -> {
-			ModCreativeTabs.CLIPBOARD.get()
-					.displayItems.add(stack.toBlockStack());
+				ModCreativeTabs.CLIPBOARD.get()
+				.displayItems.add(stack.toBlockStack());
 		}
 
 		);
@@ -165,7 +141,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 	@Override
 	public void removeEntry(int index, HolderLookup.Provider provider) {
 		synchronized (cache) {
-			if (index < 0 || index >= cache.size()) {
+			if (index <0 || index>= cache.size()) {
 				return;
 			}
 
@@ -177,9 +153,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 	}
 
 	@Override
-	public void clear(final HolderLookup.Provider provider)
-
-	{
+	public void clear(final HolderLookup.Provider provider) {
 		synchronized (cache) {
 			cache.clear();
 			writeContentsToDisk(provider);

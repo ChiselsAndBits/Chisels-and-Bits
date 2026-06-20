@@ -13,8 +13,8 @@ public enum ChangeType implements IChangeType {
 	BIT(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"), BitChange.MAP_CODEC, BitChange.STREAM_CODEC),
 	COMBINED(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "combined"), CombinedChange.MAP_CODEC, CombinedChange.STREAM_CODEC);
 
-	private final Identifier                                              registryName;
-	private final MapCodec<? extends IChange>                             codec;
+	private final Identifier registryName;
+	private final MapCodec<? extends IChange> codec;
 	private final StreamCodec<RegistryFriendlyByteBuf, ? extends IChange> streamCodec;
 
 	ChangeType(Identifier registryName, MapCodec<? extends IChange> codec, StreamCodec<RegistryFriendlyByteBuf, ? extends IChange> streamCodec) {

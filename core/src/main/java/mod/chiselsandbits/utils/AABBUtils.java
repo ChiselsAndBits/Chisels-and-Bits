@@ -12,13 +12,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 
 public class AABBUtils {
-	private AABBUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: AABBUtils. This is a utility class");
+	private AABBUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: AABBUtils.This is a utility class");
 	}
 
-	public static boolean areBoxesNeighbors(@NotNull final AABB l, @NotNull final AABB r,@NotNull final Direction direction) {
+	public static boolean areBoxesNeighbors(@NotNull final AABB l, @NotNull final AABB r, @NotNull final Direction direction) {
 		final double endOfL = getDirectionalValue(l, direction);
 		final double startOfR = getDirectionalValue(r, direction.getOpposite());
 
@@ -31,14 +29,14 @@ public class AABBUtils {
 		final Map<Direction, Double> valuesOfR = remainingDirectionsToCheck.stream().collect(Collectors.toMap(Function.identity(), d -> getDirectionalValue(r, d)));
 
 		return remainingDirectionsToCheck.stream().allMatch(d -> MathUtil.almostEqual(
-		  valuesOfL.get(d),
-		  valuesOfR.get(d)
+				valuesOfL.get(d),
+				valuesOfR.get(d)
 		));
 	}
 
 	public static double getDirectionalValue(@NotNull final AABB bb, @NotNull final Direction direction) {
-		return direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ?
-				 bb.max(direction.getAxis()) :
-				 bb.min(direction.getAxis());
+		return direction.getAxisDirection() == Direction.AxisDirection.POSITIVE
+		? bb.max(direction.getAxis())
+		: bb.min(direction.getAxis());
 	}
 }

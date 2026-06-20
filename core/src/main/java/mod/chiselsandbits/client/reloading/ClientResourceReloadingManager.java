@@ -21,46 +21,36 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
 public class ClientResourceReloadingManager implements ResourceManagerReloadListener {
-	private static final Logger                         LOGGER   = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ClientResourceReloadingManager INSTANCE = new ClientResourceReloadingManager();
 
-	public static ClientResourceReloadingManager getInstance()
-
-	{
+	public static ClientResourceReloadingManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final Set<ICacheClearingHandler> cacheClearingHandlers = Sets.newConcurrentHashSet();
 
-	private ClientResourceReloadingManager()
-
-	{
+	private ClientResourceReloadingManager() {
 	}
 
 	@Override
-	public void onResourceManagerReload(final @NotNull ResourceManager manager)
-
-	{
+	public void onResourceManagerReload(final @NotNull ResourceManager manager) {
 		clearCaches();
 	}
 
-	public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler)
-
-	{
+	public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler) {
 		this.cacheClearingHandlers.add(cacheClearingHandler);
 		return this;
 	}
 
-	public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar)
-
-	{
+	public static void setup(final IRegisterClientReloadListenersEvent.Registrar registrar) {
 		LOGGER.info("Setting up client reloading resource manager.");
 		registrar.addListener(
-			Identifier.fromNamespaceAndPath(
-				Constants.MOD_ID,
-				"client_cache_clear"
-			),
-			getInstance()
+				Identifier.fromNamespaceAndPath(
+						Constants.MOD_ID,
+						"client_cache_clear"
+				),
+				getInstance()
 		);
 
 		ClientResourceReloadingManager.getInstance()
@@ -71,9 +61,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 			.registerCacheClearer(FaceManager.getInstance()::clearCache);
 	}
 
-	public void clearCaches()
-
-	{
+	public void clearCaches() {
 		LOGGER.info("Resetting client caches");
 		cacheClearingHandlers.forEach(ICacheClearingHandler::clear);
 

@@ -84,17 +84,15 @@ public enum MeasuringMode implements IMeasuringMode
 	RED_DISTANCE(RED, MeasuringType.DISTANCE, Component.translatable(Constants.MOD_ID + ".measuring.types.distance.red"), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "white")),
 	BLACK_DISTANCE(BLACK, MeasuringType.DISTANCE, Component.translatable(Constants.MOD_ID + ".measuring.types.distance.black"), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "white"));
 
-	public static final Codec<MeasuringMode>                CODEC        = Codec.STRING.xmap(MeasuringMode::valueOf, Enum::name);
+	public static final Codec<MeasuringMode> CODEC = Codec.STRING.xmap(MeasuringMode::valueOf, Enum::name);
 	public static final StreamCodec<ByteBuf, MeasuringMode> STREAM_CODEC = ByteBufCodecs.VAR_INT.map(i -> MeasuringMode.values()[i], Enum::ordinal);
 
-	private final DyeColor      color;
+	private final DyeColor color;
 	private final MeasuringType type;
-	private final Component     displayName;
-	private final Identifier    icon;
+	private final Component displayName;
+	private final Identifier icon;
 
-	MeasuringMode(final DyeColor color, final MeasuringType type, final Component displayName, final Identifier icon)
-
-	{
+	MeasuringMode(final DyeColor color, final MeasuringType type, final Component displayName, final Identifier icon) {
 		this.color = color;
 		this.type = type;
 		this.displayName = displayName;
@@ -102,57 +100,43 @@ public enum MeasuringMode implements IMeasuringMode
 	}
 
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return icon;
 	}
 
 	@Override
-	public @NotNull Optional<IMeasuringType> getGroup()
-
-	{
+	public @NotNull Optional<IMeasuringType> getGroup() {
 		return Optional.of(getType());
 	}
 
 	@Override
-	public boolean shouldRenderDisplayNameInMenu()
-
-	{
+	public boolean shouldRenderDisplayNameInMenu() {
 		return false;
 	}
 
 	@Override
-	public @NotNull Vec3 getColorVector()
-
-	{
+	public @NotNull Vec3 getColorVector() {
 		final int color = getColor().getTextColor();
 
-		float r = (float) (color >> 16 & 255) / 255.0F;
-		float g = (float) (color >> 8 & 255) / 255.0F;
+		float r = (float) (color>> 16 & 255) / 255.0F;
+		float g = (float) (color>> 8 & 255) / 255.0F;
 		float b = (float) (color & 255) / 255.0F;
 
 		return new Vec3(r, g, b);
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return this.displayName;
 	}
 
 	@Override
-	public DyeColor getColor()
-
-	{
+	public DyeColor getColor() {
 		return this.color;
 	}
 
 	@Override
-	public MeasuringType getType()
-
-	{
+	public MeasuringType getType() {
 		return this.type;
 	}
 }

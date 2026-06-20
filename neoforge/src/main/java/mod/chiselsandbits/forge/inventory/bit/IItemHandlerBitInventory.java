@@ -11,46 +11,38 @@ import net.minecraft.world.item.ItemStack;
 public class IItemHandlerBitInventory extends AbstractBitInventory {
 	private final ResourceHandler<ItemResource> itemHandler;
 
-	public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {this.itemHandler = itemHandler;}
+	public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {this.itemHandler = itemHandler; }
 
 	/**
-     * Gets a copy of the stack that is in the given slot.
-     *
-     * @param index The index of the slot to read.
-     * @return A copy of the stack in the slot.
-     */
+	 * Gets a copy of the stack that is in the given slot.
+	 *
+	 * @param index The index of the slot to read.
+	 * @return A copy of the stack in the slot.
+	 */
 	@Override
-	protected ItemStack getItem(final int index)
-
-	{
+	protected ItemStack getItem(final int index) {
 		return itemHandler.getResource(index).toStack();
 	}
 
 	/**
-     * The size of the inventory.
-     *
-     * @return The size of the inventory.
-     */
+	 * The size of the inventory.
+	 *
+	 * @return The size of the inventory.
+	 */
 	@Override
-	protected int getInventorySize()
-
-	{
+	protected int getInventorySize() {
 		return itemHandler.size();
 	}
 
 	/**
-     * Sets the slot with the given index with the given stack.
-     *
-     * @param index The index of the slot.
-     * @param stack The stack to insert.
-     */
+	 * Sets the slot with the given index with the given stack.
+	 *
+	 * @param index The index of the slot.
+	 * @param stack The stack to insert.
+	 */
 	@Override
-	protected void setItem(final int index, final ItemStack stack)
-
-	{
-		try(Transaction tx = Transaction.openRoot())
-
-		{
+	protected void setItem(final int index, final ItemStack stack) {
+		try(Transaction tx = Transaction.openRoot()) {
 			itemHandler.extract(index, ItemResource.of(stack), stack.getCount(), tx);
 
 			if (itemHandler.insert(index, ItemResource.of(stack), stack.getCount(), tx) != stack.getCount()) {
@@ -62,9 +54,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory {
 	}
 
 	@Override
-	public boolean isEmpty()
-
-	{
+	public boolean isEmpty() {
 		return ResourceHandlerUtil.isEmpty(itemHandler);
 	}
 }

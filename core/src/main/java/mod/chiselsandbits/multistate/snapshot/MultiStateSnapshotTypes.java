@@ -13,8 +13,8 @@ public enum MultiStateSnapshotTypes implements IMultiStateSnapshotType {
 	MULTI_BLOCK(Identifier.fromNamespaceAndPath("chiselsandbits", "multi_block"), MultiBlockMultiStateSnapshot.MAP_CODEC, MultiBlockMultiStateSnapshot.STREAM_CODEC),
 	SIMPLE(Identifier.fromNamespaceAndPath("chiselsandbits", "simple"), SimpleSnapshot.MAP_CODEC, SimpleSnapshot.STREAM_CODEC);
 
-	private final Identifier                                                          registryName;
-	private final MapCodec<? extends IMultiStateSnapshot>                             codec;
+	private final Identifier registryName;
+	private final MapCodec<? extends IMultiStateSnapshot> codec;
 	private final StreamCodec<RegistryFriendlyByteBuf, ? extends IMultiStateSnapshot> streamCodec;
 
 	MultiStateSnapshotTypes(Identifier registryName, MapCodec<? extends IMultiStateSnapshot> codec, StreamCodec<RegistryFriendlyByteBuf, ? extends IMultiStateSnapshot> streamCodec) {

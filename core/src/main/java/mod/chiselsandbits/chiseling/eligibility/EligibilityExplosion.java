@@ -16,58 +16,42 @@ public class EligibilityExplosion implements Explosion {
 	}
 
 	@Override
-	public ServerLevel level()
-
-	{
+	public ServerLevel level() {
 		return null;
 	}
 
 	@Override
-	public BlockInteraction getBlockInteraction()
-
-	{
+	public BlockInteraction getBlockInteraction() {
 		return BlockInteraction.KEEP;
 	}
 
 	@Override
-	public @Nullable LivingEntity getIndirectSourceEntity()
-
-	{
+	public @Nullable LivingEntity getIndirectSourceEntity() {
 		return null;
 	}
 
 	@Override
-	public @Nullable Entity getDirectSourceEntity()
-
-	{
+	public @Nullable Entity getDirectSourceEntity() {
 		return null;
 	}
 
 	@Override
-	public float radius()
-
-	{
+	public float radius() {
 		return 0;
 	}
 
 	@Override
-	public Vec3 center()
-
-	{
+	public Vec3 center() {
 		return Vec3.ZERO;
 	}
 
 	@Override
-	public boolean canTriggerBlocks()
-
-	{
+	public boolean canTriggerBlocks() {
 		return false;
 	}
 
 	@Override
-	public boolean shouldAffectBlocklikeEntities()
-
-	{
+	public boolean shouldAffectBlocklikeEntities() {
 		return false;
 	}
 }

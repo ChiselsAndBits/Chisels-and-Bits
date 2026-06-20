@@ -39,27 +39,21 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
-
-	{
+	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of(
-			BuiltInRegistries.BLOCK.wrapAsHolder(
-				ModBlocks.CHISELED_BLOCK.get()
-			)
+				BuiltInRegistries.BLOCK.wrapAsHolder(
+						ModBlocks.CHISELED_BLOCK.get()
+				)
 		);
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
-
-	{
+	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
-
-	{
+	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
 		actOnBlock(ModBlocks.CHISELED_BLOCK.get(), blockModels);
 	}
 
@@ -71,34 +65,28 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 
 	public void actOnBlock(final Block block, BlockModelGenerators generators) {
 		generators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(
-			block,
-			MultiVariant.of(new CustomBlockStateModelBuilder() {
-				@Override
-				public @NotNull CustomBlockStateModelBuilder with(final @NotNull VariantMutator variantMutator)
-
-				{
-					return this;
-				}
-
-				@Override
-				public @NotNull CustomBlockStateModelBuilder with(final @NotNull UnbakedMutator variantMutator)
-
-				{
-					return this;
-				}
-
-				@Override
-				public @NotNull CustomUnbakedBlockStateModel toUnbaked()
-
-				{
-					//noinspection rawtypes,unchecked
-					return new UnbakedCustomModelWrapper(
-						ChiseledBlockStateModel.Unbaked.CODEC
-					);
-				}
+				block,
+				MultiVariant.of(new CustomBlockStateModelBuilder() {
+						@Override
+						public @NotNull CustomBlockStateModelBuilder with(final @NotNull VariantMutator variantMutator) {
+						return this;
 			}
 
-			)
+						@Override
+						public @NotNull CustomBlockStateModelBuilder with(final @NotNull UnbakedMutator variantMutator) {
+						return this;
+			}
+
+						@Override
+						public @NotNull CustomUnbakedBlockStateModel toUnbaked() {
+						//noinspection rawtypes, unchecked
+						return new UnbakedCustomModelWrapper(
+								ChiseledBlockStateModel.Unbaked.CODEC
+						);
+			}
+		}
+
+				)
 		));
 	}
 }

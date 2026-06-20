@@ -21,66 +21,57 @@ import net.minecraft.util.TriState;
 import net.minecraft.world.level.block.state.BlockState;
 
 public record ChiseledBlockModelPart(
-	BlockInformation source,
-	BlockState appearance,
-	QuadCollection quads,
-	TriState ambientOcclusion,
-	Material.Baked particleMaterial,
-	int materialFlags,
-	Supplier<Vector3fc[]> extendsCalculator
-) implements BlockStateModelPart, ExtendedBlockStateModelPart {
+		BlockInformation source,
+		BlockState appearance,
+		QuadCollection quads,
+		TriState ambientOcclusion,
+		Material.Baked particleMaterial,
+		int materialFlags,
+		Supplier<Vector3fc[]> extendsCalculator
+		) implements BlockStateModelPart, ExtendedBlockStateModelPart {
 	public ChiseledBlockModelPart(
-		final BlockInformation source,
-		final BlockState appearance,
-		final QuadCollection quads,
-		final TriState ambientOcclusion,
-		final Material.Baked particleMaterial,
-		final int materialFlags) {
+			final BlockInformation source,
+			final BlockState appearance,
+			final QuadCollection quads,
+			final TriState ambientOcclusion,
+			final Material.Baked particleMaterial,
+			final int materialFlags) {
 		this(
-			source,
-			appearance,
-			quads,
-			ambientOcclusion,
-			particleMaterial,
-			materialFlags,
-			Suppliers.memoize(
-				() -> {
-					Set<Vector3fc> set = new HashSet<>();
+				source,
+				appearance,
+				quads,
+				ambientOcclusion,
+				particleMaterial,
+				materialFlags,
+				Suppliers.memoize(
+						() -> {
+						Set<Vector3fc> set = new HashSet<>();
 
-					for (BakedQuad bakedquad : quads.getAll())
+						for (BakedQuad bakedquad : quads.getAll()) {
 
-					{
-						for (int i = 0; i < 4; i++)
-
-						{
-							set.add(bakedquad.position(i));
-						}
-					}
-
-					return set.toArray(Vector3fc[]::new);
+						for (int i = 0; i <4; i++) {
+						set.add(bakedquad.position(i));
 				}
-			)
+			}
+
+						return set.toArray(Vector3fc[]::new);
+						}
+				)
 		);
 	}
 
 	@Override
-	public @NotNull BlockState getBlockAppearance()
-
-	{
+	public @NotNull BlockState getBlockAppearance() {
 		return appearance();
 	}
 
 	@Override
-	public @NotNull List<BakedQuad> getQuads(@Nullable final Direction direction)
-
-	{
+	public @NotNull List<BakedQuad> getQuads(@Nullable final Direction direction) {
 		return quads.getQuads(direction);
 	}
 
 	@Override
-	public boolean useAmbientOcclusion()
-
-	{
+	public boolean useAmbientOcclusion() {
 		return ambientOcclusion().toBoolean(true);
 	}
 }

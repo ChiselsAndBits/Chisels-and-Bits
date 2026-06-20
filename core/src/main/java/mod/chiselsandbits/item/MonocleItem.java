@@ -28,9 +28,8 @@ public class MonocleItem extends Item {
 		protected @NotNull ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
 			return dispenseArmor(source, stack) ? stack : super.execute(source, stack);
 		}
-	}
+	};
 
-	;
 
 	private static boolean dispenseArmor(BlockSource source, ItemStack stack) {
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
@@ -53,17 +52,13 @@ public class MonocleItem extends Item {
 		}
 	}
 
-	public MonocleItem(final Properties itemProperties)
-
-	{
+	public MonocleItem(final Properties itemProperties) {
 		super(itemProperties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(ArmorMaterials.GOLD.equipSound()).build()));
 
 		DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
 	}
 
-	public static class MobCanWearArmorEntitySelector implements Predicate<Entity>
-
-	{
+	public static class MobCanWearArmorEntitySelector implements Predicate<Entity> {
 		private final ItemStack itemStack;
 
 		public MobCanWearArmorEntitySelector(ItemStack itemstack) {

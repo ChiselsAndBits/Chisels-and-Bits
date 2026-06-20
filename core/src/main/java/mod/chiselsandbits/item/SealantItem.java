@@ -37,37 +37,27 @@ public class SealantItem extends Item implements ISealantItem {
 	private final String CONST_INTERACTION = "Interaction";
 	private final String CONST_SIMULATION = "Simulation";
 
-	public SealantItem(final Properties properties)
-
-	{
+	public SealantItem(final Properties properties) {
 		super(properties.enchantable(5));
 	}
 
 	@Override
-	public boolean isInteracting(final ItemStack stack)
-
-	{
+	public boolean isInteracting(final ItemStack stack) {
 		return stack.getItem() == this && stack.has(ModDataComponentTypes.INTERACTION_TARGET.get());
 	}
 
 	@Override
-	public ItemStack getInteractionTarget(final ItemStack stack)
-
-	{
+	public ItemStack getInteractionTarget(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.INTERACTION_TARGET.get(), InteractionData.EMPTY).stack();
 	}
 
 	@Override
-	public boolean isRunningASimulatedInteraction(final ItemStack stack)
-
-	{
+	public boolean isRunningASimulatedInteraction(final ItemStack stack) {
 		return isInteracting(stack) && stack.getOrDefault(ModDataComponentTypes.IS_SIMULATING.get(), false);
 	}
 
 	@Override
-	public float getBobbingTickCount()
-
-	{
+	public float getBobbingTickCount() {
 		return 32;
 	}
 
@@ -77,10 +67,10 @@ public class SealantItem extends Item implements ISealantItem {
 	}
 
 	public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i <20; i++) {
 			Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
 			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.count(), stack.getComponentsPatch())), location.x, location.y,
-			  location.z, motion.x, motion.y, motion.z);
+					location.z, motion.x, motion.y, motion.z);
 		}
 	}
 
@@ -112,9 +102,9 @@ public class SealantItem extends Item implements ISealantItem {
 
 			if (worldIn.isClientSide()) {
 				spawnParticles(entityLiving.getEyePosition(1)
-								 .add(entityLiving.getLookAngle()
-										.scale(.5f)),
-				  target, worldIn);
+						.add(entityLiving.getLookAngle()
+								.scale(.5f)),
+						target, worldIn);
 				return stack;
 			}
 
@@ -126,13 +116,13 @@ public class SealantItem extends Item implements ISealantItem {
 
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
-					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+						EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-					if (playerEntity.getOffhandItem() == stack) {
-						hand = EquipmentSlot.OFFHAND;
+						if (playerEntity.getOffhandItem() == stack) {
+							hand = EquipmentSlot.OFFHAND;
 					}
 
-					player.onEquippedItemBroken(item, hand);
+						player.onEquippedItemBroken(item, hand);
 				}
 
 				);
@@ -168,15 +158,9 @@ public class SealantItem extends Item implements ISealantItem {
 
 	private static ItemStack createPattern(final ItemStack targetStack) {
 		if (targetStack.getItem() instanceof ISupportsSealing) {
-			try
-
-			{
+			try {
 				return ((ISupportsSealing) targetStack.getItem()).seal(targetStack);
-			}
-
-			catch (SealingNotSupportedException e)
-
-			{
+			} catch (SealingNotSupportedException e) {
 				return targetStack;
 			}
 		}
@@ -187,16 +171,16 @@ public class SealantItem extends Item implements ISealantItem {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-		final @NotNull ItemStack stack,
-		final @NotNull TooltipContext context,
-		final @NotNull TooltipDisplay tooltipDisplay,
-		final @NotNull Consumer<Component> tooltipAdder,
-		final @NotNull TooltipFlag flag) {
+			final @NotNull ItemStack stack,
+			final @NotNull TooltipContext context,
+			final @NotNull TooltipDisplay tooltipDisplay,
+			final @NotNull Consumer<Component> tooltipAdder,
+			final @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		DistExecutor.unsafeExecuteForDist(
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder)
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpSealant, tooltipAdder)
 		);
 	}
 }

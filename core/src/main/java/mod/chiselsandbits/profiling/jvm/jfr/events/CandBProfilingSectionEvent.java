@@ -17,9 +17,7 @@ public class CandBProfilingSectionEvent extends Event {
 	@Label("Name")
 	public String name;
 
-	public CandBProfilingSectionEvent(final String name)
-
-	{
+	public CandBProfilingSectionEvent(final String name) {
 		this.name = name;
 	}
 }

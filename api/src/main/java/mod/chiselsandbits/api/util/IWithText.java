@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IWithText {
 	/**
-     * The text associated with this object.
-     *
-     * @return The text.
-     */
+	 * The text associated with this object.
+	 *
+	 * @return The text.
+	 */
 	@NotNull
 	Component getText();
 }

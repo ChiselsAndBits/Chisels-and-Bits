@@ -35,25 +35,21 @@ import net.minecraft.world.level.material.FluidState;
 public final class StateVariantManager implements IStateVariantManager {
 	private static final StateVariantManager INSTANCE = new StateVariantManager();
 
-	public static StateVariantManager getInstance()
-
-	{
+	public static StateVariantManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final Map<Supplier<Block>, IStateVariantProvider> preBakeProviders = new ConcurrentHashMap<>();
-	private final Map<Block, IStateVariantProvider>      providers        = new ConcurrentHashMap<>();
+	private final Map<Block, IStateVariantProvider> providers = new ConcurrentHashMap<>();
 	private final Map<Identifier, IStateVariantProvider> providersByNames = new ConcurrentHashMap<>();
 
-	private StateVariantManager()
-
-	{
+	private StateVariantManager() {
 	}
 
 	@Override
 	public Codec<IStateVariantProvider> byNameCodec() {
 		return Identifier.CODEC.comapFlatMap(
-			name -> Optional.ofNullable(providersByNames.get(name)).map(DataResult::success).orElse(DataResult.error(() -> "Unknown registry name: " + name)),
+				name -> Optional.ofNullable(providersByNames.get(name)).map(DataResult::success).orElse(DataResult.error(() -> "Unknown registry name: " + name)),
 				IStateVariantProvider::getRegistryName
 		);
 	}
@@ -70,14 +66,13 @@ public final class StateVariantManager implements IStateVariantManager {
 			public void encode(@NotNull RegistryFriendlyByteBuf buffer, @NotNull IStateVariantProvider value) {
 				buffer.writeIdentifier(value.getRegistryName());
 			}
-		}
+		};
 
-		;
 	}
 
 	@SafeVarargs
 	@Override
-	public final IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block) {
+	public final IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>...block) {
 		if (providersByNames.containsKey(provider.getRegistryName())) {
 			throw new IllegalStateException("Provider with name " + provider.getRegistryName() + " already exists!");
 		}
@@ -102,9 +97,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	@Override
 	public Optional<IStateVariant> getStateVariant(
-	  final BlockState blockState, final Optional<BlockEntity> blockEntity)
-
-	{
+			final BlockState blockState, final Optional<BlockEntity> blockEntity) {
 		bakeProviders();
 
 		if (!providers.containsKey(blockState.getBlock())) {
@@ -115,9 +108,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	}
 
 	@Override
-	public Optional<IStateVariant> getStateVariant(final FluidState fluidStateIn)
-
-	{
+	public Optional<IStateVariant> getStateVariant(final FluidState fluidStateIn) {
 		bakeProviders();
 
 		if (!providers.containsKey(fluidStateIn.createLegacyBlock().getBlock())) {
@@ -128,9 +119,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	}
 
 	@Override
-	public Optional<IStateVariant> getStateVariant(final BlockState blockState, final ItemStack itemStack)
-
-	{
+	public Optional<IStateVariant> getStateVariant(final BlockState blockState, final ItemStack itemStack) {
 		bakeProviders();
 
 		if (!providers.containsKey(blockState.getBlock())) {
@@ -141,9 +130,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	}
 
 	@Override
-	public Optional<IStateVariant> getStateVariant(final FluidInformation fluidInformation)
-
-	{
+	public Optional<IStateVariant> getStateVariant(final FluidInformation fluidInformation) {
 		bakeProviders();
 
 		if (!providers.containsKey(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock())) {
@@ -151,13 +138,11 @@ public final class StateVariantManager implements IStateVariantManager {
 		}
 
 		return Optional.of(providers.get(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock()))
-		  .flatMap(provider -> provider.getStateVariant(fluidInformation));
+			.flatMap(provider -> provider.getStateVariant(fluidInformation));
 	}
 
 	@Override
-	public Collection<BlockInformation> getAllDefaultVariants(final BlockState state)
-
-	{
+	public Collection<BlockInformation> getAllDefaultVariants(final BlockState state) {
 		bakeProviders();
 
 		if (!providers.containsKey(state.getBlock())) {
@@ -165,16 +150,14 @@ public final class StateVariantManager implements IStateVariantManager {
 		}
 
 		return Optional.of(providers.get(state.getBlock())).map(provider -> provider.getAllDefaultVariants(state))
-				 .stream()
-				 .flatMap(Collection::stream)
-				 .map(variant -> new BlockInformation(state, Optional.of(variant)))
-				 .collect(Collectors.toSet());
+			.stream()
+			.flatMap(Collection::stream)
+			.map(variant -> new BlockInformation(state, Optional.of(variant)))
+			.collect(Collectors.toSet());
 	}
 
 	@Override
-	public Optional<ItemStack> getItemStack(final BlockInformation blockInformation)
-
-	{
+	public Optional<ItemStack> getItemStack(final BlockInformation blockInformation) {
 		bakeProviders();
 
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
@@ -185,9 +168,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	}
 
 	@Override
-	public Optional<FluidInformation> getFluidInformation(final BlockInformation blockInformation, final long amount)
-
-	{
+	public Optional<FluidInformation> getFluidInformation(final BlockInformation blockInformation, final long amount) {
 		bakeProviders();
 
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
@@ -228,9 +209,7 @@ public final class StateVariantManager implements IStateVariantManager {
 	public Optional<Integer> getBeaconColorMultiplier(BlockInformation blockInformation, LevelReader levelReader, BlockPos pos, BlockPos beaconPos) {
 		bakeProviders();
 
-		if (!providers.containsKey(blockInformation.blockState().getBlock()))
-
-		{
+		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.ofNullable(ILevelBasedPropertyAccessor.getInstance().getBeaconColorMultiplier(
 				new SingleBlockLevelReader.Builder()
 					.withBlockState(blockInformation.blockState())

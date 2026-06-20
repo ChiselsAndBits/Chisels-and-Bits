@@ -22,15 +22,13 @@ import net.minecraft.data.PackOutput;
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class LangEntryLangGenerator implements DataProvider {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new LangEntryLangGenerator(event.getGenerator().getPackOutput()));
 	}
 
 	private final PackOutput generator;
 
-	private LangEntryLangGenerator(final PackOutput generator) {this.generator = generator;}
+	private LangEntryLangGenerator(final PackOutput generator) {this.generator = generator; }
 
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull final CachedOutput cache) {
@@ -38,9 +36,7 @@ public class LangEntryLangGenerator implements DataProvider {
 		Collections.sort(langKeys);
 		final JsonObject returnValue = new JsonObject();
 
-		for (String langKey : langKeys)
-
-		{
+		for (String langKey : langKeys) {
 			returnValue.addProperty(langKey, "");
 		}
 
@@ -52,9 +48,7 @@ public class LangEntryLangGenerator implements DataProvider {
 
 	@NotNull
 	@Override
-	public String getName()
-
-	{
+	public String getName() {
 		return "Local strings lang generator";
 	}
 }

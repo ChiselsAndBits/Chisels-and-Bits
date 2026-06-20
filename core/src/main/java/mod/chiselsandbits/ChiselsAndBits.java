@@ -32,8 +32,8 @@ import mod.chiselsandbits.registrars.ModRecipeTypes;
 import mod.chiselsandbits.registrars.ModTags;
 
 public class ChiselsAndBits {
-	private static ChiselsAndBits     instance;
-	private final  NetworkChannel     networkChannel = new NetworkChannel(Constants.MOD_ID);
+	private static ChiselsAndBits instance;
+	private final NetworkChannel networkChannel = new NetworkChannel(Constants.MOD_ID);
 
 	private final IChiselsAndBitsConfiguration configuration;
 
@@ -76,15 +76,11 @@ public class ChiselsAndBits {
 		PluginManger.getInstance().run("construction", IChiselsAndBitsPlugin::onConstruction);
 	}
 
-	public static ChiselsAndBits getInstance()
-
-	{
+	public static ChiselsAndBits getInstance() {
 		return instance;
 	}
 
-	public IChiselsAndBitsConfiguration getConfiguration()
-
-	{
+	public IChiselsAndBitsConfiguration getConfiguration() {
 		return configuration;
 	}
 

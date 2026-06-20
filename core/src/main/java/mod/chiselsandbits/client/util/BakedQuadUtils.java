@@ -7,29 +7,27 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 public class BakedQuadUtils {
 	public static BakedQuad withTintIndex(BakedQuad input, int tintIndex) {
 		return new BakedQuad(
-			input.position0(),
-			input.position1(),
-			input.position2(),
-			input.position3(),
-			input.packedUV0(),
-			input.packedUV1(),
-			input.packedUV2(),
-			input.packedUV3(),
-			input.direction(),
+				input.position0(),
+				input.position1(),
+				input.position2(),
+				input.position3(),
+				input.packedUV0(),
+				input.packedUV1(),
+				input.packedUV2(),
+				input.packedUV3(),
+				input.direction(),
 			new BakedQuad.MaterialInfo(
-				input.materialInfo().sprite(),
-				input.materialInfo().layer(),
-				input.materialInfo().itemRenderType(),
-				tintIndex,
-				input.materialInfo().shade(),
-				input.materialInfo().lightEmission()
+					input.materialInfo().sprite(),
+					input.materialInfo().layer(),
+					input.materialInfo().itemRenderType(),
+					tintIndex,
+					input.materialInfo().shade(),
+					input.materialInfo().lightEmission()
 			)
 		);
 	}
 
-	public static VertexData[] getVertexData(final BakedQuad quad)
-
-	{
+	public static VertexData[] getVertexData(final BakedQuad quad) {
 		final var data = new VertexData[4];
 		data[0] = VertexData.from(quad, 0);
 		data[1] = VertexData.from(quad, 1);

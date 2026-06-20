@@ -28,60 +28,52 @@ import net.minecraft.world.level.material.Fluid;
 public class FaceManager {
 	private static final FaceManager INSTANCE = new FaceManager();
 
-	public static FaceManager getInstance()
-
-	{
+	public static FaceManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final SimpleMaxSizedCache<Key, Collection<DeconstructedModelPartComponent>> quadCache = new SimpleMaxSizedCache<>(
-		IClientConfiguration.getInstance().getFaceLayerCacheSize()::get
+			IClientConfiguration.getInstance().getFaceLayerCacheSize()::get
 	);
 
 	private record Key(
-		BlockInformation blockInformation,
-		@Nullable Direction direction,
-		@Nullable Object modelCacheKey) {}
+			BlockInformation blockInformation,
+			@Nullable Direction direction,
+			@Nullable Object modelCacheKey) {}
 
-	private FaceManager()
-
-	{
+	private FaceManager() {
 	}
 
 	public void extractQuads(
-		final BlockInformation blockInformation,
-		final @Nullable Direction cullDirection,
-		final @Nullable BlockAndTintGetter blockAndTintGetter,
-		final BlockPos pos,
-		final Consumer<DeconstructedModelPartComponent> pipeline) {
+			final BlockInformation blockInformation,
+			final @Nullable Direction cullDirection,
+			final @Nullable BlockAndTintGetter blockAndTintGetter,
+			final BlockPos pos,
+			final Consumer<DeconstructedModelPartComponent> pipeline) {
 		final Key key = new Key(
-			blockInformation,
-			cullDirection,
-			IModelManager.getInstance().determineModelCacheKey(
-				blockInformation.blockState(),
-				() -> blockInformation.newBlockEntity(pos),
-				blockAndTintGetter,
-				pos
-			)
+				blockInformation,
+				cullDirection,
+				IModelManager.getInstance().determineModelCacheKey(
+						blockInformation.blockState(),
+						() -> blockInformation.newBlockEntity(pos),
+						blockAndTintGetter,
+						pos
+				)
 		);
 
 		for (final DeconstructedModelPartComponent component : quadCache.get(
-			key,
-			() -> buildQuadCollection(key, blockAndTintGetter, pos)
-		))
-
-		{
+				key,
+				() -> buildQuadCollection(key, blockAndTintGetter, pos)
+				)) {
 			pipeline.accept(component);
 		}
 	}
 
 	private Collection<DeconstructedModelPartComponent> buildQuadCollection(
-		final Key key,
-		final @Nullable BlockAndTintGetter blockAndTintGetter,
-		final BlockPos pos
-	)
-
-	{
+			final Key key,
+			final @Nullable BlockAndTintGetter blockAndTintGetter,
+			final BlockPos pos
+			) {
 		if (!key.blockInformation().blockState().getFluidState().isEmpty()) {
 			return buildFluidQuadCollection(key);
 		}
@@ -90,20 +82,20 @@ public class FaceManager {
 
 		//TODO: Support color overriding.
 		IModelManager.getInstance().extractQuads(
-			key.blockInformation().blockState(),
-			() -> key.blockInformation().newBlockEntity(pos),
-			key.direction(),
-			blockAndTintGetter,
-			pos,
-			quads::add
+				key.blockInformation().blockState(),
+				() -> key.blockInformation().newBlockEntity(pos),
+				key.direction(),
+				blockAndTintGetter,
+				pos,
+				quads::add
 		);
 
 		return quads;
 	}
 
 	private Collection<DeconstructedModelPartComponent> buildFluidQuadCollection(
-		final Key key
-	) {
+			final Key key
+			) {
 		final Fluid fluid = key.blockInformation().blockState().getFluidState().getType();
 		final FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet()
 			.get(key.blockInformation().blockState().getFluidState());
@@ -115,11 +107,11 @@ public class FaceManager {
 		}
 
 		var bakedMaterial = BakedQuad.MaterialInfo.of(
-			material,
-			computeFluidTransparency(material),
-			model.tintSource() == null ? -1 : model.tintSource().color(fluid.defaultFluidState().createLegacyBlock()),
-			false,
-			0
+				material,
+				computeFluidTransparency(material),
+				model.tintSource() == null ? -1 : model.tintSource().color(fluid.defaultFluidState().createLegacyBlock()),
+				false,
+				0
 		);
 
 		final DeconstructedModelPartComponent.Builder builder = DeconstructedModelPartComponent.Builder.create();
@@ -143,9 +135,7 @@ public class FaceManager {
 		return Collections.singletonList(builder.build());
 	}
 
-	private @BakedQuad.MaterialFlags int computeFlags(final FluidModel model, final Material.Baked material)
-
-	{
+	private @BakedQuad.MaterialFlags int computeFlags(final FluidModel model, final Material.Baked material) {
 		int materialFlags = 0;
 		materialFlags |= (model.layer().translucent() ? BakedQuad.FLAG_TRANSLUCENT : 0);
 		materialFlags |= (material.sprite().contents().isAnimated() ? BakedQuad.FLAG_ANIMATED : 0);
@@ -154,9 +144,9 @@ public class FaceManager {
 
 	private static Transparency computeFluidTransparency(Material.Baked material) {
 		return material.forceTranslucent()
-			? Transparency.TRANSLUCENT
-			: material.sprite()
-				.contents().transparency();
+		? Transparency.TRANSLUCENT
+		: material.sprite()
+			.contents().transparency();
 	}
 
 	private static void injectFluidVertexDataForSide(final DeconstructedModelPartComponent.Builder builder, final float minU, final float maxU, final float minV, final float maxV, final Direction cullDirection) {
@@ -165,138 +155,138 @@ public class FaceManager {
 		}
 
 		switch (cullDirection) {
-			case DOWN -> {
+		case DOWN -> {
 				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
+						v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
+						v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
+						v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
+						v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
 				}
 
 				);
-			}
-			case UP -> {
+		}
+		case UP -> {
 				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
-				}
-
-				);
-				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
+						v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
+						v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
-				}
-
-				);
-			}
-			case NORTH -> {
-				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
+						v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
+						v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
+				}
+
+				);
+		}
+		case NORTH -> {
+				builder.vertex(v -> {
+						v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
+						v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
-				}
-
-				);
-			}
-			case SOUTH -> {
-				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
+						v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
+						v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
+				}
+
+				);
+		}
+		case SOUTH -> {
+				builder.vertex(v -> {
+						v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
+						v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
-				}
-
-				);
-			}
-			case WEST -> {
-				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
+						v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
+						v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
+				}
+
+				);
+		}
+		case WEST -> {
+				builder.vertex(v -> {
+						v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
+						v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
-				}
-
-				);
-			}
-			case EAST -> {
-				builder.vertex(v -> {
-					v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
+						v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
+						v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
+				}
+
+				);
+		}
+		case EAST -> {
+				builder.vertex(v -> {
+						v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
+						v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
 				}
 
 				);
 				builder.vertex(v -> {
-					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
+						v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
 				}
 
 				);
-			}
+				builder.vertex(v -> {
+						v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
+				}
+
+				);
+		}
 		}
 	}
 

@@ -35,7 +35,7 @@ public final class PluginManger implements IPluginManager {
 		LOGGER.warn("Running plugin action {}...", action);
 
 		for (PluginData<IChiselsAndBitsPlugin> pluginData : pluginDatas) {
-			LOGGER.info("  - {}", pluginData.plugin().getId());
+			LOGGER.info(" - {}", pluginData.plugin().getId());
 			callback.accept(pluginData.plugin());
 		}
 

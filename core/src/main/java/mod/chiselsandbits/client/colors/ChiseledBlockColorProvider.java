@@ -17,9 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorProvider {
 	@Override
-	public void collect(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final IntList intList)
-
-	{
+	public void collect(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final IntList intList) {
 		var blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
 
 		if (!(blockEntity instanceof ISingleBlockAxisAlignedAreaAccessor accessor)) {
@@ -30,34 +28,30 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 
 		var model = ChiseledBlockStateModelManager.getInstance()
 			.get(
-				blockAndTintGetter,
-				blockPos,
-				accessor,
-				blockNeighborHood
+					blockAndTintGetter,
+					blockPos,
+					accessor,
+					blockNeighborHood
 			);
 
 		intList.clear();
 		intList.size(model.materials().size());
 		List<ChiseledBlockModelMaterial> materials = model.materials();
-		for (int i = 0; i < materials.size(); i++)
 
-		{
+		for (int i = 0; i <materials.size(); i++) {
 			final ChiseledBlockModelMaterial material = materials.get(i);
-			if (material.tintIndex() == -1)
 
-			{
+			if (material.tintIndex() == -1) {
 				intList.set(i, -1);
 				continue;
 			}
 
 			var tintSource = Minecraft.getInstance().getBlockColors().getTintSource(
-				material.blockInformation().blockState(),
-				material.tintIndex()
+					material.blockInformation().blockState(),
+					material.tintIndex()
 			);
 
-			if (tintSource == null)
-
-			{
+			if (tintSource == null) {
 				intList.add(i, -1);
 				continue;
 			}
@@ -70,9 +64,9 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 				.createSingleBlockBlockAndTintGetter();
 
 			var tint = tintSource.colorInWorld(
-				material.blockInformation().blockState(),
-				simulatedEnvironment,
-				blockPos
+					material.blockInformation().blockState(),
+					simulatedEnvironment,
+					blockPos
 			);
 
 			intList.add(i, tint);

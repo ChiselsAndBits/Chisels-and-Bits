@@ -22,16 +22,12 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 	private Vec3 facingVector = Vec3.ZERO;
 	private float scaleFactor = 20f;
 
-	public MultiStateSnapshotWidget(final int x, final int y, final int width, final int height, final Component title)
-
-	{
+	public MultiStateSnapshotWidget(final int x, final int y, final int width, final int height, final Component title) {
 		super(x, y, width, height, title);
 	}
 
 	@Override
-	protected void extractWidgetRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
-
-	{
+	protected void extractWidgetRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a) {
 		graphics.fill(this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, ColorUtils.pack(139));
 		graphics.fill(this.getX(), this.getY(), this.getX() + this.width - 1, this.getY() + this.height - 1, ColorUtils.pack(55));
 		graphics.fill(this.getX() + 1, this.getY() + 1, this.getX() + this.width, this.getY() + this.height, ColorUtils.pack(ColorUtils.FULL_CHANNEL));
@@ -49,21 +45,19 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 		final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 		extendedGuiGraphics.submitPip(
 			new RotatableItemRenderer.RenderState(
-				this.snapshotBlockStack,
-				TransformationUtils.quatFromXYZ(this.facingVector.toVector3f(), false),
-				this.getX() + 1,
-				this.getY() + 1,
-				this.getX() + this.width - 1,
-				this.getY() + this.height - 1,
-				scaleFactor,
-				extendedGuiGraphics.currentScissorArea()
+					this.snapshotBlockStack,
+					TransformationUtils.quatFromXYZ(this.facingVector.toVector3f(), false),
+					this.getX() + 1,
+					this.getY() + 1,
+					this.getX() + this.width - 1,
+					this.getY() + this.height - 1,
+					scaleFactor,
+					extendedGuiGraphics.currentScissorArea()
 			)
 		);
 	}
 
-	public IMultiStateSnapshot getSnapshot()
-
-	{
+	public IMultiStateSnapshot getSnapshot() {
 		if (!(snapshotBlockStack.getItem() instanceof IMultiStateItem)) {
 			return EmptySnapshot.INSTANCE;
 		}
@@ -71,23 +65,17 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 		return ((IMultiStateItem) snapshotBlockStack.getItem()).createItemStack(snapshotBlockStack).createSnapshot();
 	}
 
-	public void setSnapshot(final IMultiStateSnapshot snapshot)
-
-	{
+	public void setSnapshot(final IMultiStateSnapshot snapshot) {
 		this.snapshotBlockStack = snapshot.toItemStack().toBlockStack();
 	}
 
 	@Override
-	protected void onDrag(final @NotNull MouseButtonEvent event, final double mouseX, final double mouseY)
-
-	{
+	protected void onDrag(final @NotNull MouseButtonEvent event, final double mouseX, final double mouseY) {
 		this.facingVector = this.facingVector.add(mouseY * 0.1, 0, mouseX * 0.1);
 	}
 
 	@Override
-	public boolean mouseScrolled(final double mouseX, final double mouseY, final double deltaX, final double deltaY)
-
-	{
+	public boolean mouseScrolled(final double mouseX, final double mouseY, final double deltaX, final double deltaY) {
 		this.scaleFactor += (float) (deltaY * 0.4);
 		return true;
 	}

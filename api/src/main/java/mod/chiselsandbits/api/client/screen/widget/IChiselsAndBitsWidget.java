@@ -5,12 +5,12 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 
 public interface IChiselsAndBitsWidget extends Renderable, GuiEventListener {
 	/**
-     * Invoked by the screen, when said screen is initialized.
-     */
+	 * Invoked by the screen, when said screen is initialized.
+	 */
 	void init();
 
 	/**
-     * Invoked by the screen, when it is removed from the display.
-     */
+	 * Invoked by the screen, when it is removed from the display.
+	 */
 	void removed();
 }

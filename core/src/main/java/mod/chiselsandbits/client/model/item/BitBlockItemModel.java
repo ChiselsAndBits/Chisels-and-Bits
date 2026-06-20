@@ -22,21 +22,20 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public record BitBlockItemModel(
-	boolean usesBlockLight,
-	ItemTransforms transforms) implements ItemModel {
+		boolean usesBlockLight,
+		ItemTransforms transforms) implements ItemModel {
 	@Override
 	public void update(
-		final ItemStackRenderState renderState,
-		final ItemStack stack,
-		final @NotNull ItemModelResolver itemModelResolver,
-		final @NotNull ItemDisplayContext displayContext,
-		@Nullable final ClientLevel level,
-		@Nullable final ItemOwner owner,
-		final int seed) {
+			final ItemStackRenderState renderState,
+			final ItemStack stack,
+			final @NotNull ItemModelResolver itemModelResolver,
+			final @NotNull ItemDisplayContext displayContext,
+			@Nullable final ClientLevel level,
+			@Nullable final ItemOwner owner,
+			final int seed) {
 		renderState.appendModelIdentityElement(this);
-		if (!(stack.getItem() instanceof IBitItem bitItem))
 
-		{
+		if (!(stack.getItem() instanceof IBitItem bitItem)) {
 			return;
 		}
 
@@ -44,68 +43,56 @@ public record BitBlockItemModel(
 		renderState.appendModelIdentityElement(information);
 
 		final BitBlockModelInformation modelInformation = BitBlockBakedModelManager.getInstance().get(
-			stack,
-			level
+				stack,
+				level
 		);
 
 		renderState.appendModelIdentityElement(modelInformation.isLarge());
 
 		modelInformation.parts().forEach((part) -> {
-			ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
+				ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
 
-			if (modelInformation.isBlock())
-
-			{
-				itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
-				itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
+				if (modelInformation.isBlock()) {
+					itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
+					itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
 			}
 
-			if (stack.hasFoil())
-
-			{
-				itemstackrenderstate$layerrenderstate.setFoilType(ItemStackRenderState.FoilType.STANDARD);
-				renderState.setAnimated();
-				renderState.appendModelIdentityElement(ItemStackRenderState.FoilType.STANDARD);
+				if (stack.hasFoil()) {
+					itemstackrenderstate$layerrenderstate.setFoilType(ItemStackRenderState.FoilType.STANDARD);
+					renderState.setAnimated();
+					renderState.appendModelIdentityElement(ItemStackRenderState.FoilType.STANDARD);
 			}
 
-			if (part.hasTints()) {
-				final IntList targetTints = itemstackrenderstate$layerrenderstate.tintLayers();
+				if (part.hasTints()) {
+					final IntList targetTints = itemstackrenderstate$layerrenderstate.tintLayers();
 
-				targetTints.addAll(part.tints());
-				renderState.appendModelIdentityElement(targetTints);
+					targetTints.addAll(part.tints());
+					renderState.appendModelIdentityElement(targetTints);
 			}
 
-			itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
-			itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());
+				itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
+				itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());
 		}
 
 		);
 	}
 
-	public record Unbaked() implements ItemModel.Unbaked
-
-	{
+	public record Unbaked() implements ItemModel.Unbaked {
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
-		public @NotNull MapCodec<? extends ItemModel.Unbaked> type()
-
-		{
+		public @NotNull MapCodec<? extends ItemModel.Unbaked> type() {
 			return CODEC;
 		}
 
 		@Override
-		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
-
-		{
+		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation) {
 			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new BitBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
 		}
 
 		@Override
-		public void resolveDependencies(final Resolver resolver)
-
-		{
+		public void resolveDependencies(final Resolver resolver) {
 			resolver.markDependency(ModelLocationUtils.decorateBlockModelLocation("block"));
 		}
 	}

@@ -15,36 +15,30 @@ import java.util.stream.Stream;
  */
 public interface IPluginDiscoverer {
 	/**
-     * Gives access to the platform's plugin manager.
-     *
-     * @return The platform's plugin manager.
-     */
-	static IPluginDiscoverer getInstance()
-
-	{
+	 * Gives access to the platform's plugin manager.
+	 *
+	 * @return The platform's plugin manager.
+	 */
+	static IPluginDiscoverer getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getPluginDiscoverer();
 	}
 
 	/**
-     * Loads the plugins.
-     * Already has performed the instantiation logic and validation.
-     *
-     * @return The loaded plugins.
-     */
+	 * Loads the plugins.
+	 * Already has performed the instantiation logic and validation.
+	 *
+	 * @return The loaded plugins.
+	 */
 	Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins();
 
-	abstract class AbstractPluginDiscoverer implements IPluginDiscoverer
-
-	{
+	abstract class AbstractPluginDiscoverer implements IPluginDiscoverer {
 		private static final Logger LOGGER = LogUtils.getLogger();
 
 		@Override
-		public Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins()
-
-		{
+		public Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins() {
 			var serviceLoader = ServiceLoader.load(
-				IChiselsAndBitsPlugin.class,
-				this.getClass().getClassLoader()
+					IChiselsAndBitsPlugin.class,
+					this.getClass().getClassLoader()
 			);
 
 			return serviceLoader.stream()
@@ -53,32 +47,24 @@ public interface IPluginDiscoverer {
 				.map(PluginData::new);
 		}
 
-		private boolean canLoad(Class<? extends IChiselsAndBitsPlugin> potentialClass)
-
-		{
-			if (!potentialClass.isAnnotationPresent(ChiselsAndBitsPlugin.class))
-
-			{
+		private boolean canLoad(Class<? extends IChiselsAndBitsPlugin> potentialClass) {
+			if (!potentialClass.isAnnotationPresent(ChiselsAndBitsPlugin.class)) {
 				return true;
 			}
 
 			var annotation = potentialClass.getAnnotation(ChiselsAndBitsPlugin.class);
 			final List<String> requiredMods = Arrays.asList(annotation.requiredMods());
-			if (!requiredMods.isEmpty())
 
-			{
-				if (requiredMods.stream().anyMatch(this::isModNotLoaded))
-
-				{
+			if (!requiredMods.isEmpty()) {
+				if (requiredMods.stream().anyMatch(this::isModNotLoaded)) {
 					LOGGER.info("Skipping: {} as plugin, its required mods: {} are not all available!", potentialClass.getSimpleName(), String.join(", ", requiredMods));
 					return false;
 				}
 			}
 
 			final boolean isExperimental = annotation.isExperimental();
-			if (isExperimental && !Boolean.parseBoolean(ILaunchPropertyManager.getInstance().get("plugins.experimental", "false")))
 
-			{
+			if (isExperimental && !Boolean.parseBoolean(ILaunchPropertyManager.getInstance().get("plugins.experimental", "false"))) {
 				LOGGER.info("Skipping: {} as plugin, it is marked as experimental and those plugins are disabled by the configuration.", potentialClass.getSimpleName());
 				return false;
 			}

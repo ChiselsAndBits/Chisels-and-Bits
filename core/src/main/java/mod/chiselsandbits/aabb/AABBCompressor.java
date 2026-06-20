@@ -23,17 +23,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class AABBCompressor {
-	private AABBCompressor()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: AABBCompressor. This is a utility class");
+	private AABBCompressor() {
+		throw new IllegalStateException("Can not instantiate an instance of: AABBCompressor.This is a utility class");
 	}
 
 	public static List<AABB> compressStates(
-	  final IAreaAccessor accessor,
-	  final CollisionType sizeType)
-
-	{
+			final IAreaAccessor accessor,
+			final CollisionType sizeType) {
 		final BuildingState state = new BuildingState();
 
 		//X == REGION
@@ -41,93 +37,73 @@ public class AABBCompressor {
 
 		//noinspection Convert2Lambda We need this to be pre-compiled
 		accessor.forEachWithPositionMutator(
-		  IPositionMutator.xyz(),
-		  new Consumer<>()
+				IPositionMutator.xyz(),
+			new Consumer<>() {
+				@Override
+				public void accept(final IStateEntryInfo stateEntryInfo) {
+					if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x()) {
+						state.setCurrentBox(null, null);
+				}
 
-		  {
-			  @Override
-			  public void accept(final IStateEntryInfo stateEntryInfo)
+					state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
 
-			  {
-				  if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x())
+					if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y()) {
+						state.setCurrentBox(null, null);
+				}
 
-				  {
-					  state.setCurrentBox(null, null);
-				  }
+					state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
 
-				  state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
+					final Optional<Vec3> previousCenterPoint = state.getLastCenter();
+					final Vec3 centerPoint = stateEntryInfo.getCenterPoint();
+					state.onNextEntry(centerPoint);
 
-				  if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y())
+					final Optional<Direction> stepDirection = previousCenterPoint.flatMap(
+							d -> DirectionUtils.getDirectionVectorBetweenIfAligned(centerPoint, d)
+					);
 
-				  {
-					  state.setCurrentBox(null, null);
-				  }
+					final Optional<AABB> potentialEntryData = buildBoundingBox(stateEntryInfo, sizeType);
 
-				  state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
+					if (potentialEntryData.isEmpty()) {
+						state.setCurrentBox(null, centerPoint);
+						return;
+				}
 
-				  final Optional<Vec3> previousCenterPoint = state.getLastCenter();
-				  final Vec3 centerPoint = stateEntryInfo.getCenterPoint();
-				  state.onNextEntry(centerPoint);
+					final AABB entryData = potentialEntryData.get();
 
-				  final Optional<Direction> stepDirection = previousCenterPoint.flatMap(
-					d -> DirectionUtils.getDirectionVectorBetweenIfAligned(centerPoint, d)
-				  );
+					if (state.getCurrentBox() != null) {
+						if (stepDirection
+								.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
+								.filter(b -> b)
+								.isPresent()) {
+							state.expandCurrentBoxToInclude(entryData, centerPoint);
 
-				  final Optional<AABB> potentialEntryData = buildBoundingBox(stateEntryInfo, sizeType);
+							if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
+								return;
+						}
 
-				  if (potentialEntryData.isEmpty())
+							return;
+								}
+				}
 
-				  {
-					  state.setCurrentBox(null, centerPoint);
-					  return;
-				  }
+					if (attemptMergeWithNeighbors(state, centerPoint, entryData)) {
+						return;
+				}
 
-				  final AABB entryData = potentialEntryData.get();
-
-				  if (state.getCurrentBox() != null)
-
-				  {
-					  if (stepDirection
-						.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
-						.filter(b -> b)
-						.isPresent()) {
-						  state.expandCurrentBoxToInclude(entryData, centerPoint);
-
-						  if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox()))
-
-						  {
-							  return;
-						  }
-
-						  return;
-					  }
-				  }
-
-				  if (attemptMergeWithNeighbors(state, centerPoint, entryData))
-
-				  {
-					  return;
-				  }
-
-				  state.setCurrentBox(potentialEntryData.get(), centerPoint);
-			  }
-		  }
+					state.setCurrentBox(potentialEntryData.get(), centerPoint);
+			}
+			}
 
 		);
 		return Lists.newArrayList(state.getBoxes());
 	}
 
-	private static boolean attemptMergeWithNeighbors(final BuildingState state, final Vec3 centerPoint, final AABB entryData)
-
-	{
-		for (final Direction offsetDirection :Direction.values())
-
-		{
+	private static boolean attemptMergeWithNeighbors(final BuildingState state, final Vec3 centerPoint, final AABB entryData) {
+		for (final Direction offsetDirection :Direction.values()) {
 			final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getUnitVec3i()).multiply(
-			  StateEntrySize.current().getSizePerBit(),
-			  StateEntrySize.current().getSizePerBit(),
-			  StateEntrySize.current().getSizePerBit()
-			  ));
+					StateEntrySize.current().getSizePerBit(),
+					StateEntrySize.current().getSizePerBit(),
+					StateEntrySize.current().getSizePerBit()
+			));
 			final Optional<AABB> potentialNeighborBox = state.getBoxFor(neighborCenter);
 
 			if (potentialNeighborBox.isPresent()) {
@@ -144,8 +120,8 @@ public class AABBCompressor {
 	}
 
 	public static Optional<AABB> buildBoundingBox(
-	  final IStateEntryInfo stateEntryInfo,
-	  final CollisionType sizeType) {
+			final IStateEntryInfo stateEntryInfo,
+			final CollisionType sizeType) {
 		if (!sizeType.isValidFor(stateEntryInfo)) {
 			return Optional.empty();
 		}
@@ -160,42 +136,30 @@ public class AABBCompressor {
 		private Vec3 lastCenterPoint = null;
 		private AABB currentBox;
 
-		private final Map<Vec3, AABB>      boxAssignments   = Maps.newHashMap();
+		private final Map<Vec3, AABB> boxAssignments = Maps.newHashMap();
 		private final Multimap<AABB, Vec3> stateAssignments = HashMultimap.create();
 
-		public double getRegionBuildingAxisValue()
-
-		{
+		public double getRegionBuildingAxisValue() {
 			return regionBuildingAxis;
 		}
 
-		public void setRegionBuildingAxisValue(final double regionBuildingAxis)
-
-		{
+		public void setRegionBuildingAxisValue(final double regionBuildingAxis) {
 			this.regionBuildingAxis = regionBuildingAxis;
 		}
 
-		public double getFaceBuildingAxisValue()
-
-		{
+		public double getFaceBuildingAxisValue() {
 			return faceBuildingAxis;
 		}
 
-		public void setFaceBuildingAxisValue(final double faceBuildingAxis)
-
-		{
+		public void setFaceBuildingAxisValue(final double faceBuildingAxis) {
 			this.faceBuildingAxis = faceBuildingAxis;
 		}
 
-		public AABB getCurrentBox()
-
-		{
+		public AABB getCurrentBox() {
 			return currentBox;
 		}
 
-		public void setCurrentBox(final AABB currentBox, final Vec3 centerPoint)
-
-		{
+		public void setCurrentBox(final AABB currentBox, final Vec3 centerPoint) {
 			this.currentBox = currentBox;
 
 			if (currentBox != null) {
@@ -216,9 +180,7 @@ public class AABBCompressor {
 			this.lastCenterPoint = lastCenterPoint;
 		}
 
-		public void expandCurrentBoxToInclude(final AABB entryData, final Vec3 centerPoint)
-
-		{
+		public void expandCurrentBoxToInclude(final AABB entryData, final Vec3 centerPoint) {
 			final AABB current = this.getCurrentBox();
 
 			if (current == null) {
@@ -238,15 +200,11 @@ public class AABBCompressor {
 			this.currentBox = expanded;
 		}
 
-		public Collection<AABB> getBoxes()
-
-		{
+		public Collection<AABB> getBoxes() {
 			return stateAssignments.keySet();
 		}
 
-		public void expandBoxAt(final Vec3 neighborCenter, final AABB entryData, final Vec3 centerPoint)
-
-		{
+		public void expandBoxAt(final Vec3 neighborCenter, final AABB entryData, final Vec3 centerPoint) {
 			final AABB current = boxAssignments.get(neighborCenter);
 
 			if (current == null) {

@@ -18,27 +18,21 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class MeasurementsUpdatedPacket extends ModPacket {
-	public static final Identifier                                          ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_updated");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_updated");
 	public static final CustomPacketPayload.Type<MeasurementsUpdatedPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements;
 
-	public MeasurementsUpdatedPacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public MeasurementsUpdatedPacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
-	public MeasurementsUpdatedPacket(final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements)
-
-	{
+	public MeasurementsUpdatedPacket(final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements) {
 		this.measurements = measurements;
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		buffer.writeMap(
 				measurements.rowMap(),
 				FriendlyByteBuf::writeIdentifier,
@@ -55,9 +49,7 @@ public final class MeasurementsUpdatedPacket extends ModPacket {
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		final Map<Identifier, Map<UUID, Map<MeasuringMode, Measurement>>> bufferData = buffer.readMap(
 				FriendlyByteBuf::readIdentifier,
 				buffer2 -> buffer2.readMap(
@@ -74,16 +66,12 @@ public final class MeasurementsUpdatedPacket extends ModPacket {
 	}
 
 	@Override
-	public void server(final ServerPlayer playerEntity)
-
-	{
-		//Noop
+	public void server(final ServerPlayer playerEntity) {
+	//Noop
 	}
 
 	@Override
-	public void client()
-
-	{
+	public void client() {
 		MeasuringManager.getInstance().updateMeasurements(measurements);
 	}
 

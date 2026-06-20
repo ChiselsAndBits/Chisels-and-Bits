@@ -16,47 +16,37 @@ import net.minecraft.resources.ResourceKey;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class ModificationOperationRecipeProvider extends RecipeProvider {
-	protected ModificationOperationRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output)
-
-	{
+	protected ModificationOperationRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output) {
 		super(registries, output);
 	}
 
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true,
 			new Runner(event.getGenerator().getPackOutput(), event.getLookupProvider()) {
 				@Override
-				protected @NotNull RecipeProvider createRecipeProvider(final HolderLookup.@NotNull Provider registries, final @NotNull RecipeOutput output)
-
-				{
+				protected @NotNull RecipeProvider createRecipeProvider(final HolderLookup.@NotNull Provider registries, final @NotNull RecipeOutput output) {
 					return new ModificationOperationRecipeProvider(registries, output);
-				}
+			}
 
 				@Override
-				public @NotNull String getName()
-
-				{
+				public @NotNull String getName() {
 					return "Modification table recipes";
-				}
+			}
 			}
 		);
 	}
 
 	@Override
-	protected void buildRecipes()
-
-	{
+	protected void buildRecipes() {
 		ModModificationOperation.REGISTRY_SUPPLIER.get().forEach(
-			operation -> {
+				operation -> {
 				this.output.accept(
-					ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
+						ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
 					new ModificationTableRecipe(operation),
-					null
+						null
 				);
-			}
+				}
 		);
 	}
 }

@@ -11,20 +11,16 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public final class ModRecipeSerializers {
-	private static final Logger                                                   LOGGER              = LogManager.getLogger();
-	private static final IRegistrar<RecipeSerializer<?>>                            SERIALIZER_REGISTER = IRegistrar.create(Registries.RECIPE_SERIALIZER, Constants.MOD_ID);
-	public static        IRegistryObject<RecipeSerializer<ModificationTableRecipe>> MODIFICATION_TABLE  = SERIALIZER_REGISTER
-	  .register("modification_table", () -> new RecipeSerializer<>(ModificationTableRecipe.CODEC, ModificationTableRecipe.STREAM_CODEC));
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final IRegistrar<RecipeSerializer<?>> SERIALIZER_REGISTER = IRegistrar.create(Registries.RECIPE_SERIALIZER, Constants.MOD_ID);
+	public static IRegistryObject<RecipeSerializer<ModificationTableRecipe>> MODIFICATION_TABLE = SERIALIZER_REGISTER
+		.register("modification_table", () -> new RecipeSerializer<>(ModificationTableRecipe.CODEC, ModificationTableRecipe.STREAM_CODEC));
 
-	private ModRecipeSerializers()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ModRecipeSerializers. This is a utility class");
+	private ModRecipeSerializers() {
+		throw new IllegalStateException("Can not instantiate an instance of: ModRecipeSerializers.This is a utility class");
 	}
 
-	public static void onModConstruction()
-
-	{
+	public static void onModConstruction() {
 		LOGGER.info("Loaded recipe serializer configuration.");
 	}
 }

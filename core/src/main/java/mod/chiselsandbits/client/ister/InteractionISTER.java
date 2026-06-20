@@ -26,23 +26,22 @@ import java.util.function.Consumer;
 /**
  * This class animates an interaction between the items in the two hands of the players.
  *
- * Cloned from: Creators-of-Create: <a href="https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">...</a>
+ * Cloned from: Creators-of-Create: <a href = "https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">...</a>
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
 public record InteractionISTER(InteractableItemModel mainModel,
-							   ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState> {
+		ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState> {
 	public record RenderState(ItemStack stack, IInteractableItem item) {}
 
 	@Override
 	public void submit(
-		@Nullable final InteractionISTER.RenderState argument,
-		final @NonNull PoseStack poseStack,
-		final @NonNull SubmitNodeCollector submitNodeCollector,
-		final int lightCoords,
-		final int overlayCoords,
-		final boolean hasFoil,
-		final int outlineColor) {
-
+			@Nullable final InteractionISTER.RenderState argument,
+			final @NonNull PoseStack poseStack,
+			final @NonNull SubmitNodeCollector submitNodeCollector,
+			final int lightCoords,
+			final int overlayCoords,
+			final boolean hasFoil,
+			final int outlineColor) {
 		if (argument == null) {
 			return;
 		}
@@ -76,37 +75,34 @@ public record InteractionISTER(InteractableItemModel mainModel,
 
 			// Reverse bobbing
 			float time = 0;
-			if (player != null)
 
-			{
+			if (player != null) {
 				time = (float) (!simulation ? player.getUseItemRemainingTicks()
-					: (-TickHandler.getNonePausedTicks()) % stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player))) - partialTicks + 1.0F;
+						: (-TickHandler.getNonePausedTicks()) % stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player))) - partialTicks + 1.0F;
 			}
 
-			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) < 0.8F) {
+			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) <0.8F) {
 				float bobbing = -Mth.abs(Mth.cos(time / item.getBobbingTickCount() * (float) Math.PI) * 0.1F);
 
 				if (displayContext == ItemDisplayContext.GUI) {
 					poseStack.translate(bobbing, bobbing, 0.0F);
-				}
-
-				else {
+				} else {
 					poseStack.translate(0.0f, bobbing, 0.0F);
 				}
 			}
 
 			ItemModelUtils.render(
-				stack,
-				innerModel,
-				submitNodeCollector,
-				poseStack,
-				lightCoords,
-				overlayCoords,
-				outlineColor,
-				displayContext,
-				null,
-				null,
-				0
+					stack,
+					innerModel,
+					submitNodeCollector,
+					poseStack,
+					lightCoords,
+					overlayCoords,
+					outlineColor,
+					displayContext,
+					null,
+					null,
+					0
 			);
 
 			poseStack.popPose();
@@ -115,50 +111,44 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		if (firstPerson && player != null) {
 			int itemInUseCount = player.getUseItemRemainingTicks();
 
-			if (itemInUseCount > 0) {
-				poseStack.translate(modifier * .5f, 0, -.25f);
+			if (itemInUseCount> 0) {
+				poseStack.translate(modifier *.5f, 0, -.25f);
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 10, 0), true));
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 90, 0), true));
 			}
 		}
 
-		if (!item.isInteracting(stack))
-
-		{
+		if (!item.isInteracting(stack)) {
 			ItemModelUtils.render(
-				stack,
-				innerModel,
-				submitNodeCollector,
-				poseStack,
-				lightCoords,
-				overlayCoords,
-				outlineColor,
-				displayContext,
-				null,
-				null,
-				0
+					stack,
+					innerModel,
+					submitNodeCollector,
+					poseStack,
+					lightCoords,
+					overlayCoords,
+					outlineColor,
+					displayContext,
+					null,
+					null,
+					0
 			);
-		}
-
-		else
-
-		{
+		} else {
 			poseStack.pushPose();
 			poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * -90, 0), true));
 
 			final ItemStack target = item.getInteractionTarget(stack);
 			ItemModelUtils.render(
-				target,
-				submitNodeCollector,
-				poseStack,
-				lightCoords,
-				overlayCoords,
-				outlineColor,
-				displayContext,
-				null,
-				null,
-				0
+					target,
+					submitNodeCollector,
+					poseStack,
+					lightCoords,
+					overlayCoords,
+					outlineColor,
+					displayContext,
+					null,
+					null,
+					0
 			);
 
 			poseStack.popPose();
@@ -168,16 +158,12 @@ public record InteractionISTER(InteractableItemModel mainModel,
 	}
 
 	@Override
-	public void getExtents(final @NotNull Consumer<Vector3fc> output)
-
-	{
-		//No clue how to do this, we do not have access to the outer layer!
+	public void getExtents(final @NotNull Consumer<Vector3fc> output) {
+	//No clue how to do this, we do not have access to the outer layer!
 	}
 
 	@Override
-	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
-
-	{
+	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack) {
 		if (stack.getItem() instanceof IInteractableItem item) {
 			return new RenderState(stack, item);
 		}

@@ -37,9 +37,7 @@ public interface IGlueableBlockEntity {
 		for (final Direction direction : gluedSides) {
 			final BlockPos offset = blockPos().relative(direction);
 			toCheck.add(offset);
-		}
-
-		while (!toCheck.isEmpty()) {
+		} while (!toCheck.isEmpty()) {
 			final BlockPos current = toCheck.getFirst();
 			toCheck.remove(current);
 

@@ -8,20 +8,20 @@ import net.minecraft.util.TriState;
 import net.minecraft.world.level.block.state.BlockState;
 
 public record ChiseledBlockModelPartKey(
-	BlockInformation source,
-	BlockState appearance,
-	TriState ambientOcclusion,
-	Material.Baked particleMaterial,
-	int materialFlags
-) {
+		BlockInformation source,
+		BlockState appearance,
+		TriState ambientOcclusion,
+		Material.Baked particleMaterial,
+		int materialFlags
+		) {
 	public ChiseledBlockModelPart toPart(QuadCollection quads) {
 		return new ChiseledBlockModelPart(
-			source(),
-			appearance(),
-			quads,
-			ambientOcclusion(),
-			particleMaterial(),
-			materialFlags()
+				source(),
+				appearance(),
+				quads,
+				ambientOcclusion(),
+				particleMaterial(),
+				materialFlags()
 		);
 	}
 }

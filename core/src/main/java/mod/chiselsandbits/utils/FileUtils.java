@@ -5,24 +5,16 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class FileUtils {
-	private FileUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: FileUtils. This is a utility class");
+	private FileUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: FileUtils.This is a utility class");
 	}
 
-	public static Path ensureFileWritable(Path filePath) throws IOException
-
-	{
+	public static Path ensureFileWritable(Path filePath) throws IOException {
 		final File file = filePath.toFile();
 
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
-		}
-
-		else
-
-		{
+		} else {
 			file.delete();
 		}
 

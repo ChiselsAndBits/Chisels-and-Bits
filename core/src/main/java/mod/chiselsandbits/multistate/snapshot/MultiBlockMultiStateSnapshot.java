@@ -53,20 +53,20 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 					CBCodecs.unboundedComplexMap(
 							BlockPos.CODEC,
 							IMultiStateSnapshot.CODEC
-					).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
+							).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
 					Vec3.CODEC.fieldOf(NbtConstants.START).forGetter(MultiBlockMultiStateSnapshot::getStartPoint),
 					Vec3.CODEC.fieldOf(NbtConstants.END).forGetter(MultiBlockMultiStateSnapshot::getEndPoint)
-			).apply(instance, MultiBlockMultiStateSnapshot::new)
+					).apply(instance, MultiBlockMultiStateSnapshot::new)
 	);
 
 	public static final MapCodec<MultiBlockMultiStateSnapshot> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			CBCodecs.unboundedComplexMap(
 					BlockPos.CODEC,
 					IMultiStateSnapshot.CODEC
-			).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
+					).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
 			Vec3.CODEC.fieldOf(NbtConstants.START).forGetter(MultiBlockMultiStateSnapshot::getStartPoint),
 			Vec3.CODEC.fieldOf(NbtConstants.END).forGetter(MultiBlockMultiStateSnapshot::getEndPoint)
-	).apply(instance, MultiBlockMultiStateSnapshot::new));
+			).apply(instance, MultiBlockMultiStateSnapshot::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, MultiBlockMultiStateSnapshot> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.map(HashMap::new, BlockPos.STREAM_CODEC, IMultiStateSnapshot.STREAM_CODEC),
@@ -90,7 +90,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		if (!BlockPosStreamProvider.getForRange(startPoint, endPoint)
 				.allMatch(snapshots::containsKey)) {
 			throw new IllegalArgumentException("Not all required block positions are part of the given range.");
-		}
+				}
 	}
 
 	private Map<BlockPos, IMultiStateSnapshot> getSnapshots() {
@@ -106,12 +106,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-     * Creates a new area shape identifier.
-     * <p>
-     * Note: This method always returns a new instance.
-     *
-     * @return The new identifier.
-     */
+	 * Creates a new area shape identifier.
+	 * <p>
+	 * Note: This method always returns a new instance.
+	 *
+	 * @return The new identifier.
+	 */
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier() {
 		return new Identifier(this.snapshots.values());
@@ -120,8 +120,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return snapshots.values()
-				.stream()
-				.flatMap(IAreaAccessor::stream);
+			.stream()
+			.flatMap(IAreaAccessor::stream);
 	}
 
 	@Override
@@ -141,12 +141,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public IMultiStateSnapshot createSnapshot() {
 		final Map<BlockPos, IMultiStateSnapshot> copiedSnapshots = snapshots.keySet()
-				.stream()
-				.collect(Collectors.toMap(
-								Function.identity(),
-								pos -> snapshots.get(pos).createSnapshot()
-						)
-				);
+			.stream()
+			.collect(Collectors.toMap(
+					Function.identity(),
+					pos -> snapshots.get(pos).createSnapshot()
+			)
+			);
 
 		return new MultiBlockMultiStateSnapshot(
 				copiedSnapshots,
@@ -158,21 +158,21 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(
-						startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
-						endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
-				)
-				.map(positionMutator::mutate)
-				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
-				.map(position -> {
+				startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
+				endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
+		)
+			.map(positionMutator::mutate)
+			.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
+			.map(position -> {
 					final BlockPos blockPos = VectorUtils.toBlockPos(position);
 					final Vec3 inBlockOffset = position.subtract(Vec3.atLowerCornerOf(blockPos));
 
 					return getInBlockTarget(blockPos, inBlockOffset);
-				}
+			}
 
-				)
-				.filter(Optional::isPresent)
-				.map(Optional::get);
+			)
+			.filter(Optional::isPresent)
+			.map(Optional::get);
 	}
 
 	@Override
@@ -182,24 +182,24 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 				endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 				(blockPos) -> {
-					final Vec3i target = positionMutator.mutate(blockPos);
-					final Vec3 scaledTarget = Vec3.atLowerCornerOf(target).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+				final Vec3i target = positionMutator.mutate(blockPos);
+				final Vec3 scaledTarget = Vec3.atLowerCornerOf(target).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 
-					final BlockPos blockTarget = VectorUtils.toBlockPos(scaledTarget);
-					final Vec3 inBlockOffset = scaledTarget.subtract(Vec3.atLowerCornerOf(blockPos));
+				final BlockPos blockTarget = VectorUtils.toBlockPos(scaledTarget);
+				final Vec3 inBlockOffset = scaledTarget.subtract(Vec3.atLowerCornerOf(blockPos));
 
-					Optional<IStateEntryInfo> targetCandidate = getInBlockTarget(blockPos, inBlockOffset);
-					targetCandidate.ifPresent(consumer);
+				Optional<IStateEntryInfo> targetCandidate = getInBlockTarget(blockPos, inBlockOffset);
+				targetCandidate.ifPresent(consumer);
 				}
 		);
 	}
 
 	/**
-     * Gets the target state in the current area, using the offset from the area as well as the in area target offset.
-     *
-     * @param inAreaTarget The in area offset.
-     * @return An optional potentially containing the state entry of the requested target.
-     */
+	 * Gets the target state in the current area, using the offset from the area as well as the in area target offset.
+	 *
+	 * @param inAreaTarget The in area offset.
+	 * @return An optional potentially containing the state entry of the requested target.
+	 */
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
 		final BlockPos inAreaOffset = VectorUtils.toBlockPos(inAreaTarget);
@@ -208,12 +208,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-     * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
-     *
-     * @param inAreaBlockPosOffset The offset of blocks in the current area.
-     * @param inBlockTarget        The offset in the targeted block.
-     * @return An optional potentially containing the state entry of the requested target.
-     */
+	 * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 *
+	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
+	 * @param inBlockTarget The offset in the targeted block.
+	 * @return An optional potentially containing the state entry of the requested target.
+	 */
 	@Override
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		final BlockPos targetPos = VectorUtils.toBlockPos(startPoint).offset(inAreaBlockPosOffset);
@@ -226,15 +226,15 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-     * Returns all entries in the current area in a mutable fashion. Includes all empty areas as areas containing an air state.
-     *
-     * @return A stream with a mutable state entry info for each mutable section in the area.
-     */
+	 * Returns all entries in the current area in a mutable fashion.Includes all empty areas as areas containing an air state.
+	 *
+	 * @return A stream with a mutable state entry info for each mutable section in the area.
+	 */
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return snapshots.values()
-				.stream()
-				.flatMap(IAreaMutator::mutableStream);
+			.stream()
+			.flatMap(IAreaMutator::mutableStream);
 	}
 
 	@Override
@@ -260,13 +260,13 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException {
 		final Vec3 workingTarget = Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget);
-		if (workingTarget.x() < startPoint.x() ||
-				workingTarget.y() < startPoint.y() ||
-				workingTarget.z() < startPoint.z() ||
-				workingTarget.x() > endPoint.x() ||
-				workingTarget.y() > endPoint.y() ||
-				workingTarget.z() > endPoint.z()
-		) {
+		if (workingTarget.x() <startPoint.x()
+				|| workingTarget.y() <startPoint.y()
+				|| workingTarget.z() <startPoint.z()
+				|| workingTarget.x()> endPoint.x()
+				|| workingTarget.y()> endPoint.y()
+				|| workingTarget.z()> endPoint.z()
+				) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
 
@@ -275,14 +275,14 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		}
 
 		this.snapshots.get(inAreaBlockPosOffset)
-				.setInAreaTarget(blockInformation, inBlockTarget);
+			.setInAreaTarget(blockInformation, inBlockTarget);
 	}
 
 	/**
-     * Clears the current area, using the offset from the area as well as the in area target offset.
-     *
-     * @param inAreaTarget The in area offset.
-     */
+	 * Clears the current area, using the offset from the area as well as the in area target offset.
+	 *
+	 * @param inAreaTarget The in area offset.
+	 */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget) {
 		final Vec3 workingTarget = inAreaTarget.add(this.startPoint);
@@ -301,21 +301,21 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-     * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
-     *
-     * @param inAreaBlockPosOffset The offset of blocks in the current area.
-     * @param inBlockTarget        The offset in the targeted block.
-     */
+	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 *
+	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
+	 * @param inBlockTarget The offset in the targeted block.
+	 */
 	@Override
 	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		final Vec3 workingTarget = Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget);
-		if (workingTarget.x() < startPoint.x() ||
-				workingTarget.y() < startPoint.y() ||
-				workingTarget.z() < startPoint.z() ||
-				workingTarget.x() > endPoint.x() ||
-				workingTarget.y() > endPoint.y() ||
-				workingTarget.z() > endPoint.z()
-		) {
+		if (workingTarget.x() <startPoint.x()
+				|| workingTarget.y() <startPoint.y()
+				|| workingTarget.z() <startPoint.z()
+				|| workingTarget.x()> endPoint.x()
+				|| workingTarget.y()> endPoint.y()
+				|| workingTarget.z()> endPoint.z()
+				) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
 
@@ -324,7 +324,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		}
 
 		this.snapshots.get(inAreaBlockPosOffset)
-				.clearInAreaTarget(inBlockTarget);
+			.clearInAreaTarget(inBlockTarget);
 	}
 
 	@Override
@@ -333,10 +333,10 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-     * Converts the current snapshot to a variant which is itemstack capable.
-     *
-     * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
-     */
+	 * Converts the current snapshot to a variant which is itemstack capable.
+	 *
+	 * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
+	 */
 	@Override
 	public IMultiStateItemStack toItemStack() {
 		throw new NotImplementedException("Multi block snapshots can not be contained in an itemstack as of now.");
@@ -368,7 +368,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			@Override
 			public boolean isEmpty() {
 				final Map<BlockInformation, Integer> stateMap = getStateCounts();
-				return stateMap.size() == 1 && stateMap.getOrDefault(BlockInformation.AIR, 0) > 0;
+				return stateMap.size() == 1 && stateMap.getOrDefault(BlockInformation.AIR, 0)> 0;
 			}
 
 			@Override
@@ -419,9 +419,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			public boolean canSustainGrassBelow() {
 				throw new NotImplementedException("Is a snapshot");
 			}
-		}
+		};
 
-		;
 	}
 
 	@Override
@@ -429,23 +428,23 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		final Vec3 center = this.startPoint.add(this.endPoint).multiply(0.5, 0.5, 0.5);
 
 		final Map<BlockPos, IMultiStateSnapshot> rotatedParts = this.snapshots
-				.entrySet().stream()
-				.collect(
-						Collectors.toMap(
-								e -> {
-									final Vec3 offSetPos = Vec3.atLowerCornerOf(e.getKey()).subtract(center);
-									final Vec3 rotatedOffset = VectorUtils.rotateMultipleTimes90Degrees(offSetPos, axis, rotationCount);
-									return VectorUtils.toBlockPos(startPoint.add(rotatedOffset));
-								}
+			.entrySet().stream()
+			.collect(
+					Collectors.toMap(
+							e -> {
+							final Vec3 offSetPos = Vec3.atLowerCornerOf(e.getKey()).subtract(center);
+							final Vec3 rotatedOffset = VectorUtils.rotateMultipleTimes90Degrees(offSetPos, axis, rotationCount);
+							return VectorUtils.toBlockPos(startPoint.add(rotatedOffset));
+							},
 
-								,
-								e -> {
-									final IMultiStateSnapshot clone = e.getValue().clone();
-									clone.rotate(axis, rotationCount);
-									return clone;
-								}
-						)
-				);
+
+							e -> {
+							final IMultiStateSnapshot clone = e.getValue().clone();
+							clone.rotate(axis, rotationCount);
+							return clone;
+							}
+					)
+			);
 
 		final Vec3 rotatedStartPoint = VectorUtils.rotateMultipleTimes90Degrees(startPoint.subtract(center), axis, rotationCount).add(center);
 		final Vec3 rotatedEndPoint = VectorUtils.rotateMultipleTimes90Degrees(endPoint.subtract(center), axis, rotationCount).add(center);
@@ -462,39 +461,39 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		final Vec3 center = this.startPoint.add(this.endPoint).multiply(0.5, 0.5, 0.5);
 
 		this.snapshots = this.snapshots
-				.entrySet().stream()
-				.collect(
-						Collectors.toMap(
-								e -> {
-									final int mirroredX =
-											axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
-									final int mirroredY =
-											axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
-									final int mirroredZ =
-											axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
+			.entrySet().stream()
+			.collect(
+					Collectors.toMap(
+							e -> {
+							final int mirroredX = 
+							axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
+							final int mirroredY = 
+							axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
+							final int mirroredZ = 
+							axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
 
-									return new BlockPos(mirroredX, mirroredY, mirroredZ);
-								}
+							return new BlockPos(mirroredX, mirroredY, mirroredZ);
+							},
 
-								,
-								e -> {
-									final IMultiStateSnapshot clone = e.getValue().clone();
-									clone.mirror(axis);
-									return clone;
-								}
-						)
-				);
+
+							e -> {
+							final IMultiStateSnapshot clone = e.getValue().clone();
+							clone.mirror(axis);
+							return clone;
+							}
+					)
+			);
 	}
 
 	@Override
 	public IMultiStateSnapshot clone() {
 		final Map<BlockPos, IMultiStateSnapshot> clonedSnapshots = this.snapshots
-				.entrySet().stream().collect(
-						Collectors.toMap(
-								Map.Entry::getKey,
-								e -> e.getValue().clone()
-						)
-				);
+			.entrySet().stream().collect(
+					Collectors.toMap(
+							Map.Entry::getKey,
+							e -> e.getValue().clone()
+					)
+			);
 
 		return new MultiBlockMultiStateSnapshot(
 				clonedSnapshots,
@@ -504,9 +503,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	@Override
-	public IMultiStateSnapshot limitedToProgression(final float progress)
-
-	{
+	public IMultiStateSnapshot limitedToProgression(final float progress) {
 		throw new NotImplementedException("MultiBlock Snapshots can not be limited to a progression yet!");
 	}
 

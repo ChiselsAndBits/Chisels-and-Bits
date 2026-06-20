@@ -12,20 +12,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
 public class DirectionUtils {
-	private DirectionUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: DirectionUtils. This is a utility class");
+	private DirectionUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: DirectionUtils.This is a utility class");
 	}
 
 	public static List<Direction> getNotOnAxisOf(@NotNull final Direction direction) {
 		List<Direction> list = new ArrayList<>();
-		for (Direction d : Direction.values())
 
-		{
-			if (d.getAxis() != direction.getAxis())
-
-			{
+		for (Direction d : Direction.values()) {
+			if (d.getAxis() != direction.getAxis()) {
 				list.add(d);
 			}
 		}
@@ -44,48 +39,24 @@ public class DirectionUtils {
 			if (MathUtil.almostEqual(scaledToOne.y(), 0)) {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
 					return Optional.empty();
+				} else {
+					return Optional.of(scaledToOne.z() <0 ? Direction.NORTH : Direction.SOUTH);
 				}
-
-				else
-
-				{
-					return Optional.of(scaledToOne.z() < 0 ? Direction.NORTH : Direction.SOUTH);
-				}
-			}
-
-			else
-
-			{
+			} else {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
-					return Optional.of(scaledToOne.y() < 0 ? Direction.DOWN : Direction.UP);
-				}
-
-				else
-
-				{
+					return Optional.of(scaledToOne.y() <0 ? Direction.DOWN : Direction.UP);
+				} else {
 					return Optional.empty();
 				}
 			}
-		}
-
-		else
-
-		{
+		} else {
 			if (MathUtil.almostEqual(scaledToOne.y(), 0)) {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
-					return Optional.of(scaledToOne.z() < 0 ? Direction.WEST : Direction.EAST);
-				}
-
-				else
-
-				{
+					return Optional.of(scaledToOne.z() <0 ? Direction.WEST : Direction.EAST);
+				} else {
 					return Optional.empty();
 				}
-			}
-
-			else
-
-			{
+			} else {
 				return Optional.empty();
 			}
 		}

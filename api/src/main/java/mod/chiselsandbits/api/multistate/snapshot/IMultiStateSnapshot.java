@@ -21,37 +21,37 @@ public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableArea
 	));
 
 	/**
-     * Gets the type of the snapshot.
-     *
-     * @return The type of the snapshot.
-     */
+	 * Gets the type of the snapshot.
+	 *
+	 * @return The type of the snapshot.
+	 */
 	IMultiStateSnapshotType getType();
 
 	/**
-     * Converts the current snapshot to a variant which is itemstack capable.
-     *
-     * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
-     */
+	 * Converts the current snapshot to a variant which is itemstack capable.
+	 *
+	 * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
+	 */
 	IMultiStateItemStack toItemStack();
 
 	/**
-     * Returns the statistics of the current snapshot.
-     *
-     * @return The statistics
-     */
+	 * Returns the statistics of the current snapshot.
+	 *
+	 * @return The statistics
+	 */
 	IMultiStateObjectStatistics getStatics();
 
 	/**
-     * Creates a clone of the snapshot.
-     *
-     * @return The clone.
-     */
+	 * Creates a clone of the snapshot.
+	 *
+	 * @return The clone.
+	 */
 	IMultiStateSnapshot clone();
 
 	/**
-     * Creates a new snapshot which limits the currents snapshots contents to the given progression.
-     * @param progress The current progress in procent
-     * @return The progress
-     */
+	 * Creates a new snapshot which limits the currents snapshots contents to the given progression.
+	 * @param progress The current progress in procent
+	 * @return The progress
+	 */
 	IMultiStateSnapshot limitedToProgression(float progress);
 }

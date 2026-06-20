@@ -10,24 +10,24 @@ import java.util.Set;
  */
 public interface IStatistics extends RawSerializable {
 	/**
-     * The primary state of the mutli state itemstacks this statistics object
-     * belongs to.
-     *
-     * @return The primary blockstate.
-     */
+	 * The primary state of the mutli state itemstacks this statistics object
+	 * belongs to.
+	 *
+	 * @return The primary blockstate.
+	 */
 	BlockInformation getPrimaryState();
 
 	/**
-     * Indicates if the multistate object is empty.
-     *
-     * @return {@code true} for an empty multi state object.
-     */
+	 * Indicates if the multistate object is empty.
+	 *
+	 * @return {@code true} for an empty multi state object.
+	 */
 	boolean isEmpty();
 
 	/**
-     * Returns all states (without count) that are contained in the object
-     *
-     * @return All states in the object.
-     */
+	 * Returns all states (without count) that are contained in the object
+	 *
+	 * @return All states in the object.
+	 */
 	Set<BlockInformation> getContainedStates();
 }

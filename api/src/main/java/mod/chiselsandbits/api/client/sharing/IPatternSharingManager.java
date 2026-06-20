@@ -14,18 +14,18 @@ public interface IPatternSharingManager {
 	}
 
 	/**
-     * Exports the given pattern to disk.
-     *
-     * @param multiStateItemStack The multistate itemstack to export.
-     * @param name The name of the export.
-     */
+	 * Exports the given pattern to disk.
+	 *
+	 * @param multiStateItemStack The multistate itemstack to export.
+	 * @param name The name of the export.
+	 */
 	void exportPattern(IMultiStateItemStack multiStateItemStack, String name);
 
 	/**
-     * Imports the pattern from disk.
-     *
-     * @param name The name of the pattern to import.
-     * @return The name of the export.
-     */
+	 * Imports the pattern from disk.
+	 *
+	 * @param name The name of the pattern to import.
+	 * @return The name of the export.
+	 */
 	Either<IMultiStateItemStack, PatternIOException> importPattern(String name);
 }

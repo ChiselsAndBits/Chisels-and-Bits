@@ -12,9 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class CompressionUtils {
 	private static final Logger LOG = LogManager.getLogger(CompressionUtils.class);
 
-	public static byte[] compress(byte[] data) throws IOException
-
-	{
+	public static byte[] compress(byte[] data) throws IOException {
 		Deflater deflater = new Deflater();
 		deflater.setInput(data);
 
@@ -24,7 +22,7 @@ public class CompressionUtils {
 		byte[] buffer = new byte[1024];
 
 		while (!deflater.finished()) {
-			int count = deflater.deflate(buffer); // returns the generated code... index
+			int count = deflater.deflate(buffer); // returns the generated code...index
 			outputStream.write(buffer, 0, count);
 		}
 
@@ -36,9 +34,7 @@ public class CompressionUtils {
 		return output;
 	}
 
-	public static byte[] decompress(byte[] data) throws IOException, DataFormatException
-
-	{
+	public static byte[] decompress(byte[] data) throws IOException, DataFormatException {
 		Inflater inflater = new Inflater();
 		inflater.setInput(data);
 

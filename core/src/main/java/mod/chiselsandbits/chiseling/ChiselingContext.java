@@ -33,31 +33,29 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 public class ChiselingContext implements IChiselingContext {
-	private final LevelAccessor             world;
-	private final IChiselMode        chiselMode;
+	private final LevelAccessor world;
+	private final IChiselMode chiselMode;
 	private final ChiselingOperation modeOfOperandus;
-	private final boolean            simulation;
-	private final Runnable           onCompleteCallback;
-	private final boolean      supportsDamaging;
+	private final boolean simulation;
+	private final Runnable onCompleteCallback;
+	private final boolean supportsDamaging;
 	private final Player playerEntity;
 
-	private boolean           complete = false;
-	private IWorldAreaMutator                                   mutator       = null;
+	private boolean complete = false;
+	private IWorldAreaMutator mutator = null;
 	private Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder = null;
 	private Map<IMetadataKey<?>, Object> metadataKeyMap = Maps.newHashMap();
 	private ItemStack causingItemStack;
 	private MutableComponent error = null;
 
 	public ChiselingContext(
-	  final LevelAccessor world,
-	  final IChiselMode chiselMode,
-	  final ChiselingOperation modeOfOperandus,
-	  final boolean simulation,
-	  final Runnable onCompleteCallback,
-	  final ItemStack causingItemStack,
-	  final Player playerEntity)
-
-	{
+			final LevelAccessor world,
+			final IChiselMode chiselMode,
+			final ChiselingOperation modeOfOperandus,
+			final boolean simulation,
+			final Runnable onCompleteCallback,
+			final ItemStack causingItemStack,
+			final Player playerEntity) {
 		this.world = world;
 		this.chiselMode = chiselMode;
 		this.simulation = simulation;
@@ -67,11 +65,7 @@ public class ChiselingContext implements IChiselingContext {
 
 		if (this.causingItemStack.getItem() instanceof IChiselingItem) {
 			this.supportsDamaging = ((IChiselingItem) this.causingItemStack.getItem()).isDamageableDuringChiseling();
-		}
-
-		else
-
-		{
+		} else {
 			this.supportsDamaging = false;
 		}
 
@@ -79,15 +73,13 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	private ChiselingContext(
-	  final LevelAccessor world,
-	  final IChiselMode chiselMode,
-	  final ChiselingOperation modeOfOperandus,
-	  final boolean complete,
-	  final IWorldAreaMutator mutator,
-	  final Player playerEntity,
-	  final MutableComponent error)
-
-	{
+			final LevelAccessor world,
+			final IChiselMode chiselMode,
+			final ChiselingOperation modeOfOperandus,
+			final boolean complete,
+			final IWorldAreaMutator mutator,
+			final Player playerEntity,
+			final MutableComponent error) {
 		this.world = world;
 		this.chiselMode = chiselMode;
 		this.causingItemStack = ItemStack.EMPTY;
@@ -102,14 +94,12 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	private ChiselingContext(
-	  final LevelAccessor world,
-	  final IChiselMode chiselMode,
-	  final ChiselingOperation modeOfOperandus,
-	  final boolean complete,
-	  final Player playerEntity,
-	  final MutableComponent error)
-
-	{
+			final LevelAccessor world,
+			final IChiselMode chiselMode,
+			final ChiselingOperation modeOfOperandus,
+			final boolean complete,
+			final Player playerEntity,
+			final MutableComponent error) {
 		this.world = world;
 		this.chiselMode = chiselMode;
 		this.causingItemStack = ItemStack.EMPTY;
@@ -122,25 +112,21 @@ public class ChiselingContext implements IChiselingContext {
 		this.error = error;
 	}
 
-	private void setMetadataKeyMap(final Map<IMetadataKey<?>, Object> metadataKeyMap)
-
-	{
+	private void setMetadataKeyMap(final Map<IMetadataKey<?>, Object> metadataKeyMap) {
 		this.metadataKeyMap = metadataKeyMap;
 	}
 
 	@Override
-	public @NotNull Optional<IWorldAreaMutator> getMutator()
-
-	{
+	public @NotNull Optional<IWorldAreaMutator> getMutator() {
 		if (mutator == null || playerEntity == null || !(world instanceof Level)) {
 			return Optional.ofNullable(mutator);
 		}
 
 		if (!IPermissionHandler.getInstance().canManipulate(
-		  playerEntity, mutator
-		)) {
-			//We are not allowed to edit the current area.
-			//Nuke it.
+				playerEntity, mutator
+				)) {
+				//We are not allowed to edit the current area.
+				//Nuke it.
 			mutator = null;
 			return Optional.empty();
 		}
@@ -149,52 +135,38 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public @NotNull LevelAccessor getWorld()
-
-	{
+	public @NotNull LevelAccessor getWorld() {
 		return world;
 	}
 
 	@Override
-	public @NotNull IChiselMode getMode()
-
-	{
+	public @NotNull IChiselMode getMode() {
 		return chiselMode;
 	}
 
 	@Override
-	public @NotNull IChiselingContext include(final Vec3 worldPosition)
-
-	{
-		if (getMutator().map(m -> !m.isInside(worldPosition)).orElse(true))
-
-		{
-			if (getMutator().isPresent())
-
-			{
+	public @NotNull IChiselingContext include(final Vec3 worldPosition) {
+		if (getMutator().map(m -> !m.isInside(worldPosition)).orElse(true)) {
+			if (getMutator().isPresent()) {
 				final IWorldAreaMutator worldAreaMutator = getMutator().get();
 
 				Vec3 start = new Vec3(
-				  Math.min(worldPosition.x(), worldAreaMutator.getInWorldStartPoint().x()),
-				  Math.min(worldPosition.y(), worldAreaMutator.getInWorldStartPoint().y()),
-				  Math.min(worldPosition.z(), worldAreaMutator.getInWorldStartPoint().z())
+						Math.min(worldPosition.x(), worldAreaMutator.getInWorldStartPoint().x()),
+						Math.min(worldPosition.y(), worldAreaMutator.getInWorldStartPoint().y()),
+						Math.min(worldPosition.z(), worldAreaMutator.getInWorldStartPoint().z())
 				);
 				Vec3 end = new Vec3(
-				  Math.max(worldPosition.x(), worldAreaMutator.getInWorldEndPoint().x()),
-				  Math.max(worldPosition.y(), worldAreaMutator.getInWorldEndPoint().y()),
-				  Math.max(worldPosition.z(), worldAreaMutator.getInWorldEndPoint().z())
+						Math.max(worldPosition.x(), worldAreaMutator.getInWorldEndPoint().x()),
+						Math.max(worldPosition.y(), worldAreaMutator.getInWorldEndPoint().y()),
+						Math.max(worldPosition.z(), worldAreaMutator.getInWorldEndPoint().z())
 				);
 
 				this.mutator = IMutatorFactory.getInstance().covering(world, start, end);
-			}
-
-			else
-
-			{
+			} else {
 				this.mutator = IMutatorFactory.getInstance().covering(
-				  world,
-				  worldPosition,
-				  worldPosition
+						world,
+						worldPosition,
+						worldPosition
 				);
 			}
 		}
@@ -203,43 +175,32 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public void setComplete()
-
-	{
+	public void setComplete() {
 		this.complete = true;
 		this.onCompleteCallback.run();
 	}
 
 	@Override
-	public boolean isComplete()
-
-	{
+	public boolean isComplete() {
 		return complete;
 	}
 
 	@Override
-	public boolean isSimulation()
-
-	{
+	public boolean isSimulation() {
 		return simulation;
 	}
 
 	@Override
-	public @NotNull ChiselingOperation getModeOfOperandus()
-
-	{
+	public @NotNull ChiselingOperation getModeOfOperandus() {
 		return modeOfOperandus;
 	}
 
 	@Override
-	public @NotNull IChiselingContext createSnapshot()
-
-	{
+	public @NotNull IChiselingContext createSnapshot() {
 		final ChiselingContext context = createInnerSnapshot();
 		final Map<IMetadataKey<?>, Object> newMetadata = Maps.newHashMap();
-		for (final IMetadataKey<?> key : this.metadataKeyMap.keySet())
 
-		{
+		for (final IMetadataKey<?> key : this.metadataKeyMap.keySet()) {
 			final Optional<?> value = snapshotMetadata(key);
 			value.ifPresent(o -> newMetadata.put(key, o));
 		}
@@ -251,27 +212,27 @@ public class ChiselingContext implements IChiselingContext {
 	private @NotNull ChiselingContext createInnerSnapshot() {
 		if (mutator == null) {
 			return new ChiselingContext(
-			  world,
-			  chiselMode,
-			  modeOfOperandus,
-			  this.complete,
-			  playerEntity,
-			  error
+					world,
+					chiselMode,
+					modeOfOperandus,
+					this.complete,
+					playerEntity,
+					error
 			);
 		}
 
 		return new ChiselingContext(
-		  world,
-		  chiselMode,
-		  modeOfOperandus,
-		  this.complete,
-		  IMutatorFactory.getInstance().covering(
-			world,
-			mutator.getInWorldStartPoint(),
-			mutator.getInWorldEndPoint()
-		  ),
-		  playerEntity,
-		  error
+				world,
+				chiselMode,
+				modeOfOperandus,
+				this.complete,
+				IMutatorFactory.getInstance().covering(
+						world,
+						mutator.getInWorldStartPoint(),
+						mutator.getInWorldEndPoint()
+				),
+				playerEntity,
+				error
 		);
 	}
 
@@ -281,12 +242,8 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken)
-
-	{
-		if (!this.supportsDamaging || this.simulation)
-
-		{
+	public int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken) {
+		if (!this.supportsDamaging || this.simulation) {
 			onDamaged.run();
 			return damage;
 		}
@@ -307,15 +264,15 @@ public class ChiselingContext implements IChiselingContext {
 		if (world instanceof ServerLevel level && playerEntity instanceof ServerPlayer player) {
 			final int appliedDamage = damage * StateEntrySize.current().getDamageFactor();
 			this.causingItemStack.hurtAndBreak(damage, level, player, item -> {
-				broken.set(true);
+					broken.set(true);
 
-				EquipmentSlot hand = EquipmentSlot.MAINHAND;
+					EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-				if (playerEntity.getOffhandItem() == causingItemStack) {
-					hand = EquipmentSlot.OFFHAND;
+					if (playerEntity.getOffhandItem() == causingItemStack) {
+						hand = EquipmentSlot.OFFHAND;
 				}
 
-				player.onEquippedItemBroken(item, hand);
+					player.onEquippedItemBroken(item, hand);
 			}
 
 			);
@@ -331,31 +288,23 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public void setStateFilter(final @NotNull Function<IAreaAccessor, Predicate<IStateEntryInfo>> filter)
-
-	{
+	public void setStateFilter(final @NotNull Function<IAreaAccessor, Predicate<IStateEntryInfo>> filter) {
 		this.filterBuilder = filter;
 	}
 
 	@Override
-	public void clearStateFilter()
-
-	{
+	public void clearStateFilter() {
 		this.filterBuilder = null;
 	}
 
 	@Override
-	public Optional<Function<IAreaAccessor, Predicate<IStateEntryInfo>>> getStateFilter()
-
-	{
+	public Optional<Function<IAreaAccessor, Predicate<IStateEntryInfo>>> getStateFilter() {
 		return Optional.ofNullable(this.filterBuilder);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> Optional<T> getMetadata(final IMetadataKey<T> key)
-
-	{
+	public <T> Optional<T> getMetadata(final IMetadataKey<T> key) {
 		final Object value = this.metadataKeyMap.get(key);
 
 		if (value == null) {
@@ -371,47 +320,33 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public void removeMetadata(final IMetadataKey<?> key)
-
-	{
-		 this.metadataKeyMap.remove(key);
+	public void removeMetadata(final IMetadataKey<?> key) {
+		this.metadataKeyMap.remove(key);
 	}
 
 	@Override
-	public <T> void setMetadata(final IMetadataKey<T> key, final T value)
-
-	{
+	public <T> void setMetadata(final IMetadataKey<T> key, final T value) {
 		this.metadataKeyMap.put(key, value);
 	}
 
 	@Override
-	public void resetMutator()
-
-	{
+	public void resetMutator() {
 		this.mutator = null;
 	}
 
 	@Override
-	public void setError(final MutableComponent errorText)
-
-	{
+	public void setError(final MutableComponent errorText) {
 		this.error = errorText;
 	}
 
 	@Override
-	public Optional<MutableComponent> getError()
-
-	{
+	public Optional<MutableComponent> getError() {
 		return Optional.ofNullable(this.error);
 	}
 
 	@Override
-	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
-
-	{
-		if (getMutator().isPresent() && getMutator().map(m -> m.isInside(inAreaTarget)).orElse(false))
-
-		{
+	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
+		if (getMutator().isPresent() && getMutator().map(m -> m.isInside(inAreaTarget)).orElse(false)) {
 			return getMutator().flatMap(m -> m.getInAreaTarget(inAreaTarget));
 		}
 
@@ -419,17 +354,15 @@ public class ChiselingContext implements IChiselingContext {
 		final Vec3 inBlockOffset = inAreaTarget.subtract(position.getX(), position.getY(), position.getZ());
 
 		return IMutatorFactory.getInstance().in(
-		  getWorld(),
-		  position
-		).getInAreaTarget(
-		  inBlockOffset
-		);
+				getWorld(),
+				position
+				).getInAreaTarget(
+						inBlockOffset
+				);
 	}
 
 	@Override
-	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-	{
+	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		return getInAreaTarget(Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget));
 	}
 }

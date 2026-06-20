@@ -19,16 +19,12 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group");
 
 	@Override
-	public Identifier getId()
-
-	{
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Override
-	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
-
-	{
+	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack) {
 		if (!(stack.getItem() instanceof final IWithModeItem<?> modeItem)) {
 			return;
 		}
@@ -47,26 +43,24 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 		TextureAtlasSprite sprite = IconManager.getInstance().getIcon(renderableMode.getIcon());
 
 		guiGraphics.blitSprite(
-			RenderPipelines.GUI_TEXTURED,
-			sprite,
-			0,
-			0,
-			16,16,
-			ARGB.colorFromFloat(
-				(float) mode.getAlphaChannel(),
-				(float) mode.getColorVector().x(),
-				(float) mode.getColorVector().y(),
-				(float) mode.getColorVector().z()
-			));
+				RenderPipelines.GUI_TEXTURED,
+				sprite,
+				0,
+				0,
+				16, 16,
+				ARGB.colorFromFloat(
+						(float) mode.getAlphaChannel(),
+						(float) mode.getColorVector().x(),
+						(float) mode.getColorVector().y(),
+						(float) mode.getColorVector().z()
+				));
 
 		guiGraphics.pose().popMatrix();
 		guiGraphics.pose().popMatrix();
 	}
 
 	private IRenderableMode getRootRenderableMode(final IRenderableMode mode) {
-		if (mode instanceof IToolMode && ((IToolMode<?>) mode).getGroup().isPresent())
-
-		{
+		if (mode instanceof IToolMode && ((IToolMode<?>) mode).getGroup().isPresent()) {
 			return ((IToolMode<?>) mode).getGroup().get();
 		}
 

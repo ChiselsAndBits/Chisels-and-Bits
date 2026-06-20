@@ -18,17 +18,15 @@ import net.minecraft.world.phys.HitResult;
 
 public class RightClickInteractionHandler {
 	public static ClickProcessingState rightClickOnBlock(
-	  final Level level,
-	  final Player player,
-	  final InteractionHand hand,
-	  final ItemStack itemStack,
-	  final BlockPos position,
-	  final Direction hitFace,
-	  final boolean currentCancellationState,
-	  final ClickProcessingState.ProcessingResult currentItemUsageState
-	)
-
-	{
+			final Level level,
+			final Player player,
+			final InteractionHand hand,
+			final ItemStack itemStack,
+			final BlockPos position,
+			final Direction hitFace,
+			final boolean currentCancellationState,
+			final ClickProcessingState.ProcessingResult currentItemUsageState
+			) {
 		if (level.getBlockState(position).getBlock() == ModBlocks.BIT_STORAGE.get()) {
 			return ClickProcessingState.ALLOW_NO_CANCEL;
 		}
@@ -42,14 +40,14 @@ public class RightClickInteractionHandler {
 				}
 
 				return rightClickControllingItem.handleRightClickProcessing(
-				  player,
-				  hand,
-				  position,
-				  hitFace,
-				  new ClickProcessingState(
-					currentCancellationState,
-					currentItemUsageState
-				  )
+						player,
+						hand,
+						position,
+						hitFace,
+					new ClickProcessingState(
+							currentCancellationState,
+							currentItemUsageState
+					)
 				);
 			}
 		}
@@ -58,14 +56,12 @@ public class RightClickInteractionHandler {
 	}
 
 	public static ClickProcessingState rightClickOnItem(
-	  final Level level,
-	  final Player player,
-	  final InteractionHand interactionHand,
-	  final ItemStack itemStack,
-	  final boolean currentCancellationState,
-	  final ClickProcessingState.ProcessingResult currentItemUsageState)
-
-	{
+			final Level level,
+			final Player player,
+			final InteractionHand interactionHand,
+			final ItemStack itemStack,
+			final boolean currentCancellationState,
+			final ClickProcessingState.ProcessingResult currentItemUsageState) {
 		HitResult rayTrace = RayTracingUtils.rayTracePlayer(player);
 
 		if (rayTrace instanceof BlockHitResult blockHitResult && level.getBlockState(blockHitResult.getBlockPos()).getBlock() == ModBlocks.BIT_STORAGE.get()) {
@@ -81,14 +77,14 @@ public class RightClickInteractionHandler {
 				}
 
 				return rightClickControllingItem.handleRightClickProcessing(
-				  player,
-				  interactionHand,
-				  rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getBlockPos() : new BlockPos(0,-1000,0),
-				  rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getDirection() : Direction.UP,
-				  new ClickProcessingState(
-					currentCancellationState,
-					currentItemUsageState
-				  )
+						player,
+						interactionHand,
+						rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getBlockPos() : new BlockPos(0, -1000, 0),
+						rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getDirection() : Direction.UP,
+					new ClickProcessingState(
+							currentCancellationState,
+							currentItemUsageState
+					)
 				);
 			}
 		}

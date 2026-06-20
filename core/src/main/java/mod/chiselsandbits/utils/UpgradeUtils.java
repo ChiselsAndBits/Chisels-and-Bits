@@ -5,9 +5,7 @@ import mod.chiselsandbits.registrars.ModItems;
 import net.minecraft.world.item.ItemStack;
 
 public class UpgradeUtils {
-	private UpgradeUtils()
-
-	{
+	private UpgradeUtils() {
 	}
 
 	public static ItemStack consolidateBitBag(ItemStack stack) {

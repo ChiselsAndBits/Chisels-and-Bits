@@ -12,16 +12,16 @@ public interface IChiselContextPreviewRendererRegistry {
 	}
 
 	/**
-     * The currently configured renderer as per configuration of the player.
-     * @return The renderer.
-     */
+	 * The currently configured renderer as per configuration of the player.
+	 * @return The renderer.
+	 */
 	IChiselContextPreviewRenderer getCurrent();
 
 	/**
-     * Adds the passed in renderer instances as possible candidates.
-     *
-     * @param renderers The candidates.
-     * @return The registry.
-     */
-	IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers);
+	 * Adds the passed in renderer instances as possible candidates.
+	 *
+	 * @param renderers The candidates.
+	 * @return The registry.
+	 */
+	IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer...renderers);
 }

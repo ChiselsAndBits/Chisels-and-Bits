@@ -19,8 +19,8 @@ public final class ForgeAdaptingBitInventoryManager implements IAdaptingBitInven
 	@Override
 	public Optional<Object> create(Object target) {
 		return Optional.of(target)
-				.filter(ResourceHandler.class::isInstance)
-				.map(ResourceHandler.class::cast)
-				.map(IItemHandlerBitInventory::new);
+			.filter(ResourceHandler.class::isInstance)
+			.map(ResourceHandler.class::cast)
+			.map(IItemHandlerBitInventory::new);
 	}
 }

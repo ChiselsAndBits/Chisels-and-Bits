@@ -4,42 +4,32 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
 public class LinedChiselModeBuilder {
-	private int                       bitsPerSide;
+	private int bitsPerSide;
 	private MutableComponent displayName;
 	private MutableComponent multiLineDisplayName;
-	private Identifier       iconName;
+	private Identifier iconName;
 
-	public LinedChiselModeBuilder setBitsPerSide(final int bitsPerSide)
-
-	{
+	public LinedChiselModeBuilder setBitsPerSide(final int bitsPerSide) {
 		this.bitsPerSide = bitsPerSide;
 		return this;
 	}
 
-	public LinedChiselModeBuilder setDisplayName(final MutableComponent displayName)
-
-	{
+	public LinedChiselModeBuilder setDisplayName(final MutableComponent displayName) {
 		this.displayName = displayName;
 		return this;
 	}
 
-	public LinedChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName)
-
-	{
+	public LinedChiselModeBuilder setMultiLineDisplayName(final MutableComponent multiLineDisplayName) {
 		this.multiLineDisplayName = multiLineDisplayName;
 		return this;
 	}
 
-	public LinedChiselModeBuilder setIconName(final Identifier iconName)
-
-	{
+	public LinedChiselModeBuilder setIconName(final Identifier iconName) {
 		this.iconName = iconName;
 		return this;
 	}
 
-	public LinedChiselMode createLinedChiselMode()
-
-	{
+	public LinedChiselMode createLinedChiselMode() {
 		return new LinedChiselMode(bitsPerSide, displayName, multiLineDisplayName, iconName);
 	}
 }

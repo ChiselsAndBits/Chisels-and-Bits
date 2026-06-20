@@ -28,95 +28,75 @@ import net.minecraft.world.phys.Vec3;
 public class MeasuringManager implements IMeasuringManager {
 	private static final MeasuringManager INSTANCE = new MeasuringManager();
 
-	public static MeasuringManager getInstance()
-
-	{
+	public static MeasuringManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements = Tables.newCustomTable(
-			new ConcurrentHashMap<>(),
+		new ConcurrentHashMap<>(),
 			ConcurrentHashMap::new
 	);
 
-	private MeasuringManager()
-
-	{
+	private MeasuringManager() {
 	}
 
 	@Override
-	public Collection<? extends IMeasurement> getInWorld(final Identifier worldKey)
-
-	{
+	public Collection<? extends IMeasurement> getInWorld(final Identifier worldKey) {
 		return measurements.row(worldKey).values().stream().flatMap(m -> m.values().stream()).collect(Collectors.toSet());
 	}
 
 	@Override
-	public Collection<? extends IMeasurement> getForPlayer(final UUID playerId)
-
-	{
+	public Collection<? extends IMeasurement> getForPlayer(final UUID playerId) {
 		return measurements.column(playerId).values().stream().flatMap(m -> m.values().stream()).collect(Collectors.toSet());
 	}
 
 	@Override
 	public Measurement create(
-	  final Level world, final Player playerEntity, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode)
-
-	{
+			final Level world, final Player playerEntity, final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode) {
 		return new Measurement(
-		  playerEntity.getUUID(),
-		  from,
-		  to,
-		  hitFace,
-		  mode,
-		  world.dimension().identifier()
+				playerEntity.getUUID(),
+				from,
+				to,
+				hitFace,
+				mode,
+				world.dimension().identifier()
 		);
 	}
 
 	@Override
-	public void resetMeasurementsFor(final UUID playerId)
-
-	{
+	public void resetMeasurementsFor(final UUID playerId) {
 		measurements.columnMap().remove(playerId);
 		syncToAll();
 	}
 
-	public void syncToAll()
-
-	{
+	public void syncToAll() {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToEveryone(
-		  new MeasurementsUpdatedPacket(this.measurements)
+			new MeasurementsUpdatedPacket(this.measurements)
 		);
 	}
 
-	public void syncTo(final ServerPlayer player)
-
-	{
+	public void syncTo(final ServerPlayer player) {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
-		  new MeasurementsUpdatedPacket(this.measurements),
-		  player
+			new MeasurementsUpdatedPacket(this.measurements),
+				player
 		);
 	}
 
-	public void addOrUpdate(final Measurement measurement, final boolean updateAll)
-
-	{
+	public void addOrUpdate(final Measurement measurement, final boolean updateAll) {
 		if (!this.measurements.contains(measurement.getWorldKey(), measurement.getOwner())) {
 			this.measurements.put(measurement.getWorldKey(), measurement.getOwner(), new HashMap<>());
 		}
 
 		Objects.requireNonNull(this.measurements.get(measurement.getWorldKey(), measurement.getOwner())).put(measurement.getMode(), measurement);
 
-		if (updateAll)
-
-		{
+		if (updateAll) {
 			this.syncToAll();
 		}
 	}
 
 	public void createAndSend(
-	  final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode
-	) {
+			final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode
+			) {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MeasurementNetworkUtil.createAndSend(from, to, hitFace, mode));
 	}
 

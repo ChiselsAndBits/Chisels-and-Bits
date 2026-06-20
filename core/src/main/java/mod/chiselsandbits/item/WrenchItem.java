@@ -30,39 +30,29 @@ import net.minecraft.world.phys.HitResult;
 public class WrenchItem extends Item implements IWithModeItem<IModificationOperation>, IRightClickControllingItem {
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public WrenchItem(final Properties properties)
-
-	{
+	public WrenchItem(final Properties properties) {
 		super(properties);
 	}
 
 	@NotNull
 	@Override
-	public IModificationOperation getMode(final ItemStack stack)
-
-	{
+	public IModificationOperation getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MODIFICATION_OPERATION.get(), IModificationOperation.getDefaultMode());
 	}
 
 	@Override
-	public void setMode(final ItemStack stack, final IModificationOperation mode)
-
-	{
+	public void setMode(final ItemStack stack, final IModificationOperation mode) {
 		stack.set(ModDataComponentTypes.MODIFICATION_OPERATION.get(), mode);
 	}
 
 	@NotNull
 	@Override
-	public Collection<IModificationOperation> getPossibleModes()
-
-	{
+	public Collection<IModificationOperation> getPossibleModes() {
 		return IModificationOperation.getRegistry().getValues().stream().sorted(Comparator.comparing(IModificationOperation::getRegistryName)).collect(Collectors.toList());
 	}
 
 	@Override
-	public boolean canUse(final Player playerEntity, final ItemStack stack)
-
-	{
+	public boolean canUse(final Player playerEntity, final ItemStack stack) {
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
@@ -75,9 +65,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	@Override
 	public ClickProcessingState handleRightClickProcessing(
-	  final Player playerEntity, final InteractionHand hand, final BlockPos position, final Direction face, final ClickProcessingState currentState)
-
-	{
+			final Player playerEntity, final InteractionHand hand, final BlockPos position, final Direction face, final ClickProcessingState currentState) {
 		final HitResult result = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (!(result instanceof final BlockHitResult blockHitResult) || result.getType() != HitResult.Type.BLOCK) {
@@ -90,9 +78,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 			return ClickProcessingState.DENIED;
 		}
 
-		try(IBatchMutation ignored = multiStateBlockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity)))
-
-		{
+		try(IBatchMutation ignored = multiStateBlockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 			getMode(playerEntity.getItemInHand(hand)).apply(multiStateBlockEntity);
 		}
 
@@ -100,9 +86,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 	}
 
 	@Override
-	public void onRightClickProcessingEnd(final Player player, final ItemStack stack)
-
-	{
-		//Noop
+	public void onRightClickProcessingEnd(final Player player, final ItemStack stack) {
+	//Noop
 	}
 }

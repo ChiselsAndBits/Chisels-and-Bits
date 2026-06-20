@@ -23,55 +23,41 @@ import net.minecraft.world.level.block.Blocks;
 
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class ReflectionHelperBlockStateGenerator extends ModelProvider implements DataProvider {
-	public ReflectionHelperBlockStateGenerator(final DataGenerator gen)
-
-	{
+	public ReflectionHelperBlockStateGenerator(final DataGenerator gen) {
 		super(gen.getPackOutput(), Constants.MOD_ID);
 	}
 
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new ReflectionHelperBlockStateGenerator(event.getGenerator()));
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
-
-	{
+	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
 		actOnBlock(ModBlocks.REFLECTION_HELPER_BLOCK.get(), blockModels);
 	}
 
-	public void actOnBlock(final Block block, final BlockModelGenerators blockModels)
-
-	{
+	public void actOnBlock(final Block block, final BlockModelGenerators blockModels) {
 		blockModels.createNonTemplateModelBlock(block, Blocks.AIR);
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
-
-	{
+	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of(
-			BuiltInRegistries.BLOCK.wrapAsHolder(
-				ModBlocks.REFLECTION_HELPER_BLOCK.get()
-			)
+				BuiltInRegistries.BLOCK.wrapAsHolder(
+						ModBlocks.REFLECTION_HELPER_BLOCK.get()
+				)
 		);
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
-
-	{
+	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 
 	@NotNull
 	@Override
-	public String getName()
-
-	{
+	public String getName() {
 		return "Reflection helper block blockstate generator";
 	}
 }

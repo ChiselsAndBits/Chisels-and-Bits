@@ -17,36 +17,34 @@ import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.util.RandomSource;
 
 public record ChiseledBlockModelInformation(
-	Material.Baked particleMaterial,
-	@BakedQuad.MaterialFlags int materialFlags,
-	List<ChiseledBlockModelPart> parts,
-	List<ChiseledBlockModelMaterial> materials,
-	ChiseledBlockModelCacheKey key
-) implements BlockStateModel {
+		Material.Baked particleMaterial,
+		@BakedQuad.MaterialFlags int materialFlags,
+		List<ChiseledBlockModelPart> parts,
+		List<ChiseledBlockModelMaterial> materials,
+		ChiseledBlockModelCacheKey key
+		) implements BlockStateModel {
 	public static final ChiseledBlockModelInformation EMPTY = new ChiseledBlockModelInformation(
 		new Material.Baked(
-			Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation()))
-			, true),
-		BakedQuad.FLAG_TRANSLUCENT,
-		List.of(),
-		List.of(),
-		ChiseledBlockModelCacheKey.EMPTY
+				Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation())),
+				true),
+			BakedQuad.FLAG_TRANSLUCENT,
+			List.of(),
+			List.of(),
+			ChiseledBlockModelCacheKey.EMPTY
 	);
 
 	public ChiseledBlockModelInformation(
-		final Material.Baked particleMaterial,
-		final List<ChiseledBlockModelPart> parts,
-		final List<ChiseledBlockModelMaterial> materials,
-		final ChiseledBlockModelCacheKey key) {
+			final Material.Baked particleMaterial,
+			final List<ChiseledBlockModelPart> parts,
+			final List<ChiseledBlockModelMaterial> materials,
+			final ChiseledBlockModelCacheKey key) {
 		this(particleMaterial, computeMaterialFlags(parts), parts, materials, key);
 	}
 
 	private static int computeMaterialFlags(final List<ChiseledBlockModelPart> parts) {
 		int result = 0;
 
-		for (final ChiseledBlockModelPart part : parts)
-
-		{
+		for (final ChiseledBlockModelPart part : parts) {
 			result |= part.materialFlags();
 		}
 
@@ -54,9 +52,7 @@ public record ChiseledBlockModelInformation(
 	}
 
 	@Override
-	public void collectParts(final @NonNull RandomSource random, final List<BlockStateModelPart> output)
-
-	{
+	public void collectParts(final @NonNull RandomSource random, final List<BlockStateModelPart> output) {
 		output.addAll(parts());
 	}
 }

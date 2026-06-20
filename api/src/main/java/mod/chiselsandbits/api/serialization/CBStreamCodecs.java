@@ -37,9 +37,8 @@ public interface CBStreamCodecs {
 		public void encode(FriendlyByteBuf buffer, long @NotNull [] payload) {
 			buffer.writeLongArray(payload);
 		}
-	}
+	};
 
-	;
 
 	StreamCodec<FriendlyByteBuf, BitSet> BIT_SET = LONG_ARRAY.map(
 			BitSet::valueOf,
@@ -47,27 +46,28 @@ public interface CBStreamCodecs {
 	);
 
 	StreamCodec<ByteBuf, Vec3> VEC_3 = ByteBufCodecs.DOUBLE.apply(ByteBufCodecs.list(3))
-			.apply(codec -> codec.map(
-					doubles -> {
-						if (doubles.size() != 3) {
-							throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
-						}
+		.apply(codec -> codec.map(
+				doubles -> {
 
-						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
-					}
+				if (doubles.size() != 3) {
+				throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
+		}
 
-					,
-					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
-			));
+				return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
+				},
+
+
+				vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
+		));
 
 	static <R, C, V, B extends ByteBuf> StreamCodec<? super B, Table<R, C, V>> table(
-			IntFunction<Map<R, Map<C,V>>> mapFactory,
+			IntFunction<Map<R, Map<C, V>>> mapFactory,
 			IntFunction<Map<C, V>> innerMapFactory,
 			Supplier<Map<C, V>> innerMapSupplier,
 			StreamCodec<? super B, R> rowCodec,
 			StreamCodec<? super B, C> columnCodec,
 			StreamCodec<? super B, V> valueCodec
-	) {
+			) {
 		final StreamCodec<? super B, Map<C, V>> columnMapCodec = ByteBufCodecs.map(
 				innerMapFactory,
 				columnCodec,
@@ -82,16 +82,16 @@ public interface CBStreamCodecs {
 
 		return tableMapCodec.map(
 				rMapMap -> {
-					final Table<R, C, V> table = HashBasedTable.create();
-					rMapMap.forEach((row, columnMap) -> {
+				final Table<R, C, V> table = HashBasedTable.create();
+				rMapMap.forEach((row, columnMap) -> {
 						columnMap.forEach((column, value) -> table.put(row, column, value));
-					}
-
-					);
-					return table;
 				}
 
-				,
+				);
+				return table;
+				},
+
+
 				Table::rowMap
 		);
 	}
@@ -118,36 +118,35 @@ public interface CBStreamCodecs {
 				codec6.encode(buffer, getter6.apply(instance));
 				codec7.encode(buffer, getter7.apply(instance));
 			}
-		}
+		};
 
-		;
 	}
 
 	public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
-																										final Function<C, T1> getter1,
-																										final StreamCodec<? super B, T2> codec2,
-																										final Function<C, T2> getter2,
-																										final StreamCodec<? super B, T3> codec3,
-																										final Function<C, T3> getter3,
-																										final StreamCodec<? super B, T4> codec4,
-																										final Function<C, T4> getter4,
-																										final StreamCodec<? super B, T5> codec5,
-																										final Function<C, T5> getter5,
-																										final StreamCodec<? super B, T6> codec6,
-																										final Function<C, T6> getter6,
-																										final StreamCodec<? super B, T7> codec7,
-																										final Function<C, T7> getter7,
-																										final StreamCodec<? super B, T8> codec8,
-																										final Function<C, T8> getter8,
-																										final StreamCodec<? super B, T9> codec9,
-																										final Function<C, T9> getter9,
-																										final StreamCodec<? super B, T10> codec10,
-																										final Function<C, T10> getter10,
-																										final StreamCodec<? super B, T11> codec11,
-																										final Function<C, T11> getter11,
-																										final StreamCodec<? super B, T12> codec12,
-																										final Function<C, T12> getter12,
-																										final Function12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, C> p_331335_) {
+			final Function<C, T1> getter1,
+			final StreamCodec<? super B, T2> codec2,
+			final Function<C, T2> getter2,
+			final StreamCodec<? super B, T3> codec3,
+			final Function<C, T3> getter3,
+			final StreamCodec<? super B, T4> codec4,
+			final Function<C, T4> getter4,
+			final StreamCodec<? super B, T5> codec5,
+			final Function<C, T5> getter5,
+			final StreamCodec<? super B, T6> codec6,
+			final Function<C, T6> getter6,
+			final StreamCodec<? super B, T7> codec7,
+			final Function<C, T7> getter7,
+			final StreamCodec<? super B, T8> codec8,
+			final Function<C, T8> getter8,
+			final StreamCodec<? super B, T9> codec9,
+			final Function<C, T9> getter9,
+			final StreamCodec<? super B, T10> codec10,
+			final Function<C, T10> getter10,
+			final StreamCodec<? super B, T11> codec11,
+			final Function<C, T11> getter11,
+			final StreamCodec<? super B, T12> codec12,
+			final Function<C, T12> getter12,
+			final Function12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, C> p_331335_) {
 		return new StreamCodec<>() {
 			public @NotNull C decode(@NotNull B buffer) {
 				T1 t1 = codec1.decode(buffer);
@@ -179,9 +178,8 @@ public interface CBStreamCodecs {
 				codec11.encode(buffer, getter11.apply(instance));
 				codec12.encode(buffer, getter12.apply(instance));
 			}
-		}
+		};
 
-		;
 	}
 
 	static <T> StreamCodec<RegistryFriendlyByteBuf, T> compressed(StreamCodec<RegistryFriendlyByteBuf, T> codec) {
@@ -234,16 +232,15 @@ public interface CBStreamCodecs {
 					throw new RuntimeException("Failed to compress data.", e);
 				}
 			}
-		}
+		};
 
-		;
 	}
 
 	static <B, R, D> StreamCodec<B, R> dispatch(
 			StreamCodec<? super B, D> dispatcherCodec,
 			Function<D, StreamCodec<B, ? extends R>> decoderFactory,
 			Function<R, D> dispatcherSelector
-	) {
+			) {
 		return new StreamCodec<>() {
 			@Override
 			public @NotNull R decode(@NotNull B buffer) {
@@ -260,9 +257,8 @@ public interface CBStreamCodecs {
 				StreamCodec<B, R> codec = (StreamCodec<B, R>) decoderFactory.apply(dispatcher);
 				codec.encode(buffer, value);
 			}
-		}
+		};
 
-		;
 	}
 
 	static <B, T> StreamCodec<B, T> lazyInitialized(Supplier<StreamCodec<B, T>> supplier) {
@@ -286,9 +282,8 @@ public interface CBStreamCodecs {
 
 				codec.encode(buffer, value);
 			}
-		}
+		};
 
-		;
 	}
 
 	static <B extends FriendlyByteBuf, S> StreamCodec.CodecOperation<B, S, S> nullable() {
@@ -311,12 +306,10 @@ public interface CBStreamCodecs {
 							codec.encode(buffer, value);
 						}
 					}
-				}
+				};
 
-				;
 			}
-		}
+		};
 
-		;
 	}
 }

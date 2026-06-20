@@ -8,18 +8,18 @@ import net.minecraft.core.Direction;
 
 public interface IFaceBuilder {
 	void setFace(
-	  Direction myFace,
-	  int tintIndex );
+			Direction myFace,
+			int tintIndex);
 
 	void put(
-	  int vertNum,
-	  int element,
-	  float... args );
+			int vertNum,
+			int element,
+			float...args);
 
 	void begin();
 
 	BakedQuad create(
-	  TextureAtlasSprite sprite );
+			TextureAtlasSprite sprite);
 
 	VertexFormat getFormat();
 }

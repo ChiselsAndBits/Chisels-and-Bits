@@ -6,8 +6,8 @@ import java.util.function.ToIntFunction;
 @SuppressWarnings("unchecked")
 public class LambdaExceptionUtils {
 	/**
-     * .forEach(rethrowConsumer(name -> System.out.println(Class.forName(name)))); or .forEach(rethrowConsumer(ClassNameUtil::println));
-     */
+	 *.forEach(rethrowConsumer(name -> System.out.println(Class.forName(name)))); or.forEach(rethrowConsumer(ClassNameUtil::println));
+	 */
 	public static <T, E extends Exception> Consumer<T> rethrowConsumer(Consumer_WithExceptions<T, E> consumer) {
 		return t -> {
 			try {
@@ -15,9 +15,8 @@ public class LambdaExceptionUtils {
 			} catch (Exception exception) {
 				throwAsUnchecked(exception);
 			}
-		}
+		};
 
-		;
 	}
 
 	public static <T, E extends Exception> ToIntFunction<T> rethrowToIntFunction(ToIntFunction_WithExceptions<T, E> consumer) {
@@ -28,9 +27,8 @@ public class LambdaExceptionUtils {
 				throwAsUnchecked(exception);
 				return -1; //Never reached :D
 			}
-		}
+		};
 
-		;
 	}
 
 	private static <E extends Throwable> void throwAsUnchecked(Exception exception) throws E {

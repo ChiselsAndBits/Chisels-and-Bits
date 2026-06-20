@@ -14,39 +14,35 @@ import net.minecraft.world.item.ItemStack;
 public class MeasurementTapeTickHandler {
 	public static void tick() {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			if (KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed()) {
-				ItemStack stack = getItemStack();
+				if (KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed()) {
+					ItemStack stack = getItemStack();
 
-				if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
-					measuringTapeItem.clear(stack);
-					ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
+					if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
+						measuringTapeItem.clear(stack);
+						ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
 				}
 			} else if (Minecraft.getInstance().level != null) {
-				ItemStack stack = getItemStack();
+					ItemStack stack = getItemStack();
 
-				if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
-					measuringTapeItem.clientTick(
-						stack,
-						Minecraft.getInstance().level,
-						Minecraft.getInstance().player
-					);
+					if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
+						measuringTapeItem.clientTick(
+								stack,
+								Minecraft.getInstance().level,
+								Minecraft.getInstance().player
+						);
 				}
-			}
+				}
 		}
 
 		);
 	}
 
-	private static @NotNull ItemStack getItemStack()
-
-	{
+	private static @NotNull ItemStack getItemStack() {
 		ItemStack stack = ItemStack.EMPTY;
 
 		if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof MeasuringTapeItem) {
 			stack = Minecraft.getInstance().player.getMainHandItem();
-		}
-
-		else if (Minecraft.getInstance().player.getOffhandItem().getItem() instanceof MeasuringTapeItem) {
+		} else if (Minecraft.getInstance().player.getOffhandItem().getItem() instanceof MeasuringTapeItem) {
 			stack = Minecraft.getInstance().player.getOffhandItem();
 		}
 

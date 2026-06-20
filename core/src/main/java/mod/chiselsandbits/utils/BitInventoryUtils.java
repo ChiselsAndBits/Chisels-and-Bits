@@ -12,10 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class BitInventoryUtils {
-	private BitInventoryUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: BitInventoryUtils. This is a utility class");
+	private BitInventoryUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: BitInventoryUtils.This is a utility class");
 	}
 
 	public static void insertIntoOrSpawn(final Player playerEntity, final BlockInformation blockState, final int count) {
@@ -49,7 +47,7 @@ public class BitInventoryUtils {
 		}
 
 		if (!IServerConfiguration.getInstance().getDeleteExcessBits().get()) {
-			while(leftOverCount > 0) {
+			while(leftOverCount> 0) {
 				final int spawnCount = Math.min(ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize(), leftOverCount);
 
 				if (spawnCount <= 0) {

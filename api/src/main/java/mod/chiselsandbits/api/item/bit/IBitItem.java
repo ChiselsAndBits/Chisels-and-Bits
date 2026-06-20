@@ -14,25 +14,25 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem, IWithModeItem<IChiselMode>, IChangeTrackingItem {
 	/**
-     * Returns the block information which is contained in a stack with the
-     * given bit item.
-     *
-     * @param stack The stack which contains this bit item.
-     *
-     * @return The block information contained in this bit item.
-     */
+	 * Returns the block information which is contained in a stack with the
+	 * given bit item.
+	 *
+	 * @param stack The stack which contains this bit item.
+	 *
+	 * @return The block information contained in this bit item.
+	 */
 	@NotNull
 	BlockInformation getBlockInformation(final ItemStack stack);
 
 	/**
-     * Invoked when a merge operation of a bit inside a bitbag is beginning during a shift-click interaction
-     * in the bit bag UI.
-     */
+	 * Invoked when a merge operation of a bit inside a bitbag is beginning during a shift-click interaction
+	 * in the bit bag UI.
+	 */
 	void onMergeOperationWithBagBeginning();
 
 	/**
-     * Invoked when a merge operation of a bit inside a bitbag is ending during a shift-click interaction
-     * in the bit bag UI.
-     */
+	 * Invoked when a merge operation of a bit inside a bitbag is ending during a shift-click interaction
+	 * in the bit bag UI.
+	 */
 	void onMergeOperationWithBagEnding();
 }

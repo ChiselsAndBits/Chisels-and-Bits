@@ -13,22 +13,16 @@ import net.minecraft.data.DataGenerator;
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class UnsealItemModelGenerator extends AbstractInteractableItemModelGenerator {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new UnsealItemModelGenerator(event.getGenerator()));
 	}
 
-	public UnsealItemModelGenerator(final DataGenerator generator)
-
-	{
+	public UnsealItemModelGenerator(final DataGenerator generator) {
 		super(generator, ModItems.UNSEAL_ITEM);
 	}
 
 	@Override
-	public @NotNull String getName()
-
-	{
+	public @NotNull String getName() {
 		return "Unseal item model generator";
 	}
 }

@@ -34,83 +34,65 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LiquidBlock;
 
 public class BitBlockBakedModelManager {
-	private static final Logger                                                   LOGGER            = LogManager.getLogger();
-	private static final BitBlockBakedModelManager                                INSTANCE          = new BitBlockBakedModelManager();
-	private final        Cache<BlockInformation, BitBlockModelInformation> modelCache        = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
-	private final        Cache<BlockInformation, BitBlockModelInformation> largeModelCache   = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
-	private final        NonNullList<ItemStack>                                   alternativeStacks = NonNullList.create();
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final BitBlockBakedModelManager INSTANCE = new BitBlockBakedModelManager();
+	private final Cache<BlockInformation, BitBlockModelInformation> modelCache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
+	private final Cache<BlockInformation, BitBlockModelInformation> largeModelCache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
+	private final NonNullList<ItemStack> alternativeStacks = NonNullList.create();
 
-	private BitBlockBakedModelManager()
-
-	{
+	private BitBlockBakedModelManager() {
 	}
 
-	public static BitBlockBakedModelManager getInstance()
-
-	{
+	public static BitBlockBakedModelManager getInstance() {
 		return INSTANCE;
 	}
 
-	public void clearCache()
-
-	{
+	public void clearCache() {
 		modelCache.asMap().clear();
 		largeModelCache.asMap().clear();
 	}
 
 	public BitBlockModelInformation get(
-		ItemStack stack,
-		final ClientLevel world) {
+			ItemStack stack,
+			final ClientLevel world) {
 		return get(
-			stack,
-			world,
-			Minecraft.getInstance().hasShiftDown()
+				stack,
+				world,
+				Minecraft.getInstance().hasShiftDown()
 		);
 	}
 
 	public BitBlockModelInformation get(
-		ItemStack stack,
-		final ClientLevel world,
-		final boolean large
-	)
-
-	{
-		if (!(stack.getItem() instanceof IBitItem))
-
-		{
+			ItemStack stack,
+			final ClientLevel world,
+			final boolean large
+			) {
+		if (!(stack.getItem() instanceof IBitItem)) {
 			LOGGER.warn("Tried to get bit item model for non bit item");
 			return BitBlockModelInformation.EMPTY;
 		}
 
 		return get(
-			large,
-			((IBitItem) stack.getItem()).getBlockInformation(stack),
-			world
+				large,
+				((IBitItem) stack.getItem()).getBlockInformation(stack),
+				world
 		);
 	}
 
 	public BitBlockModelInformation get(
-		final boolean large,
-		@Nullable BlockInformation blockInformation,
-		ClientLevel level) {
-		if (level == null)
-
-		{
+			final boolean large,
+			@Nullable BlockInformation blockInformation,
+			ClientLevel level) {
+		if (level == null) {
 			level = Minecraft.getInstance().level;
 
-			if (level == null)
-
-			{
+			if (level == null) {
 				return BitBlockModelInformation.EMPTY;
 			}
 		}
 
-		if (blockInformation == null || blockInformation.isAir())
-
-		{
-			if (alternativeStacks.isEmpty())
-
-			{
+		if (blockInformation == null || blockInformation.isAir()) {
+			if (alternativeStacks.isEmpty()) {
 				ModCreativeTabs.BITS.get().buildContents(new CreativeModeTab.ItemDisplayParameters(FeatureFlags.VANILLA_SET, false, level.registryAccess()));
 				this.alternativeStacks.addAll(ModCreativeTabs.BITS.get().getDisplayItems());
 			}
@@ -118,9 +100,8 @@ public class BitBlockBakedModelManager {
 			final int alternativeIndex = (int) ((Math.floor(TickHandler.getClientTicks() / 20d)) % alternativeStacks.size());
 
 			final ItemStack alternativeStack = this.alternativeStacks.get(alternativeIndex);
-			if (!(alternativeStack.getItem() instanceof IBitItem))
 
-			{
+			if (!(alternativeStack.getItem() instanceof IBitItem)) {
 				throw new IllegalStateException("BitItem returned none bit item stack!");
 			}
 
@@ -129,60 +110,46 @@ public class BitBlockBakedModelManager {
 
 		final Cache<BlockInformation, BitBlockModelInformation> target = large ? largeModelCache : modelCache;
 		final BlockInformation workingState = blockInformation;
-		try
 
-		{
+		try {
 			final @Nullable BlockInformation finalBlockInformation = blockInformation;
 			final ClientLevel finalLevel = level;
 			return target.get(blockInformation, () -> {
-				if (large)
-
-				{
-					boolean isBlock = true;
-					ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
-						() -> new ItemStack(workingState.blockState().getBlock())
-					);
-					if (workingState.blockState().getBlock() instanceof LiquidBlock)
-
-					{
-						lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
-						isBlock = false;
-					}
-
-					final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
-						Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
-					);
-
-					final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
-					final List<BitBlockModelPart> parts = new ArrayList<>();
-
-					for (final ItemStackRenderState.LayerRenderState layer : renderState.layers)
-
-					{
-						parts.add(
-							new BitBlockModelPart(
-								layer.prepareQuadList(),
-								layer.tintLayers()
-							)
+					if (large) {
+						boolean isBlock = true;
+						ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
+								() -> new ItemStack(workingState.blockState().getBlock())
 						);
+
+						if (workingState.blockState().getBlock() instanceof LiquidBlock) {
+							lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
+							isBlock = false;
 					}
 
-					return new BitBlockModelInformation(parts, isBlock, true);
-				}
+						final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
+								Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
+						);
 
-				else
+						final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
+						final List<BitBlockModelPart> parts = new ArrayList<>();
 
-				{
-					return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
-				}
+						for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
+							parts.add(
+								new BitBlockModelPart(
+										layer.prepareQuadList(),
+										layer.tintLayers()
+								)
+							);
+					}
+
+						return new BitBlockModelInformation(parts, isBlock, true);
+				} else {
+						return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
+					}
 			}
 
 			);
-		}
-
-		catch (ExecutionException e)
-
-		{
+		} catch (ExecutionException e) {
 			LOGGER.warn("Failed to get a model for a bit: {} the model calculation got aborted.", blockInformation, e);
 			return BitBlockModelInformation.EMPTY;
 		}

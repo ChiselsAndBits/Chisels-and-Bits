@@ -38,24 +38,18 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
-	public MeasuringTapeItem(final Properties properties)
-
-	{
+	public MeasuringTapeItem(final Properties properties) {
 		super(properties);
 	}
 
 	@NotNull
 	@Override
-	public MeasuringMode getMode(final ItemStack stack)
-
-	{
+	public MeasuringMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MEASURING_MODE.get(), MeasuringMode.WHITE_BIT);
 	}
 
 	@Override
-	public void setMode(final ItemStack stack, final IMeasuringMode mode)
-
-	{
+	public void setMode(final ItemStack stack, final IMeasuringMode mode) {
 		if (mode == null) {
 			throw new IllegalArgumentException("Mode is null");
 		}
@@ -68,56 +62,39 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 	}
 
 	@Override
-	public @NotNull Collection<IMeasuringMode> getPossibleModes()
-
-	{
+	public @NotNull Collection<IMeasuringMode> getPossibleModes() {
 		return Lists.newArrayList(MeasuringMode.values());
 	}
 
 	@Override
 	public ClickProcessingState handleRightClickProcessing(
-	  final Player playerEntity, final InteractionHand hand, final BlockPos position, final Direction face, final ClickProcessingState currentState)
-
-	{
+			final Player playerEntity, final InteractionHand hand, final BlockPos position, final Direction face, final ClickProcessingState currentState) {
 		ClickProcessingState result = ClickProcessingState.DEFAULT;
 		final ItemStack stack = playerEntity.getItemInHand(hand);
-		if (stack.getItem() == this)
 
-		{
-			//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
+		if (stack.getItem() == this) {
+		//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
 			if (DistExecutor.unsafeRunForDist(
-			  () -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
-			  () -> () -> { return false; })
-			)
-
-			{
+					() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
+					() -> () -> { return false; })
+					) {
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
-			}
-
-			else
-
-			{
+			} else {
 				final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
-				if (rayTraceResult.getType() == HitResult.Type.BLOCK && rayTraceResult instanceof final BlockHitResult blockRayTraceResult)
 
-				{
+				if (rayTraceResult.getType() == HitResult.Type.BLOCK && rayTraceResult instanceof final BlockHitResult blockRayTraceResult) {
 					final Optional<Vec3> startPointHandler = getStart(stack);
-					if (startPointHandler.isEmpty())
 
-					{
+					if (startPointHandler.isEmpty()) {
 						setStart(stack, getMode(stack).getType().adaptClickedPosition(blockRayTraceResult));
-					}
-
-					else
-
-					{
+					} else {
 						final Vec3 startPoint = startPointHandler.get();
 						MeasuringManager.getInstance().createAndSend(
-						  startPoint,
-						  getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
-						  blockRayTraceResult.getDirection(),
-						  getMode(stack)
+								startPoint,
+								getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
+								blockRayTraceResult.getDirection(),
+								getMode(stack)
 						);
 						clear(stack);
 					}
@@ -156,63 +133,56 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		}
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
-		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
 
-		{
+		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			return;
 		}
 
 		final Vec3 startPoint = startPointHandler.get();
 
 		MeasuringManager.getInstance().createAndSend(
-		  startPoint,
-		  getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
-		  blockRayTraceResult.getDirection(),
-		  getMode(stack)
+				startPoint,
+				getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
+				blockRayTraceResult.getDirection(),
+				getMode(stack)
 		);
 	}
 
 	@Override
-	public @NotNull Optional<Vec3> getStart(final @NotNull ItemStack stack)
-
-	{
+	public @NotNull Optional<Vec3> getStart(final @NotNull ItemStack stack) {
 		return Optional.ofNullable(stack.get(ModDataComponentTypes.START.get()));
 	}
 
 	@Override
-	public void setStart(final @NotNull ItemStack stack, final @NotNull Vec3 start)
-
-	{
+	public void setStart(final @NotNull ItemStack stack, final @NotNull Vec3 start) {
 		stack.set(ModDataComponentTypes.START.get(), start);
 	}
 
 	@Override
-	public void clear(final @NotNull ItemStack stack)
-
-	{
+	public void clear(final @NotNull ItemStack stack) {
 		stack.remove(ModDataComponentTypes.START.get());
 	}
 
 	@Override
 	public void appendHoverText(
-		final ItemStack stack,
-		final TooltipContext context,
-		final TooltipDisplay tooltipDisplay,
-		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag) {
+			final ItemStack stack,
+			final TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			if (KeyBindingManager.getInstance().hasBeenInitialized()) {
-				HelpTextUtils.build(
-				  LocalStrings.HelpTapeMeasure, tooltipAdder,
-				  Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
-				  Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
-				  KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),
-				  KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
-				);
+				if (KeyBindingManager.getInstance().hasBeenInitialized()) {
+					HelpTextUtils.build(
+							LocalStrings.HelpTapeMeasure, tooltipAdder,
+							Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
+							Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
+							KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),
+							KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
+					);
 			}
-		  }
+		}
 
-		  );
+		);
 	}
 }

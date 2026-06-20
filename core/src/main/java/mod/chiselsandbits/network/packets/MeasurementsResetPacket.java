@@ -9,36 +9,26 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class MeasurementsResetPacket extends ModPacket {
-	public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_reset");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_reset");
 	public static final CustomPacketPayload.Type<MeasurementsResetPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
-	public MeasurementsResetPacket()
-
-	{
+	public MeasurementsResetPacket() {
 	}
 
-	public MeasurementsResetPacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public MeasurementsResetPacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 	}
 
 	@Override
-	public void server(final ServerPlayer playerEntity)
-
-	{
+	public void server(final ServerPlayer playerEntity) {
 		MeasuringManager.getInstance().resetMeasurementsFor(playerEntity);
 	}
 

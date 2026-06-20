@@ -14,9 +14,7 @@ public final class ForgePluginDiscoverer extends IPluginDiscoverer.AbstractPlugi
 	}
 
 	@Override
-	protected boolean isModNotLoaded(final String modId)
-
-	{
+	protected boolean isModNotLoaded(final String modId) {
 		return !ModList.get().isLoaded(modId);
 	}
 }

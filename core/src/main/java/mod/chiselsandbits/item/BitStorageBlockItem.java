@@ -27,20 +27,18 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BitStorageBlockItem extends BlockItem {
 	public BitStorageBlockItem(
-	  final Block block , Properties builder)
-
-	{
-		super( block, builder );
+			final Block block, Properties builder) {
+		super(block, builder);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-		final ItemStack stack,
-		final TooltipContext context,
-		final TooltipDisplay tooltipDisplay,
-		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag) {
+			final ItemStack stack,
+			final TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		if (stack.has(ModDataComponentTypes.BLOCK_INFORMATION.get()) && stack.has(ModDataComponentTypes.COUNT.get())) {
@@ -48,31 +46,25 @@ public class BitStorageBlockItem extends BlockItem {
 			final int count = stack.get(ModDataComponentTypes.COUNT.get());
 
 			HelpTextUtils.build(LocalStrings.HelpBitStorageFilled, tooltipAdder, containedState.blockState().getBlock().getName(), count);
-		}
-
-		else
-
-		{
+		} else {
 			HelpTextUtils.build(LocalStrings.HelpBitStorageEmpty, tooltipAdder);
 		}
 
 		tooltipAdder.accept(Component.literal(""));
 
 		if (
-			DistExecutor.unsafeRunForDist(
-				() -> () -> Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown(),
-				() -> () -> Boolean.TRUE
-			)
-		) {
+				DistExecutor.unsafeRunForDist(
+						() -> () -> Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown(),
+						() -> () -> Boolean.TRUE
+				)
+				) {
 			HelpTextUtils.build(LocalStrings.LongHelpBitStorage, tooltipAdder);
 		}
 	}
 
 	@Override
 	protected boolean updateCustomBlockEntityTag(
-	  final @NotNull BlockPos pos, final @NotNull Level worldIn, @Nullable final Player player, final @NotNull ItemStack stack, final @NotNull BlockState state)
-
-	{
+			final @NotNull BlockPos pos, final @NotNull Level worldIn, @Nullable final Player player, final @NotNull ItemStack stack, final @NotNull BlockState state) {
 		super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
 
 		if (worldIn.isClientSide()) {

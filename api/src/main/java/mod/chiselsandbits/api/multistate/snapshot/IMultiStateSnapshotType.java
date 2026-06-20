@@ -12,16 +12,16 @@ import net.minecraft.network.codec.StreamCodec;
  */
 public interface IMultiStateSnapshotType extends ICustomRegistryEntry {
 	/**
-     * Gets the codec for the snapshot.
-     *
-     * @return The codec.
-     */
+	 * Gets the codec for the snapshot.
+	 *
+	 * @return The codec.
+	 */
 	MapCodec<? extends IMultiStateSnapshot> codec();
 
 	/**
-     * Gets the stream codec for the snapshot.
-     *
-     * @return The stream codec.
-     */
+	 * Gets the stream codec for the snapshot.
+	 *
+	 * @return The stream codec.
+	 */
 	StreamCodec<RegistryFriendlyByteBuf, ? extends IMultiStateSnapshot> streamCodec();
 }

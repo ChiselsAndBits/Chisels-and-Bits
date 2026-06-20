@@ -13,15 +13,13 @@ import net.minecraft.world.item.ItemStack;
 
 public class LeftClickInteractionHandler {
 	public static ClickProcessingState leftClickOnBlock(
-	  final Player player,
-	  final InteractionHand hand,
-	  final ItemStack itemStack,
-	  final BlockPos position,
-	  final Direction hitFace,
-	  final boolean currentCancellationState,
-	  final ClickProcessingState.ProcessingResult currentItemUsageState)
-
-	{
+			final Player player,
+			final InteractionHand hand,
+			final ItemStack itemStack,
+			final BlockPos position,
+			final Direction hitFace,
+			final boolean currentCancellationState,
+			final ClickProcessingState.ProcessingResult currentItemUsageState) {
 		if (itemStack.getItem() instanceof ILeftClickControllingItem) {
 			try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Left click processing")) {
 				final ILeftClickControllingItem leftClickControllingItem = (ILeftClickControllingItem) itemStack.getItem();
@@ -31,14 +29,14 @@ public class LeftClickInteractionHandler {
 				}
 
 				return leftClickControllingItem.handleLeftClickProcessing(
-				  player,
-				  hand,
-				  position,
-				  hitFace,
-				  new ClickProcessingState(
-					currentCancellationState,
-					currentItemUsageState
-				  )
+						player,
+						hand,
+						position,
+						hitFace,
+					new ClickProcessingState(
+							currentCancellationState,
+							currentItemUsageState
+					)
 				);
 			}
 		}

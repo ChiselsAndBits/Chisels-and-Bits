@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IAABBOwner {
 	/**
-     * Gives access to the bounding box of this object.
-     *
-     * @return The axis aligned bounding box.
-     */
+	 * Gives access to the bounding box of this object.
+	 *
+	 * @return The axis aligned bounding box.
+	 */
 	@NotNull
 	AABB getBoundingBox();
 }

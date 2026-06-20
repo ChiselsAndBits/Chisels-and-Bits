@@ -7,9 +7,9 @@ import net.minecraft.resources.Identifier;
  */
 public interface IWithIcon {
 	/**
-     * The icon to render.
-     *
-     * @return The icon.
-     */
+	 * The icon to render.
+	 *
+	 * @return The icon.
+	 */
 	Identifier getIcon();
 }

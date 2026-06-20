@@ -32,78 +32,62 @@ import net.minecraft.world.level.block.Block;
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class ModificationTableBlockStateGenerator extends ModelProvider implements DataProvider {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new ModificationTableBlockStateGenerator(event.getGenerator()));
 	}
 
-	public ModificationTableBlockStateGenerator(final DataGenerator gen)
-
-	{
+	public ModificationTableBlockStateGenerator(final DataGenerator gen) {
 		super(gen.getPackOutput(), Constants.MOD_ID);
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
-
-	{
+	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
 		actOnBlock(ModBlocks.MODIFICATION_TABLE.get(), blockModels);
 	}
 
-	public void actOnBlock(final Block block, final BlockModelGenerators generators)
-
-	{
+	public void actOnBlock(final Block block, final BlockModelGenerators generators) {
 		generators.createHorizontallyRotatedBlock(block, new TexturedModel.Provider() {
-			@Override
-			public @NotNull TexturedModel get(final @NotNull Block block)
-
-			{
-				return new TexturedModel(
-					new TextureMapping()
-						.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
-						.put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
-					new ModelTemplate(
-						Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
-						Optional.empty(),
-						TextureSlot.LAYER0,
-						TextureSlot.PARTICLE
-					)
-				);
+				@Override
+				public @NotNull TexturedModel get(final @NotNull Block block) {
+					return new TexturedModel(
+						new TextureMapping()
+							.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
+							.put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
+						new ModelTemplate(
+								Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
+								Optional.empty(),
+								TextureSlot.LAYER0,
+								TextureSlot.PARTICLE
+						)
+					);
 			}
 		}
 
 		);
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
-			ModelLocationUtils.getModelLocation(block),
-			Optional.empty(),
-			List.of()
+				ModelLocationUtils.getModelLocation(block),
+				Optional.empty(),
+				List.of()
 		));
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
-
-	{
+	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of(
-			BuiltInRegistries.BLOCK.wrapAsHolder(
-				ModBlocks.MODIFICATION_TABLE.get()
-			)
+				BuiltInRegistries.BLOCK.wrapAsHolder(
+						ModBlocks.MODIFICATION_TABLE.get()
+				)
 		);
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
-
-	{
+	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 
 	@Override
-	public @NotNull String getName()
-
-	{
+	public @NotNull String getName() {
 		return "Modification table blockstate generator";
 	}
 }

@@ -4,10 +4,8 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class ComparatorUtils {
-	private ComparatorUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ComparatorUtils. This is a utility class");
+	private ComparatorUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: ComparatorUtils.This is a utility class");
 	}
 
 	public static <T extends Comparable<T>> Comparator<Optional<T>> createOptionalComparator() {
@@ -25,8 +23,7 @@ public class ComparatorUtils {
 			} else {
 				return 0;
 			}
-		}
+		};
 
-		;
 	}
 }

@@ -10,29 +10,29 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IPermissionHandler {
 	/**
-     * Gives access to the current permission handler.
-     *
-     * @return The current permission handler.
-     */
+	 * Gives access to the current permission handler.
+	 *
+	 * @return The current permission handler.
+	 */
 	static IPermissionHandler getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getPermissionHandler();
 	}
 
 	/**
-     * Registers a new {@link IPermissionChecker} with the permission handler.
-     * @param checker The new permission checker
-     *
-     * @return The registration token which can be used to unregister the checker.
-     */
+	 * Registers a new {@link IPermissionChecker} with the permission handler.
+	 * @param checker The new permission checker
+	 *
+	 * @return The registration token which can be used to unregister the checker.
+	 */
 	ICheckerRegistration registerChecker(final IPermissionChecker checker);
 
 	/**
-     * Allows for external systems to check if a particular player
-     * can edit a particular area.
-     *
-     * @param player The player which wants to edit the area, possibly null if the player is not known.
-     * @param worldAreaAccessor The area which is being edited.
-     * @return {@code true} if the area is marked as editable, {@code false} otherwise.
-     */
+	 * Allows for external systems to check if a particular player
+	 * can edit a particular area.
+	 *
+	 * @param player The player which wants to edit the area, possibly null if the player is not known.
+	 * @param worldAreaAccessor The area which is being edited.
+	 * @return {@code true} if the area is marked as editable, {@code false} otherwise.
+	 */
 	boolean canManipulate(@NotNull final Player player, final IWorldAreaAccessor worldAreaAccessor);
 }

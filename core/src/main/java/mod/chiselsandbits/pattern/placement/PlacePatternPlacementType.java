@@ -37,34 +37,32 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class PlacePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
-		final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
+			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return VoxelShapeManager.getInstance()
 			.get(sourceSnapshot, CollisionType.NONE_AIR);
 	}
 
 	@Override
 	public PlacementResult performPlacement(
-		final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
-		final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown() ?
-			context.getClickLocation()
-			: Vec3.atLowerCornerOf(context.getClickedPos());
-		final IWorldAreaMutator areaMutator =
-			IMutatorFactory.getInstance().covering(
+			final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
+		final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown()
+		? context.getClickLocation()
+		: Vec3.atLowerCornerOf(context.getClickedPos());
+		final IWorldAreaMutator areaMutator = 
+		IMutatorFactory.getInstance().covering(
 				context.getLevel(),
 				targetedPosition,
 				targetedPosition.add(0.9999, 0.9999, 0.9999)
-			);
+		);
 
 		final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
 			.map(context.getLevel()::getBlockState)
 			.allMatch(BlockBehaviour.BlockStateBase::isAir);
 
-		if (!isAir)
-
-		{
+		if (!isAir) {
 			return PlacementResult.failure(
-				IClientConfiguration::getNotFittingPatternPlacementColor,
-				LocalStrings.PatternPlacementNotAnAirBlock.getText());
+					IClientConfiguration::getNotFittingPatternPlacementColor,
+					LocalStrings.PatternPlacementNotAnAirBlock.getText());
 		}
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
@@ -72,44 +70,31 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 			.filter(e -> !e.getKey().isAir())
 			.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
-		if (!hasRequiredBits)
-
-		{
+		if (!hasRequiredBits) {
 			return PlacementResult.failure(
-				IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
-				LocalStrings.PatternPlacementNotEnoughBits.getText());
+					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
+					LocalStrings.PatternPlacementNotEnoughBits.getText());
 		}
 
-		if (simulate)
-
-		{
+		if (simulate) {
 			return PlacementResult.success();
 		}
 
-		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
-
-		{
+		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream().sequential().forEach(
-				stateEntryInfo -> {
-					try
+					stateEntryInfo -> {
 
-					{
+					try {
 						areaMutator.setInAreaTarget(
-							stateEntryInfo.getBlockInformation(),
-							stateEntryInfo.getStartPoint());
+								stateEntryInfo.getBlockInformation(),
+								stateEntryInfo.getStartPoint());
+				} catch (SpaceOccupiedException ignored1) {
 					}
-
-					catch (SpaceOccupiedException ignored1)
-
-					{
 					}
-				}
 			);
 		}
 
-		if (!context.getPlayer().isCreative())
-
-		{
+		if (!context.getPlayer().isCreative()) {
 			source.getStatics().getStateCounts().entrySet().stream()
 				.filter(e -> !e.getKey().isAir())
 				.forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
@@ -120,10 +105,8 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public Vec3 getTargetedPosition(
-		final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult) {
-		if (playerEntity.isShiftKeyDown())
-
-		{
+			final ItemStack heldStack, final Player playerEntity, final BlockHitResult blockRayTraceResult) {
+		if (playerEntity.isShiftKeyDown()) {
 			return blockRayTraceResult.getLocation();
 		}
 
@@ -131,32 +114,24 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 	}
 
 	@Override
-	public boolean overridesOccupiedBits(ItemStack heldStack)
-
-	{
+	public boolean overridesOccupiedBits(ItemStack heldStack) {
 		return false;
 	}
 
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return Identifier.fromNamespaceAndPath(
-			MOD_ID, "pattern_place"
+				MOD_ID, "pattern_place"
 		);
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup()
-
-	{
+	public @NotNull Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return LocalStrings.PatternPlacementModePlacement.getText();
 	}
 }

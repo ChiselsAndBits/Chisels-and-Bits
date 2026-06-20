@@ -30,8 +30,8 @@ public class InterpolationHelper {
 	}
 
 	/**
-     * Resets the interpolation helper with the given quad. Does not care what order the vertices are in.
-     */
+	 * Resets the interpolation helper with the given quad.Does not care what order the vertices are in.
+	 */
 	public void reset(float dx0, float dy0, float dx1, float dy1, float dx2, float dy2, float dx3, float dy3) {
 		float[] vec0 = this.posCache[0];
 		float[] vec1 = this.posCache[1];
@@ -50,50 +50,50 @@ public class InterpolationHelper {
 	}
 
 	/**
-     * Call when you are ready to use the helper.
-     */
+	 * Call when you are ready to use the helper.
+	 */
 	public void setup() {
-		this.p00 = 0;// Bottom Left is always primary.
+		this.p00 = 0; // Bottom Left is always primary.
 		this.x0 = this.posCache[this.p00][0];
 		this.y0 = this.posCache[this.p00][1];
 
-		for (int i = 1; i < 4; i++) {
+		for (int i = 1; i <4; i++) {
 			float x = this.posCache[i][0];
 			float y = this.posCache[i][1];
 
 			if (this.y0 == y) {
-				this.p10 = i;// Bottom right.
+				this.p10 = i; // Bottom right.
 				this.x1 = x;
 			} else if (this.x0 == x) {
-				this.p01 = i;// Top left.
+				this.p01 = i; // Top left.
 				this.y1 = y;
 			} else {
-				// Top right.
+			// Top right.
 				this.p11 = i;
 			}
 		}
 	}
 
 	/**
-     * Computes the coefficients for the interpolation.
-     *
-     * @param x X interpolation location.
-     * @param y Y interpolation location.
-     */
+	 * Computes the coefficients for the interpolation.
+	 *
+	 * @param x X interpolation location.
+	 * @param y Y interpolation location.
+	 */
 	public void locate(float x, float y) {
 		this.rX = (x - this.x0) / (this.x1 - this.x0);
 		this.rY = (y - this.y0) / (this.y1 - this.y0);
 	}
 
 	/**
-     * Interpolates using the already computed coefficients.
-     *
-     * @param q0 Value at dx0 dy0
-     * @param q1 Value at dx1 dy1
-     * @param q2 Value at dx2 dy2
-     * @param q3 Value at dx3 dy3
-     * @return The result.
-     */
+	 * Interpolates using the already computed coefficients.
+	 *
+	 * @param q0 Value at dx0 dy0
+	 * @param q1 Value at dx1 dy1
+	 * @param q2 Value at dx2 dy2
+	 * @param q3 Value at dx3 dy3
+	 * @return The result.
+	 */
 	public float interpolate(float q0, float q1, float q2, float q3) {
 		this.valCache[0] = q0;
 		this.valCache[1] = q1;

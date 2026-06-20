@@ -16,9 +16,7 @@ public class Fabric implements ModInitializer {
 
 	private ChiselsAndBits chiselsAndBits;
 
-	public Fabric()
-
-	{
+	public Fabric() {
 		LOGGER.info("Initialized chisels-and-bits for Fabric");
 		PlatformInitializationHandler.getInstance().onInit(platform -> setChiselsAndBits(new ChiselsAndBits(
 				Objects::isNull,
@@ -28,32 +26,24 @@ public class Fabric implements ModInitializer {
 	}
 
 	@Override
-	public void onInitialize()
-
-	{
-		if (chiselsAndBits != null)
-
-		{
+	public void onInitialize() {
+		if (chiselsAndBits != null) {
 			chiselsAndBits.onInitialize();
 			return;
 		}
 
 		PlatformInitializationHandler.getInstance().onInit(platform -> {
-			if (chiselsAndBits == null)
-
-			{
-				throw new IllegalStateException("Chisels and bits was not initialized properly.");
+				if (chiselsAndBits == null) {
+					throw new IllegalStateException("Chisels and bits was not initialized properly.");
 			}
 
-			chiselsAndBits.onInitialize();
+				chiselsAndBits.onInitialize();
 		}
 
 		);
 	}
 
-	public void setChiselsAndBits(final ChiselsAndBits chiselsAndBits)
-
-	{
+	public void setChiselsAndBits(final ChiselsAndBits chiselsAndBits) {
 		this.chiselsAndBits = chiselsAndBits;
 	}
 }

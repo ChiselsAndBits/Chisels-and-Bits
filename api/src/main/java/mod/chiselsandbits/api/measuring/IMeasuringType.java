@@ -20,20 +20,14 @@ public interface IMeasuringType extends IToolModeGroup {
 	boolean isNeedsNormalization();
 
 	@FunctionalInterface
-	public interface IPositionAdapter
-
-	{
+	public interface IPositionAdapter {
 		@NotNull
 		Vec3 adapt(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace);
 	}
 
 	@FunctionalInterface
-	public interface IClickedPositionAdapter
-
-	{
-		static IClickedPositionAdapter identity()
-
-		{
+	public interface IClickedPositionAdapter {
+		static IClickedPositionAdapter identity() {
 			return HitResult::getLocation;
 		}
 

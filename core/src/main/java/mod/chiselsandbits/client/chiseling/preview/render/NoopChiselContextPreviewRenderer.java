@@ -14,20 +14,18 @@ public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRe
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
 	@Override
-	public Identifier getId()
-
-	{
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Override
 	public void renderExistingContextsBoundingBox(
-		final LevelRenderer levelRenderer,
-		final PoseStack matrixStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final LevelRenderState levelRenderState,
-		final float partialTicks,
-		final IChiselingContext currentContextSnapshot) {
-		//Some people do not want this, so we have this.
+			final LevelRenderer levelRenderer,
+			final PoseStack matrixStack,
+			final MultiBufferSource.BufferSource bufferSource,
+			final LevelRenderState levelRenderState,
+			final float partialTicks,
+			final IChiselingContext currentContextSnapshot) {
+			//Some people do not want this, so we have this.
 	}
 }

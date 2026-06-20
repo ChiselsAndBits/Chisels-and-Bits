@@ -15,125 +15,101 @@ public class WrappingInventory implements Container {
 	private Container wrapped = null;
 
 	@Override
-	public int getContainerSize()
-
-	{
+	public int getContainerSize() {
 		return whenNotNull(
-			getWrapped(),
-			0,
-			Container::getContainerSize
+				getWrapped(),
+				0,
+				Container::getContainerSize
 		);
 	}
 
 	@Override
-	public boolean isEmpty()
-
-	{
+	public boolean isEmpty() {
 		return whenNotNull(
-			getWrapped(),
-			true,
-			Container::isEmpty
+				getWrapped(),
+				true,
+				Container::isEmpty
 		);
 	}
 
 	@NotNull
 	@Override
-	public ItemStack getItem(final int index)
-
-	{
+	public ItemStack getItem(final int index) {
 		return whenNotNull(
-			getWrapped(),
-			ItemStack.EMPTY,
-			inventory -> inventory.getItem(index)
+				getWrapped(),
+				ItemStack.EMPTY,
+				inventory -> inventory.getItem(index)
 		);
 	}
 
 	@NotNull
 	@Override
-	public ItemStack removeItem(final int index, final int count)
-
-	{
+	public ItemStack removeItem(final int index, final int count) {
 		return whenNotNull(
-			getWrapped(),
-			ItemStack.EMPTY,
-			inventory -> inventory.removeItem(index, count)
+				getWrapped(),
+				ItemStack.EMPTY,
+				inventory -> inventory.removeItem(index, count)
 		);
 	}
 
 	@NotNull
 	@Override
-	public ItemStack removeItemNoUpdate(final int index)
-
-	{
+	public ItemStack removeItemNoUpdate(final int index) {
 		return whenNotNull(
-			getWrapped(),
-			ItemStack.EMPTY,
-			inventory -> inventory.removeItemNoUpdate(index)
+				getWrapped(),
+				ItemStack.EMPTY,
+				inventory -> inventory.removeItemNoUpdate(index)
 		);
 	}
 
 	@Override
-	public void setItem(final int index, final @NotNull ItemStack stack)
-
-	{
+	public void setItem(final int index, final @NotNull ItemStack stack) {
 		whenNotNull(
-			getWrapped(),
-			inventory -> inventory.setItem(index, stack)
+				getWrapped(),
+				inventory -> inventory.setItem(index, stack)
 		);
 	}
 
 	@Override
-	public void setChanged()
-
-	{
+	public void setChanged() {
 		whenNotNull(
-			getWrapped(),
-			Container::setChanged
+				getWrapped(),
+				Container::setChanged
 		);
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player)
-
-	{
+	public boolean stillValid(final @NotNull Player player) {
 		return whenNotNull(
-			getWrapped(),
-			false,
-			inventory -> inventory.stillValid(player)
+				getWrapped(),
+				false,
+				inventory -> inventory.stillValid(player)
 		);
 	}
 
 	@Override
-	public void clearContent()
-
-	{
+	public void clearContent() {
 		whenNotNull(
-			getWrapped(),
-			Clearable::clearContent
+				getWrapped(),
+				Clearable::clearContent
 		);
 	}
 
 	@Override
-	public int getMaxStackSize()
-
-	{
+	public int getMaxStackSize() {
 		return whenNotNull(
-			getWrapped(),
-			64,
-			Container::getMaxStackSize
+				getWrapped(),
+				64,
+				Container::getMaxStackSize
 		);
 	}
 
 	@Nullable
-	public Container getWrapped()
-
-	{
+	public Container getWrapped() {
 		return wrapped;
 	}
 
-	public void setWrapped(@Nullable final Container wrapped)
-
-	{
+	public void setWrapped(@Nullable final Container wrapped) {
 		this.wrapped = wrapped;
 	}
 }

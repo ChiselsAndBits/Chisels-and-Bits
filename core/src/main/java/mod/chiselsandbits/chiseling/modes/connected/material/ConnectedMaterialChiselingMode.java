@@ -53,18 +53,16 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry implements IChiselMode {
-	private final int              depth;
+	private final int depth;
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
-	private final Identifier       iconName;
+	private final Identifier iconName;
 
 	public ConnectedMaterialChiselingMode(
-	  final int depth,
-	  final MutableComponent displayName,
-	  final MutableComponent multiLineDisplayName,
-	  final Identifier iconName)
-
-	{
+			final int depth,
+			final MutableComponent displayName,
+			final MutableComponent multiLineDisplayName,
+			final Identifier iconName) {
 		this.depth = depth;
 		this.displayName = displayName;
 		this.multiLineDisplayName = multiLineDisplayName;
@@ -73,294 +71,259 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 	@Override
 	public ClickProcessingState onLeftClickBy(
-	  final Player Player, final IChiselingContext context)
-
-	{
+			final Player Player, final IChiselingContext context) {
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
-		  Player,
-		  context,
-		  Direction::getOpposite,
-		  face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
-		  IQuadFunction.fourthIdentity(),
-		  position -> IMutatorFactory.getInstance().in(
-			context.getWorld(),
-			VectorUtils.toBlockPos(position)
-		  ),
-		  direction -> Vec3i.ZERO
+				Player,
+				context,
+				Direction::getOpposite,
+				face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
+				IQuadFunction.fourthIdentity(),
+				position -> IMutatorFactory.getInstance().in(
+						context.getWorld(),
+						VectorUtils.toBlockPos(position)
+				),
+				direction -> Vec3i.ZERO
 		);
 
-		if (context.isSimulation())
-
-		{
+		if (context.isSimulation()) {
 			return ClickProcessingState.DEFAULT;
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			  try (IBatchMutation ignored =
-					 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player))) {
-				  context.setComplete();
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player))) {
+					context.setComplete();
 
-				  final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-				  final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 					.map(builder -> builder.apply(mutator))
 					.orElse((state) -> true);
 
-				  final int totalModifiedStates = mutator.inWorldMutableStream()
+					final int totalModifiedStates = mutator.inWorldMutableStream()
 					.filter(filter)
 					.mapToInt(state -> {
-						final BlockInformation currentState = state.getBlockInformation();
+							final BlockInformation currentState = state.getBlockInformation();
 
-						return context.tryDamageItemAndDoOrSetBrokenError(
-						  () -> {
-							  resultingBitCount.putIfAbsent(currentState, 0);
-							  resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							return context.tryDamageItemAndDoOrSetBrokenError(
+									() -> {
+									resultingBitCount.putIfAbsent(currentState, 0);
+									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-							  state.clear();
-						  }
+									state.clear();
+									}
 
-						  );
+							);
 					}
 
 					)
 					.sum();
 
-				  if (totalModifiedStates == 0) {
-					  context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				  }
+					if (totalModifiedStates == 0) {
+						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
+				}
 
-				  resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-					Player,
-					blockState,
-					count
-				  ));
-			  }
+					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+							Player,
+							blockState,
+							count
+					));
+			}
 
-			  return ClickProcessingState.ALLOW;
-		  }
+				return ClickProcessingState.ALLOW;
+		}
 
-		  ).orElse(ClickProcessingState.DEFAULT)
+				).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
 	@Override
-	public void onStoppedLeftClicking(final Player Player, final IChiselingContext context)
-
-	{
-		//NOOP
+	public void onStoppedLeftClicking(final Player Player, final IChiselingContext context) {
+	//NOOP
 	}
 
 	@Override
-	public ClickProcessingState onRightClickBy(final Player player, final IChiselingContext context)
-
-	{
+	public ClickProcessingState onRightClickBy(final Player player, final IChiselingContext context) {
 		final Optional<ClickProcessingState> rayTraceHandle = this.processRayTraceIntoContext(
-		  player,
-		  context,
-		  UnaryOperator.identity(),
-		  face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
-		  (hitPos, inBlockTargetedPosition, hitFace, candidatePosition) -> {
-			  if (inBlockTargetedPosition.equals(candidatePosition))
+				player,
+				context,
+				UnaryOperator.identity(),
+				face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
+				(hitPos, inBlockTargetedPosition, hitFace, candidatePosition) -> {
 
-			  {
-				  return Vec3.atLowerCornerOf(hitPos)
+				if (inBlockTargetedPosition.equals(candidatePosition)) {
+					return Vec3.atLowerCornerOf(hitPos)
 					.add(inBlockTargetedPosition)
 					.add(Vec3.atLowerCornerOf(
-						  hitFace.getOpposite().getUnitVec3i()
-						)
-						.multiply(StateEntrySize.current().getSizePerBitScalingVector())
+							hitFace.getOpposite().getUnitVec3i()
+					)
+							.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 					);
-			  }
+			}
 
-			  final Vec3 relevantAxisCandidate = candidatePosition.multiply(
-				Math.abs(hitFace.getUnitVec3i().getX()),
-				Math.abs(hitFace.getUnitVec3i().getY()),
-				Math.abs(hitFace.getUnitVec3i().getZ())
-			  );
-			  final Vec3 noneRelevantAxisCandidates = candidatePosition.subtract(relevantAxisCandidate);
-			  final Vec3 relevantAxisTarget = inBlockTargetedPosition.multiply(
-				Math.abs(hitFace.getUnitVec3i().getX()),
-				Math.abs(hitFace.getUnitVec3i().getY()),
-				Math.abs(hitFace.getUnitVec3i().getZ())
-			  );
+				final Vec3 relevantAxisCandidate = candidatePosition.multiply(
+						Math.abs(hitFace.getUnitVec3i().getX()),
+						Math.abs(hitFace.getUnitVec3i().getY()),
+						Math.abs(hitFace.getUnitVec3i().getZ())
+				);
+				final Vec3 noneRelevantAxisCandidates = candidatePosition.subtract(relevantAxisCandidate);
+				final Vec3 relevantAxisTarget = inBlockTargetedPosition.multiply(
+						Math.abs(hitFace.getUnitVec3i().getX()),
+						Math.abs(hitFace.getUnitVec3i().getY()),
+						Math.abs(hitFace.getUnitVec3i().getZ())
+				);
 
-			  final Vec3 offset = candidatePosition.subtract(inBlockTargetedPosition);
-			  final Vec3 relevantAxisOffset = offset.multiply(
-				Math.abs(hitFace.getUnitVec3i().getX()),
-				Math.abs(hitFace.getUnitVec3i().getY()),
-				Math.abs(hitFace.getUnitVec3i().getZ())
-			  );
+				final Vec3 offset = candidatePosition.subtract(inBlockTargetedPosition);
+				final Vec3 relevantAxisOffset = offset.multiply(
+						Math.abs(hitFace.getUnitVec3i().getX()),
+						Math.abs(hitFace.getUnitVec3i().getY()),
+						Math.abs(hitFace.getUnitVec3i().getZ())
+				);
 
-			  return noneRelevantAxisCandidates.add(relevantAxisTarget).subtract(relevantAxisOffset)
+				return noneRelevantAxisCandidates.add(relevantAxisTarget).subtract(relevantAxisOffset)
 				.add(hitPos.getX(), hitPos.getY(), hitPos.getZ())
 				.add(Vec3.atLowerCornerOf(
-					  hitFace.getOpposite().getUnitVec3i()
-					)
-					.multiply(StateEntrySize.current().getSizePerBitScalingVector())
+						hitFace.getOpposite().getUnitVec3i()
+				)
+						.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 				);
-		  }
+				},
 
-		  ,
-		  position -> IMutatorFactory.getInstance().covering(
-			context.getWorld(),
-			VectorUtils.toBlockPos(position.subtract(1, 1, 1)),
-			VectorUtils.toBlockPos(position.add(1, 1, 1))
-		  ),
-		  direction -> new Vec3i(
-			direction.getUnitVec3i().getX() * depth,
-			direction.getUnitVec3i().getY() * depth,
-			direction.getUnitVec3i().getZ() * depth
-		  )
+
+				position -> IMutatorFactory.getInstance().covering(
+						context.getWorld(),
+						VectorUtils.toBlockPos(position.subtract(1, 1, 1)),
+						VectorUtils.toBlockPos(position.add(1, 1, 1))
+				),
+				direction -> new Vec3i(
+						direction.getUnitVec3i().getX() * depth,
+						direction.getUnitVec3i().getY() * depth,
+						direction.getUnitVec3i().getZ() * depth
+				)
 		);
 
-		if (context.isSimulation())
-
-		{
+		if (context.isSimulation()) {
 			return ClickProcessingState.DEFAULT;
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			  final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
-			  if (heldBlockState.isAir())
+				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
 
-			  {
-				  context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
-				  return ClickProcessingState.DEFAULT;
-			  }
+				if (heldBlockState.isAir()) {
+					context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
+					return ClickProcessingState.DEFAULT;
+			}
 
-			  final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 				.map(builder -> builder.apply(mutator))
 				.orElse((state) -> true);
 
-			  final int missingBitCount = (int) mutator.stream()
+				final int missingBitCount = (int) mutator.stream()
 				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 				.count();
 
-			  final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
+				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
 
-			  context.setComplete();
-			  if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || player.isCreative())
+				context.setComplete();
 
-			  {
-				  if (!player.isCreative())
+				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || player.isCreative()) {
+					if (!player.isCreative()) {
+						playerBitInventory.extract(heldBlockState, missingBitCount);
+				}
 
-				  {
-					  playerBitInventory.extract(heldBlockState, missingBitCount);
-				  }
-
-				  try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
-					  mutator.inWorldMutableStream()
+					try (IBatchMutation ignored = 
+							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
+						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				  }
-			  }
+				}
+			} else {
+					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+				}
 
-			  else
+				if (missingBitCount == 0) {
+					if (!context.validateBuildHeights()) {
+						return ClickProcessingState.DENIED;
+				}
+			}
 
-			  {
-				  context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-			  }
+				return ClickProcessingState.ALLOW;
+		}
 
-			  if (missingBitCount == 0)
-
-			  {
-				  if (!context.validateBuildHeights()) {
-					  return ClickProcessingState.DENIED;
-				  }
-			  }
-
-			  return ClickProcessingState.ALLOW;
-		  }
-
-		  ).orElse(ClickProcessingState.DEFAULT)
+				).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
 	@Override
-	public void onStoppedRightClicking(final Player Player, final IChiselingContext context)
-
-	{
-		//NOOP
+	public void onStoppedRightClicking(final Player Player, final IChiselingContext context) {
+	//NOOP
 	}
 
 	@Override
-	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context)
-
-	{
+	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context) {
 		return context.getMutator().map(mutator -> mutator);
 	}
 
 	@Override
-	public boolean isStillValid(final Player Player, final IChiselingContext context, final ChiselingOperation modeOfOperation)
-
-	{
+	public boolean isStillValid(final Player Player, final IChiselingContext context, final ChiselingOperation modeOfOperation) {
 		final Optional<Set<Vec3i>> validPositions = context.getMetadata(ModMetadataKeys.VALID_POSITIONS.get());
 		final Optional<Direction> targetedSide = context.getMetadata(ModMetadataKeys.TARGETED_SIDE.get());
 		final Optional<BlockPos> targetedBlockPos = context.getMetadata(ModMetadataKeys.TARGETED_BLOCK.get());
 
-		if (validPositions.isEmpty() || targetedSide.isEmpty() || targetedBlockPos.isEmpty())
-
-		{
+		if (validPositions.isEmpty() || targetedSide.isEmpty() || targetedBlockPos.isEmpty()) {
 			return false;
 		}
 
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
-		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult))
 
-		{
+		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult)) {
 			return false;
 		}
 
-		if (blockHitResult.getDirection() != targetedSide.get())
-
-		{
+		if (blockHitResult.getDirection() != targetedSide.get()) {
 			return false;
 		}
 
-		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING ?
-																   face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
-																																  face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
+		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
+		? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
+		face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(
-		  placementFacingAdapter.apply(blockHitResult.getDirection())
-			.multiply(StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit())
+				placementFacingAdapter.apply(blockHitResult.getDirection())
+				.multiply(StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit())
 		);
 
 		final BlockPos hitPos = VectorUtils.toBlockPos(hitVector);
 		final Vec3 hitBlockPosVector = Vec3.atLowerCornerOf(hitPos);
 		final Vec3 inBlockHitVector = hitVector.subtract(hitBlockPosVector);
 		final Vec3i selectedPosition = VectorUtils.toInteger(
-		  inBlockHitVector.x() * StateEntrySize.current().getBitsPerBlockSide(),
-		  inBlockHitVector.y() * StateEntrySize.current().getBitsPerBlockSide(),
-		  inBlockHitVector.z() * StateEntrySize.current().getBitsPerBlockSide()
+				inBlockHitVector.x() * StateEntrySize.current().getBitsPerBlockSide(),
+				inBlockHitVector.y() * StateEntrySize.current().getBitsPerBlockSide(),
+				inBlockHitVector.z() * StateEntrySize.current().getBitsPerBlockSide()
 		);
 
 		return validPositions.get().contains(selectedPosition) && hitPos.equals(targetedBlockPos.get());
 	}
 
 	private Optional<ClickProcessingState> processRayTraceIntoContext(
-	  final Player Player,
-	  final IChiselingContext context,
-	  final UnaryOperator<Direction> searchDirectionAdapter,
-	  final Function<Direction, Vec3> placementFacingAdapter,
-	  final IQuadFunction<BlockPos, Vec3, Direction, Vec3, Vec3> stateExtractionAdapter,
-	  final Function<Vec3, IAreaAccessor> areaAccessorBuilder,
-	  final Function<Direction, Vec3i> filterOffsetProducer
-	)
-
-	{
+			final Player Player,
+			final IChiselingContext context,
+			final UnaryOperator<Direction> searchDirectionAdapter,
+			final Function<Direction, Vec3> placementFacingAdapter,
+			final IQuadFunction<BlockPos, Vec3, Direction, Vec3, Vec3> stateExtractionAdapter,
+			final Function<Vec3, IAreaAccessor> areaAccessorBuilder,
+			final Function<Direction, Vec3i> filterOffsetProducer
+			) {
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
-		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult))
 
-		{
+		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult)) {
 			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
 		}
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(
-		  placementFacingAdapter.apply(blockHitResult.getDirection())
-			.multiply(StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit())
+				placementFacingAdapter.apply(blockHitResult.getDirection())
+				.multiply(StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit(), StateEntrySize.current().getSizePerHalfBit())
 		);
 
 		final BlockPos hitPos = VectorUtils.toBlockPos(hitVector);
@@ -376,112 +339,92 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		final Set<Vec3i> offsets = new HashSet<>();
 		offsets.add(searchDirectionAdapter.apply(blockHitResult.getDirection()).getUnitVec3i());
 		Arrays.stream(Direction.values())
-		  .filter(direction -> direction.getAxis() != blockHitResult.getDirection().getAxis())
-		  .map(Direction::getUnitVec3i)
-		  .forEach(offsets::add);
+			.filter(direction -> direction.getAxis() != blockHitResult.getDirection().getAxis())
+			.map(Direction::getUnitVec3i)
+			.forEach(offsets::add);
 
 		final Vec3i selectedPosition = VectorUtils.toInteger(
-		  inBlockHitVector.x() * StateEntrySize.current().getBitsPerBlockSide(),
-		  inBlockHitVector.y() * StateEntrySize.current().getBitsPerBlockSide(),
-		  inBlockHitVector.z() * StateEntrySize.current().getBitsPerBlockSide()
+				inBlockHitVector.x() * StateEntrySize.current().getBitsPerBlockSide(),
+				inBlockHitVector.y() * StateEntrySize.current().getBitsPerBlockSide(),
+				inBlockHitVector.z() * StateEntrySize.current().getBitsPerBlockSide()
 		);
 		toProcess.addLast(selectedPosition);
 
-		final Vec3i relevantSelectedAxisVector =
-		  new Vec3i(
-			selectedPosition.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
-			selectedPosition.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
-			selectedPosition.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
-		  );
+		final Vec3i relevantSelectedAxisVector = 
+		new Vec3i(
+				selectedPosition.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
+				selectedPosition.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
+				selectedPosition.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
+		);
 
 		final Vec3 selectedInBlockPosition = Vec3.atLowerCornerOf(
-		  selectedPosition
-		).multiply(
-		  StateEntrySize.current().getSizePerBitScalingVector()
-		);
+				selectedPosition
+				).multiply(
+						StateEntrySize.current().getSizePerBitScalingVector()
+				);
 
 		final Optional<IStateEntryInfo> targetedInfo = worldAccessor.getInAreaTarget(
-		  stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockHitResult.getDirection(), selectedInBlockPosition)
+				stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockHitResult.getDirection(), selectedInBlockPosition)
 		);
 
-		if (targetedInfo.isEmpty())
-
-		{
+		if (targetedInfo.isEmpty()) {
 			context.setError(LocalStrings.ChiselAttemptFailedTargetedBlockNotChiselable.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
-		}
-
-		while (!toProcess.isEmpty())
-
-		{
+		} while (!toProcess.isEmpty()) {
 			final Vec3i targetedPosition = toProcess.removeFirst();
 			final Vec3 targetedInBlockPosition = Vec3.atLowerCornerOf(
-			  targetedPosition
-			).multiply(
-			  StateEntrySize.current().getSizePerBitScalingVector()
-			);
+					targetedPosition
+					).multiply(
+							StateEntrySize.current().getSizePerBitScalingVector()
+					);
 			final Optional<IStateEntryInfo> targetCandidate = worldAccessor.getInAreaTarget(
-			  stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockHitResult.getDirection(), targetedInBlockPosition)
+					stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockHitResult.getDirection(), targetedInBlockPosition)
 			);
 
 			processed.add(targetedPosition);
 
-			if (targetCandidate.isEmpty())
-
-			{
+			if (targetCandidate.isEmpty()) {
 				continue;
 			}
 
 			IStateEntryInfo target = targetCandidate.get();
 
-			if (target.getBlockInformation().equals(targetedInfo.get().getBlockInformation()) || target.getBlockInformation().isAir())
-
-			{
-				if (target.getBlockInformation().equals(targetedInfo.get().getBlockInformation()))
-
-				{
-					//We are somehow connected to the targeted bit and of the same state.
+			if (target.getBlockInformation().equals(targetedInfo.get().getBlockInformation()) || target.getBlockInformation().isAir()) {
+				if (target.getBlockInformation().equals(targetedInfo.get().getBlockInformation())) {
+				//We are somehow connected to the targeted bit and of the same state.
 					validPositions.add(targetedPosition);
 				}
 
 				offsets.forEach(offset -> {
-					final Vec3i newTarget = new Vec3i(
-					  targetedPosition.getX() + offset.getX(),
-					  targetedPosition.getY() + offset.getY(),
-					  targetedPosition.getZ() + offset.getZ()
-					);
-					if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide() &&
-						  newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide() &&
-						  newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
-						final Vec3i relevantNewTargetAxisVector =
-						  new Vec3i(
-							newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
-							newTarget.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
-							newTarget.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
-						  );
-
-						final int targetedDepth = Math.abs(
-						  relevantSelectedAxisVector.get(blockHitResult.getDirection().getAxis()) -
-							relevantNewTargetAxisVector.get(blockHitResult.getDirection().getAxis())
+						final Vec3i newTarget = new Vec3i(
+								targetedPosition.getX() + offset.getX(),
+								targetedPosition.getY() + offset.getY(),
+								targetedPosition.getZ() + offset.getZ()
+						);
+						if (newTarget.getX()>= 0 && newTarget.getX() <StateEntrySize.current().getBitsPerBlockSide()
+								&& newTarget.getY()>= 0 && newTarget.getY() <StateEntrySize.current().getBitsPerBlockSide()
+								&& newTarget.getZ()>= 0 && newTarget.getZ() <StateEntrySize.current().getBitsPerBlockSide()) {
+							final Vec3i relevantNewTargetAxisVector = 
+						new Vec3i(
+								newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
+								newTarget.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
+								newTarget.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
 						);
 
-						if (targetedDepth <= depth - 1)
+							final int targetedDepth = Math.abs(
+									relevantSelectedAxisVector.get(blockHitResult.getDirection().getAxis())
+									- relevantNewTargetAxisVector.get(blockHitResult.getDirection().getAxis())
+							);
 
-						{
+							if (targetedDepth <= depth - 1) {
 							//Valid offset found
-							if (!processed.contains(newTarget) && !toProcess.contains(newTarget))
-
-							{
-								toProcess.addLast(newTarget);
+								if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
+									toProcess.addLast(newTarget);
 							}
 						}
-					}
-
-					else
-
-					{
-						processed.add(newTarget);
-					}
+					} else {
+							processed.add(newTarget);
+						}
 				}
 
 				);
@@ -500,37 +443,27 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 	}
 
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return iconName;
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup()
-
-	{
+	public @NotNull Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.CONNECTED_MATERIAL);
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return displayName;
 	}
 
 	@Override
-	public Component getMultiLineDisplayName()
-
-	{
+	public Component getMultiLineDisplayName() {
 		return multiLineDisplayName;
 	}
 
 	@Override
-	public VoxelShape getShape(final IChiselingContext context)
-
-	{
+	public VoxelShape getShape(final IChiselingContext context) {
 		if (context.getMutator().isEmpty()) {
 			return Shapes.empty();
 		}
@@ -538,62 +471,46 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		return VoxelShapeManager.getInstance().get(context.getMutator().get(), CollisionType.ALL);
 	}
 
-	private static final class SelectedBitStateFilter implements Predicate<IStateEntryInfo>
-
-	{
-		private final Vec3i      offset;
+	private static final class SelectedBitStateFilter implements Predicate<IStateEntryInfo> {
+		private final Vec3i offset;
 		private final Set<Vec3i> validPositions;
 
-		public SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions)
-
-		{
+		public SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions) {
 			this.offset = offset;
 			this.validPositions = validPositions;
 		}
 
 		@Override
-		public boolean test(final IStateEntryInfo iStateEntryInfo)
-
-		{
+		public boolean test(final IStateEntryInfo iStateEntryInfo) {
 			final Vec3i position = VectorUtils.toInteger(
-			  iStateEntryInfo.getStartPoint().x() * StateEntrySize.current().getBitsPerBlockSide(),
-			  iStateEntryInfo.getStartPoint().y() * StateEntrySize.current().getBitsPerBlockSide(),
-			  iStateEntryInfo.getStartPoint().z() * StateEntrySize.current().getBitsPerBlockSide()
+					iStateEntryInfo.getStartPoint().x() * StateEntrySize.current().getBitsPerBlockSide(),
+					iStateEntryInfo.getStartPoint().y() * StateEntrySize.current().getBitsPerBlockSide(),
+					iStateEntryInfo.getStartPoint().z() * StateEntrySize.current().getBitsPerBlockSide()
 			);
 
 			return validPositions.contains(
-			  position
+					position
 			);
 		}
 
 		@Override
-		public int hashCode()
-
-		{
+		public int hashCode() {
 			int result = offset.hashCode();
 			result = 31 * result + validPositions.hashCode();
 			return result;
 		}
 
 		@Override
-		public boolean equals(final Object o)
-
-		{
-			if (this == o)
-
-			{
+		public boolean equals(final Object o) {
+			if (this == o) {
 				return true;
 			}
 
-			if (!(o instanceof final SelectedBitStateFilter that))
-
-			{
+			if (!(o instanceof final SelectedBitStateFilter that)) {
 				return false;
 			}
 
-			if (!offset.equals(that.offset))
-
-			{
+			if (!offset.equals(that.offset)) {
 				return false;
 			}
 
@@ -601,13 +518,11 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		}
 
 		@Override
-		public String toString()
-
-		{
+		public String toString() {
 			return "SelectedBitStateFilter{" +
-					 "offset=" + offset +
-					 ", validPositions=" + validPositions +
-					 '}';
+			"offset = " + offset +
+			", validPositions = " + validPositions +
+			'}';
 		}
 	}
 }

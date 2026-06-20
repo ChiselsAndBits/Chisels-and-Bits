@@ -5,10 +5,8 @@ import mod.chiselsandbits.api.multistate.StateEntrySize;
 import net.minecraft.core.BlockPos;
 
 public class BlockPosUtils {
-	private BlockPosUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: BlockPosUtils. This is a utility class");
+	private BlockPosUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: BlockPosUtils.This is a utility class");
 	}
 
 	public static int getCollisionIndex(final BlockPos blockPos) {
@@ -24,18 +22,18 @@ public class BlockPosUtils {
 	}
 
 	public static int getCollisionIndex(final int x, final int y, final int z, final StateEntrySize size) {
-		return x * (size.getBitsPerLayer()) +
-				 y * (size.getBitsPerBlockSide()) +
-				 z;
+		return x * (size.getBitsPerLayer())
+		+ y * (size.getBitsPerBlockSide())
+		+ z;
 	}
 
-	public static int getCollisionIndex(final BlockPos blockPos,  final int ySize, final int zSize) {
+	public static int getCollisionIndex(final BlockPos blockPos, final int ySize, final int zSize) {
 		return getCollisionIndex(blockPos.getX(), blockPos.getY(), blockPos.getZ(), ySize, zSize);
 	}
 
 	public static int getCollisionIndex(final int x, final int y, final int z, final int ySize, final int zSize) {
-		return x * (ySize * zSize) +
-				 y * (zSize) +
-				 z;
+		return x * (ySize * zSize)
+		+ y * (zSize)
+		+ z;
 	}
 }

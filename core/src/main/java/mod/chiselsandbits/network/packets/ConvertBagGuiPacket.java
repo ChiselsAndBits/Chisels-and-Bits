@@ -10,10 +10,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public final class ConvertBagGuiPacket extends ModPacket {
-	public static final Identifier                                    ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "convert_bag_gui");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "convert_bag_gui");
 	public static final CustomPacketPayload.Type<ConvertBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
-	public  ConvertBagGuiPacket(RegistryFriendlyByteBuf buffer) {
+	public ConvertBagGuiPacket(RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
@@ -35,9 +35,7 @@ public final class ConvertBagGuiPacket extends ModPacket {
 	}
 
 	public void execute(final Player player) {
-		if (player.containerMenu instanceof BagContainer)
-
-		{
+		if (player.containerMenu instanceof BagContainer) {
 			((BagContainer) player.containerMenu).convert(player);
 		}
 	}

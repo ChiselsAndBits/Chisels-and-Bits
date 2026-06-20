@@ -14,10 +14,10 @@ import org.jetbrains.annotations.Nullable;
 @FunctionalInterface
 public interface IPermissionChecker {
 	/**
-     *
-     * @param player
-     * @param worldAreaAccessor
-     * @return
-     */
+	 *
+	 * @param player
+	 * @param worldAreaAccessor
+	 * @return
+	 */
 	boolean isAllowed(@Nullable final Player player, final IWorldAreaAccessor worldAreaAccessor);
 }

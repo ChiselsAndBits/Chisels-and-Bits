@@ -50,31 +50,19 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public final class PatternSharingExecutor {
-	private PatternSharingExecutor()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: PatternSharingExecutor. This is a utility class");
+	private PatternSharingExecutor() {
+		throw new IllegalStateException("Can not instantiate an instance of: PatternSharingExecutor.This is a utility class");
 	}
 
-	static void doSavePattern(final IMultiStateItemStack multiStateItemStack, final String patternName, HolderLookup.Provider provider)
-
-	{
-		try
-
-		{
+	static void doSavePattern(final IMultiStateItemStack multiStateItemStack, final String patternName, HolderLookup.Provider provider) {
+		try {
 			savePattern(multiStateItemStack, patternName, provider);
-		}
-
-		catch (PatternIOException e)
-
-		{
+		} catch (PatternIOException e) {
 			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
 		}
 	}
 
-	private static void savePattern(final IMultiStateItemStack multiStateItemStack, final String patternName, HolderLookup.Provider provider) throws PatternIOException
-
-	{
+	private static void savePattern(final IMultiStateItemStack multiStateItemStack, final String patternName, HolderLookup.Provider provider) throws PatternIOException {
 		final byte[] textureAtlasData = getBlockTextureAtlasData();
 		final Model model = getModelQuadData(multiStateItemStack);
 		final byte[] chiselData = getChiselData(multiStateItemStack, provider);
@@ -83,34 +71,25 @@ public final class PatternSharingExecutor {
 		writePatternDataToDisk(patternName, dataString);
 	}
 
-	private static void writePatternDataToDisk(final String patternName, final String dataString) throws PatternIOException
-
-	{
+	private static void writePatternDataToDisk(final String patternName, final String dataString) throws PatternIOException {
 		final String encodedString = Base64.getEncoder().encodeToString(dataString.getBytes());
 		final Path targetPath = Paths.get(IClientConfiguration.getInstance().getPatternExportPath().get(), patternName + ".cbsbp");
-		try
 
-		{
+		try {
 			final byte[] uncompressedData = encodedString.getBytes();
 			final byte[] compressedData = CompressionUtils.compress(uncompressedData);
 
 			Files.write(FileUtils.ensureFileWritable(targetPath), compressedData, StandardOpenOption.WRITE);
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternExportFailedCouldNotWriteFile.getText(),
-			  "Could not write pattern data file to disk",
-			  e
+					LocalStrings.PatternExportFailedCouldNotWriteFile.getText(),
+					"Could not write pattern data file to disk",
+					e
 			);
 		}
 	}
 
-	private static String toDataString(final byte[] textureAtlasData, final Model model, final byte[] chiselData)
-
-	{
+	private static String toDataString(final byte[] textureAtlasData, final Model model, final byte[] chiselData) {
 		final Gson gson = new GsonBuilder().create();
 
 		final JsonObject returnObject = new JsonObject();
@@ -123,71 +102,54 @@ public final class PatternSharingExecutor {
 		return gson.toJson(returnObject);
 	}
 
-	private static byte[] getChiselData(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider) throws PatternIOException
-
-	{
+	private static byte[] getChiselData(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider) throws PatternIOException {
 		final RegistryOps<Tag> registryOps = RegistryOps.create(NbtOps.INSTANCE, provider);
 		final Tag payload = IMultiStateSnapshot.CODEC.encodeStart(
 				registryOps, multiStateItemStack.createSnapshot()
-		).getOrThrow();
+				).getOrThrow();
 
 		final ByteArrayDataOutput dataOutput = ByteStreams.newDataOutput();
 
-		try
-
-		{
+		try {
 			NbtIo.writeAnyTag(payload, dataOutput);
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternExportFailedCouldNotWriteChiselData.getText(),
-			  "Failed to write chisel data to memory.",
-			  e
+					LocalStrings.PatternExportFailedCouldNotWriteChiselData.getText(),
+					"Failed to write chisel data to memory.",
+					e
 			);
 		}
 
 		return dataOutput.toByteArray();
 	}
 
-	private static byte[] getBlockTextureAtlasData() throws PatternIOException
-
-	{
+	private static byte[] getBlockTextureAtlasData() throws PatternIOException {
 		try(NativeImage currentAtlas = TextureUtils.downloadTexture(
-			Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
-		)) {
+				Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
+				)) {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			final WritableByteChannel channel = Channels.newChannel(byteArrayOutputStream);
-			try
 
-			{
+			try {
 				if (currentAtlas.writeToChannel(channel)) {
 					return byteArrayOutputStream.toByteArray();
 				}
 
 				throw new PatternIOException(
-					LocalStrings.PatternExportFailedGenericAtlasWriteFailure.getText(),
-					"Failed to process the in-memory block atlas texture."
+						LocalStrings.PatternExportFailedGenericAtlasWriteFailure.getText(),
+						"Failed to process the in-memory block atlas texture."
 				);
-			}
-
-			catch (IOException e)
-
-			{
+			} catch (IOException e) {
 				throw new PatternIOException(
-					LocalStrings.PatternExportFailedCouldNotWriteAtlas.getText(),
-					"Failed to write the current block texture atlas to disk.",
-					e
+						LocalStrings.PatternExportFailedCouldNotWriteAtlas.getText(),
+						"Failed to write the current block texture atlas to disk.",
+						e
 				);
 			}
 		}
 	}
 
-	private static Model getModelQuadData(final IMultiStateItemStack multiStateItemStack)
-
-	{
+	private static Model getModelQuadData(final IMultiStateItemStack multiStateItemStack) {
 		final ItemStack blockStack = multiStateItemStack.toBlockStack();
 
 		if (!blockStack.has(DataComponents.ITEM_MODEL)) {
@@ -203,13 +165,13 @@ public final class PatternSharingExecutor {
 		final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(itemModelLocation);
 		final ItemStackRenderState state = new ItemStackRenderState();
 		model.update(
-			state,
-			blockStack,
-			Minecraft.getInstance().getItemModelResolver(),
-			ItemDisplayContext.NONE,
-			null,
-			null,
-			0
+				state,
+				blockStack,
+				Minecraft.getInstance().getItemModelResolver(),
+				ItemDisplayContext.NONE,
+				null,
+				null,
+				0
 		);
 
 		final List<QuadData> quads = Arrays.stream(state.layers)
@@ -222,22 +184,14 @@ public final class PatternSharingExecutor {
 	}
 
 	static Either<IMultiStateItemStack, PatternIOException> doImportPattern(final String patternName, HolderLookup.Provider provider) {
-		try
-
-		{
+		try {
 			return Either.left(importPattern(patternName, provider));
-		}
-
-		catch (PatternIOException e)
-
-		{
+		} catch (PatternIOException e) {
 			return Either.right(e);
 		}
 	}
 
-	private static IMultiStateItemStack importPattern(final String patternName, HolderLookup.Provider provider) throws PatternIOException
-
-	{
+	private static IMultiStateItemStack importPattern(final String patternName, HolderLookup.Provider provider) throws PatternIOException {
 		final String patternData = loadPatternDataFromDisk(patternName);
 		return getChiselData(patternData, provider);
 	}
@@ -247,52 +201,38 @@ public final class PatternSharingExecutor {
 
 		if (!Files.exists(targetPath)) {
 			throw new PatternIOException(
-			  LocalStrings.PatternImportFailedFileNotFound.getText(),
-			  "Failed to find the pattern file at the specified path."
+					LocalStrings.PatternImportFailedFileNotFound.getText(),
+					"Failed to find the pattern file at the specified path."
 			);
 		}
 
 		final byte[] compressedData;
-		try
 
-		{
+		try {
 			compressedData = Files.readAllBytes(targetPath);
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternImportFailedCouldNotReadFile.getText(),
-			  "Failed to read the pattern file from disk.",
-			  e
+					LocalStrings.PatternImportFailedCouldNotReadFile.getText(),
+					"Failed to read the pattern file from disk.",
+					e
 			);
 		}
 
 		final byte[] uncompressedData;
-		try
 
-		{
+		try {
 			uncompressedData = CompressionUtils.decompress(compressedData);
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternImportFailedCouldNotDecompressFile.getText(),
-			  "Could not decompress the pattern file from disk.",
-			  e
+					LocalStrings.PatternImportFailedCouldNotDecompressFile.getText(),
+					"Could not decompress the pattern file from disk.",
+					e
 			);
-		}
-
-		catch (DataFormatException e)
-
-		{
+		} catch (DataFormatException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternImportFailedCompressedDataInWrongFormat.getText(),
-			  "Could not decompress the pattern file from disk, the data is stored in an unknown format.",
-			  e
+					LocalStrings.PatternImportFailedCompressedDataInWrongFormat.getText(),
+					"Could not decompress the pattern file from disk, the data is stored in an unknown format.",
+					e
 			);
 		}
 
@@ -300,9 +240,7 @@ public final class PatternSharingExecutor {
 		return new String(decodedData);
 	}
 
-	private static IMultiStateItemStack getChiselData(final String dataString, HolderLookup.Provider provider) throws PatternIOException
-
-	{
+	private static IMultiStateItemStack getChiselData(final String dataString, HolderLookup.Provider provider) throws PatternIOException {
 		final Gson gson = new GsonBuilder().create();
 
 		final JsonObject jsonObject = gson.fromJson(dataString, JsonObject.class);
@@ -313,31 +251,24 @@ public final class PatternSharingExecutor {
 		}
 
 		throw new PatternIOException(
-		  LocalStrings.PatternImportFailedUnknownVersion.getText(),
-		  "The pattern file is stored in an unknown version."
+				LocalStrings.PatternImportFailedUnknownVersion.getText(),
+				"The pattern file is stored in an unknown version."
 		);
 	}
 
-	private static IMultiStateItemStack getVersion1ChiselData(final JsonObject dataObject, HolderLookup.Provider provider) throws PatternIOException
-
-	{
+	private static IMultiStateItemStack getVersion1ChiselData(final JsonObject dataObject, HolderLookup.Provider provider) throws PatternIOException {
 		final String encodedChiselString = dataObject.get("chiselData").getAsString();
 		final byte[] chiselData = Base64.getDecoder().decode(encodedChiselString);
 
 		final ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput(chiselData);
 		final Tag tag;
-		try
 
-		{
+		try {
 			tag = NbtIo.readAnyTag(byteArrayDataInput, NbtAccounter.unlimitedHeap());
-		}
-
-		catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			throw new PatternIOException(
-			  LocalStrings.PatternImportFailedInvalidChiselData.getText(),
-			  "The chisel data is stored in an invalid format."
+					LocalStrings.PatternImportFailedInvalidChiselData.getText(),
+					"The chisel data is stored in an invalid format."
 			);
 		}
 
@@ -350,9 +281,7 @@ public final class PatternSharingExecutor {
 	private record Model(List<QuadData> quads) {}
 
 	private record QuadData(VertexData[] vertices, int tintIndex, Direction direction, boolean shade) {
-		private QuadData(BakedQuad quad)
-
-		{
+		private QuadData(BakedQuad quad) {
 			this(BakedQuadUtils.getVertexData(quad), quad.materialInfo().tintIndex(), quad.direction(), quad.materialInfo().shade());
 		}
 	}

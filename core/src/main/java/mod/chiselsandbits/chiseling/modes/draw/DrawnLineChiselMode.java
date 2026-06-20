@@ -52,7 +52,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements IChiselMode {
 	private final MutableComponent displayName;
 	private final MutableComponent multiLineDisplayName;
-	private final Identifier       iconName;
+	private final Identifier iconName;
 
 	DrawnLineChiselMode(final MutableComponent displayName, final MutableComponent multiLineDisplayName, final Identifier iconName) {
 		this.displayName = displayName;
@@ -85,34 +85,34 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-			try (IBatchMutation ignored =
-						 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-						.map(factory -> factory.apply(mutator))
-						.orElse((s) -> true);
+					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+					.map(factory -> factory.apply(mutator))
+					.orElse((s) -> true);
 
-				mutator.inWorldMutableStream()
-						.filter(filter)
-						.forEach(state -> {
+					mutator.inWorldMutableStream()
+					.filter(filter)
+					.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
 							if (context.tryDamageItem()) {
-								resultingBitCount.putIfAbsent(currentState, 0);
-								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							resultingBitCount.putIfAbsent(currentState, 0);
+							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-								state.clear();
-							}
-						}
+							state.clear();
+					}
+					}
 
-						);
+					);
 
-				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-						playerEntity,
-						blockState,
-						count
-				));
+					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+							playerEntity,
+							blockState,
+							count
+					));
 			}
 		}
 
@@ -138,41 +138,41 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-			if (heldBlockState.isAir()) {
-				return;
+				if (heldBlockState.isAir()) {
+					return;
 			}
 
-			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+				.map(factory -> factory.apply(mutator))
+				.orElse((s) -> true);
 
-			final int missingBitCount = (int) mutator.stream()
-					.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-					.count();
+				final int missingBitCount = (int) mutator.stream()
+				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+				.count();
 
-			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
-			context.setComplete();
+				context.setComplete();
 
-			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-				if (!playerEntity.isCreative()) {
-					playerBitInventory.extract(heldBlockState, missingBitCount);
+				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+					if (!playerEntity.isCreative()) {
+						playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				try (IBatchMutation ignored =
-							 mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					mutator.inWorldMutableStream()
-							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+					try (IBatchMutation ignored = 
+							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						mutator.inWorldMutableStream()
+						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
 				}
 			} else {
-				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-			}
+					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+				}
 
-			if (missingBitCount == 0) {
-				context.validateBuildHeights();
+				if (missingBitCount == 0) {
+					context.validateBuildHeights();
 			}
 		}
 
@@ -202,11 +202,11 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 		Optional<Vec3> finalAnchor = anchor;
 		context.setStateFilter(areaAccessor -> {
-			if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
-				return new LineAreaFilter(finalAnchor.get(), currentTarget);
+				if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
+					return new LineAreaFilter(finalAnchor.get(), currentTarget);
 			}
 
-			return (s) -> false;
+				return (s) -> false;
 		}
 
 		);
@@ -217,7 +217,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context) {
 		return context.getMutator()
-				.map(IAreaAccessor.class::cast);
+			.map(IAreaAccessor.class::cast);
 	}
 
 	@Override
@@ -306,13 +306,13 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			double distanceFromStart = 0d;
 
 			Vec3i pos = new Vec3i(
-					(int) (direction.x() > 0 ? Math.ceil(origin.x()) - 1 : Math.floor(origin.x())),
-					(int) (direction.y() > 0 ? Math.ceil(origin.y()) - 1 : Math.floor(origin.y())),
-					(int) (direction.z() > 0 ? Math.ceil(origin.z()) - 1 : Math.floor(origin.z()))
+					(int) (direction.x()> 0 ? Math.ceil(origin.x()) - 1 : Math.floor(origin.x())),
+					(int) (direction.y()> 0 ? Math.ceil(origin.y()) - 1 : Math.floor(origin.y())),
+					(int) (direction.z()> 0 ? Math.ceil(origin.z()) - 1 : Math.floor(origin.z()))
 			);
-			double xOff = direction.x() > 0 ? 1 + pos.getX() - origin.x() : origin.x() - pos.getX();
-			double yOff = direction.y() > 0 ? 1 + pos.getY() - origin.y() : origin.y() - pos.getY();
-			double zOff = direction.z() > 0 ? 1 + pos.getZ() - origin.z() : origin.z() - pos.getZ();
+			double xOff = direction.x()> 0 ? 1 + pos.getX() - origin.x() : origin.x() - pos.getX();
+			double yOff = direction.y()> 0 ? 1 + pos.getY() - origin.y() : origin.y() - pos.getY();
+			double zOff = direction.z()> 0 ? 1 + pos.getZ() - origin.z() : origin.z() - pos.getZ();
 
 			double xDist = Double.isNaN(xLen) ? Double.POSITIVE_INFINITY : Math.abs(xOff * xLen);
 			double yDist = Double.isNaN(yLen) ? Double.POSITIVE_INFINITY : Math.abs(yOff * yLen);
@@ -321,25 +321,25 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			while (distanceFromStart <= reach) {
 				positions.add(pos);
 
-				if (xDist < yDist) {
-					if (xDist < zDist) {
+				if (xDist <yDist) {
+					if (xDist <zDist) {
 						distanceFromStart = xDist;
 						xDist += xLen;
-						pos = pos.offset(direction.x() > 0 ? 1 : -1, 0, 0);
+						pos = pos.offset(direction.x()> 0 ? 1 : -1, 0, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
 					}
 				} else {
-					if (yDist < zDist) {
+					if (yDist <zDist) {
 						distanceFromStart = yDist;
 						yDist += yLen;
-						pos = pos.offset(0, direction.y() > 0 ? 1 : -1, 0);
+						pos = pos.offset(0, direction.y()> 0 ? 1 : -1, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
 					}
 				}
 			}

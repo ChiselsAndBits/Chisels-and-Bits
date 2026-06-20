@@ -12,32 +12,24 @@ import mod.chiselsandbits.inventory.player.PlayerMainAndOffhandInventoryWrapper;
 import net.minecraft.world.item.ItemStack;
 
 public class PlayerBitInventory extends ContainerBitInventory {
-	public PlayerBitInventory(final PlayerMainAndOffhandInventoryWrapper inventory)
-
-	{
+	public PlayerBitInventory(final PlayerMainAndOffhandInventoryWrapper inventory) {
 		super(inventory);
 	}
 
 	@Override
-	public int getMaxExtractAmount(final BlockInformation blockState)
-
-	{
+	public int getMaxExtractAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
 			.mapToObj(this::getItem)
 			.mapToInt(stack -> {
-				if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState))
-
-				{
+					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
 					return stack.getCount();
-				}
+			}
 
-				if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem)
-
-				{
+					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 					return bitInventoryItem.create(stack).getMaxExtractAmount(blockState);
-				}
+			}
 
-				return 0;
+					return 0;
 			}
 
 			)
@@ -45,31 +37,23 @@ public class PlayerBitInventory extends ContainerBitInventory {
 	}
 
 	@Override
-	public int getMaxInsertAmount(final BlockInformation blockState)
-
-	{
+	public int getMaxInsertAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
 			.mapToObj(this::getItem)
 			.mapToInt(stack -> {
-				if (stack.isEmpty())
-
-				{
+					if (stack.isEmpty()) {
 					return getMaxBitsFor(stack);
-				}
+			}
 
-				if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState))
-
-				{
+					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
 					return getMaxBitsFor(stack) - stack.getCount();
-				}
+			}
 
-				if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem)
-
-				{
+					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 					return bitInventoryItem.create(stack).getMaxInsertAmount(blockState);
-				}
+			}
 
-				return 0;
+					return 0;
 			}
 
 			)
@@ -77,40 +61,29 @@ public class PlayerBitInventory extends ContainerBitInventory {
 	}
 
 	@Override
-	public void extract(final BlockInformation blockInformation, int count) throws IllegalArgumentException
-
-	{
-		for (int i = 0; i < getInventorySize(); i++)
-
-		{
-			if (count <= 0)
-
-			{
+	public void extract(final BlockInformation blockInformation, int count) throws IllegalArgumentException {
+		for (int i = 0; i <getInventorySize(); i++) {
+			if (count <= 0) {
 				return;
 			}
 
 			final ItemStack stack = getItem(i);
-			if (stack.isEmpty())
 
-			{
+			if (stack.isEmpty()) {
 				continue;
 			}
 
-			if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockInformation))
-
-			{
+			if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockInformation)) {
 				final int toExtract = Math.min(count, stack.getCount());
 				stack.setCount(
-					stack.getCount() - toExtract
+						stack.getCount() - toExtract
 				);
 				setItem(i, stack);
 				count -= toExtract;
 				continue;
 			}
 
-			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem)
-
-			{
+			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 				final IBitInventoryItemStack inventory = bitInventoryItem.create(stack);
 				final int maxExtractableCount = inventory.getMaxExtractAmount(blockInformation);
 				final int toExtract = Math.min(count, maxExtractableCount);
@@ -122,23 +95,16 @@ public class PlayerBitInventory extends ContainerBitInventory {
 	}
 
 	@Override
-	public void insert(final BlockInformation blockInformation, int count) throws IllegalArgumentException
-
-	{
-		//Check for preferred bit bag pickup / insertion handling.
-		for (int i = 0; i < getInventorySize(); i++)
-
-		{
-			if (count <= 0)
-
-			{
+	public void insert(final BlockInformation blockInformation, int count) throws IllegalArgumentException {
+	//Check for preferred bit bag pickup / insertion handling.
+		for (int i = 0; i <getInventorySize(); i++) {
+			if (count <= 0) {
 				return;
 			}
 
 			final ItemStack stack = getItem(i);
-			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem && bitInventoryItem.isPreferredPickupInventory(stack))
 
-			{
+			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem && bitInventoryItem.isPreferredPickupInventory(stack)) {
 				final IBitInventoryItemStack inventory = bitInventoryItem.create(stack);
 
 				if (!bitInventoryItem.isFilteredPickupInventory(stack) || inventory.contains(blockInformation)) {
@@ -152,20 +118,15 @@ public class PlayerBitInventory extends ContainerBitInventory {
 		}
 
 		//Now check if we can fill up the player inventory.
-		for (int i = 0; i < getInventorySize(); i++)
-
-		{
-			if (count <= 0)
-
-			{
+		for (int i = 0; i <getInventorySize(); i++) {
+			if (count <= 0) {
 				return;
 			}
 
 			final ItemStack stack = getItem(i);
-			//Currently empty slot, so simply insert the max amount (either max stack size, or the current count, what ever is smaller)
-			if (stack.isEmpty())
 
-			{
+			//Currently empty slot, so simply insert the max amount (either max stack size, or the current count, what ever is smaller)
+			if (stack.isEmpty()) {
 				final int toInsert = Math.min(getMaxBitsFor(stack), count);
 				final ItemStack bitStack = IBitItemManager.getInstance().create(blockInformation, toInsert);
 				setItem(i, bitStack);
@@ -174,12 +135,10 @@ public class PlayerBitInventory extends ContainerBitInventory {
 			}
 
 			//Already is a bit, lets check if it is the same bit, and increment.
-			if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockInformation))
-
-			{
+			if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockInformation)) {
 				final int toInsert = Math.min(count, getMaxBitsFor(stack) - stack.getCount());
 				stack.setCount(
-					stack.getCount() + toInsert
+						stack.getCount() + toInsert
 				);
 				setItem(i, stack);
 				count -= toInsert;
@@ -187,19 +146,14 @@ public class PlayerBitInventory extends ContainerBitInventory {
 		}
 
 		//No more further space in the player inventory, so inject into all the none preferred bags.
-		for (int i = 0; i < getInventorySize(); i++)
-
-		{
-			if (count <= 0)
-
-			{
+		for (int i = 0; i <getInventorySize(); i++) {
+			if (count <= 0) {
 				return;
 			}
 
 			final ItemStack stack = getItem(i);
-			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem && !bitInventoryItem.isPreferredPickupInventory(stack))
 
-			{
+			if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem && !bitInventoryItem.isPreferredPickupInventory(stack)) {
 				final IBitInventoryItemStack inventory = bitInventoryItem.create(stack);
 
 				if (!bitInventoryItem.isFilteredPickupInventory(stack) || inventory.contains(blockInformation)) {

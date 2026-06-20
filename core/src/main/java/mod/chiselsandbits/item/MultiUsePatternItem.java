@@ -23,54 +23,43 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 
 public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiUsePatternItem {
-	public MultiUsePatternItem(final Properties builder)
-
-	{
+	public MultiUsePatternItem(final Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	protected InteractionResult determineSuccessResult(final BlockPlaceContext context, final ItemStack resultingStack)
-
-	{
+	protected InteractionResult determineSuccessResult(final BlockPlaceContext context, final ItemStack resultingStack) {
 		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public @NotNull ItemStack seal(final @NotNull ItemStack source) throws SealingNotSupportedException
-
-	{
+	public @NotNull ItemStack seal(final @NotNull ItemStack source) throws SealingNotSupportedException {
 		throw new SealingNotSupportedException();
 	}
 
 	@Override
 	public void appendHoverText(
-		final ItemStack stack,
-		final TooltipContext context,
-		final TooltipDisplay tooltipDisplay,
-		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag) {
+			final ItemStack stack,
+			final TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		final IPatternPlacementType mode = getMode(stack);
-		if (mode.getGroup().isPresent())
 
-		{
+		if (mode.getGroup().isPresent()) {
 			tooltipAdder.accept(LocalStrings.PatternItemTooltipModeGrouped.getText(mode.getGroup().get().getDisplayName(), mode.getDisplayName()));
-		}
-
-		else
-
-		{
+		} else {
 			tooltipAdder.accept(LocalStrings.PatternItemTooltipModeSimple.getText(mode.getDisplayName()));
 		}
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
-				tooltipAdder.accept(Component.literal("        "));
-				tooltipAdder.accept(Component.literal("        "));
+				if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
+					tooltipAdder.accept(Component.literal(" "));
+					tooltipAdder.accept(Component.literal(" "));
 
-				HelpTextUtils.build(
-					LocalStrings.HelpSealedPattern, tooltipAdder
-				);
+					HelpTextUtils.build(
+							LocalStrings.HelpSealedPattern, tooltipAdder
+					);
 			}
 		}
 
@@ -78,12 +67,8 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 	}
 
 	@Override
-	public @NotNull ItemStack unseal(@NotNull final ItemStack source) throws SealingNotSupportedException
-
-	{
-		if (source.getItem() instanceof ISupportsUnsealing)
-
-		{
+	public @NotNull ItemStack unseal(@NotNull final ItemStack source) throws SealingNotSupportedException {
+		if (source.getItem() instanceof ISupportsUnsealing) {
 			final ItemStack seal = new ItemStack(ModItems.SINGLE_USE_PATTERN_ITEM.get());
 			final IMultiStateItemStack stack = createItemStack(source);
 			stack.writeDataTo(seal);

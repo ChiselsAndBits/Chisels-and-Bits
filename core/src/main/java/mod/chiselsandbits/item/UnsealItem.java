@@ -67,7 +67,7 @@ public class UnsealItem extends Item implements IUnsealItem {
 	}
 
 	public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i <20; i++) {
 			Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
 			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.count(), stack.getComponentsPatch())), location.x, location.y,
 					location.z, motion.x, motion.y, motion.z);
@@ -102,8 +102,8 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 			if (worldIn.isClientSide()) {
 				spawnParticles(entityLiving.getEyePosition(1)
-								.add(entityLiving.getLookAngle()
-										.scale(.5f)),
+						.add(entityLiving.getLookAngle()
+								.scale(.5f)),
 						target, worldIn);
 				return stack;
 			}
@@ -116,13 +116,13 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
-					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+						EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-					if (playerEntity.getOffhandItem() == stack) {
-						hand = EquipmentSlot.OFFHAND;
+						if (playerEntity.getOffhandItem() == stack) {
+							hand = EquipmentSlot.OFFHAND;
 					}
 
-					player.onEquippedItemBroken(item, hand);
+						player.onEquippedItemBroken(item, hand);
 				}
 
 				);
@@ -171,16 +171,16 @@ public class UnsealItem extends Item implements IUnsealItem {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-		final @NotNull ItemStack stack,
-		final @NotNull TooltipContext context,
-		final @NotNull TooltipDisplay tooltipDisplay,
-		final @NotNull Consumer<Component> tooltipAdder,
-		final @NotNull TooltipFlag flag) {
+			final @NotNull ItemStack stack,
+			final @NotNull TooltipContext context,
+			final @NotNull TooltipDisplay tooltipDisplay,
+			final @NotNull Consumer<Component> tooltipAdder,
+			final @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		DistExecutor.unsafeExecuteForDist(
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpUnseal, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpUnseal, tooltipAdder)
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpUnseal, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpUnseal, tooltipAdder)
 		);
 	}
 }

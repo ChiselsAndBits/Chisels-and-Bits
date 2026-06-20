@@ -59,11 +59,11 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 
 	@Override
 	public void appendHoverText(
-		final BlockInformation blockInformation,
-		final Item.TooltipContext context,
-		final TooltipDisplay tooltipDisplay,
-		final Consumer<Component> tooltipAdder,
-		final TooltipFlag flag) {
+			final BlockInformation blockInformation,
+			final Item.TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		bakeProviders();
 
 		if (blockInformation.variant().isEmpty() || !providers.containsKey(blockInformation.blockState().getBlock())) {
@@ -72,7 +72,7 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 
 		final List<Component> variantLines = new ArrayList<>();
 		blockInformation.variant().ifPresent(variant -> {
-			providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
+				providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
 		}
 
 		);

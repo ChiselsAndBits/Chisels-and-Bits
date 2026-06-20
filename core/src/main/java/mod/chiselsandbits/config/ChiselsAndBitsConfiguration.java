@@ -9,7 +9,7 @@ import mod.chiselsandbits.api.util.constants.Constants;
 
 public class ChiselsAndBitsConfiguration implements IChiselsAndBitsConfiguration {
 	static {
-		//Load the language file.
+	//Load the language file.
 		final String fileLoc = "assets/" + Constants.MOD_ID + "/lang/%s.json";
 		LanguageHandler.loadLangPath(fileLoc);
 	}
@@ -19,23 +19,17 @@ public class ChiselsAndBitsConfiguration implements IChiselsAndBitsConfiguration
 	private final IServerConfiguration server = new ServerConfiguration();
 
 	@Override
-	public IClientConfiguration getClient()
-
-	{
+	public IClientConfiguration getClient() {
 		return client;
 	}
 
 	@Override
-	public ICommonConfiguration getCommon()
-
-	{
+	public ICommonConfiguration getCommon() {
 		return common;
 	}
 
 	@Override
-	public IServerConfiguration getServer()
-
-	{
+	public IServerConfiguration getServer() {
 		return server;
 	}
 }

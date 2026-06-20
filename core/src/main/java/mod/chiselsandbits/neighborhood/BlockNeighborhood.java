@@ -14,21 +14,15 @@ import net.minecraft.core.Direction;
 public final class BlockNeighborhood implements IBlockNeighborhood {
 	private final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap;
 
-	public BlockNeighborhood(final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap) {this.neighborhoodMap = neighborhoodMap;}
+	public BlockNeighborhood(final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap) {this.neighborhoodMap = neighborhoodMap; }
 
 	@Override
-	public boolean equals(final Object o)
-
-	{
-		if (this == o)
-
-		{
+	public boolean equals(final Object o) {
+		if (this == o) {
 			return true;
 		}
 
-		if (!(o instanceof BlockNeighborhood))
-
-		{
+		if (!(o instanceof BlockNeighborhood)) {
 			return false;
 		}
 
@@ -38,26 +32,18 @@ public final class BlockNeighborhood implements IBlockNeighborhood {
 	}
 
 	@Override
-	public int hashCode()
-
-	{
+	public int hashCode() {
 		return neighborhoodMap != null ? neighborhoodMap.hashCode() : 0;
 	}
 
 	@Override
-	public @NotNull BlockInformation getBlockInformation(final Direction direction)
-
-	{
+	public @NotNull BlockInformation getBlockInformation(final Direction direction) {
 		return neighborhoodMap.get(direction).getBlockInformation();
 	}
 
 	@Override
-	public @Nullable IAreaAccessor getAreaAccessor(final Direction direction)
-
-	{
-		if (!neighborhoodMap.containsKey(direction))
-
-		{
+	public @Nullable IAreaAccessor getAreaAccessor(final Direction direction) {
+		if (!neighborhoodMap.containsKey(direction)) {
 			return null;
 		}
 

@@ -13,29 +13,29 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IWithHighlightItem {
 	/**
-     * Indicates if the given player is allowed to use the
-     * default render method.
-     *
-     * If this is false. The default highlight rendering is cancelled.
-     *
-     * @param playerEntity The player entity in question.
-     *
-     * @return True to let minecraft handle the highlight rendering, false when not.
-     */
+	 * Indicates if the given player is allowed to use the
+	 * default render method.
+	 *
+	 * If this is false.The default highlight rendering is cancelled.
+	 *
+	 * @param playerEntity The player entity in question.
+	 *
+	 * @return True to let minecraft handle the highlight rendering, false when not.
+	 */
 	boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity);
 
 	/**
-     * Renders the highlight for the current item.
-     *
-     * @param playerEntity     The player entity in question.
-     * @param worldRenderer    The rendering world renderer.
-     * @param matrixStack      The matrix stack used to render the world.
-     * @param bufferSource     The buffer source to get the relevant vertex consumer from.
-     * @param levelRenderState The current levels render state.
-     * @param partialTicks     The partial ticks used for animations.
-     */
+	 * Renders the highlight for the current item.
+	 *
+	 * @param playerEntity The player entity in question.
+	 * @param worldRenderer The rendering world renderer.
+	 * @param matrixStack The matrix stack used to render the world.
+	 * @param bufferSource The buffer source to get the relevant vertex consumer from.
+	 * @param levelRenderState The current levels render state.
+	 * @param partialTicks The partial ticks used for animations.
+	 */
 	void renderHighlight(Player playerEntity, LevelRenderer worldRenderer, PoseStack matrixStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final LevelRenderState levelRenderState,
-		float partialTicks);
+			final MultiBufferSource.BufferSource bufferSource,
+			final LevelRenderState levelRenderState,
+			float partialTicks);
 }

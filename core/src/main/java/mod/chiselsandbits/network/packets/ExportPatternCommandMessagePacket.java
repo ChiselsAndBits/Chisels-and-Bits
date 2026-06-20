@@ -11,45 +11,35 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
 public class ExportPatternCommandMessagePacket extends ModPacket {
-	public static final Identifier                                                  ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "export_pattern_command_message");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "export_pattern_command_message");
 	public static final CustomPacketPayload.Type<ExportPatternCommandMessagePacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private BlockPos target;
-	private String   name;
+	private String name;
 
-	public ExportPatternCommandMessagePacket(final BlockPos target, final String name)
-
-	{
+	public ExportPatternCommandMessagePacket(final BlockPos target, final String name) {
 		this.target = target;
 		this.name = name;
 	}
 
-	public ExportPatternCommandMessagePacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public ExportPatternCommandMessagePacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		buffer.writeBlockPos(target);
 		buffer.writeUtf(name, 512);
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		target = buffer.readBlockPos();
 		name = buffer.readUtf(512);
 	}
 
 	@Override
-	public void client()
-
-	{
+	public void client() {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPacketHandlers.handleExportPatternCommandMessage(target, name));
 	}
 

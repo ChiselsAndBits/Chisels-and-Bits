@@ -14,18 +14,16 @@ public abstract class AbstractChiselRecipeGenerator extends AbstractRecipeGenera
 	private final TagKey<Item> ingredientTag;
 
 	public AbstractChiselRecipeGenerator(
-		final HolderLookup.Provider registries, final RecipeOutput output, final ItemLike itemProvider,
-		final TagKey<Item> rodTag,
-		final TagKey<Item> ingredientTag) {
+			final HolderLookup.Provider registries, final RecipeOutput output, final ItemLike itemProvider,
+			final TagKey<Item> rodTag,
+			final TagKey<Item> ingredientTag) {
 		super(registries, output, itemProvider);
 		this.rodTag = rodTag;
 		this.ingredientTag = ingredientTag;
 	}
 
 	@Override
-	protected void buildRecipes()
-
-	{
+	protected void buildRecipes() {
 		ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, getItemProvider())
 			.pattern(" t")
 			.pattern("s ")

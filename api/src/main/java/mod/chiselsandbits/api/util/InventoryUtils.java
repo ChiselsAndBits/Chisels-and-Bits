@@ -9,18 +9,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class InventoryUtils {
-	private InventoryUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: InventoryUtils. This is a utility class");
+	private InventoryUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: InventoryUtils.This is a utility class");
 	}
 
 	public static ItemStack getChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
-		for (int i = 0; i < player.getInventory().getContainerSize(); i++)
-
-		{
+		for (int i = 0; i <player.getInventory().getContainerSize(); i++) {
 			final ItemStack stack = player.getInventory().getItem(i);
 
 			if (stack.getItem() instanceof IChiseledBlockItem) {
@@ -39,18 +35,14 @@ public class InventoryUtils {
 	public static void extractChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
-		for (int i = 0; i < player.getInventory().getContainerSize(); i++)
-
-		{
+		for (int i = 0; i <player.getInventory().getContainerSize(); i++) {
 			final ItemStack stack = player.getInventory().getItem(i);
 
 			if (stack.getItem() instanceof IChiseledBlockItem) {
 				final IChiseledBlockItem chiseledBlockItem = (IChiseledBlockItem) stack.getItem();
 				final IMultiStateItemStack stateItemStack = chiseledBlockItem.createItemStack(stack);
 
-				if (stateItemStack.createNewShapeIdentifier().equals(identifier))
-
-				{
+				if (stateItemStack.createNewShapeIdentifier().equals(identifier)) {
 					stack.shrink(1);
 					return;
 				}

@@ -6,15 +6,15 @@ public class NbtConstants {
 	public static final String HIGHEST_BIT = "highestBit";
 	public static final String HIGHEST_BIT_FRICTION = "highestBitFriction";
 	public static final String NONE_AIR_BITS = "none_air_bits";
-	public static final String COLUMN_STATISTICS        = "column_statistics";
-	public static final String CAN_PROPAGATE_SKYLIGHT_DOWN  = "can_propagate_skylight_down";
-	public static final String COLLISION_DATA               = "collision_data";
+	public static final String COLUMN_STATISTICS = "column_statistics";
+	public static final String CAN_PROPAGATE_SKYLIGHT_DOWN = "can_propagate_skylight_down";
+	public static final String COLLISION_DATA = "collision_data";
 	public static final String CHISEL_ERROR = "chisel_error";
-	public static final String STATE   = "state";
-	public static final String VARIANT            = "variant";
-	public static final String BITS           = "bits";
-	public static final String BLOCK_INFORMATION      = "block_information";
-	public static final String BLOCK                   = "block";
+	public static final String STATE = "state";
+	public static final String VARIANT = "variant";
+	public static final String BITS = "bits";
+	public static final String BLOCK_INFORMATION = "block_information";
+	public static final String BLOCK = "block";
 	public static final String DEFAULT_INSTANCE_INDICATOR = "default_instance_indicator";
 	public static final String EMITS_LIGHT_BASED_ON_FULL_BLOCK = "emits_light_based_on_full_block";
 	public static final String CAN_BE_FLOODED = "can_be_flooded";
@@ -50,12 +50,12 @@ public class NbtConstants {
 	public static final String INTERACTION_TARGET = "interaction_target";
 	public static final String IS_SIMULATING = "is_simulating";
 	public static final String MODIFICATION_OPERATION = "modification_operation";
-	public static final String OPERATION           = "operation";
+	public static final String OPERATION = "operation";
 	public static final String IS_PREFERRED_PICKUP = "is_preferred_pickup";
 	public static final String IS_FILTERED_PICKUP = "is_filtered_pickup";
 
 	public static final String PALETTE = "palette";
-	public static final String BLOCK_STATES  = "block_states";
+	public static final String BLOCK_STATES = "block_states";
 	public static final String PRIMARY_STATE = "primary_state";
 	public static final String COUNT = "count";
 	public static final String STATISTICS = "statistics";
@@ -68,9 +68,7 @@ public class NbtConstants {
 
 	public static final String LEGACY_CHISELED_DATA = "chiseledData";
 
-	private NbtConstants()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: NbtConstants. This is a utility class");
+	private NbtConstants() {
+		throw new IllegalStateException("Can not instantiate an instance of: NbtConstants.This is a utility class");
 	}
 }

@@ -30,7 +30,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 	private static final Identifier BAG_GUI_TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/bitbag.png");
 
 	boolean requireConfirm = true;
-	boolean dontThrow      = false;
+	boolean dontThrow = false;
 	private GuiIconButton trashBtn;
 	private GuiIconButton sortBtn;
 	private GuiIconButton convertBtn;
@@ -38,38 +38,28 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 	private GuiIconButton filteredBtn;
 
 	public BitBagScreen(
-		final BagContainer container,
-		final Inventory playerInventory,
-		final Component title
-	)
-
-	{
+			final BagContainer container,
+			final Inventory playerInventory,
+			final Component title
+			) {
 		super(container, playerInventory, title, 176, 240);
 		inventoryLabelY = this.imageHeight - 94;
 	}
 
 	@Override
-	protected void init()
-
-	{
+	protected void init() {
 		super.init();
 
 		trashBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 3, LocalStrings.Trash.getText(), IconManager.getInstance().getTrashIcon(),
-			button -> {
-				if (requireConfirm)
+				button -> {
 
-				{
+				if (requireConfirm) {
 					dontThrow = true;
-					if (isValidBitItem())
 
-					{
+					if (isValidBitItem()) {
 						requireConfirm = false;
-					}
 				}
-
-				else
-
-				{
+			} else {
 					requireConfirm = true;
 					// server side!
 					final ClearBagGuiPacket packet = new ClearBagGuiPacket(getInHandItem());
@@ -77,82 +67,78 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 					assert Minecraft.getInstance().player != null;
 					packet.execute(Minecraft.getInstance().player);
 				}
-			}
+				}
 
-			));
+		));
 
 		sortBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 25, LocalStrings.Sort.getText(), IconManager.getInstance().getSortIcon(),
-			button -> {
+				button -> {
 				final SortBagGuiPacket packet = new SortBagGuiPacket();
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
 				assert Minecraft.getInstance().player != null;
 				packet.execute(Minecraft.getInstance().player);
-			}
+				},
 
-			,
-			Tooltip.create(LocalStrings.Sort.getText())));
+
+				Tooltip.create(LocalStrings.Sort.getText())));
 
 		convertBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 47, LocalStrings.Convert.getText(), IconManager.getInstance().getPlaceIcon(),
-			button -> {
+				button -> {
 				final ConvertBagGuiPacket packet = new ConvertBagGuiPacket();
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
 				assert Minecraft.getInstance().player != null;
 				packet.execute(Minecraft.getInstance().player);
-			}
+				},
 
-			,
-			Tooltip.create(LocalStrings.Convert.getText())
+
+				Tooltip.create(LocalStrings.Convert.getText())
 		));
 
 		preferedBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 89, LocalStrings.NonPreferredPickup.getText(), IconManager.getInstance().getBagPicksUpSecondIcon(),
-			button -> {
+				button -> {
 				final UpdateBagModesPacket packet = new UpdateBagModesPacket(
-					isCurrentlyFiltered(), !isCurrentlyPreferred()
+						isCurrentlyFiltered(), !isCurrentlyPreferred()
 				);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
 				assert Minecraft.getInstance().player != null;
 				packet.execute(Minecraft.getInstance().player);
 				updatePreferredButtonTooltip();
-			}
+				},
 
-			,
-			Tooltip.create(LocalStrings.NonPreferredPickup.getText())) {
-			@Override
-			protected TextureAtlasSprite getDefaultIcon()
 
-			{
-				if (isCurrentlyPreferred()) {
-					return IconManager.getInstance().getBagPicksUpFirstIcon();
+				Tooltip.create(LocalStrings.NonPreferredPickup.getText())) {
+				@Override
+				protected TextureAtlasSprite getDefaultIcon() {
+					if (isCurrentlyPreferred()) {
+						return IconManager.getInstance().getBagPicksUpFirstIcon();
 				}
 
-				return IconManager.getInstance().getBagPicksUpSecondIcon();
+					return IconManager.getInstance().getBagPicksUpSecondIcon();
 			}
 		}
 
 		);
 
 		filteredBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 111, LocalStrings.NonFilteredPickup.getText(), IconManager.getInstance().getNormalBagModeIcon(),
-			button -> {
+				button -> {
 				final UpdateBagModesPacket packet = new UpdateBagModesPacket(
-					!isCurrentlyFiltered(), isCurrentlyPreferred()
+						!isCurrentlyFiltered(), isCurrentlyPreferred()
 				);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
 				assert Minecraft.getInstance().player != null;
 				packet.execute(Minecraft.getInstance().player);
 				updateFilteredButtonTooltip();
-			}
+				},
 
-			,
-			Tooltip.create(LocalStrings.FilteredPickup.getText())) {
-			@Override
-			protected TextureAtlasSprite getDefaultIcon()
 
-			{
-				if (isCurrentlyFiltered()) {
-					return IconManager.getInstance().getFilterBagModeIcon();
+				Tooltip.create(LocalStrings.FilteredPickup.getText())) {
+				@Override
+				protected TextureAtlasSprite getDefaultIcon() {
+					if (isCurrentlyFiltered()) {
+						return IconManager.getInstance().getFilterBagModeIcon();
 				}
 
-				return IconManager.getInstance().getNormalBagModeIcon();
+					return IconManager.getInstance().getNormalBagModeIcon();
 			}
 		}
 
@@ -162,38 +148,33 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 		updatePreferredButtonTooltip();
 	}
 
-	private BagContainer getBagContainer()
-
-	{
+	private BagContainer getBagContainer() {
 		return menu;
 	}
 
 	private void updatePreferredButtonTooltip() {
-		final LocalStrings newTooltip = isCurrentlyPreferred() ?
-			LocalStrings.PreferredPickup : LocalStrings.NonPreferredPickup;
+		final LocalStrings newTooltip = isCurrentlyPreferred()
+		? LocalStrings.PreferredPickup : LocalStrings.NonPreferredPickup;
 
 		preferedBtn.setTooltip(Tooltip.create(newTooltip.getText(
-			Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
+				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
 		)));
 	}
 
 	private void updateFilteredButtonTooltip() {
-		final LocalStrings newTooltip = isCurrentlyFiltered() ?
-			LocalStrings.FilteredPickup : LocalStrings.NonFilteredPickup;
+		final LocalStrings newTooltip = isCurrentlyFiltered()
+		? LocalStrings.FilteredPickup : LocalStrings.NonFilteredPickup;
 
 		filteredBtn.setTooltip(Tooltip.create(newTooltip.getText(
-			Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
+				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
 		)));
 	}
 
 	@Override
-	protected boolean hasClickedOutside(final double x, final double y, final int left, final int top)
-
-	{
+	protected boolean hasClickedOutside(final double x, final double y, final int left, final int top) {
 		final boolean doThrow = !dontThrow;
-		if (requireConfirm && dontThrow)
 
-		{
+		if (requireConfirm && dontThrow) {
 			dontThrow = false;
 		}
 
@@ -201,33 +182,19 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 	}
 
 	@Override
-	public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
-
-	{
-		if (trashBtn.isMouseOver(mouseX, mouseY))
-
-		{
-			if (isValidBitItem())
-
-			{
-				final Component msgNotConfirm =
-					!getInHandItem().isEmpty() ? LocalStrings.TrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.Trash.getText();
-				final Component msgConfirm =
-					!getInHandItem().isEmpty() ? LocalStrings.ReallyTrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.ReallyTrash.getText();
+	public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks) {
+		if (trashBtn.isMouseOver(mouseX, mouseY)) {
+			if (isValidBitItem()) {
+				final Component msgNotConfirm = 
+				!getInHandItem().isEmpty() ? LocalStrings.TrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.Trash.getText();
+				final Component msgConfirm = 
+				!getInHandItem().isEmpty() ? LocalStrings.ReallyTrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.ReallyTrash.getText();
 
 				this.trashBtn.setTooltip(Tooltip.create(requireConfirm ? msgNotConfirm : msgConfirm));
-			}
-
-			else
-
-			{
+			} else {
 				this.trashBtn.setTooltip(Tooltip.create(LocalStrings.TrashInvalidItem.getText(getInHandItem().getHoverName().getString())));
 			}
-		}
-
-		else
-
-		{
+		} else {
 			requireConfirm = true;
 		}
 
@@ -235,12 +202,8 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 	}
 
 	@Override
-	protected void extractSlot(final GuiGraphicsExtractor guiGraphics, final Slot slot, final int mouseX, final int mouseY)
-
-	{
-		if (!(slot instanceof BitSlot bitSlot))
-
-		{
+	protected void extractSlot(final GuiGraphicsExtractor guiGraphics, final Slot slot, final int mouseX, final int mouseY) {
+		if (!(slot instanceof BitSlot bitSlot)) {
 			super.extractSlot(guiGraphics, slot, mouseX, mouseY);
 			return;
 		}
@@ -256,43 +219,37 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 
 			String countString = String.valueOf(currentContents.getCount());
 			guiGraphics.text(font,
-				countString,
-				(slot.x + 19 - 3) * 2 - font.width(countString),
-				(slot.y + 9 + 3) * 2,
-				-1,
-				true);
+					countString,
+					(slot.x + 19 - 3) * 2 - font.width(countString),
+					(slot.y + 9 + 3) * 2,
+					-1,
+					true);
 
 			guiGraphics.pose().popMatrix();
 		}
 	}
 
 	@Override
-	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks)
-
-	{
+	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks) {
 		graphics.blit(
-			RenderPipelines.GUI_TEXTURED,
-			BAG_GUI_TEXTURE,
-			this.leftPos,
-			this.topPos,
-			0.0F,
-			0.0F,
-			this.imageWidth,
-			this.imageHeight,
-			256,
-			256
+				RenderPipelines.GUI_TEXTURED,
+				BAG_GUI_TEXTURE,
+				this.leftPos,
+				this.topPos,
+				0.0F,
+				0.0F,
+				this.imageWidth,
+				this.imageHeight,
+				256,
+				256
 		);
 	}
 
-	private ItemStack getInHandItem()
-
-	{
+	private ItemStack getInHandItem() {
 		return getBagContainer().getCarried();
 	}
 
-	private boolean isValidBitItem()
-
-	{
+	private boolean isValidBitItem() {
 		return getInHandItem().isEmpty() || getInHandItem().getItem() == ModItems.ITEM_BLOCK_BIT.get();
 	}
 

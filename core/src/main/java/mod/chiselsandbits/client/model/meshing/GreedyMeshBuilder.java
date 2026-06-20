@@ -15,8 +15,8 @@ import org.joml.Vector3f;
 import net.minecraft.core.Direction;
 
 public class GreedyMeshBuilder {
-	private static final double EPSILON    = 0.000001d;
-	private static final int    DIMENSIONS = 3;
+	private static final double EPSILON = 0.000001d;
+	private static final int DIMENSIONS = 3;
 
 	private GreedyMeshBuilder() {
 		throw new IllegalStateException("Cannot instantiate utility class");
@@ -42,9 +42,9 @@ public class GreedyMeshBuilder {
 			final int getMaterialIndex(int x, int y, int z) {
 				final BlockInformation blockInformation = data.getMaterial(x, y, z);
 				return indexByMaterial.computeIfAbsent(blockInformation, k -> {
-					int index = indexByMaterial.size() + 1;
-					materialByIndex.put(index, blockInformation);
-					return index;
+						int index = indexByMaterial.size() + 1;
+						materialByIndex.put(index, blockInformation);
+						return index;
 				}
 
 				);
@@ -53,8 +53,8 @@ public class GreedyMeshBuilder {
 
 		final MaterialProcessor materialProcessor = new MaterialProcessor();
 
-		for (int dimension = 0; dimension < DIMENSIONS; dimension++) {
-			int currentFirstDimensionIter, currentSecondDimensionIter;  // The current iteration position in the x, y, and z dimensions, also known as i, j, and k.
+		for (int dimension = 0; dimension <DIMENSIONS; dimension++) {
+			int currentFirstDimensionIter, currentSecondDimensionIter; // The current iteration position in the x, y, and z dimensions, also known as i, j, and k.
 			int width, height; //The current iteration dimensions in the x, y, and z dimensions, also known as l, w, and h.
 
 			//We need to iterate over the other two dimensions.
@@ -66,17 +66,17 @@ public class GreedyMeshBuilder {
 
 			calculatedDimensionsOffset[dimension] = 1;
 
-			for (dimensionalIterator[dimension] = -1; dimensionalIterator[dimension] < sizePerDimension; ) {
-				//Compute mask
+			for (dimensionalIterator[dimension] = -1; dimensionalIterator[dimension] <sizePerDimension; ) {
+			//Compute mask
 				int maskIndex = 0;
 
-				for (dimensionalIterator[secondDimensionIter] = 0; dimensionalIterator[secondDimensionIter] < sizePerDimension; ++dimensionalIterator[secondDimensionIter]) {
-					for (dimensionalIterator[firstDimensionIter] = 0; dimensionalIterator[firstDimensionIter] < sizePerDimension; ++dimensionalIterator[firstDimensionIter], ++maskIndex) {
+				for (dimensionalIterator[secondDimensionIter] = 0; dimensionalIterator[secondDimensionIter] <sizePerDimension; ++dimensionalIterator[secondDimensionIter]) {
+					for (dimensionalIterator[firstDimensionIter] = 0; dimensionalIterator[firstDimensionIter] <sizePerDimension; ++dimensionalIterator[firstDimensionIter], ++maskIndex) {
 						int currentMaterial = (0 <= dimensionalIterator[dimension] ? materialProcessor.getMaterialIndex(
 								dimensionalIterator[0],
 								dimensionalIterator[1],
 								dimensionalIterator[2]) : 0);
-						int neighborMaterial = (dimensionalIterator[dimension] < sizePerDimension - 1 ? materialProcessor.getMaterialIndex(
+						int neighborMaterial = (dimensionalIterator[dimension] <sizePerDimension - 1 ? materialProcessor.getMaterialIndex(
 								dimensionalIterator[0] + calculatedDimensionsOffset[0],
 								dimensionalIterator[1] + calculatedDimensionsOffset[1],
 								dimensionalIterator[2] + calculatedDimensionsOffset[2]) : 0);
@@ -100,8 +100,8 @@ public class GreedyMeshBuilder {
 				//Compute the mesh
 				maskIndex = 0;
 
-				for (currentSecondDimensionIter = 0; currentSecondDimensionIter < sizePerDimension; ++currentSecondDimensionIter) {
-					for(currentFirstDimensionIter = 0; currentFirstDimensionIter < sizePerDimension;) {
+				for (currentSecondDimensionIter = 0; currentSecondDimensionIter <sizePerDimension; ++currentSecondDimensionIter) {
+					for(currentFirstDimensionIter = 0; currentFirstDimensionIter <sizePerDimension; ) {
 						int materialMask = mask[maskIndex];
 						boolean isMaterialMaskTruthy = materialMask != 0;
 
@@ -113,14 +113,14 @@ public class GreedyMeshBuilder {
 							dimensionalIterator[secondDimensionIter] = currentSecondDimensionIter;
 
 							final GreedyMeshFace face = generateFace(materialMask,
-								secondDimensionIter,
-								height,
-								firstDimensionIter,
-								width,
-								materialByIndex,
-								dimensionalIterator,
-								dimension,
-								sizePerDimension);
+									secondDimensionIter,
+									height,
+									firstDimensionIter,
+									width,
+									materialByIndex,
+									dimensionalIterator,
+									dimension,
+									sizePerDimension);
 							faces.add(face);
 
 							clearMask(height, width, mask, maskIndex, sizePerDimension);
@@ -140,8 +140,8 @@ public class GreedyMeshBuilder {
 	}
 
 	private static void clearMask(int height, int width, int[] mask, int maskIndex, int sizePerDimension) {
-		for (int x = 0; x < height; x++) {
-			for (int y = 0; y < width; y++) {
+		for (int x = 0; x <height; x++) {
+			for (int y = 0; y <width; y++) {
 				mask[maskIndex + y + x * sizePerDimension] = 0;
 			}
 		}
@@ -149,15 +149,15 @@ public class GreedyMeshBuilder {
 
 	@NotNull
 	private static GreedyMeshFace generateFace(
-		int materialMask,
-		int secondDimensionIter,
-		int height,
-		int firstDimensionIter,
-		int width,
-		Int2ObjectMap<BlockInformation> materialByIndex,
-		int[] dimensionalIterator,
-		int dimension,
-		float sizePerDimension) {
+			int materialMask,
+			int secondDimensionIter,
+			int height,
+			int firstDimensionIter,
+			int width,
+			Int2ObjectMap<BlockInformation> materialByIndex,
+			int[] dimensionalIterator,
+			int dimension,
+			float sizePerDimension) {
 		int[] deltaVertical = new int[]{0, 0, 0};
 		int[] deltaHorizontal = new int[]{0, 0, 0};
 
@@ -165,7 +165,7 @@ public class GreedyMeshBuilder {
 
 		Direction.AxisDirection axisDirection = Direction.AxisDirection.POSITIVE;
 
-		if (materialMask > 0) {
+		if (materialMask> 0) {
 			deltaHorizontal[secondDimensionIter] = height;
 			deltaVertical[firstDimensionIter] = width;
 		} else {
@@ -185,16 +185,16 @@ public class GreedyMeshBuilder {
 
 		final double axisValue = axis.choose(lowerLeft.x, lowerLeft.y, lowerLeft.z);
 
-		final boolean isEdge = Math.abs(0-axisValue) < EPSILON || Math.abs(1-axisValue) < EPSILON;
+		final boolean isEdge = Math.abs(0-axisValue) <EPSILON || Math.abs(1-axisValue) <EPSILON;
 
 		return new GreedyMeshFace(
-			material,
-			lowerLeft,
-			upperLeft,
-			lowerRight,
-			upperRight,
-			normalDirection,
-			isEdge
+				material,
+				lowerLeft,
+				upperLeft,
+				lowerRight,
+				upperRight,
+				normalDirection,
+				isEdge
 		);
 	}
 
@@ -203,8 +203,8 @@ public class GreedyMeshBuilder {
 		int k;
 		boolean done = false;
 
-		for(height = 1; j + height < sizePerDimension; height++) {
-			for(k = 0; k < width; k++) {
+		for(height = 1; j + height <sizePerDimension; height++) {
+			for(k = 0; k <width; k++) {
 				if(mask[maskIndex + k + height * sizePerDimension] != materialMask) {
 					done = true;
 					break;
@@ -222,7 +222,7 @@ public class GreedyMeshBuilder {
 	private static int computeWidth(int materialMask, int[] mask, int maskIndex, int i, int sizePerDimension) {
 		int width = 1;
 
-		while (i + width < sizePerDimension && materialMask == mask[maskIndex + width]) {
+		while (i + width <sizePerDimension && materialMask == mask[maskIndex + width]) {
 			width++;
 		}
 

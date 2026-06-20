@@ -14,20 +14,16 @@ import net.minecraft.world.item.ItemStack;
 
 public class BitSlot extends Slot {
 	public BitSlot(
-	  final Container inventoryIn,
-	  final int index,
-	  final int xPosition,
-	  final int yPosition)
-
-	{
+			final Container inventoryIn,
+			final int index,
+			final int xPosition,
+			final int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
 	}
 
 	@Override
 	public boolean mayPlace(
-	  final @NotNull ItemStack stack)
-
-	{
+			final @NotNull ItemStack stack) {
 		return !stack.isEmpty() && stack.getItem() instanceof BitItem;
 	}
 

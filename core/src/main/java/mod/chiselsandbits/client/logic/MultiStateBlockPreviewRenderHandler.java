@@ -27,26 +27,23 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MultiStateBlockPreviewRenderHandler {
 	public static void renderMultiStateBlockPreview(
-		final PoseStack poseStack,
-		final MultiBufferSource.BufferSource bufferSource) {
+			final PoseStack poseStack,
+			final MultiBufferSource.BufferSource bufferSource) {
 		final HitResult rayTraceResult = Minecraft.getInstance().hitResult;
-		if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS)
 
-		{
+		if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS) {
 			return;
 		}
 
 		final Player playerEntity = Minecraft.getInstance().player;
-		if (playerEntity == null || playerEntity.isSpectator())
 
-		{
+		if (playerEntity == null || playerEntity.isSpectator()) {
 			return;
 		}
 
 		final ItemStack heldStack = ItemStackUtils.getMultiStateItemStackFromPlayer(playerEntity);
-		if (!(heldStack.getItem() instanceof IWireframeProvidingItem wireframeItem))
 
-		{
+		if (!(heldStack.getItem() instanceof IWireframeProvidingItem wireframeItem)) {
 			return;
 		}
 
@@ -54,24 +51,19 @@ public class MultiStateBlockPreviewRenderHandler {
 		// Snap to bit grid
 		final float bitSize = StateEntrySize.current().getSizePerBit();
 		targetedRenderPos = targetedRenderPos.subtract(
-			targetedRenderPos.x % bitSize + (targetedRenderPos.x < 0 ? bitSize : 0),
-			targetedRenderPos.y % bitSize + (targetedRenderPos.y < 0 ? bitSize : 0),
-			targetedRenderPos.z % bitSize + (targetedRenderPos.z < 0 ? bitSize : 0)
+				targetedRenderPos.x % bitSize + (targetedRenderPos.x <0 ? bitSize : 0),
+				targetedRenderPos.y % bitSize + (targetedRenderPos.y <0 ? bitSize : 0),
+				targetedRenderPos.z % bitSize + (targetedRenderPos.z <0 ? bitSize : 0)
 		);
 
 		final PlacementResult placementResult;
 		final boolean ignoreDepth, forceWireframe;
-		if (heldStack.getItem() instanceof IPlacementPreviewProvidingItem placementPreviewItem)
 
-		{
+		if (heldStack.getItem() instanceof IPlacementPreviewProvidingItem placementPreviewItem) {
 			placementResult = placementPreviewItem.getPlacementResult(heldStack, playerEntity, blockRayTraceResult);
 			ignoreDepth = placementPreviewItem.ignoreDepthForPlacement(heldStack, placementResult);
 			forceWireframe = false;
-		}
-
-		else
-
-		{
+		} else {
 			placementResult = PlacementResult.failure(wireframeItem.getWireFrameColor(heldStack, playerEntity, blockRayTraceResult));
 			ignoreDepth = wireframeItem.ignoreDepth(heldStack);
 			forceWireframe = true;
@@ -81,71 +73,65 @@ public class MultiStateBlockPreviewRenderHandler {
 		final PlacementPreviewRenderMode success = clientConfig.getSuccessfulPlacementRenderMode().get();
 		final PlacementPreviewRenderMode failure = clientConfig.getFailedPlacementRenderMode().get();
 		if (forceWireframe
-			|| (placementResult.isSuccess() && success.isWireframe())
-			|| (!placementResult.isSuccess() && failure.isWireframe())
-			|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
+				|| (placementResult.isSuccess() && success.isWireframe())
+				|| (!placementResult.isSuccess() && failure.isWireframe())
+				|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
 			renderWireFrame(poseStack, bufferSource, playerEntity, heldStack, wireframeItem, blockRayTraceResult, targetedRenderPos, placementResult.getColor(), ignoreDepth);
 		}
 	}
 
 	private static void renderWireFrame(
-		final PoseStack poseStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final Player playerEntity,
-		final ItemStack heldStack,
-		final IWireframeProvidingItem wireframeItem,
-		final BlockHitResult blockRayTraceResult,
-		final Vec3 targetedRenderPos,
-		final Vector4f color,
-		final boolean ignoreDepth) {
+			final PoseStack poseStack,
+			final MultiBufferSource.BufferSource bufferSource,
+			final Player playerEntity,
+			final ItemStack heldStack,
+			final IWireframeProvidingItem wireframeItem,
+			final BlockHitResult blockRayTraceResult,
+			final Vec3 targetedRenderPos,
+			final Vector4f color,
+			final boolean ignoreDepth) {
 		final VoxelShape wireFrame = wireframeItem.getWireFrame(heldStack, playerEntity, blockRayTraceResult);
 
 		ChiseledBlockWireframeRenderer.getInstance().renderShape(
-			poseStack,
-			wireFrame,
-			targetedRenderPos,
-			color,
-			ignoreDepth
+				poseStack,
+				wireFrame,
+				targetedRenderPos,
+				color,
+				ignoreDepth
 		);
 	}
 
 	private static boolean renderGhost(
-		final PoseStack poseStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final ItemStack heldStack,
-		final Vec3 targetedRenderPos,
-		final PlacementResult placementResult,
-		final PlacementPreviewRenderMode success,
-		final PlacementPreviewRenderMode failure,
-		final boolean ignoreDepth) {
+			final PoseStack poseStack,
+			final MultiBufferSource.BufferSource bufferSource,
+			final ItemStack heldStack,
+			final Vec3 targetedRenderPos,
+			final PlacementResult placementResult,
+			final PlacementPreviewRenderMode success,
+			final PlacementPreviewRenderMode failure,
+			final boolean ignoreDepth) {
 		final ItemStack renderStack;
-		if (heldStack.getItem() instanceof final IPatternItem patternItem)
 
-		{
+		if (heldStack.getItem() instanceof final IPatternItem patternItem) {
 			final IMultiStateItemStack multiSate = patternItem.createItemStack(heldStack);
 			renderStack = multiSate.toBlockStack();
-			if (renderStack.isEmpty())
 
-			{
+			if (renderStack.isEmpty()) {
 				return false;
 			}
-		}
-
-		else
-
-		{
+		} else {
 			renderStack = heldStack;
 		}
 
 		ChiseledBlockGhostRenderer.getInstance().renderGhost(
-			poseStack,
-			bufferSource,
-			renderStack,
-			targetedRenderPos,
-			placementResult,
-			success,
-			failure,
-			ignoreDepth
+				poseStack,
+				bufferSource,
+				renderStack,
+				targetedRenderPos,
+				placementResult,
+				success,
+				failure,
+				ignoreDepth
 		);
 		return true;
 	}

@@ -23,17 +23,17 @@ import net.minecraft.network.codec.StreamCodec;
 public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation, Entry> paletteMap) {
 	public static final Codec<StateEntryPalette> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-				Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
-			).apply(instance, StateEntryPalette::new));
+					Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
+					).apply(instance, StateEntryPalette::new));
 
-	public static final Codec<StateEntryPalette> LEGACY_CODEC =
-			Entry.LEGACY_CODEC.listOf()
-					.xmap(StateEntryPalette::new, StateEntryPalette::paletteEntries);
+	public static final Codec<StateEntryPalette> LEGACY_CODEC = 
+	Entry.LEGACY_CODEC.listOf()
+		.xmap(StateEntryPalette::new, StateEntryPalette::paletteEntries);
 
 	public static final MapCodec<StateEntryPalette> MAP_CODEC = RecordCodecBuilder.mapCodec(instance ->
 			instance.group(
-				Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
-			).apply(instance, StateEntryPalette::new));
+					Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
+					).apply(instance, StateEntryPalette::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, StateEntryPalette> STREAM_CODEC = StreamCodec.composite(
 			Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
@@ -79,13 +79,13 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 	}
 
 	/**
-     * Represents the size information of the palette.
-     * <p>
-     *     The size is only accurate if it has changed.
-     *
-     * @param hasChanged Whether the size has changed.
-     * @param size The size of the palette, 0 if not changed.
-     */
+	 * Represents the size information of the palette.
+	 * <p>
+	 * The size is only accurate if it has changed.
+	 *
+	 * @param hasChanged Whether the size has changed.
+	 * @param size The size of the palette, 0 if not changed.
+	 */
 	public record SizeInformation(boolean hasChanged, int size) {
 		public static SizeInformation notChanged() {
 			return new SizeInformation(false, 0);
@@ -97,12 +97,12 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 	}
 
 	/**
-     * Represents the result of a palette operation.
-     *
-     * @param value The value of the operation.
-     * @param size The size information of the palette.
-     * @param <T> The type of the value.
-     */
+	 * Represents the result of a palette operation.
+	 *
+	 * @param value The value of the operation.
+	 * @param size The size information of the palette.
+	 * @param <T> The type of the value.
+	 */
 	public record Result<T>(T value, SizeInformation size) {
 		public static <T> Result<T> notChanged(T value) {
 			return new Result<>(value, SizeInformation.notChanged());
@@ -138,7 +138,7 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 			return BlockInformation.AIR;
 		}
 
-		if (blockStateId < 0 || blockStateId >= this.paletteEntries.size()) {
+		if (blockStateId <0 || blockStateId>= this.paletteEntries.size()) {
 			return getBlockState(0);
 		}
 
@@ -157,20 +157,20 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 
 	public record Entry(BlockInformation blockInformation) implements Serializable.Registry<Entry> {
 		public static final Codec<Entry> LEGACY_CODEC = BlockInformation.LEGACY_CODEC
-				.xmap(Entry::new, Entry::blockInformation);
+			.xmap(Entry::new, Entry::blockInformation);
 
 		public static final Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> {
-			return instance.group(
-					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
-			).apply(instance, Entry::new);
+				return instance.group(
+						BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
+						).apply(instance, Entry::new);
 		}
 
 		);
 
 		public static final MapCodec<Entry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> {
-			return instance.group(
-					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
-			).apply(instance, Entry::new);
+				return instance.group(
+						BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
+						).apply(instance, Entry::new);
 		}
 
 		);

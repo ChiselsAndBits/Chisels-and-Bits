@@ -10,16 +10,16 @@ import java.util.List;
  */
 public interface IArrayBackedAreaShapeIdentifier extends IAreaShapeIdentifier {
 	/**
-     * Gives access to the backing long array.
-     *
-     * @return The backing long array.
-     */
+	 * Gives access to the backing long array.
+	 *
+	 * @return The backing long array.
+	 */
 	long[] getBackingData();
 
 	/**
-     * The palette that is in use for this identifier.
-     *
-     * @return The palette list.
-     */
+	 * The palette that is in use for this identifier.
+	 *
+	 * @return The palette list.
+	 */
 	List<BlockInformation> getPalette();
 }

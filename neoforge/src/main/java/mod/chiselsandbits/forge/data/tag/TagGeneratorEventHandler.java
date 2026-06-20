@@ -14,9 +14,7 @@ import net.minecraft.data.PackOutput;
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class TagGeneratorEventHandler {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		DataGenerator gen = event.getGenerator();
 		PackOutput packOutput = gen.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();

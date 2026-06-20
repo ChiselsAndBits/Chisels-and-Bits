@@ -8,30 +8,22 @@ import mod.chiselsandbits.api.multistate.snapshot.ISnapshotFactory;
 public final class SnapshotFactory implements ISnapshotFactory {
 	private static final SnapshotFactory INSTANCE = new SnapshotFactory();
 
-	public static SnapshotFactory getInstance()
-
-	{
+	public static SnapshotFactory getInstance() {
 		return INSTANCE;
 	}
 
-	private SnapshotFactory()
-
-	{
+	private SnapshotFactory() {
 	}
 
 	@Override
-	public IMultiStateSnapshot singleBlock()
-
-	{
+	public IMultiStateSnapshot singleBlock() {
 		return new SimpleSnapshot(
-				new StateEntryStorage()
+			new StateEntryStorage()
 		);
 	}
 
 	@Override
-	public IMultiStateSnapshot singleBlock(final BlockInformation blockInformation)
-
-	{
+	public IMultiStateSnapshot singleBlock(final BlockInformation blockInformation) {
 		return new SimpleSnapshot(blockInformation);
 	}
 }

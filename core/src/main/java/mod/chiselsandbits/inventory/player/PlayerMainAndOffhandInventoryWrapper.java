@@ -10,27 +10,21 @@ import net.minecraft.world.item.ItemStack;
 public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	private final Inventory playerInventory;
 
-	public PlayerMainAndOffhandInventoryWrapper(final Inventory playerInventory) {this.playerInventory = playerInventory;}
+	public PlayerMainAndOffhandInventoryWrapper(final Inventory playerInventory) {this.playerInventory = playerInventory; }
 
 	@Override
-	public int getContainerSize()
-
-	{
+	public int getContainerSize() {
 		return 9*4+1;
 	}
 
 	@Override
-	public boolean isEmpty()
-
-	{
+	public boolean isEmpty() {
 		return playerInventory.isEmpty();
 	}
 
 	@NotNull
 	@Override
-	public ItemStack getItem(int index)
-
-	{
+	public ItemStack getItem(int index) {
 		if (index == 36) {
 			index += 4;
 		}
@@ -40,9 +34,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 
 	@NotNull
 	@Override
-	public ItemStack removeItem(int index, final int count)
-
-	{
+	public ItemStack removeItem(int index, final int count) {
 		if (index == 36) {
 			index += 4;
 		}
@@ -52,9 +44,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 
 	@NotNull
 	@Override
-	public ItemStack removeItemNoUpdate(int index)
-
-	{
+	public ItemStack removeItemNoUpdate(int index) {
 		if (index == 36) {
 			index += 4;
 		}
@@ -63,9 +53,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	}
 
 	@Override
-	public void setItem(int index, @NotNull final ItemStack stack)
-
-	{
+	public void setItem(int index, @NotNull final ItemStack stack) {
 		if (index == 36) {
 			index += 4;
 		}
@@ -74,23 +62,17 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	}
 
 	@Override
-	public void setChanged()
-
-	{
+	public void setChanged() {
 		playerInventory.setChanged();
 	}
 
 	@Override
-	public boolean stillValid(@NotNull final Player player)
-
-	{
+	public boolean stillValid(@NotNull final Player player) {
 		return playerInventory.stillValid(player);
 	}
 
 	@Override
-	public void clearContent()
-
-	{
+	public void clearContent() {
 		playerInventory.clearContent();
 	}
 }

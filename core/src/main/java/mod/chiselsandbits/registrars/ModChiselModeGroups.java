@@ -13,185 +13,125 @@ import net.minecraft.resources.Identifier;
 public final class ModChiselModeGroups {
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public static IToolModeGroup CUBED = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup CUBED = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return TranslationUtils.build(
-				"chiselmode.cubed"
+					"chiselmode.cubed"
 			);
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "snap4");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return TranslationUtils.build(
-				"chiselmode.snap"
+					"chiselmode.snap"
 			);
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup LINE = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup LINE = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return TranslationUtils.build(
-				"chiselmode.line"
+					"chiselmode.line"
 			);
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup PLANE = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup PLANE = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return TranslationUtils.build(
-				"chiselmode.plane"
+					"chiselmode.plane"
 			);
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup SPHERE = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup SPHERE = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return TranslationUtils.build(
-				"chiselmode.sphere"
+					"chiselmode.sphere"
 			);
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return LocalStrings.ChiselModeConnectedPlane.getText();
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return LocalStrings.ChiselModeConnectedMaterial.getText();
 		}
-	}
+	};
 
-	;
 
-	public static IToolModeGroup DRAW = new IToolModeGroup()
-
-	{
+	public static IToolModeGroup DRAW = new IToolModeGroup() {
 		@Override
-		public Identifier getIcon()
-
-		{
+		public Identifier getIcon() {
 			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_cube");
 		}
 
 		@Override
-		public Component getDisplayName()
-
-		{
+		public Component getDisplayName() {
 			return LocalStrings.ChiselModeDrawnCube.getText();
 		}
+	};
+
+
+	private ModChiselModeGroups() {
+		throw new IllegalStateException("Can not instantiate an instance of: ModChiselModeGroups.This is a utility class");
 	}
 
-	;
-
-	private ModChiselModeGroups()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ModChiselModeGroups. This is a utility class");
-	}
-
-	public static void onModConstruction()
-
-	{
+	public static void onModConstruction() {
 		LOGGER.info("Loaded chisel mode group configuration.");
 	}
 }

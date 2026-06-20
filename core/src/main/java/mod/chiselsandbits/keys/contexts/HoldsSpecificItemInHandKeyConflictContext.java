@@ -15,20 +15,16 @@ public enum HoldsSpecificItemInHandKeyConflictContext implements IKeyConflictCon
 	CHANGE_TRACKING_ITEM(IChangeTrackingItem.class::isInstance);
 	private final Predicate<Item> item;
 
-	HoldsSpecificItemInHandKeyConflictContext(final Predicate<Item> item) {this.item = item;}
+	HoldsSpecificItemInHandKeyConflictContext(final Predicate<Item> item) {this.item = item; }
 
 	@Override
-	public boolean isActive()
-
-	{
-		return Minecraft.getInstance().player != null && (item.test(Minecraft.getInstance().player.getMainHandItem().getItem()) ||
-		  item.test(Minecraft.getInstance().player.getOffhandItem().getItem())) && !IKeyConflictContext.getGui().isActive();
+	public boolean isActive() {
+		return Minecraft.getInstance().player != null && (item.test(Minecraft.getInstance().player.getMainHandItem().getItem())
+				|| item.test(Minecraft.getInstance().player.getOffhandItem().getItem())) && !IKeyConflictContext.getGui().isActive();
 	}
 
 	@Override
-	public boolean conflicts(final IKeyConflictContext other)
-
-	{
+	public boolean conflicts(final IKeyConflictContext other) {
 		return this == other;
 	}
 }

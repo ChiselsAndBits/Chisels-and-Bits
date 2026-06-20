@@ -56,12 +56,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public static final Codec<SimpleSnapshot> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
 			SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
-	).apply(instance, SimpleSnapshot::new));
+			).apply(instance, SimpleSnapshot::new));
 
 	public static final MapCodec<SimpleSnapshot> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
 			SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
-	).apply(instance, SimpleSnapshot::new));
+			).apply(instance, SimpleSnapshot::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, SimpleSnapshot> STREAM_CODEC = StreamCodec.composite(
 			StateEntryStorage.STREAM_CODEC,
@@ -101,12 +101,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-     * Creates a new area shape identifier.
-     * <p>
-     * Note: This method always returns a new instance.
-     *
-     * @return The new identifier.
-     */
+	 * Creates a new area shape identifier.
+	 * <p>
+	 * Note: This method always returns a new instance.
+	 *
+	 * @return The new identifier.
+	 */
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier() {
 		return new SimpleSnapshot.Identifier(this.chunkSection);
@@ -115,22 +115,22 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(blockPos -> new SimpleSnapshot.StateEntry(
-						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+			.map(blockPos -> new SimpleSnapshot.StateEntry(
+					chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+					blockPos,
+					this::setInAreaTarget,
+					this::clearInAreaTarget)
+			);
 	}
 
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget) {
-		return !(inAreaTarget.x() < 0) &&
-				!(inAreaTarget.y() < 0) &&
-				!(inAreaTarget.z() < 0) &&
-				!(inAreaTarget.x() >= 1) &&
-				!(inAreaTarget.y() >= 1) &&
-				!(inAreaTarget.z() >= 1);
+		return !(inAreaTarget.x() <0)
+		&& !(inAreaTarget.y() <0)
+		&& !(inAreaTarget.z() <0)
+		&& !(inAreaTarget.x()>= 1)
+		&& !(inAreaTarget.y()>= 1)
+		&& !(inAreaTarget.z()>= 1);
 	}
 
 	@Override
@@ -150,30 +150,30 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(positionMutator::mutate)
-				.map(blockPos -> new SimpleSnapshot.StateEntry(
-						this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+			.map(positionMutator::mutate)
+			.map(blockPos -> new SimpleSnapshot.StateEntry(
+					this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+					blockPos,
+					this::setInAreaTarget,
+					this::clearInAreaTarget)
+			);
 	}
 
 	/**
-     * Gets the target state in the current area, using the offset from the area as well as the in area target offset.
-     *
-     * @param inAreaTarget The in area offset.
-     * @return An optional potentially containing the state entry of the requested target.
-     */
+	 * Gets the target state in the current area, using the offset from the area as well as the in area target offset.
+	 *
+	 * @param inAreaTarget The in area offset.
+	 * @return An optional potentially containing the state entry of the requested target.
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() < 0 ||
-				inAreaTarget.y() < 0 ||
-				inAreaTarget.z() < 0 ||
-				inAreaTarget.x() >= 1 ||
-				inAreaTarget.y() >= 1 ||
-				inAreaTarget.z() >= 1) {
+		if (inAreaTarget.x() <0
+				|| inAreaTarget.y() <0
+				|| inAreaTarget.z() <0
+				|| inAreaTarget.x()>= 1
+				|| inAreaTarget.y()>= 1
+				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -199,51 +199,49 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public void forEachWithPositionMutator(
 			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (blockPos) -> {
-			final Vec3i target = positionMutator.mutate(blockPos);
-			consumer.accept(new SimpleSnapshot.StateEntry(
-					this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
-					target,
-					this::setInAreaTarget,
-					this::clearInAreaTarget));
+				final Vec3i target = positionMutator.mutate(blockPos);
+				consumer.accept(new SimpleSnapshot.StateEntry(
+						this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
+						target,
+						this::setInAreaTarget,
+						this::clearInAreaTarget));
 		}
 
 		);
 	}
 
 	@Override
-	public IStatistics getStatistics()
-
-	{
+	public IStatistics getStatistics() {
 		return stateObjectStatistics;
 	}
 
 	/**
-     * Returns all entries in the current area in a mutable fashion. Includes all empty areas as areas containing an air state.
-     *
-     * @return A stream with a mutable state entry info for each mutable section in the area.
-     */
+	 * Returns all entries in the current area in a mutable fashion.Includes all empty areas as areas containing an air state.
+	 *
+	 * @return A stream with a mutable state entry info for each mutable section in the area.
+	 */
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(blockPos -> new SimpleSnapshot.StateEntry(
-						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+			.map(blockPos -> new SimpleSnapshot.StateEntry(
+					chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+					blockPos,
+					this::setInAreaTarget,
+					this::clearInAreaTarget)
+			);
 	}
 
 	@Override
 	public void setInAreaTarget(
 			final BlockInformation blockInformation,
 			final Vec3 inAreaTarget)
-			throws SpaceOccupiedException {
-		if (inAreaTarget.x() < 0 ||
-				inAreaTarget.y() < 0 ||
-				inAreaTarget.z() < 0 ||
-				inAreaTarget.x() >= 1 ||
-				inAreaTarget.y() >= 1 ||
-				inAreaTarget.z() >= 1) {
+	throws SpaceOccupiedException {
+		if (inAreaTarget.x() <0
+				|| inAreaTarget.y() <0
+				|| inAreaTarget.z() <0
+				|| inAreaTarget.x()>= 1
+				|| inAreaTarget.y()>= 1
+				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -268,12 +266,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-     * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
-     *
-     * @param inAreaBlockPosOffset The offset of blocks in the current area.
-     * @param inBlockTarget        The offset in the targeted block.
-     * @return An optional potentially containing the state entry of the requested target.
-     */
+	 * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 *
+	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
+	 * @param inBlockTarget The offset in the targeted block.
+	 * @return An optional potentially containing the state entry of the requested target.
+	 */
 	@Override
 	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		if (!inAreaBlockPosOffset.equals(BlockPos.ZERO)) {
@@ -297,18 +295,18 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-     * Clears the current area, using the offset from the area as well as the in area target offset.
-     *
-     * @param inAreaTarget The in area offset.
-     */
+	 * Clears the current area, using the offset from the area as well as the in area target offset.
+	 *
+	 * @param inAreaTarget The in area offset.
+	 */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() < 0 ||
-				inAreaTarget.y() < 0 ||
-				inAreaTarget.z() < 0 ||
-				inAreaTarget.x() >= 1 ||
-				inAreaTarget.y() >= 1 ||
-				inAreaTarget.z() >= 1) {
+		if (inAreaTarget.x() <0
+				|| inAreaTarget.y() <0
+				|| inAreaTarget.z() <0
+				|| inAreaTarget.x()>= 1
+				|| inAreaTarget.y()>= 1
+				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 		}
 
@@ -329,11 +327,11 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-     * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
-     *
-     * @param inAreaBlockPosOffset The offset of blocks in the current area.
-     * @param inBlockTarget        The offset in the targeted block.
-     */
+	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 *
+	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
+	 * @param inBlockTarget The offset in the targeted block.
+	 */
 	@Override
 	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		if (!inAreaBlockPosOffset.equals(BlockPos.ZERO)) {
@@ -351,10 +349,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-     * Converts the current snapshot to a variant which is itemstack capable.
-     *
-     * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
-     */
+	 * Converts the current snapshot to a variant which is itemstack capable.
+	 *
+	 * @return The multistate itemstack which is the itemstack nbt representation of the current snapshot.
+	 */
 	@Override
 	public IMultiStateItemStack toItemStack() {
 		final ChiseledBlockItem chiseledBlockItem = ModItems.CHISELED_BLOCK.get();
@@ -397,11 +395,9 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	@Override
-	public IMultiStateSnapshot limitedToProgression(final float progress)
-
-	{
+	public IMultiStateSnapshot limitedToProgression(final float progress) {
 		return new SimpleSnapshot(
-			this.chunkSection.limitedToProgress(progress)
+				this.chunkSection.limitedToProgress(progress)
 		);
 	}
 
@@ -424,10 +420,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				final StateClearer stateClearer) {
 			this.blockInformation = blockInformation;
 			this.startPoint = Vec3.atLowerCornerOf(startPoint)
-					.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+				.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 			this.endPoint = Vec3.atLowerCornerOf(startPoint)
-					.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())
-					.add(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+				.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())
+				.add(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 			this.stateSetter = stateSetter;
 			this.stateClearer = stateClearer;
 		}
@@ -498,12 +494,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		public static final Codec<SimpleStatistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
 				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
-		).apply(instance, SimpleStatistics::new));
+				).apply(instance, SimpleStatistics::new));
 
 		public static final MapCodec<SimpleStatistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
 				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
-		).apply(instance, SimpleStatistics::new));
+				).apply(instance, SimpleStatistics::new));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, SimpleStatistics> STREAM_CODEC = StreamCodec.composite(
 				BlockInformation.STREAM_CODEC,
@@ -535,7 +531,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 			int maxCount = 0;
 
 			for (final Map.Entry<BlockInformation, Integer> blockStateIntegerEntry : countMap.entrySet()) {
-				if (maxCount < blockStateIntegerEntry.getValue() && !blockStateIntegerEntry.getKey().isAir()) {
+				if (maxCount <blockStateIntegerEntry.getValue() && !blockStateIntegerEntry.getKey().isAir()) {
 					maxState = blockStateIntegerEntry.getKey();
 					maxCount = blockStateIntegerEntry.getValue();
 				}
@@ -549,79 +545,57 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		}
 
 		@Override
-		public BlockInformation getPrimaryState ()
-
-		{
+		public BlockInformation getPrimaryState () {
 			return primaryState;
 		}
 
 		@Override
-		public Map<BlockInformation, Integer> getStateCounts ()
-
-		{
+		public Map<BlockInformation, Integer> getStateCounts () {
 			return stateCounts;
 		}
 
 		@Override
-		public boolean shouldCheckWeakPower ()
-
-		{
+		public boolean shouldCheckWeakPower () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public float getFullnessFactor ()
-
-		{
+		public float getFullnessFactor () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public float getSlipperiness ()
-
-		{
+		public float getSlipperiness () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public float getLightEmissionFactor ()
-
-		{
+		public float getLightEmissionFactor () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public float getLightBlockingFactor ()
-
-		{
+		public float getLightBlockingFactor () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public float getRelativeBlockHardness ( final Player player)
-
-		{
+		public float getRelativeBlockHardness (final Player player) {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public boolean canPropagateSkylight ()
-
-		{
+		public boolean canPropagateSkylight () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public boolean canSustainGrassBelow ()
-
-		{
+		public boolean canSustainGrassBelow () {
 			throw new NotImplementedException("Is a snapshot");
 		}
 
 		@Override
-		public boolean isEmpty ()
-
-		{
+		public boolean isEmpty () {
 			return primaryState.isAir();
 		}
 

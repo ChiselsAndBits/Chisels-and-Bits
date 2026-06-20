@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ISupportsSealing {
 	/**
-     * Performs the sealing operation on the given itemstack.
-     *
-     * @param source The source itemstack to seal.
-     * @return The sealed variant of the itemstack.
-     * @throws SealingNotSupportedException Thrown when the given stack could not be sealed.
-     */
+	 * Performs the sealing operation on the given itemstack.
+	 *
+	 * @param source The source itemstack to seal.
+	 * @return The sealed variant of the itemstack.
+	 * @throws SealingNotSupportedException Thrown when the given stack could not be sealed.
+	 */
 	@NotNull
 	ItemStack seal(@NotNull ItemStack source) throws SealingNotSupportedException;
 }

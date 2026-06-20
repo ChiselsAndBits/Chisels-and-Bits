@@ -22,31 +22,25 @@ public class ChiselingManager implements IChiselingManager {
 
 	private final ThreadLocal<UUID> activeThreadId = ThreadLocal.withInitial(() -> activeInstanceId);
 
-	private final ThreadLocal<Table<UUID, Identifier, IChiselingContext>> contexts              = ThreadLocal.withInitial(HashBasedTable::create);
-	private final ThreadLocal<Table<UUID, Identifier, Long>>              lastUsedChiselMoments = ThreadLocal.withInitial(HashBasedTable::create);
+	private final ThreadLocal<Table<UUID, Identifier, IChiselingContext>> contexts = ThreadLocal.withInitial(HashBasedTable::create);
+	private final ThreadLocal<Table<UUID, Identifier, Long>> lastUsedChiselMoments = ThreadLocal.withInitial(HashBasedTable::create);
 
-	private ChiselingManager()
-
-	{
+	private ChiselingManager() {
 	}
 
-	public static ChiselingManager getInstance()
-
-	{
+	public static ChiselingManager getInstance() {
 		return INSTANCE;
 	}
 
 	/**
-     * Gives access to the chiseling context of the player, if it exists.
-     *
-     * @param playerEntity The player for which the context is looked up.
-     * @param mode         The mode which the player wants to chisel in
-     * @return An optional potentially containing the current context of the player.
-     */
+	 * Gives access to the chiseling context of the player, if it exists.
+	 *
+	 * @param playerEntity The player for which the context is looked up.
+	 * @param mode The mode which the player wants to chisel in
+	 * @return An optional potentially containing the current context of the player.
+	 */
 	@Override
-	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode)
-
-	{
+	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode) {
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
@@ -60,9 +54,7 @@ public class ChiselingManager implements IChiselingManager {
 	}
 
 	@Override
-	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus)
-
-	{
+	public Optional<IChiselingContext> get(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus) {
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
@@ -80,9 +72,7 @@ public class ChiselingManager implements IChiselingManager {
 	}
 
 	@Override
-	public IChiselingContext create(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus, final boolean simulation, final ItemStack causingItemStack)
-
-	{
+	public IChiselingContext create(final Player playerEntity, final IChiselMode mode, final ChiselingOperation modeOfOperandus, final boolean simulation, final ItemStack causingItemStack) {
 		final UUID playerId = playerEntity.getUUID();
 		final Identifier worldId = playerEntity.level().dimension().identifier();
 
@@ -96,22 +86,22 @@ public class ChiselingManager implements IChiselingManager {
 		}
 
 		final ChiselingContext newContext = new ChiselingContext(playerEntity.level(),
-		  mode,
-		  modeOfOperandus,
-		  simulation, () -> {
-			if (simulation) {
-				return;
+				mode,
+				modeOfOperandus,
+				simulation, () -> {
+
+				if (simulation) {
+					return;
 			}
 
-			this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
-			contexts.get().remove(playerId, worldId);
-		}
+				this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
+				contexts.get().remove(playerId, worldId);
+				},
 
-		, causingItemStack, playerEntity);
 
-		if (!simulation)
+				causingItemStack, playerEntity);
 
-		{
+		if (!simulation) {
 			contexts.get().put(playerId, worldId, newContext);
 		}
 
@@ -133,7 +123,7 @@ public class ChiselingManager implements IChiselingManager {
 		final long time = playerEntity.tickCount;
 		final long diffSinceLastUse = time - lastChiselTime;
 
-		if (diffSinceLastUse < 0 || diffSinceLastUse > Constants.TICKS_BETWEEN_CHISEL_USAGE) {
+		if (diffSinceLastUse <0 || diffSinceLastUse> Constants.TICKS_BETWEEN_CHISEL_USAGE) {
 			resetLastChiselCountdown(playerEntity);
 			return true;
 		}
@@ -141,9 +131,7 @@ public class ChiselingManager implements IChiselingManager {
 		return false;
 	}
 
-	public void onServerStarting()
-
-	{
+	public void onServerStarting() {
 		this.activeInstanceId = UUID.randomUUID();
 	}
 
@@ -158,9 +146,7 @@ public class ChiselingManager implements IChiselingManager {
 		}
 	}
 
-	public void resetLastChiselCountdown(final Player player)
-
-	{
+	public void resetLastChiselCountdown(final Player player) {
 		this.lastUsedChiselMoments.get().row(player.getUUID()).clear();
 	}
 }

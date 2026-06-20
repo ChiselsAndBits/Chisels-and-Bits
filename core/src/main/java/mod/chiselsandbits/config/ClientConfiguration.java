@@ -13,40 +13,38 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import org.joml.Vector4f;
 
 public class ClientConfiguration implements IClientConfiguration {
-	private final Supplier<Boolean>                    bitBagFullness;
+	private final Supplier<Boolean> bitBagFullness;
 	private final Supplier<PlacementPreviewRenderMode> successfulPlacementRenderMode;
 	private final Supplier<PlacementPreviewRenderMode> failedPlacementRenderMode;
-	private final Supplier<Vector4f>                   successfulPlacementColor;
-	private final Supplier<Vector4f>                   notFittingPatternPlacementColor;
-	private final Supplier<Vector4f>                   missingBitsOrSpacePatternPlacementColor;
-	private final Supplier<List<? extends Float>>      previewChiselingColor;
-	private final Supplier<List<? extends Float>>      previewPlacementColor;
-	private final Supplier<List<? extends Float>>      mutatorPreviewChiselingColor;
-	private final Supplier<List<? extends Float>>      mutatorPreviewPlacementColor;
-	private final Supplier<Boolean>                    mutatorPreviewDebug;
-	private final Supplier<String>                     previewRenderer;
-	private final Supplier<String>                     toolModeRenderer;
-	private final Supplier<Boolean>                    invertPickBlockBehaviour;
-	private final Supplier<Long>                       bitStorageContentCacheSize;
-	private final Supplier<Long>                       printerContentCacheSize;
-	private final Supplier<Boolean>                    faceLightMapExtraction;
-	private final Supplier<Boolean>                    blockLightEmissionExtraction;
-	private final Supplier<Boolean>                    radialMenuMouseIndicator;
-	private final Supplier<Long>                       modelCacheSize;
-	private final Supplier<Long>                       stackModelCacheSize;
-	private final Supplier<Long>                       faceLayerCacheSize;
-	private final Supplier<Integer>                    modelBuildingThreadCount;
-	private final Supplier<Integer>                    clipboardSize;
-	private final Supplier<Boolean>                    addBrokenBlocksToClipboard;
-	private final Supplier<Boolean>                    addPickedBlocksToClipboard;
-	private final Supplier<String>                     patternExportPath;
+	private final Supplier<Vector4f> successfulPlacementColor;
+	private final Supplier<Vector4f> notFittingPatternPlacementColor;
+	private final Supplier<Vector4f> missingBitsOrSpacePatternPlacementColor;
+	private final Supplier<List<? extends Float>> previewChiselingColor;
+	private final Supplier<List<? extends Float>> previewPlacementColor;
+	private final Supplier<List<? extends Float>> mutatorPreviewChiselingColor;
+	private final Supplier<List<? extends Float>> mutatorPreviewPlacementColor;
+	private final Supplier<Boolean> mutatorPreviewDebug;
+	private final Supplier<String> previewRenderer;
+	private final Supplier<String> toolModeRenderer;
+	private final Supplier<Boolean> invertPickBlockBehaviour;
+	private final Supplier<Long> bitStorageContentCacheSize;
+	private final Supplier<Long> printerContentCacheSize;
+	private final Supplier<Boolean> faceLightMapExtraction;
+	private final Supplier<Boolean> blockLightEmissionExtraction;
+	private final Supplier<Boolean> radialMenuMouseIndicator;
+	private final Supplier<Long> modelCacheSize;
+	private final Supplier<Long> stackModelCacheSize;
+	private final Supplier<Long> faceLayerCacheSize;
+	private final Supplier<Integer> modelBuildingThreadCount;
+	private final Supplier<Integer> clipboardSize;
+	private final Supplier<Boolean> addBrokenBlocksToClipboard;
+	private final Supplier<Boolean> addPickedBlocksToClipboard;
+	private final Supplier<String> patternExportPath;
 	private final Supplier<Boolean> showCoolDownError;
 	private final Supplier<Long> cullTestingCacheSize;
 	private final Supplier<Boolean> shouldScrollInteractionsChangeMode;
 
-	public ClientConfiguration()
-
-	{
+	public ClientConfiguration() {
 		final IConfigurationBuilder builder = IConfigurationManager.getInstance().createBuilder(
 				ConfigurationType.CLIENT_ONLY, Constants.MOD_ID + "-client", "mod.chiselsandbits.config");
 
@@ -77,7 +75,7 @@ public class ClientConfiguration implements IClientConfiguration {
 		faceLayerCacheSize = builder.defineLong("performance.caches.sizes.block-faces", 1000000, 350000, 2000000);
 		cullTestingCacheSize = builder.defineLong("performance.caches.sizes.cull-testing", 3500, 3500, 200000);
 		modelBuildingThreadCount = builder.defineInteger("performance.model-building.thread-count", Math.max(1, Runtime.getRuntime().availableProcessors()) / 2, 1, Runtime.getRuntime()
-		  .availableProcessors());
+				.availableProcessors());
 		stackModelCacheSize = builder.defineLong("performance.caches.sizes.stack-models", 100, 0, Long.MAX_VALUE);
 		showCoolDownError = builder.defineBoolean("settings.warnings.show-cool-down-error", false);
 		shouldScrollInteractionsChangeMode = builder.defineBoolean("settings.interactions.scrolling-changes-mode", true);
@@ -86,170 +84,122 @@ public class ClientConfiguration implements IClientConfiguration {
 	}
 
 	@Override
-	public Supplier<Boolean> getInvertBitBagFullness()
-
-	{
+	public Supplier<Boolean> getInvertBitBagFullness() {
 		return bitBagFullness;
 	}
 
 	@Override
-	public Supplier<PlacementPreviewRenderMode> getSuccessfulPlacementRenderMode()
-
-	{
+	public Supplier<PlacementPreviewRenderMode> getSuccessfulPlacementRenderMode() {
 		return successfulPlacementRenderMode;
 	}
 
 	@Override
-	public Supplier<PlacementPreviewRenderMode> getFailedPlacementRenderMode()
-
-	{
+	public Supplier<PlacementPreviewRenderMode> getFailedPlacementRenderMode() {
 		return failedPlacementRenderMode;
 	}
 
 	@Override
-	public Supplier<Vector4f> getSuccessfulPlacementColor()
-
-	{
+	public Supplier<Vector4f> getSuccessfulPlacementColor() {
 		return successfulPlacementColor;
 	}
 
 	@Override
-	public Supplier<Vector4f> getNotFittingPatternPlacementColor()
-
-	{
+	public Supplier<Vector4f> getNotFittingPatternPlacementColor() {
 		return notFittingPatternPlacementColor;
 	}
 
 	@Override
-	public Supplier<Vector4f> getMissingBitsOrSpacePatternPlacementColor()
-
-	{
+	public Supplier<Vector4f> getMissingBitsOrSpacePatternPlacementColor() {
 		return missingBitsOrSpacePatternPlacementColor;
 	}
 
 	@Override
-	public Supplier<List<? extends Float>> getPreviewChiselingColor()
-
-	{
+	public Supplier<List<? extends Float>> getPreviewChiselingColor() {
 		return previewChiselingColor;
 	}
 
 	@Override
-	public Supplier<List<? extends Float>> getPreviewPlacementColor()
-
-	{
+	public Supplier<List<? extends Float>> getPreviewPlacementColor() {
 		return previewPlacementColor;
 	}
 
 	@Override
-	public Supplier<String> getPreviewRenderer()
-
-	{
+	public Supplier<String> getPreviewRenderer() {
 		return previewRenderer;
 	}
 
 	@Override
-	public Supplier<String> getToolModeRenderer()
-
-	{
+	public Supplier<String> getToolModeRenderer() {
 		return toolModeRenderer;
 	}
 
 	@Override
-	public Supplier<Boolean> getInvertPickBlockBehaviour()
-
-	{
+	public Supplier<Boolean> getInvertPickBlockBehaviour() {
 		return invertPickBlockBehaviour;
 	}
 
 	@Override
-	public Supplier<Long> getBitStorageContentCacheSize()
-
-	{
+	public Supplier<Long> getBitStorageContentCacheSize() {
 		return bitStorageContentCacheSize;
 	}
 
 	@Override
-	public Supplier<Long> getPrinterContentCacheSize()
-
-	{
+	public Supplier<Long> getPrinterContentCacheSize() {
 		return printerContentCacheSize;
 	}
 
 	@Override
-	public Supplier<Boolean> getEnableFaceLightmapExtraction()
-
-	{
+	public Supplier<Boolean> getEnableFaceLightmapExtraction() {
 		return faceLightMapExtraction;
 	}
 
 	@Override
-	public Supplier<Boolean> getUseGetLightValue()
-
-	{
+	public Supplier<Boolean> getUseGetLightValue() {
 		return blockLightEmissionExtraction;
 	}
 
 	@Override
-	public Supplier<Boolean> getEnableMouseIndicatorInRadialMenu()
-
-	{
+	public Supplier<Boolean> getEnableMouseIndicatorInRadialMenu() {
 		return radialMenuMouseIndicator;
 	}
 
 	@Override
-	public Supplier<Long> getModelCacheSize()
-
-	{
+	public Supplier<Long> getModelCacheSize() {
 		return modelCacheSize;
 	}
 
 	@Override
-	public Supplier<Long> getFaceLayerCacheSize()
-
-	{
+	public Supplier<Long> getFaceLayerCacheSize() {
 		return faceLayerCacheSize;
 	}
 
 	@Override
-	public Supplier<Integer> getModelBuildingThreadCount()
-
-	{
+	public Supplier<Integer> getModelBuildingThreadCount() {
 		return modelBuildingThreadCount;
 	}
 
 	@Override
-	public Supplier<Integer> getClipboardSize()
-
-	{
+	public Supplier<Integer> getClipboardSize() {
 		return clipboardSize;
 	}
 
 	@Override
-	public Supplier<Boolean> getShouldBrokenBlocksBeAddedToClipboard()
-
-	{
+	public Supplier<Boolean> getShouldBrokenBlocksBeAddedToClipboard() {
 		return addBrokenBlocksToClipboard;
 	}
 
 	@Override
-	public Supplier<Boolean> getShouldPickedBlocksBeAddedToClipboard()
-
-	{
+	public Supplier<Boolean> getShouldPickedBlocksBeAddedToClipboard() {
 		return addPickedBlocksToClipboard;
 	}
 
 	@Override
-	public Supplier<String> getPatternExportPath()
-
-	{
+	public Supplier<String> getPatternExportPath() {
 		return patternExportPath;
 	}
 
 	@Override
-	public Supplier<Long> getStackModelCacheSize()
-
-	{
+	public Supplier<Long> getStackModelCacheSize() {
 		return stackModelCacheSize;
 	}
 
@@ -259,23 +209,17 @@ public class ClientConfiguration implements IClientConfiguration {
 	}
 
 	@Override
-	public Supplier<List<? extends Float>> getMutatorPreviewChiselingColor()
-
-	{
+	public Supplier<List<? extends Float>> getMutatorPreviewChiselingColor() {
 		return mutatorPreviewChiselingColor;
 	}
 
 	@Override
-	public Supplier<List<? extends Float>> getMutatorPreviewPlacementColor()
-
-	{
+	public Supplier<List<? extends Float>> getMutatorPreviewPlacementColor() {
 		return mutatorPreviewPlacementColor;
 	}
 
 	@Override
-	public Supplier<Boolean> getMutatorPreviewDebug()
-
-	{
+	public Supplier<Boolean> getMutatorPreviewDebug() {
 		return mutatorPreviewDebug;
 	}
 

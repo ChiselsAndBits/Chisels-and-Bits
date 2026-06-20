@@ -16,41 +16,31 @@ public abstract class ModPacket implements CustomPacketPayload {
 		);
 	}
 
-	public ModPacket()
-
-	{
+	public ModPacket() {
 	}
 
 	public void server(
-			final ServerPlayer playerEntity ) {
-		throw new RuntimeException( getClass().getName() + " is not a server packet." );
+			final ServerPlayer playerEntity) {
+		throw new RuntimeException(getClass().getName() + " is not a server packet.");
 	}
 
-	public void client()
-
-	{
-		throw new RuntimeException( getClass().getName() + " is not a client packet." );
+	public void client() {
+		throw new RuntimeException(getClass().getName() + " is not a client packet.");
 	}
 
 	abstract public void writePayload(
-			RegistryFriendlyByteBuf buffer );
+			RegistryFriendlyByteBuf buffer);
 
 	abstract public void readPayload(
-			RegistryFriendlyByteBuf buffer );
+			RegistryFriendlyByteBuf buffer);
 
 	public void processPacket(
 			final Player senderOnServer,
 			final Boolean onServer) {
-		if (!onServer)
-
-		{
+		if (!onServer) {
 			client();
-		}
-
-		else if (senderOnServer instanceof ServerPlayer serverPlayer)
-
-		{
-			server( serverPlayer );
+		} else if (senderOnServer instanceof ServerPlayer serverPlayer) {
+			server(serverPlayer);
 		}
 	}
 }

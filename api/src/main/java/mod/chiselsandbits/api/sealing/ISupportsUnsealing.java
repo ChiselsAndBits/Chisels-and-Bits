@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ISupportsUnsealing {
 	/**
-     * Performs the unsealing operation on the given itemstack.
-     *
-     * @param source The source itemstack to unseal.
-     * @return The unsealed variant of the itemstack.
-     * @throws SealingNotSupportedException Thrown when the given stack could not be unsealed.
-     */
+	 * Performs the unsealing operation on the given itemstack.
+	 *
+	 * @param source The source itemstack to unseal.
+	 * @return The unsealed variant of the itemstack.
+	 * @throws SealingNotSupportedException Thrown when the given stack could not be unsealed.
+	 */
 	@NotNull
 	ItemStack unseal(@NotNull ItemStack source) throws SealingNotSupportedException;
 }

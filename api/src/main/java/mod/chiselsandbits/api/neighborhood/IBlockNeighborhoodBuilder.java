@@ -14,23 +14,23 @@ import java.util.function.Function;
  */
 public interface IBlockNeighborhoodBuilder {
 	/**
-     * Gives access to the current builder instance.
-     * Short circuit method for the central API call.
-     *
-     * @return The current instance.
-     */
+	 * Gives access to the current builder instance.
+	 * Short circuit method for the central API call.
+	 *
+	 * @return The current instance.
+	 */
 	@NotNull
 	static IBlockNeighborhoodBuilder getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBlockNeighborhoodBuilder();
 	}
 
 	/**
-     * Builds a block neighborhood for the requested target.
-     *
-     * @param neighborhoodBlockStateProvider The blockstate provider to pull the neighborhood data from.
-     * @param neighborhoodAreaAccessorProvider The area accessor provider to pull the neighborhood data from.
-     * @return A comparable an unique element targeting the requested position and containing the neighborhood data of the target position.
-     */
+	 * Builds a block neighborhood for the requested target.
+	 *
+	 * @param neighborhoodBlockStateProvider The blockstate provider to pull the neighborhood data from.
+	 * @param neighborhoodAreaAccessorProvider The area accessor provider to pull the neighborhood data from.
+	 * @return A comparable an unique element targeting the requested position and containing the neighborhood data of the target position.
+	 */
 	@NotNull
 	IBlockNeighborhood build(
 			@Nullable Function<Direction, BlockInformation> neighborhoodBlockStateProvider,

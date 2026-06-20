@@ -27,7 +27,7 @@ public interface IChange extends IChangeHandler {
 	));
 
 	/**
-     * {@return The type of the change.}
-     */
+	 * {@return The type of the change.}
+	 */
 	IChangeType getType();
 }

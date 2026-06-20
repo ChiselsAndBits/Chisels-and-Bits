@@ -17,7 +17,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ModificationRecipesUpdated extends ModPacket {
-	public static final Identifier                                           ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "modification_recipes_updated");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "modification_recipes_updated");
 	public static final CustomPacketPayload.Type<ModificationRecipesUpdated> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private final List<RecipeHolder<ModificationTableRecipe>> recipes;
@@ -32,54 +32,43 @@ public class ModificationRecipesUpdated extends ModPacket {
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		buffer.writeVarInt(
-			this.recipes.size()
+				this.recipes.size()
 		);
 
-		for (final RecipeHolder<ModificationTableRecipe> recipe : this.recipes)
-
-		{
+		for (final RecipeHolder<ModificationTableRecipe> recipe : this.recipes) {
 			RecipeHolder.STREAM_CODEC.encode(buffer, recipe);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		this.recipes.clear();
 
 		final int count = buffer.readVarInt();
-		for (int i = 0; i < count; i++)
 
-		{
+		for (int i = 0; i <count; i++) {
 			this.recipes.add((RecipeHolder<ModificationTableRecipe>) RecipeHolder.STREAM_CODEC.decode(buffer));
 		}
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type()
-
-	{
+	public @NotNull Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 
 	@Override
-	public void client()
-
-	{
+	public void client() {
 		DistExecutor.unsafeRunWhenOn(
-			Dist.CLIENT,
-			() -> () -> {
-				if (Minecraft.getInstance().player != null &&
-					Minecraft.getInstance().player.containerMenu instanceof ModificationTableContainer modificationTableContainer) {
+				Dist.CLIENT,
+				() -> () -> {
+				if (Minecraft.getInstance().player != null
+						&& Minecraft.getInstance().player.containerMenu instanceof ModificationTableContainer modificationTableContainer) {
 					modificationTableContainer.setRecipes(this.recipes);
-				}
 			}
+				}
 		);
 	}
 }

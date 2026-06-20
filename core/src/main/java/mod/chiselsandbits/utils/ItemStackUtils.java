@@ -18,216 +18,144 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ItemStackUtils {
-	private ItemStackUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ItemStackUtils. This is a utility class");
+	private ItemStackUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: ItemStackUtils.This is a utility class");
 	}
 
-	public static ItemStack getModeItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getModeItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IWithModeItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IWithModeItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IWithModeItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IWithModeItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack getHighlightItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getHighlightItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IWithHighlightItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IWithHighlightItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IWithHighlightItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IWithHighlightItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack getMultiStateItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getMultiStateItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IMultiStateItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IMultiStateItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IMultiStateItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IMultiStateItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack getPatternItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getPatternItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IPatternItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IPatternItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static InteractionHand getPatternHandFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static InteractionHand getPatternHandFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return InteractionHand.MAIN_HAND;
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IPatternItem) {
 			return InteractionHand.OFF_HAND;
 		}
 
 		return InteractionHand.MAIN_HAND;
 	}
 
-	public static ItemStack getBitItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getBitItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack getLeftClickControllingItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getLeftClickControllingItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof ILeftClickControllingItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof ILeftClickControllingItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof ILeftClickControllingItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof ILeftClickControllingItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack getRightClickControllingItemStackFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static ItemStack getRightClickControllingItemStackFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return ItemStack.EMPTY;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IRightClickControllingItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IRightClickControllingItem) {
 			return playerEntity.getMainHandItem();
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IRightClickControllingItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IRightClickControllingItem) {
 			return playerEntity.getOffhandItem();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
-	public static BlockInformation getHeldBitBlockInformationFromPlayer(@Nullable final Player playerEntity)
-
-	{
-		if (playerEntity == null)
-
-		{
+	public static BlockInformation getHeldBitBlockInformationFromPlayer(@Nullable final Player playerEntity) {
+		if (playerEntity == null) {
 			return BlockInformation.AIR;
 		}
 
-		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem)
-
-		{
+		if (playerEntity.getMainHandItem().getItem() instanceof IBitItem) {
 			return ((IBitItem) playerEntity.getMainHandItem().getItem()).getBlockInformation(playerEntity.getMainHandItem());
 		}
 
-		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem)
-
-		{
+		if (playerEntity.getOffhandItem().getItem() instanceof IBitItem) {
 			return ((IBitItem) playerEntity.getOffhandItem().getItem()).getBlockInformation(playerEntity.getOffhandItem());
 		}
 
@@ -235,24 +163,16 @@ public class ItemStackUtils {
 	}
 
 	public static BlockInformation getStateFromItem(
-		final ItemStack is) {
-		try
-
-		{
-			if (!is.isEmpty() && is.getItem() instanceof final BlockItem blockItem)
-
-			{
+			final ItemStack is) {
+		try {
+			if (!is.isEmpty() && is.getItem() instanceof final BlockItem blockItem) {
 				final BlockState blockState = blockItem.getBlock().defaultBlockState();
 				return new BlockInformation(
-					blockState,
-					IStateVariantManager.getInstance().getStateVariant(blockState, is)
+						blockState,
+						IStateVariantManager.getInstance().getStateVariant(blockState, is)
 				);
 			}
-		}
-
-		catch (final Throwable ignored)
-
-		{
+		} catch (final Throwable ignored) {
 		}
 
 		return BlockInformation.AIR;

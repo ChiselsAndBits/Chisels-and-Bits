@@ -9,20 +9,16 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 
 public class IsScopingHandler {
-	private IsScopingHandler()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: IsScopingHandler. This is a utility class");
+	private IsScopingHandler() {
+		throw new IllegalStateException("Can not instantiate an instance of: IsScopingHandler.This is a utility class");
 	}
 
-	public static boolean isScoping(Player player)
-
-	{
+	public static boolean isScoping(Player player) {
 		return DistExecutor.unsafeRunForDist(
-		  () -> () -> !ItemStackUtils.getHighlightItemStackFromPlayer(player).isEmpty() &&
-						player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof MonocleItem &&
-						KeyBindingManager.getInstance().isScopingKeyPressed(),
-		  () -> () -> false
+				() -> () -> !ItemStackUtils.getHighlightItemStackFromPlayer(player).isEmpty() &&
+				player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof MonocleItem
+				&& KeyBindingManager.getInstance().isScopingKeyPressed(),
+				() -> () -> false
 		);
 	}
 }

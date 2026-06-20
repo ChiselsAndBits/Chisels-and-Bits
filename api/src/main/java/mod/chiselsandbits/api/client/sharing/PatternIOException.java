@@ -10,16 +10,12 @@ public class PatternIOException extends Exception {
 		this.errorMessage = errorMessage;
 	}
 
-	public PatternIOException(final Component errorMessage, final String message, final Throwable cause)
-
-	{
+	public PatternIOException(final Component errorMessage, final String message, final Throwable cause) {
 		super(message, cause);
 		this.errorMessage = errorMessage;
 	}
 
-	public Component getErrorMessage()
-
-	{
+	public Component getErrorMessage() {
 		return errorMessage;
 	}
 }

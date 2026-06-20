@@ -13,31 +13,25 @@ import net.minecraft.world.entity.player.Player;
 public class ChangeTrackerManger implements IChangeTrackerManager {
 	private static final ChangeTrackerManger INSTANCE = new ChangeTrackerManger();
 
-	public static ChangeTrackerManger getInstance()
-
-	{
+	public static ChangeTrackerManger getInstance() {
 		return INSTANCE;
 	}
 
 	private final Map<UUID, ChangeTracker> changeTrackers = Maps.newConcurrentMap();
 	private final ChangeTracker clientChangeTracker = new ChangeTracker();
 
-	private ChangeTrackerManger()
-
-	{
+	private ChangeTrackerManger() {
 	}
 
 	@Override
-	public @NotNull IChangeTracker getChangeTracker(final Player player)
-
-	{
+	public @NotNull IChangeTracker getChangeTracker(final Player player) {
 		if (player.level().isClientSide()) {
 			return clientChangeTracker;
 		}
 
 		return changeTrackers.computeIfAbsent(
-		  player.getUUID(),
-		  id -> new ChangeTracker(player)
+				player.getUUID(),
+				id -> new ChangeTracker(player)
 		);
 	}
 

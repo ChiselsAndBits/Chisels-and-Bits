@@ -9,12 +9,12 @@ import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
 import org.jspecify.annotations.Nullable;
 
 public record ChiseledBlockModelCacheKey(
-	IAreaShapeIdentifier identifier, BlockInformation primaryState,
-	IBlockNeighborhood neighborhood, Collection<@Nullable Object> modelCacheKeys) {
+		IAreaShapeIdentifier identifier, BlockInformation primaryState,
+		IBlockNeighborhood neighborhood, Collection<@Nullable Object> modelCacheKeys) {
 	public static final ChiseledBlockModelCacheKey EMPTY = new ChiseledBlockModelCacheKey(
-		IAreaShapeIdentifier.DUMMY,
-		BlockInformation.AIR,
-		IBlockNeighborhood.EMPTY,
-		List.of()
+			IAreaShapeIdentifier.DUMMY,
+			BlockInformation.AIR,
+			IBlockNeighborhood.EMPTY,
+			List.of()
 	);
 }

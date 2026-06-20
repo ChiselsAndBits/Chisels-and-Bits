@@ -22,50 +22,38 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class EffectUtils {
 	private static final Random RANDOM = new Random();
 
-	private EffectUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: EffectUtils. This is a utility class");
+	private EffectUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: EffectUtils.This is a utility class");
 	}
 
-	public static void addBlockDestroyEffects(final LevelReader levelReader, final BlockPos pos, final BlockState primaryState, final ParticleEngine manager, final Level renderingWorld)
-
-	{
-		if (!primaryState.isAir())
-
-		{
+	public static void addBlockDestroyEffects(final LevelReader levelReader, final BlockPos pos, final BlockState primaryState, final ParticleEngine manager, final Level renderingWorld) {
+		if (!primaryState.isAir()) {
 			final VoxelShape voxelshape = levelReader.getBlockState(pos).getShape(levelReader, pos);
 			voxelshape.forAllBoxes((p_228348_3_, p_228348_5_, p_228348_7_, p_228348_9_, p_228348_11_, p_228348_13_) -> {
-				final double d1 = Math.min(1.0D, p_228348_9_ - p_228348_3_);
-				final double d2 = Math.min(1.0D, p_228348_11_ - p_228348_5_);
-				final double d3 = Math.min(1.0D, p_228348_13_ - p_228348_7_);
-				final int i = Math.max(2, Mth.ceil(d1 / 0.25D));
-				final int j = Math.max(2, Mth.ceil(d2 / 0.25D));
-				final int k = Math.max(2, Mth.ceil(d3 / 0.25D));
+					final double d1 = Math.min(1.0D, p_228348_9_ - p_228348_3_);
+					final double d2 = Math.min(1.0D, p_228348_11_ - p_228348_5_);
+					final double d3 = Math.min(1.0D, p_228348_13_ - p_228348_7_);
+					final int i = Math.max(2, Mth.ceil(d1 / 0.25D));
+					final int j = Math.max(2, Mth.ceil(d2 / 0.25D));
+					final int k = Math.max(2, Mth.ceil(d3 / 0.25D));
 
-				for (int l = 0; l < i; ++l)
-
-				{
-					for (int i1 = 0; i1 < j; ++i1)
-
-					{
-						for (int j1 = 0; j1 < k; ++j1)
-
-						{
-							final double d4 = ((double) l + 0.5D) / (double) i;
-							final double d5 = ((double) i1 + 0.5D) / (double) j;
-							final double d6 = ((double) j1 + 0.5D) / (double) k;
-							final double d7 = d4 * d1 + p_228348_3_;
-							final double d8 = d5 * d2 + p_228348_5_;
-							final double d9 = d6 * d3 + p_228348_7_;
-							manager.add((new TerrainParticle((ClientLevel) renderingWorld,
-							  (double) pos.getX() + d7,
-							  (double) pos.getY() + d8,
-							  (double) pos.getZ() + d9,
-							  d4 - 0.5D,
-							  d5 - 0.5D,
-							  d6 - 0.5D,
-							  primaryState, pos)));
+					for (int l = 0; l <i; ++l) {
+						for (int i1 = 0; i1 <j; ++i1) {
+							for (int j1 = 0; j1 <k; ++j1) {
+								final double d4 = ((double) l + 0.5D) / (double) i;
+								final double d5 = ((double) i1 + 0.5D) / (double) j;
+								final double d6 = ((double) j1 + 0.5D) / (double) k;
+								final double d7 = d4 * d1 + p_228348_3_;
+								final double d8 = d5 * d2 + p_228348_5_;
+								final double d9 = d6 * d3 + p_228348_7_;
+								manager.add((new TerrainParticle((ClientLevel) renderingWorld,
+										(double) pos.getX() + d7,
+										(double) pos.getY() + d8,
+										(double) pos.getZ() + d9,
+										d4 - 0.5D,
+										d5 - 0.5D,
+										d6 - 0.5D,
+										primaryState, pos)));
 						}
 					}
 				}
@@ -75,18 +63,14 @@ public class EffectUtils {
 		}
 	}
 
-	public static boolean addHitEffects(final Level world, final BlockPos blockPos, final Direction hitDirection, final BlockState primaryState, final ParticleEngine manager)
-
-	{
+	public static boolean addHitEffects(final Level world, final BlockPos blockPos, final Direction hitDirection, final BlockState primaryState, final ParticleEngine manager) {
 		if (Minecraft.getInstance().player == null) {
 			return false;
 		}
 
 		final ItemStack hitWith = Minecraft.getInstance().player.getMainHandItem();
 
-		if (!hitWith.isEmpty() && hitWith.getItem() instanceof INoHitEffectsItem)
-
-		{
+		if (!hitWith.isEmpty() && hitWith.getItem() instanceof INoHitEffectsItem) {
 			return true;
 		}
 
@@ -98,24 +82,20 @@ public class EffectUtils {
 		double y = blockPos.getY() + RANDOM.nextDouble() * (bb.maxY - bb.minY - boxOffset * 2d) + boxOffset + bb.minY;
 		double z = blockPos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
 
-		switch (hitDirection)
-
-		{
-			case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
-			case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
-			case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
-			case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
-			case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
-			case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
-			default ->
-
-			{
+		switch (hitDirection) {
+		case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
+		case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
+		case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
+		case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
+		case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
+		case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
+			default -> {
 			}
 		}
 
 		manager.add((new TerrainParticle((ClientLevel) world, x, y, z, 0.0D, 0.0D, 0.0D, primaryState, blockPos))
-								   .setPower(0.2F)
-								   .scale(0.6F));
+				.setPower(0.2F)
+				.scale(0.6F));
 
 		return true;
 	}

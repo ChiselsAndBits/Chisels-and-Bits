@@ -15,23 +15,23 @@ public interface IBlockStateIdManager {
 	}
 
 	/**
-     * Calculates the the integer id representation of the blockstate.
-     *
-     * @param blockState The blockstate for which the id is requested.
-     *
-     * @return The id of the given blockstate.
-     */
+	 * Calculates the the integer id representation of the blockstate.
+	 *
+	 * @param blockState The blockstate for which the id is requested.
+	 *
+	 * @return The id of the given blockstate.
+	 */
 	default int getIdFrom(final BlockState blockState) {
 		return Block.getId(blockState);
 	}
 
 	/**
-     * Calculates the blockstate from the given id.
-     *
-     * @param id The integer id representation of the requested blockstate.
-     *
-     * @return The blockstate which is represented by the given id.
-     */
+	 * Calculates the blockstate from the given id.
+	 *
+	 * @param id The integer id representation of the requested blockstate.
+	 *
+	 * @return The blockstate which is represented by the given id.
+	 */
 	default BlockState getBlockStateFrom(final int id) {
 		return Block.stateById(id);
 	}

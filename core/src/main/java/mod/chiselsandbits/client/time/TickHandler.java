@@ -7,9 +7,7 @@ public class TickHandler {
 
 	private static long nonePausedTicks = 0;
 
-	public static void onClientTick()
-
-	{
+	public static void onClientTick() {
 		clientTicks++;
 
 		if (!Minecraft.getInstance().isPaused()) {
@@ -17,15 +15,11 @@ public class TickHandler {
 		}
 	}
 
-	public static long getClientTicks()
-
-	{
+	public static long getClientTicks() {
 		return clientTicks;
 	}
 
-	public static long getNonePausedTicks()
-
-	{
+	public static long getNonePausedTicks() {
 		return nonePausedTicks;
 	}
 }

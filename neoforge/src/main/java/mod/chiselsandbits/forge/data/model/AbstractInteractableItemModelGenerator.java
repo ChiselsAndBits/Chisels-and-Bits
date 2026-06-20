@@ -33,41 +33,35 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final ItemModelGenerators itemModels)
-
-	{
+	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		itemModels.itemModelOutput.accept(
-			this.targetRegistryObject.get(),
+				this.targetRegistryObject.get(),
 			new InteractableItemModel.Unbaked(
-				createSpecModel(itemModels)
+					createSpecModel(itemModels)
 			)
 		);
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
-
-	{
+	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of();
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
-
-	{
+	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
-			BuiltInRegistries.ITEM.wrapAsHolder(
-				targetRegistryObject.get()
-			)
+				BuiltInRegistries.ITEM.wrapAsHolder(
+						targetRegistryObject.get()
+				)
 		);
 	}
 
 	protected CuboidItemModelWrapper.Unbaked createSpecModel(final ItemModelGenerators itemModelGenerators) {
 		return new CuboidItemModelWrapper.Unbaked(ModelTemplates.FLAT_ITEM
-			.create(
-				ModelLocationUtils.getModelLocation(this.targetRegistryObject.get()).withSuffix("_spec"),
-				TextureMapping.layer0(this.targetRegistryObject.get()),
-				itemModelGenerators.modelOutput
-			), Optional.empty(), List.of());
+				.create(
+						ModelLocationUtils.getModelLocation(this.targetRegistryObject.get()).withSuffix("_spec"),
+						TextureMapping.layer0(this.targetRegistryObject.get()),
+						itemModelGenerators.modelOutput
+						), Optional.empty(), List.of());
 	}
 }

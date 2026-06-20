@@ -21,9 +21,7 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider {
 		this.itemProvider = itemProvider;
 	}
 
-	public ItemLike getItemProvider()
-
-	{
+	public ItemLike getItemProvider() {
 		return itemProvider;
 	}
 
@@ -36,11 +34,11 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider {
 		private final GeneratorFactory<?> factory;
 
 		public Runner(
-			PackOutput output,
-			CompletableFuture<HolderLookup.Provider> lookupProvider,
-			final ItemLike itemProvider,
-			final GeneratorFactory<?> factory
-		) {
+				PackOutput output,
+				CompletableFuture<HolderLookup.Provider> lookupProvider,
+				final ItemLike itemProvider,
+				final GeneratorFactory<?> factory
+				) {
 			super(output, lookupProvider);
 			this.itemProvider = itemProvider;
 			this.factory = factory;
@@ -52,9 +50,7 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider {
 		}
 
 		@Override
-		public final @NotNull String getName()
-
-		{
+		public final @NotNull String getName() {
 			return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemProvider.asItem())) + " recipe generator";
 		}
 	}

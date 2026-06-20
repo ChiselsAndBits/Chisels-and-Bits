@@ -14,7 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
 public class GivePlayerPatternCommandPacket extends ModPacket {
-	public static final Identifier                                               ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "give_player_pattern_command");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "give_player_pattern_command");
 	public static final CustomPacketPayload.Type<GivePlayerPatternCommandPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private IMultiStateSnapshot snapshot;
@@ -23,30 +23,22 @@ public class GivePlayerPatternCommandPacket extends ModPacket {
 		this.snapshot = snapshot;
 	}
 
-	public GivePlayerPatternCommandPacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public GivePlayerPatternCommandPacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		IMultiStateSnapshot.STREAM_CODEC.encode(buffer, snapshot);
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		snapshot = IMultiStateSnapshot.STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
-	public void server(final ServerPlayer playerEntity)
-
-	{
+	public void server(final ServerPlayer playerEntity) {
 		final Item item = ModItems.SINGLE_USE_PATTERN_ITEM.get();
 		final IMultiStateItemStack patternStack = this.snapshot.toItemStack();
 

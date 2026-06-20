@@ -28,33 +28,25 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class DropBlockLootTableGenerator extends LootTableProvider {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new DropBlockLootTableGenerator(event.getGenerator().getPackOutput(), FeatureFlags.REGISTRY.allFlags(), event.getLookupProvider()));
 	}
 
-	private DropBlockLootTableGenerator(PackOutput packOutput, FeatureFlagSet featureFlagSet, CompletableFuture<HolderLookup.Provider> registries)
-
-	{
+	private DropBlockLootTableGenerator(PackOutput packOutput, FeatureFlagSet featureFlagSet, CompletableFuture<HolderLookup.Provider> registries) {
 		super(packOutput, Set.of(), createTables(featureFlagSet), registries);
 	}
 
 	@Override
-	protected void validate(final WritableRegistry<LootTable> tables, final ValidationContextSource validationContext, final ProblemReporter.Collector problems)
-
-	{
-		//Noop
+	protected void validate(final WritableRegistry<LootTable> tables, final ValidationContextSource validationContext, final ProblemReporter.Collector problems) {
+	//Noop
 	}
 
-	private static @NotNull List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet)
-
-	{
+	private static @NotNull List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet) {
 		return ImmutableList.of(
-		  new SubProviderEntry(
-			(provider) -> new SelfDroppingBlocks(featureFlagSet, provider),
-			LootContextParamSets.BLOCK
-		  )
+			new SubProviderEntry(
+					(provider) -> new SelfDroppingBlocks(featureFlagSet, provider),
+					LootContextParamSets.BLOCK
+			)
 		);
 	}
 
@@ -70,12 +62,10 @@ public class DropBlockLootTableGenerator extends LootTableProvider {
 		}
 
 		@Override
-		protected @NotNull Iterable<Block> getKnownBlocks()
-
-		{
+		protected @NotNull Iterable<Block> getKnownBlocks() {
 			return ImmutableList.of(
-			  ModBlocks.CHISELED_PRINTER.get(),
-			  ModBlocks.MODIFICATION_TABLE.get()
+					ModBlocks.CHISELED_PRINTER.get(),
+					ModBlocks.MODIFICATION_TABLE.get()
 			);
 		}
 	}

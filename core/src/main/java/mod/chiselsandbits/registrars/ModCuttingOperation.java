@@ -10,22 +10,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class ModCuttingOperation {
-	private static final Logger                                   LOGGER              = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ICustomRegistrar<ICuttingOperation> OPERATION_REGISTRAR = ICustomRegistrar.create(ICuttingOperation.class, Constants.MOD_ID);
 
 	public static final Supplier<ICustomRegistry<ICuttingOperation>> REGISTRY_SUPPLIER = OPERATION_REGISTRAR.makeRegistry(
 			ICustomRegistry.Builder::simple
 	);
 
-	private ModCuttingOperation()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ModCuttingOperation. This is a utility class");
+	private ModCuttingOperation() {
+		throw new IllegalStateException("Can not instantiate an instance of: ModCuttingOperation.This is a utility class");
 	}
 
-	public static void onModConstruction()
-
-	{
+	public static void onModConstruction() {
 		LOGGER.info("Loaded modification operation configuration.");
 	}
 }

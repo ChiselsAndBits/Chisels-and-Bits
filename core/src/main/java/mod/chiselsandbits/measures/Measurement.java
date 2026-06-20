@@ -20,20 +20,20 @@ import net.minecraft.world.phys.Vec3;
 
 public class Measurement implements IMeasurement, Serializable<Measurement, FriendlyByteBuf> {
 	public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-	  UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
-	  Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
-	  Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
-	  MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-	  Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
-	).apply(instance, Measurement::new));
+			UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
+			Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
+			Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
+			MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
+			Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+			).apply(instance, Measurement::new));
 
 	public static final MapCodec<Measurement> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-	  UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
-	  Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
-	  Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
-	  MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-	  Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
-	).apply(instance, Measurement::new));
+			UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
+			Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
+			Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
+			MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
+			Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+			).apply(instance, Measurement::new));
 
 	public static final StreamCodec<FriendlyByteBuf, Measurement> STREAM_CODEC = StreamCodec.composite(
 			UUIDUtil.STREAM_CODEC,
@@ -51,9 +51,9 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 
 	private UUID owner;
 	private Vec3 from;
-	private Vec3         to;
+	private Vec3 to;
 	private MeasuringMode mode;
-	private Identifier    worldKey;
+	private Identifier worldKey;
 
 	private Measurement(UUID owner, Vec3 from, Vec3 to, IMeasuringMode mode, Identifier worldKey) {
 		this.owner = owner;
@@ -79,62 +79,48 @@ public class Measurement implements IMeasurement, Serializable<Measurement, Frie
 		adaptPositions(from, to, hitFace, mode);
 	}
 
-	public Measurement()
-
-	{
+	public Measurement() {
 	}
 
-	private void adaptPositions(final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode)
-
-	{
+	private void adaptPositions(final Vec3 from, final Vec3 to, final Direction hitFace, final IMeasuringMode mode) {
 		this.from = mode.getType().isNeedsNormalization() ? new Vec3(
-		  Math.min(from.x(), to.x()),
-		  Math.min(from.y(), to.y()),
-		  Math.min(from.z(), to.z())
-		) : from;
+				Math.min(from.x(), to.x()),
+				Math.min(from.y(), to.y()),
+				Math.min(from.z(), to.z())
+				) : from;
 
 		this.to = mode.getType().isNeedsNormalization() ? new Vec3(
-		  Math.max(from.x(), to.x()),
-		  Math.max(from.y(), to.y()),
-		  Math.max(from.z(), to.z())
-		) : to;
+				Math.max(from.x(), to.x()),
+				Math.max(from.y(), to.y()),
+				Math.max(from.z(), to.z())
+				) : to;
 
 		this.from = mode.getType().adaptStartCorner(this.from, this.to, hitFace);
 		this.to = mode.getType().adaptEndCorner(this.from, this.to, hitFace);
 	}
 
 	@Override
-	public UUID getOwner()
-
-	{
+	public UUID getOwner() {
 		return owner;
 	}
 
 	@Override
-	public Vec3 getFrom()
-
-	{
+	public Vec3 getFrom() {
 		return from;
 	}
 
 	@Override
-	public Vec3 getTo()
-
-	{
+	public Vec3 getTo() {
 		return to;
 	}
 
 	@Override
-	public MeasuringMode getMode()
-
-	{
+	public MeasuringMode getMode() {
 		return mode;
 	}
 
 	@Override
-	public Identifier getWorldKey()
-
-	{
+	public Identifier getWorldKey() {
 		return worldKey;
 	}
 

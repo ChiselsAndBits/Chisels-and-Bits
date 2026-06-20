@@ -8,15 +8,15 @@ import net.minecraft.resources.Identifier;
 
 public final class ModItemProperties {
 	private ModItemProperties() {
-		throw new IllegalStateException("Can not instantiate an instance of: ItemProperties. This is a utility class");
+		throw new IllegalStateException("Can not instantiate an instance of: ItemProperties.This is a utility class");
 	}
 
 	public static void onClientConstruction() {
 		IModelManager.getInstance().registerItemModelProperty(registrar -> {
-			registrar.registerConditionalProperty(
-				Identifier.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"),
-				IsMeasuringItemProperty.CODEC
-			);
+				registrar.registerConditionalProperty(
+						Identifier.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"),
+						IsMeasuringItemProperty.CODEC
+				);
 		}
 
 		);

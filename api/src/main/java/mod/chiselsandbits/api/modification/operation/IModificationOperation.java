@@ -12,25 +12,25 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
  */
 public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<IModificationOperationGroup> {
 	/**
-     * The default modification operation.
-     * @return The default operation.
-     */
+	 * The default modification operation.
+	 * @return The default operation.
+	 */
 	static IModificationOperation getDefaultMode() {
 		return IChiselsAndBitsAPI.getInstance().getDefaultModificationOperation();
 	}
 
 	/**
-     * The underlying registry that contains the different modification modes that can be performed.
-     * @return The underlying forge registry.
-     */
+	 * The underlying registry that contains the different modification modes that can be performed.
+	 * @return The underlying forge registry.
+	 */
 	static ICustomRegistry<IModificationOperation> getRegistry() {
 		return IRegistryManager.getInstance().getModificationOperationRegistry();
 	}
 
 	/**
-     * Performs a modification on the snapshot.
-     *
-     * @param source The mutator to modify.
-     */
+	 * Performs a modification on the snapshot.
+	 *
+	 * @param source The mutator to modify.
+	 */
 	void apply(final IGenerallyModifiableAreaMutator source);
 }

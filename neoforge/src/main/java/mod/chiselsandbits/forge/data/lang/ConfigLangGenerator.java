@@ -21,9 +21,7 @@ import net.minecraft.data.PackOutput;
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class ConfigLangGenerator implements DataProvider {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new ConfigLangGenerator(event.getGenerator().getPackOutput()));
 	}
 
@@ -39,9 +37,7 @@ public class ConfigLangGenerator implements DataProvider {
 		langKeys.sort(Comparator.comparing(s -> s.replace(".comment", "")));
 		final JsonObject returnValue = new JsonObject();
 
-		for (String langKey : langKeys)
-
-		{
+		for (String langKey : langKeys) {
 			returnValue.addProperty(langKey, "");
 		}
 
@@ -53,9 +49,7 @@ public class ConfigLangGenerator implements DataProvider {
 
 	@NotNull
 	@Override
-	public String getName()
-
-	{
+	public String getName() {
 		return "Chiseled config lang generator";
 	}
 }

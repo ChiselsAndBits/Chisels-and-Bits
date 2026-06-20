@@ -12,7 +12,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public final class AddMultiStateItemStackToClipboardPacket extends ModPacket {
-	public static final Identifier                                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "add_multi_state_item_stack_to_clipboard");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "add_multi_state_item_stack_to_clipboard");
 	public static final CustomPacketPayload.Type<AddMultiStateItemStackToClipboardPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private ItemStack stack = ItemStack.EMPTY;
@@ -21,30 +21,22 @@ public final class AddMultiStateItemStackToClipboardPacket extends ModPacket {
 		this.stack = stack;
 	}
 
-	public AddMultiStateItemStackToClipboardPacket(final RegistryFriendlyByteBuf byteBuf)
-
-	{
+	public AddMultiStateItemStackToClipboardPacket(final RegistryFriendlyByteBuf byteBuf) {
 		readPayload(byteBuf);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, this.stack);
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 	}
 
 	@Override
-	public void client()
-
-	{
+	public void client() {
 		DistExecutor.unsafeRunWhenOn(CLIENT, () -> () -> ClientPacketHandlers.handleAddMultiStateToClipboard(stack));
 	}
 

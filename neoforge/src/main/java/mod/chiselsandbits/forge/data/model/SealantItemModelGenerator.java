@@ -13,22 +13,16 @@ import net.minecraft.data.DataGenerator;
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class SealantItemModelGenerator extends AbstractInteractableItemModelGenerator {
 	@SubscribeEvent
-	public static void dataGeneratorSetup(final GatherDataEvent.Client event)
-
-	{
+	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true, new SealantItemModelGenerator(event.getGenerator()));
 	}
 
-	public SealantItemModelGenerator(final DataGenerator generator)
-
-	{
+	public SealantItemModelGenerator(final DataGenerator generator) {
 		super(generator, ModItems.SEALANT_ITEM);
 	}
 
 	@Override
-	public @NotNull String getName()
-
-	{
+	public @NotNull String getName() {
 		return "Sealant item model generator";
 	}
 }

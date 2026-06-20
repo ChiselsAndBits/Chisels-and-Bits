@@ -17,53 +17,53 @@ import net.minecraft.world.phys.Vec3;
 public enum MeasuringType implements IMeasuringType
 {
 	BIT(LocalStrings.TapeMeasureBit.getText(),
-		Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
-		blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->
+			Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
+			blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->
 		new Vec3(
-			Math.min(from.x(), to.x()) - StateEntrySize.current().getSizePerHalfBit(),
-			Math.min(from.y(), to.y()) - StateEntrySize.current().getSizePerHalfBit(),
-			Math.min(from.z(), to.z()) - StateEntrySize.current().getSizePerHalfBit()
-		)
-		,
-		(from, to, hitFace) ->
-			new Vec3(
+				Math.min(from.x(), to.x()) - StateEntrySize.current().getSizePerHalfBit(),
+				Math.min(from.y(), to.y()) - StateEntrySize.current().getSizePerHalfBit(),
+				Math.min(from.z(), to.z()) - StateEntrySize.current().getSizePerHalfBit()
+		),
+
+			(from, to, hitFace) ->
+		new Vec3(
 				Math.max(from.x(), to.x()) + StateEntrySize.current().getSizePerHalfBit(),
 				Math.max(from.y(), to.y()) + StateEntrySize.current().getSizePerHalfBit(),
 				Math.max(from.z(), to.z()) + StateEntrySize.current().getSizePerHalfBit()
-			),
-		true),
+		),
+			true),
 	BLOCK(LocalStrings.TapeMeasureBlock.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "block"),
-		blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, VectorUtils.ONE), (from, to, hitFace) ->
+			blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, VectorUtils.ONE), (from, to, hitFace) ->
 		new Vec3(
-			Math.min(from.x(), to.x()) - 0.499,
-			Math.min(from.y(), to.y()) - 0.499,
-			Math.min(from.z(), to.z()) - 0.499
-		)
-		,
-		(from, to, hitFace) ->
-			new Vec3(
+				Math.min(from.x(), to.x()) - 0.499,
+				Math.min(from.y(), to.y()) - 0.499,
+				Math.min(from.z(), to.z()) - 0.499
+		),
+
+			(from, to, hitFace) ->
+		new Vec3(
 				Math.max(from.x(), to.x()) + 0.499,
 				Math.max(from.y(), to.y()) + 0.499,
 				Math.max(from.z(), to.z()) + 0.499
-			),
-		true),
+		),
+			true),
 	DISTANCE(LocalStrings.TapeMeasureDistance.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line"),
-		IClickedPositionAdapter.identity(), (from, to, hitFace) -> from,
-		(from, to, hitFace) -> to, false);
+			IClickedPositionAdapter.identity(), (from, to, hitFace) -> from,
+			(from, to, hitFace) -> to, false);
 
-	private final Component               displayName;
-	private final Identifier              icon;
+	private final Component displayName;
+	private final Identifier icon;
 	private final IClickedPositionAdapter clickedPositionAdapter;
-	private final IPositionAdapter        finalStartPositionAdapter;
-	private final IPositionAdapter        finalEndPositionAdapter;
-	private final boolean                 needsNormalization;
+	private final IPositionAdapter finalStartPositionAdapter;
+	private final IPositionAdapter finalEndPositionAdapter;
+	private final boolean needsNormalization;
 
 	MeasuringType(
-		final Component displayName,
-		final Identifier icon,
-		final IClickedPositionAdapter startPositionAdapter,
-		IPositionAdapter finalStartPositionAdapter,
-		IPositionAdapter finalEndPositionAdapter, final boolean needsNormalization) {
+			final Component displayName,
+			final Identifier icon,
+			final IClickedPositionAdapter startPositionAdapter,
+			IPositionAdapter finalStartPositionAdapter,
+			IPositionAdapter finalEndPositionAdapter, final boolean needsNormalization) {
 		this.displayName = displayName;
 		this.icon = icon;
 		this.clickedPositionAdapter = startPositionAdapter;
@@ -73,51 +73,37 @@ public enum MeasuringType implements IMeasuringType
 	}
 
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return icon;
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return displayName;
 	}
 
 	@Override
-	public @NotNull Vec3 adaptClickedPosition(@NotNull final BlockHitResult blockHitResult)
-
-	{
+	public @NotNull Vec3 adaptClickedPosition(@NotNull final BlockHitResult blockHitResult) {
 		return this.clickedPositionAdapter.adapt(blockHitResult);
 	}
 
 	@Override
-	public @NotNull Vec3 adaptStartCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace)
-
-	{
+	public @NotNull Vec3 adaptStartCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace) {
 		return this.finalStartPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 
 	@Override
-	public @NotNull Vec3 adaptEndCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace)
-
-	{
+	public @NotNull Vec3 adaptEndCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace) {
 		return this.finalEndPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 
 	@Override
-	public Vec3 getResolution()
-
-	{
+	public Vec3 getResolution() {
 		return new Vec3(1, 1, 1);
 	}
 
 	@Override
-	public boolean isNeedsNormalization()
-
-	{
+	public boolean isNeedsNormalization() {
 		return needsNormalization;
 	}
 }

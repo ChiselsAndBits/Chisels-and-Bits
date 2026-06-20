@@ -23,22 +23,22 @@ import net.minecraft.world.item.ItemStack;
 
 public class SimpleContainer implements Container, Serializable.Registry<SimpleContainer> {
 	public static final Codec<SimpleContainer> CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).forGetter(SimpleContainer::slots)
-		).apply(instance, SimpleContainer::new)
+			instance -> instance.group(
+					SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).forGetter(SimpleContainer::slots)
+					).apply(instance, SimpleContainer::new)
 	);
 	public static final MapCodec<SimpleContainer> MAP_CODEC = SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).xmap(SimpleContainer::new, SimpleContainer::slots);
 	public static final StreamCodec<RegistryFriendlyByteBuf, SimpleContainer> STREAM_CODEC = SlotData.STREAM_CODEC.apply(ByteBufCodecs.list()).map(SimpleContainer::new, SimpleContainer::slots);
 
-	private int                     size;
-	private NonNullList<ItemStack>  items;
+	private int size;
+	private NonNullList<ItemStack> items;
 
 	public SimpleContainer(int size) {
 		this.size = size;
 		this.items = NonNullList.withSize(size, ItemStack.EMPTY);
 	}
 
-	public SimpleContainer(ItemStack... content) {
+	public SimpleContainer(ItemStack...content) {
 		this.size = content.length;
 		this.items = NonNullList.of(ItemStack.EMPTY, content);
 	}
@@ -50,7 +50,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	public @NotNull ItemStack getItem(int index) {
-		return index >= 0 && index < this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
+		return index>= 0 && index <this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
 	}
 
 	public List<ItemStack> removeAllItems() {
@@ -72,7 +72,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public ItemStack removeItemType(Item item, int toExtract) {
 		ItemStack nullStack = new ItemStack(item, 0);
 
-		for(int reversedIndex = this.size - 1; reversedIndex >= 0; --reversedIndex) {
+		for(int reversedIndex = this.size - 1; reversedIndex>= 0; --reversedIndex) {
 			ItemStack stack = this.getItem(reversedIndex);
 
 			if (stack.getItem().equals(item)) {
@@ -108,12 +108,8 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public boolean canAddItem(ItemStack input) {
 		boolean foundEmptyOrMatching = false;
 
-		for (final ItemStack stack : this.items)
-
-		{
-			if (stack.isEmpty() || ItemStack.isSameItemSameComponents(stack, input) && stack.getCount() < stack.getMaxStackSize())
-
-			{
+		for (final ItemStack stack : this.items) {
+			if (stack.isEmpty() || ItemStack.isSameItemSameComponents(stack, input) && stack.getCount() <stack.getMaxStackSize()) {
 				foundEmptyOrMatching = true;
 				break;
 			}
@@ -136,7 +132,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public void setItem(int index, @NotNull ItemStack stack) {
 		this.items.set(index, stack);
 
-		if (!stack.isEmpty() && stack.getCount() > this.getMaxStackSize()) {
+		if (!stack.isEmpty() && stack.getCount()> this.getMaxStackSize()) {
 			stack.setCount(this.getMaxStackSize());
 		}
 
@@ -144,9 +140,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	@Override
-	public void setChanged()
-
-	{
+	public void setChanged() {
 	}
 
 	public int getContainerSize() {
@@ -171,7 +165,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToEmptySlots(ItemStack input) {
-		for(int index = 0; index < this.size; ++index) {
+		for(int index = 0; index <this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (stack.isEmpty()) {
@@ -183,7 +177,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToOccupiedSlotsWithSameType(ItemStack input) {
-		for(int index = 0; index < this.size; ++index) {
+		for(int index = 0; index <this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (ItemStack.isSameItemSameComponents(stack, input)) {
@@ -200,16 +194,14 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		int maxTransfer = Math.min(this.getMaxStackSize(), rightInput.getMaxStackSize());
 		int toTransfer = Math.min(leftInput.getCount(), maxTransfer - rightInput.getCount());
 
-		if (toTransfer > 0) {
+		if (toTransfer> 0) {
 			rightInput.grow(toTransfer);
 			leftInput.shrink(toTransfer);
 			this.setChanged();
 		}
 	}
 
-	public void setSize(int size)
-
-	{
+	public void setSize(int size) {
 		this.size = size;
 		this.items = NonNullList.withSize(size, ItemStack.EMPTY);
 		setChanged();
@@ -238,10 +230,10 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	private record SlotData(int index, ItemStack stack) {
 		static Codec<SlotData> CODEC = RecordCodecBuilder.create(
-			instance -> instance.group(
-				Codec.INT.fieldOf("index").forGetter(SlotData::index),
-				ItemStack.OPTIONAL_CODEC.fieldOf("stack").forGetter(SlotData::stack)
-			).apply(instance, SlotData::new)
+				instance -> instance.group(
+						Codec.INT.fieldOf("index").forGetter(SlotData::index),
+						ItemStack.OPTIONAL_CODEC.fieldOf("stack").forGetter(SlotData::stack)
+						).apply(instance, SlotData::new)
 		);
 
 		static StreamCodec<RegistryFriendlyByteBuf, SlotData> STREAM_CODEC = StreamCodec.composite(

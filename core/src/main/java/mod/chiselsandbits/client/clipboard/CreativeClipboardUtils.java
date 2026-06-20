@@ -10,10 +10,8 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.HolderLookup;
 
 public final class CreativeClipboardUtils {
-	private CreativeClipboardUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: CreativeClipboardUtils. This is a utility class");
+	private CreativeClipboardUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: CreativeClipboardUtils.This is a utility class");
 	}
 
 	public static void addPickedBlock(final IMultiStateItemStack multiStateItemStack, HolderLookup.Provider provider) {

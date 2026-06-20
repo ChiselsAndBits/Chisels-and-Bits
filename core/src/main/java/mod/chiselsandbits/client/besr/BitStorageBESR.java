@@ -36,35 +36,29 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity, BitStorageBESR.RenderState> {
-	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE =
-		new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
-	private static final RandomSource                                     RANDOM_SOURCE               = RandomSource.createThreadLocalInstance(42L);
+	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE = 
+	new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
+	private static final RandomSource RANDOM_SOURCE = RandomSource.createThreadLocalInstance(42L);
 
-	public BitStorageBESR()
-
-	{
+	public BitStorageBESR() {
 	}
 
-	public static void clearCache()
-
-	{
+	public static void clearCache() {
 		STORAGE_CONTENTS_BLOB_CACHE.clear();
 	}
 
 	@Override
-	public @NotNull RenderState createRenderState()
-
-	{
+	public @NotNull RenderState createRenderState() {
 		return new RenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		final @NotNull BitStorageBlockEntity blockEntity,
-		final @NotNull RenderState renderState,
-		final float partialTick,
-		final @NotNull Vec3 cameraPosition,
-		final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+			final @NotNull BitStorageBlockEntity blockEntity,
+			final @NotNull RenderState renderState,
+			final float partialTick,
+			final @NotNull Vec3 cameraPosition,
+			final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.containedFluid = blockEntity.getFluid().orElse(null);
 		renderState.bitCount = blockEntity.getBits();
@@ -73,47 +67,43 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 
 	@Override
 	public void submit(
-		final @NotNull RenderState renderState,
-		final @NotNull PoseStack poseStack,
-		final @NotNull SubmitNodeCollector nodeCollector,
-		final @NotNull CameraRenderState cameraRenderState) {
-		if (renderState.containedFluid != null)
-
-		{
+			final @NotNull RenderState renderState,
+			final @NotNull PoseStack poseStack,
+			final @NotNull SubmitNodeCollector nodeCollector,
+			final @NotNull CameraRenderState cameraRenderState) {
+		if (renderState.containedFluid != null) {
 			final FluidInformation fluidStack = renderState.containedFluid;
 
 			final float fullness = (float) fluidStack.amount() / (float) IFluidManager.getInstance().getBucketAmount();
 			final float heightFactor = Math.clamp(fullness, 0, 1f);
 
 			FluidCuboidUtils.renderScaledFluidCuboid(
-				fluidStack,
-				poseStack,
-				nodeCollector,
-				renderState.lightCoords,
-				OverlayTexture.NO_OVERLAY,
-				1,
-				1,
-				1,
-				15,
-				15 * heightFactor,
-				15
+					fluidStack,
+					poseStack,
+					nodeCollector,
+					renderState.lightCoords,
+					OverlayTexture.NO_OVERLAY,
+					1,
+					1,
+					1,
+					15,
+					15 * heightFactor,
+					15
 			);
 			return;
 		}
 
 		final int bits = renderState.bitCount;
 		final BlockInformation blockInformation = renderState.blockInformation;
-		if (bits <= 0 || blockInformation == null)
 
-		{
+		if (bits <= 0 || blockInformation == null) {
 			return;
 		}
 
 		final CacheKey cacheKey = new CacheKey(blockInformation, bits);
 		StateEntryStorage innerModelBlob = STORAGE_CONTENTS_BLOB_CACHE.get(cacheKey);
-		if (innerModelBlob == null)
 
-		{
+		if (innerModelBlob == null) {
 			innerModelBlob = new StateEntryStorage();
 
 			innerModelBlob.fillFromBottom(blockInformation, bits);
@@ -129,13 +119,13 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 			.withBlockEntity(blockInformation::newBlockEntityAtZero)
 			.createSingleBlockBlockAndTintGetter();
 
-		final ChiseledBlockModelInformation model =
-			ChiseledBlockStateModelManager.getInstance().get(
+		final ChiseledBlockModelInformation model = 
+		ChiseledBlockStateModelManager.getInstance().get(
 				blockAndTintGetter,
 				BlockPos.ZERO,
-				new SimpleSnapshot(finalInnerModelBlob),
+			new SimpleSnapshot(finalInnerModelBlob),
 				IBlockNeighborhood.EMPTY
-			);
+		);
 
 		float r;
 		float g;
@@ -143,44 +133,42 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 
 		final BlockTintSource source = Minecraft.getInstance().getBlockColors().getTintSource(blockInformation.blockState(), 0);
 		final int color = source != null ? source.colorInWorld(
-			blockInformation.blockState(),
-			blockAndTintGetter,
-			BlockPos.ZERO
-		) : Integer.MAX_VALUE;
-		r = ((color >> 16) & 0xff) / 255f;
-		g = ((color >> 8) & 0xff) / 255f;
+				blockInformation.blockState(),
+				blockAndTintGetter,
+				BlockPos.ZERO
+				) : Integer.MAX_VALUE;
+		r = ((color>> 16) & 0xff) / 255f;
+		g = ((color>> 8) & 0xff) / 255f;
 		b = (color & 0xff) / 255f;
 
 		var tintColor = ARGB.color((int) (r * 255f), (int) (g * 255f), (int) (b * 255f));
 
 		var parts = new ArrayList<BlockStateModelPart>();
 		model.collectParts(
-			RANDOM_SOURCE,
-			parts
+				RANDOM_SOURCE,
+				parts
 		);
 
 		nodeCollector.submitBlockModel(
-			poseStack,
-			Sheets.translucentBlockSheet(),
-			parts,
+				poseStack,
+				Sheets.translucentBlockSheet(),
+				parts,
 			new int[] {tintColor},
-			renderState.lightCoords,
-			OverlayTexture.NO_OVERLAY,
-			0);
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				0);
 
 		poseStack.popPose();
 	}
 
 	private record CacheKey(
-		BlockInformation blockInformation,
-		int bitCount) {}
+			BlockInformation blockInformation,
+			int bitCount) {}
 
-	public static final class RenderState extends BlockEntityRenderState
-
-	{
+	public static final class RenderState extends BlockEntityRenderState {
 		@Nullable
 		private FluidInformation containedFluid = null;
-		private int              bitCount = 0;
+		private int bitCount = 0;
 		private BlockInformation blockInformation = BlockInformation.AIR;
 	}
 }

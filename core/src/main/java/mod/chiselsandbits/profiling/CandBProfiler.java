@@ -11,51 +11,43 @@ import net.minecraft.util.profiling.ActiveProfiler;
 
 public class CandBProfiler implements IProfiler {
 	/**
-     * Creates a callback to pass to {@link ProfilingManager#withProfiler(Consumer)} to start a new section.
-     *
-     * @param name The name of the new section.
-     * @return The callback.
-     */
+	 * Creates a callback to pass to {@link ProfilingManager#withProfiler(Consumer)} to start a new section.
+	 *
+	 * @param name The name of the new section.
+	 * @return The callback.
+	 */
 	public static Consumer<IProfiler> start(final String name) {
 		return profiler -> profiler.startSection(name);
 	}
 
 	/**
-     * Creates a callback to pass to {@link ProfilingManager#withProfiler(Consumer)} to end the current section and start a new section.
-     *
-     * @param name The name of the new section.
-     * @return The callback.
-     */
+	 * Creates a callback to pass to {@link ProfilingManager#withProfiler(Consumer)} to end the current section and start a new section.
+	 *
+	 * @param name The name of the new section.
+	 * @return The callback.
+	 */
 	public static Consumer<IProfiler> endStart(final String name) {
 		return profiler -> profiler.endStartSection(name);
 	}
 
 	private final ActiveProfiler inner = new ActiveProfiler(Util.timeSource, () -> 0, () -> false);
 
-	public CandBProfiler()
-
-	{
+	public CandBProfiler() {
 		inner.startTick();
 	}
 
 	@Override
-	public void startSection(final String name)
-
-	{
+	public void startSection(final String name) {
 		inner.push(name);
 	}
 
 	@Override
-	public void startSection(final Supplier<String> nameSupplier)
-
-	{
+	public void startSection(final Supplier<String> nameSupplier) {
 		inner.push(nameSupplier);
 	}
 
 	@Override
-	public void endSection()
-
-	{
+	public void endSection() {
 		inner.pop();
 	}
 

@@ -14,45 +14,39 @@ import net.minecraft.world.phys.AABB;
 public class AABBManager {
 	private static final AABBManager INSTANCE = new AABBManager();
 
-	public static AABBManager getInstance()
-
-	{
+	public static AABBManager getInstance() {
 		return INSTANCE;
 	}
 
 	private final SimpleMaxSizedCache<Key, List<AABB>> cache = new SimpleMaxSizedCache<>(
-	  IChiselsAndBitsConfiguration.getInstance().getCommon().getCollisionBoxCacheSize()::get
+			IChiselsAndBitsConfiguration.getInstance().getCommon().getCollisionBoxCacheSize()::get
 	);
 
-	private AABBManager()
-
-	{
+	private AABBManager() {
 	}
 
 	public List<AABB> get(
-	  final IAreaAccessor accessor,
-	  final CollisionType sizeType
-	) {
+			final IAreaAccessor accessor,
+			final CollisionType sizeType
+			) {
 		final Key cacheKey = new Key(
-		  accessor.createNewShapeIdentifier(),
-		  sizeType
+				accessor.createNewShapeIdentifier(),
+				sizeType
 		);
 
 		return cache.get(
-		  cacheKey,
-		  () -> AABBCompressor.compressStates(accessor, sizeType)
+				cacheKey,
+				() -> AABBCompressor.compressStates(accessor, sizeType)
 		);
 	}
 
-	public void clearCache()
-
-	{
+	public void clearCache() {
 		this.cache.clear();
 	}
 
 	private static final class Key {
 		private final IAreaShapeIdentifier identifier;
-		private final CollisionType        predicate;
+		private final CollisionType predicate;
 
 		private Key(final IAreaShapeIdentifier identifier, final CollisionType predicate) {
 			this.identifier = identifier;
@@ -60,18 +54,12 @@ public class AABBManager {
 		}
 
 		@Override
-		public boolean equals(final Object o)
-
-		{
-			if (this == o)
-
-			{
+		public boolean equals(final Object o) {
+			if (this == o) {
 				return true;
 			}
 
-			if (!(o instanceof final Key key))
-
-			{
+			if (!(o instanceof final Key key)) {
 				return false;
 			}
 
@@ -79,9 +67,7 @@ public class AABBManager {
 		}
 
 		@Override
-		public int hashCode()
-
-		{
+		public int hashCode() {
 			return Objects.hash(identifier, predicate);
 		}
 	}

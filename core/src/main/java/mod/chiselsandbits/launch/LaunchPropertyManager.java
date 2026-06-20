@@ -37,20 +37,20 @@ public final class LaunchPropertyManager implements ILaunchPropertyManager {
 
 			if (!Files.exists(launchPropertiesFilePath)) {
 				final List<String> launchPropLines = new ArrayList<>();
-				launchPropLines.add("%s=%s".formatted(key, defaultValue));
+				launchPropLines.add("%s = %s".formatted(key, defaultValue));
 				Files.write(launchPropertiesFilePath, launchPropLines);
 				return defaultValue;
 			}
 
 			final List<String> launchPropLines = new ArrayList<>(Files.readAllLines(launchPropertiesFilePath));
 			final Optional<String> value = launchPropLines.stream()
-					.filter(l -> !l.startsWith("#"))
-					.filter(l -> l.replace(" ", "").startsWith("%s=".formatted(key)))
-					.findFirst()
-					.map(l -> l.replace(" ", "").replace("%s=".formatted(key), ""));
+				.filter(l -> !l.startsWith("#"))
+				.filter(l -> l.replace(" ", "").startsWith("%s = ".formatted(key)))
+				.findFirst()
+				.map(l -> l.replace(" ", "").replace("%s = ".formatted(key), ""));
 
 			if (value.isEmpty()) {
-				launchPropLines.add("%s=%s".formatted(key, defaultValue));
+				launchPropLines.add("%s = %s".formatted(key, defaultValue));
 				Files.write(launchPropertiesFilePath, launchPropLines);
 				return defaultValue;
 			}

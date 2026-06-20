@@ -17,15 +17,13 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
 public final class UpdateBlockEntityPacket extends ModPacket {
-	public static final Identifier                                        ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "update_block_entity");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "update_block_entity");
 	public static final CustomPacketPayload.Type<UpdateBlockEntityPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
 	private BlockPos blockPos;
 	private byte[] data;
 
-	public UpdateBlockEntityPacket(final INetworkUpdatableEntity<?> blockEntity)
-
-	{
+	public UpdateBlockEntityPacket(final INetworkUpdatableEntity<?> blockEntity) {
 		this.blockPos = blockEntity.blockPos();
 		this.data = writeBlockEntity(blockEntity);
 	}
@@ -41,32 +39,24 @@ public final class UpdateBlockEntityPacket extends ModPacket {
 		return data;
 	}
 
-	public UpdateBlockEntityPacket(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public UpdateBlockEntityPacket(final RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 		buffer.writeBlockPos(blockPos);
 		buffer.writeByteArray(data);
 	}
 
 	@Override
-	public void readPayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void readPayload(final RegistryFriendlyByteBuf buffer) {
 		this.blockPos = buffer.readBlockPos();
 		this.data = buffer.readByteArray();
 	}
 
 	@Override
-	public void client()
-
-	{
+	public void client() {
 		final FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.wrappedBuffer(data));
 		DistExecutor.unsafeRunWhenOn(CLIENT, () -> () -> ClientPacketHandlers.handleChiseledBlockUpdated(blockPos, buf));
 		buf.release();

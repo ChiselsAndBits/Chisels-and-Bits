@@ -21,47 +21,35 @@ import org.jetbrains.annotations.NotNull;
 public class RegistryManager implements IRegistryManager {
 	private static final RegistryManager INSTANCE = new RegistryManager();
 
-	private RegistryManager()
-
-	{
+	private RegistryManager() {
 	}
 
-	public static RegistryManager getInstance()
-
-	{
+	public static RegistryManager getInstance() {
 		return INSTANCE;
 	}
 
 	/**
-     * The registry which controls all available chiseling modes.
-     *
-     * @return The registry.
-     */
+	 * The registry which controls all available chiseling modes.
+	 *
+	 * @return The registry.
+	 */
 	@Override
-	public ICustomRegistry<IChiselMode> getChiselModeRegistry()
-
-	{
+	public ICustomRegistry<IChiselMode> getChiselModeRegistry() {
 		return ModChiselModes.REGISTRY.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry()
-
-	{
+	public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry() {
 		return ModModificationOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry()
-
-	{
+	public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry() {
 		return ModCuttingOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry()
-
-	{
+	public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry() {
 		return ModGlueingOperation.REGISTRY_SUPPLIER.get();
 	}
 

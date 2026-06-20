@@ -12,28 +12,28 @@ import net.minecraft.resources.Identifier;
  */
 public interface IChiselContextPreviewRenderer {
 	/**
-     * The id of teh renderer.
-     * Used to give the player a selection option for the preview renderer.
-     *
-     * @return The id of the preview renderer.
-     */
+	 * The id of teh renderer.
+	 * Used to give the player a selection option for the preview renderer.
+	 *
+	 * @return The id of the preview renderer.
+	 */
 	Identifier getId();
 
 	/**
-     * Invoked by the engine to render previews of the given {@link IChiselingContext}.
-     *
-     * @param levelRenderer          The level renderer in which the bounding box is being rendered.
-     * @param matrixStack            The matrix stack to render into.
-     * @param bufferSource           The buffer source to get the outline vertex consumers for-
-     * @param levelRenderState       The current level render state
-     * @param partialTicks           The partial ticks
-     * @param currentContextSnapshot The current snapshot to render.
-     */
+	 * Invoked by the engine to render previews of the given {@link IChiselingContext}.
+	 *
+	 * @param levelRenderer The level renderer in which the bounding box is being rendered.
+	 * @param matrixStack The matrix stack to render into.
+	 * @param bufferSource The buffer source to get the outline vertex consumers for-
+	 * @param levelRenderState The current level render state
+	 * @param partialTicks The partial ticks
+	 * @param currentContextSnapshot The current snapshot to render.
+	 */
 	void renderExistingContextsBoundingBox(
-		final LevelRenderer levelRenderer,
-		final PoseStack matrixStack,
-		final MultiBufferSource.BufferSource bufferSource,
-		final LevelRenderState levelRenderState,
-		final float partialTicks,
-		final IChiselingContext currentContextSnapshot);
+			final LevelRenderer levelRenderer,
+			final PoseStack matrixStack,
+			final MultiBufferSource.BufferSource bufferSource,
+			final LevelRenderState levelRenderState,
+			final float partialTicks,
+			final IChiselingContext currentContextSnapshot);
 }

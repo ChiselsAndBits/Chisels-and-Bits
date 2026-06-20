@@ -35,18 +35,18 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public record ChiseledBlockItemModel(
-	boolean usesBlockLight,
-	ItemTransforms transforms
-) implements ItemModel {
+		boolean usesBlockLight,
+		ItemTransforms transforms
+		) implements ItemModel {
 	@Override
 	public void update(
-		final ItemStackRenderState renderState,
-		final @NotNull ItemStack stack,
-		final @NotNull ItemModelResolver itemModelResolver,
-		final @NotNull ItemDisplayContext displayContext,
-		@Nullable final ClientLevel level,
-		@Nullable final ItemOwner owner,
-		final int seed) {
+			final ItemStackRenderState renderState,
+			final @NotNull ItemStack stack,
+			final @NotNull ItemModelResolver itemModelResolver,
+			final @NotNull ItemDisplayContext displayContext,
+			@Nullable final ClientLevel level,
+			@Nullable final ItemOwner owner,
+			final int seed) {
 		renderState.appendModelIdentityElement(this);
 		final ChiseledBlockModelInformation blockModelInformation = ChiseledBlockStateModelManager
 			.getInstance().get(stack);
@@ -59,13 +59,10 @@ public record ChiseledBlockItemModel(
 
 		renderState.appendModelIdentityElement(tintList);
 
-		for (ChiseledBlockModelPart part : blockModelInformation.parts())
-
-		{
+		for (ChiseledBlockModelPart part : blockModelInformation.parts()) {
 			ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = renderState.newLayer();
-			if (stack.hasFoil())
 
-			{
+			if (stack.hasFoil()) {
 				ItemStackRenderState.FoilType itemstackrenderstate$foiltype = ItemStackRenderState.FoilType.STANDARD;
 				itemstackrenderstate$layerrenderstate.setFoilType(itemstackrenderstate$foiltype);
 				renderState.setAnimated();
@@ -81,33 +78,26 @@ public record ChiseledBlockItemModel(
 	}
 
 	private static void buildTintList(
-		final @org.jspecify.annotations.Nullable ClientLevel level,
-		final @org.jspecify.annotations.Nullable ItemOwner owner,
-		final IntList tintList,
-		final ChiseledBlockModelInformation blockModelInformation) {
+			final @org.jspecify.annotations.Nullable ClientLevel level,
+			final @org.jspecify.annotations.Nullable ItemOwner owner,
+			final IntList tintList,
+			final ChiseledBlockModelInformation blockModelInformation) {
 		tintList.size(blockModelInformation.materials().size());
 
 		List<ChiseledBlockModelMaterial> materials = blockModelInformation.materials();
-		for (int i = 0; i < materials.size(); i++)
 
-		{
+		for (int i = 0; i <materials.size(); i++) {
 			final ChiseledBlockModelMaterial material = materials.get(i);
 			final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
 			final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
 
-			if (itemModelId == null)
-
-			{
-				if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null)
-
-				{
+			if (itemModelId == null) {
+				if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null) {
 					var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
-						material.blockInformation().blockState().getFluidState()
+							material.blockInformation().blockState().getFluidState()
 					);
 
-					if (fluidModel.tintSource() == null)
-
-					{
+					if (fluidModel.tintSource() == null) {
 						tintList.set(material.tintIndex(), ARGB.color(255, 255, 255, 255));
 						continue;
 					}
@@ -120,9 +110,9 @@ public record ChiseledBlockItemModel(
 						.createSingleBlockBlockAndTintGetter();
 
 					var tint = fluidModel.tintSource().colorInWorld(
-						material.blockInformation().blockState(),
-						blockAndTintGetter,
-						BlockPos.ZERO
+							material.blockInformation().blockState(),
+							blockAndTintGetter,
+							BlockPos.ZERO
 					);
 
 					tintList.set(i, ARGB.color(255, tint));
@@ -134,16 +124,13 @@ public record ChiseledBlockItemModel(
 			}
 
 			final ItemModel itemModel = Minecraft.getInstance().getModelManager().getItemModel(
-				itemModelId
+					itemModelId
 			);
 
-			if (itemModel instanceof CuboidItemModelWrapper wrapper)
-
-			{
+			if (itemModel instanceof CuboidItemModelWrapper wrapper) {
 				final List<ItemTintSource> tintSources = wrapper.tints;
-				if (material.tintIndex() >= tintSources.size() || material.tintIndex() < 0)
 
-				{
+				if (material.tintIndex()>= tintSources.size() || material.tintIndex() <0) {
 					tintList.set(i, ARGB.color(255, 255, 255, 255));
 					continue;
 				}
@@ -151,9 +138,9 @@ public record ChiseledBlockItemModel(
 				final ItemTintSource source = tintSources.get(material.tintIndex());
 
 				tintList.set(i, source.calculate(
-					lookupStack,
-					level,
-					owner == null ? null : owner.asLivingEntity()
+						lookupStack,
+						level,
+						owner == null ? null : owner.asLivingEntity()
 				));
 				continue;
 			}
@@ -162,30 +149,22 @@ public record ChiseledBlockItemModel(
 		}
 	}
 
-	public record Unbaked() implements ItemModel.Unbaked
-
-	{
+	public record Unbaked() implements ItemModel.Unbaked {
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
-		public @NotNull MapCodec<? extends ItemModel.Unbaked> type()
-
-		{
+		public @NotNull MapCodec<? extends ItemModel.Unbaked> type() {
 			return CODEC;
 		}
 
 		@Override
-		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation)
-
-		{
+		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation) {
 			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new ChiseledBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
 		}
 
 		@Override
-		public void resolveDependencies(final Resolver resolver)
-
-		{
+		public void resolveDependencies(final Resolver resolver) {
 			resolver.markDependency(ModelLocationUtils.decorateBlockModelLocation("block"));
 		}
 	}

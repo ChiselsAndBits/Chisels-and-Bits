@@ -14,33 +14,24 @@ import net.minecraft.world.entity.player.Player;
 public final class PermissionHandler implements IPermissionHandler {
 	private static final PermissionHandler INSTANCE = new PermissionHandler();
 
-	public static PermissionHandler getInstance()
-
-	{
+	public static PermissionHandler getInstance() {
 		return INSTANCE;
 	}
 
 	private final Map<ICheckerRegistration, IPermissionChecker> checkers = Maps.newConcurrentMap();
 
-	private PermissionHandler()
-
-	{
+	private PermissionHandler() {
 	}
 
 	@Override
-	public ICheckerRegistration registerChecker(final IPermissionChecker checker)
-
-	{
+	public ICheckerRegistration registerChecker(final IPermissionChecker checker) {
 		final ICheckerRegistration registration = new ICheckerRegistration() {
 			@Override
-			public void close()
-
-			{
+			public void close() {
 				checkers.remove(this);
 			}
-		}
+		};
 
-		;
 
 		checkers.put(registration, checker);
 
@@ -49,9 +40,7 @@ public final class PermissionHandler implements IPermissionHandler {
 
 	@Override
 	public boolean canManipulate(
-	  final @NotNull Player player, final IWorldAreaAccessor worldAreaAccessor)
-
-	{
+			final @NotNull Player player, final IWorldAreaAccessor worldAreaAccessor) {
 		if (checkers.size() == 0) {
 			return true;
 		}

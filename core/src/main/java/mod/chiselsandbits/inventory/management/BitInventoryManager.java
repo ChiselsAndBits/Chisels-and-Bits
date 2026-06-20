@@ -16,46 +16,34 @@ import net.minecraft.world.item.ItemStack;
 public class BitInventoryManager implements IBitInventoryManager {
 	private static final BitInventoryManager INSTANCE = new BitInventoryManager();
 
-	private BitInventoryManager()
-
-	{
+	private BitInventoryManager() {
 	}
 
-	public static BitInventoryManager getInstance()
-
-	{
+	public static BitInventoryManager getInstance() {
 		return INSTANCE;
 	}
 
 	@Override
-	public IBitInventory create(final Player playerEntity)
-
-	{
+	public IBitInventory create(final Player playerEntity) {
 		return new PlayerBitInventory(new PlayerMainAndOffhandInventoryWrapper(playerEntity.getInventory()));
 	}
 
 	@Override
-	public IBitInventory create(final Object target)
-
-	{
+	public IBitInventory create(final Object target) {
 		return IAdaptingBitInventoryManager.getInstance()
-				 .create(target)
-				 .filter(IBitInventory.class::isInstance)
-				 .map(IBitInventory.class::cast)
-				 .orElseThrow(() -> new IllegalArgumentException("The given target object is not supported on the current platform!"));
+			.create(target)
+			.filter(IBitInventory.class::isInstance)
+			.map(IBitInventory.class::cast)
+			.orElseThrow(() -> new IllegalArgumentException("The given target object is not supported on the current platform!"));
 	}
 
 	@Override
-	public IBitInventory create(final Container inventory)
-
-	{
+	public IBitInventory create(final Container inventory) {
 		return new ContainerBitInventory(inventory);
 	}
 
 	@Override
-	public IBitInventoryItemStack create(final ItemStack stack)
-
-	{
+	public IBitInventoryItemStack create(final ItemStack stack) {
 		if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 			return bitInventoryItem.create(stack);
 		}

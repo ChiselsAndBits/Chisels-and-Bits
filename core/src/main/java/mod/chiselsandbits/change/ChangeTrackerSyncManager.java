@@ -29,10 +29,10 @@ public final class ChangeTrackerSyncManager {
 
 	public void sync() {
 		entries.forEach(e -> {
-			ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
+				ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
 					new ChangeTrackerUpdatedPacket(e.tracker().getChanges()),
-					e.serverPlayer()
-			);
+						e.serverPlayer()
+				);
 		}
 
 		);

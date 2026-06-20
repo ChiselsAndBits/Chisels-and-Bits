@@ -15,22 +15,18 @@ public class ModMultiStateSnapshotTypes {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ICustomRegistrar<IMultiStateSnapshotType> REGISTRAR = ICustomRegistrar.create(IMultiStateSnapshotType.class, Constants.MOD_ID);
 
-	public static final Supplier<ICustomRegistry<IMultiStateSnapshotType>>
-			REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
+	public static final Supplier<ICustomRegistry<IMultiStateSnapshotType>
+	> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
 	public static final IRegistryObject<MultiStateSnapshotTypes> EMPTY = REGISTRAR.register("empty", () -> MultiStateSnapshotTypes.EMPTY);
 	public static final IRegistryObject<MultiStateSnapshotTypes> MULTI_BLOCK = REGISTRAR.register("multi_block", () -> MultiStateSnapshotTypes.MULTI_BLOCK);
 	public static final IRegistryObject<MultiStateSnapshotTypes> SIMPLE = REGISTRAR.register("simple", () -> MultiStateSnapshotTypes.SIMPLE);
 
-	private ModMultiStateSnapshotTypes()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: ModMultiStateSnapshotTypes. This is a utility class");
+	private ModMultiStateSnapshotTypes() {
+		throw new IllegalStateException("Can not instantiate an instance of: ModMultiStateSnapshotTypes.This is a utility class");
 	}
 
-	public static void onModConstruction()
-
-	{
+	public static void onModConstruction() {
 		LOGGER.info("Loaded change type configuration.");
 	}
 }

@@ -21,57 +21,57 @@ public interface IRegistryManager {
 	}
 
 	/**
-     * The registry which controls all available chiseling modes.
-     *
-     * @return The registry.
-     */
+	 * The registry which controls all available chiseling modes.
+	 *
+	 * @return The registry.
+	 */
 	ICustomRegistry<IChiselMode> getChiselModeRegistry();
 
 	/**
-     * The registry used for modifications of single use patterns.
-     *
-     * @return The modification operation registry.
-     */
+	 * The registry used for modifications of single use patterns.
+	 *
+	 * @return The modification operation registry.
+	 */
 	@NotNull
 	ICustomRegistry<IModificationOperation> getModificationOperationRegistry();
 
 	/**
-     * The registry used for cutting of single use patterns.
-     *
-     * @return The cutting operation registry.
-     */
+	 * The registry used for cutting of single use patterns.
+	 *
+	 * @return The cutting operation registry.
+	 */
 	@NotNull
 	ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry();
 
 	/**
-     * The registry used for glueing of single use patterns.
-     *
-     * @return The glueing operation registry.
-     */
+	 * The registry used for glueing of single use patterns.
+	 *
+	 * @return The glueing operation registry.
+	 */
 	@NotNull
 	ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry();
 
 	/**
-     * The registry used for change types.
-     *
-     * @return The change type registry.
-     */
+	 * The registry used for change types.
+	 *
+	 * @return The change type registry.
+	 */
 	@NotNull
 	ICustomRegistry<IChangeType> getChangeTypeRegistry();
 
 	/**
-     * The registry used for multi state snapshot types.
-     *
-     * @return The multi state snapshot type registry.
-     */
+	 * The registry used for multi state snapshot types.
+	 *
+	 * @return The multi state snapshot type registry.
+	 */
 	@NotNull
 	ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry();
 
 	/**
-     * The registry used for pattern placement types.
-     *
-     * @return The pattern placement type registry.
-     */
+	 * The registry used for pattern placement types.
+	 *
+	 * @return The pattern placement type registry.
+	 */
 	@NotNull
 	ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry();
 }

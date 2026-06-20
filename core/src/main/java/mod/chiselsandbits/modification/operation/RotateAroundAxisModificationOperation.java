@@ -17,54 +17,41 @@ import net.minecraft.resources.Identifier;
 public class RotateAroundAxisModificationOperation extends AbstractCustomRegistryEntry implements IModificationOperation {
 	private final Direction.Axis axis;
 
-	private RotateAroundAxisModificationOperation(final Direction.Axis axis) {this.axis = axis;}
+	private RotateAroundAxisModificationOperation(final Direction.Axis axis) {this.axis = axis; }
 
 	@Override
-	public void apply(final IGenerallyModifiableAreaMutator source)
-
-	{
+	public void apply(final IGenerallyModifiableAreaMutator source) {
 		source.rotate(axis);
 	}
 
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return ModModificationOperationGroups.ROTATE.getIcon();
 	}
 
 	@Override
-	public @NotNull Optional<IModificationOperationGroup> getGroup()
-
-	{
+	public @NotNull Optional<IModificationOperationGroup> getGroup() {
 		return Optional.of(ModModificationOperationGroups.ROTATE);
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return switch (axis) {
-					 case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
-					 case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
-					 case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
-				 }
+		case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
+		case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
+		case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
+		};
 
-				 ;
 	}
 
-	public static final class Builder
-
-	{
+	public static final class Builder {
 		private Direction.Axis axis;
 
 		private Builder() {}
 
 		public static Builder create() { return new Builder(); }
 
-		public Builder withAxis(Direction.Axis axis)
-
-		{
+		public Builder withAxis(Direction.Axis axis) {
 			this.axis = axis;
 			return this;
 		}

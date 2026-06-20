@@ -18,129 +18,128 @@ public interface IVoxelShapeManager {
 	}
 
 	/**
-     * Returns the shape of the multistate entries which are contained in the given area accessor.
-     * Excludes all air states.
-     *
-     * @param accessor The accessor to get the shape of.
-     * @return The shape of the accessor.
-     */
+	 * Returns the shape of the multistate entries which are contained in the given area accessor.
+	 * Excludes all air states.
+	 *
+	 * @param accessor The accessor to get the shape of.
+	 * @return The shape of the accessor.
+	 */
 	default VoxelShape get(
-	  final IAreaAccessor accessor) {
+			final IAreaAccessor accessor) {
 		return get(accessor, BlockPos.ZERO);
 	}
 
 	/**
-     * Returns the shape of the multistate entries which are contained in the given area accessor.
-     * Excludes all air states.
-     *
-     * @param accessor The accessor to get the shape of.
-     * @param offset The offset to apply to the voxelshape during calculation or cache lookup.
-     * @return The shape of the accessor.
-     */
+	 * Returns the shape of the multistate entries which are contained in the given area accessor.
+	 * Excludes all air states.
+	 *
+	 * @param accessor The accessor to get the shape of.
+	 * @param offset The offset to apply to the voxelshape during calculation or cache lookup.
+	 * @return The shape of the accessor.
+	 */
 	@SuppressWarnings("deprecation")
 	default VoxelShape get(
-	  final IAreaAccessor accessor,
-	  final BlockPos offset) {
+			final IAreaAccessor accessor,
+			final BlockPos offset) {
 		return get(accessor, offset, CollisionType.NONE_AIR, true);
 	}
 
 	/**
-     * Returns the shape of the multistate entries which are contained in the given area accessor.
-     *
-     * @param accessor The accessor to get the shape of.
-     * @param sizeType The type of the shape to include.
-     * @return The shape of the accessor.
-     */
+	 * Returns the shape of the multistate entries which are contained in the given area accessor.
+	 *
+	 * @param accessor The accessor to get the shape of.
+	 * @param sizeType The type of the shape to include.
+	 * @return The shape of the accessor.
+	 */
 	default VoxelShape get(final IAreaAccessor accessor,
-	  final CollisionType sizeType) {
+			final CollisionType sizeType) {
 		return get(
-		  accessor,
-		  BlockPos.ZERO,
-		  sizeType,
-		  true);
+				accessor,
+				BlockPos.ZERO,
+				sizeType,
+				true);
 	}
 
 	/**
-     * Returns the shape of the multistate entries which are contained in the given area accessor.
-     *
-     * @param accessor The accessor to get the shape of.
-     * @param sizeType The type of the shape to include.
-     * @param simplify Indicates if the returned voxelshape should be simplified. Generally good for performance, but might cause some shapes to not work properly.
-     * @return The shape of the accessor.
-     */
+	 * Returns the shape of the multistate entries which are contained in the given area accessor.
+	 *
+	 * @param accessor The accessor to get the shape of.
+	 * @param sizeType The type of the shape to include.
+	 * @param simplify Indicates if the returned voxelshape should be simplified.Generally good for performance, but might cause some shapes to not work properly.
+	 * @return The shape of the accessor.
+	 */
 	default VoxelShape get(final IAreaAccessor accessor,
-	  final CollisionType sizeType,
-	  final boolean simplify) {
+			final CollisionType sizeType,
+			final boolean simplify) {
 		return get(
-		  accessor,
-		  BlockPos.ZERO,
-		  sizeType,
-		  simplify);
+				accessor,
+				BlockPos.ZERO,
+				sizeType,
+				simplify);
 	}
 
 	/**
-     * Returns the shape of the multistate entries which are contained in the given area accessor.
-     *
-     * @param accessor The accessor to get the shape of.
-     * @param offset The offset to apply to the voxelshape during calculation or cache lookup.
-     * @param sizeType The type to include.
-     * @param simplify Indicates if the returned voxelshape should be simplified. Generally good for performance, but might cause some shapes to not work properly.
-     * @return The shape of the accessor.
-     */
+	 * Returns the shape of the multistate entries which are contained in the given area accessor.
+	 *
+	 * @param accessor The accessor to get the shape of.
+	 * @param offset The offset to apply to the voxelshape during calculation or cache lookup.
+	 * @param sizeType The type to include.
+	 * @param simplify Indicates if the returned voxelshape should be simplified.Generally good for performance, but might cause some shapes to not work properly.
+	 * @return The shape of the accessor.
+	 */
 	VoxelShape get(
-	  final IAreaAccessor accessor,
-	  final BlockPos offset,
-	  final CollisionType sizeType,
-	  final boolean simplify);
+			final IAreaAccessor accessor,
+			final BlockPos offset,
+			final CollisionType sizeType,
+			final boolean simplify);
 
 	/**
-     * Returns the shape that is referenced by a given area shape identifier.
-     * If no shape with the given identifier is known then an empty optional is returned.
-     *
-     * @param identifier The identifier to get the voxel shape for.
-     * @param offset The offset to apply to the voxelshape during cache lookup.
-     * @return The optional, optionally containing the voxel shape.
-     */
+	 * Returns the shape that is referenced by a given area shape identifier.
+	 * If no shape with the given identifier is known then an empty optional is returned.
+	 *
+	 * @param identifier The identifier to get the voxel shape for.
+	 * @param offset The offset to apply to the voxelshape during cache lookup.
+	 * @return The optional, optionally containing the voxel shape.
+	 */
 	@SuppressWarnings("deprecation")
 	default Optional<VoxelShape> getCached(
-	  final IAreaShapeIdentifier identifier,
-	  final BlockPos offset) {
+			final IAreaShapeIdentifier identifier,
+			final BlockPos offset) {
 		return getCached(identifier, offset, CollisionType.NONE_AIR);
-	}
+	};
 
-	;
 
 	/**
-     * Returns the shape that is referenced by a given area shape identifier.
-     * If no shape with the given identifier is known then an empty optional is returned.
-     *
-     * @param identifier The identifier to get the voxel shape for.
-     * @param offset The offset to apply to the voxelshape during cache lookup.
-     * @param sizeType The type include.
-     * @return The optional, optionally containing the voxel shape.
-     */
+	 * Returns the shape that is referenced by a given area shape identifier.
+	 * If no shape with the given identifier is known then an empty optional is returned.
+	 *
+	 * @param identifier The identifier to get the voxel shape for.
+	 * @param offset The offset to apply to the voxelshape during cache lookup.
+	 * @param sizeType The type include.
+	 * @return The optional, optionally containing the voxel shape.
+	 */
 	default Optional<VoxelShape> getCached(
-	  final IAreaShapeIdentifier identifier,
-	  final BlockPos offset,
-	  final CollisionType sizeType) {
+			final IAreaShapeIdentifier identifier,
+			final BlockPos offset,
+			final CollisionType sizeType) {
 		return getCached(
-		  identifier, offset, sizeType, true
+				identifier, offset, sizeType, true
 		);
 	}
 
 	/**
-     * Returns the shape that is referenced by a given area shape identifier.
-     * If no shape with the given identifier is known then an empty optional is returned.
-     *
-     * @param identifier The identifier to get the voxel shape for.
-     * @param offset The offset to apply to the voxelshape during cache lookup.
-     * @param sizeType The type to include.
-     * @param simplify Indicates if the returned voxelshape should be simplified. Generally good for performance, but might cause some shapes to not work properly.
-     * @return The optional, optionally containing the voxel shape.
-     */
+	 * Returns the shape that is referenced by a given area shape identifier.
+	 * If no shape with the given identifier is known then an empty optional is returned.
+	 *
+	 * @param identifier The identifier to get the voxel shape for.
+	 * @param offset The offset to apply to the voxelshape during cache lookup.
+	 * @param sizeType The type to include.
+	 * @param simplify Indicates if the returned voxelshape should be simplified.Generally good for performance, but might cause some shapes to not work properly.
+	 * @return The optional, optionally containing the voxel shape.
+	 */
 	Optional<VoxelShape> getCached(
-	  final IAreaShapeIdentifier identifier,
-	  final BlockPos offset,
-	  final CollisionType sizeType,
-	  boolean simplify);
+			final IAreaShapeIdentifier identifier,
+			final BlockPos offset,
+			final CollisionType sizeType,
+			boolean simplify);
 }

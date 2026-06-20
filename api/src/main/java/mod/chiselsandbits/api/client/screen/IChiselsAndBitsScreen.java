@@ -5,9 +5,9 @@ package mod.chiselsandbits.api.client.screen;
  */
 public interface IChiselsAndBitsScreen {
 	/**
-     * Indicates if the screen has been initialized or not.
-     *
-     * @return {@code true} if the screen has been initialized, {@code false} otherwise.
-     */
+	 * Indicates if the screen has been initialized or not.
+	 *
+	 * @return {@code true} if the screen has been initialized, {@code false} otherwise.
+	 */
 	boolean isInitialized();
 }

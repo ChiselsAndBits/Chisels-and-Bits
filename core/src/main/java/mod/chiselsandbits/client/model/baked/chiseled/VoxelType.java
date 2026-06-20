@@ -14,7 +14,7 @@ public enum VoxelType
 
 	private final Predicate<BlockState> isValidBlockStateCallback;
 
-	VoxelType(final Predicate<BlockState> isValidBlockStateCallback) {this.isValidBlockStateCallback = isValidBlockStateCallback;}
+	VoxelType(final Predicate<BlockState> isValidBlockStateCallback) {this.isValidBlockStateCallback = isValidBlockStateCallback; }
 
 	public boolean isValidBlockState(final BlockInformation blockState) {
 		return this.isValidBlockStateCallback.test(blockState.blockState());

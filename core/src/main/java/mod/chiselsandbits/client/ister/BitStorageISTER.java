@@ -18,36 +18,34 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.item.ItemStack;
 
 public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState> {
-	public BitStorageISTER()
-
-	{
+	public BitStorageISTER() {
 	}
 
 	public record RenderState(BitStorageBlockEntity entity) {}
 
 	@Override
 	public void submit(
-		final BitStorageISTER.@NotNull RenderState argument,
-		final PoseStack poseStack,
-		final @NonNull SubmitNodeCollector submitNodeCollector,
-		final int lightCoords,
-		final int overlayCoords,
-		final boolean hasFoil,
-		final int outlineColor) {
+			final BitStorageISTER.@NotNull RenderState argument,
+			final PoseStack poseStack,
+			final @NonNull SubmitNodeCollector submitNodeCollector,
+			final int lightCoords,
+			final int overlayCoords,
+			final boolean hasFoil,
+			final int outlineColor) {
 		poseStack.pushPose();
 
 		assert argument != null;
 		final BlockEntityRenderState state = Minecraft.getInstance().getBlockEntityRenderDispatcher().tryExtractRenderState(
-			argument.entity(),
-			Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
-			null
+				argument.entity(),
+				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
+				null
 		);
 
 		assert state != null;
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
-			state,
-			poseStack,
-			submitNodeCollector,
+				state,
+				poseStack,
+				submitNodeCollector,
 			new CameraRenderState()
 		);
 
@@ -55,16 +53,12 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 	}
 
 	@Override
-	public void getExtents(final @NotNull Consumer<Vector3fc> output)
-
-	{
-		//Noop., for now. Figure out later
+	public void getExtents(final @NotNull Consumer<Vector3fc> output) {
+	//Noop., for now.Figure out later
 	}
 
 	@Override
-	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack)
-
-	{
+	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack) {
 		return new RenderState(BitStorageBlock.createEntityFromStack(stack));
 	}
 }

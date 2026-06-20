@@ -37,68 +37,52 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyProperties {
 	private final ThreadLocal<String> lastInvokedThreadLocalMethodName = ThreadLocal.withInitial(() -> "unknown");
 
-	private void markMethod()
-
-	{
+	private void markMethod() {
 		setLastInvokedThreadLocalMethodName(
 				StackWalker.getInstance().walk(stream -> stream.filter(frame -> !frame.toString().contains("idea.debugger")).skip(1).findFirst().map(StackWalker.StackFrame::getMethodName).orElse("unknown"))
 		);
 	}
 
-	public ReflectionHelperBlock()
-
-	{
-		super( Properties.of()
-			.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "reflection_helper_block"))) );
+	public ReflectionHelperBlock() {
+		super(Properties.of()
+				.setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "reflection_helper_block"))));
 	}
 
 	@Override
-	protected VoxelShape getOcclusionShape(final BlockState $$0)
-
-	{
+	protected VoxelShape getOcclusionShape(final BlockState $$0) {
 		markMethod();
 		return Shapes.empty();
 	}
 
 	@Nullable
 	@Override
-	public VoxelShape getBlockSupportShape(@Nullable final BlockState state, @Nullable final BlockGetter reader, @Nullable final BlockPos pos)
-
-	{
+	public VoxelShape getBlockSupportShape(@Nullable final BlockState state, @Nullable final BlockGetter reader, @Nullable final BlockPos pos) {
 		markMethod();
 		return Shapes.empty();
 	}
 
 	@Nullable
 	@Override
-	public VoxelShape getShape(@Nullable final BlockState state, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos, @Nullable final CollisionContext context)
-
-	{
+	public VoxelShape getShape(@Nullable final BlockState state, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos, @Nullable final CollisionContext context) {
 		markMethod();
 		return Shapes.empty();
 	}
 
 	@Nullable
 	@Override
-	public VoxelShape getCollisionShape(@Nullable final BlockState state, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos, @Nullable final CollisionContext context)
-
-	{
+	public VoxelShape getCollisionShape(@Nullable final BlockState state, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos, @Nullable final CollisionContext context) {
 		markMethod();
 		return Shapes.empty();
 	}
 
 	@Override
-	public float getDestroyProgress(@Nullable final BlockState state, @Nullable final Player player, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos)
-
-	{
+	public float getDestroyProgress(@Nullable final BlockState state, @Nullable final Player player, @Nullable final BlockGetter worldIn, @Nullable final BlockPos pos) {
 		markMethod();
 		return 0;
 	}
 
 	@Override
-	public float getExplosionResistance()
-
-	{
+	public float getExplosionResistance() {
 		markMethod();
 		return 0;
 	}
@@ -140,9 +124,7 @@ public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyPro
 	}
 
 	@Override
-	public boolean shouldDisplayFluidOverlay(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final FluidState fluidState)
-
-	{
+	public boolean shouldDisplayFluidOverlay(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final FluidState fluidState) {
 		markMethod();
 		return false;
 	}
@@ -160,9 +142,7 @@ public class ReflectionHelperBlock extends Block implements IBlockWithWorldlyPro
 	}
 
 	@Override
-	public float getExplosionResistance(final BlockState state, final BlockGetter world, final BlockPos pos, final Explosion explosion)
-
-	{
+	public float getExplosionResistance(final BlockState state, final BlockGetter world, final BlockPos pos, final Explosion explosion) {
 		markMethod();
 		return 0f;
 	}

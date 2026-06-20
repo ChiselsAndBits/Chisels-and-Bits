@@ -42,21 +42,21 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			instance -> instance.group(
 					StateEntryPalette.CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-			).apply(instance, StateEntryStorage::new)
+					).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final Codec<StateEntryStorage> LEGACY_CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					StateEntryPalette.LEGACY_CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-			).apply(instance, StateEntryStorage::new)
+					).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final MapCodec<StateEntryStorage> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					StateEntryPalette.MAP_CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-			).apply(instance, StateEntryStorage::new)
+					).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, StateEntryStorage> STREAM_CODEC = StreamCodec.composite(
@@ -137,15 +137,15 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 		try (IBatchMutation ignored = batch()) {
 			BlockPosStreamProvider.getForRange(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide())
-					.forEach(position -> setBlockInformation(
-							position.getX(),
-							position.getY(),
-							position.getZ(),
-							new BlockInformation(
-									chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
-									Optional.empty()
-							)
-					));
+				.forEach(position -> setBlockInformation(
+						position.getX(),
+						position.getY(),
+						position.getZ(),
+					new BlockInformation(
+							chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
+							Optional.empty()
+					)
+				));
 		}
 	}
 
@@ -170,7 +170,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	private void ensureCapacity() {
 		final int requiredSize = (int) Math.ceil((getTotalEntryCount() * entryWidth) / (float) Long.SIZE);
 
-		if (data.length() < requiredSize) {
+		if (data.length() <requiredSize) {
 			final long[] rawData = getRawData();
 			final long[] newData = new long[requiredSize];
 			System.arraycopy(rawData, 0, newData, 0, rawData.length);
@@ -200,8 +200,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		final Map<BlockInformation, Integer> countMap = Maps.newHashMap();
 
 		BlockPosStreamProvider.getForRange(this.getSize())
-				.map(position -> getBlockInformation(position.getX(), position.getY(), position.getZ()))
-				.forEach(blockState -> countMap.compute(blockState, (state, count) -> count == null ? 1 : count + 1));
+			.map(position -> getBlockInformation(position.getX(), position.getY(), position.getZ()))
+			.forEach(blockState -> countMap.compute(blockState, (state, count) -> count == null ? 1 : count + 1));
 
 		return countMap;
 	}
@@ -229,9 +229,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		int count = 0;
 
 		try (IBatchMutation ignored = batch()) {
-			for (int y = 0; y < getSize(); y++) {
-				for (int x = 0; x < getSize(); x++) {
-					for (int z = 0; z < getSize(); z++) {
+			for (int y = 0; y <getSize(); y++) {
+				for (int x = 0; x <getSize(); x++) {
+					for (int z = 0; z <getSize(); z++) {
 						setBlockInformation(
 								x, y, z,
 								state
@@ -248,9 +248,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		}
 	}
 
-	public StateEntryStorage limitedToProgress(final float progress)
-
-	{
+	public StateEntryStorage limitedToProgress(final float progress) {
 		final var noneAirCounts = count().entrySet()
 			.stream()
 			.filter(e -> !e.getKey().isAir())
@@ -265,15 +263,10 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		}
 
 		int currentCount = 0;
-		for (int y = 0; y < this.size; y++)
 
-		{
-			for (int z = 0; z < this.size; z++)
-
-			{
-				for (int x = 0; x < this.size; x++)
-
-				{
+		for (int y = 0; y <this.size; y++) {
+			for (int z = 0; z <this.size; z++) {
+				for (int x = 0; x <this.size; x++) {
 					final BlockInformation target = getBlockInformation(x, y, z);
 
 					if (target.isAir()) {
@@ -281,7 +274,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 					}
 
 					currentCount++;
-					result.setBlockInformation(x,y,z, target);
+					result.setBlockInformation(x, y, z, target);
 
 					if (currentCount == allowedCounts) {
 						return result;
@@ -312,13 +305,13 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		final Vec3 centerVector = new Vec3(7.5d, 7.5d, 7.5d);
 
 		try (IBatchMutation ignored = batch()) {
-			for (int x = 0; x < 16; x++) {
-				for (int y = 0; y < 16; y++) {
-					for (int z = 0; z < 16; z++) {
+			for (int x = 0; x <16; x++) {
+				for (int y = 0; y <16; y++) {
+					for (int z = 0; z <16; z++) {
 						final Vec3 workingVector = new Vec3(x, y, z);
 						Vec3 rotatedVector = workingVector.subtract(centerVector);
 
-						for (int i = 0; i < rotationCount; i++) {
+						for (int i = 0; i <rotationCount; i++) {
 							rotatedVector = VectorUtils.rotate90Degrees(rotatedVector, axis);
 						}
 
@@ -348,9 +341,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		resetData();
 
 		try (IBatchMutation ignored = batch()) {
-			for (int y = 0; y < getSize(); y++) {
-				for (int x = 0; x < getSize(); x++) {
-					for (int z = 0; z < getSize(); z++) {
+			for (int y = 0; y <getSize(); y++) {
+				for (int x = 0; x <getSize(); x++) {
+					for (int z = 0; z <getSize(); z++) {
 						final BlockInformation blockInformation = clone.getBlockInformation(x, y, z);
 
 						final int mirroredX = axis == Direction.Axis.X ? (getSize() - x - 1) : x;
@@ -372,14 +365,14 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		this.entryWidth = LongMath.log2(newSize, RoundingMode.CEILING);
 
 		if (this.entryWidth != currentEntryWidth) {
-			//We need to update the data array to match the new palette size
+		//We need to update the data array to match the new palette size
 			final BitSet rawData = this.data;
 
 			this.data = new BitSet(getTotalEntryCount() * entryWidth);
 			BlockPosStreamProvider.getForRange(getSize())
-					.mapToInt(pos -> doCalculatePositionIndex(pos.getX(), pos.getY(), pos.getZ()))
-					.mapToObj(index -> Pair.of(index, ByteArrayUtils.getValueAt(rawData, currentEntryWidth, index)))
-					.forEach(pair -> ByteArrayUtils.setValueAt(this.data, pair.getSecond(), this.entryWidth, pair.getFirst()));
+				.mapToInt(pos -> doCalculatePositionIndex(pos.getX(), pos.getY(), pos.getZ()))
+				.mapToObj(index -> Pair.of(index, ByteArrayUtils.getValueAt(rawData, currentEntryWidth, index)))
+				.forEach(pair -> ByteArrayUtils.setValueAt(this.data, pair.getSecond(), this.entryWidth, pair.getFirst()));
 		}
 	}
 
@@ -388,9 +381,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			public void close() {
 				StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
-		}
+		};
 
-		;
 
 		ongoingBatchMutations.add(mutation);
 
@@ -428,10 +420,10 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public String toString() {
 		return "SimpleStateEntryStorage{" +
-				"palette=" + palette +
-				", data=" + data +
-				", entryWidth=" + entryWidth +
-				'}';
+		"palette = " + palette +
+		", data = " + data +
+		", entryWidth = " + entryWidth +
+		'}';
 	}
 
 	public Codec<StateEntryStorage> codec() {

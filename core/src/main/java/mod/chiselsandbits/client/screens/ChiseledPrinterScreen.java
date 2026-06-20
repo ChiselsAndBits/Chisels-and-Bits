@@ -13,36 +13,30 @@ import net.minecraft.world.entity.player.Inventory;
 public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrinterContainer> {
 	private static final Identifier GUI_TEXTURES = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/chisel_printer.png");
 
-	public ChiseledPrinterScreen(final ChiseledPrinterContainer screenContainer, final Inventory inv, final Component titleIn)
-
-	{
+	public ChiseledPrinterScreen(final ChiseledPrinterContainer screenContainer, final Inventory inv, final Component titleIn) {
 		super(screenContainer, inv, titleIn);
 	}
 
 	@Override
-	protected void init()
-
-	{
+	protected void init() {
 		super.init();
 
 		this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
 	}
 
 	@Override
-	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a)
-
-	{
+	public void extractBackground(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float a) {
 		graphics.blit(
-			RenderPipelines.GUI_TEXTURED,
-			GUI_TEXTURES,
-			this.leftPos,
-			this.topPos,
-			0.0F,
-			0.0F,
-			this.imageWidth,
-			this.imageHeight,
-			256,
-			256
+				RenderPipelines.GUI_TEXTURED,
+				GUI_TEXTURES,
+				this.leftPos,
+				this.topPos,
+				0.0F,
+				0.0F,
+				this.imageWidth,
+				this.imageHeight,
+				256,
+				256
 		);
 
 		if (this.menu.getToolStack().isEmpty()) {
@@ -54,16 +48,16 @@ public class ChiseledPrinterScreen extends AbstractContainerScreen<ChiseledPrint
 		int scaledProgress = this.menu.getChiselProgressionScaled();
 
 		graphics.blit(
-			RenderPipelines.GUI_TEXTURED,
-			GUI_TEXTURES,
-			this.leftPos + 83 + scaledProgress,
-			this.topPos + 48,
-			this.imageWidth + scaledProgress,
-			0.0F,
-			16 - scaledProgress,
-			16,
-			256,
-			256
+				RenderPipelines.GUI_TEXTURED,
+				GUI_TEXTURES,
+				this.leftPos + 83 + scaledProgress,
+				this.topPos + 48,
+				this.imageWidth + scaledProgress,
+				0.0F,
+				16 - scaledProgress,
+				16,
+				256,
+				256
 		);
 	}
 }

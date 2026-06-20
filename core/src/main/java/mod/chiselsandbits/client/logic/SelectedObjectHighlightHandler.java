@@ -9,9 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class SelectedObjectHighlightHandler {
-	public static boolean onDrawHighlight()
-
-	{
+	public static boolean onDrawHighlight() {
 		final Player playerEntity = Minecraft.getInstance().player;
 
 		if (playerEntity == null) {

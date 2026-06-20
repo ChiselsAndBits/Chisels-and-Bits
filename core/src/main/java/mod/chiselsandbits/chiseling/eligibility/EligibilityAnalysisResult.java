@@ -16,38 +16,32 @@ public class EligibilityAnalysisResult implements IEligibilityAnalysisResult {
 	}
 
 	/**
-     * Indicates if the requested object can be chiseled.
-     *
-     * @return True for chiselability.
-     */
+	 * Indicates if the requested object can be chiseled.
+	 *
+	 * @return True for chiselability.
+	 */
 	@Override
-	public boolean canBeChiseled()
-
-	{
+	public boolean canBeChiseled() {
 		return canBeChiseled;
 	}
 
 	/**
-     * Indicates if the requested object is already chiseled.
-     *
-     * @return True when already chiseled.
-     */
+	 * Indicates if the requested object is already chiseled.
+	 *
+	 * @return True when already chiseled.
+	 */
 	@Override
-	public boolean isAlreadyChiseled()
-
-	{
+	public boolean isAlreadyChiseled() {
 		return isAlreadyChiseled;
 	}
 
 	/**
-     * The reason why a given eligibility result returned if it can be chiseled or not.
-     *
-     * @return The displayable reason.
-     */
+	 * The reason why a given eligibility result returned if it can be chiseled or not.
+	 *
+	 * @return The displayable reason.
+	 */
 	@Override
-	public MutableComponent getReason()
-
-	{
+	public MutableComponent getReason() {
 		return displayName;
 	}
 }

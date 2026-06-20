@@ -53,180 +53,129 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		}
 
 		@Override
-		public BlockInformation getPrimaryState()
-
-		{
+		public BlockInformation getPrimaryState() {
 			return BlockInformation.AIR;
 		}
 
 		@Override
-		public boolean isEmpty()
-
-		{
+		public boolean isEmpty() {
 			return true;
 		}
 
 		@Override
-		public Map<BlockInformation, Integer> getStateCounts()
-
-		{
+		public Map<BlockInformation, Integer> getStateCounts() {
 			return ImmutableMap.<BlockInformation, Integer>builder().build();
 		}
 
 		@Override
-		public boolean shouldCheckWeakPower()
-
-		{
+		public boolean shouldCheckWeakPower() {
 			return false;
 		}
 
 		@Override
-		public float getFullnessFactor()
-
-		{
+		public float getFullnessFactor() {
 			return 0;
 		}
 
 		@Override
-		public float getSlipperiness()
-
-		{
+		public float getSlipperiness() {
 			return 0;
 		}
 
 		@Override
-		public float getLightEmissionFactor()
-
-		{
+		public float getLightEmissionFactor() {
 			return 0;
 		}
 
 		@Override
-		public float getLightBlockingFactor()
-
-		{
+		public float getLightBlockingFactor() {
 			return 0;
 		}
 
 		@Override
-		public float getRelativeBlockHardness(final Player player)
-
-		{
+		public float getRelativeBlockHardness(final Player player) {
 			return 0;
 		}
 
 		@Override
-		public boolean canPropagateSkylight()
-
-		{
+		public boolean canPropagateSkylight() {
 			return true;
 		}
 
 		@Override
-		public boolean canSustainGrassBelow()
-
-		{
+		public boolean canSustainGrassBelow() {
 			return false;
 		}
-	}
+	};
 
-	;
 
 	@Override
-	public IAreaShapeIdentifier createNewShapeIdentifier()
-
-	{
+	public IAreaShapeIdentifier createNewShapeIdentifier() {
 		return Identifier.INSTANCE;
 	}
 
 	@Override
-	public Stream<IStateEntryInfo> stream()
-
-	{
+	public Stream<IStateEntryInfo> stream() {
 		return Stream.empty();
 	}
 
 	@Override
-	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
-
-	{
+	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
 		return Optional.empty();
 	}
 
 	@Override
-	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-	{
+	public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		return Optional.empty();
 	}
 
 	@Override
-	public boolean isInside(final Vec3 inAreaTarget)
-
-	{
+	public boolean isInside(final Vec3 inAreaTarget) {
 		return false;
 	}
 
 	@Override
-	public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-	{
+	public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		return false;
 	}
 
 	@Override
-	public IMultiStateSnapshot createSnapshot()
-
-	{
+	public IMultiStateSnapshot createSnapshot() {
 		return this;
 	}
 
 	@Override
-	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator)
-
-	{
+	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return Stream.empty();
 	}
 
 	@Override
 	public void forEachWithPositionMutator(
-	  final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
-
-	{
-		//Noop
+			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
+			//Noop
 	}
 
 	@Override
-	public Stream<IMutableStateEntryInfo> mutableStream()
-
-	{
+	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return Stream.empty();
 	}
 
 	@Override
 	public void setInAreaTarget(
-	  final BlockInformation blockState,
-	  final Vec3 inAreaTarget) throws SpaceOccupiedException
-
-	{
+			final BlockInformation blockState,
+			final Vec3 inAreaTarget) throws SpaceOccupiedException {
 	}
 
 	@Override
-	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException
-
-	{
+	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException {
 	}
 
 	@Override
-	public void clearInAreaTarget(final Vec3 inAreaTarget)
-
-	{
+	public void clearInAreaTarget(final Vec3 inAreaTarget) {
 	}
 
 	@Override
-	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-	{
+	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 	}
 
 	@Override
@@ -235,59 +184,43 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	}
 
 	@Override
-	public IMultiStateItemStack toItemStack()
-
-	{
+	public IMultiStateItemStack toItemStack() {
 		return Stack.INSTANCE;
 	}
 
 	@Override
-	public IMultiStateObjectStatistics getStatics()
-
-	{
+	public IMultiStateObjectStatistics getStatics() {
 		return EMPTY_STATISTICS;
 	}
 
 	@SuppressWarnings("MethodDoesntCallSuperMethod")
 	@Override
-	public IMultiStateSnapshot clone()
-
-	{
+	public IMultiStateSnapshot clone() {
 		return this;
 	}
 
 	@Override
-	public IMultiStateSnapshot limitedToProgression(final float progress)
-
-	{
+	public IMultiStateSnapshot limitedToProgression(final float progress) {
 		return this;
 	}
 
 	@Override
-	public void rotate(final Direction.Axis axis, final int rotationCount)
-
-	{
-		//Noop
+	public void rotate(final Direction.Axis axis, final int rotationCount) {
+	//Noop
 	}
 
 	@Override
-	public void mirror(final Direction.Axis axis)
-
-	{
-		//Noop
+	public void mirror(final Direction.Axis axis) {
+	//Noop
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox()
-
-	{
-		return new AABB(0,0,0,1,1,1);
+	public @NotNull AABB getBoundingBox() {
+		return new AABB(0, 0, 0, 1, 1, 1);
 	}
 
 	@Override
-	public IStatistics getStatistics()
-
-	{
+	public IStatistics getStatistics() {
 		return EMPTY_STATISTICS;
 	}
 
@@ -315,16 +248,12 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 			}
 
 			@Override
-			public BlockInformation getPrimaryState()
-
-			{
+			public BlockInformation getPrimaryState() {
 				return BlockInformation.AIR;
 			}
 
 			@Override
-			public boolean isEmpty()
-
-			{
+			public boolean isEmpty() {
 				return true;
 			}
 
@@ -332,123 +261,90 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 			public Set<BlockInformation> getContainedStates() {
 				return Collections.emptySet();
 			}
-		}
+		};
 
-		;
 
 		@Override
-		public ItemStack toBlockStack()
-
-		{
+		public ItemStack toBlockStack() {
 			return ItemStack.EMPTY;
 		}
 
 		@Override
-		public ItemStack toPatternStack()
-
-		{
+		public ItemStack toPatternStack() {
 			return ItemStack.EMPTY;
 		}
 
 		@Override
 		public void writeDataTo(ItemStack stack) {
-			//Noop
+		//Noop
 		}
 
 		@Override
-		public IMultiStateItemStack copy()
-
-		{
+		public IMultiStateItemStack copy() {
 			return this;
 		}
 
 		@Override
-		public IAreaShapeIdentifier createNewShapeIdentifier()
-
-		{
+		public IAreaShapeIdentifier createNewShapeIdentifier() {
 			return Identifier.INSTANCE;
 		}
 
 		@Override
-		public Stream<IStateEntryInfo> stream()
-
-		{
+		public Stream<IStateEntryInfo> stream() {
 			return Stream.empty();
 		}
 
 		@Override
-		public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget)
-
-		{
+		public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
 			return Optional.empty();
 		}
 
 		@Override
-		public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-		{
+		public Optional<IStateEntryInfo> getInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 			return Optional.empty();
 		}
 
 		@Override
-		public boolean isInside(final Vec3 inAreaTarget)
-
-		{
+		public boolean isInside(final Vec3 inAreaTarget) {
 			return false;
 		}
 
 		@Override
-		public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget)
-
-		{
+		public boolean isInside(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 			return false;
 		}
 
 		@Override
-		public IMultiStateSnapshot createSnapshot()
-
-		{
+		public IMultiStateSnapshot createSnapshot() {
 			return EmptySnapshot.INSTANCE;
 		}
 
 		@Override
-		public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator)
-
-		{
+		public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 			return Stream.empty();
 		}
 
 		@Override
 		public void forEachWithPositionMutator(
-		  final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer)
-
-		{
-			//Noop
+				final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
+				//Noop
 		}
 
 		@Override
-		public void rotate(final Direction.Axis axis, final int rotationCount)
-
-		{
+		public void rotate(final Direction.Axis axis, final int rotationCount) {
 		}
 
 		@Override
-		public void mirror(final Direction.Axis axis)
-
-		{
+		public void mirror(final Direction.Axis axis) {
 		}
 
 		@Override
-		public @NotNull AABB getBoundingBox()
-
-		{
-			return new AABB(0,0,0,1,1,1);
+		public @NotNull AABB getBoundingBox() {
+			return new AABB(0, 0, 0, 1, 1, 1);
 		}
 
 		@Override
-		public IStatistics getStatistics()
-
-		{
+		public IStatistics getStatistics() {
 			return EMPTY_STATISTICS;
 		}
 	}

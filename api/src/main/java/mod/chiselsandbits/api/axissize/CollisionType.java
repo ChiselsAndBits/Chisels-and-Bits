@@ -29,17 +29,15 @@ public enum CollisionType
 		this.canBeEmptyWithJustFluids = canBeEmptyWithJustFluids;
 	}
 
-	public boolean isValidFor(final IStateEntryInfo info) {return isValidFor.test(info.getBlockInformation().blockState());}
+	public boolean isValidFor(final IStateEntryInfo info) {return isValidFor.test(info.getBlockInformation().blockState()); }
 
-	public boolean isValidFor(final BlockState blockState) {return isValidFor.test(blockState);}
+	public boolean isValidFor(final BlockState blockState) {return isValidFor.test(blockState); }
 
 	public boolean canBeEmptyWithJustFluids() {
 		return canBeEmptyWithJustFluids;
 	}
 
-	public BlockState getExampleState()
-
-	{
+	public BlockState getExampleState() {
 		return exampleState;
 	}
 }

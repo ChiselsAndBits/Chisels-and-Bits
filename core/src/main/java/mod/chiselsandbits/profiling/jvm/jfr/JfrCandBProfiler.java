@@ -16,11 +16,9 @@ import net.minecraft.util.profiling.jfr.JvmProfiler;
 
 public class JfrCandBProfiler extends CandBProfiler {
 	private final ThreadLocal<LinkedList<CandBProfilingSectionEvent>> eventStack = ThreadLocal.withInitial(LinkedList::new);
-	private final ThreadLocal<LinkedList<String>> nameStack =  ThreadLocal.withInitial(LinkedList::new);
+	private final ThreadLocal<LinkedList<String>> nameStack = ThreadLocal.withInitial(LinkedList::new);
 
-	public JfrCandBProfiler(final Environment profilingEnvironment)
-
-	{
+	public JfrCandBProfiler(final Environment profilingEnvironment) {
 		super();
 
 		FlightRecorder.register(CandBProfilingStartedEvent.class);
@@ -35,26 +33,20 @@ public class JfrCandBProfiler extends CandBProfiler {
 	}
 
 	@Override
-	public void startSection(final String name)
-
-	{
+	public void startSection(final String name) {
 		onNewSectionWith(name);
 
 		super.startSection(name);
 	}
 
 	@Override
-	public void startSection(final Supplier<String> nameSupplier)
-
-	{
+	public void startSection(final Supplier<String> nameSupplier) {
 		onNewSectionWith(nameSupplier.get());
 
 		super.startSection(nameSupplier);
 	}
 
-	private void onNewSectionWith(final String name)
-
-	{
+	private void onNewSectionWith(final String name) {
 		nameStack.get().addFirst(name);
 
 		final String eventName = StringUtils.join(".", nameStack.get().descendingIterator());
@@ -65,9 +57,7 @@ public class JfrCandBProfiler extends CandBProfiler {
 	}
 
 	@Override
-	public void endSection()
-
-	{
+	public void endSection() {
 		super.endSection();
 
 		final CandBProfilingSectionEvent event = eventStack.get().removeFirst();
@@ -77,9 +67,7 @@ public class JfrCandBProfiler extends CandBProfiler {
 	}
 
 	@Override
-	public IProfilerResult getResult()
-
-	{
+	public IProfilerResult getResult() {
 		new CandBProfilingFinishedEvent().commit();
 		final IProfilerResult result = super.getResult();
 		new CandBProfilingStartedEvent().commit();
@@ -88,9 +76,7 @@ public class JfrCandBProfiler extends CandBProfiler {
 	}
 
 	@Override
-	public IProfilerResult stop()
-
-	{
+	public IProfilerResult stop() {
 		new CandBProfilingFinishedEvent().commit();
 		final IProfilerResult result = super.getResult();
 

@@ -33,9 +33,7 @@ public class ChiseledBlockItemModelGenerator extends ModelProvider implements Da
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels)
-
-	{
+	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
 		actOnBlockWithLoader(ModItems.CHISELED_BLOCK.get(), itemModels);
 	}
 
@@ -44,20 +42,16 @@ public class ChiseledBlockItemModelGenerator extends ModelProvider implements Da
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks()
-
-	{
+	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of();
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems()
-
-	{
+	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
-			BuiltInRegistries.ITEM.wrapAsHolder(
-				ModItems.CHISELED_BLOCK.get()
-			)
+				BuiltInRegistries.ITEM.wrapAsHolder(
+						ModItems.CHISELED_BLOCK.get()
+				)
 		);
 	}
 

@@ -10,40 +10,30 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public final class SortBagGuiPacket extends ModPacket {
-	public static final Identifier                                 ID   = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sort_bag_gui");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sort_bag_gui");
 	public static final CustomPacketPayload.Type<SortBagGuiPacket> TYPE = new CustomPacketPayload.Type<>(ID);
 
-	public SortBagGuiPacket(RegistryFriendlyByteBuf buffer)
-
-	{
+	public SortBagGuiPacket(RegistryFriendlyByteBuf buffer) {
 		readPayload(buffer);
 	}
 
-	public SortBagGuiPacket()
-
-	{
+	public SortBagGuiPacket() {
 	}
 
 	@Override
 	public void server(
-	  final ServerPlayer player)
-
-	{
+			final ServerPlayer player) {
 		execute(player);
 	}
 
 	public void execute(final Player player) {
-		if (player.containerMenu instanceof BagContainer)
-
-		{
+		if (player.containerMenu instanceof BagContainer) {
 			((BagContainer) player.containerMenu).sort();
 		}
 	}
 
 	@Override
-	public void writePayload(final RegistryFriendlyByteBuf buffer)
-
-	{
+	public void writePayload(final RegistryFriendlyByteBuf buffer) {
 	}
 
 	@Override

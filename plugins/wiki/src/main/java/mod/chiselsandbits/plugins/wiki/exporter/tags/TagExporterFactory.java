@@ -27,30 +27,22 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 	public static final String NAME = "tags";
 
 	@Override
-	public @Nullable Class<Config> getConfigClass()
-
-	{
+	public @Nullable Class<Config> getConfigClass() {
 		return Config.class;
 	}
 
 	@Override
-	public boolean isEnabled(final boolean client)
-
-	{
+	public boolean isEnabled(final boolean client) {
 		return !client;
 	}
 
 	@Override
-	public String name()
-
-	{
+	public String name() {
 		return NAME;
 	}
 
 	@Override
-	public ExporterModule create(final ExportContext context, TagExporterFactory.@Nullable Config config)
-
-	{
+	public ExporterModule create(final ExportContext context, TagExporterFactory.@Nullable Config config) {
 		if (config == null) {
 			throw new IllegalStateException();
 		}
@@ -59,22 +51,16 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 	}
 
 	public record Config(
-		Set<String> namespaces,
-		Set<String> registries
-	) implements NamespacedModuleConfig {}
+			Set<String> namespaces,
+			Set<String> registries
+			) implements NamespacedModuleConfig {}
 
-	public record Exporter(Config config) implements ExporterModule
-
-	{
+	public record Exporter(Config config) implements ExporterModule {
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 		@Override
-		public void run(final Path output) throws Exception
-
-		{
-			for (final String registryName : config.registries())
-
-			{
+		public void run(final Path output) throws Exception {
+			for (final String registryName : config.registries()) {
 				var registryIdentifier = Identifier.parse(registryName);
 				var registryKey = ResourceKey.createRegistryKey(registryIdentifier);
 				Registry<?> registry = TagExporterEntrypoint.getServer().registryAccess()
@@ -88,27 +74,23 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 			}
 		}
 
-		private <T> void runFor(final Path output, final Registry<T> registry, final Identifier registryIdentifier) throws IOException
-
-		{
-			for (final HolderSet.Named<T> tagHolder : registry.getTags().toList())
-
-			{
+		private <T> void runFor(final Path output, final Registry<T> registry, final Identifier registryIdentifier) throws IOException {
+			for (final HolderSet.Named<T> tagHolder : registry.getTags().toList()) {
 				if (!config().namespaces().contains(tagHolder.key().location().getNamespace())) {
 					continue;
 				}
 
 				write(
-					output.resolve(
-						registryIdentifier.getNamespace()
-					).resolve(
-						registryIdentifier.getPath()
-					).resolve(
-						tagHolder.key().location().getNamespace()
-					).resolve(
-						"%s.json".formatted(tagHolder.key().location().getPath())
-					),
-					tagHolder.stream()
+						output.resolve(
+								registryIdentifier.getNamespace()
+								).resolve(
+										registryIdentifier.getPath()
+										).resolve(
+												tagHolder.key().location().getNamespace()
+												).resolve(
+														"%s.json".formatted(tagHolder.key().location().getPath())
+												),
+						tagHolder.stream()
 						.map(holder -> registry.getKey(holder.value()))
 						.filter(Objects::nonNull)
 						.map(Object::toString)
@@ -117,16 +99,14 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 			}
 		}
 
-		private static void write(final Path output, final List<String> contents) throws IOException
-
-		{
+		private static void write(final Path output, final List<String> contents) throws IOException {
 			if (!Files.exists(output.getParent())) {
 				Files.createDirectories(output.getParent());
 			}
 
 			try(FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
-				OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
-				JsonWriter jsonWriter = new JsonWriter(writer)) {
+					OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+					JsonWriter jsonWriter = new JsonWriter(writer)) {
 				GSON.toJson(contents, List.class, jsonWriter);
 			}
 		}

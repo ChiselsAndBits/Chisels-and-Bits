@@ -12,16 +12,16 @@ public interface ISelectedToolModeIconRendererRegistry {
 	}
 
 	/**
-     * The currently configured renderer as per configuration of the player.
-     * @return The renderer.
-     */
+	 * The currently configured renderer as per configuration of the player.
+	 * @return The renderer.
+	 */
 	ISelectedToolModeIconRenderer getCurrent();
 
 	/**
-     * Adds the passed in renderer instances as possible candidates.
-     *
-     * @param renderers The candidates.
-     * @return The registry.
-     */
-	ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer... renderers);
+	 * Adds the passed in renderer instances as possible candidates.
+	 *
+	 * @param renderers The candidates.
+	 * @return The registry.
+	 */
+	ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer...renderers);
 }

@@ -63,7 +63,7 @@ public final class VertexDataUtils {
 				throw new IllegalStateException("Could not find a vertex for the given position: %s".formatted(newPosition));
 			}
 
-			final VertexData vertex = new VertexData(position, new Vector2f(u,v), closestCorners.get(newPosition).vertexIndex());
+			final VertexData vertex = new VertexData(position, new Vector2f(u, v), closestCorners.get(newPosition).vertexIndex());
 			adaptedVertices.add(vertex);
 		}
 
@@ -96,14 +96,14 @@ public final class VertexDataUtils {
 			BOTTOM_RIGHT;
 
 			private static Corner closest(final Vector2f vector2f, final Vector2f center) {
-				if (vector2f.x() < center.x()) {
-					if (vector2f.y() < center.y()) {
+				if (vector2f.x() <center.x()) {
+					if (vector2f.y() <center.y()) {
 						return BOTTOM_LEFT;
 					} else {
 						return TOP_LEFT;
 					}
 				} else {
-					if (vector2f.y() < center.y()) {
+					if (vector2f.y() <center.y()) {
 						return BOTTOM_RIGHT;
 					} else {
 						return TOP_RIGHT;
@@ -138,42 +138,42 @@ public final class VertexDataUtils {
 		final float z2 = to.z();
 
 		switch (cullDirection) {
-			case DOWN -> {
+		case DOWN -> {
 				corners.add(new Vector2f(x1, z1));
 				corners.add(new Vector2f(x1, z2));
 				corners.add(new Vector2f(x2, z2));
 				corners.add(new Vector2f(x2, z1));
-			}
-			case UP -> {
+		}
+		case UP -> {
 				corners.add(new Vector2f(x1, z1));
 				corners.add(new Vector2f(x2, z1));
 				corners.add(new Vector2f(x2, z2));
 				corners.add(new Vector2f(x1, z2));
-			}
-			case NORTH -> {
+		}
+		case NORTH -> {
 				corners.add(new Vector2f(x1, y1));
 				corners.add(new Vector2f(x2, y1));
 				corners.add(new Vector2f(x2, y2));
 				corners.add(new Vector2f(x1, y2));
-			}
-			case SOUTH -> {
+		}
+		case SOUTH -> {
 				corners.add(new Vector2f(x1, y1));
 				corners.add(new Vector2f(x1, y2));
 				corners.add(new Vector2f(x2, y2));
 				corners.add(new Vector2f(x2, y1));
-			}
-			case WEST -> {
+		}
+		case WEST -> {
 				corners.add(new Vector2f(z1, y1));
 				corners.add(new Vector2f(z1, y2));
 				corners.add(new Vector2f(z2, y2));
 				corners.add(new Vector2f(z2, y1));
-			}
-			case EAST -> {
+		}
+		case EAST -> {
 				corners.add(new Vector2f(z1, y1));
 				corners.add(new Vector2f(z2, y1));
 				corners.add(new Vector2f(z2, y2));
 				corners.add(new Vector2f(z1, y2));
-			}
+		}
 		}
 
 		return corners;

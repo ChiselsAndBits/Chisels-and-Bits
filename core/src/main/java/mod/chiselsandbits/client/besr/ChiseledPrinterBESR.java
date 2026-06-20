@@ -31,28 +31,24 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 	}
 
 	@Override
-	public @NotNull RenderState createRenderState()
-
-	{
+	public @NotNull RenderState createRenderState() {
 		return new RenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		final @NotNull ChiseledPrinterBlockEntity blockEntity,
-		final @NotNull RenderState renderState,
-		final float partialTick,
-		final @NotNull Vec3 cameraPosition,
-		final ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+			final @NotNull ChiseledPrinterBlockEntity blockEntity,
+			final @NotNull RenderState renderState,
+			final float partialTick,
+			final @NotNull Vec3 cameraPosition,
+			final ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.progress = blockEntity.getProgress();
 		renderState.snapshot = blockEntity.getRealisedPattern();
 	}
 
 	@Override
-	public void submit(final @NotNull RenderState renderState, final @NotNull PoseStack poseStack, final @NotNull SubmitNodeCollector nodeCollector, final @NotNull CameraRenderState cameraRenderState)
-
-	{
+	public void submit(final @NotNull RenderState renderState, final @NotNull PoseStack poseStack, final @NotNull SubmitNodeCollector nodeCollector, final @NotNull CameraRenderState cameraRenderState) {
 		if (renderState.snapshot.getStatics().isEmpty()) {
 			return;
 		}
@@ -73,16 +69,16 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 		poseStack.scale(19 / 16f, 19 / 16f, 19 / 16f);
 
 		ItemModelUtils.render(
-			modelStack,
-			nodeCollector,
-			poseStack,
-			renderState.lightCoords,
-			OverlayTexture.NO_OVERLAY,
-			0,
-			ItemDisplayContext.GROUND,
-			null,
-			null,
-			42
+				modelStack,
+				nodeCollector,
+				poseStack,
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				0,
+				ItemDisplayContext.GROUND,
+				null,
+				null,
+				42
 		);
 
 		poseStack.popPose();

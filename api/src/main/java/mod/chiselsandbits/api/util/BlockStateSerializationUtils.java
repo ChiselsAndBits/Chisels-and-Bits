@@ -17,14 +17,12 @@ public class BlockStateSerializationUtils {
 	public static Codec<BlockState> LEGACY_BLOCK_STATE_CODEC = Codec.STRING.comapFlatMap(
 			BlockStateSerializationUtils::deserialize,
 			blockState -> {
-				throw new IllegalStateException("Cannot serialize BlockState into a legacy format");
+			throw new IllegalStateException("Cannot serialize BlockState into a legacy format");
 			}
 	);
 
-	private BlockStateSerializationUtils()
-
-	{
-		throw new IllegalStateException("Can not instantiate an instance of: BlockStateSerializationUtils. This is a utility class");
+	private BlockStateSerializationUtils() {
+		throw new IllegalStateException("Can not instantiate an instance of: BlockStateSerializationUtils.This is a utility class");
 	}
 
 	public static DataResult<BlockState> deserialize(final String string) {
@@ -36,7 +34,7 @@ public class BlockStateSerializationUtils {
 		final DataResult<JsonElement> encodedElement = BlockState.CODEC.encodeStart(JsonOps.INSTANCE, blockState);
 
 		if (encodedElement.result().isEmpty()) {
-			throw new IllegalStateException("Could not encode BlockState: " + blockState + ". Resulting error: " + encodedElement.error().orElseThrow().message());
+			throw new IllegalStateException("Could not encode BlockState: " + blockState + ".Resulting error: " + encodedElement.error().orElseThrow().message());
 		}
 
 		return GSON.toJson(encodedElement.result().get());

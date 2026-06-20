@@ -7,45 +7,33 @@ import java.util.function.Supplier;
 import com.google.common.collect.Lists;
 
 public class SimpleMaxSizedList<E> extends AbstractList<E> {
-	private final Supplier<Integer>      maxSize;
-	private final LinkedList<E> delegate     = Lists.newLinkedList();
+	private final Supplier<Integer> maxSize;
+	private final LinkedList<E> delegate = Lists.newLinkedList();
 
-	public SimpleMaxSizedList(final Supplier<Integer> maxSize)
-
-	{
+	public SimpleMaxSizedList(final Supplier<Integer> maxSize) {
 		this.maxSize = maxSize;
 	}
 
 	@Override
-	public void add(final int index, final E element)
-
-	{
+	public void add(final int index, final E element) {
 		synchronized (delegate) {
-			if (!delegate.contains(element))
-
-			{
+			if (!delegate.contains(element)) {
 				delegate.add(index, element);
-			}
-
-			while(size() > maxSize.get()) {
+			} while(size()> maxSize.get()) {
 				delegate.removeFirst();
 			}
 		}
 	}
 
 	@Override
-	public E get(final int index)
-
-	{
+	public E get(final int index) {
 		synchronized (delegate) {
 			return delegate.get(index);
 		}
 	}
 
 	@Override
-	public int size()
-
-	{
+	public int size() {
 		synchronized (delegate) {
 			return delegate.size();
 		}
@@ -59,9 +47,7 @@ public class SimpleMaxSizedList<E> extends AbstractList<E> {
 	}
 
 	@Override
-	public boolean contains(final Object o)
-
-	{
+	public boolean contains(final Object o) {
 		synchronized (delegate) {
 			return delegate.contains(o);
 		}

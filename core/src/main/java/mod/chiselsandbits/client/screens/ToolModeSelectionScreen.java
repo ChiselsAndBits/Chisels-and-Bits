@@ -14,10 +14,8 @@ import net.minecraft.world.item.ItemStack;
 public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolModeGroup> extends AbstractChiselsAndBitsScreen {
 	@SuppressWarnings("unchecked")
 	public static <M extends IToolMode<G>, G extends IToolModeGroup> ToolModeSelectionScreen<M, G> create(
-	  final ItemStack sourceStack
-	)
-
-	{
+			final ItemStack sourceStack
+			) {
 		final Item item = sourceStack.getItem();
 
 		if (!(item instanceof IWithModeItem)) {
@@ -33,11 +31,9 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 	private final ItemStack sourceStack;
 
 	private ToolModeSelectionScreen(
-	  final IWithModeItem<M> toolModeItem,
-	  final ItemStack sourceStack
-	)
-
-	{
+			final IWithModeItem<M> toolModeItem,
+			final ItemStack sourceStack
+			) {
 		super(LocalStrings.ToolMenuScreenName.getText(sourceStack.getDisplayName()));
 
 		this.toolModeItem = toolModeItem;
@@ -45,25 +41,23 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 	}
 
 	@Override
-	protected void init()
-
-	{
+	protected void init() {
 		super.init();
 
 		this.addRenderableWidget(
-		  new ToolModeSelectionWidget<>(
-			this,
-			toolModeItem,
-			sourceStack
-		  )
+			new ToolModeSelectionWidget<>(
+					this,
+					toolModeItem,
+					sourceStack
+			)
 		);
 
 		this.addRenderableWidget(
-		  new ChangeTrackerOperationsWidget(
-			this.width - ChangeTrackerOperationsWidget.WIDTH - 6,
-			(int) ((this.height / 2f) - ChangeTrackerOperationsWidget.HEIGHT / 2f),
-			this
-		  )
+			new ChangeTrackerOperationsWidget(
+					this.width - ChangeTrackerOperationsWidget.WIDTH - 6,
+					(int) ((this.height / 2f) - ChangeTrackerOperationsWidget.HEIGHT / 2f),
+					this
+			)
 		);
 	}
 }

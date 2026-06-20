@@ -14,19 +14,15 @@ import net.minecraft.util.profiling.ResultField;
 public class CandBProfilingResult implements IProfilerResult {
 	private final ProfileResults innerResult;
 
-	public CandBProfilingResult(final ProfileResults innerResult) {this.innerResult = innerResult;}
+	public CandBProfilingResult(final ProfileResults innerResult) {this.innerResult = innerResult; }
 
 	@Override
-	public void writeToFile(final Path file)
-
-	{
+	public void writeToFile(final Path file) {
 		innerResult.saveResults(file);
 	}
 
 	@Override
-	public void writeAsResponse(final Consumer<String> lineConsumer)
-
-	{
+	public void writeAsResponse(final Consumer<String> lineConsumer) {
 		if (!(innerResult instanceof final FilledProfileResults filledProfileResult)) {
 			return;
 		}
@@ -39,13 +35,13 @@ public class CandBProfilingResult implements IProfilerResult {
 		final List<ResultField> dataPoints = producer.apply(name);
 
 		dataPoints.forEach(
-		  dataPoint -> {
-			  lineConsumer.accept(String.format("%s> %s: %s (%s)", indent, dataPoint.name.substring(dataPoint.name.lastIndexOf('\u001e') + 1), dataPoint.percentage, dataPoint.globalPercentage));
+				dataPoint -> {
+				lineConsumer.accept(String.format("%s> %s: %s (%s)", indent, dataPoint.name.substring(dataPoint.name.lastIndexOf('\u001e') + 1), dataPoint.percentage, dataPoint.globalPercentage));
 
-			  if (!dataPoint.name.equals(name)) {
-				  writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
-			  }
-		  }
+				if (!dataPoint.name.equals(name)) {
+					writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
+			}
+				}
 
 		);
 	}

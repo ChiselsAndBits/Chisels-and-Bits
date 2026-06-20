@@ -43,44 +43,31 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 	SimpleInstanceCache<ItemStack, IBitInventoryItemStack> tooltipCache = new SimpleInstanceCache<>();
 
-	public BitBagItem(Properties properties)
-
-	{
+	public BitBagItem(Properties properties) {
 		super(properties.stacksTo(1));
 	}
 
-	public static ItemStack dyeBag(final ItemStack itemStack, final DyeColor color)
-
-	{
+	public static ItemStack dyeBag(final ItemStack itemStack, final DyeColor color) {
 		itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(color.getTextureDiffuseColor()));
 		return itemStack;
 	}
 
 	@Override
-	public @NotNull Component getName(final @NotNull ItemStack stack)
-
-	{
+	public @NotNull Component getName(final @NotNull ItemStack stack) {
 		DyedItemColor color = getDyedColor(stack);
 		final Component parent = super.getName(stack);
-		if (parent instanceof MutableComponent mutableComponent && color != null)
 
-		{
-			for (final DyeColor value : DyeColor.values())
-
-			{
+		if (parent instanceof MutableComponent mutableComponent && color != null) {
+			for (final DyeColor value : DyeColor.values()) {
 				if (value.getTextureDiffuseColor() == color.rgb()) {
 					return mutableComponent.copy().append(" - ").append(Component.translatable("chiselsandbits.color." + value.getName()));
 				}
 			}
 
 			return mutableComponent.copy().append(" - ").append(
-				Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
+					Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
 			);
-		}
-
-		else
-
-		{
+		} else {
 			return super.getName(stack);
 		}
 	}
@@ -92,30 +79,29 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 		HelpTextUtils.build(LocalStrings.HelpBitBag, tooltipAdder);
 
 		tooltipAdder.accept(
-			LocalStrings.HelpBagPickupMode.getText(
-				isPreferredPickupInventory(stack) ? LocalStrings.BagPicksUpFirst.getText() : LocalStrings.PlayerPicksUpFirst.getText(),
-				isFilteredPickupInventory(stack) ? LocalStrings.Filtered.getText() : LocalStrings.NonFiltered.getText()
-			)
+				LocalStrings.HelpBagPickupMode.getText(
+						isPreferredPickupInventory(stack) ? LocalStrings.BagPicksUpFirst.getText() : LocalStrings.PlayerPicksUpFirst.getText(),
+						isFilteredPickupInventory(stack) ? LocalStrings.Filtered.getText() : LocalStrings.NonFiltered.getText()
+				)
 		);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			if (!Minecraft.getInstance().hasShiftDown()) {
-				tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
-				return;
+				if (!Minecraft.getInstance().hasShiftDown()) {
+					tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
+					return;
 			}
 
-			final IBitInventoryItemStack inventoryItemStack;
-			if (tooltipCache.needsUpdate(stack))
+				final IBitInventoryItemStack inventoryItemStack;
 
-			{
-				inventoryItemStack = create(stack);
-				tooltipCache.updateCachedValue(inventoryItemStack);
+				if (tooltipCache.needsUpdate(stack)) {
+					inventoryItemStack = create(stack);
+					tooltipCache.updateCachedValue(inventoryItemStack);
 			} else {
-				inventoryItemStack = tooltipCache.getCached();
-			}
+					inventoryItemStack = tooltipCache.getCached();
+				}
 
-			var contents = inventoryItemStack.listContents();
-			contents.displayComponents().forEach(tooltipAdder);
+				var contents = inventoryItemStack.listContents();
+				contents.displayComponents().forEach(tooltipAdder);
 		}
 
 		);
@@ -123,11 +109,9 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 	@Override
 	public @NotNull InteractionResult use(
-	  final @NotNull Level worldIn,
-	  final @NotNull Player playerIn,
-	  final @NotNull InteractionHand hand)
-
-	{
+			final @NotNull Level worldIn,
+			final @NotNull Player playerIn,
+			final @NotNull InteractionHand hand) {
 		final ItemStack itemStackIn = playerIn.getItemInHand(hand);
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerIn);
@@ -142,9 +126,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 			}
 		}
 
-		if (worldIn.isClientSide())
-
-		{
+		if (worldIn.isClientSide()) {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new OpenBagGuiPacket());
 		}
 
@@ -152,30 +134,24 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 	}
 
 	@Override
-	public IBitInventoryItemStack create(final ItemStack stack)
-
-	{
+	public IBitInventoryItemStack create(final ItemStack stack) {
 		if (stack.getItem() != this) {
 			return new SlottedBitInventoryItemStack(ItemStack.EMPTY, 0);
 		}
 
 		return new SlottedBitInventoryItemStack(
-		  stack,
-		  BAG_STORAGE_SLOTS
+				stack,
+				BAG_STORAGE_SLOTS
 		);
 	}
 
 	@Override
-	public boolean isPreferredPickupInventory(final ItemStack stack)
-
-	{
+	public boolean isPreferredPickupInventory(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.BAG_PREFERRED_PICK_UP.get(), false);
 	}
 
 	@Override
-	public boolean isFilteredPickupInventory(final ItemStack stack)
-
-	{
+	public boolean isFilteredPickupInventory(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.BAG_FILTERED_PICK_UP.get(), false);
 	}
 
@@ -189,23 +165,19 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 	@SuppressWarnings("unused")
 	public boolean showDurabilityBar(
-	  final ItemStack stack)
-
-	{
+			final ItemStack stack) {
 		if (!(stack.getItem() instanceof final IBitInventoryItem item)) {
 			return false;
 		}
 
 		final IBitInventoryItemStack inventoryItemStack = item.create(stack);
 
-		return !inventoryItemStack. isEmpty();
+		return !inventoryItemStack.isEmpty();
 	}
 
 	@SuppressWarnings("unused")
 	public double getDurabilityForDisplay(
-	  final ItemStack stack)
-
-	{
+			final ItemStack stack) {
 		if (!(stack.getItem() instanceof final IBitInventoryItem item)) {
 			return 0d;
 		}
@@ -217,16 +189,12 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 	}
 
 	public static DyedItemColor getDyedColor(
-	  ItemStack stack)
-
-	{
+			ItemStack stack) {
 		return stack.get(DataComponents.DYED_COLOR);
 	}
 
 	@SuppressWarnings("unused")
-	public boolean shouldCauseReequipAnimation(final ItemStack oldStack, final ItemStack newStack, final boolean slotChanged)
-
-	{
+	public boolean shouldCauseReequipAnimation(final ItemStack oldStack, final ItemStack newStack, final boolean slotChanged) {
 		return false;
 	}
 }

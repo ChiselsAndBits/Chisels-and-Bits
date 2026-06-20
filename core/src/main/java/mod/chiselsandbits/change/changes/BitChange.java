@@ -37,7 +37,7 @@ public class BitChange implements IChange {
 			BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(BitChange::getBlockPos),
 			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.BEFORE).forGetter(BitChange::getBefore),
 			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.AFTER).forGetter(BitChange::getAfter)
-	).apply(instance, BitChange::new));
+			).apply(instance, BitChange::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, BitChange> STREAM_CODEC = StreamCodec.composite(
 			BlockPos.STREAM_CODEC,
@@ -54,9 +54,9 @@ public class BitChange implements IChange {
 	private final IMultiStateSnapshot after;
 
 	public BitChange(
-	  final BlockPos blockPos,
-	  final IMultiStateSnapshot before,
-	  final IMultiStateSnapshot after) {
+			final BlockPos blockPos,
+			final IMultiStateSnapshot before,
+			final IMultiStateSnapshot after) {
 		this.blockPos = blockPos;
 		this.before = before;
 		this.after = after;
@@ -75,15 +75,13 @@ public class BitChange implements IChange {
 	}
 
 	@Override
-	public boolean canUndo(@NotNull final Player player)
-
-	{
+	public boolean canUndo(@NotNull final Player player) {
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
 
 		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
 			final BlockState state = player.level().getBlockState(blockPos);
 			final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
-			  state, Optional.ofNullable(player.level().getBlockEntity(blockPos))
+					state, Optional.ofNullable(player.level().getBlockEntity(blockPos))
 			);
 			final BlockInformation currentState = new BlockInformation(state, additionalStateInfo);
 
@@ -94,16 +92,13 @@ public class BitChange implements IChange {
 	}
 
 	@Override
-	public boolean canRedo(final Player player)
-
-	{
+	public boolean canRedo(final Player player) {
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
-		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity))
 
-		{
+		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
 			final BlockState state = player.level().getBlockState(blockPos);
 			final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
-			  state, Optional.ofNullable(player.level().getBlockEntity(blockPos))
+					state, Optional.ofNullable(player.level().getBlockEntity(blockPos))
 			);
 			final BlockInformation currentState = new BlockInformation(state, additionalStateInfo);
 
@@ -114,9 +109,7 @@ public class BitChange implements IChange {
 	}
 
 	@Override
-	public void undo(final Player player) throws IllegalChangeAttempt
-
-	{
+	public void undo(final Player player) throws IllegalChangeAttempt {
 		if (!canUndo(player)) {
 			throw new IllegalChangeAttempt();
 		}
@@ -146,8 +139,8 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, afterStates.getOrDefault(state, 0) - count));
 		afterStates.forEach((state, count) -> {
-			if (!difference.containsKey(state)) {
-				difference.put(state, count);
+				if (!difference.containsKey(state)) {
+					difference.put(state, count);
 			}
 		}
 
@@ -156,19 +149,14 @@ public class BitChange implements IChange {
 		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			before.stream().forEach(
-			  iStateEntryInfo -> {
-				  try
+					iStateEntryInfo -> {
 
-				  {
-					  multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
-				  }
-
-				  catch (SpaceOccupiedException e)
-
-				  {
-					  //Noop
-				  }
-			  }
+					try {
+						multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
+				} catch (SpaceOccupiedException e) {
+				//Noop
+					}
+					}
 
 			);
 		}
@@ -176,17 +164,15 @@ public class BitChange implements IChange {
 		if (!player.isCreative()) {
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {
-				if (state.isAir()) {
-					return;
+					if (state.isAir()) {
+						return;
 				}
 
-				if (diff < 0) {
-					bitInventory.extract(state, -diff);
-				}
-
-				else {
-					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
-				}
+					if (diff <0) {
+						bitInventory.extract(state, -diff);
+				} else {
+						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
+					}
 			}
 
 			);
@@ -194,9 +180,7 @@ public class BitChange implements IChange {
 	}
 
 	@Override
-	public void redo(final Player player) throws IllegalChangeAttempt
-
-	{
+	public void redo(final Player player) throws IllegalChangeAttempt {
 		if (!canRedo(player)) {
 			throw new IllegalChangeAttempt();
 		}
@@ -232,8 +216,8 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, count - afterStates.getOrDefault(state, 0)));
 		afterStates.forEach((state, count) -> {
-			if (!difference.containsKey(state)) {
-				difference.put(state, -count);
+				if (!difference.containsKey(state)) {
+					difference.put(state, -count);
 			}
 		}
 
@@ -242,35 +226,26 @@ public class BitChange implements IChange {
 		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			after.stream().forEach(
-			  s -> {
-				  try
+					s -> {
 
-				  {
-					  multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
-				  }
-
-				  catch (SpaceOccupiedException e)
-
-				  {
-					  //Noop
-				  }
-			  }
+					try {
+						multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
+				} catch (SpaceOccupiedException e) {
+				//Noop
+					}
+					}
 
 			);
 		}
 
-		if (!player.isCreative())
-
-		{
+		if (!player.isCreative()) {
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {
-				if (diff < 0) {
-					bitInventory.extract(state, -diff);
-				}
-
-				else {
-					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
-				}
+					if (diff <0) {
+						bitInventory.extract(state, -diff);
+				} else {
+						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
+					}
 			}
 
 			);
@@ -288,8 +263,8 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, afterStates.getOrDefault(state, 0) - count));
 		afterStates.forEach((state, count) -> {
-			if (!difference.containsKey(state)) {
-				difference.put(state, count);
+				if (!difference.containsKey(state)) {
+					difference.put(state, count);
 			}
 		}
 
@@ -297,13 +272,13 @@ public class BitChange implements IChange {
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-				 .filter(e -> e.getValue() < 0)
-				 .allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
+			.filter(e -> e.getValue() <0)
+			.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 
 	private boolean hasRequiredRedoBits(final Player player) {
 		if (player.isCreative()) {
-			return  true;
+			return true;
 		}
 
 		final Map<BlockInformation, Integer> afterStates = after.getStatics().getStateCounts();
@@ -312,8 +287,8 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, count - afterStates.getOrDefault(state, 0)));
 		afterStates.forEach((state, count) -> {
-			if (!difference.containsKey(state)) {
-				difference.put(state, -count);
+				if (!difference.containsKey(state)) {
+					difference.put(state, -count);
 			}
 		}
 
@@ -321,8 +296,8 @@ public class BitChange implements IChange {
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-		  .filter(e -> e.getValue() < 0)
-		  .allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
+			.filter(e -> e.getValue() <0)
+			.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 
 	@Override

@@ -9,19 +9,19 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface ISelectedToolModeIconRenderer {
 	/**
-     * The id of the renderer.
-     * Used to give the player a selection option for the preview renderer.
-     *
-     * @return The id of the preview renderer.
-     */
+	 * The id of the renderer.
+	 * Used to give the player a selection option for the preview renderer.
+	 *
+	 * @return The id of the preview renderer.
+	 */
 	Identifier getId();
 
 	/**
-     * Invoked to render the stacks tool mode icon in the given itemstack.
-     * This is invoked already translated to the top left pixel of the slot in question.
-     *
-     * @param guiGraphics The matrix stack.
-     * @param stack       The stack.
-     */
+	 * Invoked to render the stacks tool mode icon in the given itemstack.
+	 * This is invoked already translated to the top left pixel of the slot in question.
+	 *
+	 * @param guiGraphics The matrix stack.
+	 * @param stack The stack.
+	 */
 	void extractGraphics(GuiGraphicsExtractor guiGraphics, ItemStack stack);
 }

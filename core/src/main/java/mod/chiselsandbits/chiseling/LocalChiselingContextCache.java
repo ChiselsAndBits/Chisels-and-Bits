@@ -11,43 +11,31 @@ import mod.chiselsandbits.api.chiseling.ILocalChiselingContextCache;
 public class LocalChiselingContextCache implements ILocalChiselingContextCache {
 	private static final LocalChiselingContextCache INSTANCE = new LocalChiselingContextCache();
 
-	public static LocalChiselingContextCache getInstance()
-
-	{
+	public static LocalChiselingContextCache getInstance() {
 		return INSTANCE;
 	}
 
 	private final EnumMap<ChiselingOperation, IChiselingContext> contexts = new EnumMap<>(ChiselingOperation.class);
 
-	private LocalChiselingContextCache()
-
-	{
+	private LocalChiselingContextCache() {
 	}
 
 	@Override
-	public Optional<IChiselingContext> get(ChiselingOperation operation)
-
-	{
+	public Optional<IChiselingContext> get(ChiselingOperation operation) {
 		return Optional.ofNullable(contexts.get(operation));
 	}
 
 	@Override
-	public void set(ChiselingOperation operation, final IChiselingContext context)
-
-	{
+	public void set(ChiselingOperation operation, final IChiselingContext context) {
 		this.contexts.put(operation, context);
 	}
 
 	@Override
-	public void clear(ChiselingOperation operation)
-
-	{
+	public void clear(ChiselingOperation operation) {
 		this.contexts.remove(operation);
 	}
 
-	public void clearCache()
-
-	{
+	public void clearCache() {
 		Arrays.stream(ChiselingOperation.values()).forEach(this::clear);
 	}
 }

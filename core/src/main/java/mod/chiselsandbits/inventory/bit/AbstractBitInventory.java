@@ -17,78 +17,71 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	protected AbstractBitInventory() {}
 
 	/**
-     * Checks if it is possible to extract a given amount of bits with the given blockstate from the the current inventory.
-     *
-     * @param blockState The blockstate.
-     * @param count      The amount of bits to extract.
-     * @return {@code true} when extraction is possible.
-     */
+	 * Checks if it is possible to extract a given amount of bits with the given blockstate from the the current inventory.
+	 *
+	 * @param blockState The blockstate.
+	 * @param count The amount of bits to extract.
+	 * @return {@code true} when extraction is possible.
+	 */
 	@Override
 	public boolean canExtract(
-	  final BlockInformation blockState,
-	  final int count)
-
-	{
+			final BlockInformation blockState,
+			final int count) {
 		final int contained = getMaxExtractAmount(blockState);
 		return count <= contained;
 	}
 
 	/**
-     * Returns the maximal amount of bits with a given blockstate which can be extracted of a given blockstate.
-     *
-     * @param blockState The blockstate in question.
-     * @return The amount of bits that can be extracted with a given blockstate.
-     */
+	 * Returns the maximal amount of bits with a given blockstate which can be extracted of a given blockstate.
+	 *
+	 * @param blockState The blockstate in question.
+	 * @return The amount of bits that can be extracted with a given blockstate.
+	 */
 	@Override
-	public int getMaxExtractAmount(final BlockInformation blockState)
-
-	{
+	public int getMaxExtractAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
-				 .mapToObj(this::getItem)
-				 .filter(stack -> stack.getItem() instanceof IBitItem)
-				 .mapToInt(stack -> {
-					 IBitItem bitItem = (IBitItem) stack.getItem();
-					 if (bitItem.getBlockInformation(stack).equals(blockState))
+			.mapToObj(this::getItem)
+			.filter(stack -> stack.getItem() instanceof IBitItem)
+			.mapToInt(stack -> {
+					IBitItem bitItem = (IBitItem) stack.getItem();
 
-					 {
-						 return stack.getCount();
-					 }
+					if (bitItem.getBlockInformation(stack).equals(blockState)) {
+					return stack.getCount();
+			}
 
-					 return 0;
-				 }
+					return 0;
+			}
 
-				 )
-				 .sum();
+			)
+			.sum();
 	}
 
 	/**
-     * Gets a copy of the stack that is in the given slot.
-     *
-     * @param index The index of the slot to read.
-     * @return A copy of the stack in the slot.
-     */
+	 * Gets a copy of the stack that is in the given slot.
+	 *
+	 * @param index The index of the slot to read.
+	 * @return A copy of the stack in the slot.
+	 */
 	protected abstract ItemStack getItem(final int index);
 
 	/**
-     * The size of the inventory.
-     *
-     * @return The size of the inventory.
-     */
+	 * The size of the inventory.
+	 *
+	 * @return The size of the inventory.
+	 */
 	protected abstract int getInventorySize();
 
 	/**
-     * Extracts a given amount of bits with the given blockstate from the the current inventory.
-     *
-     * @param blockInformation The blockstate.
-     * @param count      The amount of bits to extract.
-     * @throws IllegalArgumentException when extraction is not possible.
-     */
+	 * Extracts a given amount of bits with the given blockstate from the the current inventory.
+	 *
+	 * @param blockInformation The blockstate.
+	 * @param count The amount of bits to extract.
+	 * @throws IllegalArgumentException when extraction is not possible.
+	 */
 	@Override
 	public void extract(
-	  final BlockInformation blockInformation,
-	  final int count) throws IllegalArgumentException
-
-	{
+			final BlockInformation blockInformation,
+			final int count) throws IllegalArgumentException {
 		if (count == 0 || blockInformation.isAir()) {
 			return;
 		}
@@ -99,9 +92,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 		int toExtract = count;
 
-		for (int i = getInventorySize() - 1; i >= 0; i--)
-
-		{
+		for (int i = getInventorySize() - 1; i>= 0; i--) {
 			final ItemStack stack = getItem(i);
 
 			if (stack.getItem() instanceof final IBitItem bitItem) {
@@ -118,24 +109,22 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	}
 
 	/**
-     * Sets the slot with the given index with the given stack.
-     *
-     * @param index The index of the slot.
-     * @param stack The stack to insert.
-     */
+	 * Sets the slot with the given index with the given stack.
+	 *
+	 * @param index The index of the slot.
+	 * @param stack The stack to insert.
+	 */
 	protected abstract void setItem(final int index, final ItemStack stack);
 
 	/**
-     * Checks if it is possible to insert a given amount of bits with the given blockstate from the the current inventory.
-     *
-     * @param blockState The blockstate.
-     * @param count      The amount of bits to insert.
-     * @return {@code true} when insertion is possible.
-     */
+	 * Checks if it is possible to insert a given amount of bits with the given blockstate from the the current inventory.
+	 *
+	 * @param blockState The blockstate.
+	 * @param count The amount of bits to insert.
+	 * @return {@code true} when insertion is possible.
+	 */
 	@Override
-	public boolean canInsert(final BlockInformation blockState, final int count)
-
-	{
+	public boolean canInsert(final BlockInformation blockState, final int count) {
 		final int insertionCount = getMaxInsertAmount(blockState);
 		return count <= insertionCount;
 	}
@@ -150,48 +139,43 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	}
 
 	/**
-     * Returns the maximal amount of bits with a given blockstate which can be inserted of a given blockstate.
-     *
-     * @param blockInformation The blockstate in question.
-     * @return The amount of bits that can be inserted with a given blockstate.
-     */
+	 * Returns the maximal amount of bits with a given blockstate which can be inserted of a given blockstate.
+	 *
+	 * @param blockInformation The blockstate in question.
+	 * @return The amount of bits that can be inserted with a given blockstate.
+	 */
 	@Override
-	public int getMaxInsertAmount(final BlockInformation blockInformation)
-
-	{
+	public int getMaxInsertAmount(final BlockInformation blockInformation) {
 		return IntStream.range(0, getInventorySize())
-				 .mapToObj(this::getItem)
-				 .filter(stack -> stack.getItem() instanceof IBitItem || stack.isEmpty())
-				 .mapToInt(stack -> {
-					 if (stack.isEmpty()) {
-						 return getMaxBitsFor(stack);
-					 }
+			.mapToObj(this::getItem)
+			.filter(stack -> stack.getItem() instanceof IBitItem || stack.isEmpty())
+			.mapToInt(stack -> {
+					if (stack.isEmpty()) {
+					return getMaxBitsFor(stack);
+			}
 
-					 IBitItem bitItem = (IBitItem) stack.getItem();
-					 if (bitItem.getBlockInformation(stack).equals(blockInformation))
+					IBitItem bitItem = (IBitItem) stack.getItem();
 
-					 {
-						 return getMaxBitsFor(stack) - stack.getCount();
-					 }
+					if (bitItem.getBlockInformation(stack).equals(blockInformation)) {
+					return getMaxBitsFor(stack) - stack.getCount();
+			}
 
-					 return 0;
-				 }
+					return 0;
+			}
 
-				 )
-				 .sum();
+			)
+			.sum();
 	}
 
 	/**
-     * Inserts a given amount of bits with the given blockstate from the the current inventory.
-     *
-     * @param blockInformation The blockstate.
-     * @param count      The amount of bits to insert.
-     * @throws IllegalArgumentException when insertion is not possible.
-     */
+	 * Inserts a given amount of bits with the given blockstate from the the current inventory.
+	 *
+	 * @param blockInformation The blockstate.
+	 * @param count The amount of bits to insert.
+	 * @throws IllegalArgumentException when insertion is not possible.
+	 */
 	@Override
-	public void insert(final BlockInformation blockInformation, final int count) throws IllegalArgumentException
-
-	{
+	public void insert(final BlockInformation blockInformation, final int count) throws IllegalArgumentException {
 		if (count == 0 || blockInformation.isAir()) {
 			return;
 		}
@@ -202,9 +186,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 		int toInsert = count;
 
-		for (int i = 0; i < getInventorySize(); i++)
-
-		{
+		for (int i = 0; i <getInventorySize(); i++) {
 			if (toInsert <= 0) {
 				break;
 			}
@@ -223,8 +205,8 @@ public abstract class AbstractBitInventory implements IBitInventory {
 				}
 			} else if (stack.isEmpty()) {
 				final ItemStack newStack = IBitItemManager.getInstance().create(
-					blockInformation,
-					Math.min(getMaxBitsFor(stack), toInsert)
+						blockInformation,
+						Math.min(getMaxBitsFor(stack), toInsert)
 				);
 
 				toInsert -= newStack.getCount();
@@ -235,51 +217,45 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	}
 
 	@Override
-	public Map<BlockInformation, Integer> getContainedStates()
-
-	{
+	public Map<BlockInformation, Integer> getContainedStates() {
 		return IntStream.range(0, getInventorySize())
-		  .mapToObj(this::getItem)
-		  .filter(stack -> stack.getItem() instanceof IBitItem)
-		  .map(stack -> {
-			  IBitItem bitItem = (IBitItem) stack.getItem();
-			  return Maps.newHashMap(ImmutableMap.of(bitItem.getBlockInformation(stack), stack.getCount()));
-		  }
-
-		  )
-		  .reduce(
-			Maps.newHashMap(),
-			(blockStateIntegerHashMap, blockStateIntegerHashMap2) -> {
-				final HashMap<BlockInformation, Integer> result = Maps.newHashMap(blockStateIntegerHashMap);
-				blockStateIntegerHashMap2.forEach((state, count) -> {
-					if (!result.containsKey(state)) {
-						result.put(state, count);
-					}
-
-					else {
-						result.put(state, result.get(state) + count);
-					}
-				}
-
-				);
-
-				return result;
+			.mapToObj(this::getItem)
+			.filter(stack -> stack.getItem() instanceof IBitItem)
+			.map(stack -> {
+					IBitItem bitItem = (IBitItem) stack.getItem();
+					return Maps.newHashMap(ImmutableMap.of(bitItem.getBlockInformation(stack), stack.getCount()));
 			}
-		  );
+
+			)
+			.reduce(
+					Maps.newHashMap(),
+					(blockStateIntegerHashMap, blockStateIntegerHashMap2) -> {
+					final HashMap<BlockInformation, Integer> result = Maps.newHashMap(blockStateIntegerHashMap);
+					blockStateIntegerHashMap2.forEach((state, count) -> {
+							if (!result.containsKey(state)) {
+							result.put(state, count);
+				} else {
+							result.put(state, result.get(state) + count);
+					}
+					}
+
+					);
+
+					return result;
+					}
+			);
 	}
 
 	@Override
-	public boolean contains(final BlockInformation blockInformation)
-
-	{
+	public boolean contains(final BlockInformation blockInformation) {
 		return IntStream.range(0, getInventorySize())
 			.mapToObj(this::getItem)
 			.anyMatch(stack -> {
-				if (stack.getItem() instanceof IBitItem bitItem) {
+					if (stack.getItem() instanceof IBitItem bitItem) {
 					return bitItem.getBlockInformation(stack).equals(blockInformation);
-				}
+			}
 
-				return false;
+					return false;
 			}
 
 			);

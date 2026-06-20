@@ -11,16 +11,12 @@ public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRe
 	static Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "noop");
 
 	@Override
-	public Identifier getId()
-
-	{
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Override
-	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack)
-
-	{
-		//Noop
+	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack) {
+	//Noop
 	}
 }

@@ -13,6 +13,6 @@ import java.lang.annotation.RetentionPolicy;
  * overlook these custom implementations, please use with care and test before
  * releasing usage.
  */
-@Retention( RetentionPolicy.RUNTIME )
+@Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreBlockLogic {
 }

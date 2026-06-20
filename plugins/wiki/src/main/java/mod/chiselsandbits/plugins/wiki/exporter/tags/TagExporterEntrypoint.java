@@ -17,16 +17,12 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 	private static MinecraftServer server;
 
 	@Override
-	public String getId()
-
-	{
+	public String getId() {
 		return "tag-exporter";
 	}
 
 	@Override
-	public void onConstruction()
-
-	{
+	public void onConstruction() {
 		LOGGER.warn("Loading wiki C&B Plugin.");
 
 		if (IScenaPlatform.getInstance().getPlatformId() != PlatformIds.NEOFORGE) {
@@ -35,9 +31,9 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 
 		IGameEvents.getInstance().getServerStartedEvent()
 			.register(minecraftServer -> {
-				LOGGER.info("Starting wiki C&B Plugin data exporter.");
-				setServer(minecraftServer);
-				WikiDataExporter.runModule(TagExporterFactory.NAME);
+					LOGGER.info("Starting wiki C&B Plugin data exporter.");
+					setServer(minecraftServer);
+					WikiDataExporter.runModule(TagExporterFactory.NAME);
 			}
 
 			);
@@ -45,9 +41,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 		LOGGER.info("Loaded wiki C&B Plugin.");
 	}
 
-	static MinecraftServer getServer()
-
-	{
+	static MinecraftServer getServer() {
 		if (server == null) {
 			throw new IllegalStateException("Entrypoint was not invoked properly!");
 		}
@@ -55,9 +49,7 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 		return server;
 	}
 
-	private static void setServer(final MinecraftServer server)
-
-	{
+	private static void setServer(final MinecraftServer server) {
 		TagExporterEntrypoint.server = server;
 	}
 }

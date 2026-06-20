@@ -11,12 +11,12 @@ import net.minecraft.network.codec.StreamCodec;
  */
 public interface IChangeType extends ICustomRegistryEntry {
 	/**
-     * {@return The codec for the change.}
-     */
+	 * {@return The codec for the change.}
+	 */
 	MapCodec<? extends IChange> codec();
 
 	/**
-     * {@return The stream codec for the change.}
-     */
+	 * {@return The stream codec for the change.}
+	 */
 	StreamCodec<RegistryFriendlyByteBuf, ? extends IChange> streamCodec();
 }

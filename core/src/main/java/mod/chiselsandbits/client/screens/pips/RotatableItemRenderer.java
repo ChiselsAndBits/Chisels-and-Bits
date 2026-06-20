@@ -22,18 +22,14 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	@Nullable
 	private ItemStack lastModelIdentity = null;
 	@Nullable
-	private Quaternionf lastRotY  = null;
+	private Quaternionf lastRotY = null;
 
-	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource)
-
-	{
+	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
 		super(bufferSource);
 	}
 
 	@Override
-	protected void renderToTexture(RenderState state, PoseStack poseStack)
-
-	{
+	protected void renderToTexture(RenderState state, PoseStack poseStack) {
 		final var submitNodeCollector = Minecraft.getInstance().gameRenderer.getSubmitNodeStorage();
 		final var featureRenderDispatcher = Minecraft.getInstance().gameRenderer.getFeatureRenderDispatcher();
 
@@ -44,20 +40,20 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 
 		final ItemStackRenderState renderState = new ItemStackRenderState();
 		Minecraft.getInstance().getItemModelResolver().updateForTopItem(
-			renderState,
-			state.stack,
-			ItemDisplayContext.GUI,
-			null,
-			null,
-			42
+				renderState,
+				state.stack,
+				ItemDisplayContext.GUI,
+				null,
+				null,
+				42
 		);
 
 		renderState.submit(
-			poseStack,
-			submitNodeCollector,
-			LightCoordsUtil.FULL_BRIGHT,
-			OverlayTexture.NO_OVERLAY,
-			0
+				poseStack,
+				submitNodeCollector,
+				LightCoordsUtil.FULL_BRIGHT,
+				OverlayTexture.NO_OVERLAY,
+				0
 		);
 
 		featureRenderDispatcher.renderAllFeatures();
@@ -67,16 +63,12 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	}
 
 	@Override
-	protected float getTranslateY(int height, int guiScale)
-
-	{
+	protected float getTranslateY(int height, int guiScale) {
 		return height / 2F;
 	}
 
 	@Override
-	protected boolean textureIsReadyToBlit(RenderState state)
-
-	{
+	protected boolean textureIsReadyToBlit(RenderState state) {
 		if (state.rotation != lastRotY) return false;
 		if (lastModelIdentity == null) return false;
 
@@ -85,33 +77,16 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	}
 
 	@Override
-	protected @NotNull String getTextureLabel()
-
-	{
+	protected @NotNull String getTextureLabel() {
 		return "c&B rotatable item renderer";
 	}
 
 	@Override
-	public @NotNull Class<RenderState> getRenderStateClass()
-
-	{
+	public @NotNull Class<RenderState> getRenderStateClass() {
 		return RenderState.class;
 	}
 
 	public record RenderState(
-		ItemStack stack,
-		Quaternionf rotation,
-		int x0,
-		int y0,
-		int x1,
-		int y1,
-		float scale,
-		@Nullable ScreenRectangle bounds,
-		@Nullable ScreenRectangle scissorArea
-	) implements PictureInPictureRenderState
-
-	{
-		public RenderState(
 			ItemStack stack,
 			Quaternionf rotation,
 			int x0,
@@ -119,10 +94,19 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 			int x1,
 			int y1,
 			float scale,
+			@Nullable ScreenRectangle bounds,
 			@Nullable ScreenRectangle scissorArea
-		)
-
-		{
+			) implements PictureInPictureRenderState {
+		public RenderState(
+				ItemStack stack,
+				Quaternionf rotation,
+				int x0,
+				int y0,
+				int x1,
+				int y1,
+				float scale,
+				@Nullable ScreenRectangle scissorArea
+				) {
 			this(stack, rotation, x0, y0, x1, y1, scale, PictureInPictureRenderState.getBounds(x0, y0, x1, y1, scissorArea), scissorArea);
 		}
 	}

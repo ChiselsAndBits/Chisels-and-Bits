@@ -38,139 +38,119 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MergePatternPlacementType extends AbstractCustomRegistryEntry implements IPatternPlacementType {
 	@Override
-	public Identifier getIcon()
-
-	{
+	public Identifier getIcon() {
 		return Identifier.fromNamespaceAndPath(MOD_ID, "pattern_merge");
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup()
-
-	{
+	public @NotNull Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 
 	@Override
 	public VoxelShape buildVoxelShapeForWireframe(
-	  final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace)
-
-	{
+			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.MERGE.get().buildVoxelShapeForWireframe(
-		  sourceSnapshot, player, targetedPoint, hitFace
+				sourceSnapshot, player, targetedPoint, hitFace
 		);
 	}
 
 	@Override
-	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate)
-
-	{
-		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown() ?
-											context.getClickLocation()
-											: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
-		final IWorldAreaMutator areaMutator =
-		  IMutatorFactory.getInstance().covering(
-			context.getLevel(),
-			targetedPosition,
-			targetedPosition.add(0.9999,0.9999,0.9999)
-		  );
+	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
+		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
+		? context.getClickLocation()
+		: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
+		final IWorldAreaMutator areaMutator = 
+		IMutatorFactory.getInstance().covering(
+				context.getLevel(),
+				targetedPosition,
+				targetedPosition.add(0.9999, 0.9999, 0.9999)
+		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
-										  .map(pos -> context.getLevel().getBlockState(pos))
-										  .allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
+			.map(pos -> context.getLevel().getBlockState(pos))
+			.allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
 
-		if (!isChiseledBlock)
-
-		{
+		if (!isChiseledBlock) {
 			return PlacementResult.failure(
 					IClientConfiguration::getNotFittingPatternPlacementColor,
 					LocalStrings.PatternPlacementNotAChiseledBlock.getText());
 		}
 
 		final Map<BlockInformation, Integer> totalRemovedBits = source.stream()
-		  .filter(s -> !s.getBlockInformation().isAir())
-		  .filter(s -> {
-			  final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
+			.filter(s -> !s.getBlockInformation().isAir())
+			.filter(s -> {
+					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
-			  return o
-				.filter(os -> !os.getBlockInformation().isAir())
-				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
-				.orElse(false);
-		  }
+					return o
+					.filter(os -> !os.getBlockInformation().isAir())
+					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
+					.orElse(false);
+			}
 
-		  )
-		  .map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
-		  .filter(Optional::isPresent)
-		  .map(Optional::get)
-		  .collect(Collectors.toMap(
-			IStateEntryInfo::getBlockInformation,
-			s -> 1,
-			Integer::sum
-		  ));
+			)
+			.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
+			.filter(Optional::isPresent)
+			.map(Optional::get)
+			.collect(Collectors.toMap(
+					IStateEntryInfo::getBlockInformation,
+					s -> 1,
+					Integer::sum
+			));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
-		final boolean hasRequiredSpace = context.getPlayer().isCreative() ||
-										   totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
+		final boolean hasRequiredSpace = context.getPlayer().isCreative()
+		|| totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
-		if (!hasRequiredSpace)
-
-		{
+		if (!hasRequiredSpace) {
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
 					LocalStrings.PatternPlacementNoBitSpace.getText());
 		}
 
 		final Map<BlockInformation, Integer> totalAddedBits = source.stream()
-		  .filter(s -> !s.getBlockInformation().isAir())
-		  .filter(s -> {
-			  final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
+			.filter(s -> !s.getBlockInformation().isAir())
+			.filter(s -> {
+					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
-			  return o
-				.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
-				.orElse(false);
-		  }
+					return o
+					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
+					.orElse(false);
+			}
 
-		  )
-		  .collect(Collectors.toMap(
-			IStateEntryInfo::getBlockInformation,
-			s -> 1,
-			Integer::sum
-		  ));
+			)
+			.collect(Collectors.toMap(
+					IStateEntryInfo::getBlockInformation,
+					s -> 1,
+					Integer::sum
+			));
 
-		final boolean hasRequiredBits =
-		  context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
+		final boolean hasRequiredBits = 
+		context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
-		if (!hasRequiredBits)
-
-		{
+		if (!hasRequiredBits) {
 			return PlacementResult.failure(
 					IClientConfiguration::getMissingBitsOrSpacePatternPlacementColor,
 					LocalStrings.PatternPlacementNotEnoughBits.getText());
 		}
 
-		if (simulate)
-
-		{
+		if (simulate) {
 			return PlacementResult.success();
 		}
 
-		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer())))
-
-		{
+		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream()
-			  .filter(s -> !s.getBlockInformation().isAir())
-			  .forEach(
-				stateEntryInfo -> {
-					areaMutator.overrideInAreaTarget(
-					  stateEntryInfo.getBlockInformation(),
-					  stateEntryInfo.getStartPoint());
-				}
-			  );
+				.filter(s -> !s.getBlockInformation().isAir())
+				.forEach(
+						stateEntryInfo -> {
+						areaMutator.overrideInAreaTarget(
+								stateEntryInfo.getBlockInformation(),
+								stateEntryInfo.getStartPoint());
+						}
+				);
 		}
 
-		if (!context.getPlayer().isCreative())
-
-		{
+		if (!context.getPlayer().isCreative()) {
 			totalRemovedBits.forEach(playerBitInventory::insertOrDiscard);
 			totalAddedBits.forEach(playerBitInventory::extract);
 		}
@@ -180,12 +160,8 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 	@Override
 	public Vec3 getTargetedPosition(
-	  final ItemStack heldStack, final Player player, final BlockHitResult blockHitResult)
-
-	{
-		if (player.isShiftKeyDown())
-
-		{
+			final ItemStack heldStack, final Player player, final BlockHitResult blockHitResult) {
+		if (player.isShiftKeyDown()) {
 			return blockHitResult.getLocation();
 		}
 
@@ -193,9 +169,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 	}
 
 	@Override
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return LocalStrings.PatternPlacementModeMerge.getText();
 	}
 }

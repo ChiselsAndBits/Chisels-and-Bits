@@ -80,9 +80,9 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		public int getCount() {
 			return 1;
 		}
-	}
+	};
 
-	;
+
 	private long lastTickTime = 0L;
 
 	public ChiseledPrinterBlockEntity(BlockPos pos, BlockState state) {
@@ -90,9 +90,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	protected void loadAdditional(final @NotNull ValueInput input)
-
-	{
+	protected void loadAdditional(final @NotNull ValueInput input) {
 		super.loadAdditional(input);
 
 		tool_handler = input.read(NbtConstants.TOOL, SimpleContainer.CODEC).orElse(new SimpleContainer(1));
@@ -103,9 +101,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	protected void saveAdditional(final @NotNull ValueOutput output)
-
-	{
+	protected void saveAdditional(final @NotNull ValueOutput output) {
 		super.saveAdditional(output);
 
 		output.store(NbtConstants.TOOL, SimpleContainer.CODEC, tool_handler);
@@ -121,15 +117,13 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public void setChanged()
-
-	{
+	public void setChanged() {
 		super.setChanged();
 
 		if (this.level != null && !this.level.isClientSide()) {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
 				new UpdateBlockEntityPacket(this),
-				level.getChunkAt(getBlockPos())
+					level.getChunkAt(getBlockPos())
 			);
 		}
 	}
@@ -145,7 +139,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			if (canWork()) {
 				progress++;
 
-				if (progress >= 100) {
+				if (progress>= 100) {
 					if (result_handler.getItem(0).isEmpty()) {
 						result_handler.setItem(0, realisePattern(true));
 					} else {
@@ -236,22 +230,22 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		final List<BlockInformationSource> thirdStates = getAvailableBitsOnTheBack();
 
 		final List<BlockInformationSources> states = ImmutableList.<BlockInformationSource>builder()
-				.addAll(firstStates)
-				.addAll(secondStates)
-				.addAll(thirdStates)
-				.build()
-				.stream()
-				.collect(Collectors.groupingBy(
-						BlockInformationSource::blockInformation,
-						Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
-				))
-				.entrySet()
-				.stream()
-				.map(e -> new BlockInformationSources(
-						e.getKey(),
-						e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
-						e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
-				)).toList();
+			.addAll(firstStates)
+			.addAll(secondStates)
+			.addAll(thirdStates)
+			.build()
+			.stream()
+			.collect(Collectors.groupingBy(
+					BlockInformationSource::blockInformation,
+					Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
+			))
+			.entrySet()
+			.stream()
+			.map(e -> new BlockInformationSources(
+					e.getKey(),
+					e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
+					e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
+					)).toList();
 
 		if (states.isEmpty()) {
 			return ItemStack.EMPTY;
@@ -263,21 +257,21 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 		final IMultiStateSnapshot modifiableSnapshot = realisedPattern.createSnapshot();
 		modifiableSnapshot.mutableStream()
-				.filter(e -> states.stream().noneMatch(s -> s.blockInformation().equals(e.getBlockInformation())))
-				.forEach(IMutableStateEntryInfo::clear);
+			.filter(e -> states.stream().noneMatch(s -> s.blockInformation().equals(e.getBlockInformation())))
+			.forEach(IMutableStateEntryInfo::clear);
 
-		if (modifiableSnapshot.getStatics().getStateCounts().size() == 1 &&
-				modifiableSnapshot.getStatics().getStateCounts().containsKey(BlockInformation.AIR)) {
-			//Just air.
+		if (modifiableSnapshot.getStatics().getStateCounts().size() == 1
+				&& modifiableSnapshot.getStatics().getStateCounts().containsKey(BlockInformation.AIR)) {
+				//Just air.
 			return ItemStack.EMPTY;
 		}
 
 		if (states.stream().map(BlockInformationSources::blockInformation).map(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state, 0))
 				.allMatch(i -> i == 0)) {
 			return ItemStack.EMPTY;
-		}
+				}
 
-		if (states.stream().anyMatch(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0) > state.totalCount())) {
+		if (states.stream().anyMatch(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0)> state.totalCount())) {
 			return ItemStack.EMPTY;
 		}
 
@@ -285,7 +279,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			for (BlockInformationSources state : states) {
 				int toDrain = modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0);
 
-				if (toDrain > 0) {
+				if (toDrain> 0) {
 					for (PositionAndCount pos : state.posses()) {
 						final int toDrainFromThis = Math.min(toDrain, pos.count());
 						drainStorage(toDrainFromThis, pos.pos());
@@ -359,7 +353,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 		BlockPos pos = this.getBlockPos();
 
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i <16; i++) {
 			pos = pos.relative(targetedFacing);
 			final BlockEntity targetedTileEntity = Objects.requireNonNull(this.getLevel()).getBlockEntity(pos);
 
@@ -382,9 +376,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public void preRemoveSideEffects(final @NotNull BlockPos pos, final @NotNull BlockState state)
-
-	{
+	public void preRemoveSideEffects(final @NotNull BlockPos pos, final @NotNull BlockState state) {
 		super.preRemoveSideEffects(pos, state);
 		dropInventoryItems();
 	}
@@ -430,34 +422,31 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	@Override
 	public int @NotNull [] getSlotsForFace(final @NotNull Direction direction) {
 		return switch (direction) {
-			case DOWN -> new int[] { 2 };
-			case UP -> new int[] { 1 };
-			case NORTH, SOUTH, WEST, EAST -> new int[] { 0 };
-		}
+		case DOWN -> new int[] { 2};
+		case UP -> new int[] { 1};
+		case NORTH, SOUTH, WEST, EAST -> new int[] { 0};
+		};
 
-		;
 	}
 
 	@Override
-	public boolean canPlaceItemThroughFace(final int index, final @NotNull ItemStack itemStack,final Direction direction) {
+	public boolean canPlaceItemThroughFace(final int index, final @NotNull ItemStack itemStack, final Direction direction) {
 		return switch (Objects.requireNonNull(direction)) {
-			case DOWN -> false;
-			case UP -> itemStack.getItem() instanceof IChiselItem;
-			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
-		}
+		case DOWN -> false;
+		case UP -> itemStack.getItem() instanceof IChiselItem;
+		case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
+		};
 
-		;
 	}
 
 	@Override
 	public boolean canTakeItemThroughFace(final int index, final @NotNull ItemStack itemStack, final @NotNull Direction direction) {
 		return switch (direction) {
-			case DOWN -> true;
-			case UP -> itemStack.getItem() instanceof IChiselItem;
-			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
-		}
+		case DOWN -> true;
+		case UP -> itemStack.getItem() instanceof IChiselItem;
+		case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
+		};
 
-		;
 	}
 
 	@Override
@@ -467,53 +456,50 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 	@Override
 	public boolean isEmpty() {
-		return getPatternHandler().isEmpty() &&
-				getToolHandler().isEmpty() &&
-				getResultHandler().isEmpty();
+		return getPatternHandler().isEmpty()
+		&& getToolHandler().isEmpty()
+		&& getResultHandler().isEmpty();
 	}
 
 	@Override
 	public @NotNull ItemStack getItem(final int index) {
 		return switch (index) {
-			case 0 -> getPatternStack();
-			case 1 -> getToolStack();
-			case 2 -> getOutputStack();
+		case 0 -> getPatternStack();
+		case 1 -> getToolStack();
+		case 2 -> getOutputStack();
 			default -> ItemStack.EMPTY;
-		}
+		};
 
-		;
 	}
 
 	@Override
 	public @NotNull ItemStack removeItem(final int index, final int count) {
 		return switch (index) {
-			case 0 -> getPatternHandler().removeItem(0, count);
-			case 1 -> getToolHandler().removeItem(0, count);
-			case 2 -> getResultHandler().removeItem(0, count);
+		case 0 -> getPatternHandler().removeItem(0, count);
+		case 1 -> getToolHandler().removeItem(0, count);
+		case 2 -> getResultHandler().removeItem(0, count);
 			default -> ItemStack.EMPTY;
-		}
+		};
 
-		;
 	}
 
 	@Override
 	public @NotNull ItemStack removeItemNoUpdate(final int index) {
 		return switch (index) {
-			case 0 -> getPatternHandler().removeItemNoUpdate(0);
-			case 1 -> getToolHandler().removeItemNoUpdate(0);
-			case 2 -> getResultHandler().removeItemNoUpdate(0);
+		case 0 -> getPatternHandler().removeItemNoUpdate(0);
+		case 1 -> getToolHandler().removeItemNoUpdate(0);
+		case 2 -> getResultHandler().removeItemNoUpdate(0);
 			default -> ItemStack.EMPTY;
-		}
+		};
 
-		;
 	}
 
 	@Override
 	public void setItem(final int index, final @NotNull ItemStack itemStack) {
 		switch (index) {
-			case 0 -> getPatternHandler().setItem(0, itemStack);
-			case 1 -> getToolHandler().setItem(0, itemStack);
-			case 2 -> getResultHandler().setItem(0, itemStack);
+		case 0 -> getPatternHandler().setItem(0, itemStack);
+		case 1 -> getToolHandler().setItem(0, itemStack);
+		case 2 -> getResultHandler().setItem(0, itemStack);
 		}
 	}
 
@@ -539,15 +525,11 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 	public record BlockInformationSources(BlockInformation blockInformation, int totalCount, Set<PositionAndCount> posses) {}
 
-	public int getProgress()
-
-	{
+	public int getProgress() {
 		return this.progress;
 	}
 
-	public IMultiStateSnapshot getRealisedPattern()
-
-	{
+	public IMultiStateSnapshot getRealisedPattern() {
 		final ItemStack patternStack = getPatternStack();
 
 		if (patternStack.getItem() instanceof IPatternItem pattern) {
@@ -558,48 +540,38 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	public record Payload(int progress, ItemStack patternStack) {
-		public static final StreamCodec<RegistryFriendlyByteBuf, Payload> STREAM_CODEC =
-			StreamCodec.composite(
+		public static final StreamCodec<RegistryFriendlyByteBuf, Payload> STREAM_CODEC = 
+		StreamCodec.composite(
 				ByteBufCodecs.VAR_INT,
 				Payload::progress,
 				ItemStack.OPTIONAL_STREAM_CODEC,
 				Payload::patternStack,
 				Payload::new
-			);
+		);
 	}
 
 	@Override
-	public RegistryAccess registryAccess()
-
-	{
+	public RegistryAccess registryAccess() {
 		return Objects.requireNonNull(level).registryAccess();
 	}
 
 	@Override
-	public BlockPos blockPos()
-
-	{
+	public BlockPos blockPos() {
 		return getBlockPos();
 	}
 
 	@Override
-	public Payload payload()
-
-	{
+	public Payload payload() {
 		return new Payload(this.progress, this.getPatternStack());
 	}
 
 	@Override
-	public StreamCodec<RegistryFriendlyByteBuf, Payload> streamCodec()
-
-	{
+	public StreamCodec<RegistryFriendlyByteBuf, Payload> streamCodec() {
 		return Payload.STREAM_CODEC;
 	}
 
 	@Override
-	public void receivePayload(final Payload payload)
-
-	{
+	public void receivePayload(final Payload payload) {
 		this.progress = payload.progress;
 		this.setPatternStack(payload.patternStack());
 	}

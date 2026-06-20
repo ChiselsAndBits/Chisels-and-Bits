@@ -10,21 +10,21 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ILaunchPropertyManager {
 	/**
-     * The current instance of the launch property manager.
-     *
-     * @return The current instance.
-     */
+	 * The current instance of the launch property manager.
+	 *
+	 * @return The current instance.
+	 */
 	static ILaunchPropertyManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getLaunchPropertyManager();
 	}
 
 	/**
-     * Retrieves the value of the launch property with the given key.
-     *
-     * @param key The key to get the launch property of.
-     * @param defaultValue The default value if not configured.
-     * @return The current value of the property.
-     */
+	 * Retrieves the value of the launch property with the given key.
+	 *
+	 * @param key The key to get the launch property of.
+	 * @param defaultValue The default value if not configured.
+	 * @return The current value of the property.
+	 */
 	@NotNull
 	String get(final String key, final String defaultValue);
 }

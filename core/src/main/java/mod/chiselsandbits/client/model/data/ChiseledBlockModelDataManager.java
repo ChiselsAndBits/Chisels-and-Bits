@@ -9,15 +9,11 @@ public class ChiseledBlockModelDataManager {
 	private static final Runnable NOOP = () -> {};
 	private static final ChiseledBlockModelDataManager INSTANCE = new ChiseledBlockModelDataManager();
 
-	public static ChiseledBlockModelDataManager getInstance()
-
-	{
+	public static ChiseledBlockModelDataManager getInstance() {
 		return INSTANCE;
 	}
 
-	private ChiseledBlockModelDataManager()
-
-	{
+	private ChiseledBlockModelDataManager() {
 	}
 
 	public void updateModelData(@Nullable final ChiseledBlockEntity tileEntity) {
@@ -25,18 +21,12 @@ public class ChiseledBlockModelDataManager {
 	}
 
 	public void updateModelData(
-	  final ChiseledBlockEntity tileEntity,
-	  final Runnable onCompleteCallback,
-	  final boolean force
-	)
-
-	{
-		if (!force)
-
-		{
-			if ( tileEntity == null || !tileEntity.hasLevel() || !Objects.requireNonNull(tileEntity.getLevel()).isClientSide())
-
-			{
+			final ChiseledBlockEntity tileEntity,
+			final Runnable onCompleteCallback,
+			final boolean force
+			) {
+		if (!force) {
+			if (tileEntity == null || !tileEntity.hasLevel() || !Objects.requireNonNull(tileEntity.getLevel()).isClientSide()) {
 				return;
 			}
 		}

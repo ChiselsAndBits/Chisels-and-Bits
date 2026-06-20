@@ -18,57 +18,50 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
 public final class QuadGenerationUtils {
-	private QuadGenerationUtils()
-
-	{
+	private QuadGenerationUtils() {
 		throw new IllegalStateException("Tried to instantiate: 'QuadGenerationUtils', but this is a utility class.");
 	}
 
 	public static void generateQuads(
-		final BlockInformation blockInformation,
-		@Nullable final Direction facingDirection,
-		@Nullable final BlockAndTintGetter blockAndTintGetter,
-		@Nullable final BlockPos pos,
-		final Vector3f from,
-		final Vector3f to,
-		final Consumer<GeneratedQuad> target) {
+			final BlockInformation blockInformation,
+			@Nullable final Direction facingDirection,
+			@Nullable final BlockAndTintGetter blockAndTintGetter,
+			@Nullable final BlockPos pos,
+			final Vector3f from,
+			final Vector3f to,
+			final Consumer<GeneratedQuad> target) {
 		generateQuads(
-			blockInformation,
-			facingDirection,
-			blockAndTintGetter,
-			pos,
-			from,
-			to,
-			($, $$) -> {},
-			target
+				blockInformation,
+				facingDirection,
+				blockAndTintGetter,
+				pos,
+				from,
+				to,
+				($, $$) -> {},
+				target
 		);
 	}
 
 	public static void generateQuads(
-		final BlockInformation blockInformation,
-		@Nullable final Direction facingDirection,
-		@Nullable final BlockAndTintGetter blockAndTintGetter,
-		@Nullable final BlockPos pos,
-		final Vector3f from,
-		final Vector3f to,
-		final BiConsumer<DeconstructedModelPartComponent, BakedQuadBuilder> quadAdapter,
-		final Consumer<GeneratedQuad> target) {
+			final BlockInformation blockInformation,
+			@Nullable final Direction facingDirection,
+			@Nullable final BlockAndTintGetter blockAndTintGetter,
+			@Nullable final BlockPos pos,
+			final Vector3f from,
+			final Vector3f to,
+			final BiConsumer<DeconstructedModelPartComponent, BakedQuadBuilder> quadAdapter,
+			final Consumer<GeneratedQuad> target) {
 		FaceManager.getInstance().extractQuads(
-			blockInformation,
-			facingDirection,
-			blockAndTintGetter,
-			pos,
-			(layer) -> {
+				blockInformation,
+				facingDirection,
+				blockAndTintGetter,
+				pos,
+				(layer) -> {
 				final Collection<VertexData> adaptedVertices;
-				try
 
-				{
+				try {
 					adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
-				}
-
-				catch (IllegalStateException e)
-
-				{
+			} catch (IllegalStateException e) {
 					return;
 				}
 
@@ -81,15 +74,15 @@ public final class QuadGenerationUtils {
 				final BakedQuad quad = adapter.build();
 
 				target.accept(new GeneratedQuad(
-					layer,
-					quad
+						layer,
+						quad
 				));
-			}
+				}
 		);
 	}
 
 	public record GeneratedQuad(
-		DeconstructedModelPartComponent source,
-		BakedQuad quad) {
+			DeconstructedModelPartComponent source,
+			BakedQuad quad) {
 	}
 }

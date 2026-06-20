@@ -34,88 +34,67 @@ import net.minecraft.world.level.Level;
 
 public record ModificationTableRecipe(IModificationOperation operation) implements Recipe<CraftingInput> {
 	public static final MapCodec<ModificationTableRecipe> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-			Identifier.CODEC.xmap(
-				resourceLocation -> IModificationOperation.getRegistry().get(resourceLocation).orElseThrow(),
-				ICustomRegistryEntry::getRegistryName
-			).fieldOf(NbtConstants.OPERATION).forGetter(ModificationTableRecipe::operation)
-		).apply(instance, ModificationTableRecipe::new)
+			instance -> instance.group(
+					Identifier.CODEC.xmap(
+							resourceLocation -> IModificationOperation.getRegistry().get(resourceLocation).orElseThrow(),
+							ICustomRegistryEntry::getRegistryName
+							).fieldOf(NbtConstants.OPERATION).forGetter(ModificationTableRecipe::operation)
+					).apply(instance, ModificationTableRecipe::new)
 	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, ModificationTableRecipe> STREAM_CODEC = StreamCodec.composite(
-		IModificationOperation.getRegistry().byNameStreamCodec(),
-		ModificationTableRecipe::operation,
-		ModificationTableRecipe::new
+			IModificationOperation.getRegistry().byNameStreamCodec(),
+			ModificationTableRecipe::operation,
+			ModificationTableRecipe::new
 	);
 
 	@Override
-	public boolean matches(final CraftingInput inv, final @NotNull Level worldIn)
-
-	{
+	public boolean matches(final CraftingInput inv, final @NotNull Level worldIn) {
 		return inv.getItem(0).getItem() instanceof IPatternItem && !(inv.getItem(0).getItem() instanceof IMultiUsePatternItem);
 	}
 
 	@Override
-	public @NonNull ItemStack assemble(final CraftingInput input)
-
-	{
+	public @NonNull ItemStack assemble(final CraftingInput input) {
 		return getAppliedSnapshot(input).toItemStack().toPatternStack();
 	}
 
 	@Override
-	public boolean showNotification()
-
-	{
+	public boolean showNotification() {
 		return false;
 	}
 
 	@Override
-	public @NonNull String group()
-
-	{
+	public @NonNull String group() {
 		return "";
 	}
 
 	@Override
-	public @NonNull RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer()
-
-	{
+	public @NonNull RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer() {
 		return ModRecipeSerializers.MODIFICATION_TABLE.get();
 	}
 
 	@Override
-	public @NonNull RecipeType<? extends Recipe<CraftingInput>> getType()
-
-	{
+	public @NonNull RecipeType<? extends Recipe<CraftingInput>> getType() {
 		return ModRecipeTypes.MODIFICATION_TABLE.get();
 	}
 
 	@Override
-	public @NonNull PlacementInfo placementInfo()
-
-	{
+	public @NonNull PlacementInfo placementInfo() {
 		return PlacementInfo.NOT_PLACEABLE;
 	}
 
-	public @NotNull ItemStack getCraftingBlockResult(final CraftingInput inv)
-
-	{
+	public @NotNull ItemStack getCraftingBlockResult(final CraftingInput inv) {
 		return getAppliedSnapshot(inv).toItemStack().toBlockStack();
 	}
 
-	public @NotNull IMultiStateSnapshot getAppliedSnapshot(final CraftingInput inv)
-
-	{
+	public @NotNull IMultiStateSnapshot getAppliedSnapshot(final CraftingInput inv) {
 		final ItemStack multiStateStack = inv.getItem(0);
-		if (multiStateStack.isEmpty())
 
-		{
+		if (multiStateStack.isEmpty()) {
 			return EmptySnapshot.INSTANCE;
 		}
 
-		if (!(multiStateStack.getItem() instanceof final IMultiStateItem item))
-
-		{
+		if (!(multiStateStack.getItem() instanceof final IMultiStateItem item)) {
 			return EmptySnapshot.INSTANCE;
 		}
 
@@ -127,17 +106,13 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 		return snapshot;
 	}
 
-	public Component getDisplayName()
-
-	{
+	public Component getDisplayName() {
 		return Component.translatable(
-			Objects.requireNonNull(this.operation().getRegistryName()).getNamespace() + ".recipes.chisel.pattern.modification." + this.operation().getRegistryName().getPath());
+				Objects.requireNonNull(this.operation().getRegistryName()).getNamespace() + ".recipes.chisel.pattern.modification." + this.operation().getRegistryName().getPath());
 	}
 
 	@Override
-	public @NonNull RecipeBookCategory recipeBookCategory()
-
-	{
+	public @NonNull RecipeBookCategory recipeBookCategory() {
 		return RecipeBookCategories.CRAFTING_MISC;
 	}
 }

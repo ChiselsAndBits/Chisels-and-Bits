@@ -35,22 +35,16 @@ public class ScrollBasedModeChangeHandler {
 		final List<?> modes = Lists.newArrayList(toolModeItem.getPossibleModes());
 		int workingIndex = modes.indexOf(toolModeItem.getMode(stack));
 
-		if (scrollDelta < 0) {
+		if (scrollDelta <0) {
 			workingIndex++;
-		}
-
-		else
-
-		{
+		} else {
 			workingIndex--;
 		}
 
-		if (workingIndex < 0) {
+		if (workingIndex <0) {
 			workingIndex = modes.size() + workingIndex;
-		}
-
-		else if (workingIndex >= modes.size())
-			workingIndex -= modes.size();
+		} else if (workingIndex>= modes.size())
+		workingIndex -= modes.size();
 
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new HeldToolModeChangedPacket(workingIndex));
 		return true;

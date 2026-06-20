@@ -13,17 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class BitStackPickupHandler {
-	public static boolean pickupItems(final ItemEntity entityItem, final Player player)
-
-	{
-		if (entityItem != null)
-
-		{
+	public static boolean pickupItems(final ItemEntity entityItem, final Player player) {
+		if (entityItem != null) {
 			final ItemStack itemStack = entityItem.getItem();
 			if (!itemStack.isEmpty()
 					&& itemStack.getItem() instanceof final IBitItem bitItem
 					&& (!entityItem.hasPickUpDelay() && (entityItem.target == null || entityItem.target.equals(player.getUUID())))
-			) {
+					) {
 				final IBitInventory playerInventory = IBitInventoryManager.getInstance().create(player);
 				final BlockInformation containedInformation = bitItem.getBlockInformation(itemStack);
 				final int insertionCount = Math.min(itemStack.getCount(), playerInventory.getMaxInsertAmount(containedInformation));
@@ -32,9 +28,7 @@ public class BitStackPickupHandler {
 
 				itemStack.setCount(itemStack.getCount() - insertionCount);
 
-				if (itemStack.isEmpty())
-
-				{
+				if (itemStack.isEmpty()) {
 					entityItem.remove(Entity.RemovalReason.DISCARDED);
 				}
 

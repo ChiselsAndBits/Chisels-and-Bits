@@ -12,29 +12,25 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 
 public class ScannerMenu extends ScenaContainerMenu {
 	private final ContainerLevelAccess containerLevelAccess;
-	private final SimpleContainer      scannerSlotContainer;
+	private final SimpleContainer scannerSlotContainer;
 
 	public ScannerMenu(int screenIndex, Inventory inventory) {
 		this(screenIndex, inventory, ContainerLevelAccess.NULL);
 	}
 
-	public ScannerMenu(final int screenIndex, final Inventory inventory, final ContainerLevelAccess containerLevelAccess)
-
-	{
+	public ScannerMenu(final int screenIndex, final Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
 		super(ModContainerTypes.PATTERN_SCANNER_CONTAINER.get(), screenIndex);
 		this.containerLevelAccess = containerLevelAccess;
 		this.scannerSlotContainer = new SimpleContainer(0);
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player)
-
-	{
+	public boolean stillValid(final @NotNull Player player) {
 		return stillValid(containerLevelAccess, player, ModBlocks.PATTERN_SCANNER.get());
 	}
 
 	@Override
 	protected void registerQuickMoveRules() {
-		//Noop for now.
+	//Noop for now.
 	}
 }

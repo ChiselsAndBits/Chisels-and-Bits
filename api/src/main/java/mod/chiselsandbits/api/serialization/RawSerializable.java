@@ -9,17 +9,17 @@ import net.minecraft.network.codec.StreamCodec;
  */
 public interface RawSerializable {
 	/**
-     * {@return The codec used for direct serialization.}
-     */
+	 * {@return The codec used for direct serialization.}
+	 */
 	Codec<?> codec();
 
 	/**
-     * {@return The codec used for complex serialization.}
-     */
+	 * {@return The codec used for complex serialization.}
+	 */
 	MapCodec<?> mapCodec();
 
 	/**
-     * {@return The codec used for streaming serialization.}
-     */
+	 * {@return The codec used for streaming serialization.}
+	 */
 	StreamCodec<?, ?> streamCodec();
 }

@@ -11,11 +11,11 @@ import net.minecraft.world.item.CreativeModeTab;
 @Mixin(CreativeModeTab.class)
 public abstract class CreativeModeTabMixin {
 	@Inject(
-		method = "hasAnyItems()Z",
-		at = @At(
-			value = "HEAD"
-		),
-		cancellable = true
+			method = "hasAnyItems()Z",
+			at = @At(
+					value = "HEAD"
+			),
+			cancellable = true
 	)
 	public void onHasAnyItems(final CallbackInfoReturnable<Boolean> cir) {
 		final CreativeModeTab self = (CreativeModeTab) ((Object) this);

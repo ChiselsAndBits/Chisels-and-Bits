@@ -41,37 +41,27 @@ public class QuillItem extends Item implements IQuillItem {
 	private final String CONST_INTERACTION = "Interaction";
 	private final String CONST_SIMULATION = "Simulation";
 
-	public QuillItem(final Properties properties)
-
-	{
+	public QuillItem(final Properties properties) {
 		super(properties.enchantable(5));
 	}
 
 	@Override
-	public boolean isInteracting(final ItemStack stack)
-
-	{
+	public boolean isInteracting(final ItemStack stack) {
 		return stack.getItem() == this && stack.has(ModDataComponentTypes.INTERACTION_TARGET.get());
 	}
 
 	@Override
-	public ItemStack getInteractionTarget(final ItemStack stack)
-
-	{
+	public ItemStack getInteractionTarget(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.INTERACTION_TARGET.get(), InteractionData.EMPTY).stack();
 	}
 
 	@Override
-	public boolean isRunningASimulatedInteraction(final ItemStack stack)
-
-	{
+	public boolean isRunningASimulatedInteraction(final ItemStack stack) {
 		return isInteracting(stack) && stack.getOrDefault(ModDataComponentTypes.IS_SIMULATING.get(), false);
 	}
 
 	@Override
-	public float getBobbingTickCount()
-
-	{
+	public float getBobbingTickCount() {
 		return 4f;
 	}
 
@@ -81,10 +71,10 @@ public class QuillItem extends Item implements IQuillItem {
 	}
 
 	public static void spawnParticles(Vec3 location, ItemStack polishedStack, Level world) {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i <20; i++) {
 			Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
 			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(polishedStack.getItem().builtInRegistryHolder(), polishedStack.count(), polishedStack.getComponentsPatch())), location.x, location.y,
-			  location.z, motion.x, motion.y, motion.z);
+					location.z, motion.x, motion.y, motion.z);
 		}
 	}
 
@@ -116,28 +106,28 @@ public class QuillItem extends Item implements IQuillItem {
 
 			if (worldIn.isClientSide()) {
 				spawnParticles(entityLiving.getEyePosition(1)
-								 .add(entityLiving.getLookAngle()
-										.scale(.5f)),
-				  target, worldIn);
+						.add(entityLiving.getLookAngle()
+								.scale(.5f)),
+						target, worldIn);
 				return stack;
 			}
 
 			if (!pattern.isEmpty()) {
 				IPlayerInventoryManager.getInstance()
-				  .giveToPlayer(player, pattern);
+					.giveToPlayer(player, pattern);
 			}
 
 			stack.remove(ModDataComponentTypes.INTERACTION_TARGET.get());
 
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
-					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+						EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-					if (playerEntity.getOffhandItem() == stack) {
-						hand = EquipmentSlot.OFFHAND;
+						if (playerEntity.getOffhandItem() == stack) {
+							hand = EquipmentSlot.OFFHAND;
 					}
 
-					player.onEquippedItemBroken(item, hand);
+						player.onEquippedItemBroken(item, hand);
 				}
 
 				);
@@ -173,9 +163,8 @@ public class QuillItem extends Item implements IQuillItem {
 
 	private static ItemStack createPattern(final Player playerEntity) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
-		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult))
 
-		{
+		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
 			return new ItemStack(Items.PAPER);
 		}
 
@@ -186,16 +175,16 @@ public class QuillItem extends Item implements IQuillItem {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-		final @NotNull ItemStack stack,
-		final @NotNull TooltipContext context,
-		final @NotNull TooltipDisplay tooltipDisplay,
-		final @NotNull Consumer<Component> tooltipAdder,
-		final @NotNull TooltipFlag flag) {
+			final @NotNull ItemStack stack,
+			final @NotNull TooltipContext context,
+			final @NotNull TooltipDisplay tooltipDisplay,
+			final @NotNull Consumer<Component> tooltipAdder,
+			final @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		DistExecutor.unsafeExecuteForDist(
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
-			() -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder)
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder, Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage()),
+				() -> () -> HelpTextUtils.build(LocalStrings.HelpQuill, tooltipAdder)
 		);
 	}
 }

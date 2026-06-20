@@ -11,22 +11,16 @@ public class FabricClient implements ClientModInitializer {
 
 	private ChiselsAndBitsClient chiselsAndBits;
 
-	public FabricClient()
-
-	{
+	public FabricClient() {
 	}
 
 	@Override
-	public void onInitializeClient()
-
-	{
+	public void onInitializeClient() {
 		LOGGER.info("Initialized chisels-and-bits for Fabric client module");
 		setChiselsAndBits(new ChiselsAndBitsClient());
 	}
 
-	public void setChiselsAndBits(final ChiselsAndBitsClient chiselsAndBits)
-
-	{
+	public void setChiselsAndBits(final ChiselsAndBitsClient chiselsAndBits) {
 		this.chiselsAndBits = chiselsAndBits;
 	}
 }
