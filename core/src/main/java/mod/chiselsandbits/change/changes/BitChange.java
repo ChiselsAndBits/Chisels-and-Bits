@@ -141,7 +141,7 @@ public class BitChange implements IChange {
 		afterStates.forEach((state, count) -> {
 				if (!difference.containsKey(state)) {
 					difference.put(state, count);
-			}
+				}
 		}
 
 		);
@@ -155,7 +155,7 @@ public class BitChange implements IChange {
 						multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
 				} catch (SpaceOccupiedException e) {
 				//Noop
-					}
+				}
 					}
 
 			);
@@ -166,11 +166,11 @@ public class BitChange implements IChange {
 			difference.forEach((state, diff) -> {
 					if (state.isAir()) {
 						return;
-				}
+					}
 
 					if (diff <0) {
 						bitInventory.extract(state, -diff);
-				} else {
+					} else {
 						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
 					}
 			}
@@ -218,7 +218,7 @@ public class BitChange implements IChange {
 		afterStates.forEach((state, count) -> {
 				if (!difference.containsKey(state)) {
 					difference.put(state, -count);
-			}
+				}
 		}
 
 		);
@@ -232,7 +232,7 @@ public class BitChange implements IChange {
 						multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
 				} catch (SpaceOccupiedException e) {
 				//Noop
-					}
+				}
 					}
 
 			);
@@ -243,7 +243,7 @@ public class BitChange implements IChange {
 			difference.forEach((state, diff) -> {
 					if (diff <0) {
 						bitInventory.extract(state, -diff);
-				} else {
+					} else {
 						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
 					}
 			}
@@ -265,7 +265,7 @@ public class BitChange implements IChange {
 		afterStates.forEach((state, count) -> {
 				if (!difference.containsKey(state)) {
 					difference.put(state, count);
-			}
+				}
 		}
 
 		);
@@ -289,7 +289,7 @@ public class BitChange implements IChange {
 		afterStates.forEach((state, count) -> {
 				if (!difference.containsKey(state)) {
 					difference.put(state, -count);
-			}
+				}
 		}
 
 		);

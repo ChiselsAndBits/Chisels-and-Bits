@@ -14,7 +14,7 @@ public class ToolNameHighlightTickHandler {
 			if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof IPermanentlyHighlightedNameItem
 					|| Minecraft.getInstance().player.getOffhandItem().getItem() instanceof IPermanentlyHighlightedNameItem) {
 				Minecraft.getInstance().gui.toolHighlightTimer = 40;
-			}
+					}
 
 			if (!ItemStackUtils.getPatternItemStackFromPlayer(Minecraft.getInstance().player).isEmpty()) {
 				if (Minecraft.getInstance().gui.toolHighlightTimer == 0) {

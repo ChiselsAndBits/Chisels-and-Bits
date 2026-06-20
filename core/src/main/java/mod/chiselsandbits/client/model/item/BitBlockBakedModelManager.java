@@ -66,7 +66,7 @@ public class BitBlockBakedModelManager {
 			ItemStack stack,
 			final ClientLevel world,
 			final boolean large
-			) {
+	) {
 		if (!(stack.getItem() instanceof IBitItem)) {
 			LOGGER.warn("Tried to get bit item model for non bit item");
 			return BitBlockModelInformation.EMPTY;
@@ -124,7 +124,7 @@ public class BitBlockBakedModelManager {
 						if (workingState.blockState().getBlock() instanceof LiquidBlock) {
 							lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
 							isBlock = false;
-					}
+						}
 
 						final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
 								Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
@@ -140,10 +140,10 @@ public class BitBlockBakedModelManager {
 										layer.tintLayers()
 								)
 							);
-					}
+						}
 
 						return new BitBlockModelInformation(parts, isBlock, true);
-				} else {
+					} else {
 						return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
 					}
 			}

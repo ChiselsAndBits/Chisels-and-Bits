@@ -77,7 +77,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 			if (DistExecutor.unsafeRunForDist(
 					() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
 					() -> () -> { return false; })
-					) {
+			) {
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
 			} else {
@@ -180,7 +180,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 							KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),
 							KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
 					);
-			}
+				}
 		}
 
 		);

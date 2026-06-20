@@ -40,7 +40,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 			final String pattern,
 			final Map<Character, TagKey<Item>> tagMap,
 			final Map<Character, ItemLike> itemMap
-			) {
+	) {
 		super(registries, output, itemProvider);
 		this.shapeless = false;
 		this.pattern = Arrays.asList(pattern.split("; "));

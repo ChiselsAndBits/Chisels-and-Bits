@@ -49,7 +49,7 @@ public class VoxelShapeManager implements IVoxelShapeManager {
 
 				if (calculatedShape.isEmpty()) {
 					return Shapes.empty();
-			}
+				}
 
 				return calculatedShape;
 				}

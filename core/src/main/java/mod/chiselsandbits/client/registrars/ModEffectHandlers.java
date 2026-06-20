@@ -29,10 +29,10 @@ public class ModEffectHandlers {
 
 							if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity)) {
 							return null;
-					}
+							}
 
 							return multiStateBlockEntity.getStatistics().getPrimaryState().blockState();
-				}
+							}
 
 							@Override
 							public boolean addHitEffects(
@@ -45,11 +45,11 @@ public class ModEffectHandlers {
 
 							if (primaryState == null) {
 							return false;
-					}
+							}
 
 							return EffectUtils.addHitEffects(level, blockPos, direction, primaryState, particleEngine);
 				}
-			},
+					},
 
 
 							ModBlocks.CHISELED_BLOCK.get());
@@ -66,10 +66,10 @@ public class ModEffectHandlers {
 
 							if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity)) {
 							return null;
-					}
+							}
 
 							return multiStateBlockEntity.getStatistics().getPrimaryState().blockState();
-				}
+							}
 
 							@Override
 							public boolean addDestroyEffects(final BlockState blockState, final Level level, final BlockPos blockPos, final ParticleEngine particleEngine) {
@@ -77,12 +77,12 @@ public class ModEffectHandlers {
 
 							if (primaryState == null) {
 							return false;
-					}
+							}
 
 							EffectUtils.addBlockDestroyEffects(level, blockPos, primaryState, particleEngine, level);
 							return true;
-				}
-			},
+							}
+					},
 
 
 							ModBlocks.CHISELED_BLOCK.get());

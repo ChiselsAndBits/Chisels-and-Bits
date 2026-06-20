@@ -65,7 +65,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 			for (int i = 0; i <blockStateCount; i++) {
 				blockInformation.add(BlockInformationUtils.getRandomSupportedInformation(random));
-		}
+			}
 
 			final SimpleSnapshot results = new SimpleSnapshot(BlockInformation.AIR);
 
@@ -152,7 +152,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 					return true;
 			} catch (SpaceOccupiedException exception) {
 					return false;
-				}
+			}
 			}
 
 			);
@@ -167,7 +167,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 									stateEntryInfo.getBlockInformation(),
 									stateEntryInfo.getStartPoint());
 					} catch (SpaceOccupiedException ignored1) {
-						}
+					}
 						}
 
 				);
@@ -228,7 +228,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 					return true;
 			} catch (SpaceOccupiedException exception) {
 					return false;
-				}
+			}
 			}
 
 			);

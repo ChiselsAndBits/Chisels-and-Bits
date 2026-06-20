@@ -82,7 +82,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 					if (heldBlockState.isAir()) {
 						return ClickProcessingState.DEFAULT;
-				}
+					}
 
 					context.setComplete();
 
@@ -101,7 +101,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 					if (!player.isCreative() && !playerBitInventory.canExtract(heldBlockState, missingBitCount)) {
 						context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 						return ClickProcessingState.DEFAULT;
-				}
+					}
 
 					final int totalModifiedStates = mutator.inWorldMutableStream()
 					.filter(filter)
@@ -124,18 +124,18 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 					if (totalModifiedStates == 0) {
 						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				}
+					}
 
 					if (!player.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 							player,
 							blockState,
 							count
 					));
-			}
+						}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -208,7 +208,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	private Optional<ClickProcessingState> processRayTraceIntoContext(
 			final Player Player,
 			final IChiselingContext context
-			) {
+	) {
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
 
 		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult)) {

@@ -71,7 +71,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 				 */
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					return false;
-			}
+				}
 
 				public void onTake(@NotNull Player thePlayer, @NotNull ItemStack stack) {
 					stack.onCraftedBy(thePlayer, stack.getCount());
@@ -80,7 +80,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 
 					if (!itemstack.isEmpty()) {
 						ModificationTableContainer.this.updateRecipeResultSlot();
-				}
+					}
 
 					worldPosCallableIn.execute((p_216954_1_, p_216954_2_) -> {
 							long l = p_216954_1_.getGameTime();
@@ -88,12 +88,12 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 							if (ModificationTableContainer.this.lastOnTake != l) {
 							p_216954_1_.playSound(null, p_216954_2_, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
 							ModificationTableContainer.this.lastOnTake = l;
-					}
+							}
 					}
 
 					);
 					super.onTake(thePlayer, stack);
-			}
+				}
 		}
 
 		);

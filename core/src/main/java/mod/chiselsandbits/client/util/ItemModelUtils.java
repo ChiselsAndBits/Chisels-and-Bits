@@ -50,7 +50,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed
-			) {
+	) {
 		final ItemStackRenderState renderState = new ItemStackRenderState();
 		model.update(
 				renderState,
@@ -77,7 +77,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed
-			) {
+	) {
 		final ItemStackRenderState renderState = update(
 				stack, model, context, level, owner, seed
 		);
@@ -102,7 +102,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed
-			) {
+	) {
 		final ItemStackRenderState renderState = new ItemStackRenderState();
 		Minecraft.getInstance().getItemModelResolver().updateForTopItem(
 				renderState,
@@ -129,7 +129,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed
-			) {
+	) {
 		final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
 		final QuadCollection.Builder result = new QuadCollection.Builder();
 
@@ -147,7 +147,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed
-			) {
+	) {
 		final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
 				Objects.requireNonNull(stack.get(DataComponents.ITEM_MODEL))
 		);
@@ -160,7 +160,7 @@ public class ItemModelUtils {
 	public static QuadCollection adapt(
 			final QuadCollection input,
 			final Function<BakedQuad, BakedQuad> adapter
-			) {
+	) {
 		final QuadCollection.Builder builder = new QuadCollection.Builder();
 
 		for (final Direction direction : Direction.values()) {

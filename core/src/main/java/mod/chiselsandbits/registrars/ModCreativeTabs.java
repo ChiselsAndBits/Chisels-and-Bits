@@ -48,7 +48,7 @@ public final class ModCreativeTabs {
 
 					for (DyeColor color : DyeColor.values()) {
 					output.accept(BitBagItem.dyeBag(new ItemStack(ModItems.ITEM_BIT_BAG.get()), color));
-		}
+					}
 
 					output.accept(new ItemStack(ModItems.MAGNIFYING_GLASS.get()));
 					output.accept(new ItemStack(ModItems.ITEM_BIT_STORAGE.get()));
@@ -74,7 +74,7 @@ public final class ModCreativeTabs {
 					.forEach(block -> {
 							if (block instanceof ChiseledBlock) {
 							return;
-			}
+							}
 
 							BlockState blockState = block.defaultBlockState();
 							final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
@@ -88,24 +88,24 @@ public final class ModCreativeTabs {
 
 									if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
 									output.accept(resultStack);
-							}
-						}
-					}
+									}
+									}
+									}
 							}
 
 							);
 
 							return;
-			}
+							}
 
-			//We need to make sure that we only have still fluids in the interface!
+							//We need to make sure that we only have still fluids in the interface!
 							if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
 							final Fluid fluid = liquidBlock.fluid;
 
 							if (fluid instanceof FlowingFluid flowingFluid) {
 							blockState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
-				}
-			}
+							}
+							}
 
 							final BlockInformation information = new BlockInformation(blockState, Optional.empty());
 
@@ -116,9 +116,9 @@ public final class ModCreativeTabs {
 
 							if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
 							output.accept(resultStack);
-					}
-				}
-			}
+							}
+							}
+							}
 					}
 
 					);

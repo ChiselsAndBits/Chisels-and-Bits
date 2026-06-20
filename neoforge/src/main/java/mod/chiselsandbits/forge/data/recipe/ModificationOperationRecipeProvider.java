@@ -27,12 +27,12 @@ public class ModificationOperationRecipeProvider extends RecipeProvider {
 				@Override
 				protected @NotNull RecipeProvider createRecipeProvider(final HolderLookup.@NotNull Provider registries, final @NotNull RecipeOutput output) {
 					return new ModificationOperationRecipeProvider(registries, output);
-			}
+				}
 
 				@Override
 				public @NotNull String getName() {
 					return "Modification table recipes";
-			}
+				}
 			}
 		);
 	}

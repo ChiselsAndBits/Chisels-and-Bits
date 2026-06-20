@@ -20,8 +20,8 @@ public class MeasurementTapeTickHandler {
 					if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
 						measuringTapeItem.clear(stack);
 						ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
-				}
-			} else if (Minecraft.getInstance().level != null) {
+					}
+				} else if (Minecraft.getInstance().level != null) {
 					ItemStack stack = getItemStack();
 
 					if (!stack.isEmpty() && stack.getItem() instanceof MeasuringTapeItem measuringTapeItem) {
@@ -30,7 +30,7 @@ public class MeasurementTapeTickHandler {
 								Minecraft.getInstance().level,
 								Minecraft.getInstance().player
 						);
-				}
+					}
 				}
 		}
 

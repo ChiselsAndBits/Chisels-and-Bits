@@ -46,7 +46,7 @@ public interface IBlockNeighborhood {
 
 				if (level == null) {
 					return BlockInformation.AIR;
-			}
+				}
 
 				final BlockState state = level.getBlockState(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
 				final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
@@ -63,13 +63,13 @@ public interface IBlockNeighborhood {
 
 				if (level == null) {
 					return null;
-			}
+				}
 
 				final BlockEntity otherTileEntity = level.getBlockEntity(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
 
 				if (otherTileEntity instanceof IAreaAccessor otherAccessor) {
 					return otherAccessor;
-			}
+				}
 
 				return null;
 				}

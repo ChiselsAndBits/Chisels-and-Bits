@@ -110,7 +110,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final float iconScaleFactor,
 			final int iconTextSpacer,
 			final Font fontRenderer
-			) {
+	) {
 		super(x, y, width, height, message);
 		this.currentlySelectedModeSupplier = currentlySelectedModeSupplier;
 		this.currentlyHoveredModeCallback = currentlyHoveredModeCallback;
@@ -235,7 +235,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 							isSelected,
 							isHovered
 					);
-			} else {
+				} else {
 					drawDeactivatedSection(
 							graphics,
 							sectionArcAngle,
@@ -293,7 +293,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 						final int modeIndex = modes.indexOf(mode);
 						final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
 						renderModeIconAtAngle(graphics, innerRadius, outerRadius, itemTargetAngle, iconScaleFactor, iconTextSpacer, mode, fontRenderer);
-				}
+					}
 			}
 
 			);
@@ -335,7 +335,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final float itemTargetAngle,
 			final boolean isSelected,
 			final boolean isHovered
-			) {
+	) {
 		final float itemArcAngle = sectionArcAngle / itemCountInSection;
 		final float itemRenderAngle = itemTargetAngle - 90F;
 
@@ -388,7 +388,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final int centerX, final int centerY,
 			final int itemCountInSection,
 			final float itemTargetAngle
-			) {
+	) {
 		final float itemArcAngle = sectionArcAngle / itemCountInSection;
 		final float itemRenderAngle = itemTargetAngle - 90F;
 
@@ -456,7 +456,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final int iconTextSpacer,
 			final @NotNull IRenderableMode mode,
 			final Font fontRenderer
-			) {
+	) {
 		final float itemCenterX = 0f;
 		final float itemCenterY = 0f;
 

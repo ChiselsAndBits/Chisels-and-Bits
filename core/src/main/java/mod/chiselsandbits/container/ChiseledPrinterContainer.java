@@ -49,11 +49,11 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					0,
 					50,
 					47
-					) {
+			) {
 				@Override
 				public boolean mayPlace(@NotNull final ItemStack stack) {
 					return stack.isEmpty() || stack.getItem() instanceof IPatternItem;
-			}
+				}
 		}
 
 		);
@@ -64,11 +64,11 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					0,
 					81,
 					21
-					) {
+			) {
 				@Override
 				public boolean mayPlace(@NotNull final ItemStack stack) {
 					return stack.getItem() instanceof IChiselItem;
-			}
+				}
 		}
 
 		);
@@ -79,11 +79,11 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					0,
 					116,
 					47
-					) {
+			) {
 				@Override
 				public boolean mayPlace(@NotNull final ItemStack stack) {
 					return false;
-			}
+				}
 		}
 
 		);

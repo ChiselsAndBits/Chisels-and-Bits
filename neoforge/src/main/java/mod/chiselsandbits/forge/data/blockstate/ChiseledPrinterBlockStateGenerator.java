@@ -60,7 +60,7 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
 								TextureSlot.PARTICLE
 						)
 					);
-			}
+				}
 		}
 
 		);

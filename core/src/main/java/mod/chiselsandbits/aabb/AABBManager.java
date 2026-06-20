@@ -28,7 +28,7 @@ public class AABBManager {
 	public List<AABB> get(
 			final IAreaAccessor accessor,
 			final CollisionType sizeType
-			) {
+	) {
 		final Key cacheKey = new Key(
 				accessor.createNewShapeIdentifier(),
 				sizeType

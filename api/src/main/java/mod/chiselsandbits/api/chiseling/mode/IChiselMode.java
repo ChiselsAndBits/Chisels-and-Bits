@@ -111,7 +111,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 			final Player playerEntity,
 			final IChiselingContext context,
 			final ChiselingOperation modeOfOperation
-			) {
+	) {
 		final IChiselingContext snapshot = IChiselingManager.getInstance().create(
 				playerEntity,
 				this,

@@ -23,7 +23,7 @@ public class BlockHitResultUtils {
 			final BlockHitResult blockHitResult,
 			final Vec3 objectSize,
 			final Function<Direction, Vec3> placementFacingAdapter
-			) {
+	) {
 		final Vec3 halfSize = objectSize.multiply(0.5, 0.5, 0.5);
 		final Vec3 scaleSize = VectorUtils.divide(VectorUtils.ONE, objectSize);
 

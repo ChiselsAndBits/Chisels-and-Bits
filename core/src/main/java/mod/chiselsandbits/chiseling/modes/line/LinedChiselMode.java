@@ -75,13 +75,13 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							state.clear();
-					}
+							}
 					}
 
 					);
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(playerEntity, blockState, count));
-			}
+				}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -106,7 +106,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 				if (heldBlockState.isAir()) {
 					return ClickProcessingState.DEFAULT;
-			}
+				}
 
 				final int missingBitCount = (int) mutator.stream().filter(state -> state.getBlockInformation().isAir()).count();
 
@@ -117,20 +117,20 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 					if (!playerEntity.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 						mutator.inWorldMutableStream().filter(state -> state.getBlockInformation().isAir()).forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+					}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					if (!context.validateBuildHeights()) {
 						return ClickProcessingState.DENIED;
+					}
 				}
-			}
 
 				return ClickProcessingState.ALLOW;
 		}

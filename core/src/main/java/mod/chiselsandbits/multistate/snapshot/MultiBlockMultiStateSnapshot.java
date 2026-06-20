@@ -266,7 +266,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				|| workingTarget.x()> endPoint.x()
 				|| workingTarget.y()> endPoint.y()
 				|| workingTarget.z()> endPoint.z()
-				) {
+		) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
 
@@ -315,7 +315,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				|| workingTarget.x()> endPoint.x()
 				|| workingTarget.y()> endPoint.y()
 				|| workingTarget.z()> endPoint.z()
-				) {
+		) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
 

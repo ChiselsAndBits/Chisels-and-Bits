@@ -19,7 +19,7 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider {
 	public DyeableItemsRecipeGenerator(
 			final HolderLookup.Provider registries,
 			final RecipeOutput output
-			) {
+	) {
 		super(registries, output);
 	}
 

@@ -53,7 +53,7 @@ public final class ModEventHandler {
 					);
 
 					return new Result(state.shouldCancel(), mapResult(state.getNextState()), mapResult(state.getNextState()));
-			}
+				}
 
 				private static ClickProcessingState.ProcessingResult mapResult(
 						final IPlayerLeftClickBlockEvent.Result result) {
@@ -61,18 +61,18 @@ public final class ModEventHandler {
 				case DENY -> ClickProcessingState.ProcessingResult.DENY;
 				case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 				case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
-				};
+					};
 
 			}
 
 				private static ProcessingResult mapResult(
 						final ClickProcessingState.ProcessingResult processingResult
-						) {
+				) {
 					return switch (processingResult) {
 				case DENY -> ProcessingResult.DENY;
 				case DEFAULT -> ProcessingResult.DEFAULT;
 				case ALLOW -> ProcessingResult.ALLOW;
-				};
+					};
 
 			}
 		}
@@ -88,7 +88,7 @@ public final class ModEventHandler {
 
 				if (player instanceof ServerPlayer serverPlayer) {
 					MeasuringSynchronisationHandler.syncTo(serverPlayer);
-			}
+				}
 		}
 
 		);
@@ -108,7 +108,7 @@ public final class ModEventHandler {
 					);
 
 					return new Result(state.shouldCancel(), mapResult(state.getNextState(), result.useItemResult()), mapResult(state.getNextState(), result.useBlockResult()));
-			}
+				}
 
 				private static ClickProcessingState.ProcessingResult mapItemResult(
 						final IPlayerRightClickBlockEvent.Result result) {
@@ -116,19 +116,19 @@ public final class ModEventHandler {
 				case DENY -> ClickProcessingState.ProcessingResult.DENY;
 				case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
 				case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
-				};
+					};
 
 			}
 
 				private static ProcessingResult mapResult(
 						final ClickProcessingState.ProcessingResult processingResult,
 						final ProcessingResult current
-						) {
+				) {
 					return switch (processingResult) {
 				case DENY -> ProcessingResult.DENY;
 				case DEFAULT -> current;
 				case ALLOW -> ProcessingResult.ALLOW;
-				};
+					};
 
 			}
 		}

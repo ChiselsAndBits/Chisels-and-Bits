@@ -248,7 +248,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| inAreaTarget.y() <0
 				|| inAreaTarget.z() <0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
-		}
+				}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
@@ -256,7 +256,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| actualTarget.y()>= getInWorldEndPoint().y()
 				|| actualTarget.z()>= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
-		}
+				}
 
 		final BlockPos blockPosTarget = VectorUtils.toBlockPos(actualTarget);
 
@@ -278,13 +278,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| target.y() <getInWorldStartPoint().y()
 				|| target.z() <getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
-		}
+				}
 
 		if (target.x()>= getInWorldEndPoint().x()
 				|| target.y()>= getInWorldEndPoint().y()
 				|| target.z()>= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
-		}
+				}
 
 		final ChiselAdaptingWorldMutator innerMutator = new ChiselAdaptingWorldMutator(
 				getWorld(), targetPos
@@ -304,7 +304,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| inAreaTarget.y() <0
 				|| inAreaTarget.z() <0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
-		}
+				}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
@@ -312,7 +312,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| actualTarget.y()>= getInWorldEndPoint().y()
 				|| actualTarget.z()>= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
-		}
+				}
 
 		final BlockPos blockPosTarget = VectorUtils.toBlockPos(actualTarget);
 
@@ -340,13 +340,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| target.y() <getInWorldStartPoint().y()
 				|| target.z() <getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
-		}
+				}
 
 		if (target.x()>= getInWorldEndPoint().x()
 				|| target.y()>= getInWorldEndPoint().y()
 				|| target.z()>= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
-		}
+				}
 
 		final ChiselAdaptingWorldMutator innerMutator = new ChiselAdaptingWorldMutator(
 				getWorld(), targetPos

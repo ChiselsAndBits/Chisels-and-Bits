@@ -14,7 +14,7 @@ public class MeasurementNetworkUtil {
 
 	public static void createAndSend(
 			final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode
-			) {
+	) {
 		if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null) {
 			return;
 		}

@@ -157,14 +157,14 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 					if (totalModifiedStates == 0) {
 						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				}
+					}
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 							playerEntity,
 							blockState,
 							count
 					));
-			}
+						}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -207,7 +207,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 				if (heldBlockState.isAir()) {
 					return ClickProcessingState.DEFAULT;
-			}
+				}
 
 				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 				.map(factory -> factory.apply(mutator))
@@ -224,23 +224,23 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 					if (!playerEntity.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = 
 							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+							}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					if (!context.validateBuildHeights()) {
 						return ClickProcessingState.DENIED;
+					}
 				}
-			}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -313,7 +313,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final Player playerEntity,
 			final Function<Direction, Vec3> placementFacingAdapter,
 			final Function<Vec3, Vec3> fullFacingVectorAdapter
-			) {
+	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
@@ -350,7 +350,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 			final IChiselingContext context,
 			final Function<Direction, Vec3> placementFacingAdapter,
 			final Function<Vec3, Vec3> fullFacingVectorAdapter
-			) {
+	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
@@ -383,7 +383,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		context.setStateFilter(areaAccessor -> {
 				if (areaAccessor instanceof IWorldAreaAccessor) {
 					return new SphereAreaFilter(context.getModeOfOperandus(), ((IWorldAreaAccessor) areaAccessor).getInWorldStartPoint(), center);
-			}
+				}
 
 				return new SphereAreaFilter(context.getModeOfOperandus(), Vec3.ZERO, center);
 		}

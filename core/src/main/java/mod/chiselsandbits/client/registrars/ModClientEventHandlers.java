@@ -38,7 +38,7 @@ public final class ModClientEventHandlers {
 		IGameEvents.getInstance().getChunkLoadEvent().register((_, chunkAccess) -> {
 				if (chunkAccess instanceof LevelChunk levelChunk) {
 					ChiseledBlockModelUpdateHandler.updateAllModelDataInChunk(levelChunk);
-			}
+				}
 		}
 
 		);

@@ -19,7 +19,7 @@ public class SelectedObjectRenderHandler {
 			final MultiBufferSource.BufferSource bufferSource,
 			final LevelRenderState levelRenderState,
 			final float partialTicks
-			) {
+	) {
 		final Player playerEntity = Minecraft.getInstance().player;
 
 		if (playerEntity == null || playerEntity.isSpectator()) {

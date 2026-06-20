@@ -120,7 +120,7 @@ public class SealantItem extends Item implements ISealantItem {
 
 						if (playerEntity.getOffhandItem() == stack) {
 							hand = EquipmentSlot.OFFHAND;
-					}
+						}
 
 						player.onEquippedItemBroken(item, hand);
 				}

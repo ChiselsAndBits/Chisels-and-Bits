@@ -57,7 +57,7 @@ public class BitStorageBlockItem extends BlockItem {
 						() -> () -> Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown(),
 						() -> () -> Boolean.TRUE
 				)
-				) {
+		) {
 			HelpTextUtils.build(LocalStrings.LongHelpBitStorage, tooltipAdder);
 		}
 	}

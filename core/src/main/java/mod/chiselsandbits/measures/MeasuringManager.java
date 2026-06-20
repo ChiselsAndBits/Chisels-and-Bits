@@ -96,7 +96,7 @@ public class MeasuringManager implements IMeasuringManager {
 
 	public void createAndSend(
 			final Vec3 from, final Vec3 to, final Direction hitFace, final MeasuringMode mode
-			) {
+	) {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MeasurementNetworkUtil.createAndSend(from, to, hitFace, mode));
 	}
 

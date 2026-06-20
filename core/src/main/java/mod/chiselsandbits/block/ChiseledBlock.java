@@ -187,7 +187,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		if (
 				(!IClientConfiguration.getInstance().getInvertPickBlockBehaviour().get() && player.isShiftKeyDown())
 				|| (IClientConfiguration.getInstance().getInvertPickBlockBehaviour().get() && !player.isShiftKeyDown())
-				) {
+		) {
 			return getBlockEntity(blockGetter, pos)
 				.map(e -> {
 						final IMultiStateBlockEntity.BlockStack result = e.getBlockStack();
@@ -220,7 +220,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			} catch (IllegalArgumentException exception) {
 			//Because people do stupid stuff.
 					return Optional.empty();
-				}
+			}
 			}
 
 			)
@@ -328,7 +328,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					if (rotationCount <0) {
 					rotationCount += 4;
-			}
+					}
 
 					multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
 					super.setPlacedBy(worldIn, pos, state, placer, stack);
@@ -440,11 +440,11 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 								stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
 						} catch (SpaceOccupiedException e) {
 						//Ignore
+						}
 							}
-					}
 							}
 					);
-			}
+					}
 
 					return true;
 			}
@@ -507,13 +507,13 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					.reduce((floats, floats2) -> {
 							if (floats.length != floats2.length) {
 							return new float[0];
-			}
+							}
 
 							final float[] result = new float[floats.length];
 
 							for (int i = 0; i <floats.length; i++) {
 							result[i] = floats[i] + floats2[i];
-			}
+							}
 
 							return result;
 					}
@@ -609,7 +609,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						.filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())
 						.peek(IMutableStateEntryInfo::clear)
 						.count();
-				}
+						}
 				}
 
 				)
@@ -619,7 +619,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						IPlayerInventoryManager.getInstance().giveToPlayer(
 								player, new ItemStack(Items.WET_SPONGE)
 						);
-				}
+						}
 
 						return count> 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 				}
@@ -634,7 +634,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						if (blockEntity.isEmitsLightBasedOnFullBlock()) {
 						blockEntity.setEmitsLightBasedOnFullBlock(false);
 						return InteractionResult.CONSUME;
-				}
+						}
 
 						return InteractionResult.PASS;
 				}
@@ -649,7 +649,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						if (!blockEntity.isEmitsLightBasedOnFullBlock()) {
 						blockEntity.setEmitsLightBasedOnFullBlock(true);
 						return InteractionResult.CONSUME;
-				}
+						}
 
 						return InteractionResult.PASS;
 				}
@@ -664,7 +664,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						if (blockEntity.isCanBeFlooded()) {
 						blockEntity.setCanBeFlooded(false);
 						return InteractionResult.CONSUME;
-				}
+						}
 
 						return InteractionResult.PASS;
 				}
@@ -680,10 +680,10 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 						if (player instanceof ServerPlayer serverPlayer) {
 							itemStack.hurtAndBreak(1, serverPlayer, getSlotForHand(hand));
-					}
+						}
 
 						return InteractionResult.SUCCESS;
-				}
+						}
 
 						return InteractionResult.PASS;
 				}

@@ -39,7 +39,7 @@ public record ChiseledBlockModelInformationBuilder(
 		ChiseledBlockModelCacheKey key,
 		BlockAndTintGetter blockAndTintGetter,
 		BlockPos pos
-		) {
+) {
 	public ChiseledBlockModelInformation build() {
 	//Handle the case where we have no bits in the system.
 		if (key().primaryState().isAir()) {
@@ -90,7 +90,7 @@ public record ChiseledBlockModelInformationBuilder(
 
 	private BlockInformation getBlockInformationForOffset(
 			int x, int y, int z
-			) {
+	) {
 		final Vec3 targetOffset = new Vec3(x, y, z).multiply(StateEntrySize.current().getSizePerBitScalingVector());
 		final Vec3 nominalTargetOffset = Vec3.ZERO.add(targetOffset);
 		final BlockPos nominalTargetBlockOffset = VectorUtils.toBlockPos(nominalTargetOffset);
@@ -107,7 +107,7 @@ public record ChiseledBlockModelInformationBuilder(
 		if (targetOffset.x()>= 0 && targetOffset.x() <1
 				&& targetOffset.y()>= 0 && targetOffset.y() <1
 				&& targetOffset.z()>= 0 && targetOffset.z() <1
-				) {
+		) {
 			neighborAccessor = data();
 		} else {
 			neighborAccessor = key().neighborhood().getAreaAccessor(offsetDirection);

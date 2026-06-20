@@ -15,7 +15,7 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 	@SuppressWarnings("unchecked")
 	public static <M extends IToolMode<G>, G extends IToolModeGroup> ToolModeSelectionScreen<M, G> create(
 			final ItemStack sourceStack
-			) {
+	) {
 		final Item item = sourceStack.getItem();
 
 		if (!(item instanceof IWithModeItem)) {
@@ -33,7 +33,7 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 	private ToolModeSelectionScreen(
 			final IWithModeItem<M> toolModeItem,
 			final ItemStack sourceStack
-			) {
+	) {
 		super(LocalStrings.ToolMenuScreenName.getText(sourceStack.getDisplayName()));
 
 		this.toolModeItem = toolModeItem;

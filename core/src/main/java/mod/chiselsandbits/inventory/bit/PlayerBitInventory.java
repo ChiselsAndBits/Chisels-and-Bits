@@ -23,11 +23,11 @@ public class PlayerBitInventory extends ContainerBitInventory {
 			.mapToInt(stack -> {
 					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
 					return stack.getCount();
-			}
+					}
 
 					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 					return bitInventoryItem.create(stack).getMaxExtractAmount(blockState);
-			}
+					}
 
 					return 0;
 			}
@@ -43,15 +43,15 @@ public class PlayerBitInventory extends ContainerBitInventory {
 			.mapToInt(stack -> {
 					if (stack.isEmpty()) {
 					return getMaxBitsFor(stack);
-			}
+					}
 
 					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
 					return getMaxBitsFor(stack) - stack.getCount();
-			}
+					}
 
 					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
 					return bitInventoryItem.create(stack).getMaxInsertAmount(blockState);
-			}
+					}
 
 					return 0;
 			}

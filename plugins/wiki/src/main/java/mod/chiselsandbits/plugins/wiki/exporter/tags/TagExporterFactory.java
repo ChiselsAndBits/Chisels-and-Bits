@@ -108,7 +108,7 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 					OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
 					JsonWriter jsonWriter = new JsonWriter(writer)) {
 				GSON.toJson(contents, List.class, jsonWriter);
-			}
+					}
 		}
 	}
 }

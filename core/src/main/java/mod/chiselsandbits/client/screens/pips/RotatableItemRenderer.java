@@ -106,7 +106,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 				int y1,
 				float scale,
 				@Nullable ScreenRectangle scissorArea
-				) {
+		) {
 			this(stack, rotation, x0, y0, x1, y1, scale, PictureInPictureRenderState.getBounds(x0, y0, x1, y1, scissorArea), scissorArea);
 		}
 	}

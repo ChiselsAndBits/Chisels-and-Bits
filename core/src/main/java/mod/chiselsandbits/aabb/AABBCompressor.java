@@ -43,13 +43,13 @@ public class AABBCompressor {
 				public void accept(final IStateEntryInfo stateEntryInfo) {
 					if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x()) {
 						state.setCurrentBox(null, null);
-				}
+					}
 
 					state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
 
 					if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y()) {
 						state.setCurrentBox(null, null);
-				}
+					}
 
 					state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
 
@@ -66,7 +66,7 @@ public class AABBCompressor {
 					if (potentialEntryData.isEmpty()) {
 						state.setCurrentBox(null, centerPoint);
 						return;
-				}
+					}
 
 					final AABB entryData = potentialEntryData.get();
 
@@ -79,18 +79,18 @@ public class AABBCompressor {
 
 							if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
 								return;
-						}
+							}
 
 							return;
 								}
-				}
+					}
 
 					if (attemptMergeWithNeighbors(state, centerPoint, entryData)) {
 						return;
-				}
+					}
 
 					state.setCurrentBox(potentialEntryData.get(), centerPoint);
-			}
+				}
 			}
 
 		);

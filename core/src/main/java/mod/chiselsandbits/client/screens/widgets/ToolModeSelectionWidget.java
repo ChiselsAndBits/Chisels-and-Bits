@@ -131,7 +131,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		allPagesCombined.sort(Comparator.comparingInt(renderableMode -> {
 				if (noneGroupedModes.contains(renderableMode)) {
 					return modes.indexOf(renderableMode);
-			}
+				}
 
 				return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
 		}

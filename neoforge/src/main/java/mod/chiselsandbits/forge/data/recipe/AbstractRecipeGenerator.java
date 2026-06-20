@@ -38,7 +38,7 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider {
 				CompletableFuture<HolderLookup.Provider> lookupProvider,
 				final ItemLike itemProvider,
 				final GeneratorFactory<?> factory
-				) {
+		) {
 			super(output, lookupProvider);
 			this.itemProvider = itemProvider;
 			this.factory = factory;

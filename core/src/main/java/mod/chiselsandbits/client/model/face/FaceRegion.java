@@ -23,7 +23,7 @@ public class FaceRegion {
 			final Direction facing,
 			final BlockInformation blockInformation,
 			final boolean isEdge
-			) {
+	) {
 		return new FaceRegion(
 				facing,
 				blockInformation,
@@ -122,7 +122,7 @@ public class FaceRegion {
 
 	public boolean extend(
 			final FaceRegion faceToExtendTo
-			) {
+	) {
 		if (faceToExtendTo.blockInformation != blockInformation) {
 			return false;
 		}

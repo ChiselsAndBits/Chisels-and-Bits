@@ -77,7 +77,7 @@ public interface IAreaMutator extends IAreaAccessor {
 	default void overrideInAreaTarget(
 			BlockInformation blockInformation,
 			Vec3 inAreaTarget
-			) {
+	) {
 		try {
 			clearInAreaTarget(inAreaTarget);
 			setInAreaTarget(blockInformation, inAreaTarget);
@@ -97,7 +97,7 @@ public interface IAreaMutator extends IAreaAccessor {
 			BlockInformation blockInformation,
 			BlockPos inAreaBlockPosOffset,
 			Vec3 inBlockTarget
-			) {
+	) {
 		try {
 			clearInBlockTarget(inAreaBlockPosOffset, inBlockTarget);
 			setInBlockTarget(blockInformation, inAreaBlockPosOffset, inBlockTarget);

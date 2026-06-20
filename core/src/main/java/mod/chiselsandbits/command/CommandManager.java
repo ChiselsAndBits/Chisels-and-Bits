@@ -166,7 +166,7 @@ public class CommandManager {
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
-			}
+					}
 		} else {
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 					: mutator.batch()) {
@@ -196,7 +196,7 @@ public class CommandManager {
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
-			}
+					}
 		}
 
 		context.getSource().sendSuccess(() -> Component.translatable(LocalStrings.CommandFillCompleted.toString()), true);
@@ -218,7 +218,7 @@ public class CommandManager {
 			mutator.mutableStream().forEach(
 					IMutableStateEntryInfo::clear
 			);
-		}
+				}
 
 		return 0;
 	}

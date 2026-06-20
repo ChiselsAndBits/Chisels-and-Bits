@@ -24,7 +24,7 @@ public class ChiseledBlockModelDataManager {
 			final ChiseledBlockEntity tileEntity,
 			final Runnable onCompleteCallback,
 			final boolean force
-			) {
+	) {
 		if (!force) {
 			if (tileEntity == null || !tileEntity.hasLevel() || !Objects.requireNonNull(tileEntity.getLevel()).isClientSide()) {
 				return;

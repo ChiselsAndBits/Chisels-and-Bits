@@ -54,7 +54,7 @@ public class ChiseledBlockModelDataExecutor {
 
 				if (otherTileEntity instanceof IAreaAccessor) {
 					return (IAreaAccessor) otherTileEntity;
-			}
+				}
 
 				return null;
 				}
@@ -96,9 +96,9 @@ public class ChiseledBlockModelDataExecutor {
 								tileEntity.getBlockState(),
 								8
 						);
-				}
+					}
 			} catch (Exception ignored) {
-				}
+			}
 			},
 
 

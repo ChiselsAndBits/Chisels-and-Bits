@@ -119,7 +119,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 						this::setInAreaTarget,
 						this::clearInAreaTarget)
 				);
-		}
+				}
 
 		return Stream.empty();
 	}
@@ -140,13 +140,13 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				|| inAreaTarget.y() <0
 				|| inAreaTarget.z() <0) {
 			return Optional.empty();
-		}
+				}
 
 		if (inAreaTarget.x()>= 1
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			return Optional.empty();
-		}
+				}
 
 		final BlockEntity blockEntity = getWorld().getBlockEntity(getPos());
 
@@ -270,7 +270,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 						this::setInAreaTarget,
 						this::clearInAreaTarget)
 				);
-		}
+				}
 
 		return Stream.empty();
 	}
@@ -312,7 +312,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			}
 
 			);
-		}
+				}
 	}
 
 	@Override
@@ -440,14 +440,14 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				|| inAreaTarget.z() <0) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset greater or equal to 0.Requested was: " + inAreaTarget);
-		}
+				}
 
 		if (inAreaTarget.x()>= 1
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset smaller then 1.Requested was: " + inAreaTarget);
-		}
+				}
 
 		final BlockEntity blockEntity = getWorld().getBlockEntity(getPos());
 
@@ -514,14 +514,14 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				|| inAreaTarget.z() <0) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset greater or equal to 0.Requested was: " + inAreaTarget);
-		}
+				}
 
 		if (inAreaTarget.x()> 1
 				|| inAreaTarget.y()> 1
 				|| inAreaTarget.z()> 1) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset smaller then 1.Requested was: " + inAreaTarget);
-		}
+				}
 
 		final BlockEntity blockEntity = getWorld().getBlockEntity(getPos());
 
@@ -615,7 +615,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 						this::setInAreaTarget,
 						this::clearInAreaTarget)
 				);
-		}
+				}
 
 		return Stream.empty();
 	}

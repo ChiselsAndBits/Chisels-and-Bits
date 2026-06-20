@@ -15,10 +15,17 @@ tableau {
 }
 
 allprojects {Project project ->
+    apply plugin: 'checkstyle'
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(project.getProperties().get("java.version")))
         }
+    }
+
+    checkstyle {
+        configFile = rootProject.file('common/codestyle/checkstyle.xml')
+        toolVersion = '10.21.4'
     }
 }
 

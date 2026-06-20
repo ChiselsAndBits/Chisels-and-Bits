@@ -47,7 +47,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 					if (bitItem.getBlockInformation(stack).equals(blockState)) {
 					return stack.getCount();
-			}
+					}
 
 					return 0;
 			}
@@ -152,13 +152,13 @@ public abstract class AbstractBitInventory implements IBitInventory {
 			.mapToInt(stack -> {
 					if (stack.isEmpty()) {
 					return getMaxBitsFor(stack);
-			}
+					}
 
 					IBitItem bitItem = (IBitItem) stack.getItem();
 
 					if (bitItem.getBlockInformation(stack).equals(blockInformation)) {
 					return getMaxBitsFor(stack) - stack.getCount();
-			}
+					}
 
 					return 0;
 			}
@@ -234,7 +234,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 					blockStateIntegerHashMap2.forEach((state, count) -> {
 							if (!result.containsKey(state)) {
 							result.put(state, count);
-				} else {
+							} else {
 							result.put(state, result.get(state) + count);
 					}
 					}
@@ -253,7 +253,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 			.anyMatch(stack -> {
 					if (stack.getItem() instanceof IBitItem bitItem) {
 					return bitItem.getBlockInformation(stack).equals(blockInformation);
-			}
+					}
 
 					return false;
 			}

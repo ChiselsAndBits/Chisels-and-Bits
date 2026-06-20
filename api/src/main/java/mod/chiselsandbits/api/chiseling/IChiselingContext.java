@@ -308,7 +308,7 @@ public interface IChiselingContext extends IStateAccessor {
 				if (heightPos.getY()>= getWorld().getMaxY()) {
 					setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
 					return false;
-			} else if (heightPos.getY() <= getWorld().getMinY()) {
+				} else if (heightPos.getY() <= getWorld().getMinY()) {
 					setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
 					return false;
 				}

@@ -55,20 +55,20 @@ public record BitBlockItemModel(
 				if (modelInformation.isBlock()) {
 					itemstackrenderstate$layerrenderstate.setUsesBlockLight(this.usesBlockLight());
 					itemstackrenderstate$layerrenderstate.setItemTransform(this.transforms().getTransform(displayContext));
-			}
+				}
 
 				if (stack.hasFoil()) {
 					itemstackrenderstate$layerrenderstate.setFoilType(ItemStackRenderState.FoilType.STANDARD);
 					renderState.setAnimated();
 					renderState.appendModelIdentityElement(ItemStackRenderState.FoilType.STANDARD);
-			}
+				}
 
 				if (part.hasTints()) {
 					final IntList targetTints = itemstackrenderstate$layerrenderstate.tintLayers();
 
 					targetTints.addAll(part.tints());
 					renderState.appendModelIdentityElement(targetTints);
-			}
+				}
 
 				itemstackrenderstate$layerrenderstate.setExtents(() -> BitBlockQuadCollectionBuilder.EXTENDS);
 				itemstackrenderstate$layerrenderstate.prepareQuadList().addAll(part.quads());

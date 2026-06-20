@@ -70,12 +70,12 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 						@Override
 						public @NotNull CustomBlockStateModelBuilder with(final @NotNull VariantMutator variantMutator) {
 						return this;
-			}
+						}
 
 						@Override
 						public @NotNull CustomBlockStateModelBuilder with(final @NotNull UnbakedMutator variantMutator) {
 						return this;
-			}
+						}
 
 						@Override
 						public @NotNull CustomUnbakedBlockStateModel toUnbaked() {
@@ -83,8 +83,8 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 						return new UnbakedCustomModelWrapper(
 								ChiseledBlockStateModel.Unbaked.CODEC
 						);
-			}
-		}
+						}
+				}
 
 				)
 		));

@@ -175,7 +175,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
 				StateEntrySize.current().getBitsPerBlockSide(),
@@ -243,7 +243,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
 				StateEntrySize.current().getBitsPerBlockSide(),
@@ -308,7 +308,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
 				StateEntrySize.current().getBitsPerBlockSide(),

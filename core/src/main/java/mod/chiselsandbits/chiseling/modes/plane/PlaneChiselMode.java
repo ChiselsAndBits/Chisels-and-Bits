@@ -106,14 +106,14 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 					if (totalModifiedStates == 0) {
 						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				}
+					}
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 							playerEntity,
 							blockState,
 							count
 					));
-			}
+						}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -144,7 +144,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 				if (heldBlockState.isAir()) {
 					return ClickProcessingState.DEFAULT;
-			}
+				}
 
 				final int missingBitCount = (int) mutator.stream()
 				.filter(state -> state.getBlockInformation().isAir())
@@ -157,23 +157,23 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 					if (!playerEntity.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = 
 							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir())
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+							}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					if (!context.validateBuildHeights()) {
 						return ClickProcessingState.DENIED;
+					}
 				}
-			}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -196,7 +196,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 			final IChiselingContext context,
 			final Function<Direction, Vec3> placementFacingAdapter,
 			final Function<Direction, Direction> iterationAdaptor
-			) {
+	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {

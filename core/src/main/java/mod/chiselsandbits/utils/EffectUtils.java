@@ -54,9 +54,9 @@ public class EffectUtils {
 										d5 - 0.5D,
 										d6 - 0.5D,
 										primaryState, pos)));
+							}
 						}
 					}
-				}
 			}
 
 			);

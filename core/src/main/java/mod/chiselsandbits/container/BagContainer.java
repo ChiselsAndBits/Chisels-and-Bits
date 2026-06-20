@@ -107,7 +107,7 @@ public class BagContainer extends AbstractContainerMenu {
 			} else if (
 					!this.moveItemStackTo(slotStack, 0, this.bitSlots.size(), false)) {
 				return ItemStack.EMPTY;
-			}
+					}
 
 			if (slotStack.isEmpty()) {
 				slot.setByPlayer(original);

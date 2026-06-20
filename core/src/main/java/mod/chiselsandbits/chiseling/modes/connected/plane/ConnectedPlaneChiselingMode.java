@@ -120,14 +120,14 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 					if (totalDamage == 0) {
 						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				}
+					}
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 							playerEntity,
 							blockState,
 							count
 					));
-			}
+						}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -158,7 +158,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 					)
 							.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 					);
-			}
+				}
 
 				final Vec3 relevantAxisCandidate = candidatePosition.multiply(
 						Math.abs(hitFace.getUnitVec3i().getX()),
@@ -211,7 +211,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 				if (heldBlockState.isAir()) {
 					context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
 					return ClickProcessingState.DEFAULT;
-			}
+				}
 
 				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 				.map(builder -> builder.apply(mutator))
@@ -228,23 +228,23 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 					if (!playerEntity.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = 
 							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+							}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					if (!context.validateBuildHeights()) {
 						return ClickProcessingState.DENIED;
+					}
 				}
-			}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -312,7 +312,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 			final IQuadFunction<BlockPos, Vec3, Direction, Vec3, Vec3> stateExtractionAdapter,
 			final Function<Vec3, IAreaAccessor> areaAccessorBuilder,
 			final Function<Direction, Vec3i> filterOffsetProducer
-			) {
+	) {
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
@@ -417,9 +417,9 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 							//Valid offset found
 								if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
 									toProcess.addLast(newTarget);
+								}
 							}
-						}
-					} else {
+								} else {
 							processed.add(newTarget);
 						}
 				}

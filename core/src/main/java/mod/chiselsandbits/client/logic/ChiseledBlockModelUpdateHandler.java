@@ -11,7 +11,7 @@ public class ChiseledBlockModelUpdateHandler {
 			.forEach(blockEntity -> {
 					if (blockEntity instanceof ChiseledBlockEntity chiseledBlockEntity) {
 					chiseledBlockEntity.updateModelData();
-			}
+					}
 			}
 
 			);

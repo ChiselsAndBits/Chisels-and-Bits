@@ -60,7 +60,7 @@ public class PatternScannerBlockStateGenerator extends ModelProvider implements 
 								TextureSlot.PARTICLE
 						)
 					);
-			}
+				}
 		}
 
 		);

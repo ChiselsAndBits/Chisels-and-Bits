@@ -89,14 +89,14 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 				if (!Minecraft.getInstance().hasShiftDown()) {
 					tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
 					return;
-			}
+				}
 
 				final IBitInventoryItemStack inventoryItemStack;
 
 				if (tooltipCache.needsUpdate(stack)) {
 					inventoryItemStack = create(stack);
 					tooltipCache.updateCachedValue(inventoryItemStack);
-			} else {
+				} else {
 					inventoryItemStack = tooltipCache.getCached();
 				}
 

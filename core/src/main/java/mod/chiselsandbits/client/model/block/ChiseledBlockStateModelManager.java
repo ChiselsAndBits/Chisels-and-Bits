@@ -43,7 +43,7 @@ public class ChiseledBlockStateModelManager {
 
 	public ChiseledBlockModelInformation get(
 			ItemStack stack
-			) {
+	) {
 		final MultiStateItemStackData data = stack.get(ModDataComponentTypes.MULTI_STATE_ITEM_STACK_DATA.get());
 
 		if (data == null) {
@@ -73,7 +73,7 @@ public class ChiseledBlockStateModelManager {
 			final BlockPos blockPos,
 			final ISingleBlockAxisAlignedAreaAccessor accessor,
 			final IBlockNeighborhood blockNeighborhood
-			) {
+	) {
 		try (IProfilerSection ignored1 = ProfilingManager.getInstance().withSection("Block based chiseled block model")) {
 			if (accessor.getStatistics().getPrimaryState().isAir()) {
 				return ChiseledBlockModelInformation.EMPTY;
@@ -106,7 +106,7 @@ public class ChiseledBlockStateModelManager {
 								blockAndTintGetter,
 								blockPos
 								).build();
-				}
+					}
 					}
 
 			);

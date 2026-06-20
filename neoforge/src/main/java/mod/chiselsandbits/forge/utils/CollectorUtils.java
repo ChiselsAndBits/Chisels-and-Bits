@@ -15,7 +15,7 @@ public class CollectorUtils {
 	public static <T, M extends Map<Character, V>, V> Collector<T, M, M> toEnumeratedCharacterKeyedMap(
 			final Supplier<M> mapConstructor,
 			final Function<T, V> valueMapper
-			) {
+	) {
 		return Collector.of(
 				mapConstructor,
 			new BiConsumer<>() {
@@ -26,7 +26,7 @@ public class CollectorUtils {
 					m.put(c, valueMapper.apply(t));
 
 					c += 1;
-			}
+				}
 
 			},
 
@@ -40,7 +40,7 @@ public class CollectorUtils {
 	}
 
 	public static <T> Collector<T, HashMap<Character, T>, HashMap<Character, T>> toEnumeratedCharacterKeyedMap(
-			) {
+	) {
 		return toEnumeratedCharacterKeyedMap(
 				HashMap::new,
 				Function.identity()

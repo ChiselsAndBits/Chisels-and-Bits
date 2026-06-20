@@ -92,7 +92,7 @@ public class ChiselingManager implements IChiselingManager {
 
 				if (simulation) {
 					return;
-			}
+				}
 
 				this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
 				contexts.get().remove(playerId, worldId);

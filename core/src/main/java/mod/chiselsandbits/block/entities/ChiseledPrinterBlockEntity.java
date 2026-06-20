@@ -264,7 +264,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 				&& modifiableSnapshot.getStatics().getStateCounts().containsKey(BlockInformation.AIR)) {
 				//Just air.
 			return ItemStack.EMPTY;
-		}
+				}
 
 		if (states.stream().map(BlockInformationSources::blockInformation).map(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state, 0))
 				.allMatch(i -> i == 0)) {

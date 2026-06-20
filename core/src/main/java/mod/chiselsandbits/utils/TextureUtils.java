@@ -32,9 +32,9 @@ public class TextureUtils {
 						for (int x = 0; x <width; x++) {
 							int pixel = data.getInt((x + y * width) * pixSize);
 							destImage.setPixelABGR(x, y, pixel);
+						}
 					}
 				}
-			}
 
 				buffer.close();
 		},

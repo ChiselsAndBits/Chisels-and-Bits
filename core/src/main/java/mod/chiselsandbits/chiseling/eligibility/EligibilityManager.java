@@ -61,7 +61,7 @@ public class EligibilityManager implements IEligibilityManager {
 							true,
 							LocalStrings.ChiselSupportIsAlreadyChiseled.getText()
 					);
-			}
+				}
 
 				if (blockInformation.variant().isPresent()){
 					return new EligibilityAnalysisResult(
@@ -69,7 +69,7 @@ public class EligibilityManager implements IEligibilityManager {
 							false,
 							LocalStrings.ChiselSupportLogicIgnored.getText()
 					);
-			}
+				}
 
 				final Block blk = blockInformation.blockState().getBlock();
 
@@ -79,7 +79,7 @@ public class EligibilityManager implements IEligibilityManager {
 							false,
 							TranslationUtils.build(LocalStrings.ChiselSupportTagBlackListed)
 					);
-			}
+				}
 
 				if (blockInformation.blockState().is(ModTags.Blocks.FORCED_CHISELABLE)) {
 					return new EligibilityAnalysisResult(
@@ -87,7 +87,7 @@ public class EligibilityManager implements IEligibilityManager {
 							false,
 							TranslationUtils.build(LocalStrings.ChiselSupportTagWhitelisted)
 					);
-			}
+				}
 
 				try {
 				// require basic hardness behavior...
@@ -120,7 +120,7 @@ public class EligibilityManager implements IEligibilityManager {
 						noCustomCollision = true;
 						hasBehavior = false;
 						itemExistsOrNotSpecialDrops = true;
-				}
+					}
 
 					if (info.isCompatible() && noCustomCollision && info.getHardness()>= -0.01f && isFullBlock && !hasBehavior && itemExistsOrNotSpecialDrops) {
 						return new EligibilityAnalysisResult(
@@ -130,7 +130,7 @@ public class EligibilityManager implements IEligibilityManager {
 										? LocalStrings.ChiselSupportLogicIgnored
 										: LocalStrings.ChiselSupportGenericSupported
 								));
-				}
+					}
 
 					if (!blockInformation.blockState().getFluidState().isEmpty() && blockInformation.blockState().getBlock() instanceof LiquidBlock) {
 						return new EligibilityAnalysisResult(
@@ -138,7 +138,7 @@ public class EligibilityManager implements IEligibilityManager {
 								false,
 								TranslationUtils.build(LocalStrings.ChiselSupportGenericFluidSupport)
 						);
-				}
+					}
 
 					EligibilityAnalysisResult result = null;
 
@@ -148,7 +148,7 @@ public class EligibilityManager implements IEligibilityManager {
 								false,
 								TranslationUtils.build(LocalStrings.ChiselSupportCompatDeactivated)
 						);
-				} else if (!noCustomCollision) {
+					} else if (!noCustomCollision) {
 						result = new EligibilityAnalysisResult(
 								false,
 								false,
@@ -193,7 +193,7 @@ public class EligibilityManager implements IEligibilityManager {
 							false,
 							TranslationUtils.build(LocalStrings.ChiselSupportFailureToAnalyze)
 					);
-				}
+			}
 		}
 
 		);

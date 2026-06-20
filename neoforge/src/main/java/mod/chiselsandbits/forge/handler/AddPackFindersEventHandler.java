@@ -40,7 +40,7 @@ public class AddPackFindersEventHandler {
 						try {
 							FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
 					} catch (Exception ignored) {}
-				}
+					}
 
 					final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
 
@@ -68,7 +68,7 @@ public class AddPackFindersEventHandler {
 					registrar.accept(pack);
 			} catch (Exception e) {
 					LOGGER.error("Failed to inject Core Resource Pack.C&B Assets will not be loaded!", e);
-				}
+			}
 		}
 
 		);

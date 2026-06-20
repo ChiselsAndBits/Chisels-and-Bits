@@ -97,7 +97,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				if (c.isComplete()) {
 					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-			}
+				}
 		}
 
 		);
@@ -209,7 +209,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 				if (c.isComplete()) {
 					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
-			}
+				}
 		}
 
 		);
@@ -464,7 +464,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			availableBitStacks.sort(Comparator.comparing(stack -> {
 					if (!(stack.getItem() instanceof IBitItem)) {
 						throw new IllegalStateException("Stack did not contain a bit item.");
-				}
+					}
 
 					return ((IBitItem) stack.getItem()).getBlockInformation(stack);
 			}

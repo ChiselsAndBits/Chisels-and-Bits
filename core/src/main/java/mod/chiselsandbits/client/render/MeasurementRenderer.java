@@ -226,7 +226,7 @@ public final class MeasurementRenderer {
 	private Component formatLength(
 			final IMeasuringMode mode,
 			final double length
-			) {
+	) {
 		final IMeasuringType type = mode.getType();
 
 		if (type == MeasuringType.DISTANCE) {

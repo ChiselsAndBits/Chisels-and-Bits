@@ -116,7 +116,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 			final BlockPos position,
 			final Direction face,
 			final ClickProcessingState currentState
-			) {
+	) {
 		final ItemStack itemStack = playerEntity.getItemInHand(hand);
 
 		if (itemStack.isEmpty() || itemStack.getItem() != this) {
@@ -172,7 +172,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				if (c.isComplete()) {
 					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
 					LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-			}
+				}
 		}
 
 		);
@@ -230,7 +230,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		if (localCachedContext.isPresent()
 
 				&& localCachedContext.get().getMode().isStillValid(playerEntity, localCachedContext.get(), ChiselingOperation.CHISELING)
-				) {
+		) {
 			final IChiselingContext context = localCachedContext.get();
 
 			if (
@@ -301,7 +301,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				&& potentiallyCachedContext.get().getModeOfOperandus() == ChiselingOperation.CHISELING
 				&& chiselMode.isStillValid(playerEntity, potentiallyCachedContext.get(), ChiselingOperation.CHISELING)) {
 			context = potentiallyCachedContext.get();
-		} else {
+				} else {
 			context = IChiselingManager.getInstance().create(
 					playerEntity,
 					chiselMode,
@@ -314,7 +314,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 					playerEntity,
 					context
 			);
-		}
+				}
 
 		if (context.getMutator().isEmpty()) {
 			ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);

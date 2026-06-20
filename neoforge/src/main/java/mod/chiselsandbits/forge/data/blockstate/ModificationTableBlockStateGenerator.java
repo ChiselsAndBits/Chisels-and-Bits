@@ -60,7 +60,7 @@ public class ModificationTableBlockStateGenerator extends ModelProvider implemen
 								TextureSlot.PARTICLE
 						)
 					);
-			}
+				}
 		}
 
 		);

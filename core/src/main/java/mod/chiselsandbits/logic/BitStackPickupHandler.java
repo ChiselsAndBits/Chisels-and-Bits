@@ -19,7 +19,7 @@ public class BitStackPickupHandler {
 			if (!itemStack.isEmpty()
 					&& itemStack.getItem() instanceof final IBitItem bitItem
 					&& (!entityItem.hasPickUpDelay() && (entityItem.target == null || entityItem.target.equals(player.getUUID())))
-					) {
+			) {
 				final IBitInventory playerInventory = IBitInventoryManager.getInstance().create(player);
 				final BlockInformation containedInformation = bitItem.getBlockInformation(itemStack);
 				final int insertionCount = Math.min(itemStack.getCount(), playerInventory.getMaxInsertAmount(containedInformation));

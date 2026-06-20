@@ -270,13 +270,13 @@ public enum LocalStrings
 
 	public MutableComponent getText(
 			final Object...args
-			) {
+	) {
 		return Component.translatable(string, args);
 	}
 
 	public List<MutableComponent> getTextLines(
 			final Object...args
-			) {
+	) {
 		final MutableComponent component = Component.translatable(string, args);
 		final String componentString = component.getString();
 

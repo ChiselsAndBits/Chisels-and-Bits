@@ -258,7 +258,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 	public boolean extractBits(
 			final Player playerIn
-			) {
+	) {
 		if (!playerIn.isShiftKeyDown()) {
 			final ItemStack is = getItem(0);
 

@@ -40,7 +40,7 @@ public class CandBProfilingResult implements IProfilerResult {
 
 				if (!dataPoint.name.equals(name)) {
 					writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
-			}
+				}
 				}
 
 		);

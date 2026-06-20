@@ -173,7 +173,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 					tooltipAdder.accept(Component.literal(" "));
 
 					HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltipAdder);
-			}
+				}
 		}
 
 		);

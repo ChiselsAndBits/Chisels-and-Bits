@@ -18,7 +18,7 @@ public final class ModRecipeTypes {
 			@Override
 			public String toString() {
 				return Constants.MOD_ID + ":modification_table";
-		}
+			}
 	}
 
 	);

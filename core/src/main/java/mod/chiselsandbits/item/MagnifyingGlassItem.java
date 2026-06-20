@@ -37,15 +37,15 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 
 				if (Minecraft.getInstance().level == null) {
 					return super.getName(stack);
-			}
+				}
 
 				if (Minecraft.getInstance().hitResult == null) {
 					return super.getName(stack);
-			}
+				}
 
 				if (Minecraft.getInstance().hitResult.getType() != HitResult.Type.BLOCK) {
 					return super.getName(stack);
-			}
+				}
 
 				final BlockHitResult rayTraceResult = (BlockHitResult) Minecraft.getInstance().hitResult;
 				final BlockState state = Minecraft.getInstance().level.getBlockState(rayTraceResult.getBlockPos());

@@ -60,7 +60,7 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 					HelpTextUtils.build(
 							LocalStrings.HelpSealedPattern, tooltipAdder
 					);
-			}
+				}
 		}
 
 		);

@@ -77,7 +77,7 @@ public class MultiStateBlockPreviewRenderHandler {
 				|| (!placementResult.isSuccess() && failure.isWireframe())
 				|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
 			renderWireFrame(poseStack, bufferSource, playerEntity, heldStack, wireframeItem, blockRayTraceResult, targetedRenderPos, placementResult.getColor(), ignoreDepth);
-		}
+				}
 	}
 
 	private static void renderWireFrame(

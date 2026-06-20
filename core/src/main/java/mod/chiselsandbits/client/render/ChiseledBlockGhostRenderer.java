@@ -157,7 +157,7 @@ public class ChiseledBlockGhostRenderer {
 			BakedQuad quad,
 			QuadInstance instance,
 			final Vector4f color
-			) {
+	) {
 		poseStack.pushPose();
 		poseStack.translate(x, y, z);
 

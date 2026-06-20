@@ -179,7 +179,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 					}
 
 					return true;
-				}
+						}
 			}
 
 			i = this.leftPos + 119;

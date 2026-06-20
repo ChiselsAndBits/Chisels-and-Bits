@@ -51,7 +51,7 @@ public interface CBStreamCodecs {
 
 				if (doubles.size() != 3) {
 				throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
-		}
+				}
 
 				return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
 				},
@@ -67,7 +67,7 @@ public interface CBStreamCodecs {
 			StreamCodec<? super B, R> rowCodec,
 			StreamCodec<? super B, C> columnCodec,
 			StreamCodec<? super B, V> valueCodec
-			) {
+	) {
 		final StreamCodec<? super B, Map<C, V>> columnMapCodec = ByteBufCodecs.map(
 				innerMapFactory,
 				columnCodec,
@@ -240,7 +240,7 @@ public interface CBStreamCodecs {
 			StreamCodec<? super B, D> dispatcherCodec,
 			Function<D, StreamCodec<B, ? extends R>> decoderFactory,
 			Function<R, D> dispatcherSelector
-			) {
+	) {
 		return new StreamCodec<>() {
 			@Override
 			public @NotNull R decode(@NotNull B buffer) {

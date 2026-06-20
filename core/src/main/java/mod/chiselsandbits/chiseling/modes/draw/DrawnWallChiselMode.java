@@ -123,7 +123,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 							state.clear();
-					}
+							}
 					}
 
 					);
@@ -133,7 +133,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 							blockState,
 							count
 					));
-			}
+						}
 		}
 
 		);
@@ -162,7 +162,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 				if (heldBlockState.isAir()) {
 					return;
-			}
+				}
 
 				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 				.map(factory -> factory.apply(mutator))
@@ -179,21 +179,21 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
 					if (!playerEntity.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = 
 							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+							}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					context.validateBuildHeights();
-			}
+				}
 		}
 
 		);
@@ -232,7 +232,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		context.setStateFilter(areaAccessor -> {
 				if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
 					return new WallAreaFilter(finalAnchor.get(), currentTarget, finalTargetedAxis.get(), extensionWidth);
-			}
+				}
 
 				return (s) -> false;
 		}
@@ -348,7 +348,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 						for (int j = -extensionWidth; j <= extensionWidth; j++) {
 						builder.add(getOffsetPosition(i, j, axis));
-				}
+						}
 
 						return builder.build();
 				}

@@ -89,7 +89,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 								stateEntryInfo.getBlockInformation(),
 								stateEntryInfo.getStartPoint());
 				} catch (SpaceOccupiedException ignored1) {
-					}
+				}
 					}
 			);
 		}

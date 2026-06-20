@@ -252,7 +252,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final Vec3 exactAreaPos = 
 		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
@@ -337,7 +337,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 					if (mutableStatistics.isRequiresRecalculation()) {
 					mutableStatistics.recalculate(level, this.storage, this.blockPos(), shouldUpdateWorld());
-			}
+					}
 
 					mutableStatistics.updatePrimaryState(level, shouldUpdateWorld());
 
@@ -345,13 +345,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 					if (shouldUpdateWorld()) {
 					setChanged();
-			}
+					}
 
 					updateModelDataIfInLoadedChunk();
 
 					while (!this.afterCurrentLoad.isEmpty()) {
 					this.afterCurrentLoad.pop().run();
-			}
+					}
 
 			},
 
@@ -479,8 +479,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 					if (output instanceof WriteableTagValueOutput writeableTagValueOutput) {
 					synchronized (this.tagSyncHandle) {
 						this.lastTag = writeableTagValueOutput.asInput();
-				}
-			}
+					}
+					}
 			}
 
 			);
@@ -559,7 +559,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final Vec3 exactAreaPos = 
 		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
@@ -639,7 +639,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y()>= 1
 				|| inAreaTarget.z()>= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-		}
+				}
 
 		final Vec3 exactAreaPos = 
 		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
@@ -727,7 +727,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				try (final IBatchMutation ignored = batch()) {
 					this.storage.rotate(axis, rotationCount);
 					this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
-			}
+				}
 		}
 
 		);
@@ -744,7 +744,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				try (final IBatchMutation ignored = batch()) {
 					this.storage.mirror(axis);
 					this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
-			}
+				}
 		}
 
 		);
@@ -821,7 +821,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 				if (this.batchMutations.isEmpty()) {
 					setChanged();
-			}
+				}
 		}
 
 		));
@@ -1149,7 +1149,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				final LevelAccessor levelAccessor,
 				final BlockInformation blockInformation,
 				final BiFunction<LevelReader, BlockPos, T> getter
-				) {
+		) {
 			return getter.apply(createLevelReaderFor(levelAccessor, blockInformation), inWorldPos);
 		}
 
@@ -1159,7 +1159,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				final BlockInformation blockInformation,
 				final @Nullable G value,
 				final TriFunction<LevelReader, BlockPos, @Nullable G, T> getter
-				) {
+		) {
 			return getter.apply(createLevelReaderFor(levelAccessor, blockInformation), inWorldPos, value);
 		}
 
@@ -1454,7 +1454,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			countMap.forEach((blockState, count) -> {
 					if (usingLevelReader(levelAccessor, blockState, Direction.NORTH, ILevelBasedPropertyAccessor.getInstance()::shouldCheckWeakPower)) {
 						this.totalUsedChecksWeakPowerCount += count;
-				}
+					}
 
 					this.totalLightLevel += usingLevelReader(levelAccessor, blockState, ILevelBasedPropertyAccessor.getInstance()::getLightEmission)
 					* count;
@@ -1471,7 +1471,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 						if (!this.columnStatisticsTable.contains(pos.getX(), pos.getZ())) {
 						this.columnStatisticsTable.put(pos.getX(), pos.getZ(), new ColumnStatistics(inWorldPos));
-				}
+						}
 
 						Objects.requireNonNull(this.columnStatisticsTable.get(pos.getX(), pos.getZ())).onBlockStateAdded(levelAccessor, blockState, pos);
 				}
@@ -1632,7 +1632,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				final LevelAccessor levelAccessor,
 				final BlockInformation blockInformation,
 				final BiFunction<LevelReader, BlockPos, T> getter
-				) {
+		) {
 			return getter.apply(createLevelReaderFor(levelAccessor, blockInformation), inWorldPos);
 		}
 
@@ -1640,14 +1640,14 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				final LevelAccessor levelAccessor,
 				final BlockInformation blockInformation,
 				final TriFunction<LevelReader, BlockPos, @Nullable G, T> getter
-				) {
+		) {
 			return getter.apply(createLevelReaderFor(levelAccessor, blockInformation), inWorldPos, null);
 		}
 
 		private Optional<Boolean> canGrowGrassUsingLevelReader(
 				final LevelAccessor levelAccessor,
 				final BlockInformation blockInformation
-				) {
+		) {
 			return ILevelBasedPropertyAccessor.getInstance().canBeGrass(createLevelReaderFor(levelAccessor, blockInformation),
 					Blocks.GRASS_BLOCK.defaultBlockState(),
 					inWorldPos.below(),
@@ -1670,9 +1670,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				.orElseGet(() -> {
 						if (blockState.blockState().is(Blocks.SNOW) && blockState.blockState().getValue(SnowLayerBlock.LAYERS) == 1) {
 						return true;
-				} else if (blockState.blockState().getFluidState().getAmount() == 8) {
+						} else if (blockState.blockState().getFluidState().getAmount() == 8) {
 						return false;
-					} else {
+						} else {
 						int i = getLightBlockInto(blockState);
 						return i <LightEngine.MAX_LEVEL;
 					}

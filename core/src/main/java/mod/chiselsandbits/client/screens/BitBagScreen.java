@@ -41,7 +41,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 			final BagContainer container,
 			final Inventory playerInventory,
 			final Component title
-			) {
+	) {
 		super(container, playerInventory, title, 176, 240);
 		inventoryLabelY = this.imageHeight - 94;
 	}
@@ -58,8 +58,8 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 
 					if (isValidBitItem()) {
 						requireConfirm = false;
-				}
-			} else {
+					}
+				} else {
 					requireConfirm = true;
 					// server side!
 					final ClearBagGuiPacket packet = new ClearBagGuiPacket(getInHandItem());
@@ -111,11 +111,11 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 				protected TextureAtlasSprite getDefaultIcon() {
 					if (isCurrentlyPreferred()) {
 						return IconManager.getInstance().getBagPicksUpFirstIcon();
-				}
+					}
 
 					return IconManager.getInstance().getBagPicksUpSecondIcon();
-			}
-		}
+				}
+				}
 
 		);
 
@@ -136,11 +136,11 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 				protected TextureAtlasSprite getDefaultIcon() {
 					if (isCurrentlyFiltered()) {
 						return IconManager.getInstance().getFilterBagModeIcon();
-				}
+					}
 
 					return IconManager.getInstance().getNormalBagModeIcon();
-			}
-		}
+				}
+				}
 
 		);
 

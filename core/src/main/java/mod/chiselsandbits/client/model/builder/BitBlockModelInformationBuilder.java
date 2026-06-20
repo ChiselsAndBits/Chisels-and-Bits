@@ -54,7 +54,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 
 					if (layer.material().tintIndex() != -1) {
 						quad.tintIndex(0);
-				}
+					}
 					},
 
 

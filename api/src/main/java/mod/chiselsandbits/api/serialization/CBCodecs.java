@@ -77,7 +77,7 @@ public interface CBCodecs {
 
 				if (key != 0) {
 					throw new IllegalStateException("Wrong version stored for single version codec.");
-			}
+				}
 
 				return singleVersionCodec;
 				}
@@ -103,7 +103,7 @@ public interface CBCodecs {
 
 				if (!versions.containsKey(key)) {
 					throw new IllegalStateException("Unknown version: " + key);
-			}
+				}
 
 				return versions.get(key);
 				}
@@ -137,7 +137,7 @@ public interface CBCodecs {
 					return inner.parse(dynamic);
 			} catch (IOException e) {
 					return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
-				}
+			}
 
 				},
 
@@ -172,7 +172,7 @@ public interface CBCodecs {
 					return inner.parse(dynamic);
 			} catch (IOException e) {
 					return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
-				}
+			}
 
 				},
 
@@ -193,7 +193,7 @@ public interface CBCodecs {
 					return DataResult.success(ByteBuffer.wrap(compressedData));
 			} catch (IOException e) {
 					return DataResult.error(() -> "Failed to compress data: " + e.getMessage());
-				}
+			}
 				}
 		);
 	}
@@ -262,7 +262,7 @@ public interface CBCodecs {
 
 							if (tag != null) {
 								prefix.add(key, nbtOps.convertTo(ops, tag));
-						}
+							}
 					}
 
 					);

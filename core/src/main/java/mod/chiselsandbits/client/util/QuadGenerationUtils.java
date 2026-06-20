@@ -63,7 +63,7 @@ public final class QuadGenerationUtils {
 					adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
 			} catch (IllegalStateException e) {
 					return;
-				}
+			}
 
 				final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
 				adaptedVertices.forEach(adapter);

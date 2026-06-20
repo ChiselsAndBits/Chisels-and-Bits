@@ -64,7 +64,7 @@ public class FaceManager {
 		for (final DeconstructedModelPartComponent component : quadCache.get(
 				key,
 				() -> buildQuadCollection(key, blockAndTintGetter, pos)
-				)) {
+		)) {
 			pipeline.accept(component);
 		}
 	}
@@ -73,7 +73,7 @@ public class FaceManager {
 			final Key key,
 			final @Nullable BlockAndTintGetter blockAndTintGetter,
 			final BlockPos pos
-			) {
+	) {
 		if (!key.blockInformation().blockState().getFluidState().isEmpty()) {
 			return buildFluidQuadCollection(key);
 		}
@@ -95,7 +95,7 @@ public class FaceManager {
 
 	private Collection<DeconstructedModelPartComponent> buildFluidQuadCollection(
 			final Key key
-			) {
+	) {
 		final Fluid fluid = key.blockInformation().blockState().getFluidState().getType();
 		final FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet()
 			.get(key.blockInformation().blockState().getFluidState());

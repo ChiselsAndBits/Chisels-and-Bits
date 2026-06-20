@@ -26,7 +26,7 @@ public class RightClickInteractionHandler {
 			final Direction hitFace,
 			final boolean currentCancellationState,
 			final ClickProcessingState.ProcessingResult currentItemUsageState
-			) {
+	) {
 		if (level.getBlockState(position).getBlock() == ModBlocks.BIT_STORAGE.get()) {
 			return ClickProcessingState.ALLOW_NO_CANCEL;
 		}

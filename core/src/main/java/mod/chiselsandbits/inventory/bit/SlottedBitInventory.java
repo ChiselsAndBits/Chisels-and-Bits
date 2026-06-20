@@ -23,7 +23,7 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 
 	public SlottedBitInventory(
 			final int size
-			) {
+	) {
 		this.size = size;
 	}
 

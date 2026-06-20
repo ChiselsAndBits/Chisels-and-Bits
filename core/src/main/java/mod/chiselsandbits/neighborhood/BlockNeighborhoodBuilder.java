@@ -28,7 +28,7 @@ public final class BlockNeighborhoodBuilder implements IBlockNeighborhoodBuilder
 	public @NotNull IBlockNeighborhood build(
 			@Nullable Function<Direction, BlockInformation> neighborhoodBlockStateProvider,
 			@Nullable Function<Direction, IAreaAccessor> neighborhoodAreaAccessorProvider
-			) {
+	) {
 		final EnumMap<Direction, BlockNeighborhoodEntry> neighborhoodMap = new EnumMap<>(Direction.class);
 
 		try (IProfilerSection ignored2 = ProfilingManager.getInstance().withSection("Key building")) {

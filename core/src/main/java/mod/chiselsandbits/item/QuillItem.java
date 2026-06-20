@@ -125,7 +125,7 @@ public class QuillItem extends Item implements IQuillItem {
 
 						if (playerEntity.getOffhandItem() == stack) {
 							hand = EquipmentSlot.OFFHAND;
-					}
+						}
 
 						player.onEquippedItemBroken(item, hand);
 				}

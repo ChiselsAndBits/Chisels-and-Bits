@@ -63,7 +63,7 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 		public static ScreenRectangle calculateBoundingSquare(
 				int centerX, int centerY,
 				float outerRadius
-				) {
+		) {
 			return new ScreenRectangle(
 					(int) (centerX - outerRadius),
 					(int) (centerY - outerRadius),

@@ -60,7 +60,7 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 								TextureSlot.PARTICLE
 						)
 					);
-			}
+				}
 		}
 
 		);

@@ -121,14 +121,14 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 
 					if (totalModifiedStates == 0) {
 						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-				}
+					}
 
 					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
 							Player,
 							blockState,
 							count
 					));
-			}
+						}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -159,7 +159,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 					)
 							.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 					);
-			}
+				}
 
 				final Vec3 relevantAxisCandidate = candidatePosition.multiply(
 						Math.abs(hitFace.getUnitVec3i().getX()),
@@ -212,7 +212,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 				if (heldBlockState.isAir()) {
 					context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
 					return ClickProcessingState.DEFAULT;
-			}
+				}
 
 				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
 				.map(builder -> builder.apply(mutator))
@@ -229,23 +229,23 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || player.isCreative()) {
 					if (!player.isCreative()) {
 						playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					}
 
 					try (IBatchMutation ignored = 
 							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
 						mutator.inWorldMutableStream()
 						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
 						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
+							}
+				} else {
 					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 				}
 
 				if (missingBitCount == 0) {
 					if (!context.validateBuildHeights()) {
 						return ClickProcessingState.DENIED;
+					}
 				}
-			}
 
 				return ClickProcessingState.ALLOW;
 		}
@@ -313,7 +313,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 			final IQuadFunction<BlockPos, Vec3, Direction, Vec3, Vec3> stateExtractionAdapter,
 			final Function<Vec3, IAreaAccessor> areaAccessorBuilder,
 			final Function<Direction, Vec3i> filterOffsetProducer
-			) {
+	) {
 		final HitResult hitResult = RayTracingUtils.rayTracePlayer(Player);
 
 		if (hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof final BlockHitResult blockHitResult)) {
@@ -420,9 +420,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 							//Valid offset found
 								if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
 									toProcess.addLast(newTarget);
+								}
 							}
-						}
-					} else {
+								} else {
 							processed.add(newTarget);
 						}
 				}

@@ -120,7 +120,7 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 						if (playerEntity.getOffhandItem() == stack) {
 							hand = EquipmentSlot.OFFHAND;
-					}
+						}
 
 						player.onEquippedItemBroken(item, hand);
 				}

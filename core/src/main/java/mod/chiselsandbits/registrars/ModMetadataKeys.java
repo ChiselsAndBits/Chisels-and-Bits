@@ -29,7 +29,7 @@ public final class ModMetadataKeys {
 			@Override
 			public Vec3 snapshot(final Vec3 value) {
 				return new Vec3(value.x(), value.y(), value.z());
-		}
+			}
 	}
 
 	);
@@ -38,7 +38,7 @@ public final class ModMetadataKeys {
 			@Override
 			public Vec3 snapshot(final Vec3 value) {
 				return new Vec3(value.x(), value.y(), value.z());
-		}
+			}
 	}
 
 	);
@@ -47,7 +47,7 @@ public final class ModMetadataKeys {
 			@Override
 			public Direction snapshot(final Direction value) {
 				return value;
-		}
+			}
 	}
 
 	);
@@ -58,7 +58,7 @@ public final class ModMetadataKeys {
 				return value.stream()
 				.map(val -> new Vec3i(val.getX(), val.getY(), val.getZ()))
 				.collect(Collectors.toSet());
-		}
+			}
 	}
 
 	);
@@ -67,7 +67,7 @@ public final class ModMetadataKeys {
 			@Override
 			public BlockPos snapshot(final BlockPos value) {
 				return value;
-		}
+			}
 	}
 
 	);
@@ -76,7 +76,7 @@ public final class ModMetadataKeys {
 			@Override
 			public Direction.Axis snapshot(final Direction.Axis value) {
 				return value;
-		}
+			}
 	}
 
 	);

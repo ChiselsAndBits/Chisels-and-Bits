@@ -35,7 +35,7 @@ public class Fabric implements ModInitializer {
 		PlatformInitializationHandler.getInstance().onInit(platform -> {
 				if (chiselsAndBits == null) {
 					throw new IllegalStateException("Chisels and bits was not initialized properly.");
-			}
+				}
 
 				chiselsAndBits.onInitialize();
 		}

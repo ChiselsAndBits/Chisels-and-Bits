@@ -44,25 +44,25 @@ public class ClassUtils {
 					return new ClassLookupResult(blkClass.getMethod(methodName, args).getDeclaringClass(), true);
 			} catch (final NoSuchMethodException e) {
 			// nothing here...
-				} catch (final SecurityException e) {
-				// nothing here..
-				} catch (final Throwable e) {
+			} catch (final SecurityException e) {
+			// nothing here..
+			} catch (final Throwable e) {
 					return new ClassLookupResult(null, false);
-				}
+			}
 
 				try {
 					return new ClassLookupResult(blkClass.getDeclaredMethod(methodName, args).getDeclaringClass(), true);
 			} catch (final NoSuchMethodException e) {
 			// nothing here...
-				} catch (final SecurityException e) {
-				// nothing here..
-				} catch (final Throwable e) {
+			} catch (final SecurityException e) {
+			// nothing here..
+			} catch (final Throwable e) {
 					return new ClassLookupResult(null, false);
-				}
+			}
 
 				if (blkClass.getSuperclass() == null) {
 					return new ClassLookupResult(null, false);
-			}
+				}
 
 				return lookupResult(
 						blkClass.getSuperclass(),

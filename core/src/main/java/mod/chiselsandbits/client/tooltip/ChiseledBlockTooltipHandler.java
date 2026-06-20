@@ -22,7 +22,7 @@ public class ChiseledBlockTooltipHandler {
 		IClientEvents.getInstance().getGatherTooltipComponentsEvent().register((itemStack, screenWidth, screenHeight, maxWidth, tooltipElements) -> {
 				if (itemStack.getItem() instanceof IMultiStateItem multiStateItem) {
 					tooltipElements.add(new Payload(multiStateItem.createItemStack(itemStack).createSnapshot()));
-			}
+				}
 
 				return true;
 		}
