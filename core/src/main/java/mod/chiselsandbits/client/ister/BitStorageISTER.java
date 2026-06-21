@@ -21,7 +21,7 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 	public BitStorageISTER() {
 	}
 
-	public record RenderState(BitStorageBlockEntity entity) {}
+	public record RenderState(BitStorageBlockEntity entity) { }
 
 	@Override
 	public void submit(

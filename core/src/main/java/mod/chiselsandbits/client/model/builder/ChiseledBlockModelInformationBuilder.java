@@ -115,8 +115,8 @@ public record ChiseledBlockModelInformationBuilder(
 
 		if (neighborAccessor != null) {
 			return neighborAccessor.getInAreaTarget(inBlockOffsetTarget)
-				.map(IStateEntryInfo::getBlockInformation)
-				.orElse(BlockInformation.AIR);
+					.map(IStateEntryInfo::getBlockInformation)
+					.orElse(BlockInformation.AIR);
 		}
 
 		return key().neighborhood().getBlockInformation(offsetDirection);
@@ -170,8 +170,8 @@ public record ChiseledBlockModelInformationBuilder(
 
 		public List<ChiseledBlockModelPart> build() {
 			return partBuilders.entrySet().stream()
-				.map(e -> e.getKey().toPart(e.getValue().build()))
-				.toList();
+					.map(e -> e.getKey().toPart(e.getValue().build()))
+					.toList();
 		}
 
 		private List<ChiseledBlockModelMaterial> materials() {

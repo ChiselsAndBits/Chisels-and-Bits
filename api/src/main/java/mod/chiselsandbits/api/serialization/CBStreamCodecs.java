@@ -46,19 +46,19 @@ public interface CBStreamCodecs {
 	);
 
 	StreamCodec<ByteBuf, Vec3> VEC_3 = ByteBufCodecs.DOUBLE.apply(ByteBufCodecs.list(3))
-		.apply(codec -> codec.map(
-				doubles -> {
+			.apply(codec -> codec.map(
+					doubles -> {
 
-				if (doubles.size() != 3) {
-				throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
-				}
+						if (doubles.size() != 3) {
+							throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
+						}
 
-				return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
-				},
+						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
+					},
 
 
-				vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
-		));
+					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
+			));
 
 	static <R, C, V, B extends ByteBuf> StreamCodec<? super B, Table<R, C, V>> table(
 			IntFunction<Map<R, Map<C, V>>> mapFactory,
@@ -82,13 +82,11 @@ public interface CBStreamCodecs {
 
 		return tableMapCodec.map(
 				rMapMap -> {
-				final Table<R, C, V> table = HashBasedTable.create();
-				rMapMap.forEach((row, columnMap) -> {
+					final Table<R, C, V> table = HashBasedTable.create();
+					rMapMap.forEach((row, columnMap) -> {
 						columnMap.forEach((column, value) -> table.put(row, column, value));
-				}
-
-				);
-				return table;
+					});
+					return table;
 				},
 
 

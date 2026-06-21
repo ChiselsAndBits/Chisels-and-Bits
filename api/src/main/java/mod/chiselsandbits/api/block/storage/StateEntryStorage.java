@@ -137,15 +137,15 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 		try (IBatchMutation ignored = batch()) {
 			BlockPosStreamProvider.getForRange(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide())
-				.forEach(position -> setBlockInformation(
-						position.getX(),
-						position.getY(),
-						position.getZ(),
-					new BlockInformation(
-							chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
-							Optional.empty()
-					)
-				));
+					.forEach(position -> setBlockInformation(
+							position.getX(),
+							position.getY(),
+							position.getZ(),
+						new BlockInformation(
+								chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
+								Optional.empty()
+						)
+					));
 		}
 	}
 
@@ -200,8 +200,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		final Map<BlockInformation, Integer> countMap = Maps.newHashMap();
 
 		BlockPosStreamProvider.getForRange(this.getSize())
-			.map(position -> getBlockInformation(position.getX(), position.getY(), position.getZ()))
-			.forEach(blockState -> countMap.compute(blockState, (state, count) -> count == null ? 1 : count + 1));
+				.map(position -> getBlockInformation(position.getX(), position.getY(), position.getZ()))
+				.forEach(blockState -> countMap.compute(blockState, (state, count) -> count == null ? 1 : count + 1));
 
 		return countMap;
 	}
@@ -250,10 +250,10 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public StateEntryStorage limitedToProgress(final float progress) {
 		final var noneAirCounts = count().entrySet()
-			.stream()
-			.filter(e -> !e.getKey().isAir())
-			.mapToInt(Map.Entry::getValue)
-			.sum();
+				.stream()
+				.filter(e -> !e.getKey().isAir())
+				.mapToInt(Map.Entry::getValue)
+				.sum();
 
 		final var allowedCounts = (int) Math.floor(noneAirCounts * progress);
 		final var result = new StateEntryStorage();
@@ -370,9 +370,9 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 			this.data = new BitSet(getTotalEntryCount() * entryWidth);
 			BlockPosStreamProvider.getForRange(getSize())
-				.mapToInt(pos -> doCalculatePositionIndex(pos.getX(), pos.getY(), pos.getZ()))
-				.mapToObj(index -> Pair.of(index, ByteArrayUtils.getValueAt(rawData, currentEntryWidth, index)))
-				.forEach(pair -> ByteArrayUtils.setValueAt(this.data, pair.getSecond(), this.entryWidth, pair.getFirst()));
+					.mapToInt(pos -> doCalculatePositionIndex(pos.getX(), pos.getY(), pos.getZ()))
+					.mapToObj(index -> Pair.of(index, ByteArrayUtils.getValueAt(rawData, currentEntryWidth, index)))
+					.forEach(pair -> ByteArrayUtils.setValueAt(this.data, pair.getSecond(), this.entryWidth, pair.getFirst()));
 		}
 	}
 

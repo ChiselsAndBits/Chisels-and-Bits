@@ -96,7 +96,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 			float scale,
 			@Nullable ScreenRectangle bounds,
 			@Nullable ScreenRectangle scissorArea
-			) implements PictureInPictureRenderState {
+	) implements PictureInPictureRenderState {
 		public RenderState(
 				ItemStack stack,
 				Quaternionf rotation,

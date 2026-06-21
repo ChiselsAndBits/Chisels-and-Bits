@@ -33,14 +33,12 @@ public class Forge {
 		LOGGER.info("Initialized Chisels&Bits - Forge");
 		//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
 		PlatformInitializationHandler.getInstance().onInit(platform -> {
-				setChiselsAndBits(new ChiselsAndBits(
-						block -> block == IBlockExtension.class,
-						ForgeAdaptingBitInventoryManager.getInstance(),
-						ForgePluginDiscoverer.getInstance()
-				));
-		}
-
-		);
+			setChiselsAndBits(new ChiselsAndBits(
+					block -> block == IBlockExtension.class,
+					ForgeAdaptingBitInventoryManager.getInstance(),
+					ForgePluginDiscoverer.getInstance()
+			));
+		});
 
 		modBus.addListener((Consumer<FMLCommonSetupEvent>) event -> chiselsAndBits.onInitialize());
 	}
@@ -51,10 +49,8 @@ public class Forge {
 			LOGGER.info("Initialized Chisels&Bits-Forge client");
 			//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
 			PlatformInitializationHandler.getInstance().onInit(platform -> {
-					setChiselsAndBitsClient(new ChiselsAndBitsClient());
-			}
-
-			);
+				setChiselsAndBitsClient(new ChiselsAndBitsClient());
+			});
 
 			container.registerExtensionPoint(IConfigScreenFactory.class, (mc, parent) -> new ConfigurationScreen(container, parent));
 		}

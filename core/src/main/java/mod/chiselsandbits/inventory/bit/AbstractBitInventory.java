@@ -14,7 +14,7 @@ import mod.chiselsandbits.api.item.bit.IBitItemManager;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class AbstractBitInventory implements IBitInventory {
-	protected AbstractBitInventory() {}
+	protected AbstractBitInventory() { }
 
 	/**
 	 * Checks if it is possible to extract a given amount of bits with the given blockstate from the the current inventory.
@@ -40,20 +40,18 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	@Override
 	public int getMaxExtractAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.filter(stack -> stack.getItem() instanceof IBitItem)
-			.mapToInt(stack -> {
+				.mapToObj(this::getItem)
+				.filter(stack -> stack.getItem() instanceof IBitItem)
+				.mapToInt(stack -> {
 					IBitItem bitItem = (IBitItem) stack.getItem();
 
 					if (bitItem.getBlockInformation(stack).equals(blockState)) {
-					return stack.getCount();
+						return stack.getCount();
 					}
 
 					return 0;
-			}
-
-			)
-			.sum();
+				})
+				.sum();
 	}
 
 	/**
@@ -147,24 +145,22 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	@Override
 	public int getMaxInsertAmount(final BlockInformation blockInformation) {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.filter(stack -> stack.getItem() instanceof IBitItem || stack.isEmpty())
-			.mapToInt(stack -> {
+				.mapToObj(this::getItem)
+				.filter(stack -> stack.getItem() instanceof IBitItem || stack.isEmpty())
+				.mapToInt(stack -> {
 					if (stack.isEmpty()) {
-					return getMaxBitsFor(stack);
+						return getMaxBitsFor(stack);
 					}
 
 					IBitItem bitItem = (IBitItem) stack.getItem();
 
 					if (bitItem.getBlockInformation(stack).equals(blockInformation)) {
-					return getMaxBitsFor(stack) - stack.getCount();
+						return getMaxBitsFor(stack) - stack.getCount();
 					}
 
 					return 0;
-			}
-
-			)
-			.sum();
+				})
+				.sum();
 	}
 
 	/**
@@ -219,45 +215,38 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	@Override
 	public Map<BlockInformation, Integer> getContainedStates() {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.filter(stack -> stack.getItem() instanceof IBitItem)
-			.map(stack -> {
+				.mapToObj(this::getItem)
+				.filter(stack -> stack.getItem() instanceof IBitItem)
+				.map(stack -> {
 					IBitItem bitItem = (IBitItem) stack.getItem();
 					return Maps.newHashMap(ImmutableMap.of(bitItem.getBlockInformation(stack), stack.getCount()));
-			}
+				})
+				.reduce(
+						Maps.newHashMap(),
+						(blockStateIntegerHashMap, blockStateIntegerHashMap2) -> {
+							final HashMap<BlockInformation, Integer> result = Maps.newHashMap(blockStateIntegerHashMap);
+							blockStateIntegerHashMap2.forEach((state, count) -> {
+								if (!result.containsKey(state)) {
+									result.put(state, count);
+								} else {
+									result.put(state, result.get(state) + count);
+								}
+							});
 
-			)
-			.reduce(
-					Maps.newHashMap(),
-					(blockStateIntegerHashMap, blockStateIntegerHashMap2) -> {
-					final HashMap<BlockInformation, Integer> result = Maps.newHashMap(blockStateIntegerHashMap);
-					blockStateIntegerHashMap2.forEach((state, count) -> {
-							if (!result.containsKey(state)) {
-							result.put(state, count);
-							} else {
-							result.put(state, result.get(state) + count);
-					}
-					}
-
-					);
-
-					return result;
-					}
-			);
+							return result;
+						});
 	}
 
 	@Override
 	public boolean contains(final BlockInformation blockInformation) {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.anyMatch(stack -> {
+				.mapToObj(this::getItem)
+				.anyMatch(stack -> {
 					if (stack.getItem() instanceof IBitItem bitItem) {
-					return bitItem.getBlockInformation(stack).equals(blockInformation);
+						return bitItem.getBlockInformation(stack).equals(blockInformation);
 					}
 
 					return false;
-			}
-
-			);
+				});
 	}
 }

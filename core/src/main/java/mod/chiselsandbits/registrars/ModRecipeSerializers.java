@@ -14,7 +14,7 @@ public final class ModRecipeSerializers {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final IRegistrar<RecipeSerializer<?>> SERIALIZER_REGISTER = IRegistrar.create(Registries.RECIPE_SERIALIZER, Constants.MOD_ID);
 	public static IRegistryObject<RecipeSerializer<ModificationTableRecipe>> MODIFICATION_TABLE = SERIALIZER_REGISTER
-		.register("modification_table", () -> new RecipeSerializer<>(ModificationTableRecipe.CODEC, ModificationTableRecipe.STREAM_CODEC));
+			.register("modification_table", () -> new RecipeSerializer<>(ModificationTableRecipe.CODEC, ModificationTableRecipe.STREAM_CODEC));
 
 	private ModRecipeSerializers() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModRecipeSerializers.This is a utility class");

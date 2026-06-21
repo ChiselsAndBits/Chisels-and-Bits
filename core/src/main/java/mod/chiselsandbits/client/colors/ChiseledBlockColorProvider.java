@@ -27,12 +27,12 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 		var blockNeighborHood = IBlockNeighborhood.around(blockEntity);
 
 		var model = ChiseledBlockStateModelManager.getInstance()
-			.get(
-					blockAndTintGetter,
-					blockPos,
-					accessor,
-					blockNeighborHood
-			);
+				.get(
+						blockAndTintGetter,
+						blockPos,
+						accessor,
+						blockNeighborHood
+				);
 
 		intList.clear();
 		intList.size(model.materials().size());
@@ -57,11 +57,11 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 			}
 
 			var simulatedEnvironment = new SingleBlockBlockAndTintGetter.Builder()
-				.withBlockState(material.blockInformation().blockState())
-				.withPos(blockPos)
-				.withSource(blockAndTintGetter)
-				.withBlockEntity(() -> material.blockInformation().newBlockEntity(blockPos))
-				.createSingleBlockBlockAndTintGetter();
+					.withBlockState(material.blockInformation().blockState())
+					.withPos(blockPos)
+					.withSource(blockAndTintGetter)
+					.withBlockEntity(() -> material.blockInformation().newBlockEntity(blockPos))
+					.createSingleBlockBlockAndTintGetter();
 
 			var tint = tintSource.colorInWorld(
 					material.blockInformation().blockState(),

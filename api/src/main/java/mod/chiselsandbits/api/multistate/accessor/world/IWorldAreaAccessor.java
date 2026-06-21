@@ -20,8 +20,8 @@ public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject {
 	 */
 	default Stream<IInWorldStateEntryInfo> inWorldStream() {
 		return stream()
-			.filter(IInWorldStateEntryInfo.class::isInstance)
-			.map(IInWorldStateEntryInfo.class::cast);
+				.filter(IInWorldStateEntryInfo.class::isInstance)
+				.map(IInWorldStateEntryInfo.class::cast);
 	}
 
 	/**

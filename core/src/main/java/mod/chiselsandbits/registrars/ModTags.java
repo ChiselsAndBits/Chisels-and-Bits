@@ -19,7 +19,7 @@ public final class ModTags {
 
 		public static TagKey<Item> FORGE_PAPER = common("paper");
 
-		private static void init() {}
+		private static void init() { }
 
 		private static TagKey<Item> tag(String name) {
 			return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
@@ -35,7 +35,7 @@ public final class ModTags {
 		public static TagKey<Block> BLOCKED_CHISELABLE = tag("chiselable/blocked");
 		public static TagKey<Block> CHISELED_BLOCK = tag("chiseled/block");
 
-		private static void init() {}
+		private static void init() { }
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));

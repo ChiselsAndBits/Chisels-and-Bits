@@ -39,15 +39,15 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 	public VoxelShape buildVoxelShapeForWireframe(
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return VoxelShapeManager.getInstance()
-			.get(sourceSnapshot, CollisionType.NONE_AIR);
+				.get(sourceSnapshot, CollisionType.NONE_AIR);
 	}
 
 	@Override
 	public PlacementResult performPlacement(
 			final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown()
-		? context.getClickLocation()
-		: Vec3.atLowerCornerOf(context.getClickedPos());
+				? context.getClickLocation()
+				: Vec3.atLowerCornerOf(context.getClickedPos());
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(
 				context.getLevel(),
@@ -56,8 +56,8 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		);
 
 		final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(context.getLevel()::getBlockState)
-			.allMatch(BlockBehaviour.BlockStateBase::isAir);
+				.map(context.getLevel()::getBlockState)
+				.allMatch(BlockBehaviour.BlockStateBase::isAir);
 
 		if (!isAir) {
 			return PlacementResult.failure(
@@ -67,8 +67,8 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredBits = context.getPlayer().isCreative() || source.getStatics().getStateCounts().entrySet().stream()
-			.filter(e -> !e.getKey().isAir())
-			.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
+				.filter(e -> !e.getKey().isAir())
+				.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits) {
 			return PlacementResult.failure(
@@ -84,20 +84,19 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 			source.stream().sequential().forEach(
 					stateEntryInfo -> {
 
-					try {
-						areaMutator.setInAreaTarget(
-								stateEntryInfo.getBlockInformation(),
-								stateEntryInfo.getStartPoint());
+						try {
+					areaMutator.setInAreaTarget(
+							stateEntryInfo.getBlockInformation(),
+							stateEntryInfo.getStartPoint());
 				} catch (SpaceOccupiedException ignored1) {
 				}
-					}
-			);
+					});
 		}
 
 		if (!context.getPlayer().isCreative()) {
 			source.getStatics().getStateCounts().entrySet().stream()
-				.filter(e -> !e.getKey().isAir())
-				.forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
+					.filter(e -> !e.getKey().isAir())
+					.forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
 		}
 
 		return PlacementResult.success();

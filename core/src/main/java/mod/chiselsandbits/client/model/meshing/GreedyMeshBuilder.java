@@ -42,12 +42,10 @@ public class GreedyMeshBuilder {
 			final int getMaterialIndex(int x, int y, int z) {
 				final BlockInformation blockInformation = data.getMaterial(x, y, z);
 				return indexByMaterial.computeIfAbsent(blockInformation, k -> {
-						int index = indexByMaterial.size() + 1;
-						materialByIndex.put(index, blockInformation);
-						return index;
-				}
-
-				);
+					int index = indexByMaterial.size() + 1;
+					materialByIndex.put(index, blockInformation);
+					return index;
+				});
 			}
 		}
 
@@ -101,7 +99,7 @@ public class GreedyMeshBuilder {
 				maskIndex = 0;
 
 				for (currentSecondDimensionIter = 0; currentSecondDimensionIter <sizePerDimension; ++currentSecondDimensionIter) {
-					for(currentFirstDimensionIter = 0; currentFirstDimensionIter <sizePerDimension; ) {
+					for (currentFirstDimensionIter = 0; currentFirstDimensionIter <sizePerDimension; ) {
 						int materialMask = mask[maskIndex];
 						boolean isMaterialMaskTruthy = materialMask != 0;
 
@@ -203,15 +201,15 @@ public class GreedyMeshBuilder {
 		int k;
 		boolean done = false;
 
-		for(height = 1; j + height <sizePerDimension; height++) {
-			for(k = 0; k <width; k++) {
-				if(mask[maskIndex + k + height * sizePerDimension] != materialMask) {
+		for (height = 1; j + height <sizePerDimension; height++) {
+			for (k = 0; k <width; k++) {
+				if (mask[maskIndex + k + height * sizePerDimension] != materialMask) {
 					done = true;
 					break;
 				}
 			}
 
-			if(done) {
+			if (done) {
 				break;
 			}
 		}

@@ -21,7 +21,7 @@ public record SlottedBitInventoryData(Map<Integer, BitSlotData> data) {
 	public static final SlottedBitInventoryData EMPTY = new SlottedBitInventoryData(Collections.emptyMap());
 
 	private static final Codec<Integer> KEY_CODEC = Codec.STRING
-		.xmap(Integer::parseInt, Object::toString);
+			.xmap(Integer::parseInt, Object::toString);
 
 	public static final Codec<SlottedBitInventoryData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.unboundedMap(KEY_CODEC, BitSlotData.CODEC).fieldOf(NbtConstants.DATA).forGetter(SlottedBitInventoryData::data)

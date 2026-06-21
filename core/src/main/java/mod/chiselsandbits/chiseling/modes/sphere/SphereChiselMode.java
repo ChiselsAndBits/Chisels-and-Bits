@@ -88,13 +88,11 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 		final BitSet bits = new BitSet(fullBitAccuracy * fullBitAccuracy * fullBitAccuracy);
 		BlockPosForEach.forEachInRange(fullBitAccuracy, blockPos -> {
-				final int index = BlockPosUtils.getCollisionIndex(blockPos, fullBitAccuracy, fullBitAccuracy);
-				final double posRange = blockPos.distSqr(centerPos);
+			final int index = BlockPosUtils.getCollisionIndex(blockPos, fullBitAccuracy, fullBitAccuracy);
+			final double posRange = blockPos.distSqr(centerPos);
 
-				bits.set(index, posRange <= range);
-		}
-
-		);
+			bits.set(index, posRange <= range);
+		});
 
 		return new CubeVoxelShape(new MultiStateBlockEntityDiscreteVoxelShape(bits, fullBitAccuracy));
 	}
@@ -128,48 +126,42 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		}
 
 		return context.getMutator().map(mutator -> {
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+			try (IBatchMutation ignored = 
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(factory -> factory.apply(mutator))
+						.orElse((s) -> true);
 
-					final int totalModifiedStates = mutator.inWorldMutableStream()
-					.filter(filter)
-					.mapToInt(state -> {
+						final int totalModifiedStates = mutator.inWorldMutableStream()
+						.filter(filter)
+						.mapToInt(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
 							return context.tryDamageItemAndDoOrSetBrokenError(
 									() -> {
-									resultingBitCount.putIfAbsent(currentState, 0);
-									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+										resultingBitCount.putIfAbsent(currentState, 0);
+										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-									state.clear();
-									}
+										state.clear();
+									});
+						})
+						.sum();
 
-							);
-					}
-
-					)
-					.sum();
-
-					if (totalModifiedStates == 0) {
-						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-					}
-
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
+						if (totalModifiedStates == 0) {
+							context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
 						}
 
-				return ClickProcessingState.ALLOW;
-		}
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								playerEntity,
+								blockState,
+								count
+						));
+					}
 
-				).orElse(ClickProcessingState.DEFAULT);
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT);
 	}
 
 	@Override
@@ -203,49 +195,47 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		}
 
 		return context.getMutator().map(mutator -> {
-				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-				if (heldBlockState.isAir()) {
-					return ClickProcessingState.DEFAULT;
+			if (heldBlockState.isAir()) {
+				return ClickProcessingState.DEFAULT;
+			}
+
+			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+			.map(factory -> factory.apply(mutator))
+			.orElse((s) -> true);
+
+			final int missingBitCount = (int) mutator.stream()
+			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+			.count();
+
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+
+			context.setComplete();
+
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+				if (!playerEntity.isCreative()) {
+					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-				.map(factory -> factory.apply(mutator))
-				.orElse((s) -> true);
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+							mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+			} else {
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-				final int missingBitCount = (int) mutator.stream()
-				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-				.count();
-
-				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
-
-				context.setComplete();
-
-				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-					if (!playerEntity.isCreative()) {
-						playerBitInventory.extract(heldBlockState, missingBitCount);
-					}
-
-					try (IBatchMutation ignored = 
-							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-							}
-				} else {
-					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			if (missingBitCount == 0) {
+				if (!context.validateBuildHeights()) {
+					return ClickProcessingState.DENIED;
 				}
+			}
 
-				if (missingBitCount == 0) {
-					if (!context.validateBuildHeights()) {
-						return ClickProcessingState.DENIED;
-					}
-				}
-
-				return ClickProcessingState.ALLOW;
-		}
-
-				).orElse(ClickProcessingState.DEFAULT);
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT);
 	}
 
 	@Override
@@ -261,16 +251,16 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 	@Override
 	public boolean isStillValid(final Player playerEntity, final IChiselingContext context, final ChiselingOperation modeOfOperation) {
 		final Optional<Vec3> rayTraceHandle = modeOfOperation.isChiseling()
-		? this.processRayTraceIntoCenter(
-				playerEntity,
-				face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
-				facing -> facing.multiply(-1, -1, -1)
-		)
-		: this.processRayTraceIntoCenter(
-				playerEntity,
-				face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
-				Function.identity()
-		);
+				? this.processRayTraceIntoCenter(
+						playerEntity,
+						face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
+						facing -> facing.multiply(-1, -1, -1)
+				)
+				: this.processRayTraceIntoCenter(
+						playerEntity,
+						face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
+						Function.identity()
+				);
 
 		final Optional<Vec3> contextAnchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
 		return rayTraceHandle.map(d -> contextAnchor.filter(d::equals).isPresent()).orElseGet(contextAnchor::isPresent);
@@ -381,17 +371,15 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		);
 
 		context.setStateFilter(areaAccessor -> {
-				if (areaAccessor instanceof IWorldAreaAccessor) {
-					return new SphereAreaFilter(context.getModeOfOperandus(), ((IWorldAreaAccessor) areaAccessor).getInWorldStartPoint(), center);
-				}
+			if (areaAccessor instanceof IWorldAreaAccessor) {
+				return new SphereAreaFilter(context.getModeOfOperandus(), ((IWorldAreaAccessor) areaAccessor).getInWorldStartPoint(), center);
+			}
 
-				return new SphereAreaFilter(context.getModeOfOperandus(), Vec3.ZERO, center);
-		}
-
-		);
+			return new SphereAreaFilter(context.getModeOfOperandus(), Vec3.ZERO, center);
+		});
 
 		BlockPosStreamProvider.getForRange(diameter)
-			.forEach(bitPos -> {
+				.forEach(bitPos -> {
 					final Vec3 target = center
 					.add(Vec3.atLowerCornerOf(bitPos.subtract(new Vec3i(diameter / 2, diameter / 2, diameter / 2)))
 							.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()));
@@ -399,9 +387,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 					context.include(
 							target
 					);
-			}
-
-			);
+				});
 
 		return Either.right(center);
 	}

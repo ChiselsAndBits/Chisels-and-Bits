@@ -78,7 +78,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 			return ClickProcessingState.DENIED;
 		}
 
-		try(IBatchMutation ignored = multiStateBlockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+		try (IBatchMutation ignored = multiStateBlockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 			getMode(playerEntity.getItemInHand(hand)).apply(multiStateBlockEntity);
 		}
 

@@ -124,7 +124,7 @@ public final class PatternSharingExecutor {
 	}
 
 	private static byte[] getBlockTextureAtlasData() throws PatternIOException {
-		try(NativeImage currentAtlas = TextureUtils.downloadTexture(
+		try (NativeImage currentAtlas = TextureUtils.downloadTexture(
 				Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
 		)) {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -175,10 +175,10 @@ public final class PatternSharingExecutor {
 		);
 
 		final List<QuadData> quads = Arrays.stream(state.layers)
-			.map(ItemStackRenderState.LayerRenderState::prepareQuadList)
-			.flatMap(List::stream)
-			.map(QuadData::new)
-			.toList();
+				.map(ItemStackRenderState.LayerRenderState::prepareQuadList)
+				.flatMap(List::stream)
+				.map(QuadData::new)
+				.toList();
 
 		return new Model(quads);
 	}
@@ -278,7 +278,7 @@ public final class PatternSharingExecutor {
 		return snapshot.toItemStack();
 	}
 
-	private record Model(List<QuadData> quads) {}
+	private record Model(List<QuadData> quads) { }
 
 	private record QuadData(VertexData[] vertices, int tintIndex, Direction direction, boolean shade) {
 		private QuadData(BakedQuad quad) {

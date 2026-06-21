@@ -105,8 +105,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public float getFriction(final BlockState state, final LevelReader levelReader, final BlockPos pos, @Nullable final Entity entity) {
 		final float frictionValue = getBlockEntity(levelReader, pos)
-			.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getSlipperiness())
-			.orElse(0f);
+				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getSlipperiness())
+				.orElse(0f);
 
 		return Float.isNaN(frictionValue) || frictionValue <= 0.0001f ? 0.6f : frictionValue;
 	}
@@ -121,19 +121,19 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 	public static void updateBlockInformation(final IMultiStateBlockEntity blockEntity) {
 		final int emissionLevel = getBlockEntity(blockEntity.getWorld(), blockEntity.getInWorldStartBlockPoint())
-			.map(multiStateBlockEntity -> LightEngine.MAX_LEVEL * multiStateBlockEntity.getStatistics().getLightEmissionFactor())
-			.map(inertValue -> inertValue * IServerConfiguration.getInstance().getLightFactorMultiplier().get())
-			.map(consumedValue -> Math.max(consumedValue, 0))
-			.map(consumedValue -> Math.min(consumedValue, LightEngine.MAX_LEVEL))
-			.orElse(0d).intValue();
+				.map(multiStateBlockEntity -> LightEngine.MAX_LEVEL * multiStateBlockEntity.getStatistics().getLightEmissionFactor())
+				.map(inertValue -> inertValue * IServerConfiguration.getInstance().getLightFactorMultiplier().get())
+				.map(consumedValue -> Math.max(consumedValue, 0))
+				.map(consumedValue -> Math.min(consumedValue, LightEngine.MAX_LEVEL))
+				.orElse(0d).intValue();
 		final int blockLevel = getBlockEntity(blockEntity.getWorld(), blockEntity.getInWorldStartBlockPoint())
-			.map(multiStateBlockEntity -> LightEngine.MAX_LEVEL * multiStateBlockEntity.getStatistics().getLightBlockingFactor())
-			.map(consumedValue -> Math.max(consumedValue, 0))
-			.map(consumedValue -> Math.min(consumedValue, LightEngine.MAX_LEVEL))
-			.orElse(0f).intValue();
+				.map(multiStateBlockEntity -> LightEngine.MAX_LEVEL * multiStateBlockEntity.getStatistics().getLightBlockingFactor())
+				.map(consumedValue -> Math.max(consumedValue, 0))
+				.map(consumedValue -> Math.min(consumedValue, LightEngine.MAX_LEVEL))
+				.orElse(0f).intValue();
 		final boolean propagatesSkyLight = getBlockEntity(blockEntity.getWorld(), blockEntity.getInWorldStartBlockPoint())
-			.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().canPropagateSkylight())
-			.orElse(false);
+				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().canPropagateSkylight())
+				.orElse(false);
 
 		final BlockState currentState = blockEntity.getWorld().getBlockState(blockEntity.getInWorldStartBlockPoint());
 
@@ -159,7 +159,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public boolean canHarvestBlock(final BlockState state, final BlockGetter blockGetter, final BlockPos pos, final Player player) {
 		return getBlockEntity(blockGetter, pos)
-			.map(e -> {
+				.map(e -> {
 					final BlockInformation primaryState = e.getStatistics().getPrimaryState();
 
 					return ILevelBasedPropertyAccessor.getInstance().canHarvestBlock(
@@ -172,10 +172,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 							pos,
 							player
 					);
-			}
-
-			)
-			.orElse(true);
+				})
+				.orElse(true);
 	}
 
 	@Override
@@ -189,18 +187,16 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				|| (IClientConfiguration.getInstance().getInvertPickBlockBehaviour().get() && !player.isShiftKeyDown())
 		) {
 			return getBlockEntity(blockGetter, pos)
-				.map(e -> {
+					.map(e -> {
 						final IMultiStateBlockEntity.BlockStack result = e.getBlockStack();
 						DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreativeClipboardUtils.addPickedBlock(result.multiStateItemStack(), Minecraft.getInstance().level.registryAccess()));
 						return result.stack();
-				}
-
-				)
-				.orElse(ItemStack.EMPTY);
+					})
+					.orElse(ItemStack.EMPTY);
 		}
 
 		return getBlockEntity(blockGetter, pos)
-			.flatMap(e -> {
+				.flatMap(e -> {
 					final Vec3 hitVec = blockRayTraceResult.getLocation();
 					final BlockPos blockPos = blockRayTraceResult.getBlockPos();
 					final Vec3 accuratePos = new Vec3(
@@ -216,23 +212,19 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					final Vec3 hitDelta = hitVec.subtract(accuratePos).add(faceOffset);
 
 					try {
-					return e.getInAreaTarget(hitDelta);
+						return e.getInAreaTarget(hitDelta);
 			} catch (IllegalArgumentException exception) {
 			//Because people do stupid stuff.
-					return Optional.empty();
+						return Optional.empty();
 			}
-			}
-
-			)
-			.map(targetedStateEntry -> IMultiStateItemFactory.getInstance().createBlockFrom(targetedStateEntry))
-			.orElseGet(() -> getBlockEntity(blockGetter, pos)
-					.map(e -> {
+				})
+				.map(targetedStateEntry -> IMultiStateItemFactory.getInstance().createBlockFrom(targetedStateEntry))
+				.orElseGet(() -> getBlockEntity(blockGetter, pos)
+						.map(e -> {
 							final IMultiStateSnapshot snapshot = e.createSnapshot();
 							return snapshot.toItemStack().toBlockStack();
-					}
-
-					)
-					.orElse(ItemStack.EMPTY));
+						})
+						.orElse(ItemStack.EMPTY));
 	}
 
 	@Override
@@ -242,7 +234,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		getBlockEntity(levelAccessor, pos)
-			.ifPresent(e -> e.rotate(Direction.Axis.Y, 4 - rotation.ordinal()));
+				.ifPresent(e -> e.rotate(Direction.Axis.Y, 4 - rotation.ordinal()));
 
 		return state;
 	}
@@ -254,13 +246,11 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		getBlockEntity(levelAccessor, blockPos)
-			.ifPresent(e -> e.mirror(switch (mirror) {
+				.ifPresent(e -> e.mirror(switch (mirror) {
 		case NONE -> throw new IllegalArgumentException("Invalid mirror");
 		case LEFT_RIGHT -> Direction.Axis.Z;
 		case FRONT_BACK -> Direction.Axis.X;
-			}
-
-			));
+				}));
 
 		return blockState;
 	}
@@ -268,8 +258,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public boolean shouldCheckWeakPower(BlockState blockState, SignalGetter signalGetter, BlockPos blockPos, Direction direction) {
 		return getBlockEntity(signalGetter, blockPos)
-			.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().shouldCheckWeakPower())
-			.orElse(false);
+				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().shouldCheckWeakPower())
+				.orElse(false);
 	}
 
 	@Override
@@ -320,21 +310,19 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			@Nullable final LivingEntity placer,
 			@NotNull final ItemStack stack) {
 		getBlockEntity(worldIn, pos)
-			.ifPresent(multiStateBlockEntity -> {
+				.ifPresent(multiStateBlockEntity -> {
 					final Direction placementDirection = placer == null ? Direction.NORTH : placer.getDirection().getOpposite();
 					final int horizontalIndex = placementDirection.get2DDataValue();
 
 					int rotationCount = horizontalIndex - 4;
 
 					if (rotationCount <0) {
-					rotationCount += 4;
+						rotationCount += 4;
 					}
 
 					multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
 					super.setPlacedBy(worldIn, pos, state, placer, stack);
-			}
-
-			);
+				});
 	}
 
 	@Override
@@ -346,22 +334,22 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public BlockInformation getPrimaryState(@NotNull final BlockGetter world, @NotNull final BlockPos pos) {
 		return getBlockEntity(world, pos)
-			.map(e -> e.getStatistics().getPrimaryState())
-			.orElse(BlockInformation.AIR);
+				.map(e -> e.getStatistics().getPrimaryState())
+				.orElse(BlockInformation.AIR);
 	}
 
 	@Override
 	public boolean canBeReplaced(@NotNull final BlockState state, final BlockPlaceContext useContext) {
 		return getBlockEntity(useContext.getLevel(), useContext.getClickedPos())
-			.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().isEmptyBlock())
-			.orElse(true);
+				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().isEmptyBlock())
+				.orElse(true);
 	}
 
 	@Override
 	public @NotNull VoxelShape getBlockSupportShape(final @NotNull BlockState state, final @NotNull BlockGetter reader, final @NotNull BlockPos pos) {
 		final VoxelShape shape = getBlockEntity(reader, pos)
-			.map(multiStateBlockEntity -> IVoxelShapeManager.getInstance().get(multiStateBlockEntity, CollisionType.COLLIDEABLE_ONLY))
-			.orElse(Shapes.empty());
+				.map(multiStateBlockEntity -> IVoxelShapeManager.getInstance().get(multiStateBlockEntity, CollisionType.COLLIDEABLE_ONLY))
+				.orElse(Shapes.empty());
 
 		return shape.isEmpty() ? Shapes.block() : shape;
 	}
@@ -369,25 +357,25 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public float getShadeBrightness(@NotNull final BlockState state, @NotNull final BlockGetter worldIn, @NotNull final BlockPos pos) {
 		return getBlockEntity(worldIn, pos)
-			.map(b -> b.getStatistics().isFullBlock())
-			.map(f -> f ? 0.2f : 1f)
-			.orElse(1f);
+				.map(b -> b.getStatistics().isFullBlock())
+				.map(f -> f ? 0.2f : 1f)
+				.orElse(1f);
 	}
 
 	@NotNull
 	@Override
 	public VoxelShape getShape(@NotNull final BlockState state, @NotNull final BlockGetter worldIn, @NotNull final BlockPos pos, @NotNull final CollisionContext context) {
 		return getBlockEntity(worldIn, pos)
-			.map(blockEntity -> blockEntity.getShape(CollisionType.NONE_AIR))
-			.orElse(Shapes.empty());
+				.map(blockEntity -> blockEntity.getShape(CollisionType.NONE_AIR))
+				.orElse(Shapes.empty());
 	}
 
 	@NotNull
 	@Override
 	public VoxelShape getCollisionShape(@NotNull final BlockState state, @NotNull final BlockGetter worldIn, @NotNull final BlockPos pos, @NotNull final CollisionContext context) {
 		return getBlockEntity(worldIn, pos)
-			.map(blockEntity -> blockEntity.getShape(CollisionType.COLLIDEABLE_ONLY))
-			.orElse(Shapes.empty());
+				.map(blockEntity -> blockEntity.getShape(CollisionType.COLLIDEABLE_ONLY))
+				.orElse(Shapes.empty());
 	}
 
 	@NotNull
@@ -403,14 +391,14 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			@NotNull final BlockGetter worldIn,
 			@NotNull final BlockPos pos) {
 		return getBlockEntity(worldIn, pos)
-			.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getRelativeBlockHardness(player))
-			.orElse(1f);
+				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getRelativeBlockHardness(player))
+				.orElse(1f);
 	}
 
 	@Override
 	public boolean canPlaceLiquid(final LivingEntity player, final @NotNull BlockGetter worldIn, final @NotNull BlockPos pos, final @NotNull BlockState state, final Fluid fluidIn) {
 		return IEligibilityManager.getInstance()
-			.canBeChiseled(new BlockInformation(fluidIn.defaultFluidState().createLegacyBlock(), IStateVariantManager.getInstance().getStateVariant(fluidIn.defaultFluidState())))
+				.canBeChiseled(new BlockInformation(fluidIn.defaultFluidState().createLegacyBlock(), IStateVariantManager.getInstance().getStateVariant(fluidIn.defaultFluidState())))
 
 		&& worldIn.getBlockEntity(pos) instanceof IMultiStateBlockEntity multiStateBlockEntity && multiStateBlockEntity.isCanBeFlooded();
 	}
@@ -424,33 +412,30 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		return getBlockEntity(worldIn, pos)
-			.map(entity -> {
+				.map(entity -> {
 					try (IBatchMutation ignored = entity.batch()) {
-					entity.mutableStream().forEach(
-							stateEntry -> {
+						entity.mutableStream().forEach(
+								stateEntry -> {
 
-							if (stateEntry.getBlockInformation().isAir()) {
-							final BlockState blockState = still.defaultFluidState().createLegacyBlock();
-							final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance()
-							.getStateVariant(
-									fluidStateIn
-							);
+									if (stateEntry.getBlockInformation().isAir()) {
+										final BlockState blockState = still.defaultFluidState().createLegacyBlock();
+										final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance()
+										.getStateVariant(
+												fluidStateIn
+										);
 
-							try {
-								stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
+										try {
+							stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
 						} catch (SpaceOccupiedException e) {
 						//Ignore
 						}
-							}
-							}
-					);
-					}
-
-					return true;
+									}
+								});
 			}
 
-			)
-			.orElse(false);
+					return true;
+				})
+				.orElse(false);
 	}
 
 	@Override
@@ -489,60 +474,58 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public Integer getBeaconColorMultiplier(final BlockState state, final LevelReader levelReader, final BlockPos pos, final BlockPos beaconPos) {
 		return getBlockEntity(levelReader, pos)
-			.filter(e -> e.getStatistics().getStateCounts().keySet()
-					.stream()
-					.filter(entryState -> !entryState.isAir())
-					.allMatch(entryState -> IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState, levelReader, pos, beaconPos).isPresent())
-			)
-			.flatMap(e -> e.getStatistics().getStateCounts().entrySet()
-					.stream()
-					.filter(entryState -> !entryState.getKey().isAir())
-					.map(entryState ->
-							IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState.getKey(), levelReader, pos, beaconPos)
-							.map(color -> ArrayUtils.multiply(
-									ColorUtils.unpack(color),
-									entryState.getValue())))
-					.filter(Optional::isPresent)
-					.map(Optional::get)
-					.reduce((floats, floats2) -> {
+				.filter(e -> e.getStatistics().getStateCounts().keySet()
+						.stream()
+						.filter(entryState -> !entryState.isAir())
+						.allMatch(entryState -> IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState, levelReader, pos, beaconPos).isPresent())
+				)
+				.flatMap(e -> e.getStatistics().getStateCounts().entrySet()
+						.stream()
+						.filter(entryState -> !entryState.getKey().isAir())
+						.map(entryState ->
+								IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState.getKey(), levelReader, pos, beaconPos)
+								.map(color -> ArrayUtils.multiply(
+										ColorUtils.unpack(color),
+										entryState.getValue())))
+						.filter(Optional::isPresent)
+						.map(Optional::get)
+						.reduce((floats, floats2) -> {
 							if (floats.length != floats2.length) {
-							return new float[0];
+								return new float[0];
 							}
 
 							final float[] result = new float[floats.length];
 
 							for (int i = 0; i <floats.length; i++) {
-							result[i] = floats[i] + floats2[i];
-							}
+								result[i] = floats[i] + floats2[i];
+			}
 
 							return result;
-					}
-
-					)
-					.filter(result -> result.length> 0)
-					.flatMap(summedResult -> getBlockEntity(levelReader, pos)
-							.map(entity -> ArrayUtils.multiply(summedResult, 1f / (entity.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())))
-					)
-			)
-			.map(ColorUtils::pack)
-			.orElse(null);
+						})
+						.filter(result -> result.length> 0)
+						.flatMap(summedResult -> getBlockEntity(levelReader, pos)
+								.map(entity -> ArrayUtils.multiply(summedResult, 1f / (entity.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())))
+						)
+				)
+				.map(ColorUtils::pack)
+				.orElse(null);
 	}
 
 	@Override
 	public SoundType getSoundType(final BlockState state, final LevelReader levelReader, final BlockPos pos, @Nullable final Entity entity) {
 		return getBlockEntity(levelReader, pos)
-			.map(blockEntity -> blockEntity.getStatistics().getPrimaryState())
-			.map(blockState -> ILevelBasedPropertyAccessor.getInstance().getSoundType(
-				new SingleBlockLevelReader.Builder()
-					.withBlockState(blockState.blockState())
-					.withBlockEntity(() -> blockState.newBlockEntity(pos))
-					.withSource(levelReader)
-					.withPos(pos)
-					.createSingleBlockLevelReader(),
-					pos,
-					entity
-			))
-			.orElse(SoundType.STONE);
+				.map(blockEntity -> blockEntity.getStatistics().getPrimaryState())
+				.map(blockState -> ILevelBasedPropertyAccessor.getInstance().getSoundType(
+					new SingleBlockLevelReader.Builder()
+						.withBlockState(blockState.blockState())
+						.withBlockEntity(() -> blockState.newBlockEntity(pos))
+						.withSource(levelReader)
+						.withPos(pos)
+						.createSingleBlockLevelReader(),
+						pos,
+						entity
+				))
+				.orElse(SoundType.STONE);
 	}
 
 	@Override
@@ -573,9 +556,9 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 		if (level.isClientSide()) {
 			getBlockEntity(level, blockPos)
-				.map(IMultiStateBlockEntity::createSnapshot)
-				.map(IMultiStateSnapshot::toItemStack)
-				.ifPresent(stack -> CreativeClipboardUtils.addBrokenBlock(stack, level.registryAccess()));
+					.map(IMultiStateBlockEntity::createSnapshot)
+					.map(IMultiStateSnapshot::toItemStack)
+					.ifPresent(stack -> CreativeClipboardUtils.addBrokenBlock(stack, level.registryAccess()));
 		}
 
 		return superResult;
@@ -584,8 +567,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 	@Override
 	public boolean canBeGrass(final LevelReader levelReader, final BlockState grassState, final BlockPos grassBlockPos, final BlockState targetState, final BlockPos targetPosition) {
 		return getBlockEntity(levelReader, targetPosition)
-			.map(blockEntity -> blockEntity.getStatistics().canSustainGrassBelow())
-			.orElse(false);
+				.map(blockEntity -> blockEntity.getStatistics().canSustainGrassBelow())
+				.orElse(false);
 	}
 
 	public static EquipmentSlot getSlotForHand(InteractionHand hand) {
@@ -603,92 +586,80 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			@NotNull BlockHitResult blockHitResult) {
 		if (itemStack.is(Items.SPONGE)) {
 			return getBlockEntity(level, blockPos)
-				.map(blockEntity -> {
+					.map(blockEntity -> {
 						try (IBatchMutation mutation = blockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
-						return blockEntity.mutableStream()
-						.filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())
-						.peek(IMutableStateEntryInfo::clear)
-						.count();
-						}
+							return blockEntity.mutableStream()
+							.filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())
+							.peek(IMutableStateEntryInfo::clear)
+							.count();
 				}
-
-				)
-				.map(count -> {
+					})
+					.map(count -> {
 						if (count> 0) {
-						itemStack.shrink(1);
-						IPlayerInventoryManager.getInstance().giveToPlayer(
-								player, new ItemStack(Items.WET_SPONGE)
-						);
+							itemStack.shrink(1);
+							IPlayerInventoryManager.getInstance().giveToPlayer(
+									player, new ItemStack(Items.WET_SPONGE)
+							);
 						}
 
 						return count> 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
-				}
-
-				)
-				.orElse(InteractionResult.PASS);
+					})
+					.orElse(InteractionResult.PASS);
 		}
 
 		if (itemStack.is(Items.GLOWSTONE_DUST)) {
 			return getBlockEntity(level, blockPos)
-				.map(blockEntity -> {
+					.map(blockEntity -> {
 						if (blockEntity.isEmitsLightBasedOnFullBlock()) {
-						blockEntity.setEmitsLightBasedOnFullBlock(false);
-						return InteractionResult.CONSUME;
+							blockEntity.setEmitsLightBasedOnFullBlock(false);
+							return InteractionResult.CONSUME;
 						}
 
 						return InteractionResult.PASS;
-				}
-
-				)
-				.orElse(InteractionResult.PASS);
+					})
+					.orElse(InteractionResult.PASS);
 		}
 
 		if (itemStack.is(Items.BLACK_DYE)) {
 			return getBlockEntity(level, blockPos)
-				.map(blockEntity -> {
+					.map(blockEntity -> {
 						if (!blockEntity.isEmitsLightBasedOnFullBlock()) {
-						blockEntity.setEmitsLightBasedOnFullBlock(true);
-						return InteractionResult.CONSUME;
+							blockEntity.setEmitsLightBasedOnFullBlock(true);
+							return InteractionResult.CONSUME;
 						}
 
 						return InteractionResult.PASS;
-				}
-
-				)
-				.orElse(InteractionResult.PASS);
+					})
+					.orElse(InteractionResult.PASS);
 		}
 
 		if (itemStack.is(Items.HONEYCOMB)) {
 			return getBlockEntity(level, blockPos)
-				.map(blockEntity -> {
+					.map(blockEntity -> {
 						if (blockEntity.isCanBeFlooded()) {
-						blockEntity.setCanBeFlooded(false);
-						return InteractionResult.CONSUME;
+							blockEntity.setCanBeFlooded(false);
+							return InteractionResult.CONSUME;
 						}
 
 						return InteractionResult.PASS;
-				}
-
-						).orElse(InteractionResult.PASS);
+					}).orElse(InteractionResult.PASS);
 		}
 
 		if (itemStack.is(Items.SHEARS)) {
 			return getBlockEntity(level, blockPos)
-				.map(blockEntity -> {
+					.map(blockEntity -> {
 						if (!blockEntity.isCanBeFlooded()) {
-						blockEntity.setCanBeFlooded(true);
+							blockEntity.setCanBeFlooded(true);
 
-						if (player instanceof ServerPlayer serverPlayer) {
-							itemStack.hurtAndBreak(1, serverPlayer, getSlotForHand(hand));
-						}
+							if (player instanceof ServerPlayer serverPlayer) {
+								itemStack.hurtAndBreak(1, serverPlayer, getSlotForHand(hand));
+							}
 
-						return InteractionResult.SUCCESS;
+							return InteractionResult.SUCCESS;
 						}
 
 						return InteractionResult.PASS;
-				}
-
-						).orElse(InteractionResult.PASS);
+					}).orElse(InteractionResult.PASS);
 		}
 
 		return InteractionResult.PASS;

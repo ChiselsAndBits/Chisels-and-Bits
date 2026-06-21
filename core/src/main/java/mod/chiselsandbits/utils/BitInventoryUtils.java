@@ -47,7 +47,7 @@ public class BitInventoryUtils {
 		}
 
 		if (!IServerConfiguration.getInstance().getDeleteExcessBits().get()) {
-			while(leftOverCount> 0) {
+			while (leftOverCount> 0) {
 				final int spawnCount = Math.min(ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize(), leftOverCount);
 
 				if (spawnCount <= 0) {

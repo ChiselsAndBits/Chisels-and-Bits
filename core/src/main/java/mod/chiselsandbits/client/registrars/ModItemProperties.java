@@ -13,12 +13,10 @@ public final class ModItemProperties {
 
 	public static void onClientConstruction() {
 		IModelManager.getInstance().registerItemModelProperty(registrar -> {
-				registrar.registerConditionalProperty(
-						Identifier.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"),
-						IsMeasuringItemProperty.CODEC
-				);
-		}
-
-		);
+			registrar.registerConditionalProperty(
+					Identifier.fromNamespaceAndPath(Constants.MOD_ID, "is_measuring"),
+					IsMeasuringItemProperty.CODEC
+			);
+		});
 	}
 }

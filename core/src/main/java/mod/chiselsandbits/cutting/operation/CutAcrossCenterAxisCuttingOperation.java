@@ -43,13 +43,13 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 		final Predicate<IStateEntryInfo> postAxisPredicate = (info) -> axisValueSelectorFunction.apply(info.getEndPoint())>= sizeAxisSeparator;
 
 		preAxisMutator
-			.mutableStream()
-			.filter(preAxisPredicate)
-			.forEach(IMutableStateEntryInfo::clear);
+				.mutableStream()
+				.filter(preAxisPredicate)
+				.forEach(IMutableStateEntryInfo::clear);
 		postAxisMutator
-			.mutableStream()
-			.filter(postAxisPredicate)
-			.forEach(IMutableStateEntryInfo::clear);
+				.mutableStream()
+				.filter(postAxisPredicate)
+				.forEach(IMutableStateEntryInfo::clear);
 
 		return ImmutableList.of(preAxisMutator, postAxisMutator);
 	}

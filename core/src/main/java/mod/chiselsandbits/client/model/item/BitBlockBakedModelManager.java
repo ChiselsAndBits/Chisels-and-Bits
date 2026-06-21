@@ -115,42 +115,40 @@ public class BitBlockBakedModelManager {
 			final @Nullable BlockInformation finalBlockInformation = blockInformation;
 			final ClientLevel finalLevel = level;
 			return target.get(blockInformation, () -> {
-					if (large) {
-						boolean isBlock = true;
-						ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
-								() -> new ItemStack(workingState.blockState().getBlock())
-						);
+				if (large) {
+					boolean isBlock = true;
+					ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
+							() -> new ItemStack(workingState.blockState().getBlock())
+					);
 
-						if (workingState.blockState().getBlock() instanceof LiquidBlock) {
-							lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
-							isBlock = false;
-						}
-
-						final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
-								Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
-						);
-
-						final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
-						final List<BitBlockModelPart> parts = new ArrayList<>();
-
-						for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
-							parts.add(
-								new BitBlockModelPart(
-										layer.prepareQuadList(),
-										layer.tintLayers()
-								)
-							);
-						}
-
-						return new BitBlockModelInformation(parts, isBlock, true);
-					} else {
-						return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
+					if (workingState.blockState().getBlock() instanceof LiquidBlock) {
+						lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
+						isBlock = false;
 					}
-			}
 
-			);
+					final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
+							Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
+					);
+
+					final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
+					final List<BitBlockModelPart> parts = new ArrayList<>();
+
+					for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
+						parts.add(
+							new BitBlockModelPart(
+									layer.prepareQuadList(),
+									layer.tintLayers()
+							)
+						);
+					}
+
+					return new BitBlockModelInformation(parts, isBlock, true);
+				} else {
+					return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
+				}
+			});
 		} catch (ExecutionException e) {
-			LOGGER.warn("Failed to get a model for a bit: {} the model calculation got aborted.", blockInformation, e);
+			LOGGER.warn("Failed to get a model for a bit: { } the model calculation got aborted.", blockInformation, e);
 			return BitBlockModelInformation.EMPTY;
 		}
 	}

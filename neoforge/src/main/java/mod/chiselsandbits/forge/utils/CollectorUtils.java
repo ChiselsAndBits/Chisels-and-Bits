@@ -27,16 +27,13 @@ public class CollectorUtils {
 
 					c += 1;
 				}
-
 			},
 
 
 				(m, m2) -> {
-				m.putAll(m2);
-				return m;
-				}
-
-		);
+					m.putAll(m2);
+					return m;
+				});
 	}
 
 	public static <T> Collector<T, HashMap<Character, T>, HashMap<Character, T>> toEnumeratedCharacterKeyedMap(

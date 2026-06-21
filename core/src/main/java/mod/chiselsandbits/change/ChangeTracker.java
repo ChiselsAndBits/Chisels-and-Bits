@@ -58,7 +58,7 @@ public class ChangeTracker implements IChangeTracker {
 		final int maxSize = IChiselsAndBitsAPI.getInstance().getConfiguration().getServer().getChangeTrackerSize().get();
 
 		if (changes.size()> maxSize) {
-			while(changes.size()> maxSize) {
+			while (changes.size()> maxSize) {
 				changes.removeLast();
 			}
 		}

@@ -53,17 +53,15 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 		}
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-				if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
-					tooltipAdder.accept(Component.literal(" "));
-					tooltipAdder.accept(Component.literal(" "));
+			if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
+				tooltipAdder.accept(Component.literal(" "));
+				tooltipAdder.accept(Component.literal(" "));
 
-					HelpTextUtils.build(
-							LocalStrings.HelpSealedPattern, tooltipAdder
-					);
-				}
-		}
-
-		);
+				HelpTextUtils.build(
+						LocalStrings.HelpSealedPattern, tooltipAdder
+				);
+			}
+		});
 	}
 
 	@Override

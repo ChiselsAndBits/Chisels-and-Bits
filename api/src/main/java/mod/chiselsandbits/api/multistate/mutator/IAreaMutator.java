@@ -30,7 +30,7 @@ public interface IAreaMutator extends IAreaAccessor {
 	void setInAreaTarget(
 			BlockInformation blockInformation,
 			Vec3 inAreaTarget
-			) throws SpaceOccupiedException;
+	) throws SpaceOccupiedException;
 
 	/**
 	 * Sets the target block information in the current area, using the in area block position offset
@@ -45,7 +45,7 @@ public interface IAreaMutator extends IAreaAccessor {
 			BlockInformation blockInformation,
 			BlockPos inAreaBlockPosOffset,
 			Vec3 inBlockTarget
-			) throws SpaceOccupiedException;
+	) throws SpaceOccupiedException;
 
 	/**
 	 * Clears the current area, using the offset from the area as well as the in area target offset.

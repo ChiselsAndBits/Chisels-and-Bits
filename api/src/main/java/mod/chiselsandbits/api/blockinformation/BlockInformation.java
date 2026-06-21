@@ -62,7 +62,7 @@ public record BlockInformation(BlockState blockState,
 			VARIANT_COMPARATOR
 	);
 	private static final Comparator<BlockInformation> COMPARATOR = Comparator.comparing(BlockInformation::blockState, STATE_COMPARATOR)
-		.thenComparing(BlockInformation::variant, OPTIONAL_VARIANT_COMPARATOR);
+			.thenComparing(BlockInformation::variant, OPTIONAL_VARIANT_COMPARATOR);
 
 	public boolean isFluid() {
 		return blockState().getFluidState().isSource();

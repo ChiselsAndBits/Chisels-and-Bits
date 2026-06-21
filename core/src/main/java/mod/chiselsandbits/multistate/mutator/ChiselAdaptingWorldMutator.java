@@ -101,8 +101,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -111,14 +111,14 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)
 				|| currentState.isAir()) {
 			return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(blockPos -> new MutablePreAdaptedStateEntry(
-						blockInformation,
-						getWorld(),
-						getPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+					.map(blockPos -> new MutablePreAdaptedStateEntry(
+							blockInformation,
+							getWorld(),
+							getPos(),
+							blockPos,
+							this::setInAreaTarget,
+							this::clearInAreaTarget)
+					);
 				}
 
 		return Stream.empty();
@@ -156,8 +156,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -227,8 +227,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -251,8 +251,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -261,15 +261,15 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)
 				|| currentState.isAir()) {
 			return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(positionMutator::mutate)
-				.map(blockPos -> new MutablePreAdaptedStateEntry(
-						blockInformation,
-						getWorld(),
-						getPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+					.map(positionMutator::mutate)
+					.map(blockPos -> new MutablePreAdaptedStateEntry(
+							blockInformation,
+							getWorld(),
+							getPos(),
+							blockPos,
+							this::setInAreaTarget,
+							this::clearInAreaTarget)
+					);
 				}
 
 		return Stream.empty();
@@ -291,8 +291,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -301,17 +301,15 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)
 				|| currentState.isAir()) {
 			BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) -> {
-					final Vec3i target = positionMutator.mutate(blockPos);
-					consumer.accept(new MutablePreAdaptedStateEntry(
-							blockInformation,
-							getWorld(),
-							getPos(),
-							target,
-							this::setInAreaTarget,
-							this::clearInAreaTarget));
-			}
-
-			);
+				final Vec3i target = positionMutator.mutate(blockPos);
+				consumer.accept(new MutablePreAdaptedStateEntry(
+						blockInformation,
+						getWorld(),
+						getPos(),
+						target,
+						this::setInAreaTarget,
+						this::clearInAreaTarget));
+			});
 				}
 	}
 
@@ -404,8 +402,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -413,14 +411,14 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
 			return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(blockPos -> new MutablePreAdaptedStateEntry(
-						blockInformation,
-						getWorld(),
-						getPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+					.map(blockPos -> new MutablePreAdaptedStateEntry(
+							blockInformation,
+							getWorld(),
+							getPos(),
+							blockPos,
+							this::setInAreaTarget,
+							this::clearInAreaTarget)
+					);
 		}
 
 		return Stream.empty();
@@ -458,7 +456,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState blockState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> stateVariant = IStateVariantManager.getInstance()
-			.getStateVariant(blockState, Optional.ofNullable(blockEntity));
+				.getStateVariant(blockState, Optional.ofNullable(blockEntity));
 
 		final BlockInformation newBlockInformation = new BlockInformation(blockState, stateVariant);
 
@@ -532,7 +530,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState blockState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> stateVariant = IStateVariantManager.getInstance()
-			.getStateVariant(blockState, Optional.ofNullable(blockEntity));
+				.getStateVariant(blockState, Optional.ofNullable(blockEntity));
 
 		final BlockInformation newBlockInformation = new BlockInformation(blockState, stateVariant);
 
@@ -597,8 +595,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState currentState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> additionalStateInfo = IStateVariantManager
-			.getInstance()
-			.getStateVariant(currentState, Optional.ofNullable(blockEntity));
+				.getInstance()
+				.getStateVariant(currentState, Optional.ofNullable(blockEntity));
 		final BlockInformation blockInformation = new BlockInformation(
 				currentState,
 				additionalStateInfo
@@ -607,14 +605,14 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)
 				|| currentState.isAir()) {
 			return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.map(blockPos -> new MutablePreAdaptedStateEntry(
-						blockInformation,
-						getWorld(),
-						getPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
-				);
+					.map(blockPos -> new MutablePreAdaptedStateEntry(
+							blockInformation,
+							getWorld(),
+							getPos(),
+							blockPos,
+							this::setInAreaTarget,
+							this::clearInAreaTarget)
+					);
 				}
 
 		return Stream.empty();
@@ -645,7 +643,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState blockState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> stateVariant = IStateVariantManager.getInstance()
-			.getStateVariant(blockState, Optional.ofNullable(blockEntity));
+				.getStateVariant(blockState, Optional.ofNullable(blockEntity));
 
 		BlockInformation currentState = new BlockInformation(blockState, stateVariant);
 		BlockInformation initializationState = currentState;
@@ -703,7 +701,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		final BlockState blockState = getWorld().getBlockState(getPos());
 		final BlockEntity blockEntity = getWorld().getBlockEntity(getPos());
 		final Optional<IStateVariant> stateVariant = IStateVariantManager.getInstance()
-			.getStateVariant(blockState, Optional.ofNullable(blockEntity));
+				.getStateVariant(blockState, Optional.ofNullable(blockEntity));
 
 		BlockInformation currentState = new BlockInformation(blockState, stateVariant);
 
@@ -743,7 +741,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		final BlockState blockState = getWorld().getBlockState(getPos());
 		final Optional<IStateVariant> stateVariant = IStateVariantManager.getInstance()
-			.getStateVariant(blockState, Optional.ofNullable(blockEntity));
+				.getStateVariant(blockState, Optional.ofNullable(blockEntity));
 
 		BlockInformation currentState = new BlockInformation(blockState, stateVariant);
 
@@ -791,7 +789,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			this.world = world;
 			this.blockPos = blockPos;
 			this.startPoint = Vec3.atLowerCornerOf(inBlockOffset)
-				.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+					.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 			this.setCallback = setCallback;
 			this.clearCallback = clearCallback;
 			this.endPoint = this.startPoint.add(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());

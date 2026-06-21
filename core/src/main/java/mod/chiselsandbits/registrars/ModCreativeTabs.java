@@ -39,105 +39,95 @@ public final class ModCreativeTabs {
 			.icon(() -> new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()))
 			.title(LocalStrings.ChiselsAndBitsName.getText())
 			.displayItems((parameters, output) -> {
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_STONE.get()));
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_COPPER.get()));
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_IRON.get()));
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_GOLD.get()));
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_DIAMOND.get()));
-					output.accept(new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_STONE.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_COPPER.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_IRON.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_GOLD.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_DIAMOND.get()));
+				output.accept(new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()));
 
-					for (DyeColor color : DyeColor.values()) {
+				for (DyeColor color : DyeColor.values()) {
 					output.accept(BitBagItem.dyeBag(new ItemStack(ModItems.ITEM_BIT_BAG.get()), color));
-					}
+				}
 
-					output.accept(new ItemStack(ModItems.MAGNIFYING_GLASS.get()));
-					output.accept(new ItemStack(ModItems.ITEM_BIT_STORAGE.get()));
-					output.accept(new ItemStack(ModItems.ITEM_MODIFICATION_TABLE.get()));
-					output.accept(new ItemStack(ModItems.MEASURING_TAPE.get()));
-					output.accept(new ItemStack(ModItems.SINGLE_USE_PATTERN_ITEM.get()));
-					output.accept(new ItemStack(ModItems.MULTI_USE_PATTERN_ITEM.get()));
-					output.accept(new ItemStack(ModItems.QUILL.get()));
-					output.accept(new ItemStack(ModItems.SEALANT_ITEM.get()));
-					output.accept(new ItemStack(ModItems.CHISELED_PRINTER.get()));
-					output.accept(new ItemStack(ModItems.MONOCLE_ITEM.get()));
-			}
-
-			)
+				output.accept(new ItemStack(ModItems.MAGNIFYING_GLASS.get()));
+				output.accept(new ItemStack(ModItems.ITEM_BIT_STORAGE.get()));
+				output.accept(new ItemStack(ModItems.ITEM_MODIFICATION_TABLE.get()));
+				output.accept(new ItemStack(ModItems.MEASURING_TAPE.get()));
+				output.accept(new ItemStack(ModItems.SINGLE_USE_PATTERN_ITEM.get()));
+				output.accept(new ItemStack(ModItems.MULTI_USE_PATTERN_ITEM.get()));
+				output.accept(new ItemStack(ModItems.QUILL.get()));
+				output.accept(new ItemStack(ModItems.SEALANT_ITEM.get()));
+				output.accept(new ItemStack(ModItems.CHISELED_PRINTER.get()));
+				output.accept(new ItemStack(ModItems.MONOCLE_ITEM.get()));
+			})
 			.build());
 
 	public static IRegistryObject<CreativeModeTab> BITS = REGISTRAR.register("bits", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.ITEM_BLOCK_BIT.get()))
 			.title(LocalStrings.CreativeTabBits.getText())
 			.displayItems((parameters, output) -> {
-					final Set<BlockInformation> states = Sets.newHashSet();
-					IPlatformRegistryManager.getInstance().getBlockRegistry().getValues()
-					.forEach(block -> {
-							if (block instanceof ChiseledBlock) {
-							return;
-							}
+				final Set<BlockInformation> states = Sets.newHashSet();
+				IPlatformRegistryManager.getInstance().getBlockRegistry().getValues()
+				.forEach(block -> {
+					if (block instanceof ChiseledBlock) {
+						return;
+					}
 
-							BlockState blockState = block.defaultBlockState();
-							final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
+					BlockState blockState = block.defaultBlockState();
+					final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
 
-							if (!defaultStateVariants.isEmpty()) {
-							defaultStateVariants.forEach(blockInformation -> {
-									if (states.add(blockInformation)) {
+					if (!defaultStateVariants.isEmpty()) {
+						defaultStateVariants.forEach(blockInformation -> {
+							if (states.add(blockInformation)) {
 
-									if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
+								if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
 									final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
 
 									if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-									output.accept(resultStack);
+										output.accept(resultStack);
 									}
-									}
-									}
+								}
 							}
+						});
 
-							);
+						return;
+					}
 
-							return;
-							}
+					//We need to make sure that we only have still fluids in the interface!
+					if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
+						final Fluid fluid = liquidBlock.fluid;
 
-							//We need to make sure that we only have still fluids in the interface!
-							if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
-							final Fluid fluid = liquidBlock.fluid;
-
-							if (fluid instanceof FlowingFluid flowingFluid) {
+						if (fluid instanceof FlowingFluid flowingFluid) {
 							blockState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
-							}
-							}
+						}
+					}
 
-							final BlockInformation information = new BlockInformation(blockState, Optional.empty());
+					final BlockInformation information = new BlockInformation(blockState, Optional.empty());
 
-							if (states.add(information)) {
+					if (states.add(information)) {
 
-							if (IEligibilityManager.getInstance().canBeChiseled(information)) {
+						if (IEligibilityManager.getInstance().canBeChiseled(information)) {
 							final ItemStack resultStack = IBitItemManager.getInstance().create(information);
 
 							if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-							output.accept(resultStack);
+								output.accept(resultStack);
 							}
-							}
-							}
+						}
 					}
-
-					);
-			}
-
-			)
+				});
+			})
 			.build());
 
 	public static IRegistryObject<CreativeModeTab> CLIPBOARD = REGISTRAR.register("clipboard", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.PATTERN_SCANNER.get()))
 			.title(LocalStrings.CreativeTabClipboard.getText())
 			.displayItems((parameters, output) -> {
-					output.acceptAll(ICreativeClipboardManager.getInstance().getClipboard()
-							.stream()
-							.map(IMultiStateItemStack::toBlockStack)
-							.toList());
-			}
-
-			)
+				output.acceptAll(ICreativeClipboardManager.getInstance().getClipboard()
+						.stream()
+						.map(IMultiStateItemStack::toBlockStack)
+						.toList());
+			})
 			.build());
 
 	private ModCreativeTabs() {

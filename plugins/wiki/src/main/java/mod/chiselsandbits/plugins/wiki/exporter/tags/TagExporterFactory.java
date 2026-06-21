@@ -53,7 +53,7 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 	public record Config(
 			Set<String> namespaces,
 			Set<String> registries
-			) implements NamespacedModuleConfig {}
+	) implements NamespacedModuleConfig { }
 
 	public record Exporter(Config config) implements ExporterModule {
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -64,11 +64,11 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 				var registryIdentifier = Identifier.parse(registryName);
 				var registryKey = ResourceKey.createRegistryKey(registryIdentifier);
 				Registry<?> registry = TagExporterEntrypoint.getServer().registryAccess()
-					.registries()
-					.filter(registryEntry -> registryEntry.key().equals(registryKey))
-					.findFirst()
-					.orElseThrow(() -> new IllegalStateException("Could not find registry: " + registryName))
-					.value();
+						.registries()
+						.filter(registryEntry -> registryEntry.key().equals(registryKey))
+						.findFirst()
+						.orElseThrow(() -> new IllegalStateException("Could not find registry: " + registryName))
+						.value();
 
 				runFor(output, registry, registryIdentifier);
 			}
@@ -104,11 +104,11 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 				Files.createDirectories(output.getParent());
 			}
 
-			try(FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
+			try (FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
 					OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
 					JsonWriter jsonWriter = new JsonWriter(writer)) {
 				GSON.toJson(contents, List.class, jsonWriter);
-					}
+			}
 		}
 	}
 }

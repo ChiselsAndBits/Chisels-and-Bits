@@ -105,38 +105,34 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+			try (IBatchMutation ignored = 
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(factory -> factory.apply(mutator))
+						.orElse((s) -> true);
 
-					mutator.inWorldMutableStream()
-					.filter(filter)
-					.forEach(state -> {
+						mutator.inWorldMutableStream()
+						.filter(filter)
+						.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
 							if (context.tryDamageItem()) {
-							resultingBitCount.putIfAbsent(currentState, 0);
-							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+								resultingBitCount.putIfAbsent(currentState, 0);
+								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-							state.clear();
+								state.clear();
 							}
+						});
+
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								playerEntity,
+								blockState,
+								count
+						));
 					}
-
-					);
-
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
-						}
-		}
-
-		);
+		});
 	}
 
 	@Override
@@ -158,45 +154,43 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-				if (heldBlockState.isAir()) {
-					return;
+			if (heldBlockState.isAir()) {
+				return;
+			}
+
+			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+			.map(factory -> factory.apply(mutator))
+			.orElse((s) -> true);
+
+			final int missingBitCount = (int) mutator.stream()
+			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+			.count();
+
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+
+			context.setComplete();
+
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+				if (!playerEntity.isCreative()) {
+					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-				.map(factory -> factory.apply(mutator))
-				.orElse((s) -> true);
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+							mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+			} else {
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-				final int missingBitCount = (int) mutator.stream()
-				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-				.count();
-
-				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
-
-				context.setComplete();
-
-				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-					if (!playerEntity.isCreative()) {
-						playerBitInventory.extract(heldBlockState, missingBitCount);
-					}
-
-					try (IBatchMutation ignored = 
-							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-							}
-				} else {
-					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-				}
-
-				if (missingBitCount == 0) {
-					context.validateBuildHeights();
-				}
-		}
-
-		);
+			if (missingBitCount == 0) {
+				context.validateBuildHeights();
+			}
+		});
 	}
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
@@ -230,14 +224,12 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		Optional<Vec3> finalAnchor = anchor;
 		Optional<Direction.Axis> finalTargetedAxis = targetedAxis;
 		context.setStateFilter(areaAccessor -> {
-				if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
-					return new WallAreaFilter(finalAnchor.get(), currentTarget, finalTargetedAxis.get(), extensionWidth);
-				}
+			if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
+				return new WallAreaFilter(finalAnchor.get(), currentTarget, finalTargetedAxis.get(), extensionWidth);
+			}
 
-				return (s) -> false;
-		}
-
-		);
+			return (s) -> false;
+		});
 
 		return ClickProcessingState.ALLOW;
 	}
@@ -245,7 +237,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context) {
 		return context.getMutator()
-			.map(IAreaAccessor.class::cast);
+				.map(IAreaAccessor.class::cast);
 	}
 
 	@Override
@@ -273,25 +265,23 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		final List<Vec3i> startPoints = lineAreaFilter.anchors;
 		return VoxelShapeUtils.batchCombine(Shapes.empty(), BooleanOp.OR, true, startPoints.stream()
 				.map(p -> {
-						final Vec3i startPointScalar = getOffsetPosition(p, -lineAreaFilter.extensionWidth, lineAreaFilter.axis);
-						final Vec3i endPointScalar = getOffsetPosition(p, lineAreaFilter.extensionWidth, lineAreaFilter.axis);
+					final Vec3i startPointScalar = getOffsetPosition(p, -lineAreaFilter.extensionWidth, lineAreaFilter.axis);
+					final Vec3i endPointScalar = getOffsetPosition(p, lineAreaFilter.extensionWidth, lineAreaFilter.axis);
 
-						final Vec3 startPoint = new Vec3(startPointScalar.getX(), startPointScalar.getY(), startPointScalar.getZ()).multiply(StateEntrySize.current().getSizePerBitScalingVector());
-						final Vec3 endPoint = new Vec3(endPointScalar.getX(), endPointScalar.getY(), endPointScalar.getZ()).multiply(StateEntrySize.current().getSizePerBitScalingVector());
+					final Vec3 startPoint = new Vec3(startPointScalar.getX(), startPointScalar.getY(), startPointScalar.getZ()).multiply(StateEntrySize.current().getSizePerBitScalingVector());
+					final Vec3 endPoint = new Vec3(endPointScalar.getX(), endPointScalar.getY(), endPointScalar.getZ()).multiply(StateEntrySize.current().getSizePerBitScalingVector());
 
-						final Vec3 finalEndpoint = new Vec3(endPoint.x(), endPoint.y() + (lineAreaFilter.height * StateEntrySize.current().getSizePerBit()), endPoint.z());
+					final Vec3 finalEndpoint = new Vec3(endPoint.x(), endPoint.y() + (lineAreaFilter.height * StateEntrySize.current().getSizePerBit()), endPoint.z());
 
-						final Vec3 end = finalEndpoint.add(StateEntrySize.current().getSizePerBitScalingVector());
-						final Vec3 min = new Vec3(Math.min(startPoint.x(), end.x()), Math.min(startPoint.y(), end.y()), Math.min(startPoint.z(), end.z()));
-						final Vec3 max = new Vec3(Math.max(startPoint.x(), end.x()), Math.max(startPoint.y(), end.y()), Math.max(startPoint.z(), end.z()));
+					final Vec3 end = finalEndpoint.add(StateEntrySize.current().getSizePerBitScalingVector());
+					final Vec3 min = new Vec3(Math.min(startPoint.x(), end.x()), Math.min(startPoint.y(), end.y()), Math.min(startPoint.z(), end.z()));
+					final Vec3 max = new Vec3(Math.max(startPoint.x(), end.x()), Math.max(startPoint.y(), end.y()), Math.max(startPoint.z(), end.z()));
 
-						return Shapes.box(
-								min.x(), min.y(), min.z(),
-								max.x(), max.y(), max.z()
-						);
-				}
-
-				)
+					return Shapes.box(
+							min.x(), min.y(), min.z(),
+							max.x(), max.y(), max.z()
+					);
+				})
 				.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
 	}
 
@@ -343,18 +333,16 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 		private List<Vec3i> calculateIncludedPositions() {
 			return anchors.stream()
-				.flatMap(i -> {
+					.flatMap(i -> {
 						final Stream.Builder<Vec3i> builder = Stream.builder();
 
 						for (int j = -extensionWidth; j <= extensionWidth; j++) {
-						builder.add(getOffsetPosition(i, j, axis));
-						}
-
-						return builder.build();
+							builder.add(getOffsetPosition(i, j, axis));
 				}
 
-				)
-				.collect(Collectors.toList());
+						return builder.build();
+					})
+					.collect(Collectors.toList());
 		}
 
 		@Override

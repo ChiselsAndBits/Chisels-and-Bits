@@ -110,11 +110,11 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new StateEntry(
-					this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					blockPos
-			)
-			);
+				.map(blockPos -> new StateEntry(
+						this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos
+				)
+				);
 	}
 
 	/**
@@ -261,26 +261,24 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(positionMutator::mutate)
-			.map(blockPos -> new StateEntry(
-					this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					blockPos
-			)
-			);
+				.map(positionMutator::mutate)
+				.map(blockPos -> new StateEntry(
+						this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos
+				)
+				);
 	}
 
 	@Override
 	public void forEachWithPositionMutator(
 			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) -> {
-				final Vec3i pos = positionMutator.mutate(blockPos);
-				consumer.accept(new StateEntry(
-						this.compressedSection.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
-						pos
-				));
-		}
-
-		);
+			final Vec3i pos = positionMutator.mutate(blockPos);
+			consumer.accept(new StateEntry(
+					this.compressedSection.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
+					pos
+			));
+		});
 	}
 
 	@Override
@@ -289,9 +287,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		this.statistics.clear();
 
 		BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.forEach(position -> this.statistics.onBlockStateAdded(
-					this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
-			));
+				.forEach(position -> this.statistics.onBlockStateAdded(
+						this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
+				));
 	}
 
 	@Override
@@ -300,9 +298,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		this.statistics.clear();
 
 		BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.forEach(position -> this.statistics.onBlockStateAdded(
-					this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
-			));
+				.forEach(position -> this.statistics.onBlockStateAdded(
+						this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
+				));
 	}
 
 	@Override
@@ -465,10 +463,10 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 
 		private void updatePrimaryState() {
 			primaryState = this.countMap.entrySet().stream()
-				.filter(entry -> !entry.getKey().isAir())
-				.min((o1, o2) -> -1 * (o1.getValue() - o2.getValue()))
-				.map(Map.Entry::getKey)
-				.orElse(BlockInformation.AIR);
+					.filter(entry -> !entry.getKey().isAir())
+					.min((o1, o2) -> -1 * (o1.getValue() - o2.getValue()))
+					.map(Map.Entry::getKey)
+					.orElse(BlockInformation.AIR);
 		}
 
 		public void initializeFrom(final StateEntryStorage compressedSection) {

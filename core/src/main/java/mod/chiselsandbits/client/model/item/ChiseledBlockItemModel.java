@@ -37,7 +37,7 @@ import net.minecraft.world.item.ItemStack;
 public record ChiseledBlockItemModel(
 		boolean usesBlockLight,
 		ItemTransforms transforms
-		) implements ItemModel {
+) implements ItemModel {
 	@Override
 	public void update(
 			final ItemStackRenderState renderState,
@@ -49,7 +49,7 @@ public record ChiseledBlockItemModel(
 			final int seed) {
 		renderState.appendModelIdentityElement(this);
 		final ChiseledBlockModelInformation blockModelInformation = ChiseledBlockStateModelManager
-			.getInstance().get(stack);
+				.getInstance().get(stack);
 
 		renderState.appendModelIdentityElement(blockModelInformation.key());
 
@@ -103,11 +103,11 @@ public record ChiseledBlockItemModel(
 					}
 
 					final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-						.withBlockState(material.blockInformation().blockState())
-						.withBlockEntity(material.blockInformation()::newBlockEntityAtZero)
-						.withPos(BlockPos.ZERO)
-						.withSource((BlockAndTintGetter) level)
-						.createSingleBlockBlockAndTintGetter();
+							.withBlockState(material.blockInformation().blockState())
+							.withBlockEntity(material.blockInformation()::newBlockEntityAtZero)
+							.withPos(BlockPos.ZERO)
+							.withSource((BlockAndTintGetter) level)
+							.createSingleBlockBlockAndTintGetter();
 
 					var tint = fluidModel.tintSource().colorInWorld(
 							material.blockInformation().blockState(),

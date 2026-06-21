@@ -86,25 +86,23 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 		);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-				if (!Minecraft.getInstance().hasShiftDown()) {
-					tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
-					return;
-				}
+			if (!Minecraft.getInstance().hasShiftDown()) {
+				tooltipAdder.accept(LocalStrings.ShiftDetails.getText());
+				return;
+			}
 
-				final IBitInventoryItemStack inventoryItemStack;
+			final IBitInventoryItemStack inventoryItemStack;
 
-				if (tooltipCache.needsUpdate(stack)) {
-					inventoryItemStack = create(stack);
-					tooltipCache.updateCachedValue(inventoryItemStack);
-				} else {
-					inventoryItemStack = tooltipCache.getCached();
-				}
+			if (tooltipCache.needsUpdate(stack)) {
+				inventoryItemStack = create(stack);
+				tooltipCache.updateCachedValue(inventoryItemStack);
+			} else {
+				inventoryItemStack = tooltipCache.getCached();
+			}
 
-				var contents = inventoryItemStack.listContents();
-				contents.displayComponents().forEach(tooltipAdder);
-		}
-
-		);
+			var contents = inventoryItemStack.listContents();
+			contents.displayComponents().forEach(tooltipAdder);
+		});
 	}
 
 	@Override

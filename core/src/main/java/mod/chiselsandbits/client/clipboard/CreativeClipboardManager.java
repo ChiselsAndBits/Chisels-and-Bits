@@ -54,16 +54,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 			final CompoundTag data = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
 			final ListTag tags = data.getList("clipboard").orElse(new ListTag());
 			tags.stream()
-				.filter(CompoundTag.class::isInstance)
-				.map(CompoundTag.class::cast)
-				.map(tag -> {
+					.filter(CompoundTag.class::isInstance)
+					.map(CompoundTag.class::cast)
+					.map(tag -> {
 						final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 						return ItemStack.OPTIONAL_CODEC.parse(ops, tag).getOrThrow();
-				}
-
-				)
-				.map(SingleBlockMultiStateItemStack::new)
-				.forEach(cache::add);
+					})
+					.map(SingleBlockMultiStateItemStack::new)
+					.forEach(cache::add);
 		} catch (IOException e) {
 			LOGGER.fatal("Failed to read a clipboard file!", e);
 		}
@@ -74,14 +72,12 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 		final ListTag tags = new ListTag();
 
 		cache.stream()
-			.map(IMultiStateItemStack::toBlockStack)
-			.map(stack -> {
+				.map(IMultiStateItemStack::toBlockStack)
+				.map(stack -> {
 					final RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, provider);
 					return ItemStack.OPTIONAL_CODEC.encode(stack, ops, new CompoundTag()).getOrThrow();
-			}
-
-			)
-			.forEach(tags::add);
+				})
+				.forEach(tags::add);
 
 		data.put("clipboard", tags);
 
@@ -122,16 +118,14 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 	private void updateCreativeTab() {
 		ModCreativeTabs.CLIPBOARD.get()
-			.displayItems = ItemStackLinkedSet.createTypeAndComponentsSet();
+				.displayItems = ItemStackLinkedSet.createTypeAndComponentsSet();
 		ModCreativeTabs.CLIPBOARD.get()
-			.displayItemsSearchTab = ItemStackLinkedSet.createTypeAndComponentsSet();
+				.displayItemsSearchTab = ItemStackLinkedSet.createTypeAndComponentsSet();
 
 		cache.forEach(stack -> {
-				ModCreativeTabs.CLIPBOARD.get()
-				.displayItems.add(stack.toBlockStack());
-		}
-
-		);
+			ModCreativeTabs.CLIPBOARD.get()
+			.displayItems.add(stack.toBlockStack());
+		});
 
 		if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {
 			screen.refreshCurrentTabContents(this.cache.stream().map(IMultiStateItemStack::toBlockStack).toList());

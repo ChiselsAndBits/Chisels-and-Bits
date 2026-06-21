@@ -19,45 +19,41 @@ public class PlayerBitInventory extends ContainerBitInventory {
 	@Override
 	public int getMaxExtractAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.mapToInt(stack -> {
+				.mapToObj(this::getItem)
+				.mapToInt(stack -> {
 					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
-					return stack.getCount();
+						return stack.getCount();
 					}
 
 					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
-					return bitInventoryItem.create(stack).getMaxExtractAmount(blockState);
+						return bitInventoryItem.create(stack).getMaxExtractAmount(blockState);
 					}
 
 					return 0;
-			}
-
-			)
-			.sum();
+				})
+				.sum();
 	}
 
 	@Override
 	public int getMaxInsertAmount(final BlockInformation blockState) {
 		return IntStream.range(0, getInventorySize())
-			.mapToObj(this::getItem)
-			.mapToInt(stack -> {
+				.mapToObj(this::getItem)
+				.mapToInt(stack -> {
 					if (stack.isEmpty()) {
-					return getMaxBitsFor(stack);
+						return getMaxBitsFor(stack);
 					}
 
 					if (stack.getItem() instanceof IBitItem bitItem && bitItem.getBlockInformation(stack).equals(blockState)) {
-					return getMaxBitsFor(stack) - stack.getCount();
+						return getMaxBitsFor(stack) - stack.getCount();
 					}
 
 					if (stack.getItem() instanceof IBitInventoryItem bitInventoryItem) {
-					return bitInventoryItem.create(stack).getMaxInsertAmount(blockState);
+						return bitInventoryItem.create(stack).getMaxInsertAmount(blockState);
 					}
 
 					return 0;
-			}
-
-			)
-			.sum();
+				})
+				.sum();
 	}
 
 	@Override

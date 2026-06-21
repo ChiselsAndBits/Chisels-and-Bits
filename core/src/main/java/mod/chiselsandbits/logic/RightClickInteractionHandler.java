@@ -32,7 +32,7 @@ public class RightClickInteractionHandler {
 		}
 
 		if (itemStack.getItem() instanceof IRightClickControllingItem) {
-			try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Right click processing")) {
+			try (IProfilerSection ignored = ProfilingManager.getInstance().withSection("Right click processing")) {
 				final IRightClickControllingItem rightClickControllingItem = (IRightClickControllingItem) itemStack.getItem();
 
 				if (!rightClickControllingItem.canUse(player, itemStack)) {
@@ -69,7 +69,7 @@ public class RightClickInteractionHandler {
 		}
 
 		if (itemStack.getItem() instanceof IRightClickControllingItem) {
-			try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Right click processing")) {
+			try (IProfilerSection ignored = ProfilingManager.getInstance().withSection("Right click processing")) {
 				final IRightClickControllingItem rightClickControllingItem = (IRightClickControllingItem) itemStack.getItem();
 
 				if (!rightClickControllingItem.canUse(player, itemStack)) {

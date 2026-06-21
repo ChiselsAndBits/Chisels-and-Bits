@@ -54,11 +54,11 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 		);
 
 		ClientResourceReloadingManager.getInstance()
-			.registerCacheClearer(BitStorageBESR::clearCache)
-			.registerCacheClearer(ChiseledPrinterBESR::clearCache)
-			.registerCacheClearer(BitBlockBakedModelManager.getInstance()::clearCache)
-			.registerCacheClearer(ChiseledBlockStateModelManager.getInstance()::clearCache)
-			.registerCacheClearer(FaceManager.getInstance()::clearCache);
+				.registerCacheClearer(BitStorageBESR::clearCache)
+				.registerCacheClearer(ChiseledPrinterBESR::clearCache)
+				.registerCacheClearer(BitBlockBakedModelManager.getInstance()::clearCache)
+				.registerCacheClearer(ChiseledBlockStateModelManager.getInstance()::clearCache)
+				.registerCacheClearer(FaceManager.getInstance()::clearCache);
 	}
 
 	public void clearCaches() {

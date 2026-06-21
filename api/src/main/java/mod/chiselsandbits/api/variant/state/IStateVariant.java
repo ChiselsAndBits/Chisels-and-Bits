@@ -18,19 +18,19 @@ public interface IStateVariant extends Comparable<IStateVariant>, ISnapshotable<
 	 * The codec that can be used to serialize a state variant.
 	 */
 	Codec<IStateVariant> CODEC = IStateVariantManager.getInstance().byNameCodec()
-		.dispatch(IStateVariant::provider, IStateVariantProvider::mapCodec);
+			.dispatch(IStateVariant::provider, IStateVariantProvider::mapCodec);
 
 	/**
 	 * The map codec that can be used to serialize a state variant.
 	 */
 	MapCodec<IStateVariant> MAP_CODEC = IStateVariantManager.getInstance().byNameCodec()
-		.dispatchMap(IStateVariant::provider, IStateVariantProvider::mapCodec);
+			.dispatchMap(IStateVariant::provider, IStateVariantProvider::mapCodec);
 
 	/**
 	 * The stream codec that can be used to serialize a state variant.
 	 */
 	StreamCodec<RegistryFriendlyByteBuf, IStateVariant> STREAM_CODEC = IStateVariantManager.getInstance().byNameStreamCodec()
-		.dispatch(IStateVariant::provider, IStateVariantProvider::streamCodec);
+			.dispatch(IStateVariant::provider, IStateVariantProvider::streamCodec);
 
 	/**
 	 * {@return The provider that created this state variant.}
@@ -45,5 +45,5 @@ public interface IStateVariant extends Comparable<IStateVariant>, ISnapshotable<
 	 * for this variant.
 	 * </p
 	> */
-	default void updateBlockEntity(BlockEntity blockEntity) {}
+	default void updateBlockEntity(BlockEntity blockEntity) { }
 }

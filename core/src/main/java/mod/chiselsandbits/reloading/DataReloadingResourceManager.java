@@ -44,9 +44,9 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 		this.cacheClearingHandlers.clear();
 
 		registerCacheClearer(AABBManager.getInstance()::clearCache)
-			.registerCacheClearer(VoxelShapeManager.getInstance()::clearCache)
-			.registerCacheClearer(LocalChiselingContextCache.getInstance()::clearCache)
-			.registerCacheClearer(ChangeTrackerManger.getInstance()::clearCache);
+				.registerCacheClearer(VoxelShapeManager.getInstance()::clearCache)
+				.registerCacheClearer(LocalChiselingContextCache.getInstance()::clearCache)
+				.registerCacheClearer(ChangeTrackerManger.getInstance()::clearCache);
 	}
 
 	@Override
@@ -56,12 +56,12 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 			final PreparationBarrier barrier,
 			final Executor applyExectutor) {
 		return barrier.wait(Unit.INSTANCE).thenRunAsync(() -> {
-				ProfilerFiller profilerfiller = Profiler.get();
-				profilerfiller.startTick();
-				profilerfiller.push("C&B Data reload");
-				this.onResourceManagerReload();
-				profilerfiller.pop();
-				profilerfiller.endTick();
+			ProfilerFiller profilerfiller = Profiler.get();
+			profilerfiller.startTick();
+			profilerfiller.push("C&B Data reload");
+			this.onResourceManagerReload();
+			profilerfiller.pop();
+			profilerfiller.endTick();
 		},
 
 

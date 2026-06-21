@@ -72,7 +72,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public ItemStack removeItemType(Item item, int toExtract) {
 		ItemStack nullStack = new ItemStack(item, 0);
 
-		for(int reversedIndex = this.size - 1; reversedIndex>= 0; --reversedIndex) {
+		for (int reversedIndex = this.size - 1; reversedIndex>= 0; --reversedIndex) {
 			ItemStack stack = this.getItem(reversedIndex);
 
 			if (stack.getItem().equals(item)) {
@@ -165,7 +165,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToEmptySlots(ItemStack input) {
-		for(int index = 0; index <this.size; ++index) {
+		for (int index = 0; index <this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (stack.isEmpty()) {
@@ -177,7 +177,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToOccupiedSlotsWithSameType(ItemStack input) {
-		for(int index = 0; index <this.size; ++index) {
+		for (int index = 0; index <this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (ItemStack.isSameItemSameComponents(stack, input)) {
@@ -209,8 +209,8 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 
 	private List<SlotData> slots() {
 		return IntStream.range(0, this.size)
-			.mapToObj(index -> new SlotData(index, this.items.get(index)))
-			.collect(Collectors.toList());
+				.mapToObj(index -> new SlotData(index, this.items.get(index)))
+				.collect(Collectors.toList());
 	}
 
 	@Override

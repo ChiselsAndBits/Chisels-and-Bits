@@ -12,12 +12,10 @@ public final class ModBlockColors {
 	public static void onClientConstruction() {
 		IColorManager.getInstance().setupDynamicBlockColors(
 				configuration -> {
-				configuration.register(
-					new ChiseledBlockColorProvider(),
-						ModBlocks.CHISELED_BLOCK.get()
-				);
-				}
-
-		);
+					configuration.register(
+						new ChiseledBlockColorProvider(),
+							ModBlocks.CHISELED_BLOCK.get()
+					);
+				});
 	}
 }

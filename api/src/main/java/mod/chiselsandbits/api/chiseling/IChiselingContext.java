@@ -157,7 +157,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * @return {@code True} when successful, {@code false} when not.
 	 */
 	default boolean tryDamageItem(final int damage) {
-		return this.tryDamageItemAndDo(damage, () -> {}, () -> {})> 0;
+		return this.tryDamageItemAndDo(damage, () -> { }, () -> { })> 0;
 	}
 
 	/**
@@ -303,19 +303,17 @@ public interface IChiselingContext extends IStateAccessor {
 	 */
 	default boolean validateBuildHeights() {
 		return getMutator().map(mutator -> {
-				final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
+			final BlockPos heightPos = mutator.getInWorldEndBlockPoint();
 
-				if (heightPos.getY()>= getWorld().getMaxY()) {
-					setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
-					return false;
-				} else if (heightPos.getY() <= getWorld().getMinY()) {
-					setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
-					return false;
-				}
+			if (heightPos.getY()>= getWorld().getMaxY()) {
+				setError(LocalStrings.ChiselAttemptFailedAttemptTooHigh.getText());
+				return false;
+			} else if (heightPos.getY() <= getWorld().getMinY()) {
+				setError(LocalStrings.ChiselAttemptFailedAttemptTooLow.getText());
+				return false;
+			}
 
-				return true;
-		}
-
-				).orElse(true);
+			return true;
+		}).orElse(true);
 	}
 }

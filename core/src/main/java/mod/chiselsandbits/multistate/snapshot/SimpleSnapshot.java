@@ -115,12 +115,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new SimpleSnapshot.StateEntry(
-					chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(blockPos -> new SimpleSnapshot.StateEntry(
+						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	@Override
@@ -150,13 +150,13 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(positionMutator::mutate)
-			.map(blockPos -> new SimpleSnapshot.StateEntry(
-					this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(positionMutator::mutate)
+				.map(blockPos -> new SimpleSnapshot.StateEntry(
+						this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	/**
@@ -199,15 +199,13 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public void forEachWithPositionMutator(
 			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (blockPos) -> {
-				final Vec3i target = positionMutator.mutate(blockPos);
-				consumer.accept(new SimpleSnapshot.StateEntry(
-						this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
-						target,
-						this::setInAreaTarget,
-						this::clearInAreaTarget));
-		}
-
-		);
+			final Vec3i target = positionMutator.mutate(blockPos);
+			consumer.accept(new SimpleSnapshot.StateEntry(
+					this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
+					target,
+					this::setInAreaTarget,
+					this::clearInAreaTarget));
+		});
 	}
 
 	@Override
@@ -223,12 +221,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new SimpleSnapshot.StateEntry(
-					chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(blockPos -> new SimpleSnapshot.StateEntry(
+						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	@Override
@@ -420,10 +418,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 				final StateClearer stateClearer) {
 			this.blockInformation = blockInformation;
 			this.startPoint = Vec3.atLowerCornerOf(startPoint)
-				.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+					.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 			this.endPoint = Vec3.atLowerCornerOf(startPoint)
-				.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())
-				.add(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
+					.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit())
+					.add(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit());
 			this.stateSetter = stateSetter;
 			this.stateClearer = stateClearer;
 		}

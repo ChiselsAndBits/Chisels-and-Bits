@@ -119,24 +119,22 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		modes.addAll(this.toolModeItem.getPossibleModes());
 
 		modes.stream()
-			.filter(mode -> mode.getGroup().isPresent())
-			.forEach(mode -> groupings.computeIfAbsent(mode.getGroup().get(), (group) -> Lists.newArrayList()).add(mode));
+				.filter(mode -> mode.getGroup().isPresent())
+				.forEach(mode -> groupings.computeIfAbsent(mode.getGroup().get(), (group) -> Lists.newArrayList()).add(mode));
 		modes.stream()
-			.filter(mode -> mode.getGroup().isEmpty())
-			.forEach(noneGroupedModes::add);
+				.filter(mode -> mode.getGroup().isEmpty())
+				.forEach(noneGroupedModes::add);
 
 		final List<IRenderableMode> allPagesCombined = new ArrayList<>();
 		allPagesCombined.addAll(groupings.keySet());
 		allPagesCombined.addAll(noneGroupedModes);
 		allPagesCombined.sort(Comparator.comparingInt(renderableMode -> {
-				if (noneGroupedModes.contains(renderableMode)) {
-					return modes.indexOf(renderableMode);
-				}
+			if (noneGroupedModes.contains(renderableMode)) {
+				return modes.indexOf(renderableMode);
+			}
 
-				return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
-		}
-
-		));
+			return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
+		}));
 
 		if (allPagesCombined.isEmpty()) {
 			return;
@@ -378,7 +376,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		if (this.mainSelectedToolMode != null) {
 			final M mainToolModeSelection = 
 			this.mainSelectedToolMode instanceof IToolModeGroup ? this.selectedOuterToolMode : (this.mainSelectedToolMode instanceof IToolMode) ? (M) this.mainSelectedToolMode
-			: toolModeItem.getMode(this.sourceStack);
+					: toolModeItem.getMode(this.sourceStack);
 
 			if (mainToolModeSelection != null) {
 				toolModeItem.setMode(
@@ -406,7 +404,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		@Override
 		public Component getDisplayName() {
 			return isPrevious ? LocalStrings.ToolMenuPreviousPageName.getText()
-			: LocalStrings.ToolMenuNextPageName.getText();
+					: LocalStrings.ToolMenuNextPageName.getText();
 		}
 
 		@Override

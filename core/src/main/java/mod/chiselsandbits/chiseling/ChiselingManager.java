@@ -90,12 +90,12 @@ public class ChiselingManager implements IChiselingManager {
 				modeOfOperandus,
 				simulation, () -> {
 
-				if (simulation) {
-					return;
-				}
+					if (simulation) {
+						return;
+					}
 
-				this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
-				contexts.get().remove(playerId, worldId);
+					this.lastUsedChiselMoments.get().put(playerId, worldId, (long) playerEntity.tickCount);
+					contexts.get().remove(playerId, worldId);
 				},
 
 

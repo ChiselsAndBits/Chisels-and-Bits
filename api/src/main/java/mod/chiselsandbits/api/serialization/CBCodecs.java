@@ -75,14 +75,12 @@ public interface CBCodecs {
 				t -> 0,
 				key -> {
 
-				if (key != 0) {
-					throw new IllegalStateException("Wrong version stored for single version codec.");
-				}
+					if (key != 0) {
+						throw new IllegalStateException("Wrong version stored for single version codec.");
+					}
 
-				return singleVersionCodec;
-				}
-
-		),
+					return singleVersionCodec;
+				}),
 				fallback
 		);
 	}
@@ -101,14 +99,12 @@ public interface CBCodecs {
 				t -> maxVersion,
 				key -> {
 
-				if (!versions.containsKey(key)) {
-					throw new IllegalStateException("Unknown version: " + key);
-				}
+					if (!versions.containsKey(key)) {
+						throw new IllegalStateException("Unknown version: " + key);
+					}
 
-				return versions.get(key);
-				}
-
-		),
+					return versions.get(key);
+				}),
 				fallback.codec()
 		);
 	}
@@ -122,30 +118,28 @@ public interface CBCodecs {
 	static <T> Codec<T> readLegacyCompressed(Codec<T> inner) {
 		return Codec.BYTE_BUFFER.flatXmap(
 				byteBuffer -> {
-				final byte[] bytes = new byte[byteBuffer.remaining()];
-				byteBuffer.get(bytes);
+					final byte[] bytes = new byte[byteBuffer.remaining()];
+					byteBuffer.get(bytes);
 
-				final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-				try {
-					final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
-					final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
-					final Tag uncompressedData = NbtIo.read(dataInput, NbtAccounter.unlimitedHeap());
+					try {
+				final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
+				final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
+				final Tag uncompressedData = NbtIo.read(dataInput, NbtAccounter.unlimitedHeap());
 
-					final NbtOps ops = NbtOps.INSTANCE;
-					final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
-					return inner.parse(dynamic);
+				final NbtOps ops = NbtOps.INSTANCE;
+				final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
+				return inner.parse(dynamic);
 			} catch (IOException e) {
-					return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
+				return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 			}
-
 				},
 
 
 				t -> {
-				throw new IllegalStateException("Legacy compression data can not be written!");
-				}
-		);
+					throw new IllegalStateException("Legacy compression data can not be written!");
+				});
 	}
 
 	/**
@@ -157,45 +151,43 @@ public interface CBCodecs {
 	static <T> Codec<T> compressed(Codec<T> inner) {
 		return Codec.BYTE_BUFFER.flatXmap(
 				byteBuffer -> {
-				final byte[] bytes = new byte[byteBuffer.remaining()];
-				byteBuffer.get(bytes);
+					final byte[] bytes = new byte[byteBuffer.remaining()];
+					byteBuffer.get(bytes);
 
-				final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-				try {
-					final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
-					final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
-					final Tag uncompressedData = NbtIo.readAnyTag(dataInput, NbtAccounter.unlimitedHeap());
+					try {
+				final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
+				final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
+				final Tag uncompressedData = NbtIo.readAnyTag(dataInput, NbtAccounter.unlimitedHeap());
 
-					final NbtOps ops = NbtOps.INSTANCE;
-					final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
-					return inner.parse(dynamic);
+				final NbtOps ops = NbtOps.INSTANCE;
+				final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
+				return inner.parse(dynamic);
 			} catch (IOException e) {
-					return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
+				return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
 			}
-
 				},
 
 
 				t -> {
-				final NbtOps ops = NbtOps.INSTANCE;
-				final Tag tag = inner.encodeStart(ops, t).getOrThrow((s) -> new IllegalStateException("Failed to encode data: " + s));
+					final NbtOps ops = NbtOps.INSTANCE;
+					final Tag tag = inner.encodeStart(ops, t).getOrThrow((s) -> new IllegalStateException("Failed to encode data: " + s));
 
-				final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-				try {
-					final OutputStream lz4Stream = new LZ4FrameOutputStream(outputStream);
-					final DataOutput dataOutput = new DataOutputStream(lz4Stream);
-					NbtIo.writeAnyTag(tag, dataOutput);
-					lz4Stream.close();
+					try {
+				final OutputStream lz4Stream = new LZ4FrameOutputStream(outputStream);
+				final DataOutput dataOutput = new DataOutputStream(lz4Stream);
+				NbtIo.writeAnyTag(tag, dataOutput);
+				lz4Stream.close();
 
-					final byte[] compressedData = outputStream.toByteArray();
-					return DataResult.success(ByteBuffer.wrap(compressedData));
+				final byte[] compressedData = outputStream.toByteArray();
+				return DataResult.success(ByteBuffer.wrap(compressedData));
 			} catch (IOException e) {
-					return DataResult.error(() -> "Failed to compress data: " + e.getMessage());
+				return DataResult.error(() -> "Failed to compress data: " + e.getMessage());
 			}
-				}
-		);
+				});
 	}
 
 	static <R, C, V> Codec<Table<R, C, V>> unboundedTable(Codec<R> row, Codec<C> column, Codec<V> value) {
@@ -207,9 +199,9 @@ public interface CBCodecs {
 				)
 				).xmap(
 						rMapMap -> {
-						final Table<R, C, V> table = HashBasedTable.create();
-						rMapMap.forEach((r, cMap) -> cMap.forEach((c, v) -> table.put(r, c, v)));
-						return table;
+							final Table<R, C, V> table = HashBasedTable.create();
+							rMapMap.forEach((r, cMap) -> cMap.forEach((c, v) -> table.put(r, c, v)));
+							return table;
 						},
 
 
@@ -258,14 +250,12 @@ public interface CBCodecs {
 
 				if (lazyTag != null) {
 					lazyTag.keySet().forEach(key -> {
-							final Tag tag = lazyTag.get(key);
+						final Tag tag = lazyTag.get(key);
 
-							if (tag != null) {
-								prefix.add(key, nbtOps.convertTo(ops, tag));
-							}
-					}
-
-					);
+						if (tag != null) {
+							prefix.add(key, nbtOps.convertTo(ops, tag));
+						}
+					});
 
 					return prefix;
 				}
@@ -293,9 +283,9 @@ public interface CBCodecs {
 						).apply(instance, Map::entry)
 				).listOf().xmap(
 						entries -> {
-						final Map<K, V> map = new HashMap<>();
-						entries.forEach(entry -> map.put(entry.getKey(), entry.getValue()));
-						return map;
+							final Map<K, V> map = new HashMap<>();
+							entries.forEach(entry -> map.put(entry.getKey(), entry.getValue()));
+							return map;
 						},
 
 
@@ -337,18 +327,18 @@ public interface CBCodecs {
 
 	record NbtAwareBitsetCodec() implements Codec<BitSet> {
 		private static final Codec<BitSet> BYTE_BASED_CODEC = Codec.BYTE_BUFFER
-			.xmap(ByteBuffer::array, ByteBuffer::wrap)
-			.xmap(BitSet::valueOf, BitSet::toByteArray);
+				.xmap(ByteBuffer::array, ByteBuffer::wrap)
+				.xmap(BitSet::valueOf, BitSet::toByteArray);
 
 		private static final Codec<BitSet> DEFAULT_CODEC = Codec.LONG_STREAM
-			.xmap(LongStream::toArray, LongStream::of)
-			.xmap(BitSet::valueOf, BitSet::toLongArray);
+				.xmap(LongStream::toArray, LongStream::of)
+				.xmap(BitSet::valueOf, BitSet::toLongArray);
 
 		@Override
 		public <T> DataResult<Pair<BitSet, T>> decode(DynamicOps<T> ops, T input) {
 			if (input instanceof ByteArrayTag) {
 				return BYTE_BASED_CODEC
-					.decode(ops, input);
+						.decode(ops, input);
 			}
 
 			return DEFAULT_CODEC.decode(ops, input);

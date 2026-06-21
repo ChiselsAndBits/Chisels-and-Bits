@@ -47,23 +47,21 @@ public class ModificationTableBlockStateGenerator extends ModelProvider implemen
 
 	public void actOnBlock(final Block block, final BlockModelGenerators generators) {
 		generators.createHorizontallyRotatedBlock(block, new TexturedModel.Provider() {
-				@Override
-				public @NotNull TexturedModel get(final @NotNull Block block) {
-					return new TexturedModel(
-						new TextureMapping()
-							.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
-							.put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
-						new ModelTemplate(
-								Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
-								Optional.empty(),
-								TextureSlot.LAYER0,
-								TextureSlot.PARTICLE
-						)
-					);
-				}
-		}
-
-		);
+			@Override
+			public @NotNull TexturedModel get(final @NotNull Block block) {
+				return new TexturedModel(
+					new TextureMapping()
+						.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
+						.put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
+					new ModelTemplate(
+							Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
+							Optional.empty(),
+							TextureSlot.LAYER0,
+							TextureSlot.PARTICLE
+					)
+				);
+			}
+		});
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
 				ModelLocationUtils.getModelLocation(block),

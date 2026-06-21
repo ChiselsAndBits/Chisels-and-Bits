@@ -102,11 +102,11 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 	@Override
 	public Collection<IChiselMode> getPossibleModes() {
 		return IChiselMode.getRegistry()
-			.getValues()
-			.stream()
-			.filter(mode -> !mode.requiresPlaceableEditStack())
-			.sorted(Comparator.comparing(IChiselMode::getRegistryName))
-			.collect(Collectors.toList());
+				.getValues()
+				.stream()
+				.filter(mode -> !mode.requiresPlaceableEditStack())
+				.sorted(Comparator.comparing(IChiselMode::getRegistryName))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -167,15 +167,13 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		}
 
 		context.ifPresent(c -> {
-				chiselMode.onStoppedLeftClicking(player, c);
+			chiselMode.onStoppedLeftClicking(player, c);
 
-				if (c.isComplete()) {
-					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
-					LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-				}
-		}
-
-		);
+			if (c.isComplete()) {
+				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+				LocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
+			}
+		});
 	}
 
 	@Override
@@ -224,8 +222,8 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		}
 
 		final Optional<IChiselingContext> localCachedContext = ILocalChiselingContextCache
-			.getInstance()
-			.get(ChiselingOperation.CHISELING);
+				.getInstance()
+				.get(ChiselingOperation.CHISELING);
 
 		if (localCachedContext.isPresent()
 
@@ -286,7 +284,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
 		final Optional<IChiselingContext> potentiallyCachedContext = ILocalChiselingContextCache.getInstance()
-			.get(ChiselingOperation.CHISELING);
+				.get(ChiselingOperation.CHISELING);
 		IChiselingContext context;
 
 		if (potentiallyExistingContext.isPresent()) {
@@ -325,7 +323,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
 		if (context.getMutator().isPresent() && context.getError().isEmpty()) {
 			IChiselContextPreviewRendererRegistry.getInstance().getCurrent()
-				.renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
+					.renderExistingContextsBoundingBox(levelRenderer, poseStack, bufferSource, levelRenderState, partialTicks, context);
 			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, context);
 		}
 	}

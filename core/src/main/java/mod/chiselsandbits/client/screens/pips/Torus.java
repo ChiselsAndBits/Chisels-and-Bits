@@ -100,17 +100,17 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 			final float outer = renderState.outer();
 			final float inner = renderState.inner();
 			vertexBuffer
-				.addVertex(matrix4f, (float) ((outer) * Math.cos(angle)), (float) (outer * Math.sin(angle)), 0)
-				.setColor(renderState.color());
+					.addVertex(matrix4f, (float) ((outer) * Math.cos(angle)), (float) (outer * Math.sin(angle)), 0)
+					.setColor(renderState.color());
 			vertexBuffer
-				.addVertex(matrix4f, (float) (inner * Math.cos(angle)), (float) (inner * Math.sin(angle)), 0)
-				.setColor(renderState.color());
+					.addVertex(matrix4f, (float) (inner * Math.cos(angle)), (float) (inner * Math.sin(angle)), 0)
+					.setColor(renderState.color());
 			vertexBuffer
-				.addVertex(matrix4f, (float) (inner * Math.cos(endAngle)), (float) (inner * Math.sin(endAngle)), 0)
-				.setColor(renderState.color());
+					.addVertex(matrix4f, (float) (inner * Math.cos(endAngle)), (float) (inner * Math.sin(endAngle)), 0)
+					.setColor(renderState.color());
 			vertexBuffer
-				.addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
-				.setColor(renderState.color());
+					.addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
+					.setColor(renderState.color());
 		}
 
 		poseStack.popPose();

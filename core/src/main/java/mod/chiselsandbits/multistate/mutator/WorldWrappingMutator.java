@@ -75,8 +75,8 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		);
 
 		final Collection<IAreaShapeIdentifier> identifiers = positionStream.map(blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos))
-			.map(ChiselAdaptingWorldMutator::createNewShapeIdentifier)
-			.collect(Collectors.toList());
+				.map(ChiselAdaptingWorldMutator::createNewShapeIdentifier)
+				.collect(Collectors.toList());
 
 		return new Identifier(
 				identifiers,
@@ -86,7 +86,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return inWorldMutableStream()
-			.map(IStateEntryInfo.class::cast);
+				.map(IStateEntryInfo.class::cast);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		}
 
 		return new ChiselAdaptingWorldMutator(getWorld(), inAreaBlockPosOffset)
-			.getInAreaTarget(inBlockTarget);
+				.getInAreaTarget(inBlockTarget);
 	}
 
 	/**
@@ -162,10 +162,10 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		);
 
 		final Map<BlockPos, IMultiStateSnapshot> snapshots = positionStream
-			.collect(Collectors.toMap(
-					Function.identity(),
-					blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
-			));
+				.collect(Collectors.toMap(
+						Function.identity(),
+						blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
+				));
 
 		return new MultiBlockMultiStateSnapshot(
 				snapshots,
@@ -180,18 +180,16 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 				getInWorldEndPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
 		)
-			.map(positionMutator::mutate)
-			.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
-			.map(position -> {
+				.map(positionMutator::mutate)
+				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
+				.map(position -> {
 					final BlockPos blockPos = VectorUtils.toBlockPos(position);
 					final Vec3 inBlockOffset = position.subtract(Vec3.atLowerCornerOf(blockPos));
 
 					return getInBlockTarget(blockPos, inBlockOffset);
-			}
-
-			)
-			.filter(Optional::isPresent)
-			.map(Optional::get);
+				})
+				.filter(Optional::isPresent)
+				.map(Optional::get);
 	}
 
 	@Override
@@ -201,17 +199,15 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 				getInWorldEndPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 				blockPos -> {
-				final Vec3i target = positionMutator.mutate(blockPos);
-				final Vec3 scaledTarget = Vec3.atLowerCornerOf(target).multiply(StateEntrySize.current().getSizePerBitScalingVector());
+					final Vec3i target = positionMutator.mutate(blockPos);
+					final Vec3 scaledTarget = Vec3.atLowerCornerOf(target).multiply(StateEntrySize.current().getSizePerBitScalingVector());
 
-				final BlockPos position = new BlockPos(blockPos);
-				final Vec3 inBlockOffset = scaledTarget.subtract(Vec3.atLowerCornerOf(position));
+					final BlockPos position = new BlockPos(blockPos);
+					final Vec3 inBlockOffset = scaledTarget.subtract(Vec3.atLowerCornerOf(position));
 
-				final Optional<IStateEntryInfo> targetCandidate = getInBlockTarget(position, inBlockOffset);
-				targetCandidate.ifPresent(consumer);
-				}
-
-		);
+					final Optional<IStateEntryInfo> targetCandidate = getInBlockTarget(position, inBlockOffset);
+					targetCandidate.ifPresent(consumer);
+				});
 	}
 
 	@Override
@@ -237,7 +233,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return inWorldMutableStream()
-			.map(IMutableStateEntryInfo.class::cast);
+				.map(IMutableStateEntryInfo.class::cast);
 	}
 
 	@Override
@@ -401,10 +397,10 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
 						getWorld(), blockPos))
-			.collect(Collectors.toMap(
-					ChiselAdaptingWorldMutator::getPos,
-					ChiselAdaptingWorldMutator::createSnapshot
-			));
+				.collect(Collectors.toMap(
+						ChiselAdaptingWorldMutator::getPos,
+						ChiselAdaptingWorldMutator::createSnapshot
+				));
 
 		@SuppressWarnings("resource")
 		final IBatchMutation innerMutation = batch();
@@ -413,10 +409,10 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 					getInWorldStartPoint(), getInWorldEndPoint()
 					).map(blockPos -> new ChiselAdaptingWorldMutator(
 							getWorld(), blockPos))
-				.collect(Collectors.toMap(
-						ChiselAdaptingWorldMutator::getPos,
-						ChiselAdaptingWorldMutator::createSnapshot
-				));
+					.collect(Collectors.toMap(
+							ChiselAdaptingWorldMutator::getPos,
+							ChiselAdaptingWorldMutator::createSnapshot
+					));
 
 			innerMutation.close();
 			changeTracker.onBlocksUpdated(
@@ -433,13 +429,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
 						getWorld(), blockPos))
-			.map(a -> IVoxelShapeManager.getInstance().get(a, a.getInWorldStartBlockPoint().offset(VectorUtils.invert(getInWorldStartBlockPoint())).offset(offset),
-					type, simplify))
-			.reduce(
-					Shapes.empty(),
-					(voxelShape, bbShape) -> Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR),
-					(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
-			);
+				.map(a -> IVoxelShapeManager.getInstance().get(a, a.getInWorldStartBlockPoint().offset(VectorUtils.invert(getInWorldStartBlockPoint())).offset(offset),
+						type, simplify))
+				.reduce(
+						Shapes.empty(),
+						(voxelShape, bbShape) -> Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR),
+						(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
+				);
 		final VoxelShape requestedShape = Shapes.joinUnoptimized(
 				areaShape,
 				containedShape,

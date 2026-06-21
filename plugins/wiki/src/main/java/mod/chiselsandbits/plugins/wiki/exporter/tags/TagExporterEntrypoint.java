@@ -30,13 +30,11 @@ public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
 		}
 
 		IGameEvents.getInstance().getServerStartedEvent()
-			.register(minecraftServer -> {
+				.register(minecraftServer -> {
 					LOGGER.info("Starting wiki C&B Plugin data exporter.");
 					setServer(minecraftServer);
 					WikiDataExporter.runModule(TagExporterFactory.NAME);
-			}
-
-			);
+				});
 
 		LOGGER.info("Loaded wiki C&B Plugin.");
 	}

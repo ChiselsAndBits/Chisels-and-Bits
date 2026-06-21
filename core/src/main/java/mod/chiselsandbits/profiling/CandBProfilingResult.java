@@ -36,13 +36,11 @@ public class CandBProfilingResult implements IProfilerResult {
 
 		dataPoints.forEach(
 				dataPoint -> {
-				lineConsumer.accept(String.format("%s> %s: %s (%s)", indent, dataPoint.name.substring(dataPoint.name.lastIndexOf('\u001e') + 1), dataPoint.percentage, dataPoint.globalPercentage));
+					lineConsumer.accept(String.format("%s> %s: %s (%s)", indent, dataPoint.name.substring(dataPoint.name.lastIndexOf('\u001e') + 1), dataPoint.percentage, dataPoint.globalPercentage));
 
-				if (!dataPoint.name.equals(name)) {
-					writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
-				}
-				}
-
-		);
+					if (!dataPoint.name.equals(name)) {
+						writeDatapointsAsResponse(name + '\u001e' + dataPoint.name, producer, lineConsumer, indent + " ");
+					}
+				});
 	}
 }

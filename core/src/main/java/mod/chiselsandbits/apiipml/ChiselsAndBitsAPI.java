@@ -200,7 +200,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	@NotNull
 	@Override
 	public IBlockStateIdManager getBlockStateIdManager() {
-		return new IBlockStateIdManager() {};
+		return new IBlockStateIdManager() { };
 	}
 
 	@NotNull

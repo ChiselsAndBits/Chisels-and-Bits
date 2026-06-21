@@ -58,8 +58,8 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
-		? context.getClickLocation()
-		: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
+				? context.getClickLocation()
+				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(
 				context.getLevel(),
@@ -68,8 +68,8 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(pos -> context.getLevel().getBlockState(pos))
-			.allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
+				.map(pos -> context.getLevel().getBlockState(pos))
+				.allMatch(state -> state.getBlock() instanceof IMultiStateBlock || state.isAir());
 
 		if (!isChiseledBlock) {
 			return PlacementResult.failure(
@@ -78,25 +78,23 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		}
 
 		final Map<BlockInformation, Integer> totalRemovedBits = source.stream()
-			.filter(s -> !s.getBlockInformation().isAir())
-			.filter(s -> {
+				.filter(s -> !s.getBlockInformation().isAir())
+				.filter(s -> {
 					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
 					return o
 					.filter(os -> !os.getBlockInformation().isAir())
 					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 					.orElse(false);
-			}
-
-			)
-			.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
-			.filter(Optional::isPresent)
-			.map(Optional::get)
-			.collect(Collectors.toMap(
-					IStateEntryInfo::getBlockInformation,
-					s -> 1,
-					Integer::sum
-			));
+				})
+				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toMap(
+						IStateEntryInfo::getBlockInformation,
+						s -> 1,
+						Integer::sum
+				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
@@ -114,10 +112,10 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream()
-				.filter(s -> !s.getBlockInformation().isAir())
-				.forEach(
-						stateEntryInfo -> areaMutator.clearInAreaTarget(stateEntryInfo.getStartPoint())
-				);
+					.filter(s -> !s.getBlockInformation().isAir())
+					.forEach(
+							stateEntryInfo -> areaMutator.clearInAreaTarget(stateEntryInfo.getStartPoint())
+					);
 		}
 
 		if (!context.getPlayer().isCreative()) {

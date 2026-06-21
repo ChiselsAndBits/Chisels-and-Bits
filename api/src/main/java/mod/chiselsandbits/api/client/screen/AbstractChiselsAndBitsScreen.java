@@ -37,8 +37,8 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 		this.isInitialized = true;
 
 		this.children().stream().filter(IChiselsAndBitsWidget.class::isInstance)
-			.map(IChiselsAndBitsWidget.class::cast)
-			.forEach(IChiselsAndBitsWidget::init);
+				.map(IChiselsAndBitsWidget.class::cast)
+				.forEach(IChiselsAndBitsWidget::init);
 	}
 
 	@Override
@@ -90,9 +90,9 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	@Override
 	protected void clearWidgets() {
 		this.widgets.stream()
-			.filter(IChiselsAndBitsWidget.class::isInstance)
-			.map(IChiselsAndBitsWidget.class::cast)
-			.forEach(IChiselsAndBitsWidget::removed);
+				.filter(IChiselsAndBitsWidget.class::isInstance)
+				.map(IChiselsAndBitsWidget.class::cast)
+				.forEach(IChiselsAndBitsWidget::removed);
 
 		this.widgets.clear();
 		this.renderables.clear();
@@ -102,9 +102,9 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	@Override
 	public void removed() {
 		this.widgets.stream()
-			.filter(IChiselsAndBitsWidget.class::isInstance)
-			.map(IChiselsAndBitsWidget.class::cast)
-			.forEach(IChiselsAndBitsWidget::removed);
+				.filter(IChiselsAndBitsWidget.class::isInstance)
+				.map(IChiselsAndBitsWidget.class::cast)
+				.forEach(IChiselsAndBitsWidget::removed);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	public void extractRenderState(final @NotNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float partialTickTime) {
 		final List<Renderable> renderTargets = new ArrayList<>(this.renderables);
 
-		for(Renderable widget : renderTargets) {
+		for (Renderable widget : renderTargets) {
 			widget.extractRenderState(guiGraphics, mouseX, mouseY, partialTickTime);
 		}
 	}

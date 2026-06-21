@@ -64,11 +64,10 @@ public class ModificationRecipesUpdated extends ModPacket {
 		DistExecutor.unsafeRunWhenOn(
 				Dist.CLIENT,
 				() -> () -> {
-				if (Minecraft.getInstance().player != null
-						&& Minecraft.getInstance().player.containerMenu instanceof ModificationTableContainer modificationTableContainer) {
-					modificationTableContainer.setRecipes(this.recipes);
-						}
-				}
-		);
+					if (Minecraft.getInstance().player != null
+							&& Minecraft.getInstance().player.containerMenu instanceof ModificationTableContainer modificationTableContainer) {
+								modificationTableContainer.setRecipes(this.recipes);
+							}
+				});
 	}
 }

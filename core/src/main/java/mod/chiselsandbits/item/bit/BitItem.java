@@ -92,15 +92,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		}
 
 		context.ifPresent(c -> {
-				chiselMode.onStoppedLeftClicking(player, c);
+			chiselMode.onStoppedLeftClicking(player, c);
 
-				if (c.isComplete()) {
-					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
-					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
-				}
-		}
-
-		);
+			if (c.isComplete()) {
+				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
+			}
+		});
 	}
 
 	@Override
@@ -161,10 +159,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		final BlockInformation blockInformation = getBlockInformation(stack);
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-				IClientStateVariantManager.getInstance().appendHoverText(blockInformation, context, tooltipDisplay, tooltipAdder, flag);
-		}
-
-		);
+			IClientStateVariantManager.getInstance().appendHoverText(blockInformation, context, tooltipDisplay, tooltipAdder, flag);
+		});
 
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 	}
@@ -204,15 +200,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		}
 
 		context.ifPresent(c -> {
-				chiselMode.onStoppedRightClicking(player, c);
+			chiselMode.onStoppedRightClicking(player, c);
 
-				if (c.isComplete()) {
-					player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
-					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
-				}
-		}
-
-		);
+			if (c.isComplete()) {
+				player.getCooldowns().addCooldown(stack, Constants.TICKS_BETWEEN_CHISEL_USAGE);
+				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
+			}
+		});
 	}
 
 	private ClickProcessingState handleClickProcessing(
@@ -371,8 +365,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			}
 
 			IChiselContextPreviewRendererRegistry.getInstance()
-				.getCurrent()
-				.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, currentContextSnapshot);
+					.getCurrent()
+					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, currentContextSnapshot);
 
 			return;
 		} else if (potentialChiselingContext.isPresent()) {
@@ -380,8 +374,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			if (potentialChiselingContext.get().getMode() == chiselMode && chiselingContext.getMode().isStillValid(playerEntity, chiselingContext, ChiselingOperation.CHISELING)) {
 				IChiselContextPreviewRendererRegistry.getInstance()
-					.getCurrent()
-					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
+						.getCurrent()
+						.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
 			} else {
 				ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
 			}
@@ -392,8 +386,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 						.getMode()
 						.isStillValid(playerEntity, potentialPlacingContext.get(), ChiselingOperation.PLACING)) {
 					IChiselContextPreviewRendererRegistry.getInstance()
-						.getCurrent()
-						.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
+							.getCurrent()
+							.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
 						} else {
 					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
 						}
@@ -406,8 +400,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			final IChiselingContext context = potentialPlacingContext.get();
 
 			IChiselContextPreviewRendererRegistry.getInstance()
-				.getCurrent()
-				.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, context);
+					.getCurrent()
+					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, context);
 
 			return;
 		}
@@ -420,15 +414,15 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		if (chiselingContext.getMutator().isPresent() && chiselingContext.getError().isEmpty()) {
 			IChiselContextPreviewRendererRegistry.getInstance()
-				.getCurrent()
-				.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
+					.getCurrent()
+					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, chiselingContext);
 			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.CHISELING, chiselingContext);
 		}
 
 		if (placingContext.getMutator().isPresent() && placingContext.getError().isEmpty()) {
 			IChiselContextPreviewRendererRegistry.getInstance()
-				.getCurrent()
-				.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
+					.getCurrent()
+					.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
 			ILocalChiselingContextCache.getInstance().set(ChiselingOperation.PLACING, placingContext);
 		}
 	}
@@ -448,12 +442,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		ensureAvailableBitStacksAreLoaded();
 
 		return this.availableBitStacks.stream()
-			.filter(stack -> !stack.isEmpty())
-			.collect(Collectors.toMap(stack -> "bit_" + IPlatformRegistryManager.getInstance()
-					.getBlockRegistry()
-					.getKey(this.getBlockInformation(stack).blockState().getBlock())
-					.toString()
-					.replace(":", "_"), Function.identity()));
+				.filter(stack -> !stack.isEmpty())
+				.collect(Collectors.toMap(stack -> "bit_" + IPlatformRegistryManager.getInstance()
+						.getBlockRegistry()
+						.getKey(this.getBlockInformation(stack).blockState().getBlock())
+						.toString()
+						.replace(":", "_"), Function.identity()));
 	}
 
 	private void ensureAvailableBitStacksAreLoaded() {
@@ -462,14 +456,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			availableBitStacks.addAll(ModCreativeTabs.BITS.get().getDisplayItems());
 
 			availableBitStacks.sort(Comparator.comparing(stack -> {
-					if (!(stack.getItem() instanceof IBitItem)) {
-						throw new IllegalStateException("Stack did not contain a bit item.");
-					}
+				if (!(stack.getItem() instanceof IBitItem)) {
+					throw new IllegalStateException("Stack did not contain a bit item.");
+				}
 
-					return ((IBitItem) stack.getItem()).getBlockInformation(stack);
-			}
-
-			));
+				return ((IBitItem) stack.getItem()).getBlockInformation(stack);
+			}));
 		}
 	}
 }

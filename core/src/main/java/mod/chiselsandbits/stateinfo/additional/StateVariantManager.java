@@ -138,7 +138,7 @@ public final class StateVariantManager implements IStateVariantManager {
 		}
 
 		return Optional.of(providers.get(fluidInformation.fluid().defaultFluidState().createLegacyBlock().getBlock()))
-			.flatMap(provider -> provider.getStateVariant(fluidInformation));
+				.flatMap(provider -> provider.getStateVariant(fluidInformation));
 	}
 
 	@Override
@@ -150,10 +150,10 @@ public final class StateVariantManager implements IStateVariantManager {
 		}
 
 		return Optional.of(providers.get(state.getBlock())).map(provider -> provider.getAllDefaultVariants(state))
-			.stream()
-			.flatMap(Collection::stream)
-			.map(variant -> new BlockInformation(state, Optional.of(variant)))
-			.collect(Collectors.toSet());
+				.stream()
+				.flatMap(Collection::stream)
+				.map(variant -> new BlockInformation(state, Optional.of(variant)))
+				.collect(Collectors.toSet());
 	}
 
 	@Override

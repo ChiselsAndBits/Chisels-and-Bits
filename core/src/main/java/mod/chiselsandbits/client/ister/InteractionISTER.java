@@ -31,7 +31,7 @@ import java.util.function.Consumer;
  */
 public record InteractionISTER(InteractableItemModel mainModel,
 		ItemDisplayContext displayContext) implements SpecialModelRenderer<InteractionISTER.RenderState> {
-	public record RenderState(ItemStack stack, IInteractableItem item) {}
+	public record RenderState(ItemStack stack, IInteractableItem item) { }
 
 	@Override
 	public void submit(

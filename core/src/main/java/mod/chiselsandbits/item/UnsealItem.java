@@ -116,16 +116,14 @@ public class UnsealItem extends Item implements IUnsealItem {
 
 			if (worldIn instanceof ServerLevel serverLevel && entityLiving instanceof ServerPlayer playerEntity) {
 				stack.hurtAndBreak(1, serverLevel, playerEntity, item -> {
-						EquipmentSlot hand = EquipmentSlot.MAINHAND;
+					EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-						if (playerEntity.getOffhandItem() == stack) {
-							hand = EquipmentSlot.OFFHAND;
-						}
+					if (playerEntity.getOffhandItem() == stack) {
+						hand = EquipmentSlot.OFFHAND;
+					}
 
-						player.onEquippedItemBroken(item, hand);
-				}
-
-				);
+					player.onEquippedItemBroken(item, hand);
+				});
 			}
 		}
 

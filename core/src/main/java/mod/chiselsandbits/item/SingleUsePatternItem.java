@@ -108,10 +108,10 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		final IPatternPlacementType mode = getMode(context.getItemInHand());
 
 		final PlacementResult resultType = mode
-			.performPlacement(
-					sourceSnapshot,
-					context,
-					false);
+				.performPlacement(
+						sourceSnapshot,
+						context,
+						false);
 
 		if (!resultType.isSuccess() && context.getLevel().isClientSide()) {
 			INotificationManager.getInstance().notify(
@@ -122,8 +122,8 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		}
 
 		return resultType.isSuccess()
-		? determineSuccessResult(context, context.getItemInHand())
-		: InteractionResult.FAIL;
+				? determineSuccessResult(context, context.getItemInHand())
+				: InteractionResult.FAIL;
 	}
 
 	protected InteractionResult determineSuccessResult(final BlockPlaceContext context, final ItemStack stack) {
@@ -168,15 +168,13 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		}
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-				if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
-					tooltipAdder.accept(Component.literal(" "));
-					tooltipAdder.accept(Component.literal(" "));
+			if ((Minecraft.getInstance().getWindow() != null && Minecraft.getInstance().hasShiftDown())) {
+				tooltipAdder.accept(Component.literal(" "));
+				tooltipAdder.accept(Component.literal(" "));
 
-					HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltipAdder);
-				}
-		}
-
-		);
+				HelpTextUtils.build(LocalStrings.HelpSimplePattern, tooltipAdder);
+			}
+		});
 	}
 
 	@Override

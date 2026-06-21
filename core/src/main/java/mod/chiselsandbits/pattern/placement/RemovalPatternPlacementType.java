@@ -63,11 +63,11 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 						).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
 
 		final Vec3 offSet = player.isShiftKeyDown()
-		? new Vec3(
-				targetedPoint.x() - targetedPosition.getX(),
-				targetedPoint.y() - targetedPosition.getY(),
-				targetedPoint.z() - targetedPosition.getZ()
-				) : Vec3.ZERO;
+				? new Vec3(
+						targetedPoint.x() - targetedPosition.getX(),
+						targetedPoint.y() - targetedPosition.getY(),
+						targetedPoint.z() - targetedPosition.getZ()
+						) : Vec3.ZERO;
 		final VoxelShape ownShape = ModPatternPlacementTypes.REMOVAL.get().buildVoxelShapeForWireframe(
 				sourceSnapshot, player, targetedPoint, hitFace
 				).move(
@@ -85,8 +85,8 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 	public PlacementResult performPlacement(
 			final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
-		? context.getClickLocation()
-		: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
+				? context.getClickLocation()
+				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(
 				context.getLevel(),
@@ -95,8 +95,8 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(pos -> context.getLevel().getBlockState(pos))
-			.allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
+				.map(pos -> context.getLevel().getBlockState(pos))
+				.allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
 
 		if (isChiseledBlock) {
 			return PlacementResult.failure(
@@ -105,14 +105,12 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		}
 
 		final boolean isSupported = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(pos -> {
+				.map(pos -> {
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-			}
-
-			)
-			.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
+				})
+				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
 			return PlacementResult.failure(
@@ -121,25 +119,23 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		}
 
 		final Map<BlockInformation, Integer> totalRemovedBits = source.stream()
-			.filter(s -> !s.getBlockInformation().isAir())
-			.filter(s -> {
+				.filter(s -> !s.getBlockInformation().isAir())
+				.filter(s -> {
 					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
 					return o
 					.filter(os -> !os.getBlockInformation().isAir())
 					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 					.orElse(false);
-			}
-
-			)
-			.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
-			.filter(Optional::isPresent)
-			.map(Optional::get)
-			.collect(Collectors.toMap(
-					IStateEntryInfo::getBlockInformation,
-					s -> 1,
-					Integer::sum
-			));
+				})
+				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toMap(
+						IStateEntryInfo::getBlockInformation,
+						s -> 1,
+						Integer::sum
+				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
@@ -157,12 +153,12 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream()
-				.filter(s -> !s.getBlockInformation().isAir())
-				.forEach(
-						stateEntryInfo -> areaMutator.clearInAreaTarget(
-								stateEntryInfo.getStartPoint()
-						)
-				);
+					.filter(s -> !s.getBlockInformation().isAir())
+					.forEach(
+							stateEntryInfo -> areaMutator.clearInAreaTarget(
+									stateEntryInfo.getStartPoint()
+							)
+					);
 		}
 
 		if (!context.getPlayer().isCreative()) {

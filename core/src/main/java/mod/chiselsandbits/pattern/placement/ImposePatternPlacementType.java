@@ -62,8 +62,8 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
-		? context.getClickLocation()
-		: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
+				? context.getClickLocation()
+				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(
 				context.getLevel(),
@@ -72,8 +72,8 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(pos -> context.getLevel().getBlockState(pos))
-			.allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
+				.map(pos -> context.getLevel().getBlockState(pos))
+				.allMatch(state -> state.getBlock() instanceof IMultiStateBlock);
 
 		if (isChiseledBlock) {
 			return PlacementResult.failure(
@@ -82,14 +82,12 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		}
 
 		final boolean isSupported = BlockPosStreamProvider.getForAccessor(areaMutator)
-			.map(pos -> {
+				.map(pos -> {
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-			}
-
-			)
-			.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
+				})
+				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
 			return PlacementResult.failure(
@@ -98,20 +96,20 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		}
 
 		final Map<BlockInformation, Integer> extractedBitsCount = source.stream()
-			.filter(s -> !s.getBlockInformation().isAir())
-			.map(IStateEntryInfo::getStartPoint)
-			.map(pos -> pos.add(areaMutator.getInWorldStartPoint()))
-			.map(areaMutator::getInAreaTarget)
-			.filter(Optional::isPresent)
-			.map(Optional::get)
-			.filter(s -> !s.getBlockInformation().isAir())
-			.collect(
-					Collectors.toMap(
-							IStateEntryInfo::getBlockInformation,
-							s -> 1,
-							Integer::sum
-					)
-			);
+				.filter(s -> !s.getBlockInformation().isAir())
+				.map(IStateEntryInfo::getStartPoint)
+				.map(pos -> pos.add(areaMutator.getInWorldStartPoint()))
+				.map(areaMutator::getInAreaTarget)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.filter(s -> !s.getBlockInformation().isAir())
+				.collect(
+						Collectors.toMap(
+								IStateEntryInfo::getBlockInformation,
+								s -> 1,
+								Integer::sum
+						)
+				);
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
@@ -124,8 +122,8 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 		}
 
 		final boolean hasRequiredBits = context.getPlayer().isCreative() || source.getStatics().getStateCounts().entrySet().stream()
-			.filter(e -> !e.getKey().isAir())
-			.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
+				.filter(e -> !e.getKey().isAir())
+				.allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits) {
 			return PlacementResult.failure(
@@ -139,21 +137,20 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream()
-				.filter(s -> !s.getBlockInformation().isAir())
-				.forEach(
-						stateEntryInfo -> {
-						areaMutator.overrideInAreaTarget(
-								stateEntryInfo.getBlockInformation(),
-								stateEntryInfo.getStartPoint());
-						}
-				);
+					.filter(s -> !s.getBlockInformation().isAir())
+					.forEach(
+							stateEntryInfo -> {
+								areaMutator.overrideInAreaTarget(
+										stateEntryInfo.getBlockInformation(),
+										stateEntryInfo.getStartPoint());
+							});
 		}
 
 		if (!context.getPlayer().isCreative()) {
 			extractedBitsCount.forEach(playerBitInventory::insertOrDiscard);
 			source.getStatics().getStateCounts().entrySet().stream()
-				.filter(e -> !e.getKey().isAir())
-				.forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
+					.filter(e -> !e.getKey().isAir())
+					.forEach(e -> playerBitInventory.extract(e.getKey(), e.getValue()));
 		}
 
 		return PlacementResult.success();

@@ -35,31 +35,31 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 		return DistExecutor.unsafeRunForDist(
 				() -> () -> {
 
-				if (Minecraft.getInstance().level == null) {
-					return super.getName(stack);
-				}
+					if (Minecraft.getInstance().level == null) {
+						return super.getName(stack);
+					}
 
-				if (Minecraft.getInstance().hitResult == null) {
-					return super.getName(stack);
-				}
+					if (Minecraft.getInstance().hitResult == null) {
+						return super.getName(stack);
+					}
 
-				if (Minecraft.getInstance().hitResult.getType() != HitResult.Type.BLOCK) {
-					return super.getName(stack);
-				}
+					if (Minecraft.getInstance().hitResult.getType() != HitResult.Type.BLOCK) {
+						return super.getName(stack);
+					}
 
-				final BlockHitResult rayTraceResult = (BlockHitResult) Minecraft.getInstance().hitResult;
-				final BlockState state = Minecraft.getInstance().level.getBlockState(rayTraceResult.getBlockPos());
+					final BlockHitResult rayTraceResult = (BlockHitResult) Minecraft.getInstance().hitResult;
+					final BlockState state = Minecraft.getInstance().level.getBlockState(rayTraceResult.getBlockPos());
 
-				final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(rayTraceResult.getBlockPos());
-				final BlockInformation blockInformation = new BlockInformation(
-						state,
-						StateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity))
-				);
+					final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(rayTraceResult.getBlockPos());
+					final BlockInformation blockInformation = new BlockInformation(
+							state,
+							StateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity))
+					);
 
-				final IEligibilityAnalysisResult result = IEligibilityManager.getInstance().analyse(blockInformation);
-				return result.isAlreadyChiseled() || result.canBeChiseled()
-				? result.getReason().withStyle(ChatFormatting.GREEN)
-				: result.getReason().withStyle(ChatFormatting.RED);
+					final IEligibilityAnalysisResult result = IEligibilityManager.getInstance().analyse(blockInformation);
+					return result.isAlreadyChiseled() || result.canBeChiseled()
+					? result.getReason().withStyle(ChatFormatting.GREEN)
+					: result.getReason().withStyle(ChatFormatting.RED);
 				},
 
 

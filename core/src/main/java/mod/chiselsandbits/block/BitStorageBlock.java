@@ -176,10 +176,10 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 		} else if (!player.isShiftKeyDown()) {
 			final Optional<BlockInformation> toExtractCandidate = 
 			bitInventory.getContainedStates()
-				.entrySet()
-				.stream()
-				.max(Map.Entry.comparingByValue())
-				.map(Map.Entry::getKey);
+					.entrySet()
+					.stream()
+					.max(Map.Entry.comparingByValue())
+					.map(Map.Entry::getKey);
 			if (toExtractCandidate.isPresent()) {
 				final BlockInformation toExtractState = toExtractCandidate.get();
 				final int maxAmountToInsert = StateEntrySize.current().getBitsPerBlock();

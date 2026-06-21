@@ -155,9 +155,9 @@ public class BlockPosStreamProvider {
 		}
 
 		return IntStream.range(minX, maxX + 1)
-			.mapToObj(xCoord -> IntStream.range(minY, maxY + 1)
-					.mapToObj(yCoord -> IntStream.range(minZ, maxZ + 1)
-							.mapToObj(zCoord -> new BlockPos(xCoord, yCoord, zCoord))))
-			.flatMap(yBasedStream -> yBasedStream.flatMap(Function.identity()));
+				.mapToObj(xCoord -> IntStream.range(minY, maxY + 1)
+						.mapToObj(yCoord -> IntStream.range(minZ, maxZ + 1)
+								.mapToObj(zCoord -> new BlockPos(xCoord, yCoord, zCoord))))
+				.flatMap(yBasedStream -> yBasedStream.flatMap(Function.identity()));
 	}
 }

@@ -34,9 +34,9 @@ public interface IChiseledBlockItem extends IMultiStateItem, IPlacementPreviewPr
 	@Override
 	default Vec3 getTargetedPosition(ItemStack heldStack, Player playerEntity, BlockHitResult blockRayTraceResult) {
 		return !playerEntity.isShiftKeyDown()
-		? Vec3.atLowerCornerOf(blockRayTraceResult.getBlockPos().offset(blockRayTraceResult.getDirection().getUnitVec3i()))
+				? Vec3.atLowerCornerOf(blockRayTraceResult.getBlockPos().offset(blockRayTraceResult.getDirection().getUnitVec3i()))
 
-		: blockRayTraceResult.getLocation();
+				: blockRayTraceResult.getLocation();
 	}
 
 	@Override

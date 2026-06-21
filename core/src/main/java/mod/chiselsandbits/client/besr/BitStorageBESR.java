@@ -115,9 +115,9 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		poseStack.scale(12 / 16f, 12 / 16f, 12 / 16f);
 		final StateEntryStorage finalInnerModelBlob = innerModelBlob;
 		final BlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-			.withBlockState(blockInformation.blockState())
-			.withBlockEntity(blockInformation::newBlockEntityAtZero)
-			.createSingleBlockBlockAndTintGetter();
+				.withBlockState(blockInformation.blockState())
+				.withBlockEntity(blockInformation::newBlockEntityAtZero)
+				.createSingleBlockBlockAndTintGetter();
 
 		final ChiseledBlockModelInformation model = 
 		ChiseledBlockStateModelManager.getInstance().get(
@@ -163,7 +163,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 
 	private record CacheKey(
 			BlockInformation blockInformation,
-			int bitCount) {}
+			int bitCount) { }
 
 	public static final class RenderState extends BlockEntityRenderState {
 		@Nullable

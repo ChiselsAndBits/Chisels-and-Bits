@@ -31,10 +31,10 @@ public class BitInventoryManager implements IBitInventoryManager {
 	@Override
 	public IBitInventory create(final Object target) {
 		return IAdaptingBitInventoryManager.getInstance()
-			.create(target)
-			.filter(IBitInventory.class::isInstance)
-			.map(IBitInventory.class::cast)
-			.orElseThrow(() -> new IllegalArgumentException("The given target object is not supported on the current platform!"));
+				.create(target)
+				.filter(IBitInventory.class::isInstance)
+				.map(IBitInventory.class::cast)
+				.orElseThrow(() -> new IllegalArgumentException("The given target object is not supported on the current platform!"));
 	}
 
 	@Override

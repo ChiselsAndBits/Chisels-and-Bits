@@ -38,11 +38,11 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
 	private static final Map<Direction, VoxelShape> BUTTON_VS_MAP = ImmutableMap.<Direction, VoxelShape>builder()
-		.put(Direction.NORTH, Block.box(7, 1, -0.5, 12, 4, 0))
-		.put(Direction.EAST, Block.box(16, 1, 7, 16.5, 4, 12))
-		.put(Direction.SOUTH, Block.box(4, 1, 16, 9, 4, 16.5))
-		.put(Direction.WEST, Block.box(-0.5, 1, 4, 0, 4, 9))
-		.build();
+			.put(Direction.NORTH, Block.box(7, 1, -0.5, 12, 4, 0))
+			.put(Direction.EAST, Block.box(16, 1, 7, 16.5, 4, 12))
+			.put(Direction.SOUTH, Block.box(4, 1, 16, 9, 4, 16.5))
+			.put(Direction.WEST, Block.box(-0.5, 1, 4, 0, 4, 9))
+			.build();
 
 	private static final VoxelShape VS_NORTH = createForDirection(Direction.NORTH);
 	private static final VoxelShape VS_EAST = createForDirection(Direction.EAST);
@@ -50,11 +50,11 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 	private static final VoxelShape VS_WEST = createForDirection(Direction.WEST);
 
 	private static final Map<Direction, VoxelShape> VS_MAP = ImmutableMap.<Direction, VoxelShape>builder()
-		.put(Direction.NORTH, VS_NORTH)
-		.put(Direction.EAST, VS_EAST)
-		.put(Direction.SOUTH, VS_SOUTH)
-		.put(Direction.WEST, VS_WEST)
-		.build();
+			.put(Direction.NORTH, VS_NORTH)
+			.put(Direction.EAST, VS_EAST)
+			.put(Direction.SOUTH, VS_SOUTH)
+			.put(Direction.WEST, VS_WEST)
+			.build();
 
 	private static VoxelShape createForDirection(final Direction direction) {
 		return Shapes.join(Shapes.join(Stream.of(

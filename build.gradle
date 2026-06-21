@@ -27,5 +27,17 @@ allprojects {Project project ->
         configFile = rootProject.file('common/codestyle/checkstyle.xml')
         toolVersion = '10.21.4'
     }
+
+    tasks.register("checkstyle").configure {
+        group "verification"
+        description "Runs checkstyle over the test and main source set"
+
+        dependsOn tasks.named("checkstyleMain")
+        dependsOn tasks.named("checkstyleTest")
+    }
+
+    tasks.withType(Checkstyle).configureEach {
+        group "verification"
+    }
 }
 

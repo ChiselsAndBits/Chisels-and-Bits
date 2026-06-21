@@ -37,7 +37,7 @@ public final class QuadGenerationUtils {
 				pos,
 				from,
 				to,
-				($, $$) -> {},
+				($, $$) -> { },
 				target
 		);
 	}
@@ -57,28 +57,27 @@ public final class QuadGenerationUtils {
 				blockAndTintGetter,
 				pos,
 				(layer) -> {
-				final Collection<VertexData> adaptedVertices;
+					final Collection<VertexData> adaptedVertices;
 
-				try {
-					adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
+					try {
+				adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
 			} catch (IllegalStateException e) {
-					return;
+				return;
 			}
 
-				final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
-				adaptedVertices.forEach(adapter);
-				adapter.cullDirection(facingDirection);
+					final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
+					adaptedVertices.forEach(adapter);
+					adapter.cullDirection(facingDirection);
 
-				quadAdapter.accept(layer, adapter);
+					quadAdapter.accept(layer, adapter);
 
-				final BakedQuad quad = adapter.build();
+					final BakedQuad quad = adapter.build();
 
-				target.accept(new GeneratedQuad(
-						layer,
-						quad
-				));
-				}
-		);
+					target.accept(new GeneratedQuad(
+							layer,
+							quad
+					));
+				});
 	}
 
 	public record GeneratedQuad(

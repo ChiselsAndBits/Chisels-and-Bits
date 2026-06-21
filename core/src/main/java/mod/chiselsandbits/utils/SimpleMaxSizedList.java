@@ -19,7 +19,7 @@ public class SimpleMaxSizedList<E> extends AbstractList<E> {
 		synchronized (delegate) {
 			if (!delegate.contains(element)) {
 				delegate.add(index, element);
-			} while(size()> maxSize.get()) {
+			} while (size()> maxSize.get()) {
 				delegate.removeFirst();
 			}
 		}

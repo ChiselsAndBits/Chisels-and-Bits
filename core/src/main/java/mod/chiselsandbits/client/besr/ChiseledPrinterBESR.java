@@ -84,7 +84,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 		poseStack.popPose();
 	}
 
-	private record CacheKey(IAreaShapeIdentifier identifier, int progress) {}
+	private record CacheKey(IAreaShapeIdentifier identifier, int progress) { }
 
 	public static final class RenderState extends BlockEntityRenderState {
 		private int progress = 0;

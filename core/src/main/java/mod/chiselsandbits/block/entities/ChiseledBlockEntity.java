@@ -134,8 +134,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	private final SingleBlockVoxelShapeCache voxelShapeCache = new SingleBlockVoxelShapeCache(this);
 	private final SingleObjectCache<BlockStack> blockStackCache = 
 	new SingleObjectCache<>(() -> {
-			final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
-			return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
+		final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
+		return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
 	},
 
 
@@ -161,9 +161,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 	private void createStorageEngine() {
 		storageEngine = StorageEngineBuilder.<Payload>create()
-			.fallback(Payload.LEGACY_MAP_CODEC)
-			.with(Payload.MAP_CODEC)
-			.buildMultiThreaded();
+				.fallback(Payload.LEGACY_MAP_CODEC)
+				.with(Payload.MAP_CODEC)
+				.buildMultiThreaded();
 	}
 
 	private Executor getExecutor() {
@@ -213,18 +213,18 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	@Override
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new StateEntry(
-					storage.getBlockInformation(
-							blockPos.getX(),
-							blockPos.getY(),
-							blockPos.getZ()
-					),
-					getLevel(),
-					getBlockPos(),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(blockPos -> new StateEntry(
+						storage.getBlockInformation(
+								blockPos.getX(),
+								blockPos.getY(),
+								blockPos.getZ()
+						),
+						getLevel(),
+						getBlockPos(),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	/**
@@ -331,12 +331,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		var dataInput = data.get();
 
 		readAsync(dataInput)
-			.thenAcceptAsync(payload -> {
+				.thenAcceptAsync(payload -> {
 					this.storage = payload.storage();
 					this.mutableStatistics = payload.mutableStatistics();
 
 					if (mutableStatistics.isRequiresRecalculation()) {
-					mutableStatistics.recalculate(level, this.storage, this.blockPos(), shouldUpdateWorld());
+						mutableStatistics.recalculate(level, this.storage, this.blockPos(), shouldUpdateWorld());
 					}
 
 					mutableStatistics.updatePrimaryState(level, shouldUpdateWorld());
@@ -344,19 +344,18 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 					this.isLoading = false;
 
 					if (shouldUpdateWorld()) {
-					setChanged();
+						setChanged();
 					}
 
 					updateModelDataIfInLoadedChunk();
 
 					while (!this.afterCurrentLoad.isEmpty()) {
-					this.afterCurrentLoad.pop().run();
+						this.afterCurrentLoad.pop().run();
 					}
+				},
 
-			},
 
-
-					getExecutor());
+						getExecutor());
 
 		if (dataInput instanceof CopyableTagValueInput copyableTagValueInput) {
 			synchronized (this.tagSyncHandle) {
@@ -475,15 +474,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 	private CompletableFuture<Void> writeAsync(ValueOutput output) {
 		return this.storageEngine.encodeAsync(payload(), output)
-			.thenRun(() -> {
+				.thenRun(() -> {
 					if (output instanceof WriteableTagValueOutput writeableTagValueOutput) {
-					synchronized (this.tagSyncHandle) {
-						this.lastTag = writeableTagValueOutput.asInput();
+						synchronized (this.tagSyncHandle) {
+							this.lastTag = writeableTagValueOutput.asInput();
+						}
 					}
-					}
-			}
-
-			);
+				});
 	}
 
 	private CompletableFuture<Payload> readAsync(ValueInput valueInput) {
@@ -537,21 +534,21 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	@Override
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new StateEntry(
-					storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					getLevel(),
-					getBlockPos(),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(blockPos -> new StateEntry(
+						storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						getLevel(),
+						getBlockPos(),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	@Override
 	public void setInAreaTarget(
 			final BlockInformation newInformation,
 			final Vec3 inAreaTarget
-			) throws SpaceOccupiedException {
+	) throws SpaceOccupiedException {
 		if (inAreaTarget.x() <0
 				|| inAreaTarget.y() <0
 				|| inAreaTarget.z() <0
@@ -724,13 +721,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		executeWhenLoaded(() -> {
 		//Large operation, better batch this together to prevent weird updates.
-				try (final IBatchMutation ignored = batch()) {
-					this.storage.rotate(axis, rotationCount);
-					this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
-				}
-		}
-
-		);
+			try (final IBatchMutation ignored = batch()) {
+				this.storage.rotate(axis, rotationCount);
+				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
+			}
+		});
 	}
 
 	@Override
@@ -741,13 +736,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		executeWhenLoaded(() -> {
 		//Large operation, better batch this together to prevent weird updates.
-				try (final IBatchMutation ignored = batch()) {
-					this.storage.mirror(axis);
-					this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
-				}
-		}
-
-		);
+			try (final IBatchMutation ignored = batch()) {
+				this.storage.mirror(axis);
+				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
+			}
+		});
 	}
 
 	@Override
@@ -765,20 +758,20 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	@Override
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> new StateEntry(
-					storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-					getLevel(),
-					getBlockPos(),
-					blockPos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget)
-			);
+				.map(blockPos -> new StateEntry(
+						storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						getLevel(),
+						getBlockPos(),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
+				);
 	}
 
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-			.map(blockPos -> {
+				.map(blockPos -> {
 					final Vec3i pos = positionMutator.mutate(blockPos);
 					return new StateEntry(
 							storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
@@ -787,26 +780,22 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 							pos,
 							this::setInAreaTarget,
 							this::clearInAreaTarget);
-			}
-
-			);
+				});
 	}
 
 	@Override
 	public void forEachWithPositionMutator(
 			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) -> {
-				final Vec3i pos = positionMutator.mutate(blockPos);
-				consumer.accept(new StateEntry(
-						storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
-						getLevel(),
-						getBlockPos(),
-						pos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget));
-		}
-
-		);
+			final Vec3i pos = positionMutator.mutate(blockPos);
+			consumer.accept(new StateEntry(
+					storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
+					getLevel(),
+					getBlockPos(),
+					pos,
+					this::setInAreaTarget,
+					this::clearInAreaTarget));
+		});
 	}
 
 	@SuppressWarnings("resource")
@@ -816,15 +805,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		final IBatchMutation storageBatch = storage.batch();
 
 		this.batchMutations.put(id, new BatchMutationLock(() -> {
-				this.batchMutations.remove(id);
-				storageBatch.close();
+			this.batchMutations.remove(id);
+			storageBatch.close();
 
-				if (this.batchMutations.isEmpty()) {
-					setChanged();
-				}
-		}
-
-		));
+			if (this.batchMutations.isEmpty()) {
+				setChanged();
+			}
+		}));
 		return this.batchMutations.get(id);
 	}
 
@@ -1138,11 +1125,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		private SingleBlockLevelReader createLevelReaderFor(final LevelAccessor levelAccessor, final BlockInformation blockInformation) {
 			return new SingleBlockLevelReader.Builder()
-				.withBlockState(blockInformation.blockState())
-				.withBlockEntity(() -> blockInformation.newBlockEntity(inWorldPos))
-				.withPos(inWorldPos)
-				.withSource(levelAccessor)
-				.createSingleBlockLevelReader();
+					.withBlockState(blockInformation.blockState())
+					.withBlockEntity(() -> blockInformation.newBlockEntity(inWorldPos))
+					.withPos(inWorldPos)
+					.withSource(levelAccessor)
+					.createSingleBlockLevelReader();
 		}
 
 		private <T> T usingLevelReader(
@@ -1219,10 +1206,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		@Override
 		public float getSlipperiness() {
 			return (float) this.columnStatisticsTable.values()
-				.stream()
-				.filter(Objects::nonNull)
-				.filter(columnStatistics -> columnStatistics.getHighestBit()>= 0)
-				.mapToDouble(ColumnStatistics::getHighestBitFriction).average().orElse(0.0);
+					.stream()
+					.filter(Objects::nonNull)
+					.filter(columnStatistics -> columnStatistics.getHighestBit()>= 0)
+					.mapToDouble(ColumnStatistics::getHighestBitFriction).average().orElse(0.0);
 		}
 
 		@Override
@@ -1260,27 +1247,25 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		@Override
 		public boolean canPropagateSkylight() {
 			return columnStatisticsTable.values()
-				.stream().filter(Objects::nonNull).allMatch(ColumnStatistics::canPropagateSkylightDown);
+					.stream().filter(Objects::nonNull).allMatch(ColumnStatistics::canPropagateSkylightDown);
 		}
 
 		@Override
 		public boolean canSustainGrassBelow() {
 			return columnStatisticsTable.values()
-				.stream().filter(Objects::nonNull).anyMatch(ColumnStatistics::canLowestBitSustainGrass);
+					.stream().filter(Objects::nonNull).anyMatch(ColumnStatistics::canLowestBitSustainGrass);
 		}
 
 		public BitSet getCollideableEntries(final CollisionType collisionType, StateEntryStorage storage) {
 			return collisionData.computeIfAbsent(collisionType, type -> {
-					final BitSet bitSet = new BitSet(StateEntrySize.current().getBitsPerBlock());
-					BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), blockPos -> bitSet.set(
-							BlockPosUtils.getCollisionIndex(blockPos),
-							type.isValidFor(storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()).blockState())
-					));
+				final BitSet bitSet = new BitSet(StateEntrySize.current().getBitsPerBlock());
+				BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), blockPos -> bitSet.set(
+						BlockPosUtils.getCollisionIndex(blockPos),
+						type.isValidFor(storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()).blockState())
+				));
 
-					return bitSet;
-			}
-
-			);
+				return bitSet;
+			});
 		}
 
 		private void onBlockStateAdded(final LevelAccessor levelAccessor, final BlockInformation blockInformation, final BlockPos inAreaPos, final boolean updateWorld) {
@@ -1310,11 +1295,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		private void updatePrimaryState(LevelAccessor levelAccessor, final boolean updateWorld) {
 			final BlockInformation currentPrimary = primaryState;
 			primaryState = this.countMap.entrySet()
-				.stream()
-				.filter(e -> !e.getKey().isAir())
-				.min((o1, o2) -> -1 * (o1.getValue() - o2.getValue()))
-				.map(Map.Entry::getKey)
-				.orElse(BlockInformation.AIR);
+					.stream()
+					.filter(e -> !e.getKey().isAir())
+					.min((o1, o2) -> -1 * (o1.getValue() - o2.getValue()))
+					.map(Map.Entry::getKey)
+					.orElse(BlockInformation.AIR);
 
 			final boolean primaryIsAir = this.primaryState.isAir();
 
@@ -1394,14 +1379,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 			this.columnStatisticsTable.clear();
 			IntStream.range(0, StateEntrySize.current().getBitsPerBlockSide())
-				.forEach(x -> IntStream.range(0, StateEntrySize.current().getBitsPerBlockSide())
-						.forEach(z -> {
+					.forEach(x -> IntStream.range(0, StateEntrySize.current().getBitsPerBlockSide())
+							.forEach(z -> {
 								final ColumnStatistics columnStatistics = new ColumnStatistics(inWorldPos);
 								columnStatistics.initializeWith(levelAccessor, blockInformation);
 								this.columnStatisticsTable.put(x, z, columnStatistics);
-						}
-
-						));
+							}));
 
 			this.collisionData.clear();
 
@@ -1452,31 +1435,27 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			this.totalUsedBlockCount = countMap.values().stream().mapToInt(i -> i).sum();
 
 			countMap.forEach((blockState, count) -> {
-					if (usingLevelReader(levelAccessor, blockState, Direction.NORTH, ILevelBasedPropertyAccessor.getInstance()::shouldCheckWeakPower)) {
-						this.totalUsedChecksWeakPowerCount += count;
-					}
+				if (usingLevelReader(levelAccessor, blockState, Direction.NORTH, ILevelBasedPropertyAccessor.getInstance()::shouldCheckWeakPower)) {
+					this.totalUsedChecksWeakPowerCount += count;
+				}
 
-					this.totalLightLevel += usingLevelReader(levelAccessor, blockState, ILevelBasedPropertyAccessor.getInstance()::getLightEmission)
-					* count;
+				this.totalLightLevel += usingLevelReader(levelAccessor, blockState, ILevelBasedPropertyAccessor.getInstance()::getLightEmission)
+				* count;
 
-					this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockState, LIGHT_BLOCK_GETTER)
-					* count;
-			}
-
-			);
+				this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockState, LIGHT_BLOCK_GETTER)
+				* count;
+			});
 
 			BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
-				.forEach(pos -> {
+					.forEach(pos -> {
 						final BlockInformation blockState = source.getBlockInformation(pos.getX(), pos.getY(), pos.getZ());
 
 						if (!this.columnStatisticsTable.contains(pos.getX(), pos.getZ())) {
-						this.columnStatisticsTable.put(pos.getX(), pos.getZ(), new ColumnStatistics(inWorldPos));
+							this.columnStatisticsTable.put(pos.getX(), pos.getZ(), new ColumnStatistics(inWorldPos));
 						}
 
 						Objects.requireNonNull(this.columnStatisticsTable.get(pos.getX(), pos.getZ())).onBlockStateAdded(levelAccessor, blockState, pos);
-				}
-
-				);
+					});
 
 			this.collisionData.clear();
 
@@ -1620,11 +1599,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		private SingleBlockLevelReader createLevelReaderFor(final LevelAccessor levelAccessor, final BlockInformation blockInformation) {
 			return new SingleBlockLevelReader.Builder()
-				.withBlockState(blockInformation.blockState())
-				.withBlockEntity(() -> blockInformation.newBlockEntity(inWorldPos))
-				.withPos(inWorldPos)
-				.withSource(levelAccessor)
-				.createSingleBlockLevelReader();
+					.withBlockState(blockInformation.blockState())
+					.withBlockEntity(() -> blockInformation.newBlockEntity(inWorldPos))
+					.withPos(inWorldPos)
+					.withSource(levelAccessor)
+					.createSingleBlockLevelReader();
 		}
 
 		@SuppressWarnings("SameParameterValue")
@@ -1667,18 +1646,16 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		private boolean canLowestBitSustainGrass(LevelAccessor levelAccessor, BlockInformation blockState) {
 			return canGrowGrassUsingLevelReader(levelAccessor, blockState)
-				.orElseGet(() -> {
+					.orElseGet(() -> {
 						if (blockState.blockState().is(Blocks.SNOW) && blockState.blockState().getValue(SnowLayerBlock.LAYERS) == 1) {
-						return true;
+							return true;
 						} else if (blockState.blockState().getFluidState().getAmount() == 8) {
-						return false;
+							return false;
 						} else {
-						int i = getLightBlockInto(blockState);
-						return i <LightEngine.MAX_LEVEL;
-					}
-				}
-
-				);
+							int i = getLightBlockInto(blockState);
+							return i <LightEngine.MAX_LEVEL;
+						}
+					});
 		}
 
 		private void onBlockStateAdded(LevelAccessor levelAccessor, final BlockInformation blockState, final BlockPos inAreaPos) {
@@ -1703,7 +1680,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 			if (!skylightBlockingBits.get(pos.getY())) {
 				canPropagateSkylightDown = IntStream.range(0, StateEntrySize.current().getBitsPerBlockSide())
-					.noneMatch(skylightBlockingBits::get);
+						.noneMatch(skylightBlockingBits::get);
 			}
 
 			if (pos.getY()>= highestBit) {

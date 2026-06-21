@@ -42,7 +42,7 @@ public class IItemHandlerBitInventory extends AbstractBitInventory {
 	 */
 	@Override
 	protected void setItem(final int index, final ItemStack stack) {
-		try(Transaction tx = Transaction.openRoot()) {
+		try (Transaction tx = Transaction.openRoot()) {
 			itemHandler.extract(index, ItemResource.of(stack), stack.getCount(), tx);
 
 			if (itemHandler.insert(index, ItemResource.of(stack), stack.getCount(), tx) != stack.getCount()) {

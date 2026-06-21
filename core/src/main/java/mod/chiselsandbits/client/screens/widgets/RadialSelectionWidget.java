@@ -216,40 +216,38 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 
 		final int renderableHoveredItemIndex = hoveredItemIndex;
 		modes.forEach(mode -> {
-				final int modeIndex = modes.indexOf(mode);
-				final boolean isSelected = current != null && mode == current;
-				final boolean isHovered = renderableHoveredItemIndex == modeIndex;
+			final int modeIndex = modes.indexOf(mode);
+			final boolean isSelected = current != null && mode == current;
+			final boolean isHovered = renderableHoveredItemIndex == modeIndex;
 
-				final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
+			final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
 
-				if (mode.isActive()) {
-					drawSelectableSection(
-							graphics,
-							sectionArcAngle,
-							innerRadius,
-							outerRadius,
-							centerX,
-							centerY,
-							selectableItemCount,
-							itemTargetAngle,
-							isSelected,
-							isHovered
-					);
-				} else {
-					drawDeactivatedSection(
-							graphics,
-							sectionArcAngle,
-							innerRadius,
-							outerRadius,
-							centerX,
-							centerY,
-							selectableItemCount,
-							itemTargetAngle
-					);
-				}
-		}
-
-		);
+			if (mode.isActive()) {
+				drawSelectableSection(
+						graphics,
+						sectionArcAngle,
+						innerRadius,
+						outerRadius,
+						centerX,
+						centerY,
+						selectableItemCount,
+						itemTargetAngle,
+						isSelected,
+						isHovered
+				);
+			} else {
+				drawDeactivatedSection(
+						graphics,
+						sectionArcAngle,
+						innerRadius,
+						outerRadius,
+						centerX,
+						centerY,
+						selectableItemCount,
+						itemTargetAngle
+				);
+			}
+		});
 
 		if (isMouseInSection && hoveredItemIndex>= 0 && hoveredItemIndex <modes.size() && modes.get(hoveredItemIndex).isActive()) {
 			if (IClientConfiguration.getInstance().getEnableMouseIndicatorInRadialMenu().get()) {
@@ -289,14 +287,12 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 
 		if (modes.size()> 1 || this.innerRadius != 0f) {
 			modes.forEach(mode -> {
-					if (mode.isActive()) {
-						final int modeIndex = modes.indexOf(mode);
-						final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
-						renderModeIconAtAngle(graphics, innerRadius, outerRadius, itemTargetAngle, iconScaleFactor, iconTextSpacer, mode, fontRenderer);
-					}
-			}
-
-			);
+				if (mode.isActive()) {
+					final int modeIndex = modes.indexOf(mode);
+					final float itemTargetAngle = ((modeIndex + 0.5f) * itemArcAngle) + sectionStartAngle;
+					renderModeIconAtAngle(graphics, innerRadius, outerRadius, itemTargetAngle, iconScaleFactor, iconTextSpacer, mode, fontRenderer);
+				}
+			});
 		} else if (modes.size() == 1) {
 			renderModeIconCentered(graphics, iconScaleFactor, iconTextSpacer, modes.getFirst(), fontRenderer);
 		}
@@ -441,8 +437,8 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 		final List<FormattedCharSequence> lines = fontRenderer.split(name, 75);
 
 		final int itemHeight = mode.shouldRenderDisplayNameInMenu()
-		? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
-		: (int) (iconSize * iconScaleFactor);
+				? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
+				: (int) (iconSize * iconScaleFactor);
 
 		final int iconStartX = (int) (itemCenterX - ((iconSize * iconScaleFactor) / 2f));
 		final int iconStartY = (int) (itemCenterY - (itemHeight / 2f));
@@ -464,8 +460,8 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 		final List<FormattedCharSequence> lines = fontRenderer.split(name, 75);
 
 		final int itemHeight = mode.shouldRenderDisplayNameInMenu()
-		? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
-		: (int) (iconSize * iconScaleFactor);
+				? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
+				: (int) (iconSize * iconScaleFactor);
 
 		final int iconStartX = (int) (itemCenterX - ((iconSize * iconScaleFactor) / 2f));
 		final int iconStartY = (int) (itemCenterY - (itemHeight / 2f));

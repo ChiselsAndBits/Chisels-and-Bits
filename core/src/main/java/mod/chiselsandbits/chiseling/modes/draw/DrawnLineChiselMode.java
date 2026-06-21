@@ -85,38 +85,34 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+			try (IBatchMutation ignored = 
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(factory -> factory.apply(mutator))
+						.orElse((s) -> true);
 
-					mutator.inWorldMutableStream()
-					.filter(filter)
-					.forEach(state -> {
+						mutator.inWorldMutableStream()
+						.filter(filter)
+						.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
 							if (context.tryDamageItem()) {
-							resultingBitCount.putIfAbsent(currentState, 0);
-							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+								resultingBitCount.putIfAbsent(currentState, 0);
+								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-							state.clear();
+								state.clear();
 							}
+						});
+
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								playerEntity,
+								blockState,
+								count
+						));
 					}
-
-					);
-
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
-						}
-		}
-
-		);
+		});
 	}
 
 	@Override
@@ -138,45 +134,43 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-				if (heldBlockState.isAir()) {
-					return;
+			if (heldBlockState.isAir()) {
+				return;
+			}
+
+			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+			.map(factory -> factory.apply(mutator))
+			.orElse((s) -> true);
+
+			final int missingBitCount = (int) mutator.stream()
+			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+			.count();
+
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+
+			context.setComplete();
+
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+				if (!playerEntity.isCreative()) {
+					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-				.map(factory -> factory.apply(mutator))
-				.orElse((s) -> true);
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+							mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+			} else {
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-				final int missingBitCount = (int) mutator.stream()
-				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-				.count();
-
-				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
-
-				context.setComplete();
-
-				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-					if (!playerEntity.isCreative()) {
-						playerBitInventory.extract(heldBlockState, missingBitCount);
-					}
-
-					try (IBatchMutation ignored = 
-							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-							}
-				} else {
-					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-				}
-
-				if (missingBitCount == 0) {
-					context.validateBuildHeights();
-				}
-		}
-
-		);
+			if (missingBitCount == 0) {
+				context.validateBuildHeights();
+			}
+		});
 	}
 
 	private ClickProcessingState processRayTraceIntoContext(final Player playerEntity, final IChiselingContext context, Function<Direction, Vec3> offsetGenerator) {
@@ -202,14 +196,12 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 		Optional<Vec3> finalAnchor = anchor;
 		context.setStateFilter(areaAccessor -> {
-				if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
-					return new LineAreaFilter(finalAnchor.get(), currentTarget);
-				}
+			if (areaAccessor instanceof IWorldAreaAccessor worldAreaAccessor) {
+				return new LineAreaFilter(finalAnchor.get(), currentTarget);
+			}
 
-				return (s) -> false;
-		}
-
-		);
+			return (s) -> false;
+		});
 
 		return ClickProcessingState.ALLOW;
 	}
@@ -217,7 +209,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 	@Override
 	public Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context) {
 		return context.getMutator()
-			.map(IAreaAccessor.class::cast);
+				.map(IAreaAccessor.class::cast);
 	}
 
 	@Override

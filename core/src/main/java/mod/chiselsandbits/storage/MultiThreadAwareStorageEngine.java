@@ -23,14 +23,12 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 			saveService = Executors.newFixedThreadPool(
 					ICommonConfiguration.getInstance().getBlockSaveThreadCount().get(),
 					runnable -> {
-					final Thread thread = new Thread(runnable);
-					thread.setContextClassLoader(classLoader);
-					thread.setName(String.format("Chisels and Bits Block save handler #%s", genericThreadCounter.incrementAndGet()));
-					thread.setDaemon(true);
-					return thread;
-					}
-
-			);
+						final Thread thread = new Thread(runnable);
+						thread.setContextClassLoader(classLoader);
+						thread.setName(String.format("Chisels and Bits Block save handler #%s", genericThreadCounter.incrementAndGet()));
+						thread.setDaemon(true);
+						return thread;
+					});
 		}
 	}
 
@@ -45,7 +43,7 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 	public CompletableFuture<Void> encodeAsync(TPayload payload, ValueOutput output) {
 		ensureThreadPoolSetup();
 		return CompletableFuture.runAsync(() -> {
-				output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
+			output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
 		},
 
 

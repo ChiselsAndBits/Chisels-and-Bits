@@ -33,12 +33,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		final SlottedBitInventoryData data = this.stack.getOrDefault(ModDataComponentTypes.SLOTTED_BIT_INVENTORY_DATA.get(), SlottedBitInventoryData.EMPTY);
 		data.data().forEach((slotIndex, slotData) -> {
-				final BlockInformation blockInformation = slotData.blockInformation();
-				final int count = slotData.count();
-				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(blockInformation, count));
-		}
-
-		);
+			final BlockInformation blockInformation = slotData.blockInformation();
+			final int count = slotData.count();
+			this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(blockInformation, count));
+		});
 	}
 
 	@Override
@@ -70,10 +68,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 		var clipped = false;
 		var stream = getContents()
-			.sorted(Comparator.comparingInt(BitSlot::getCount).reversed())
-			.map(slot ->
-					LocalStrings.BitBagEntry.getText(slot.getCount(), slot.getBlockInformation().blockState().getBlock().getName())
-			);
+				.sorted(Comparator.comparingInt(BitSlot::getCount).reversed())
+				.map(slot ->
+						LocalStrings.BitBagEntry.getText(slot.getCount(), slot.getBlockInformation().blockState().getBlock().getName())
+				);
 
 		if (count> 5) {
 			stream = stream.limit(5);
@@ -111,12 +109,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	// Get counts of all the bits present in the bag and clear it.
 		final Map<BlockInformation, Integer> contentMap = Maps.newHashMap();
 		this.slotMap.values().forEach(bitSlot -> {
-				final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
-				contentMap.putIfAbsent(blockInformation, 0);
-				contentMap.compute(blockInformation, (s, c) -> (c == null ? 0 : c) + bitSlot.getCount());
-		}
-
-		);
+			final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
+			contentMap.putIfAbsent(blockInformation, 0);
+			contentMap.compute(blockInformation, (s, c) -> (c == null ? 0 : c) + bitSlot.getCount());
+		});
 		this.slotMap.clear();
 
 		List<Map.Entry<BlockInformation, Integer>> toSort = new ArrayList<>(contentMap.entrySet());
@@ -162,12 +158,10 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	public void sort() {
 		final Map<BlockInformation, Integer> contentMap = Maps.newHashMap();
 		this.slotMap.values().forEach(bitSlot -> {
-				final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
-				contentMap.putIfAbsent(blockInformation, 0);
-				contentMap.compute(blockInformation, (s, c) -> (c == null ? 0 : c) + bitSlot.getCount());
-		}
-
-		);
+			final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
+			contentMap.putIfAbsent(blockInformation, 0);
+			contentMap.compute(blockInformation, (s, c) -> (c == null ? 0 : c) + bitSlot.getCount());
+		});
 
 		this.slotMap.clear();
 

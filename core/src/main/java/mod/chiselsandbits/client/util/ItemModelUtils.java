@@ -135,7 +135,7 @@ public class ItemModelUtils {
 
 		for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
 			layer.prepareQuadList()
-				.forEach(result::addUnculledFace);
+					.forEach(result::addUnculledFace);
 		}
 
 		return result.build();
@@ -165,11 +165,11 @@ public class ItemModelUtils {
 
 		for (final Direction direction : Direction.values()) {
 			input.getQuads(direction)
-				.forEach(inputQuad -> builder.addCulledFace(direction, adapter.apply(inputQuad)));
+					.forEach(inputQuad -> builder.addCulledFace(direction, adapter.apply(inputQuad)));
 		}
 
 		input.getQuads(null)
-			.forEach(inputQuad -> builder.addUnculledFace(adapter.apply(inputQuad)));
+				.forEach(inputQuad -> builder.addUnculledFace(adapter.apply(inputQuad)));
 
 		return builder.build();
 	}

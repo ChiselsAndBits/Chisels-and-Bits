@@ -13,14 +13,12 @@ public final class ModBlockEntityRenderers {
 	public static void onClientConstruction() {
 		IRenderingManager.getInstance().registerBlockEntityRenderer(
 				registrar -> {
-				registrar.registerBlockEntityRenderer(ModBlockEntityTypes.BIT_STORAGE.get(), context -> new BitStorageBESR());
-				}
-		);
+					registrar.registerBlockEntityRenderer(ModBlockEntityTypes.BIT_STORAGE.get(), context -> new BitStorageBESR());
+				});
 
 		IRenderingManager.getInstance().registerBlockEntityRenderer(
 				registrar -> {
-				registrar.registerBlockEntityRenderer(ModBlockEntityTypes.CHISELED_PRINTER.get(), context -> new ChiseledPrinterBESR());
-				}
-		);
+					registrar.registerBlockEntityRenderer(ModBlockEntityTypes.CHISELED_PRINTER.get(), context -> new ChiseledPrinterBESR());
+				});
 	}
 }

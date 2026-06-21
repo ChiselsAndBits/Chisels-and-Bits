@@ -238,11 +238,9 @@ public class CommandManager {
 		context.getSource().sendSuccess(() -> Component.literal("BlockStates:"), true);
 		context.getSource().sendSuccess(() -> Component.literal("############"), true);
 		mutator.createSnapshot().getStatics()
-			.getStateCounts().forEach((state, count) -> {
+				.getStateCounts().forEach((state, count) -> {
 					context.getSource().sendSuccess(() -> Component.literal("> ").append(state.blockState().getBlock().getName()).append(Component.literal(": " + count)), true);
-			}
-
-			);
+				});
 
 		return 0;
 	}

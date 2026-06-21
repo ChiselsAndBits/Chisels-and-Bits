@@ -72,10 +72,8 @@ public final class ClientStateVariantManager implements IClientStateVariantManag
 
 		final List<Component> variantLines = new ArrayList<>();
 		blockInformation.variant().ifPresent(variant -> {
-				providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
-		}
-
-		);
+			providers.get(blockInformation.blockState().getBlock()).appendHoverText(variant, context, variantLines, flag);
+		});
 
 		if (!variantLines.isEmpty()) {
 			tooltipAdder.accept(Component.literal(""));

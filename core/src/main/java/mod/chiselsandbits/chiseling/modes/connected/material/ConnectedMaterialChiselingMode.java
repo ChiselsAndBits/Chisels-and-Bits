@@ -90,50 +90,44 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player))) {
-					context.setComplete();
+			try (IBatchMutation ignored = 
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(Player))) {
+						context.setComplete();
 
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(builder -> builder.apply(mutator))
-					.orElse((state) -> true);
+						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(builder -> builder.apply(mutator))
+						.orElse((state) -> true);
 
-					final int totalModifiedStates = mutator.inWorldMutableStream()
-					.filter(filter)
-					.mapToInt(state -> {
+						final int totalModifiedStates = mutator.inWorldMutableStream()
+						.filter(filter)
+						.mapToInt(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
 							return context.tryDamageItemAndDoOrSetBrokenError(
 									() -> {
-									resultingBitCount.putIfAbsent(currentState, 0);
-									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+										resultingBitCount.putIfAbsent(currentState, 0);
+										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-									state.clear();
-									}
+										state.clear();
+									});
+						})
+						.sum();
 
-							);
-					}
-
-					)
-					.sum();
-
-					if (totalModifiedStates == 0) {
-						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-					}
-
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							Player,
-							blockState,
-							count
-					));
+						if (totalModifiedStates == 0) {
+							context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
 						}
 
-				return ClickProcessingState.ALLOW;
-		}
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								Player,
+								blockState,
+								count
+						));
+					}
 
-				).orElse(ClickProcessingState.DEFAULT)
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -151,42 +145,42 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 				face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
 				(hitPos, inBlockTargetedPosition, hitFace, candidatePosition) -> {
 
-				if (inBlockTargetedPosition.equals(candidatePosition)) {
-					return Vec3.atLowerCornerOf(hitPos)
-					.add(inBlockTargetedPosition)
+					if (inBlockTargetedPosition.equals(candidatePosition)) {
+						return Vec3.atLowerCornerOf(hitPos)
+						.add(inBlockTargetedPosition)
+						.add(Vec3.atLowerCornerOf(
+								hitFace.getOpposite().getUnitVec3i()
+						)
+								.multiply(StateEntrySize.current().getSizePerBitScalingVector())
+						);
+					}
+
+					final Vec3 relevantAxisCandidate = candidatePosition.multiply(
+							Math.abs(hitFace.getUnitVec3i().getX()),
+							Math.abs(hitFace.getUnitVec3i().getY()),
+							Math.abs(hitFace.getUnitVec3i().getZ())
+					);
+					final Vec3 noneRelevantAxisCandidates = candidatePosition.subtract(relevantAxisCandidate);
+					final Vec3 relevantAxisTarget = inBlockTargetedPosition.multiply(
+							Math.abs(hitFace.getUnitVec3i().getX()),
+							Math.abs(hitFace.getUnitVec3i().getY()),
+							Math.abs(hitFace.getUnitVec3i().getZ())
+					);
+
+					final Vec3 offset = candidatePosition.subtract(inBlockTargetedPosition);
+					final Vec3 relevantAxisOffset = offset.multiply(
+							Math.abs(hitFace.getUnitVec3i().getX()),
+							Math.abs(hitFace.getUnitVec3i().getY()),
+							Math.abs(hitFace.getUnitVec3i().getZ())
+					);
+
+					return noneRelevantAxisCandidates.add(relevantAxisTarget).subtract(relevantAxisOffset)
+					.add(hitPos.getX(), hitPos.getY(), hitPos.getZ())
 					.add(Vec3.atLowerCornerOf(
 							hitFace.getOpposite().getUnitVec3i()
 					)
 							.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 					);
-				}
-
-				final Vec3 relevantAxisCandidate = candidatePosition.multiply(
-						Math.abs(hitFace.getUnitVec3i().getX()),
-						Math.abs(hitFace.getUnitVec3i().getY()),
-						Math.abs(hitFace.getUnitVec3i().getZ())
-				);
-				final Vec3 noneRelevantAxisCandidates = candidatePosition.subtract(relevantAxisCandidate);
-				final Vec3 relevantAxisTarget = inBlockTargetedPosition.multiply(
-						Math.abs(hitFace.getUnitVec3i().getX()),
-						Math.abs(hitFace.getUnitVec3i().getY()),
-						Math.abs(hitFace.getUnitVec3i().getZ())
-				);
-
-				final Vec3 offset = candidatePosition.subtract(inBlockTargetedPosition);
-				final Vec3 relevantAxisOffset = offset.multiply(
-						Math.abs(hitFace.getUnitVec3i().getX()),
-						Math.abs(hitFace.getUnitVec3i().getY()),
-						Math.abs(hitFace.getUnitVec3i().getZ())
-				);
-
-				return noneRelevantAxisCandidates.add(relevantAxisTarget).subtract(relevantAxisOffset)
-				.add(hitPos.getX(), hitPos.getY(), hitPos.getZ())
-				.add(Vec3.atLowerCornerOf(
-						hitFace.getOpposite().getUnitVec3i()
-				)
-						.multiply(StateEntrySize.current().getSizePerBitScalingVector())
-				);
 				},
 
 
@@ -207,50 +201,48 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-				final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
 
-				if (heldBlockState.isAir()) {
-					context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
-					return ClickProcessingState.DEFAULT;
+			if (heldBlockState.isAir()) {
+				context.setError(LocalStrings.ChiselAttemptFailedNoPlaceableBitHeld.getText());
+				return ClickProcessingState.DEFAULT;
+			}
+
+			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+			.map(builder -> builder.apply(mutator))
+			.orElse((state) -> true);
+
+			final int missingBitCount = (int) mutator.stream()
+			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+			.count();
+
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
+
+			context.setComplete();
+
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || player.isCreative()) {
+				if (!player.isCreative()) {
+					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-				.map(builder -> builder.apply(mutator))
-				.orElse((state) -> true);
+				try (IBatchMutation ignored = 
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
+							mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+			} else {
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-				final int missingBitCount = (int) mutator.stream()
-				.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-				.count();
-
-				final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
-
-				context.setComplete();
-
-				if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || player.isCreative()) {
-					if (!player.isCreative()) {
-						playerBitInventory.extract(heldBlockState, missingBitCount);
-					}
-
-					try (IBatchMutation ignored = 
-							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-							}
-				} else {
-					context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			if (missingBitCount == 0) {
+				if (!context.validateBuildHeights()) {
+					return ClickProcessingState.DENIED;
 				}
+			}
 
-				if (missingBitCount == 0) {
-					if (!context.validateBuildHeights()) {
-						return ClickProcessingState.DENIED;
-					}
-				}
-
-				return ClickProcessingState.ALLOW;
-		}
-
-				).orElse(ClickProcessingState.DEFAULT)
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -285,7 +277,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
-		? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
+				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
 		face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(
@@ -339,9 +331,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		final Set<Vec3i> offsets = new HashSet<>();
 		offsets.add(searchDirectionAdapter.apply(blockHitResult.getDirection()).getUnitVec3i());
 		Arrays.stream(Direction.values())
-			.filter(direction -> direction.getAxis() != blockHitResult.getDirection().getAxis())
-			.map(Direction::getUnitVec3i)
-			.forEach(offsets::add);
+				.filter(direction -> direction.getAxis() != blockHitResult.getDirection().getAxis())
+				.map(Direction::getUnitVec3i)
+				.forEach(offsets::add);
 
 		final Vec3i selectedPosition = VectorUtils.toInteger(
 				inBlockHitVector.x() * StateEntrySize.current().getBitsPerBlockSide(),
@@ -396,38 +388,36 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 				}
 
 				offsets.forEach(offset -> {
-						final Vec3i newTarget = new Vec3i(
-								targetedPosition.getX() + offset.getX(),
-								targetedPosition.getY() + offset.getY(),
-								targetedPosition.getZ() + offset.getZ()
-						);
-						if (newTarget.getX()>= 0 && newTarget.getX() <StateEntrySize.current().getBitsPerBlockSide()
-								&& newTarget.getY()>= 0 && newTarget.getY() <StateEntrySize.current().getBitsPerBlockSide()
-								&& newTarget.getZ()>= 0 && newTarget.getZ() <StateEntrySize.current().getBitsPerBlockSide()) {
-							final Vec3i relevantNewTargetAxisVector = 
-						new Vec3i(
-								newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
-								newTarget.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
-								newTarget.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
-						);
+					final Vec3i newTarget = new Vec3i(
+							targetedPosition.getX() + offset.getX(),
+							targetedPosition.getY() + offset.getY(),
+							targetedPosition.getZ() + offset.getZ()
+					);
+					if (newTarget.getX()>= 0 && newTarget.getX() <StateEntrySize.current().getBitsPerBlockSide()
+							&& newTarget.getY()>= 0 && newTarget.getY() <StateEntrySize.current().getBitsPerBlockSide()
+							&& newTarget.getZ()>= 0 && newTarget.getZ() <StateEntrySize.current().getBitsPerBlockSide()) {
+								final Vec3i relevantNewTargetAxisVector = 
+								new Vec3i(
+										newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),
+										newTarget.getY() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getY()),
+										newTarget.getZ() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getZ())
+								);
 
-							final int targetedDepth = Math.abs(
-									relevantSelectedAxisVector.get(blockHitResult.getDirection().getAxis())
-									- relevantNewTargetAxisVector.get(blockHitResult.getDirection().getAxis())
-							);
+								final int targetedDepth = Math.abs(
+										relevantSelectedAxisVector.get(blockHitResult.getDirection().getAxis())
+										- relevantNewTargetAxisVector.get(blockHitResult.getDirection().getAxis())
+								);
 
-							if (targetedDepth <= depth - 1) {
-							//Valid offset found
-								if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
-									toProcess.addLast(newTarget);
+								if (targetedDepth <= depth - 1) {
+								//Valid offset found
+									if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
+										toProcess.addLast(newTarget);
+									}
 								}
+							} else {
+								processed.add(newTarget);
 							}
-								} else {
-							processed.add(newTarget);
-						}
-				}
-
-				);
+				});
 			}
 		}
 

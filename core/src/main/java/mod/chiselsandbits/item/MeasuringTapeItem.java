@@ -172,17 +172,15 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 			final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-				if (KeyBindingManager.getInstance().hasBeenInitialized()) {
-					HelpTextUtils.build(
-							LocalStrings.HelpTapeMeasure, tooltipAdder,
-							Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
-							Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
-							KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),
-							KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
-					);
-				}
-		}
-
-		);
+			if (KeyBindingManager.getInstance().hasBeenInitialized()) {
+				HelpTextUtils.build(
+						LocalStrings.HelpTapeMeasure, tooltipAdder,
+						Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
+						Minecraft.getInstance().options.keyUse.getTranslatedKeyMessage(),
+						KeyBindingManager.getInstance().getResetMeasuringTapeKeyBinding().getTranslatedKeyMessage(),
+						KeyBindingManager.getInstance().getOpenToolMenuKeybinding().getTranslatedKeyMessage()
+				);
+			}
+		});
 	}
 }

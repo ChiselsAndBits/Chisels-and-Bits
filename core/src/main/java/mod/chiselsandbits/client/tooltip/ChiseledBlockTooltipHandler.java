@@ -20,17 +20,15 @@ public class ChiseledBlockTooltipHandler {
 		);
 
 		IClientEvents.getInstance().getGatherTooltipComponentsEvent().register((itemStack, screenWidth, screenHeight, maxWidth, tooltipElements) -> {
-				if (itemStack.getItem() instanceof IMultiStateItem multiStateItem) {
-					tooltipElements.add(new Payload(multiStateItem.createItemStack(itemStack).createSnapshot()));
-				}
+			if (itemStack.getItem() instanceof IMultiStateItem multiStateItem) {
+				tooltipElements.add(new Payload(multiStateItem.createItemStack(itemStack).createSnapshot()));
+			}
 
-				return true;
-		}
-
-		);
+			return true;
+		});
 	}
 
-	public record Payload(IMultiStateSnapshot snapshot) implements TooltipComponent {}
+	public record Payload(IMultiStateSnapshot snapshot) implements TooltipComponent { }
 
 	public record Client(ItemStack component) implements ClientTooltipComponent {
 		@Override

@@ -56,41 +56,37 @@ import net.minecraft.world.phys.Vec3;
 
 public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	private static final Supplier<ItemStack> DEFAULT_INSTANCE = Suppliers.memoize(() -> {
-			final RandomSource random = RandomSource.createThreadLocalInstance(42L);
+		final RandomSource random = RandomSource.createThreadLocalInstance(42L);
 
-			final int blockStateCount = (StateEntrySize.current().getBitsPerBlockSide() / 4)
-			* (StateEntrySize.current().getBitsPerBlockSide() / 4)
-			* (StateEntrySize.current().getBitsPerBlockSide() / 4);
-			final List<BlockInformation> blockInformation = new ArrayList<>(blockStateCount);
+		final int blockStateCount = (StateEntrySize.current().getBitsPerBlockSide() / 4)
+		* (StateEntrySize.current().getBitsPerBlockSide() / 4)
+		* (StateEntrySize.current().getBitsPerBlockSide() / 4);
+		final List<BlockInformation> blockInformation = new ArrayList<>(blockStateCount);
 
-			for (int i = 0; i <blockStateCount; i++) {
-				blockInformation.add(BlockInformationUtils.getRandomSupportedInformation(random));
-			}
+		for (int i = 0; i <blockStateCount; i++) {
+			blockInformation.add(BlockInformationUtils.getRandomSupportedInformation(random));
+		}
 
-			final SimpleSnapshot results = new SimpleSnapshot(BlockInformation.AIR);
+		final SimpleSnapshot results = new SimpleSnapshot(BlockInformation.AIR);
 
-			results.mutableStream()
-			.forEach(stateEntryInfo -> {
-					final Vec3 pos = stateEntryInfo.getStartPoint()
-					.multiply(StateEntrySize.current().getBitsPerBlockSideScalingVector());
+		results.mutableStream()
+		.forEach(stateEntryInfo -> {
+			final Vec3 pos = stateEntryInfo.getStartPoint()
+			.multiply(StateEntrySize.current().getBitsPerBlockSideScalingVector());
 
-					final Vec3 indexPos = pos.multiply(1 / 4d, 1/4d, 1/4d);
-					final Vec3i index = VectorUtils.toInteger(indexPos.x(), indexPos.y(), indexPos.z());
+			final Vec3 indexPos = pos.multiply(1 / 4d, 1/4d, 1/4d);
+			final Vec3i index = VectorUtils.toInteger(indexPos.x(), indexPos.y(), indexPos.z());
 
-					final int size = StateEntrySize.current().getBitsPerBlockSide() / 4;
-					final int blockInformationIndex = index.getX() + (index.getY() * size) + (index.getZ() * size * size);
-					final BlockInformation info = blockInformation.get(blockInformationIndex);
-					stateEntryInfo.overrideState(info);
-			}
+			final int size = StateEntrySize.current().getBitsPerBlockSide() / 4;
+			final int blockInformationIndex = index.getX() + (index.getY() * size) + (index.getZ() * size * size);
+			final BlockInformation info = blockInformation.get(blockInformationIndex);
+			stateEntryInfo.overrideState(info);
+		});
 
-			);
-
-			final ItemStack stack = results.toItemStack().toBlockStack();
-			stack.set(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), true);
-			return stack;
-	}
-
-	);
+		final ItemStack stack = results.toItemStack().toBlockStack();
+		stack.set(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), true);
+		return stack;
+	});
 
 	public ChiseledBlockItem(final Block blockIn, final Properties builder) {
 		super(blockIn, builder);
@@ -133,44 +129,40 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 		final IAreaAccessor source = this.createItemStack(context.getItemInHand());
 		final IWorldAreaMutator areaMutator = player.isShiftKeyDown()
-		? IMutatorFactory.getInstance().covering(
-				level,
-				context.getClickLocation(),
-				context.getClickLocation().add(1d, 1d, 1d)
-		)
+				? IMutatorFactory.getInstance().covering(
+						level,
+						context.getClickLocation(),
+						context.getClickLocation().add(1d, 1d, 1d)
+				)
 
-		: IMutatorFactory.getInstance().in(level, pos);
+				: IMutatorFactory.getInstance().in(level, pos);
 		final IMultiStateSnapshot attemptTarget = areaMutator.createSnapshot();
 
 		final boolean noCollisions = source.stream().sequential()
-			.allMatch(stateEntryInfo -> {
+				.allMatch(stateEntryInfo -> {
 					try {
-					attemptTarget.setInAreaTarget(
-							stateEntryInfo.getBlockInformation(),
-							stateEntryInfo.getStartPoint());
+						attemptTarget.setInAreaTarget(
+								stateEntryInfo.getBlockInformation(),
+								stateEntryInfo.getStartPoint());
 
-					return true;
+						return true;
 			} catch (SpaceOccupiedException exception) {
-					return false;
+						return false;
 			}
-			}
-
-			);
+				});
 
 		if (noCollisions) {
 			try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 				source.stream().forEach(
 						stateEntryInfo -> {
 
-						try {
-							areaMutator.setInAreaTarget(
-									stateEntryInfo.getBlockInformation(),
-									stateEntryInfo.getStartPoint());
+							try {
+						areaMutator.setInAreaTarget(
+								stateEntryInfo.getBlockInformation(),
+								stateEntryInfo.getStartPoint());
 					} catch (SpaceOccupiedException ignored1) {
 					}
-						}
-
-				);
+						});
 			}
 
 			if (getBlock() instanceof ChiseledBlock chiseledBlock) {
@@ -219,24 +211,22 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 		final IMultiStateSnapshot attemptTarget = areaMutator.createSnapshot();
 
 		final boolean noSpaceOccupied = source.stream()
-			.allMatch(stateEntryInfo -> {
+				.allMatch(stateEntryInfo -> {
 					try {
-					attemptTarget.setInAreaTarget(
-							stateEntryInfo.getBlockInformation(),
-							stateEntryInfo.getStartPoint());
+						attemptTarget.setInAreaTarget(
+								stateEntryInfo.getBlockInformation(),
+								stateEntryInfo.getStartPoint());
 
-					return true;
+						return true;
 			} catch (SpaceOccupiedException exception) {
-					return false;
+						return false;
 			}
-			}
-
-			);
+				});
 		return noSpaceOccupied
-		? PlacementResult.success()
-		: PlacementResult.failure(
-				IClientConfiguration::getNotFittingPatternPlacementColor,
-				LocalStrings.PatternPlacementNotAnAirBlock.getText());
+				? PlacementResult.success()
+				: PlacementResult.failure(
+						IClientConfiguration::getNotFittingPatternPlacementColor,
+						LocalStrings.PatternPlacementNotAnAirBlock.getText());
 	}
 
 	@Override

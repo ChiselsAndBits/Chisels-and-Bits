@@ -60,10 +60,8 @@ public final class MeasurementRenderer {
 		double zView = vector3d.z();
 
 		measurements.forEach(measurement -> {
-				renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
-		}
-
-		);
+			renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
+		});
 	}
 
 	private void renderMeasurement(
@@ -133,27 +131,27 @@ public final class MeasurementRenderer {
 					(float) (measurement.getFrom().x() - xView),
 					(float) (measurement.getFrom().y() - yView),
 					(float) (measurement.getFrom().z() - zView))
-				.setColor(
-						(float) measurement.getMode().getColorVector().x(),
-						(float) measurement.getMode().getColorVector().y(),
-						(float) measurement.getMode().getColorVector().z(),
-						(float) measurement.getMode().getAlphaChannel()
-				)
-				.setNormal(poseStack.last(), 0, 1, 0)
-				.setLineWidth(2.5f);
+					.setColor(
+							(float) measurement.getMode().getColorVector().x(),
+							(float) measurement.getMode().getColorVector().y(),
+							(float) measurement.getMode().getColorVector().z(),
+							(float) measurement.getMode().getAlphaChannel()
+					)
+					.setNormal(poseStack.last(), 0, 1, 0)
+					.setLineWidth(2.5f);
 
 			bufferIn.addVertex(poseStack.last().pose(),
 					(float) (measurement.getTo().x() - xView),
 					(float) (measurement.getTo().y() - yView),
 					(float) (measurement.getTo().z() - zView))
-				.setColor(
-						(float) measurement.getMode().getColorVector().x(),
-						(float) measurement.getMode().getColorVector().y(),
-						(float) measurement.getMode().getColorVector().z(),
-						(float) measurement.getMode().getAlphaChannel()
-				)
-				.setNormal(poseStack.last(), 0, 1, 0)
-				.setLineWidth(2.5f);
+					.setColor(
+							(float) measurement.getMode().getColorVector().x(),
+							(float) measurement.getMode().getColorVector().y(),
+							(float) measurement.getMode().getColorVector().z(),
+							(float) measurement.getMode().getAlphaChannel()
+					)
+					.setNormal(poseStack.last(), 0, 1, 0)
+					.setLineWidth(2.5f);
 
 			final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
 			final double totalLength = lengths.length();

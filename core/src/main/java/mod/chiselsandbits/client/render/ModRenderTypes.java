@@ -38,11 +38,11 @@ public enum ModRenderTypes
 
 		private static RenderType chiselPreviewInsideBlocks() {
 			var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline())
-				.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-				.bufferSize(256)
-				.sortOnUpload()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.createRenderSetup();
+					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+					.bufferSize(256)
+					.sortOnUpload()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.createRenderSetup();
 			return RenderType.create("c_and_b_preview_inside_blocks", state);
 		}
 
@@ -50,11 +50,11 @@ public enum ModRenderTypes
 
 		private static RenderType chiselPreviewOutsideBlocks() {
 			var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline())
-				.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-				.bufferSize(256)
-				.sortOnUpload()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.createRenderSetup();
+					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+					.bufferSize(256)
+					.sortOnUpload()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.createRenderSetup();
 			return RenderType.create("c_and_b_preview_outside_blocks", state);
 		}
 
@@ -62,11 +62,11 @@ public enum ModRenderTypes
 
 		private static RenderType wireframe() {
 			var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME.pipeline())
-				.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-				.bufferSize(256)
-				.sortOnUpload()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.createRenderSetup();
+					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+					.bufferSize(256)
+					.sortOnUpload()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.createRenderSetup();
 			return RenderType.create("c_and_b_wireframe", state);
 		}
 
@@ -74,11 +74,11 @@ public enum ModRenderTypes
 
 		private static RenderType wireframeAlways() {
 			var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME_ALWAYS.pipeline())
-				.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-				.bufferSize(256)
-				.sortOnUpload()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.createRenderSetup();
+					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+					.bufferSize(256)
+					.sortOnUpload()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.createRenderSetup();
 			return RenderType.create("c_and_b_wireframe_always", state);
 		}
 
@@ -86,14 +86,14 @@ public enum ModRenderTypes
 
 		private static RenderType ghostBlock(Identifier texture) {
 			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK.pipeline())
-				.withTexture("Sampler0", texture)
-				.useLightmap()
-				.useOverlay()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.bufferSize(256)
-				.affectsCrumbling()
-				.sortOnUpload()
-				.createRenderSetup();
+					.withTexture("Sampler0", texture)
+					.useLightmap()
+					.useOverlay()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.bufferSize(256)
+					.affectsCrumbling()
+					.sortOnUpload()
+					.createRenderSetup();
 
 			return RenderType.create("c_and_b_ghost_block", state);
 		}
@@ -102,14 +102,14 @@ public enum ModRenderTypes
 
 		private static RenderType ghostBlockAlways(Identifier texture) {
 			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_ALWAYS.pipeline())
-				.withTexture("Sampler0", texture)
-				.useLightmap()
-				.useOverlay()
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.bufferSize(256)
-				.affectsCrumbling()
-				.sortOnUpload()
-				.createRenderSetup();
+					.withTexture("Sampler0", texture)
+					.useLightmap()
+					.useOverlay()
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.bufferSize(256)
+					.affectsCrumbling()
+					.sortOnUpload()
+					.createRenderSetup();
 
 			return RenderType.create("c_and_b_ghost_block_always", state);
 		}
@@ -118,11 +118,11 @@ public enum ModRenderTypes
 
 		private static RenderType ghostBlockColored() {
 			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline())
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.bufferSize(256)
-				.affectsCrumbling()
-				.sortOnUpload()
-				.createRenderSetup();
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.bufferSize(256)
+					.affectsCrumbling()
+					.sortOnUpload()
+					.createRenderSetup();
 
 			return RenderType.create("c_and_b_ghost_block_colored", state);
 		}
@@ -131,11 +131,11 @@ public enum ModRenderTypes
 
 		private static RenderType ghostBlockColoredAlways() {
 			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline())
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-				.bufferSize(256)
-				.affectsCrumbling()
-				.sortOnUpload()
-				.createRenderSetup();
+					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+					.bufferSize(256)
+					.affectsCrumbling()
+					.sortOnUpload()
+					.createRenderSetup();
 
 			return RenderType.create("c_and_b_ghost_block_colored", state);
 		}

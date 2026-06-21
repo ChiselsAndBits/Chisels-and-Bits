@@ -37,10 +37,10 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 		final Map<IntList, List<BakedQuad>> quadsByTints = new HashMap<>();
 
 		final SingleBlockBlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-			.withBlockState(information().blockState())
-			.withBlockEntity(information()::newBlockEntityAtZero)
-			.withSource(surroundings)
-			.createSingleBlockBlockAndTintGetter();
+				.withBlockState(information().blockState())
+				.withBlockEntity(information()::newBlockEntityAtZero)
+				.withSource(surroundings)
+				.createSingleBlockBlockAndTintGetter();
 
 		for (final Direction myFace : Direction.values()) {
 			QuadGenerationUtils.generateQuads(
@@ -52,38 +52,36 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 					myFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? TO : FROM,
 					(layer, quad) -> {
 
-					if (layer.material().tintIndex() != -1) {
-						quad.tintIndex(0);
-					}
+						if (layer.material().tintIndex() != -1) {
+							quad.tintIndex(0);
+						}
+
 					},
 
 
 					generatedQuad -> {
-					final List<BlockTintSource> tintSources = 
-					information.isFluid()
-					? getFluidTintSources()
-					: Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
-					final IntList tints = new IntArrayList(tintSources.size());
-					tintSources.forEach(source -> {
+						final List<BlockTintSource> tintSources = 
+						information.isFluid()
+						? getFluidTintSources()
+						: Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
+						final IntList tints = new IntArrayList(tintSources.size());
+						tintSources.forEach(source -> {
 							tints.add(
 									source.colorInWorld(information.blockState(),
 											blockAndTintGetter,
 											BlockPos.ZERO)
 							);
-					}
+						});
 
-					);
-
-					quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
-					.add(generatedQuad.quad());
-					}
-			);
+						quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
+						.add(generatedQuad.quad());
+					});
 		}
 
 		final List<BitBlockModelPart> parts = 
 		quadsByTints.entrySet().stream()
-			.map(c -> new BitBlockModelPart(c.getValue(), c.getKey()))
-			.toList();
+				.map(c -> new BitBlockModelPart(c.getValue(), c.getKey()))
+				.toList();
 
 		return new BitBlockModelInformation(parts, true, isLarge());
 	}

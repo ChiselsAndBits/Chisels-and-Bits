@@ -27,7 +27,7 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 	public static final class Builder {
 		private Direction.Axis axis;
 
-		private Builder() {}
+		private Builder() { }
 
 		public static Builder create() { return new Builder(); }
 

@@ -39,76 +39,73 @@ public class ChiseledBlockModelDataExecutor {
 
 		final IBlockNeighborhood neighborhood = IBlockNeighborhoodBuilder.getInstance().build(
 				direction -> {
-				final BlockState state = Objects.requireNonNull(tileEntity.getLevel()).getBlockState(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
-				final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
-						state,
-						Optional.ofNullable(tileEntity.getLevel().getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i())))
-				);
+					final BlockState state = Objects.requireNonNull(tileEntity.getLevel()).getBlockState(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
+					final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
+							state,
+							Optional.ofNullable(tileEntity.getLevel().getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i())))
+					);
 
-				return new BlockInformation(state, additionalStateInfo);
+					return new BlockInformation(state, additionalStateInfo);
 				},
 
 
 				direction -> {
-				final BlockEntity otherTileEntity = Objects.requireNonNull(tileEntity.getLevel()).getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
+					final BlockEntity otherTileEntity = Objects.requireNonNull(tileEntity.getLevel()).getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
 
-				if (otherTileEntity instanceof IAreaAccessor) {
-					return (IAreaAccessor) otherTileEntity;
-				}
+					if (otherTileEntity instanceof IAreaAccessor) {
+						return (IAreaAccessor) otherTileEntity;
+					}
 
-				return null;
-				}
-		);
+					return null;
+				});
 
 		CompletableFuture.supplyAsync(() -> {
-				final ChiseledBlockModelInformation chiseledBlockModelInformation = 
-				ChiseledBlockStateModelManager.getInstance().get(
-					new SingleBlockBlockAndTintGetter.Builder()
-						.withBlockEntity(() -> tileEntity)
-						.withBlockState(tileEntity.getBlockState())
-						.withSource(tileEntity.getWorld())
-						.withPos(tileEntity.getBlockPos())
-						.createSingleBlockBlockAndTintGetter(),
-						tileEntity.blockPos(),
-						tileEntity,
-						neighborhood
-				);
+			final ChiseledBlockModelInformation chiseledBlockModelInformation = 
+			ChiseledBlockStateModelManager.getInstance().get(
+				new SingleBlockBlockAndTintGetter.Builder()
+					.withBlockEntity(() -> tileEntity)
+					.withBlockState(tileEntity.getBlockState())
+					.withSource(tileEntity.getWorld())
+					.withPos(tileEntity.getBlockPos())
+					.createSingleBlockBlockAndTintGetter(),
+					tileEntity.blockPos(),
+					tileEntity,
+					neighborhood
+			);
 
-				return IModelDataBuilder.create()
-				.withInitial(
-						ModModelProperties.MODEL, chiseledBlockModelInformation
-				)
-				.build();
+			return IModelDataBuilder.create()
+			.withInitial(
+					ModModelProperties.MODEL, chiseledBlockModelInformation
+			)
+			.build();
 		},
 
 
 				recalculationService)
-			.thenAcceptAsync(tileEntity::setModelData, recalculationService)
-			.thenRunAsync(onCompleteCallback, recalculationService)
-			.thenRunAsync(() -> {
+				.thenAcceptAsync(tileEntity::setModelData, recalculationService)
+				.thenRunAsync(onCompleteCallback, recalculationService)
+				.thenRunAsync(() -> {
 					try {
-					IModelDataManager.getInstance().requestModelDataRefresh(tileEntity);
+						IModelDataManager.getInstance().requestModelDataRefresh(tileEntity);
 
-					if (tileEntity.getLevel() != null) {
-						tileEntity.getLevel().sendBlockUpdated(
-								tileEntity.getBlockPos(),
-								tileEntity.getBlockState(),
-								tileEntity.getBlockState(),
-								8
-						);
-					}
+						if (tileEntity.getLevel() != null) {
+							tileEntity.getLevel().sendBlockUpdated(
+									tileEntity.getBlockPos(),
+									tileEntity.getBlockState(),
+									tileEntity.getBlockState(),
+									8
+							);
+						}
 			} catch (Exception ignored) {
 			}
-			},
+				},
 
 
-					Minecraft.getInstance())
-			.exceptionally(throwable -> {
+						Minecraft.getInstance())
+				.exceptionally(throwable -> {
 					LOGGER.error("Failed to update model data for chiseled block entity", throwable);
 					return null;
-			}
-
-			);
+				});
 	}
 
 	private static synchronized void ensureThreadPoolSetup() {
@@ -118,13 +115,12 @@ public class ChiseledBlockModelDataExecutor {
 			recalculationService = Executors.newFixedThreadPool(
 					IClientConfiguration.getInstance().getModelBuildingThreadCount().get(),
 					runnable -> {
-					final Thread thread = new Thread(runnable);
-					thread.setContextClassLoader(classLoader);
-					thread.setName(String.format("Chisels and Bits Model builder #%s", genericThreadCounter.incrementAndGet()));
-					thread.setDaemon(true);
-					return thread;
-					}
-			);
+						final Thread thread = new Thread(runnable);
+						thread.setContextClassLoader(classLoader);
+						thread.setName(String.format("Chisels and Bits Model builder #%s", genericThreadCounter.incrementAndGet()));
+						thread.setDaemon(true);
+						return thread;
+					});
 		}
 	}
 }

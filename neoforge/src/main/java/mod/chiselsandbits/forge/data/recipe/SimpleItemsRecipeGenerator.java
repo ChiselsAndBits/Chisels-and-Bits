@@ -203,33 +203,25 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 		if (this.shapeless) {
 			final ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.TOOLS, getItemProvider());
 			tagMap.forEach((ingredientKey, tag) -> {
-					builder.requires(tag);
-					builder.unlockedBy("has_tag_" + ingredientKey, has(tag));
-			}
-
-			);
+				builder.requires(tag);
+				builder.unlockedBy("has_tag_" + ingredientKey, has(tag));
+			});
 			itemMap.forEach((ingredientKey, item) -> {
-					builder.requires(item);
-					builder.unlockedBy("has_item_" + ingredientKey, has(item));
-			}
-
-			);
+				builder.requires(item);
+				builder.unlockedBy("has_item_" + ingredientKey, has(item));
+			});
 			builder.save(this.output);
 		} else {
 			final ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(this.items, RecipeCategory.TOOLS, getItemProvider());
 			pattern.forEach(builder::pattern);
 			tagMap.forEach((ingredientKey, tag) -> {
-					builder.define(ingredientKey, tag);
-					builder.unlockedBy("has_" + ingredientKey, has(tag));
-			}
-
-			);
+				builder.define(ingredientKey, tag);
+				builder.unlockedBy("has_" + ingredientKey, has(tag));
+			});
 			itemMap.forEach((ingredientKey, item) -> {
-					builder.define(ingredientKey, item);
-					builder.unlockedBy("has_" + ingredientKey, has(item));
-			}
-
-			);
+				builder.define(ingredientKey, item);
+				builder.unlockedBy("has_" + ingredientKey, has(item));
+			});
 			builder.save(this.output);
 		}
 	}

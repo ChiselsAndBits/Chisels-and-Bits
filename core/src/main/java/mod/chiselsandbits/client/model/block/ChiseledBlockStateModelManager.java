@@ -57,8 +57,8 @@ public class ChiseledBlockStateModelManager {
 		}
 
 		final BlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-			.withBlockState(Blocks.AIR.defaultBlockState())
-			.createSingleBlockBlockAndTintGetter();
+				.withBlockState(Blocks.AIR.defaultBlockState())
+				.createSingleBlockBlockAndTintGetter();
 
 		return get(
 				blockAndTintGetter,
@@ -80,14 +80,14 @@ public class ChiseledBlockStateModelManager {
 			}
 
 			final List<@Nullable Object> cacheKeys = accessor.getStatistics().getContainedStates()
-				.stream()
-				.map(state -> IModelManager.getInstance().determineModelCacheKey(
-						state.blockState(),
-						() -> state.newBlockEntity(blockPos),
-						blockAndTintGetter,
-						blockPos
-				))
-				.toList();
+					.stream()
+					.map(state -> IModelManager.getInstance().determineModelCacheKey(
+							state.blockState(),
+							() -> state.newBlockEntity(blockPos),
+							blockAndTintGetter,
+							blockPos
+					))
+					.toList();
 
 			final ChiseledBlockModelCacheKey key = new ChiseledBlockModelCacheKey(
 					accessor.createNewShapeIdentifier(),
@@ -99,17 +99,15 @@ public class ChiseledBlockStateModelManager {
 			return cache.get(key,
 					() -> {
 
-					try (IProfilerSection ignored3 = ProfilingManager.getInstance().withSection("Cache mis")) {
-						return new ChiseledBlockModelInformationBuilder(
-								accessor,
-								key,
-								blockAndTintGetter,
-								blockPos
-								).build();
-					}
-					}
-
-			);
+						try (IProfilerSection ignored3 = ProfilingManager.getInstance().withSection("Cache mis")) {
+					return new ChiseledBlockModelInformationBuilder(
+							accessor,
+							key,
+							blockAndTintGetter,
+							blockPos
+							).build();
+				}
+					});
 		}
 	}
 }

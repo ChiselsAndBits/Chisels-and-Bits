@@ -44,10 +44,10 @@ public final class LaunchPropertyManager implements ILaunchPropertyManager {
 
 			final List<String> launchPropLines = new ArrayList<>(Files.readAllLines(launchPropertiesFilePath));
 			final Optional<String> value = launchPropLines.stream()
-				.filter(l -> !l.startsWith("#"))
-				.filter(l -> l.replace(" ", "").startsWith("%s = ".formatted(key)))
-				.findFirst()
-				.map(l -> l.replace(" ", "").replace("%s = ".formatted(key), ""));
+					.filter(l -> !l.startsWith("#"))
+					.filter(l -> l.replace(" ", "").startsWith("%s = ".formatted(key)))
+					.findFirst()
+					.map(l -> l.replace(" ", "").replace("%s = ".formatted(key), ""));
 
 			if (value.isEmpty()) {
 				launchPropLines.add("%s = %s".formatted(key, defaultValue));

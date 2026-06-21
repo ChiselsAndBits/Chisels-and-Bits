@@ -84,7 +84,7 @@ public class ChiselingContext implements IChiselingContext {
 		this.chiselMode = chiselMode;
 		this.causingItemStack = ItemStack.EMPTY;
 		this.supportsDamaging = false;
-		this.onCompleteCallback = () -> {}; //Noop this is the snapshot constructor which has no callback logic.
+		this.onCompleteCallback = () -> { }; //Noop this is the snapshot constructor which has no callback logic.
 		this.simulation = true; //Always the case for snapshots.
 		this.modeOfOperandus = modeOfOperandus;
 		this.complete = complete;
@@ -104,7 +104,7 @@ public class ChiselingContext implements IChiselingContext {
 		this.chiselMode = chiselMode;
 		this.causingItemStack = ItemStack.EMPTY;
 		this.supportsDamaging = false;
-		this.onCompleteCallback = () -> {}; //Noop this is the snapshot constructor which has no callback logic.
+		this.onCompleteCallback = () -> { }; //Noop this is the snapshot constructor which has no callback logic.
 		this.simulation = true; //Always the case for snapshots.
 		this.modeOfOperandus = modeOfOperandus;
 		this.complete = complete;
@@ -264,18 +264,16 @@ public class ChiselingContext implements IChiselingContext {
 		if (world instanceof ServerLevel level && playerEntity instanceof ServerPlayer player) {
 			final int appliedDamage = damage * StateEntrySize.current().getDamageFactor();
 			this.causingItemStack.hurtAndBreak(damage, level, player, item -> {
-					broken.set(true);
+				broken.set(true);
 
-					EquipmentSlot hand = EquipmentSlot.MAINHAND;
+				EquipmentSlot hand = EquipmentSlot.MAINHAND;
 
-					if (playerEntity.getOffhandItem() == causingItemStack) {
-						hand = EquipmentSlot.OFFHAND;
-					}
+				if (playerEntity.getOffhandItem() == causingItemStack) {
+					hand = EquipmentSlot.OFFHAND;
+				}
 
-					player.onEquippedItemBroken(item, hand);
-			}
-
-			);
+				player.onEquippedItemBroken(item, hand);
+			});
 		}
 
 		onDamaged.run();

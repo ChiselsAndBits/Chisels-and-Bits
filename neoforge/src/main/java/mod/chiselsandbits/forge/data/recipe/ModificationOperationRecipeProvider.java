@@ -33,20 +33,18 @@ public class ModificationOperationRecipeProvider extends RecipeProvider {
 				public @NotNull String getName() {
 					return "Modification table recipes";
 				}
-			}
-		);
+			});
 	}
 
 	@Override
 	protected void buildRecipes() {
 		ModModificationOperation.REGISTRY_SUPPLIER.get().forEach(
 				operation -> {
-				this.output.accept(
-						ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
-					new ModificationTableRecipe(operation),
-						null
-				);
-				}
-		);
+					this.output.accept(
+							ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
+						new ModificationTableRecipe(operation),
+							null
+					);
+				});
 	}
 }

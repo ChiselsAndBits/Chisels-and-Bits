@@ -25,12 +25,12 @@ public abstract class AbstractChiselRecipeGenerator extends AbstractRecipeGenera
 	@Override
 	protected void buildRecipes() {
 		ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, getItemProvider())
-			.pattern(" t")
-			.pattern("s ")
-			.define('s', rodTag)
-			.define('t', ingredientTag)
-			.unlockedBy("has_rod", has(rodTag))
-			.unlockedBy("has_ingredient", has(ingredientTag))
-			.save(this.output);
+				.pattern(" t")
+				.pattern("s ")
+				.define('s', rodTag)
+				.define('t', ingredientTag)
+				.unlockedBy("has_rod", has(rodTag))
+				.unlockedBy("has_ingredient", has(ingredientTag))
+				.save(this.output);
 	}
 }

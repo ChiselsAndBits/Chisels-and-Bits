@@ -118,17 +118,13 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 		final ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, getItemProvider());
 		pattern.forEach(builder::pattern);
 		tagMap.forEach((ingredientKey, tag) -> {
-				builder.define(ingredientKey, tag);
-				builder.unlockedBy("has_" + ingredientKey, has(tag));
-		}
-
-		);
+			builder.define(ingredientKey, tag);
+			builder.unlockedBy("has_" + ingredientKey, has(tag));
+		});
 		itemMap.forEach((ingredientKey, item) -> {
-				builder.define(ingredientKey, item);
-				builder.unlockedBy("has_" + ingredientKey, has(item));
-		}
-
-		);
+			builder.define(ingredientKey, item);
+			builder.unlockedBy("has_" + ingredientKey, has(item));
+		});
 		builder.save(this.output);
 	}
 }

@@ -230,22 +230,22 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		final List<BlockInformationSource> thirdStates = getAvailableBitsOnTheBack();
 
 		final List<BlockInformationSources> states = ImmutableList.<BlockInformationSource>builder()
-			.addAll(firstStates)
-			.addAll(secondStates)
-			.addAll(thirdStates)
-			.build()
-			.stream()
-			.collect(Collectors.groupingBy(
-					BlockInformationSource::blockInformation,
-					Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
-			))
-			.entrySet()
-			.stream()
-			.map(e -> new BlockInformationSources(
-					e.getKey(),
-					e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
-					e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
-					)).toList();
+				.addAll(firstStates)
+				.addAll(secondStates)
+				.addAll(thirdStates)
+				.build()
+				.stream()
+				.collect(Collectors.groupingBy(
+						BlockInformationSource::blockInformation,
+						Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
+				))
+				.entrySet()
+				.stream()
+				.map(e -> new BlockInformationSources(
+						e.getKey(),
+						e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
+						e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
+						)).toList();
 
 		if (states.isEmpty()) {
 			return ItemStack.EMPTY;
@@ -257,8 +257,8 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 		final IMultiStateSnapshot modifiableSnapshot = realisedPattern.createSnapshot();
 		modifiableSnapshot.mutableStream()
-			.filter(e -> states.stream().noneMatch(s -> s.blockInformation().equals(e.getBlockInformation())))
-			.forEach(IMutableStateEntryInfo::clear);
+				.filter(e -> states.stream().noneMatch(s -> s.blockInformation().equals(e.getBlockInformation())))
+				.forEach(IMutableStateEntryInfo::clear);
 
 		if (modifiableSnapshot.getStatics().getStateCounts().size() == 1
 				&& modifiableSnapshot.getStatics().getStateCounts().containsKey(BlockInformation.AIR)) {
@@ -294,7 +294,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 	private void damageChisel() {
 		if (getLevel() != null && !getLevel().isClientSide()) {
-			getToolStack().hurtAndBreak(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock(), (ServerLevel) getLevel(), null, (item) -> {});
+			getToolStack().hurtAndBreak(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlock(), (ServerLevel) getLevel(), null, (item) -> { });
 		}
 	}
 
@@ -519,11 +519,11 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		getResultHandler().clearContent();
 	}
 
-	public record PositionAndCount(BlockPos pos, int count) {}
+	public record PositionAndCount(BlockPos pos, int count) { }
 
-	public record BlockInformationSource(BlockInformation blockInformation, int count, BlockPos pos) {}
+	public record BlockInformationSource(BlockInformation blockInformation, int count, BlockPos pos) { }
 
-	public record BlockInformationSources(BlockInformation blockInformation, int totalCount, Set<PositionAndCount> posses) {}
+	public record BlockInformationSources(BlockInformation blockInformation, int totalCount, Set<PositionAndCount> posses) { }
 
 	public int getProgress() {
 		return this.progress;

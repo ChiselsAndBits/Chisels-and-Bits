@@ -71,9 +71,9 @@ public class ChiseledBlockGhostRenderer {
 		|| (!placementResult.isSuccess() && failure.isColoredGhost());
 
 		final ChiseledBlockModelInformation information = ChiseledBlockStateModelManager
-			.getInstance().get(
-					renderStack
-			);
+				.getInstance().get(
+						renderStack
+				);
 
 		renderGhost(
 				poseStack,
@@ -100,12 +100,12 @@ public class ChiseledBlockGhostRenderer {
 
 		if (renderColoredGhost) {
 			renderType = ignoreDepth
-			? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
-			: ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW.get();
+					? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
+					: ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW.get();
 		} else {
 			renderType = ignoreDepth
-			? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
-			: ModRenderTypes.GHOST_BLOCK_PREVIEW.get();
+					? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
+					: ModRenderTypes.GHOST_BLOCK_PREVIEW.get();
 		}
 
 		if (renderColoredGhost) {
@@ -123,11 +123,11 @@ public class ChiseledBlockGhostRenderer {
 					(int) targetedRenderPos.z()
 			);
 			final BlockAndTintGetter blockAndTintGetter = new SingleBlockBlockAndTintGetter.Builder()
-				.withBlockState(model.key().primaryState().blockState())
-				.withBlockEntity(() -> model.key().primaryState().newBlockEntity(placementPosition))
-				.withPos(placementPosition)
-				.withSource(Minecraft.getInstance().level)
-				.createSingleBlockBlockAndTintGetter();
+					.withBlockState(model.key().primaryState().blockState())
+					.withBlockEntity(() -> model.key().primaryState().newBlockEntity(placementPosition))
+					.withPos(placementPosition)
+					.withSource(Minecraft.getInstance().level)
+					.createSingleBlockBlockAndTintGetter();
 
 			final BlockQuadOutput output = (x, y, z, quad, instance) -> putBakedQuad(poseStack, bufferSource, x, y, z, quad, instance, color);
 			ModelBlockRenderer blockRenderer = new ModelBlockRenderer(
@@ -231,28 +231,24 @@ public class ChiseledBlockGhostRenderer {
 	private static Vector3f[] getShadedColors(final Vector4f color) {
 	// Directionally shade the color by the amount MC normally does
 		return Arrays.stream(Direction.values())
-			.map(direction -> {
+				.map(direction -> {
 					final float brightness = DIRECTIONAL_BRIGHTNESS[direction.get3DDataValue()];
 					return new Vector3f(
 							color.x() * brightness,
 							color.y() * brightness,
 							color.z() * brightness);
-			}
-
-					).toArray(Vector3f[]::new);
+				}).toArray(Vector3f[]::new);
 	}
 
 	private static Vector3f[] getNormals(final PoseStack.Pose pose) {
 	// Transform the normal vector of each direction by the pose's normal matrix
 		return Arrays.stream(Direction.values())
-			.map(direction -> {
+				.map(direction -> {
 					final Vec3i faceNormal = direction.getUnitVec3i();
 					final Vector3f normal = new Vector3f(faceNormal.getX(), faceNormal.getY(), faceNormal.getZ());
 					normal.mul(pose.normal());
 					return normal;
-			}
-
-					).toArray(Vector3f[]::new);
+				}).toArray(Vector3f[]::new);
 	}
 
 	/**
@@ -344,11 +340,11 @@ public class ChiseledBlockGhostRenderer {
 			);
 
 			buffer.addVertex(pos.x(), pos.y(), pos.z())
-				.setColor(color.x(), color.y(), color.z(), 1f)
-				.setUv(uv.x(), uv.y())
-				.setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
-				.setUv2(LightCoordsUtil.block(LightCoordsUtil.FULL_BRIGHT), LightCoordsUtil.sky(LightCoordsUtil.FULL_SKY))
-				.setNormal(normal.x(), normal.y(), normal.z());
+					.setColor(color.x(), color.y(), color.z(), 1f)
+					.setUv(uv.x(), uv.y())
+					.setUv1(Short.MAX_VALUE, Short.MAX_VALUE)
+					.setUv2(LightCoordsUtil.block(LightCoordsUtil.FULL_BRIGHT), LightCoordsUtil.sky(LightCoordsUtil.FULL_SKY))
+					.setNormal(normal.x(), normal.y(), normal.z());
 		}
 	}
 }

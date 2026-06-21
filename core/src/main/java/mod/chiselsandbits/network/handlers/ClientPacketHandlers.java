@@ -37,7 +37,7 @@ public final class ClientPacketHandlers {
 	}
 
 	public static void handleChiseledBlockUpdated(final BlockPos blockPos, final FriendlyByteBuf updateData) {
-		try(IProfilerSection ignored = ProfilingManager.getInstance().withSection("Handling tile entity update packet")) {
+		try (IProfilerSection ignored = ProfilingManager.getInstance().withSection("Handling tile entity update packet")) {
 			if (Minecraft.getInstance().level != null) {
 				BlockEntity tileEntity = Minecraft.getInstance().level.getBlockEntity(blockPos);
 
@@ -65,24 +65,24 @@ public final class ClientPacketHandlers {
 	public static void handleChangeTrackerUpdated(final Deque<IChange> tag) {
 		IChangeTrackerManager.getInstance().getChangeTracker(Minecraft.getInstance().player).setChanges(tag);
 
-		if(Minecraft.getInstance().screen instanceof AbstractChiselsAndBitsScreen) {
+		if (Minecraft.getInstance().screen instanceof AbstractChiselsAndBitsScreen) {
 			((AbstractChiselsAndBitsScreen) Minecraft.getInstance().screen).getWidgets()
-				.stream()
-				.filter(ChangeTrackerOperationsWidget.class::isInstance)
-				.map(ChangeTrackerOperationsWidget.class::cast)
-				.forEach(ChangeTrackerOperationsWidget::updateState);
+					.stream()
+					.filter(ChangeTrackerOperationsWidget.class::isInstance)
+					.map(ChangeTrackerOperationsWidget.class::cast)
+					.forEach(ChangeTrackerOperationsWidget::updateState);
 		}
 	}
 
 	public static void handleNeighborUpdated(final BlockPos toUpdate, Block neighborBlock, final Orientation orientation) {
 		Minecraft.getInstance().level.getBlockState(toUpdate)
-			.handleNeighborChanged(
-					Minecraft.getInstance().level,
-					toUpdate,
-					neighborBlock,
-					orientation,
-					false
-			);
+				.handleNeighborChanged(
+						Minecraft.getInstance().level,
+						toUpdate,
+						neighborBlock,
+						orientation,
+						false
+				);
 	}
 
 	public static void handleAddMultiStateToClipboard(final ItemStack stack) {
@@ -105,15 +105,11 @@ public final class ClientPacketHandlers {
 	public static void handleImportPatternCommandMessage(final String name) {;
 		final Either<IMultiStateItemStack, PatternIOException> importResult = IPatternSharingManager.getInstance().importPattern(name);
 		importResult.ifLeft(stack -> {
-				ChiselsAndBits.getInstance().getNetworkChannel()
-				.sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
-		}
-
-		);
+			ChiselsAndBits.getInstance().getNetworkChannel()
+			.sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
+		});
 		importResult.ifRight(e -> {
-				Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
-		}
-
-		);
+			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
+		});
 	}
 }

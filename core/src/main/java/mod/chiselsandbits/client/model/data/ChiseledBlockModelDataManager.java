@@ -6,7 +6,7 @@ import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import org.jspecify.annotations.Nullable;
 
 public class ChiseledBlockModelDataManager {
-	private static final Runnable NOOP = () -> {};
+	private static final Runnable NOOP = () -> { };
 	private static final ChiseledBlockModelDataManager INSTANCE = new ChiseledBlockModelDataManager();
 
 	public static ChiseledBlockModelDataManager getInstance() {

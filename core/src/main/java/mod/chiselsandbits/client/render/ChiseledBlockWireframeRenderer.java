@@ -34,10 +34,10 @@ public class ChiseledBlockWireframeRenderer {
 		final double zView = vector3d.z();
 
 		final RenderType renderType = ignoreDepth
-		? ModRenderTypes.WIREFRAME_LINES_ALWAYS.get()
-		: ModRenderTypes.WIREFRAME_LINES.get();
+				? ModRenderTypes.WIREFRAME_LINES_ALWAYS.get()
+				: ModRenderTypes.WIREFRAME_LINES.get();
 
-		//48/255f, 120/255f, 201/255f
+				//48/255f, 120/255f, 201/255f
 		ShapeRenderer.renderShape(
 				stack,
 				Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(renderType),

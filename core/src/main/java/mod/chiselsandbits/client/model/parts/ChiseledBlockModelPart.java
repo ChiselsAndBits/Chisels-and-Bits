@@ -28,7 +28,7 @@ public record ChiseledBlockModelPart(
 		Material.Baked particleMaterial,
 		int materialFlags,
 		Supplier<Vector3fc[]> extendsCalculator
-		) implements BlockStateModelPart, ExtendedBlockStateModelPart {
+) implements BlockStateModelPart, ExtendedBlockStateModelPart {
 	public ChiseledBlockModelPart(
 			final BlockInformation source,
 			final BlockState appearance,
@@ -45,18 +45,17 @@ public record ChiseledBlockModelPart(
 				materialFlags,
 				Suppliers.memoize(
 						() -> {
-						Set<Vector3fc> set = new HashSet<>();
+							Set<Vector3fc> set = new HashSet<>();
 
-						for (BakedQuad bakedquad : quads.getAll()) {
+							for (BakedQuad bakedquad : quads.getAll()) {
 
-						for (int i = 0; i <4; i++) {
-						set.add(bakedquad.position(i));
-						}
-						}
+								for (int i = 0; i <4; i++) {
+					set.add(bakedquad.position(i));
+				}
+							}
 
-						return set.toArray(Vector3fc[]::new);
-						}
-				)
+							return set.toArray(Vector3fc[]::new);
+						})
 		);
 	}
 

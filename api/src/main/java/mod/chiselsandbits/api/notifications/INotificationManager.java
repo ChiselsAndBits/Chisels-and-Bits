@@ -28,23 +28,21 @@ public interface INotificationManager {
 	 */
 	default void notify(final Identifier icon, final Vec3 color, final Component message) {
 		notify(new INotification() {
-				@Override
-				public @NotNull Vec3 getColorVector() {
-					return color;
-				}
+			@Override
+			public @NotNull Vec3 getColorVector() {
+				return color;
+			}
 
-				@Override
-				public Identifier getIcon() {
-					return icon;
-				}
+			@Override
+			public Identifier getIcon() {
+				return icon;
+			}
 
-				@Override
-				public @NotNull Component getText() {
-					return message;
-				}
-		}
-
-		);
+			@Override
+			public @NotNull Component getText() {
+				return message;
+			}
+		});
 	}
 
 	/**

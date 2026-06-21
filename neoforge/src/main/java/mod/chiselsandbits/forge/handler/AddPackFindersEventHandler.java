@@ -32,46 +32,44 @@ public class AddPackFindersEventHandler {
 	@SubscribeEvent
 	public static void onAddPackFinders(AddPackFindersEvent event) {
 		event.addRepositorySource(registrar -> {
-				try {
-					final URI coreJarMarkerUri = Objects.requireNonNull(ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker"))
-					.toURI();
+			try {
+				final URI coreJarMarkerUri = Objects.requireNonNull(ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker"))
+				.toURI();
 
-					if (coreJarMarkerUri.getScheme().equals("jar")) {
-						try {
-							FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
-					} catch (Exception ignored) {}
-					}
+				if (coreJarMarkerUri.getScheme().equals("jar")) {
+					try {
+						FileSystems.newFileSystem(coreJarMarkerUri, Map.of());
+					} catch (Exception ignored) { }
+				}
 
-					final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
+				final Path coreJarPath = Path.of(coreJarMarkerUri).getParent();
 
-					final PackLocationInfo packLocationInfo = new PackLocationInfo(
-							"chiselsandbits-core",
-							Component.literal("Chisels & Bits Core"),
-							PackSource.BUILT_IN,
-							Optional.of(
-								new KnownPack(Constants.MOD_ID, "core", ModList.get().getModFileById(Constants.MOD_ID).versionString())
-							)
-					);
+				final PackLocationInfo packLocationInfo = new PackLocationInfo(
+						"chiselsandbits-core",
+						Component.literal("Chisels & Bits Core"),
+						PackSource.BUILT_IN,
+						Optional.of(
+							new KnownPack(Constants.MOD_ID, "core", ModList.get().getModFileById(Constants.MOD_ID).versionString())
+						)
+				);
 
-					final PackResources packResources = new PathPackResources(
-							packLocationInfo,
-							coreJarPath
-					);
+				final PackResources packResources = new PathPackResources(
+						packLocationInfo,
+						coreJarPath
+				);
 
-					final Pack pack = Pack.readMetaAndCreate(
-							packLocationInfo,
-						new SinglePackResourceResourcesSupplier(packResources),
-							event.getPackType(),
-						new PackSelectionConfig(true, Pack.Position.TOP, true)
-					);
+				final Pack pack = Pack.readMetaAndCreate(
+						packLocationInfo,
+					new SinglePackResourceResourcesSupplier(packResources),
+						event.getPackType(),
+					new PackSelectionConfig(true, Pack.Position.TOP, true)
+				);
 
-					registrar.accept(pack);
+				registrar.accept(pack);
 			} catch (Exception e) {
-					LOGGER.error("Failed to inject Core Resource Pack.C&B Assets will not be loaded!", e);
+				LOGGER.error("Failed to inject Core Resource Pack.C&B Assets will not be loaded!", e);
 			}
-		}
-
-		);
+		});
 	}
 
 	private record SinglePackResourceResourcesSupplier(PackResources packResources) implements Pack.ResourcesSupplier {

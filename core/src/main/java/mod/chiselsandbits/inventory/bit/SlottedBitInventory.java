@@ -63,13 +63,13 @@ public class SlottedBitInventory extends AbstractBitInventory implements IWatcha
 
 	protected Stream<BitSlot> getContents() {
 		return this.slotMap.values().stream()
-			.filter(Predicate.not(ItemStack::isEmpty))
-			.map(
-					stack -> new BitSlot(
-							((IBitItem) stack.getItem()).getBlockInformation(stack),
-							stack.getCount()
-					)
-			);
+				.filter(Predicate.not(ItemStack::isEmpty))
+				.map(
+						stack -> new BitSlot(
+								((IBitItem) stack.getItem()).getBlockInformation(stack),
+								stack.getCount()
+						)
+				);
 	}
 
 	protected void onChange() {

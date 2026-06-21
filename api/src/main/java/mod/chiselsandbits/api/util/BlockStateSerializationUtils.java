@@ -17,9 +17,8 @@ public class BlockStateSerializationUtils {
 	public static Codec<BlockState> LEGACY_BLOCK_STATE_CODEC = Codec.STRING.comapFlatMap(
 			BlockStateSerializationUtils::deserialize,
 			blockState -> {
-			throw new IllegalStateException("Cannot serialize BlockState into a legacy format");
-			}
-	);
+				throw new IllegalStateException("Cannot serialize BlockState into a legacy format");
+			});
 
 	private BlockStateSerializationUtils() {
 		throw new IllegalStateException("Can not instantiate an instance of: BlockStateSerializationUtils.This is a utility class");

@@ -20,36 +20,32 @@ public final class FrameBasedInputTracker {
 	private final InputTracker leftMouseTracker = new InputTracker(
 			() -> DistExecutor.runForDist(() -> () -> Minecraft.getInstance().options.keyAttack.isDown(), () -> () -> false),
 			() -> {
-			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, true));
+				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, true));
 
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedLeftClicking(Minecraft.getInstance().player));
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedLeftClicking(Minecraft.getInstance().player));
 			},
 
 
 			() -> {
-			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, false));
+				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(true, false));
 
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedLeftClicking(Minecraft.getInstance().player));
-			}
-
-	);
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedLeftClicking(Minecraft.getInstance().player));
+			});
 
 	private final InputTracker rightMouseTracker = new InputTracker(
 			() -> DistExecutor.runForDist(() -> () -> Minecraft.getInstance().options.keyUse.isDown(), () -> () -> false),
 			() -> {
-			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, true));
+				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, true));
 
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedRightClicking(Minecraft.getInstance().player));
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStartedRightClicking(Minecraft.getInstance().player));
 			},
 
 
 			() -> {
-			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, false));
+				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new InputTrackerStatusUpdatePacket(false, false));
 
-			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedRightClicking(Minecraft.getInstance().player));
-			}
-
-	);
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ProcessingInputTracker.getInstance().onStoppedRightClicking(Minecraft.getInstance().player));
+			});
 
 	private FrameBasedInputTracker() {
 	}

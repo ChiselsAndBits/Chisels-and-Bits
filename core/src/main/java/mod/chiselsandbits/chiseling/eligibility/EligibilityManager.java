@@ -39,10 +39,8 @@ public class EligibilityManager implements IEligibilityManager {
 
 	private static final SimpleMaxSizedCache<BlockInformation, IEligibilityAnalysisResult> cache = 
 	new SimpleMaxSizedCache<>(() -> {
-			return IPlatformRegistryManager.getInstance().getBlockStateIdMap().size() == 0 ? 1000 : IPlatformRegistryManager.getInstance().getBlockStateIdMap().size();
-	}
-
-	);
+		return IPlatformRegistryManager.getInstance().getBlockStateIdMap().size() == 0 ? 1000 : IPlatformRegistryManager.getInstance().getBlockStateIdMap().size();
+	});
 
 	private EligibilityManager() {
 	}
@@ -55,148 +53,146 @@ public class EligibilityManager implements IEligibilityManager {
 	@Override
 	public IEligibilityAnalysisResult analyse(@NotNull final BlockInformation blockInformation) {
 		return cache.get(blockInformation, () -> {
-				if (blockInformation.blockState().getBlock() instanceof ChiseledBlock) {
-					return new EligibilityAnalysisResult(
-							false,
-							true,
-							LocalStrings.ChiselSupportIsAlreadyChiseled.getText()
-					);
-				}
-
-				if (blockInformation.variant().isPresent()){
-					return new EligibilityAnalysisResult(
-							true,
-							false,
-							LocalStrings.ChiselSupportLogicIgnored.getText()
-					);
-				}
-
-				final Block blk = blockInformation.blockState().getBlock();
-
-				if (blockInformation.blockState().is(ModTags.Blocks.BLOCKED_CHISELABLE)) {
-					return new EligibilityAnalysisResult(
-							false,
-							false,
-							TranslationUtils.build(LocalStrings.ChiselSupportTagBlackListed)
-					);
-				}
-
-				if (blockInformation.blockState().is(ModTags.Blocks.FORCED_CHISELABLE)) {
-					return new EligibilityAnalysisResult(
-							true,
-							false,
-							TranslationUtils.build(LocalStrings.ChiselSupportTagWhitelisted)
-					);
-				}
-
-				try {
-				// require basic hardness behavior...
-					final ReflectionHelperBlock pb = ModBlocks.REFLECTION_HELPER_BLOCK.get();
-					final Class<? extends Block> blkClass = blk.getClass();
-
-					// custom dropping behavior?
-					pb.getDrops(blockInformation.blockState(), null);
-					final Class<?> wc = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, LootParams.Builder.class);
-					final boolean quantityDroppedTest = wc == Block.class || wc == BlockBehaviour.class || wc == LiquidBlock.class;
-
-					final boolean isNotSlab = Item.byBlock(blk) != Items.AIR || blockInformation.blockState().getBlock() instanceof LiquidBlock;
-					boolean itemExistsOrNotSpecialDrops = quantityDroppedTest || isNotSlab;
-
-					// ignore blocks with custom collision.
-					pb.getShape(null, null, null, null);
-					Class<?> collisionClass = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, BlockGetter.class, BlockPos.class, CollisionContext.class);
-					boolean noCustomCollision = collisionClass == Block.class || collisionClass == BlockBehaviour.class || blk.getClass() == SlimeBlock.class || collisionClass == LiquidBlock.class;
-
-					// full cube specifically is tied to lighting...so for glass
-					// Compatibility use isFullBlock which can be true for glass.
-					boolean isFullBlock = blockInformation.blockState().canOcclude() || blk instanceof TransparentBlock || blk instanceof LiquidBlock;
-					final BlockEligibilityAnalysisData info = BlockEligibilityAnalysisData.createFromState(blockInformation);
-
-					final boolean tickingBehavior = blockInformation.blockState().isRandomlyTicking() && IServerConfiguration.getInstance().getBlackListRandomTickingBlocks().get();
-					boolean hasBehavior = (blk instanceof EntityBlock || tickingBehavior);
-
-					if (blkClass.isAnnotationPresent(IgnoreBlockLogic.class)) {
-						isFullBlock = true;
-						noCustomCollision = true;
-						hasBehavior = false;
-						itemExistsOrNotSpecialDrops = true;
-					}
-
-					if (info.isCompatible() && noCustomCollision && info.getHardness()>= -0.01f && isFullBlock && !hasBehavior && itemExistsOrNotSpecialDrops) {
-						return new EligibilityAnalysisResult(
-								true,
-								false,
-								TranslationUtils.build ((blkClass.isAnnotationPresent(IgnoreBlockLogic.class))
-										? LocalStrings.ChiselSupportLogicIgnored
-										: LocalStrings.ChiselSupportGenericSupported
-								));
-					}
-
-					if (!blockInformation.blockState().getFluidState().isEmpty() && blockInformation.blockState().getBlock() instanceof LiquidBlock) {
-						return new EligibilityAnalysisResult(
-								true,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportGenericFluidSupport)
-						);
-					}
-
-					EligibilityAnalysisResult result = null;
-
-					if (!info.isCompatible()) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportCompatDeactivated)
-						);
-					} else if (!noCustomCollision) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportCustomCollision)
-						);
-					} else if (info.getHardness() <-0.01f) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportNoHardness)
-						);
-					} else if (!isNotSlab) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportIsSlab)
-						);
-					} else if (!isFullBlock) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportNotFullBlock)
-						);
-					} else if (hasBehavior) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportHasBehaviour)
-						);
-					} else if (!quantityDroppedTest) {
-						result = new EligibilityAnalysisResult(
-								false,
-								false,
-								TranslationUtils.build(LocalStrings.ChiselSupportHasCustomDrops)
-						);
-					}
-
-					return result;
-			} catch (final Throwable t) {
-					return new EligibilityAnalysisResult(
-							false,
-							false,
-							TranslationUtils.build(LocalStrings.ChiselSupportFailureToAnalyze)
-					);
+			if (blockInformation.blockState().getBlock() instanceof ChiseledBlock) {
+				return new EligibilityAnalysisResult(
+						false,
+						true,
+						LocalStrings.ChiselSupportIsAlreadyChiseled.getText()
+				);
 			}
-		}
 
-		);
+			if (blockInformation.variant().isPresent()){
+				return new EligibilityAnalysisResult(
+						true,
+						false,
+						LocalStrings.ChiselSupportLogicIgnored.getText()
+				);
+			}
+
+			final Block blk = blockInformation.blockState().getBlock();
+
+			if (blockInformation.blockState().is(ModTags.Blocks.BLOCKED_CHISELABLE)) {
+				return new EligibilityAnalysisResult(
+						false,
+						false,
+						TranslationUtils.build(LocalStrings.ChiselSupportTagBlackListed)
+				);
+			}
+
+			if (blockInformation.blockState().is(ModTags.Blocks.FORCED_CHISELABLE)) {
+				return new EligibilityAnalysisResult(
+						true,
+						false,
+						TranslationUtils.build(LocalStrings.ChiselSupportTagWhitelisted)
+				);
+			}
+
+			try {
+			// require basic hardness behavior...
+				final ReflectionHelperBlock pb = ModBlocks.REFLECTION_HELPER_BLOCK.get();
+				final Class<? extends Block> blkClass = blk.getClass();
+
+				// custom dropping behavior?
+				pb.getDrops(blockInformation.blockState(), null);
+				final Class<?> wc = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, LootParams.Builder.class);
+				final boolean quantityDroppedTest = wc == Block.class || wc == BlockBehaviour.class || wc == LiquidBlock.class;
+
+				final boolean isNotSlab = Item.byBlock(blk) != Items.AIR || blockInformation.blockState().getBlock() instanceof LiquidBlock;
+				boolean itemExistsOrNotSpecialDrops = quantityDroppedTest || isNotSlab;
+
+				// ignore blocks with custom collision.
+				pb.getShape(null, null, null, null);
+				Class<?> collisionClass = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, BlockGetter.class, BlockPos.class, CollisionContext.class);
+				boolean noCustomCollision = collisionClass == Block.class || collisionClass == BlockBehaviour.class || blk.getClass() == SlimeBlock.class || collisionClass == LiquidBlock.class;
+
+				// full cube specifically is tied to lighting...so for glass
+				// Compatibility use isFullBlock which can be true for glass.
+				boolean isFullBlock = blockInformation.blockState().canOcclude() || blk instanceof TransparentBlock || blk instanceof LiquidBlock;
+				final BlockEligibilityAnalysisData info = BlockEligibilityAnalysisData.createFromState(blockInformation);
+
+				final boolean tickingBehavior = blockInformation.blockState().isRandomlyTicking() && IServerConfiguration.getInstance().getBlackListRandomTickingBlocks().get();
+				boolean hasBehavior = (blk instanceof EntityBlock || tickingBehavior);
+
+				if (blkClass.isAnnotationPresent(IgnoreBlockLogic.class)) {
+					isFullBlock = true;
+					noCustomCollision = true;
+					hasBehavior = false;
+					itemExistsOrNotSpecialDrops = true;
+				}
+
+				if (info.isCompatible() && noCustomCollision && info.getHardness()>= -0.01f && isFullBlock && !hasBehavior && itemExistsOrNotSpecialDrops) {
+					return new EligibilityAnalysisResult(
+							true,
+							false,
+							TranslationUtils.build ((blkClass.isAnnotationPresent(IgnoreBlockLogic.class))
+									? LocalStrings.ChiselSupportLogicIgnored
+									: LocalStrings.ChiselSupportGenericSupported
+							));
+				}
+
+				if (!blockInformation.blockState().getFluidState().isEmpty() && blockInformation.blockState().getBlock() instanceof LiquidBlock) {
+					return new EligibilityAnalysisResult(
+							true,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportGenericFluidSupport)
+					);
+				}
+
+				EligibilityAnalysisResult result = null;
+
+				if (!info.isCompatible()) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportCompatDeactivated)
+					);
+				} else if (!noCustomCollision) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportCustomCollision)
+					);
+				} else if (info.getHardness() <-0.01f) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportNoHardness)
+					);
+				} else if (!isNotSlab) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportIsSlab)
+					);
+				} else if (!isFullBlock) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportNotFullBlock)
+					);
+				} else if (hasBehavior) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportHasBehaviour)
+					);
+				} else if (!quantityDroppedTest) {
+					result = new EligibilityAnalysisResult(
+							false,
+							false,
+							TranslationUtils.build(LocalStrings.ChiselSupportHasCustomDrops)
+					);
+				}
+
+				return result;
+			} catch (final Throwable t) {
+				return new EligibilityAnalysisResult(
+						false,
+						false,
+						TranslationUtils.build(LocalStrings.ChiselSupportFailureToAnalyze)
+				);
+			}
+		});
 	}
 
 	/**

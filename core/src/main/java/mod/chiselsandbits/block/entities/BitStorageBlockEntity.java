@@ -253,7 +253,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 	private float getBitCountFrom(final FluidInformation containedFluid) {
 		return StateEntrySize.current()
-			.getBitsPerBlock() * (containedFluid.amount() / (float) IFluidManager.getInstance().getBucketAmount());
+				.getBitsPerBlock() * (containedFluid.amount() / (float) IFluidManager.getInstance().getBucketAmount());
 	}
 
 	public boolean extractBits(
@@ -387,7 +387,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 		final long amount = (long) (bits / (StateEntrySize.current().getBitsPerBlock() / (float) IFluidManager.getInstance().getBucketAmount()));
 		final Optional<FluidInformation> dynamicFluid = IStateVariantManager.getInstance()
-			.getFluidInformation(this.state, amount);
+				.getFluidInformation(this.state, amount);
 
 		if (dynamicFluid.isPresent()) {
 			return dynamicFluid;
@@ -407,7 +407,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 		final long amount = (long) (bits / (StateEntrySize.current().getBitsPerBlock() / (float) IFluidManager.getInstance().getBucketAmount()));
 		final Optional<FluidInformation> dynamicFluid = IStateVariantManager.getInstance()
-			.getFluidInformation(this.state, amount);
+				.getFluidInformation(this.state, amount);
 
 		if (dynamicFluid.isPresent()) {
 			return true;

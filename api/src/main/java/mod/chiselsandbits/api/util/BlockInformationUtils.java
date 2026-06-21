@@ -64,13 +64,13 @@ public class BlockInformationUtils {
 		final BlockInformation[] result = new BlockInformation[count];
 
 		final BlockInformation[] blockLookup = blocks.getValues().stream()
-			.parallel()
-			.map(block -> new BlockInformation(
-					block.defaultBlockState(),
-					IStateVariantManager.getInstance().getStateVariant(block.defaultBlockState(), Optional.empty())
-			))
-			.filter(blockInformation -> IEligibilityManager.getInstance().canBeChiseled(blockInformation))
-			.toArray(BlockInformation[]::new);
+				.parallel()
+				.map(block -> new BlockInformation(
+						block.defaultBlockState(),
+						IStateVariantManager.getInstance().getStateVariant(block.defaultBlockState(), Optional.empty())
+				))
+				.filter(blockInformation -> IEligibilityManager.getInstance().canBeChiseled(blockInformation))
+				.toArray(BlockInformation[]::new);
 
 		for (int i = 0; i <count; i++) {
 			result[i] = blockLookup[random.nextInt(blockLookup.length)];

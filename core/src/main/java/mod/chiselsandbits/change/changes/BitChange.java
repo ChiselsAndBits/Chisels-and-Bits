@@ -139,43 +139,37 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, afterStates.getOrDefault(state, 0) - count));
 		afterStates.forEach((state, count) -> {
-				if (!difference.containsKey(state)) {
-					difference.put(state, count);
-				}
-		}
+			if (!difference.containsKey(state)) {
+				difference.put(state, count);
+			}
+		});
 
-		);
-
-		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
+		try (IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			before.stream().forEach(
 					iStateEntryInfo -> {
 
-					try {
-						multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
+						try {
+					multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
 				} catch (SpaceOccupiedException e) {
 				//Noop
 				}
-					}
-
-			);
+					});
 		}
 
 		if (!player.isCreative()) {
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {
-					if (state.isAir()) {
-						return;
-					}
+				if (state.isAir()) {
+					return;
+				}
 
-					if (diff <0) {
-						bitInventory.extract(state, -diff);
-					} else {
-						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
-					}
-			}
-
-			);
+				if (diff <0) {
+					bitInventory.extract(state, -diff);
+				} else {
+					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
+				}
+			});
 		}
 	}
 
@@ -216,39 +210,33 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, count - afterStates.getOrDefault(state, 0)));
 		afterStates.forEach((state, count) -> {
-				if (!difference.containsKey(state)) {
-					difference.put(state, -count);
-				}
-		}
+			if (!difference.containsKey(state)) {
+				difference.put(state, -count);
+			}
+		});
 
-		);
-
-		try(IBatchMutation batch = multiStateBlockEntity.batch()) {
+		try (IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			after.stream().forEach(
 					s -> {
 
-					try {
-						multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
+						try {
+					multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
 				} catch (SpaceOccupiedException e) {
 				//Noop
 				}
-					}
-
-			);
+					});
 		}
 
 		if (!player.isCreative()) {
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {
-					if (diff <0) {
-						bitInventory.extract(state, -diff);
-					} else {
-						BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
-					}
-			}
-
-			);
+				if (diff <0) {
+					bitInventory.extract(state, -diff);
+				} else {
+					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
+				}
+			});
 		}
 	}
 
@@ -263,17 +251,15 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, afterStates.getOrDefault(state, 0) - count));
 		afterStates.forEach((state, count) -> {
-				if (!difference.containsKey(state)) {
-					difference.put(state, count);
-				}
-		}
-
-		);
+			if (!difference.containsKey(state)) {
+				difference.put(state, count);
+			}
+		});
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-			.filter(e -> e.getValue() <0)
-			.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
+				.filter(e -> e.getValue() <0)
+				.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 
 	private boolean hasRequiredRedoBits(final Player player) {
@@ -287,17 +273,15 @@ public class BitChange implements IChange {
 		final Map<BlockInformation, Integer> difference = Maps.newHashMap();
 		beforeStates.forEach((state, count) -> difference.put(state, count - afterStates.getOrDefault(state, 0)));
 		afterStates.forEach((state, count) -> {
-				if (!difference.containsKey(state)) {
-					difference.put(state, -count);
-				}
-		}
-
-		);
+			if (!difference.containsKey(state)) {
+				difference.put(state, -count);
+			}
+		});
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-			.filter(e -> e.getValue() <0)
-			.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
+				.filter(e -> e.getValue() <0)
+				.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 
 	@Override

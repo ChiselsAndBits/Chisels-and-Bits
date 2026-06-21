@@ -75,13 +75,13 @@ public class AABBCompressor {
 								.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
 								.filter(b -> b)
 								.isPresent()) {
-							state.expandCurrentBoxToInclude(entryData, centerPoint);
+									state.expandCurrentBoxToInclude(entryData, centerPoint);
 
-							if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
-								return;
-							}
+									if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
+										return;
+									}
 
-							return;
+									return;
 								}
 					}
 
@@ -91,9 +91,7 @@ public class AABBCompressor {
 
 					state.setCurrentBox(potentialEntryData.get(), centerPoint);
 				}
-			}
-
-		);
+			});
 		return Lists.newArrayList(state.getBoxes());
 	}
 

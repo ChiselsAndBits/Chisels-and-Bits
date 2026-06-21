@@ -44,7 +44,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	private long lastOnTake;
 	final Slot inputInventorySlot;
 	final Slot outputInventorySlot;
-	private Runnable inventoryUpdateListener = () -> {};
+	private Runnable inventoryUpdateListener = () -> { };
 	public final Container inputInventory = new SimpleContainer(1) {
 		public void setChanged() {
 			super.setChanged();
@@ -66,37 +66,33 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 		this.world = playerInventoryIn.player.level();
 		this.inputInventorySlot = this.addSlot(new Slot(this.inputInventory, 0, 20, 33));
 		this.outputInventorySlot = this.addSlot(new Slot(this.inventory, 1, 143, 33) {
-				/**
-				 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-				 */
-				public boolean mayPlace(@NotNull ItemStack stack) {
-					return false;
+			/**
+			 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+			 */
+			public boolean mayPlace(@NotNull ItemStack stack) {
+				return false;
+			}
+
+			public void onTake(@NotNull Player thePlayer, @NotNull ItemStack stack) {
+				stack.onCraftedBy(thePlayer, stack.getCount());
+				ModificationTableContainer.this.inventory.awardUsedRecipes(thePlayer, List.of(ModificationTableContainer.this.inputInventorySlot.getItem()));
+				ItemStack itemstack = ModificationTableContainer.this.inputInventorySlot.remove(1);
+
+				if (!itemstack.isEmpty()) {
+					ModificationTableContainer.this.updateRecipeResultSlot();
 				}
 
-				public void onTake(@NotNull Player thePlayer, @NotNull ItemStack stack) {
-					stack.onCraftedBy(thePlayer, stack.getCount());
-					ModificationTableContainer.this.inventory.awardUsedRecipes(thePlayer, List.of(ModificationTableContainer.this.inputInventorySlot.getItem()));
-					ItemStack itemstack = ModificationTableContainer.this.inputInventorySlot.remove(1);
+				worldPosCallableIn.execute((p_216954_1_, p_216954_2_) -> {
+					long l = p_216954_1_.getGameTime();
 
-					if (!itemstack.isEmpty()) {
-						ModificationTableContainer.this.updateRecipeResultSlot();
+					if (ModificationTableContainer.this.lastOnTake != l) {
+						p_216954_1_.playSound(null, p_216954_2_, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
+						ModificationTableContainer.this.lastOnTake = l;
 					}
-
-					worldPosCallableIn.execute((p_216954_1_, p_216954_2_) -> {
-							long l = p_216954_1_.getGameTime();
-
-							if (ModificationTableContainer.this.lastOnTake != l) {
-							p_216954_1_.playSound(null, p_216954_2_, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
-							ModificationTableContainer.this.lastOnTake = l;
-							}
-					}
-
-					);
-					super.onTake(thePlayer, stack);
-				}
-		}
-
-		);
+				});
+				super.onTake(thePlayer, stack);
+			}
+		});
 
 		for (int i = 0; i <3; ++i) {
 			for (int j = 0; j <9; ++j) {
@@ -175,13 +171,13 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			final CraftingInput input = CraftingInput.of(1, 1, List.of(stack));
 			this.recipes = 
 			this.world.getServer() != null
-			? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
-			: new ArrayList<>();
+					? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
+					: new ArrayList<>();
 			this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().operation().getRegistryName()).toString()));
 
 			if (!this.world.isClientSide() && this.playerInventory.player instanceof ServerPlayer serverPlayer) {
 				ChiselsAndBits.getInstance().getNetworkChannel()
-					.sendToPlayer(new ModificationRecipesUpdated(this.recipes), serverPlayer);
+						.sendToPlayer(new ModificationRecipesUpdated(this.recipes), serverPlayer);
 			}
 		}
 	}

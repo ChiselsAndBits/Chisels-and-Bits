@@ -21,30 +21,30 @@ public class ModEffectHandlers {
 
 	public static void onClientConstruction() {
 		IEffectManager.getInstance()
-			.setupHitEffects(registrar -> {
+				.setupHitEffects(registrar -> {
 					registrar.register(new IEffectManager.IHitEffectHandler() {
-							@Nullable
-							private BlockState getPrimaryState(Level level, BlockPos pos) {
+						@Nullable
+						private BlockState getPrimaryState(Level level, BlockPos pos) {
 							final BlockEntity blockEntity = level.getBlockEntity(pos);
 
 							if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity)) {
-							return null;
+								return null;
 							}
 
 							return multiStateBlockEntity.getStatistics().getPrimaryState().blockState();
-							}
+						}
 
-							@Override
-							public boolean addHitEffects(
-									@NotNull final BlockState blockState,
-									@NotNull final Level level,
-									@NotNull final BlockPos blockPos,
-									@NotNull final Direction direction,
-									@NotNull final ParticleEngine particleEngine) {
+						@Override
+						public boolean addHitEffects(
+								@NotNull final BlockState blockState,
+								@NotNull final Level level,
+								@NotNull final BlockPos blockPos,
+								@NotNull final Direction direction,
+								@NotNull final ParticleEngine particleEngine) {
 							final BlockState primaryState = getPrimaryState(level, blockPos);
 
 							if (primaryState == null) {
-							return false;
+								return false;
 							}
 
 							return EffectUtils.addHitEffects(level, blockPos, direction, primaryState, particleEngine);
@@ -53,41 +53,37 @@ public class ModEffectHandlers {
 
 
 							ModBlocks.CHISELED_BLOCK.get());
-			}
-
-			);
+				});
 
 		IEffectManager.getInstance()
-			.setupDestroyEffects(registrar -> {
+				.setupDestroyEffects(registrar -> {
 					registrar.register(new IEffectManager.IDestroyEffectHandler() {
-							@Nullable
-							private BlockState getPrimaryState(Level level, BlockPos pos) {
+						@Nullable
+						private BlockState getPrimaryState(Level level, BlockPos pos) {
 							final BlockEntity blockEntity = level.getBlockEntity(pos);
 
 							if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity)) {
-							return null;
+								return null;
 							}
 
 							return multiStateBlockEntity.getStatistics().getPrimaryState().blockState();
-							}
+						}
 
-							@Override
-							public boolean addDestroyEffects(final BlockState blockState, final Level level, final BlockPos blockPos, final ParticleEngine particleEngine) {
+						@Override
+						public boolean addDestroyEffects(final BlockState blockState, final Level level, final BlockPos blockPos, final ParticleEngine particleEngine) {
 							final BlockState primaryState = getPrimaryState(level, blockPos);
 
 							if (primaryState == null) {
-							return false;
+								return false;
 							}
 
 							EffectUtils.addBlockDestroyEffects(level, blockPos, primaryState, particleEngine, level);
 							return true;
-							}
+						}
 					},
 
 
 							ModBlocks.CHISELED_BLOCK.get());
-			}
-
-			);
+				});
 	}
 }

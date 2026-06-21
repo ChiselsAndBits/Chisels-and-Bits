@@ -47,7 +47,7 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 	public static final class Builder {
 		private Direction.Axis axis;
 
-		private Builder() {}
+		private Builder() { }
 
 		public static Builder create() { return new Builder(); }
 

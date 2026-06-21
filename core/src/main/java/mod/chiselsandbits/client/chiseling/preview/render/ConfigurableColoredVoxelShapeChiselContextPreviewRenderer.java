@@ -50,20 +50,20 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 
 		final BlockPos inWorldStartPos = currentContextSnapshot.getMutator().get().getInWorldStartBlockPoint();
 		final VoxelShape boundingShape = VoxelShapeManager.getInstance()
-			.get(currentContextSnapshot.getMutator().get(),
-					currentContextSnapshot.getModeOfOperandus().isChiseling() ? CollisionType.NONE_AIR : CollisionType.ALL, //TODO: Handle the sphere shape adapter somehow...
-					false);
+				.get(currentContextSnapshot.getMutator().get(),
+						currentContextSnapshot.getModeOfOperandus().isChiseling() ? CollisionType.NONE_AIR : CollisionType.ALL, //TODO: Handle the sphere shape adapter somehow...
+						false);
 
 		final VoxelShape modeShape = currentContextSnapshot.getMode().getShape(currentContextSnapshot);
 		final VoxelShape renderedShape = modeShape; // Shapes.joinUnoptimized(boundingShape, modeShape, BooleanOp.AND);
 
 		final List<? extends Float> color = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING
-		? IClientConfiguration.getInstance().getPreviewChiselingColor().get()
-		: IClientConfiguration.getInstance().getPreviewPlacementColor().get();
+				? IClientConfiguration.getInstance().getPreviewChiselingColor().get()
+				: IClientConfiguration.getInstance().getPreviewPlacementColor().get();
 
 		final List<? extends Float> mutatorColor = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING
-		? IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get()
-		: IClientConfiguration.getInstance().getMutatorPreviewPlacementColor().get();
+				? IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get()
+				: IClientConfiguration.getInstance().getMutatorPreviewPlacementColor().get();
 
 		ShapeRenderer.renderShape(
 				poseStack,

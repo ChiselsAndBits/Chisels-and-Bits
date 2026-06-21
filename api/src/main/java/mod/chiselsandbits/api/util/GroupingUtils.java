@@ -51,15 +51,13 @@ public final class GroupingUtils {
 	private static <T, O> Collection<Collection<T>> groupBy(final Multimap<O, T> groups, final Iterable<T> source, Function<T, O> extractor) {
 		source.forEach(
 				e -> {
-				groups.put(extractor.apply(e), e);
-				}
-
-		);
+					groups.put(extractor.apply(e), e);
+				});
 
 		return groups
-			.keySet()
-			.stream()
-			.map(groups::get)
-			.collect(Collectors.toList());
+				.keySet()
+				.stream()
+				.map(groups::get)
+				.collect(Collectors.toList());
 	}
 }

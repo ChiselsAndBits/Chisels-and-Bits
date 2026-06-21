@@ -52,7 +52,7 @@ public class IconManager implements IIconManager {
 	@Override
 	public TextureAtlasSprite getIcon(final Identifier name) {
 		return getAtlasOrThrow()
-			.getSprite(name);
+				.getSprite(name);
 	}
 
 	private @NotNull TextureAtlas getAtlasOrThrow() {
