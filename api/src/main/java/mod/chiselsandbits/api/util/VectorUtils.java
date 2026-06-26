@@ -53,7 +53,7 @@ public class VectorUtils {
 							vector3d.z()
 					);
 			default
-					: throw new IllegalArgumentException(String.format("Unknown axis: %s", axis));
+					: throw new IllegalArgumentException(String.format("Unknown axis : %s", axis));
 		}
 	}
 

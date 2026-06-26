@@ -436,7 +436,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 		final List<FormattedCharSequence> lines = fontRenderer.split(name, 75);
 
 		final int itemHeight = mode.shouldRenderDisplayNameInMenu()
- ? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
+				? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
 				: (int) (iconSize * iconScaleFactor);
 
 		final int iconStartX = (int) (itemCenterX - ((iconSize * iconScaleFactor) / 2f));
@@ -459,7 +459,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 		final List<FormattedCharSequence> lines = fontRenderer.split(name, 75);
 
 		final int itemHeight = mode.shouldRenderDisplayNameInMenu()
- ? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
+				? (int) ((iconSize * iconScaleFactor) + iconTextSpacer + (fontRenderer.lineHeight * lines.size()))
 				: (int) (iconSize * iconScaleFactor);
 
 		final int iconStartX = (int) (itemCenterX - ((iconSize * iconScaleFactor) / 2f));

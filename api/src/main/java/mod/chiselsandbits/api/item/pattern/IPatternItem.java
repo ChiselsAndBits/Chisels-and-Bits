@@ -48,7 +48,7 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 			new BlockPlaceContext(
 					player,
 					player.getMainHandItem() == heldStack
- ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND,
+					? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND,
 					heldStack,
 					blockHitResult
 			),

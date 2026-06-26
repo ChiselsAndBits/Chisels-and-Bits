@@ -24,7 +24,7 @@ public class MagnifyingGlassTooltipHandler {
 
 			toolTips.add(
 					result.canBeChiseled() || result.isAlreadyChiseled()
- ? result.getReason().withStyle(ChatFormatting.GREEN)
+					? result.getReason().withStyle(ChatFormatting.GREEN)
 					: result.getReason().withStyle(ChatFormatting.RED)
 			);
 		}

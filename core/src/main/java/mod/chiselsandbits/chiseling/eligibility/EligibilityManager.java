@@ -124,7 +124,7 @@ public class EligibilityManager implements IEligibilityManager {
 							true,
 							false,
 							TranslationUtils.build ((blkClass.isAnnotationPresent(IgnoreBlockLogic.class))
- ? LocalStrings.ChiselSupportLogicIgnored
+									? LocalStrings.ChiselSupportLogicIgnored
 									: LocalStrings.ChiselSupportGenericSupported
 							));
 				}

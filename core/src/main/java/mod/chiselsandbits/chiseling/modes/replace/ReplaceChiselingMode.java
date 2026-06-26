@@ -173,7 +173,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
- ? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
+				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
 		face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(

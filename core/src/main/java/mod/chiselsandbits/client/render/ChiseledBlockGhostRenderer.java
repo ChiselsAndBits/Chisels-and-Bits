@@ -99,11 +99,11 @@ public class ChiseledBlockGhostRenderer {
 
 		if (renderColoredGhost) {
 			renderType = ignoreDepth
- ? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
+					? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
 					: ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW.get();
 		} else {
 			renderType = ignoreDepth
- ? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
+					? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
 					: ModRenderTypes.GHOST_BLOCK_PREVIEW.get();
 		}
 

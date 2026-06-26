@@ -218,10 +218,10 @@ public class BitChange implements IChange {
 			after.stream().forEach(
 					s -> {
 						try {
-					multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
-				} catch (SpaceOccupiedException e) {
-				//Noop
-				}
+							multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
+						} catch (SpaceOccupiedException e) {
+						//Noop
+						}
 					});
 		}
 

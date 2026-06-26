@@ -212,10 +212,10 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					try {
 						return e.getInAreaTarget(hitDelta);
-			} catch (IllegalArgumentException exception) {
-			//Because people do stupid stuff.
+					} catch (IllegalArgumentException exception) {
+					//Because people do stupid stuff.
 						return Optional.empty();
-			}
+					}
 				})
 				.map(targetedStateEntry -> IMultiStateItemFactory.getInstance().createBlockFrom(targetedStateEntry))
 				.orElseGet(() -> getBlockEntity(blockGetter, pos)
@@ -418,10 +418,10 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 										);
 
 										try {
-							stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
-						} catch (SpaceOccupiedException e) {
-						//Ignore
-						}
+											stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
+										} catch (SpaceOccupiedException e) {
+										//Ignore
+										}
 									}
 								});
 			}

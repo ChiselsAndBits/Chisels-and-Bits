@@ -61,7 +61,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 	@Override
 	public PlacementResult performPlacement(final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
- ? context.getClickLocation()
+				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(

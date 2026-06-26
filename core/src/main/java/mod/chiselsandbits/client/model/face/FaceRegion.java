@@ -129,7 +129,7 @@ public class FaceRegion {
 
 		switch (face) {
 		case DOWN
-					: case UP: {
+					: case UP : {
 				final boolean a = maxX == faceToExtendTo.minX && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean b = minX == faceToExtendTo.maxX && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean c = maxZ == faceToExtendTo.minZ && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
@@ -149,7 +149,7 @@ public class FaceRegion {
 					}
 
 		case WEST
-					: case EAST: {
+					: case EAST : {
 				final boolean a = maxY == faceToExtendTo.minY && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean b = minY == faceToExtendTo.maxY && maxZ == faceToExtendTo.maxZ && minZ == faceToExtendTo.minZ;
 				final boolean c = maxZ == faceToExtendTo.minZ && maxY == faceToExtendTo.maxY && minY == faceToExtendTo.minY;
@@ -169,7 +169,7 @@ public class FaceRegion {
 					}
 
 		case NORTH
-					: case SOUTH: {
+					: case SOUTH : {
 				final boolean a = maxY == faceToExtendTo.minY && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
 				final boolean b = minY == faceToExtendTo.maxY && maxX == faceToExtendTo.maxX && minX == faceToExtendTo.minX;
 				final boolean c = maxX == faceToExtendTo.minX && maxY == faceToExtendTo.maxY && minY == faceToExtendTo.minY;

@@ -274,7 +274,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
- ? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
+				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
 		face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockRayTraceResult.getLocation().add(

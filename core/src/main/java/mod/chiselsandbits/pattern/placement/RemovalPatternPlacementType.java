@@ -62,7 +62,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 						).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
 
 		final Vec3 offSet = player.isShiftKeyDown()
- ? new Vec3(
+				? new Vec3(
 						targetedPoint.x() - targetedPosition.getX(),
 						targetedPoint.y() - targetedPosition.getY(),
 						targetedPoint.z() - targetedPosition.getZ()
@@ -84,7 +84,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 	public PlacementResult performPlacement(
 			final IMultiStateSnapshot source, final BlockPlaceContext context, final boolean simulate) {
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
- ? context.getClickLocation()
+				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator = 
 		IMutatorFactory.getInstance().covering(

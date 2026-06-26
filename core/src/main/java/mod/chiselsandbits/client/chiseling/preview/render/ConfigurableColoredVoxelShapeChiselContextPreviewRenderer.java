@@ -58,11 +58,11 @@ public class ConfigurableColoredVoxelShapeChiselContextPreviewRenderer implement
 		final VoxelShape renderedShape = modeShape; // Shapes.joinUnoptimized(boundingShape, modeShape, BooleanOp.AND);
 
 		final List<? extends Float> color = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING
- ? IClientConfiguration.getInstance().getPreviewChiselingColor().get()
+				? IClientConfiguration.getInstance().getPreviewChiselingColor().get()
 				: IClientConfiguration.getInstance().getPreviewPlacementColor().get();
 
 		final List<? extends Float> mutatorColor = currentContextSnapshot.getModeOfOperandus() == ChiselingOperation.CHISELING
- ? IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get()
+				? IClientConfiguration.getInstance().getMutatorPreviewChiselingColor().get()
 				: IClientConfiguration.getInstance().getMutatorPreviewPlacementColor().get();
 
 		ShapeRenderer.renderShape(

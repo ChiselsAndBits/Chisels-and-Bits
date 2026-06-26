@@ -96,8 +96,8 @@ public class ChiseledBlockModelDataExecutor {
 									8
 							);
 						}
-			} catch (Exception ignored) {
-			}
+					} catch (Exception ignored) {
+					}
 				},
 
 

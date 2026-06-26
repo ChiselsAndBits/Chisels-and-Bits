@@ -278,7 +278,7 @@ public final class MeasurementRenderer {
 
 		return Component.translatable(Constants.MOD_ID + ".measurements.owners.by",
 				playerInfo.getTabListDisplayName() != null
- ? this.formatPlayerDisplayName(playerInfo, playerInfo.getTabListDisplayName().copy())
+				? this.formatPlayerDisplayName(playerInfo, playerInfo.getTabListDisplayName().copy())
 				: this.formatPlayerDisplayName(playerInfo, PlayerTeam.formatNameForTeam(playerInfo.getTeam(), Component.literal(playerInfo.getProfile().name()))));
 	}
 

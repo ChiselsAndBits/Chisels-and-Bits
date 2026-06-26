@@ -144,7 +144,7 @@ public class FaceManager {
 
 	private static Transparency computeFluidTransparency(Material.Baked material) {
 		return material.forceTranslucent()
- ? Transparency.TRANSLUCENT
+				? Transparency.TRANSLUCENT
 				: material.sprite()
 				.contents().transparency();
 	}

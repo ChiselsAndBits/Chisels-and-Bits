@@ -126,7 +126,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 		final IAreaAccessor source = this.createItemStack(context.getItemInHand());
 		final IWorldAreaMutator areaMutator = player.isShiftKeyDown()
- ? IMutatorFactory.getInstance().covering(
+				? IMutatorFactory.getInstance().covering(
 						level,
 						context.getClickLocation(),
 						context.getClickLocation().add(1d, 1d, 1d)
@@ -143,9 +143,9 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 								stateEntryInfo.getStartPoint());
 
 						return true;
-			} catch (SpaceOccupiedException exception) {
+					} catch (SpaceOccupiedException exception) {
 						return false;
-			}
+					}
 				});
 
 		if (noCollisions) {
@@ -153,11 +153,11 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 				source.stream().forEach(
 						stateEntryInfo -> {
 							try {
-						areaMutator.setInAreaTarget(
-								stateEntryInfo.getBlockInformation(),
-								stateEntryInfo.getStartPoint());
-					} catch (SpaceOccupiedException ignored1) {
-					}
+								areaMutator.setInAreaTarget(
+										stateEntryInfo.getBlockInformation(),
+										stateEntryInfo.getStartPoint());
+							} catch (SpaceOccupiedException ignored1) {
+							}
 						});
 			}
 
@@ -214,12 +214,12 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 								stateEntryInfo.getStartPoint());
 
 						return true;
-			} catch (SpaceOccupiedException exception) {
+					} catch (SpaceOccupiedException exception) {
 						return false;
-			}
+					}
 				});
 		return noSpaceOccupied
- ? PlacementResult.success()
+				? PlacementResult.success()
 				: PlacementResult.failure(
 						IClientConfiguration::getNotFittingPatternPlacementColor,
 						LocalStrings.PatternPlacementNotAnAirBlock.getText());

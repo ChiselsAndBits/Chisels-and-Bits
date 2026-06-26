@@ -170,7 +170,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			final CraftingInput input = CraftingInput.of(1, 1, List.of(stack));
 			this.recipes = 
 			this.world.getServer() != null
- ? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
+					? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
 					: new ArrayList<>();
 			this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().operation().getRegistryName()).toString()));
 

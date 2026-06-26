@@ -122,16 +122,16 @@ public interface CBCodecs {
 					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
 					try {
-				final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
-				final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
-				final Tag uncompressedData = NbtIo.read(dataInput, NbtAccounter.unlimitedHeap());
+						final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
+						final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
+						final Tag uncompressedData = NbtIo.read(dataInput, NbtAccounter.unlimitedHeap());
 
-				final NbtOps ops = NbtOps.INSTANCE;
-				final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
-				return inner.parse(dynamic);
-			} catch (IOException e) {
-				return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
-			}
+						final NbtOps ops = NbtOps.INSTANCE;
+						final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
+						return inner.parse(dynamic);
+					} catch (IOException e) {
+						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
+					}
 				},
 
 
@@ -155,16 +155,16 @@ public interface CBCodecs {
 					final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
 					try {
-				final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
-				final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
-				final Tag uncompressedData = NbtIo.readAnyTag(dataInput, NbtAccounter.unlimitedHeap());
+						final LZ4FrameInputStream lz4FrameInputStream = new LZ4FrameInputStream(byteArrayInputStream);
+						final DataInput dataInput = new DataInputStream(lz4FrameInputStream);
+						final Tag uncompressedData = NbtIo.readAnyTag(dataInput, NbtAccounter.unlimitedHeap());
 
-				final NbtOps ops = NbtOps.INSTANCE;
-				final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
-				return inner.parse(dynamic);
-			} catch (IOException e) {
-				return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
-			}
+						final NbtOps ops = NbtOps.INSTANCE;
+						final Dynamic<Tag> dynamic = new Dynamic<>(ops, uncompressedData);
+						return inner.parse(dynamic);
+					} catch (IOException e) {
+						return DataResult.error(() -> "Failed to decompress data: " + e.getMessage());
+					}
 				},
 
 
@@ -175,16 +175,16 @@ public interface CBCodecs {
 					final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
 					try {
-				final OutputStream lz4Stream = new LZ4FrameOutputStream(outputStream);
-				final DataOutput dataOutput = new DataOutputStream(lz4Stream);
-				NbtIo.writeAnyTag(tag, dataOutput);
-				lz4Stream.close();
+						final OutputStream lz4Stream = new LZ4FrameOutputStream(outputStream);
+						final DataOutput dataOutput = new DataOutputStream(lz4Stream);
+						NbtIo.writeAnyTag(tag, dataOutput);
+						lz4Stream.close();
 
-				final byte[] compressedData = outputStream.toByteArray();
-				return DataResult.success(ByteBuffer.wrap(compressedData));
-			} catch (IOException e) {
-				return DataResult.error(() -> "Failed to compress data: " + e.getMessage());
-			}
+						final byte[] compressedData = outputStream.toByteArray();
+						return DataResult.success(ByteBuffer.wrap(compressedData));
+					} catch (IOException e) {
+						return DataResult.error(() -> "Failed to compress data: " + e.getMessage());
+					}
 				});
 	}
 

@@ -60,7 +60,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 					generatedQuad -> {
 						final List<BlockTintSource> tintSources = 
 						information.isFluid()
- ? getFluidTintSources()
+								? getFluidTintSources()
 								: Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
 						final IntList tints = new IntArrayList(tintSources.size());
 						tintSources.forEach(source -> {

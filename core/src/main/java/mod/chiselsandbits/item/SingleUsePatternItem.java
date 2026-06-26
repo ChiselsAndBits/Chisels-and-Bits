@@ -118,7 +118,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		}
 
 		return resultType.isSuccess()
- ? determineSuccessResult(context, context.getItemInHand())
+				? determineSuccessResult(context, context.getItemInHand())
 				: InteractionResult.FAIL;
 	}
 
