@@ -36,7 +36,7 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
 		assert argument != null;
 		final BlockEntityRenderState state = Minecraft.getInstance().getBlockEntityRenderDispatcher().tryExtractRenderState(
 				argument.entity(),
-				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
+				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false... ...
 				null
 		);
 

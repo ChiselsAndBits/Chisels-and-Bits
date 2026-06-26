@@ -20,11 +20,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * provided by the {@link IMultiStateBlock} blocks.
  */
 public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
-IWorldAreaMutator,
-IBatchedAreaMutator,
-IGenerallyModifiableAreaMutator,
-IAreaAccessorWithVoxelShape,
-ISingleBlockAxisAlignedAreaAccessor {
+		IWorldAreaMutator,
+		IBatchedAreaMutator,
+		IGenerallyModifiableAreaMutator,
+		IAreaAccessorWithVoxelShape,
+		ISingleBlockAxisAlignedAreaAccessor {
 	/**
 	 * Indicates whether the current block entity can be flooded with water.
 	 *

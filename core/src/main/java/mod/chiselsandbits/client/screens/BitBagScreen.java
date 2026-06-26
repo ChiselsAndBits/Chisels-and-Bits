@@ -147,7 +147,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 
 	private void updatePreferredButtonTooltip() {
 		final LocalStrings newTooltip = isCurrentlyPreferred()
-				? LocalStrings.PreferredPickup : LocalStrings.NonPreferredPickup;
+ ? LocalStrings.PreferredPickup : LocalStrings.NonPreferredPickup;
 
 		preferedBtn.setTooltip(Tooltip.create(newTooltip.getText(
 				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
@@ -156,7 +156,7 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 
 	private void updateFilteredButtonTooltip() {
 		final LocalStrings newTooltip = isCurrentlyFiltered()
-				? LocalStrings.FilteredPickup : LocalStrings.NonFilteredPickup;
+ ? LocalStrings.FilteredPickup : LocalStrings.NonFilteredPickup;
 
 		filteredBtn.setTooltip(Tooltip.create(newTooltip.getText(
 				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()

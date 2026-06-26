@@ -170,7 +170,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	private void ensureCapacity() {
 		final int requiredSize = (int) Math.ceil((getTotalEntryCount() * entryWidth) / (float) Long.SIZE);
 
-		if (data.length() <requiredSize) {
+		if (data.length() < requiredSize) {
 			final long[] rawData = getRawData();
 			final long[] newData = new long[requiredSize];
 			System.arraycopy(rawData, 0, newData, 0, rawData.length);

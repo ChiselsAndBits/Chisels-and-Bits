@@ -148,10 +148,10 @@ public class BitChange implements IChange {
 			before.stream().forEach(
 					iStateEntryInfo -> {
 						try {
-					multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
-				} catch (SpaceOccupiedException e) {
-				//Noop
-				}
+							multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
+						} catch (SpaceOccupiedException e) {
+						//Noop
+						}
 					});
 		}
 
@@ -162,7 +162,7 @@ public class BitChange implements IChange {
 					return;
 				}
 
-				if (diff <0) {
+				if (diff < 0) {
 					bitInventory.extract(state, -diff);
 				} else {
 					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
@@ -228,7 +228,7 @@ public class BitChange implements IChange {
 		if (!player.isCreative()) {
 			final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 			difference.forEach((state, diff) -> {
-				if (diff <0) {
+				if (diff < 0) {
 					bitInventory.extract(state, -diff);
 				} else {
 					BitInventoryUtils.insertIntoOrSpawn(player, state, diff);
@@ -255,7 +255,7 @@ public class BitChange implements IChange {
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-				.filter(e -> e.getValue() <0)
+				.filter(e -> e.getValue() < 0)
 				.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 
@@ -277,7 +277,7 @@ public class BitChange implements IChange {
 
 		final IBitInventory bitInventory = IBitInventoryManager.getInstance().create(player);
 		return difference.entrySet().stream()
-				.filter(e -> e.getValue() <0)
+				.filter(e -> e.getValue() < 0)
 				.allMatch(e -> bitInventory.canExtract(e.getKey(), -e.getValue()));
 	}
 

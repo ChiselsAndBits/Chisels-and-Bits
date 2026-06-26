@@ -144,7 +144,7 @@ public final class VoxelShapeUtils {
 	 *
 	 * @return A simplified {@link VoxelShape} including everything that is part of the input shapes.
 	 */
-	public static VoxelShape combine(VoxelShape...shapes) {
+	public static VoxelShape combine(VoxelShape... shapes) {
 		return batchCombine(Shapes.empty(), BooleanOp.OR, true, shapes);
 	}
 
@@ -166,7 +166,7 @@ public final class VoxelShapeUtils {
 	 *
 	 * @return A {@link VoxelShape} including everything that is not part of the input shapes.
 	 */
-	public static VoxelShape exclude(VoxelShape...shapes) {
+	public static VoxelShape exclude(VoxelShape... shapes) {
 		return batchCombine(Shapes.block(), BooleanOp.ONLY_FIRST, true, shapes);
 	}
 
@@ -206,7 +206,7 @@ public final class VoxelShapeUtils {
 	 * @implNote We do not do any simplification until after combining all the shapes, and then only if the {@code simplify} is True.This is because there is a
 	 * performance hit in calculating the simplified shape each time if we still have more changers we are making to it.
 	 */
-	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, VoxelShape...shapes) {
+	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, VoxelShape... shapes) {
 		VoxelShape combinedShape = initial;
 
 		for (VoxelShape shape : shapes) {

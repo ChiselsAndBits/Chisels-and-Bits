@@ -256,12 +256,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public void setInBlockTarget(final BlockInformation blockInformation, final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) throws SpaceOccupiedException {
 		final Vec3 workingTarget = Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget);
-		if (workingTarget.x() <startPoint.x()
-				|| workingTarget.y() <startPoint.y()
-				|| workingTarget.z() <startPoint.z()
-				|| workingTarget.x()> endPoint.x()
-				|| workingTarget.y()> endPoint.y()
-				|| workingTarget.z()> endPoint.z()
+		if (workingTarget.x() < startPoint.x()
+				|| workingTarget.y() < startPoint.y()
+				|| workingTarget.z() < startPoint.z()
+				|| workingTarget.x() > endPoint.x()
+				|| workingTarget.y() > endPoint.y()
+				|| workingTarget.z() > endPoint.z()
 		) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
@@ -305,12 +305,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public void clearInBlockTarget(final BlockPos inAreaBlockPosOffset, final Vec3 inBlockTarget) {
 		final Vec3 workingTarget = Vec3.atLowerCornerOf(inAreaBlockPosOffset).add(inBlockTarget);
-		if (workingTarget.x() <startPoint.x()
-				|| workingTarget.y() <startPoint.y()
-				|| workingTarget.z() <startPoint.z()
-				|| workingTarget.x()> endPoint.x()
-				|| workingTarget.y()> endPoint.y()
-				|| workingTarget.z()> endPoint.z()
+		if (workingTarget.x() < startPoint.x()
+				|| workingTarget.y() < startPoint.y()
+				|| workingTarget.z() < startPoint.z()
+				|| workingTarget.x() > endPoint.x()
+				|| workingTarget.y() > endPoint.y()
+				|| workingTarget.z() > endPoint.z()
 		) {
 			throw new IllegalArgumentException("The given target is outside of the operating range of this snapshot!");
 		}
@@ -364,7 +364,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			@Override
 			public boolean isEmpty() {
 				final Map<BlockInformation, Integer> stateMap = getStateCounts();
-				return stateMap.size() == 1 && stateMap.getOrDefault(BlockInformation.AIR, 0)> 0;
+				return stateMap.size() == 1 && stateMap.getOrDefault(BlockInformation.AIR, 0) > 0;
 			}
 
 			@Override

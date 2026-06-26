@@ -32,7 +32,7 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 	}
 
 	@Override
-	public ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer...renderers) {
+	public ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer... renderers) {
 		for (final ISelectedToolModeIconRenderer renderer : renderers) {
 			if (rendererMap.put(renderer.getId(), renderer) != null) {
 				throw new IllegalArgumentException("The renderer id: " + renderer.getId() + " is already in use!");

@@ -37,7 +37,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 
 	@Override
 	public void update(final ToastManager toastManager, final long visibilityTime) {
-		this.wantedVisibility = visibilityTime>= 5000.0 * toastManager.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
+		this.wantedVisibility = visibilityTime >= 5000.0 * toastManager.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 		if (list.size() == 1) {
 			guiGraphics.text(Minecraft.getInstance().font, contents.getText(), 30, 12, -1);
 		} else {
-			int fontColor = Mth.floor(Mth.clamp((float) (time) / 40.0F, 0.0F, 1.0F) * 252.0F) <<24 | 67108864;
+			int fontColor = Mth.floor(Mth.clamp((float) (time) / 40.0F, 0.0F, 1.0F) * 252.0F) << 24 | 67108864;
 			int verticalOffset = this.height() / 2 - list.size() * 9 / 2;
 
 			for (FormattedCharSequence formattedcharsequence : list) {

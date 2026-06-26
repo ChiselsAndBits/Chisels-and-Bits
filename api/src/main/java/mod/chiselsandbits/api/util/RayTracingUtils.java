@@ -31,9 +31,9 @@ public class RayTracingUtils {
 		final Vec3 facingVector = playerEntity.getLookAngle();
 
 		return new Vec3i(
-				facingVector.x() <0 ? -1 : 1,
-				facingVector.y() <0 ? -1 : 1,
-				facingVector.z() <0 ? -1 : 1
+				facingVector.x() < 0 ? -1 : 1,
+				facingVector.y() < 0 ? -1 : 1,
+				facingVector.z() < 0 ? -1 : 1
 		);
 	}
 }

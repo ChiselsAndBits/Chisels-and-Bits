@@ -57,8 +57,8 @@ public class ChangeTracker implements IChangeTracker {
 
 		final int maxSize = IChiselsAndBitsAPI.getInstance().getConfiguration().getServer().getChangeTrackerSize().get();
 
-		if (changes.size()> maxSize) {
-			while (changes.size()> maxSize) {
+		if (changes.size() > maxSize) {
+			while (changes.size() > maxSize) {
 				changes.removeLast();
 			}
 		}
@@ -85,7 +85,7 @@ public class ChangeTracker implements IChangeTracker {
 	}
 
 	public Optional<IChange> getCurrentUndo() {
-		if (getChanges().size() <= currentIndex || currentIndex <0) {
+		if (getChanges().size() <= currentIndex || currentIndex < 0) {
 			return Optional.empty();
 		}
 
@@ -93,7 +93,7 @@ public class ChangeTracker implements IChangeTracker {
 	}
 
 	public Optional<IChange> getCurrentRedo() {
-		if (getChanges().size() <currentIndex || currentIndex <1) {
+		if (getChanges().size() < currentIndex || currentIndex < 1) {
 			return Optional.empty();
 		}
 

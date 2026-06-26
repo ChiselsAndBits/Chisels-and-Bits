@@ -7,7 +7,7 @@ public class ModelUtil {
 
 	public static boolean isZero(
 			final float v) {
-		return Math.abs(v) <0.01;
+		return Math.abs(v) < 0.01;
 	}
 
 	public static boolean isOne(
@@ -18,6 +18,6 @@ public class ModelUtil {
 	public static boolean is(
 			final float v,
 			final float t) {
-		return (Math.abs(v - t)) <0.01;
+		return (Math.abs(v - t)) < 0.01;
 	}
 }

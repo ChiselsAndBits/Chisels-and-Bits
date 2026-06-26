@@ -355,10 +355,10 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 			final boolean included = this.included.contains(candidatePos);
 
-			if (height <0) {
-				return included && candidatePos.getY() <= origin.getY() && candidatePos.getY()> origin.getY() + height;
+			if (height < 0) {
+				return included && candidatePos.getY() <= origin.getY() && candidatePos.getY() > origin.getY() + height;
 			} else {
-				return included && candidatePos.getY()>= origin.getY() && candidatePos.getY() <origin.getY() + height;
+				return included && candidatePos.getY() >= origin.getY() && candidatePos.getY() < origin.getY() + height;
 			}
 		}
 
@@ -373,13 +373,13 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			double distanceFromStart = 0d;
 
 			Vec3i pos = new Vec3i(
-					(int) (direction.x()> 0 ? Math.ceil(origin.getX()) - 1 : Math.floor(origin.getX())),
-					(int) (direction.y()> 0 ? Math.ceil(origin.getY()) - 1 : Math.floor(origin.getY())),
-					(int) (direction.z()> 0 ? Math.ceil(origin.getZ()) - 1 : Math.floor(origin.getZ()))
+					(int) (direction.x() > 0 ? Math.ceil(origin.getX()) - 1 : Math.floor(origin.getX())),
+					(int) (direction.y() > 0 ? Math.ceil(origin.getY()) - 1 : Math.floor(origin.getY())),
+					(int) (direction.z() > 0 ? Math.ceil(origin.getZ()) - 1 : Math.floor(origin.getZ()))
 			);
-			double xOff = direction.x()> 0 ? 1 + pos.getX() - origin.getX() : origin.getX() - pos.getX();
-			double yOff = direction.y()> 0 ? 1 + pos.getY() - origin.getY() : origin.getY() - pos.getY();
-			double zOff = direction.z()> 0 ? 1 + pos.getZ() - origin.getZ() : origin.getZ() - pos.getZ();
+			double xOff = direction.x() > 0 ? 1 + pos.getX() - origin.getX() : origin.getX() - pos.getX();
+			double yOff = direction.y() > 0 ? 1 + pos.getY() - origin.getY() : origin.getY() - pos.getY();
+			double zOff = direction.z() > 0 ? 1 + pos.getZ() - origin.getZ() : origin.getZ() - pos.getZ();
 
 			double xDist = Double.isNaN(xLen) ? Double.POSITIVE_INFINITY : Math.abs(xOff * xLen);
 			double yDist = Double.isNaN(yLen) ? Double.POSITIVE_INFINITY : Math.abs(yOff * yLen);
@@ -392,21 +392,21 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 					if (xDist <zDist) {
 						distanceFromStart = xDist;
 						xDist += xLen;
-						pos = pos.offset(direction.x()> 0 ? 1 : -1, 0, 0);
+						pos = pos.offset(direction.x() > 0 ? 1 : -1, 0, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				} else {
 					if (yDist <zDist) {
 						distanceFromStart = yDist;
 						yDist += yLen;
-						pos = pos.offset(0, direction.y()> 0 ? 1 : -1, 0);
+						pos = pos.offset(0, direction.y() > 0 ? 1 : -1, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				}
 			}

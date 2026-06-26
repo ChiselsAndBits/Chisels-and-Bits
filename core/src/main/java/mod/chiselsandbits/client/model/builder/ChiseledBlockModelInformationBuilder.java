@@ -103,9 +103,9 @@ public record ChiseledBlockModelInformationBuilder(
 		);
 
 		IAreaAccessor neighborAccessor;
-		if (targetOffset.x()>= 0 && targetOffset.x() <1
-				&& targetOffset.y()>= 0 && targetOffset.y() <1
-				&& targetOffset.z()>= 0 && targetOffset.z() <1
+		if (targetOffset.x() >= 0 && targetOffset.x() < 1
+				&& targetOffset.y() >= 0 && targetOffset.y() < 1
+				&& targetOffset.z() >= 0 && targetOffset.z() < 1
 		) {
 			neighborAccessor = data();
 		} else {

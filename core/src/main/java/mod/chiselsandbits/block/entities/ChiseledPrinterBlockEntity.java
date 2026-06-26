@@ -138,7 +138,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			if (canWork()) {
 				progress++;
 
-				if (progress>= 100) {
+				if (progress >= 100) {
 					if (result_handler.getItem(0).isEmpty()) {
 						result_handler.setItem(0, realisePattern(true));
 					} else {
@@ -270,7 +270,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			return ItemStack.EMPTY;
 				}
 
-		if (states.stream().anyMatch(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0)> state.totalCount())) {
+		if (states.stream().anyMatch(state -> modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0) > state.totalCount())) {
 			return ItemStack.EMPTY;
 		}
 
@@ -278,7 +278,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			for (BlockInformationSources state : states) {
 				int toDrain = modifiableSnapshot.getStatics().getStateCounts().getOrDefault(state.blockInformation(), 0);
 
-				if (toDrain> 0) {
+				if (toDrain > 0) {
 					for (PositionAndCount pos : state.posses()) {
 						final int toDrainFromThis = Math.min(toDrain, pos.count());
 						drainStorage(toDrainFromThis, pos.pos());

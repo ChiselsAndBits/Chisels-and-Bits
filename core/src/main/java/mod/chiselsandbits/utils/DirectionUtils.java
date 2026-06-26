@@ -39,11 +39,11 @@ public class DirectionUtils {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
 					return Optional.empty();
 				} else {
-					return Optional.of(scaledToOne.z() <0 ? Direction.NORTH : Direction.SOUTH);
+					return Optional.of(scaledToOne.z() < 0 ? Direction.NORTH : Direction.SOUTH);
 				}
 			} else {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
-					return Optional.of(scaledToOne.y() <0 ? Direction.DOWN : Direction.UP);
+					return Optional.of(scaledToOne.y() < 0 ? Direction.DOWN : Direction.UP);
 				} else {
 					return Optional.empty();
 				}
@@ -51,7 +51,7 @@ public class DirectionUtils {
 		} else {
 			if (MathUtil.almostEqual(scaledToOne.y(), 0)) {
 				if (MathUtil.almostEqual(scaledToOne.z(), 0)) {
-					return Optional.of(scaledToOne.z() <0 ? Direction.WEST : Direction.EAST);
+					return Optional.of(scaledToOne.z() < 0 ? Direction.WEST : Direction.EAST);
 				} else {
 					return Optional.empty();
 				}

@@ -31,7 +31,7 @@ public class MathUtil {
 		final double absL = Math.abs(l);
 		final double absR = Math.abs(r);
 
-		if (absL>= absR) {
+		if (absL >= absR) {
 			return l;
 		}
 
@@ -39,7 +39,7 @@ public class MathUtil {
 	}
 
 	public static double makePositive(double d) {
-		while (d <0) {
+		while (d < 0) {
 			d++;
 		}
 

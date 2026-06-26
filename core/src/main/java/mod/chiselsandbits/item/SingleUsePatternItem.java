@@ -95,7 +95,6 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	public InteractionResult tryPlace(final BlockPlaceContext context) {
-
 		if (context.getPlayer() == null) {
 			return InteractionResult.FAIL;
 		}
@@ -119,7 +118,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		}
 
 		return resultType.isSuccess()
-				? determineSuccessResult(context, context.getItemInHand())
+ ? determineSuccessResult(context, context.getItemInHand())
 				: InteractionResult.FAIL;
 	}
 

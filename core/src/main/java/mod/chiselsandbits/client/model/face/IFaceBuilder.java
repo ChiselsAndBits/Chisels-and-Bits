@@ -14,7 +14,7 @@ public interface IFaceBuilder {
 	void put(
 			int vertNum,
 			int element,
-			float...args);
+			float... args);
 
 	void begin();
 

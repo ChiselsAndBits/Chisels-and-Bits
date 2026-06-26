@@ -146,7 +146,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	}
 
 	private boolean isValidRecipeIndex(int recipeIndex) {
-		return recipeIndex>= 0 && recipeIndex <this.recipes.size();
+		return recipeIndex >= 0 && recipeIndex <this.recipes.size();
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			final CraftingInput input = CraftingInput.of(1, 1, List.of(stack));
 			this.recipes = 
 			this.world.getServer() != null
-					? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
+ ? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
 					: new ArrayList<>();
 			this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().operation().getRegistryName()).toString()));
 
@@ -242,11 +242,11 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 				if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
-					} else if (index>= 2 && index <29) {
+					} else if (index >= 2 && index < 29) {
 				if (!this.moveItemStackTo(itemstack1, 29, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-					} else if (index>= 29 && index <38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
+					} else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
 				return ItemStack.EMPTY;
 					}
 

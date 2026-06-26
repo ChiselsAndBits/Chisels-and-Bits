@@ -233,22 +233,22 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	 */
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget) {
-		return !(inAreaTarget.x() <0)
-		&& !(inAreaTarget.y() <0)
-		&& !(inAreaTarget.z() <0)
-		&& !(inAreaTarget.x()>= 1)
-		&& !(inAreaTarget.y()>= 1)
-		&& !(inAreaTarget.z()>= 1);
+		return !(inAreaTarget.x() < 0)
+		&& !(inAreaTarget.y() < 0)
+		&& !(inAreaTarget.z() < 0)
+		&& !(inAreaTarget.x() >= 1)
+		&& !(inAreaTarget.y() >= 1)
+		&& !(inAreaTarget.z() >= 1);
 	}
 
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
@@ -547,12 +547,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			final BlockInformation newInformation,
 			final Vec3 inAreaTarget
 	) throws SpaceOccupiedException {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
@@ -627,12 +627,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	 */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
@@ -1205,7 +1205,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			return (float) this.columnStatisticsTable.values()
 					.stream()
 					.filter(Objects::nonNull)
-					.filter(columnStatistics -> columnStatistics.getHighestBit()>= 0)
+					.filter(columnStatistics -> columnStatistics.getHighestBit() >= 0)
 					.mapToDouble(ColumnStatistics::getHighestBitFriction).average().orElse(0.0);
 		}
 
@@ -1662,7 +1662,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				canPropagateSkylightDown = false;
 			}
 
-			if (!blockState.isAir() && inAreaPos.getY()>= highestBit) {
+			if (!blockState.isAir() && inAreaPos.getY() >= highestBit) {
 				highestBit = (short) inAreaPos.getY();
 				highestBitFriction = usingLevelReader(levelAccessor, blockState, ILevelBasedPropertyAccessor.getInstance()::getFriction);
 			}
@@ -1680,7 +1680,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 						.noneMatch(skylightBlockingBits::get);
 			}
 
-			if (pos.getY()>= highestBit) {
+			if (pos.getY() >= highestBit) {
 				highestBit = -1;
 				highestBitFriction = 0f;
 

@@ -50,7 +50,7 @@ public final class ModBlockEntityTypes {
 	);
 
 	private record BlockEntityTypeBuilder<T extends BlockEntity>(BlockEntityType.BlockEntitySupplier<T> factory, Set<Block> allowedBlocks) {
-		private BlockEntityTypeBuilder(final BlockEntityType.BlockEntitySupplier<T> factory, Block...allowedBlocks) {
+		private BlockEntityTypeBuilder(final BlockEntityType.BlockEntitySupplier<T> factory, Block... allowedBlocks) {
 			this(factory, Set.of(allowedBlocks));
 		}
 

@@ -117,8 +117,8 @@ public enum MeasuringMode implements IMeasuringMode
 	public Vec3 getColorVector() {
 		final int color = getColor().getTextColor();
 
-		float r = (float) (color>> 16 & 255) / 255.0F;
-		float g = (float) (color>> 8 & 255) / 255.0F;
+		float r = (float) (color >> 16 & 255) / 255.0F;
+		float g = (float) (color >> 8 & 255) / 255.0F;
 		float b = (float) (color & 255) / 255.0F;
 
 		return new Vec3(r, g, b);

@@ -38,8 +38,8 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 		final Function<Vec3, Double> axisValueSelectorFunction = vec3 -> vec3.get(axis);
 		final double sizeAxisSeparator = size.get(axis);
 
-		final Predicate<IStateEntryInfo> preAxisPredicate = (info) -> axisValueSelectorFunction.apply(info.getStartPoint()) <sizeAxisSeparator;
-		final Predicate<IStateEntryInfo> postAxisPredicate = (info) -> axisValueSelectorFunction.apply(info.getEndPoint())>= sizeAxisSeparator;
+		final Predicate<IStateEntryInfo> preAxisPredicate = (info) -> axisValueSelectorFunction.apply(info.getStartPoint()) < sizeAxisSeparator;
+		final Predicate<IStateEntryInfo> postAxisPredicate = (info) -> axisValueSelectorFunction.apply(info.getEndPoint()) >= sizeAxisSeparator;
 
 		preAxisMutator
 				.mutableStream()

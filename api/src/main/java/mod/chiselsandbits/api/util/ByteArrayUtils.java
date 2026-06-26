@@ -39,7 +39,7 @@ public class ByteArrayUtils {
 		for (int i = 0; i < maskWidth; i++) {
 			final int inValueOffset = maskWidth - i - 1;
 
-			final boolean isSet = ((value>> i) & 1) != 0;
+			final boolean isSet = ((value >> i) & 1) != 0;
 			target.set(bitOffset + i, isSet);
 		}
 	}
@@ -55,7 +55,7 @@ public class ByteArrayUtils {
 
 		for (int i = 0; i < maskWidth; i++) {
 			final boolean isSet = target.get(bitOffset + i); //Based of the bitset getter.
-			result |= (isSet ? 1 : 0) <<i;
+			result |= (isSet ? 1 : 0) << i;
 		}
 
 		return result;

@@ -74,15 +74,15 @@ public class VectorUtils {
 		final double y = Math.abs(v.y());
 		final double z = Math.abs(v.z());
 
-		if (x>= y && x>= z) {
+		if (x >= y && x >= z) {
 			return v.x();
 		}
 
-		if (y>= x && y>= z) {
+		if (y >= x && y >= z) {
 			return v.y();
 		}
 
-		if (z>= x && z>= y) {
+		if (z >= x && z >= y) {
 			return v.z();
 		}
 
@@ -115,9 +115,9 @@ public class VectorUtils {
 
 	public static Vec3 absolute(final Vec3 vector3d) {
 		return new Vec3(
-				vector3d.x() <0 ? -1 * vector3d.x() : vector3d.x(),
-				vector3d.y() <0 ? -1 * vector3d.y() : vector3d.y(),
-				vector3d.z() <0 ? -1 * vector3d.z() : vector3d.z()
+				vector3d.x() < 0 ? -1 * vector3d.x() : vector3d.x(),
+				vector3d.y() < 0 ? -1 * vector3d.y() : vector3d.y(),
+				vector3d.z() < 0 ? -1 * vector3d.z() : vector3d.z()
 		);
 	}
 

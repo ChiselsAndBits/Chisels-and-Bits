@@ -102,7 +102,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 				int j1 = i + i1 % 4 * 16;
 				int k1 = j + i1 / 4 * 18 + 2;
 
-				if (x>= j1 && x <j1 + 16 && y>= k1 && y <k1 + 18) {
+				if (x >= j1 && x <j1 + 16 && y >= k1 && y <k1 + 18) {
 					graphics.tooltip(font,
 							List.of(ClientTooltipComponent.create(list.get(l).value().getDisplayName().getVisualOrderText())),
 							x,
@@ -124,7 +124,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 
 			if (index == this.menu.getSelectedRecipe()) {
 				resourcelocation = RECIPE_SELECTED_SPRITE;
-			} else if (mouseX>= drawX && mouseY>= drawY && mouseX <drawX + 16 && mouseY <drawY + 18) {
+			} else if (mouseX >= drawX && mouseY >= drawY && mouseX <drawX + 16 && mouseY <drawY + 18) {
 				resourcelocation = RECIPE_HIGHLIGHTED_SPRITE;
 			} else {
 				resourcelocation = RECIPE_SPRITE;
@@ -170,7 +170,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 				int i1 = l - this.recipeIndexOffset;
 				double d0 = mouseX - (double)(i + i1 % 4 * 16);
 				double d1 = mouseY - (double)(j + i1 / 4 * 18);
-				if (this.minecraft != null && this.minecraft.player != null && d0>= 0.0D && d1>= 0.0D && d0 <16.0D && d1 <18.0D
+				if (this.minecraft != null && this.minecraft.player != null && d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D
 						&& this.menu.clickMenuButton(this.minecraft.player, l)) {
 					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
 
@@ -185,7 +185,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 			i = this.leftPos + 119;
 			j = this.topPos + 9;
 
-			if (mouseX>= (double)i && mouseX <(double)(i + 12) && mouseY>= (double)j && mouseY <(double)(j + 54)) {
+			if (mouseX >= (double)i && mouseX <(double)(i + 12) && mouseY >= (double)j && mouseY <(double)(j + 54)) {
 				this.clickedOnSroll = true;
 			}
 		}
@@ -231,7 +231,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 	}
 
 	private boolean canScroll() {
-		return this.hasItemsInInputSlot && this.menu.getRecipeListSize()> 12;
+		return this.hasItemsInInputSlot && this.menu.getRecipeListSize() > 12;
 	}
 
 	protected int getHiddenRows() {

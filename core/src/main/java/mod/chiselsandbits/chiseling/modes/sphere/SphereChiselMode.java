@@ -250,7 +250,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 	@Override
 	public boolean isStillValid(final Player playerEntity, final IChiselingContext context, final ChiselingOperation modeOfOperation) {
 		final Optional<Vec3> rayTraceHandle = modeOfOperation.isChiseling()
-				? this.processRayTraceIntoCenter(
+ ? this.processRayTraceIntoCenter(
 						playerEntity,
 						face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
 						facing -> facing.multiply(-1, -1, -1)

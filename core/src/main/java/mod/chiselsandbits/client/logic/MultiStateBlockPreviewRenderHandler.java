@@ -51,9 +51,9 @@ public class MultiStateBlockPreviewRenderHandler {
 		// Snap to bit grid
 		final float bitSize = StateEntrySize.current().getSizePerBit();
 		targetedRenderPos = targetedRenderPos.subtract(
-				targetedRenderPos.x % bitSize + (targetedRenderPos.x <0 ? bitSize : 0),
-				targetedRenderPos.y % bitSize + (targetedRenderPos.y <0 ? bitSize : 0),
-				targetedRenderPos.z % bitSize + (targetedRenderPos.z <0 ? bitSize : 0)
+				targetedRenderPos.x % bitSize + (targetedRenderPos.x < 0 ? bitSize : 0),
+				targetedRenderPos.y % bitSize + (targetedRenderPos.y < 0 ? bitSize : 0),
+				targetedRenderPos.z % bitSize + (targetedRenderPos.z < 0 ? bitSize : 0)
 		);
 
 		final PlacementResult placementResult;

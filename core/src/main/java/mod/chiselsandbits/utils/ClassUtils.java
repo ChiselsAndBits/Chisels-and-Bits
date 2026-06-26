@@ -4,7 +4,7 @@ import mod.chiselsandbits.api.config.ICommonConfiguration;
 import org.jspecify.annotations.Nullable;
 
 public class ClassUtils {
-	private record Key(Class<?> sourceClass, String methodName, Class<?>...args) {
+	private record Key(Class<?> sourceClass, String methodName, Class<?>... args) {
 	}
 
 	private record ClassLookupResult(@Nullable Class<?> clazz, boolean isPresent) {
@@ -20,7 +20,7 @@ public class ClassUtils {
 	public static Class<?> getDeclaringClass(
 			final Class<?> blkClass,
 			final String methodName,
-			final Class<?>...args) {
+			final Class<?>... args) {
 		final ClassLookupResult result = lookupResult(blkClass, methodName, args);
 
 		if (result.isPresent()) {
@@ -33,7 +33,7 @@ public class ClassUtils {
 	private static ClassLookupResult lookupResult(
 			final Class<?> blkClass,
 			final String methodName,
-			final Class<?>...args) {
+			final Class<?>... args) {
 		return CACHE.get(
 			new Key(blkClass, methodName, args),
 				() -> {

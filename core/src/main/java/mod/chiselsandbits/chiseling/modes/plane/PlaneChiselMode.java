@@ -273,9 +273,9 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private Vec3 clampVectorToBlock(final Vec3 v) {
 		return new Vec3(
-				v.x() <0 ? 0 : (v.x()>= 1 ? 1 - ONE_THOUSANDS : v.x()),
-				v.y() <0 ? 0 : (v.y()>= 1 ? 1 - ONE_THOUSANDS : v.y()),
-				v.z() <0 ? 0 : (v.z()>= 1 ? 1 - ONE_THOUSANDS : v.z())
+				v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()),
+				v.y() < 0 ? 0 : (v.y() >= 1 ? 1 - ONE_THOUSANDS : v.y()),
+				v.z() < 0 ? 0 : (v.z() >= 1 ? 1 - ONE_THOUSANDS : v.z())
 		);
 	}
 

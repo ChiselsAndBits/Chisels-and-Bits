@@ -274,7 +274,7 @@ public interface CBCodecs {
 		Validate.notNull(key, "Key cannot be null");
 		Validate.notNull(value, "Value cannot be null");
 
-		return RecordCodecBuilder.<Map.Entry<K, V>>create(instance ->
+		return RecordCodecBuilder.<Map.Entry<K, V>> create(instance ->
 				instance.group(
 						keyCodec.fieldOf(key).forGetter(Map.Entry::getKey),
 						valueCodec.fieldOf(value).forGetter(Map.Entry::getValue)

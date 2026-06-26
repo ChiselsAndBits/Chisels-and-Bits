@@ -73,7 +73,7 @@ public class GreedyMeshBuilder {
 								dimensionalIterator[0],
 								dimensionalIterator[1],
 								dimensionalIterator[2]) : 0);
-						int neighborMaterial = (dimensionalIterator[dimension] <sizePerDimension - 1 ? materialProcessor.getMaterialIndex(
+						int neighborMaterial = (dimensionalIterator[dimension] < sizePerDimension - 1 ? materialProcessor.getMaterialIndex(
 								dimensionalIterator[0] + calculatedDimensionsOffset[0],
 								dimensionalIterator[1] + calculatedDimensionsOffset[1],
 								dimensionalIterator[2] + calculatedDimensionsOffset[2]) : 0);
@@ -161,7 +161,7 @@ public class GreedyMeshBuilder {
 
 		Direction.AxisDirection axisDirection = Direction.AxisDirection.POSITIVE;
 
-		if (materialMask> 0) {
+		if (materialMask > 0) {
 			deltaHorizontal[secondDimensionIter] = height;
 			deltaVertical[firstDimensionIter] = width;
 		} else {
@@ -181,7 +181,7 @@ public class GreedyMeshBuilder {
 
 		final double axisValue = axis.choose(lowerLeft.x, lowerLeft.y, lowerLeft.z);
 
-		final boolean isEdge = Math.abs(0-axisValue) <EPSILON || Math.abs(1-axisValue) <EPSILON;
+		final boolean isEdge = Math.abs(0-axisValue) < EPSILON || Math.abs(1-axisValue) < EPSILON;
 
 		return new GreedyMeshFace(
 				material,

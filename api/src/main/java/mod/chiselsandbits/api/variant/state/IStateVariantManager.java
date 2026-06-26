@@ -60,7 +60,7 @@ public interface IStateVariantManager {
 	 * @param provider The provider to register.
 	 * @return The manager instance.
 	 */
-	public IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>...block);
+	public IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block);
 
 	/**
 	 * Returns the state variant, if one exists, for the blockstate and block entity combination.

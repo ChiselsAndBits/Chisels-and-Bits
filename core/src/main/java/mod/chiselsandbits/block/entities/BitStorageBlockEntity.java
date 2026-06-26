@@ -123,7 +123,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	private void drawFromAboveIfSpace() {
-		if (this.bits>= StateEntrySize.current().getBitsPerBlock()) {
+		if (this.bits >= StateEntrySize.current().getBitsPerBlock()) {
 			return;
 		}
 
@@ -135,7 +135,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 		final BlockEntity blockEntity = this.level.getBlockEntity(up);
 
 		if (blockEntity instanceof BitStorageBlockEntity storage) {
-			if (storage.getBits()> 0 && (this.state == null || (storage.state != null && storage.state.equals(this.state)))) {
+			if (storage.getBits() > 0 && (this.state == null || (storage.state != null && storage.state.equals(this.state)))) {
 				final int toInsert = Math.min(StateEntrySize.current().getBitsPerBlock() - this.bits, storage.getBits());
 				this.bits += toInsert;
 				this.state = storage.state;
@@ -222,7 +222,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 			final Optional<FluidInformation> containedFluid = IFluidManager.getInstance().get(current);
 
-			if (containedFluid.isPresent() && containedFluid.get().amount()> 0) {
+			if (containedFluid.isPresent() && containedFluid.get().amount() > 0) {
 				final BlockState state = containedFluid.get().fluid().defaultFluidState().createLegacyBlock();
 				final BlockInformation blockInformation = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(containedFluid.get()));
 
@@ -368,7 +368,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 		if (this.level.getBlockEntity(this.worldPosition) != this) {
 			return false;
 		} else {
-			return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D)> 64.0D);
+			return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
 		}
 	}
 

@@ -130,7 +130,7 @@ public class Vector2i implements Comparable<Vector2i> {
 	}
 
 	public boolean withinDistance(Vector2i vector, double distance) {
-		return this.distanceSq((double) vector.getX(), (double) vector.getY(), false) <distance * distance;
+		return this.distanceSq((double) vector.getX(), (double) vector.getY(), false) < distance * distance;
 	}
 
 	public double distanceSq(double x, double y, boolean useCenter) {
@@ -141,7 +141,7 @@ public class Vector2i implements Comparable<Vector2i> {
 	}
 
 	public boolean withinDistance(Position position, double distance) {
-		return this.distanceSq(position.x(), position.y(), true) <distance * distance;
+		return this.distanceSq(position.x(), position.y(), true) < distance * distance;
 	}
 
 	/**

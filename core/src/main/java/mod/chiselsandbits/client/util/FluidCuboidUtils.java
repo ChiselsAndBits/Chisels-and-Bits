@@ -133,15 +133,15 @@ public class FluidCuboidUtils {
 	public static void putTexturedQuad(
 			VertexConsumer renderer, PoseStack.Pose matrix, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
 			int color, final int overlay, int brightness, boolean flowing, boolean flipHorizontally, boolean flipVertically) {
-		int l1 = brightness>> 0x10 & 0xFFFF;
+		int l1 = brightness >> 0x10 & 0xFFFF;
 		int l2 = brightness & 0xFFFF;
 
-		int o1 = overlay>> 0x10 & 0xFFFF;
+		int o1 = overlay >> 0x10 & 0xFFFF;
 		int o2 = overlay & 0xFFFF;
 
-		int a = color>> 24 & 0xFF;
-		int r = color>> 16 & 0xFF;
-		int g = color>> 8 & 0xFF;
+		int a = color >> 24 & 0xFF;
+		int r = color >> 16 & 0xFF;
+		int g = color >> 8 & 0xFF;
 		int b = color & 0xFF;
 
 		putTexturedQuad(renderer, matrix, sprite, w, h, d, face, r, g, b, a, l1, l2, o1, o2, flowing, flipHorizontally, flipVertically);
@@ -171,21 +171,21 @@ public class FluidCuboidUtils {
 		float xt1 = 0;
 		float xt2 = w;
 
-		while (xt2> 1f) {
+		while (xt2 > 1f) {
 			xt2 -= 1f;
 		}
 
 		float yt1 = 0;
 		float yt2 = h;
 
-		while (yt2> 1f) {
+		while (yt2 > 1f) {
 			yt2 -= 1f;
 		}
 
 		float zt1 = 0;
 		float zt2 = d;
 
-		while (zt2> 1f) {
+		while (zt2 > 1f) {
 			zt2 -= 1f;
 		}
 

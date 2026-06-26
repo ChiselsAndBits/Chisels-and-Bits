@@ -56,8 +56,8 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 
 					final IEligibilityAnalysisResult result = IEligibilityManager.getInstance().analyse(blockInformation);
 					return result.isAlreadyChiseled() || result.canBeChiseled()
-					? result.getReason().withStyle(ChatFormatting.GREEN)
-					: result.getReason().withStyle(ChatFormatting.RED);
+ ? result.getReason().withStyle(ChatFormatting.GREEN)
+							: result.getReason().withStyle(ChatFormatting.RED);
 				},
 
 

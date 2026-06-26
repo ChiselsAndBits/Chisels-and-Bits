@@ -69,7 +69,7 @@ public class BlockEligibilityAnalysisData {
 
 			final boolean isFluid = !state.blockState().getFluidState().isEmpty();
 
-			// is it perfect?
+			// is it perfect ?
 			if (test_b && test_c && test_d && !isFluid) {
 				final float blockHardness = state.blockState().getDestroySpeed(
 					new SingleBlockBlockAndLightGetter.Builder()

@@ -96,14 +96,14 @@ public final class VertexDataUtils {
 			BOTTOM_RIGHT;
 
 			private static Corner closest(final Vector2f vector2f, final Vector2f center) {
-				if (vector2f.x() <center.x()) {
-					if (vector2f.y() <center.y()) {
+				if (vector2f.x() < center.x()) {
+					if (vector2f.y() < center.y()) {
 						return BOTTOM_LEFT;
 					} else {
 						return TOP_LEFT;
 					}
 				} else {
-					if (vector2f.y() <center.y()) {
+					if (vector2f.y() < center.y()) {
 						return BOTTOM_RIGHT;
 					} else {
 						return TOP_RIGHT;

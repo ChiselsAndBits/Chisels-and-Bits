@@ -53,9 +53,9 @@ public class ColorUtils {
 	public static int pack(final int r, final int g, final int b, final int a) {
 		int color = 0;
 
-		color |= (a & FULL_CHANNEL) <<24;
-		color |= (r & FULL_CHANNEL) <<16;
-		color |= (g & FULL_CHANNEL) <<8;
+		color |= (a & FULL_CHANNEL) << 24;
+		color |= (r & FULL_CHANNEL) << 16;
+		color |= (g & FULL_CHANNEL) << 8;
 		color |= (b & FULL_CHANNEL);
 
 		return color;

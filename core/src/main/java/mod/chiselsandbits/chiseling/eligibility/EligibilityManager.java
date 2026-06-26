@@ -91,7 +91,7 @@ public class EligibilityManager implements IEligibilityManager {
 				final ReflectionHelperBlock pb = ModBlocks.REFLECTION_HELPER_BLOCK.get();
 				final Class<? extends Block> blkClass = blk.getClass();
 
-				// custom dropping behavior?
+				// custom dropping behavior ?
 				pb.getDrops(blockInformation.blockState(), null);
 				final Class<?> wc = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, LootParams.Builder.class);
 				final boolean quantityDroppedTest = wc == Block.class || wc == BlockBehaviour.class || wc == LiquidBlock.class;
@@ -104,7 +104,7 @@ public class EligibilityManager implements IEligibilityManager {
 				Class<?> collisionClass = ClassUtils.getDeclaringClass(blkClass, pb.getLastInvokedThreadLocalMethodName(), BlockState.class, BlockGetter.class, BlockPos.class, CollisionContext.class);
 				boolean noCustomCollision = collisionClass == Block.class || collisionClass == BlockBehaviour.class || blk.getClass() == SlimeBlock.class || collisionClass == LiquidBlock.class;
 
-				// full cube specifically is tied to lighting...so for glass
+				// full cube specifically is tied to lighting... so for glass
 				// Compatibility use isFullBlock which can be true for glass.
 				boolean isFullBlock = blockInformation.blockState().canOcclude() || blk instanceof TransparentBlock || blk instanceof LiquidBlock;
 				final BlockEligibilityAnalysisData info = BlockEligibilityAnalysisData.createFromState(blockInformation);
@@ -119,12 +119,12 @@ public class EligibilityManager implements IEligibilityManager {
 					itemExistsOrNotSpecialDrops = true;
 				}
 
-				if (info.isCompatible() && noCustomCollision && info.getHardness()>= -0.01f && isFullBlock && !hasBehavior && itemExistsOrNotSpecialDrops) {
+				if (info.isCompatible() && noCustomCollision && info.getHardness() >= -0.01f && isFullBlock && !hasBehavior && itemExistsOrNotSpecialDrops) {
 					return new EligibilityAnalysisResult(
 							true,
 							false,
 							TranslationUtils.build ((blkClass.isAnnotationPresent(IgnoreBlockLogic.class))
-									? LocalStrings.ChiselSupportLogicIgnored
+ ? LocalStrings.ChiselSupportLogicIgnored
 									: LocalStrings.ChiselSupportGenericSupported
 							));
 				}
@@ -151,7 +151,7 @@ public class EligibilityManager implements IEligibilityManager {
 							false,
 							TranslationUtils.build(LocalStrings.ChiselSupportCustomCollision)
 					);
-				} else if (info.getHardness() <-0.01f) {
+				} else if (info.getHardness() < -0.01f) {
 					result = new EligibilityAnalysisResult(
 							false,
 							false,

@@ -235,7 +235,7 @@ public interface CBStreamCodecs {
 	static <B, R, D> StreamCodec<B, R> dispatch(
 			StreamCodec<? super B, D> dispatcherCodec,
 			Function<D, StreamCodec<B, ? extends R>> decoderFactory,
-			Function<R, D> dispatcherSelector
+					Function<R, D> dispatcherSelector
 	) {
 		return new StreamCodec<>() {
 			@Override

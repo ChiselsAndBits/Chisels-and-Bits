@@ -138,7 +138,7 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 			return BlockInformation.AIR;
 		}
 
-		if (blockStateId <0 || blockStateId>= this.paletteEntries.size()) {
+		if (blockStateId < 0 || blockStateId >= this.paletteEntries.size()) {
 			return getBlockState(0);
 		}
 

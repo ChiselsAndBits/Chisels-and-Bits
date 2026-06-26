@@ -297,13 +297,13 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			double distanceFromStart = 0d;
 
 			Vec3i pos = new Vec3i(
-					(int) (direction.x()> 0 ? Math.ceil(origin.x()) - 1 : Math.floor(origin.x())),
-					(int) (direction.y()> 0 ? Math.ceil(origin.y()) - 1 : Math.floor(origin.y())),
-					(int) (direction.z()> 0 ? Math.ceil(origin.z()) - 1 : Math.floor(origin.z()))
+					(int) (direction.x() > 0 ? Math.ceil(origin.x()) - 1 : Math.floor(origin.x())),
+					(int) (direction.y() > 0 ? Math.ceil(origin.y()) - 1 : Math.floor(origin.y())),
+					(int) (direction.z() > 0 ? Math.ceil(origin.z()) - 1 : Math.floor(origin.z()))
 			);
-			double xOff = direction.x()> 0 ? 1 + pos.getX() - origin.x() : origin.x() - pos.getX();
-			double yOff = direction.y()> 0 ? 1 + pos.getY() - origin.y() : origin.y() - pos.getY();
-			double zOff = direction.z()> 0 ? 1 + pos.getZ() - origin.z() : origin.z() - pos.getZ();
+			double xOff = direction.x() > 0 ? 1 + pos.getX() - origin.x() : origin.x() - pos.getX();
+			double yOff = direction.y() > 0 ? 1 + pos.getY() - origin.y() : origin.y() - pos.getY();
+			double zOff = direction.z() > 0 ? 1 + pos.getZ() - origin.z() : origin.z() - pos.getZ();
 
 			double xDist = Double.isNaN(xLen) ? Double.POSITIVE_INFINITY : Math.abs(xOff * xLen);
 			double yDist = Double.isNaN(yLen) ? Double.POSITIVE_INFINITY : Math.abs(yOff * yLen);
@@ -316,21 +316,21 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 					if (xDist <zDist) {
 						distanceFromStart = xDist;
 						xDist += xLen;
-						pos = pos.offset(direction.x()> 0 ? 1 : -1, 0, 0);
+						pos = pos.offset(direction.x() > 0 ? 1 : -1, 0, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				} else {
 					if (yDist <zDist) {
 						distanceFromStart = yDist;
 						yDist += yLen;
-						pos = pos.offset(0, direction.y()> 0 ? 1 : -1, 0);
+						pos = pos.offset(0, direction.y() > 0 ? 1 : -1, 0);
 					} else {
 						distanceFromStart = zDist;
 						zDist += zLen;
-						pos = pos.offset(0, 0, direction.z()> 0 ? 1 : -1);
+						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				}
 			}

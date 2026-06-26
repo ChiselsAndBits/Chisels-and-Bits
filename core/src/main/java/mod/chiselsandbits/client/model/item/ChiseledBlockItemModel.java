@@ -129,7 +129,7 @@ public record ChiseledBlockItemModel(
 			if (itemModel instanceof CuboidItemModelWrapper wrapper) {
 				final List<ItemTintSource> tintSources = wrapper.tints;
 
-				if (material.tintIndex()>= tintSources.size() || material.tintIndex() <0) {
+				if (material.tintIndex() >= tintSources.size() || material.tintIndex() < 0) {
 					tintList.set(i, ARGB.color(255, 255, 255, 255));
 					continue;
 				}

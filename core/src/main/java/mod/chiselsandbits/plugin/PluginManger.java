@@ -32,7 +32,7 @@ public final class PluginManger implements IPluginManager {
 
 	@Override
 	public void run(String action, Consumer<IChiselsAndBitsPlugin> callback) {
-		LOGGER.warn("Running plugin action { }...", action);
+		LOGGER.warn("Running plugin action { }... ", action);
 
 		for (PluginData<IChiselsAndBitsPlugin> pluginData : pluginDatas) {
 			LOGGER.info(" - { }", pluginData.plugin().getId());
@@ -43,7 +43,7 @@ public final class PluginManger implements IPluginManager {
 	}
 
 	public void detect() {
-		LOGGER.info("Discovering plugins...");
+		LOGGER.info("Discovering plugins... ");
 		this.pluginDatas = ImmutableSet.copyOf(IPluginDiscoverer.getInstance().loadPlugins().toList());
 		this.plugins = ImmutableSet.copyOf(this.pluginDatas.stream().map(PluginData::plugin).collect(Collectors.toSet()));
 		LOGGER.info("Discovered { } plugins: { }", this.pluginDatas.size(), this.pluginDatas.stream().map(p -> p.plugin().getId()).collect(Collectors.joining(", ")));

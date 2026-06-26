@@ -23,5 +23,5 @@ public interface ISelectedToolModeIconRendererRegistry {
 	 * @param renderers The candidates.
 	 * @return The registry.
 	 */
-	ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer...renderers);
+	ISelectedToolModeIconRendererRegistry register(final ISelectedToolModeIconRenderer... renderers);
 }

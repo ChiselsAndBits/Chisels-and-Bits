@@ -138,11 +138,11 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					if (!this.moveItemStackTo(itemstack1, 1, 2, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (index <30) {
+				} else if (index < 30) {
 					if (!this.moveItemStackTo(itemstack1, 30, 39, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (index <39 && !this.moveItemStackTo(itemstack1, 3, 30, false)) {
+				} else if (index < 39 && !this.moveItemStackTo(itemstack1, 3, 30, false)) {
 					return ItemStack.EMPTY;
 				}
 			} else if (!this.moveItemStackTo(itemstack1, 3, 39, false)) {

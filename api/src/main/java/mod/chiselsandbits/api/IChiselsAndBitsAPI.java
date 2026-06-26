@@ -163,7 +163,6 @@ public interface IChiselsAndBitsAPI {
 	 * @return The size of the state entries in the current instance.
 	 */
 	default StateEntrySize getStateEntrySize() {
-
 		try {
 			return getConfiguration().getServer().getBitSize().get();
 		} catch (Exception ignored) {

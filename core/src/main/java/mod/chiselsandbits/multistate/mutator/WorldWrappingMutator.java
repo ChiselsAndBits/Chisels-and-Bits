@@ -239,17 +239,17 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public void setInAreaTarget(
 			final BlockInformation blockInformation,
 			final Vec3 inAreaTarget) throws SpaceOccupiedException {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
 				}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
-		if (actualTarget.x()>= getInWorldEndPoint().x()
-				|| actualTarget.y()>= getInWorldEndPoint().y()
-				|| actualTarget.z()>= getInWorldEndPoint().z()) {
+		if (actualTarget.x() >= getInWorldEndPoint().x()
+				|| actualTarget.y() >= getInWorldEndPoint().y()
+				|| actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
 				}
 
@@ -269,15 +269,15 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		final BlockPos targetPos = startPos.offset(inAreaBlockPosOffset);
 		final Vec3 target = Vec3.atLowerCornerOf(targetPos).add(inBlockTarget);
 
-		if (target.x() <getInWorldStartPoint().x()
-				|| target.y() <getInWorldStartPoint().y()
-				|| target.z() <getInWorldStartPoint().z()) {
+		if (target.x() < getInWorldStartPoint().x()
+				|| target.y() < getInWorldStartPoint().y()
+				|| target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
 				}
 
-		if (target.x()>= getInWorldEndPoint().x()
-				|| target.y()>= getInWorldEndPoint().y()
-				|| target.z()>= getInWorldEndPoint().z()) {
+		if (target.x() >= getInWorldEndPoint().x()
+				|| target.y() >= getInWorldEndPoint().y()
+				|| target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
 				}
 
@@ -295,17 +295,17 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	 */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
 				}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
-		if (actualTarget.x()>= getInWorldEndPoint().x()
-				|| actualTarget.y()>= getInWorldEndPoint().y()
-				|| actualTarget.z()>= getInWorldEndPoint().z()) {
+		if (actualTarget.x() >= getInWorldEndPoint().x()
+				|| actualTarget.y() >= getInWorldEndPoint().y()
+				|| actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
 				}
 
@@ -331,15 +331,15 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		final BlockPos targetPos = startPos.offset(inAreaBlockPosOffset);
 		final Vec3 target = Vec3.atLowerCornerOf(targetPos).add(inBlockTarget);
 
-		if (target.x() <getInWorldStartPoint().x()
-				|| target.y() <getInWorldStartPoint().y()
-				|| target.z() <getInWorldStartPoint().z()) {
+		if (target.x() < getInWorldStartPoint().x()
+				|| target.y() < getInWorldStartPoint().y()
+				|| target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
 				}
 
-		if (target.x()>= getInWorldEndPoint().x()
-				|| target.y()>= getInWorldEndPoint().y()
-				|| target.z()>= getInWorldEndPoint().z()) {
+		if (target.x() >= getInWorldEndPoint().x()
+				|| target.y() >= getInWorldEndPoint().y()
+				|| target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
 				}
 

@@ -72,7 +72,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 						LocalStrings.BitBagEntry.getText(slot.getCount(), slot.getBlockInformation().blockState().getBlock().getName())
 				);
 
-		if (count> 5) {
+		if (count > 5) {
 			stream = stream.limit(5);
 			stream = Stream.concat(stream, Stream.of(LocalStrings.BitBagMoreEntries.getText()));
 			clipped = true;
@@ -127,7 +127,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 			}
 
 			// Give player items for each 4096 bits they have (full block) 16^3
-			while (count>= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock()) {
+			while (count >= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock()) {
 			// Give the block to the player
 				ItemStack block = new ItemStack(e.getKey().blockState().getBlock().asItem());
 
@@ -140,13 +140,13 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 			}
 
 			// Sort the remaining bits into stacks.
-			while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count> 0) {
+			while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
 				slotIndex++;
 				count -= IServerConfiguration.getInstance().getBagStackSize().get();
 			}
 
-			if (count> 0) {
+			if (count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), count));
 				slotIndex++;
 			}
@@ -174,13 +174,13 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 			if (count == 0) {
 				continue;
-			} while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count> 0) {
+			} while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
 				slotIndex++;
 				count -= IServerConfiguration.getInstance().getBagStackSize().get();
 			}
 
-			if (count> 0) {
+			if (count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), count));
 				slotIndex++;
 			}

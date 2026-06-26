@@ -314,7 +314,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 					int rotationCount = horizontalIndex - 4;
 
-					if (rotationCount <0) {
+					if (rotationCount < 0) {
 						rotationCount += 4;
 					}
 
@@ -495,7 +495,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 							return result;
 						})
-						.filter(result -> result.length> 0)
+						.filter(result -> result.length > 0)
 						.flatMap(summedResult -> getBlockEntity(levelReader, pos)
 								.map(entity -> ArrayUtils.multiply(summedResult, 1f / (entity.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())))
 						)
@@ -588,14 +588,14 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				}
 					})
 					.map(count -> {
-						if (count> 0) {
+						if (count > 0) {
 							itemStack.shrink(1);
 							IPlayerInventoryManager.getInstance().giveToPlayer(
 									player, new ItemStack(Items.WET_SPONGE)
 							);
 						}
 
-						return count> 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
+						return count > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 					})
 					.orElse(InteractionResult.PASS);
 		}

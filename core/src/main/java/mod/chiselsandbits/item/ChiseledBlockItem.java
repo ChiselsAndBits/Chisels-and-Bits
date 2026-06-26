@@ -126,7 +126,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 		final IAreaAccessor source = this.createItemStack(context.getItemInHand());
 		final IWorldAreaMutator areaMutator = player.isShiftKeyDown()
-				? IMutatorFactory.getInstance().covering(
+ ? IMutatorFactory.getInstance().covering(
 						level,
 						context.getClickLocation(),
 						context.getClickLocation().add(1d, 1d, 1d)
@@ -219,7 +219,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 			}
 				});
 		return noSpaceOccupied
-				? PlacementResult.success()
+ ? PlacementResult.success()
 				: PlacementResult.failure(
 						IClientConfiguration::getNotFittingPatternPlacementColor,
 						LocalStrings.PatternPlacementNotAnAirBlock.getText());

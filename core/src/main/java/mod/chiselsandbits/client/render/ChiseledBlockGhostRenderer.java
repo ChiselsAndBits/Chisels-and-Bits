@@ -99,11 +99,11 @@ public class ChiseledBlockGhostRenderer {
 
 		if (renderColoredGhost) {
 			renderType = ignoreDepth
-					? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
+ ? ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW_ALWAYS.get()
 					: ModRenderTypes.GHOST_BLOCK_COLORED_PREVIEW.get();
 		} else {
 			renderType = ignoreDepth
-					? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
+ ? ModRenderTypes.GHOST_BLOCK_PREVIEW_GREATER.get()
 					: ModRenderTypes.GHOST_BLOCK_PREVIEW.get();
 		}
 
@@ -186,9 +186,9 @@ public class ChiseledBlockGhostRenderer {
 		public VertexConsumer setColor(final int color) {
 		//Color is in RGBA format
 		//Extract the channels
-			final int red = (color>> 24) & 0xFF;
-			final int green = (color>> 16) & 0xFF;
-			final int blue = (color>> 8) & 0xFF;
+			final int red = (color >> 24) & 0xFF;
+			final int green = (color >> 16) & 0xFF;
+			final int blue = (color >> 8) & 0xFF;
 			final int alpha = color & 0xFF;
 
 			return delegate.setColor(

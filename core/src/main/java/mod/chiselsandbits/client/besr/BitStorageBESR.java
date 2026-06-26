@@ -136,8 +136,8 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 				blockAndTintGetter,
 				BlockPos.ZERO
 				) : Integer.MAX_VALUE;
-		r = ((color>> 16) & 0xff) / 255f;
-		g = ((color>> 8) & 0xff) / 255f;
+		r = ((color >> 16) & 0xff) / 255f;
+		g = ((color >> 8) & 0xff) / 255f;
 		b = (color & 0xff) / 255f;
 
 		var tintColor = ARGB.color((int) (r * 255f), (int) (g * 255f), (int) (b * 255f));

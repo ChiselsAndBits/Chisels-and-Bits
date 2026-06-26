@@ -135,15 +135,15 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return Optional.empty();
 		}
 
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0) {
 			return Optional.empty();
 				}
 
-		if (inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			return Optional.empty();
 				}
 
@@ -195,12 +195,12 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return false;
 		}
 
-		return !(inAreaTarget.x() <0)
-		&& !(inAreaTarget.y() <0)
-		&& !(inAreaTarget.z() <0)
-		&& !(inAreaTarget.x()>= 1)
-		&& !(inAreaTarget.y()>= 1)
-		&& !(inAreaTarget.z()>= 1);
+		return !(inAreaTarget.x() < 0)
+		&& !(inAreaTarget.y() < 0)
+		&& !(inAreaTarget.z() < 0)
+		&& !(inAreaTarget.x() >= 1)
+		&& !(inAreaTarget.y() >= 1)
+		&& !(inAreaTarget.z() >= 1);
 	}
 
 	@Override
@@ -432,16 +432,16 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return;
 		}
 
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset greater or equal to 0.Requested was: " + inAreaTarget);
 				}
 
-		if (inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset smaller then 1.Requested was: " + inAreaTarget);
 				}
@@ -506,16 +506,16 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 			return;
 		}
 
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset greater or equal to 0.Requested was: " + inAreaTarget);
 				}
 
-		if (inAreaTarget.x()> 1
-				|| inAreaTarget.y()> 1
-				|| inAreaTarget.z()> 1) {
+		if (inAreaTarget.x() > 1
+				|| inAreaTarget.y() > 1
+				|| inAreaTarget.z() > 1) {
 			throw new IllegalArgumentException(
 					"The chisel adapting world mutator can only mutate blocks with an in area offset smaller then 1.Requested was: " + inAreaTarget);
 				}

@@ -99,7 +99,7 @@ public final class MeasurementRenderer {
 			final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
 			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
 
-			if (lengths.y()> 1 / 16d) {
+			if (lengths.y() > 1 / 16d) {
 				renderMeasurementSize(
 						poseStack,
 						bufferSource,
@@ -108,7 +108,7 @@ public final class MeasurementRenderer {
 					new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
 			}
 
-			if (lengths.x()> 1 / 16d) {
+			if (lengths.x() > 1 / 16d) {
 				renderMeasurementSize(
 						poseStack,
 						bufferSource,
@@ -117,7 +117,7 @@ public final class MeasurementRenderer {
 					new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
 			}
 
-			if (lengths.z()> 1 / 16d) {
+			if (lengths.z() > 1 / 16d) {
 				renderMeasurementSize(
 						poseStack,
 						bufferSource,
@@ -157,7 +157,7 @@ public final class MeasurementRenderer {
 			final double totalLength = lengths.length();
 			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
 
-			if (totalLength> 1 / 16d) {
+			if (totalLength > 1 / 16d) {
 				renderMeasurementSize(
 						poseStack,
 						bufferSource,
@@ -244,7 +244,7 @@ public final class MeasurementRenderer {
 		final double delta = Math.min(1.0, maxLen / 4.0);
 		double scale = maxFontSize * delta + minFontSize * (1.0 - delta);
 
-		if (maxLen <0.25) {
+		if (maxLen < 0.25) {
 			scale = minFontSize;
 		}
 
@@ -278,7 +278,7 @@ public final class MeasurementRenderer {
 
 		return Component.translatable(Constants.MOD_ID + ".measurements.owners.by",
 				playerInfo.getTabListDisplayName() != null
-				? this.formatPlayerDisplayName(playerInfo, playerInfo.getTabListDisplayName().copy())
+ ? this.formatPlayerDisplayName(playerInfo, playerInfo.getTabListDisplayName().copy())
 				: this.formatPlayerDisplayName(playerInfo, PlayerTeam.formatNameForTeam(playerInfo.getTeam(), Component.literal(playerInfo.getProfile().name()))));
 	}
 

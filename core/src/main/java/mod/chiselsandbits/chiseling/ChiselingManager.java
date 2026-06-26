@@ -122,7 +122,7 @@ public class ChiselingManager implements IChiselingManager {
 		final long time = playerEntity.tickCount;
 		final long diffSinceLastUse = time - lastChiselTime;
 
-		if (diffSinceLastUse <0 || diffSinceLastUse> Constants.TICKS_BETWEEN_CHISEL_USAGE) {
+		if (diffSinceLastUse < 0 || diffSinceLastUse> Constants.TICKS_BETWEEN_CHISEL_USAGE) {
 			resetLastChiselCountdown(playerEntity);
 			return true;
 		}

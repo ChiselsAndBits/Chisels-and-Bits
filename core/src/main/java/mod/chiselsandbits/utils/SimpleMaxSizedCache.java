@@ -31,7 +31,7 @@ public class SimpleMaxSizedCache<K, V> {
 	}
 
 	private void evictFromCacheIfNeeded() {
-		while (cache.size()>= maxSizeSupplier.getAsLong()) {
+		while (cache.size() >= maxSizeSupplier.getAsLong()) {
 			cache.remove(keyQueue.poll());
 		}
 	}

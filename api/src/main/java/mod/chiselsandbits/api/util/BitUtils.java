@@ -10,7 +10,7 @@ public class BitUtils {
 			return 0xFFFFFFFF;
 		}
 
-		return (1 <<bitWidth) - 1;
+		return (1 << bitWidth) - 1;
 	}
 
 	public static int getByteCount(final int totalBitCount) {

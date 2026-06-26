@@ -124,12 +124,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget) {
-		return !(inAreaTarget.x() <0)
-		&& !(inAreaTarget.y() <0)
-		&& !(inAreaTarget.z() <0)
-		&& !(inAreaTarget.x()>= 1)
-		&& !(inAreaTarget.y()>= 1)
-		&& !(inAreaTarget.z()>= 1);
+		return !(inAreaTarget.x() < 0)
+		&& !(inAreaTarget.y() < 0)
+		&& !(inAreaTarget.z() < 0)
+		&& !(inAreaTarget.x() >= 1)
+		&& !(inAreaTarget.y() >= 1)
+		&& !(inAreaTarget.z() >= 1);
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	@SuppressWarnings("deprecation")
 	@Override
 	public Optional<IStateEntryInfo> getInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
@@ -233,12 +233,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 			final BlockInformation blockInformation,
 			final Vec3 inAreaTarget)
 	throws SpaceOccupiedException {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
@@ -298,12 +298,12 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	 */
 	@Override
 	public void clearInAreaTarget(final Vec3 inAreaTarget) {
-		if (inAreaTarget.x() <0
-				|| inAreaTarget.y() <0
-				|| inAreaTarget.z() <0
-				|| inAreaTarget.x()>= 1
-				|| inAreaTarget.y()>= 1
-				|| inAreaTarget.z()>= 1) {
+		if (inAreaTarget.x() < 0
+				|| inAreaTarget.y() < 0
+				|| inAreaTarget.z() < 0
+				|| inAreaTarget.x() >= 1
+				|| inAreaTarget.y() >= 1
+				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 

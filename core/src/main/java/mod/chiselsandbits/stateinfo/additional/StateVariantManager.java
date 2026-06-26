@@ -71,7 +71,7 @@ public final class StateVariantManager implements IStateVariantManager {
 
 	@SafeVarargs
 	@Override
-	public final IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>...block) {
+	public final IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block) {
 		if (providersByNames.containsKey(provider.getRegistryName())) {
 			throw new IllegalStateException("Provider with name " + provider.getRegistryName() + " already exists!");
 		}

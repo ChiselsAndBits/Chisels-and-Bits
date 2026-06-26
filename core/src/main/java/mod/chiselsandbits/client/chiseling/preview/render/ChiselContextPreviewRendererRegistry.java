@@ -32,7 +32,7 @@ public class ChiselContextPreviewRendererRegistry implements IChiselContextPrevi
 	}
 
 	@Override
-	public IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer...renderers) {
+	public IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers) {
 		for (final IChiselContextPreviewRenderer renderer : renderers) {
 			if (rendererMap.put(renderer.getId(), renderer) != null) {
 				throw new IllegalArgumentException("The renderer id: " + renderer.getId() + " is already in use!");

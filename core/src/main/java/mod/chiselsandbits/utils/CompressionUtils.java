@@ -22,7 +22,7 @@ public class CompressionUtils {
 		byte[] buffer = new byte[1024];
 
 		while (!deflater.finished()) {
-			int count = deflater.deflate(buffer); // returns the generated code...index
+			int count = deflater.deflate(buffer); // returns the generated code... index
 			outputStream.write(buffer, 0, count);
 		}
 

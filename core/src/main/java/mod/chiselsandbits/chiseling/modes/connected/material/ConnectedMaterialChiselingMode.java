@@ -275,7 +275,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
-				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) :
+ ? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
 		face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(
@@ -391,9 +391,9 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 							targetedPosition.getY() + offset.getY(),
 							targetedPosition.getZ() + offset.getZ()
 					);
-					if (newTarget.getX()>= 0 && newTarget.getX() <StateEntrySize.current().getBitsPerBlockSide()
-							&& newTarget.getY()>= 0 && newTarget.getY() <StateEntrySize.current().getBitsPerBlockSide()
-							&& newTarget.getZ()>= 0 && newTarget.getZ() <StateEntrySize.current().getBitsPerBlockSide()) {
+					if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide()
+							&& newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide()
+							&& newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
 								final Vec3i relevantNewTargetAxisVector = 
 								new Vec3i(
 										newTarget.getX() * Math.abs(blockHitResult.getDirection().getUnitVec3i().getX()),

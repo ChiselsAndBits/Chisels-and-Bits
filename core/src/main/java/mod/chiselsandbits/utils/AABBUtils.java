@@ -35,7 +35,7 @@ public class AABBUtils {
 
 	public static double getDirectionalValue(final AABB bb, final Direction direction) {
 		return direction.getAxisDirection() == Direction.AxisDirection.POSITIVE
-				? bb.max(direction.getAxis())
+ ? bb.max(direction.getAxis())
 				: bb.min(direction.getAxis());
 	}
 }

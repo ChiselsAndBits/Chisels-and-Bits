@@ -259,7 +259,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 					this::onGroupedToolModeClick,
 					this.groupings.get(this.mainSelectedToolMode),
 					HALF_ROTATION_IN_DEGREES,
-					this.page.indexOf(this.mainSelectedToolMode) <Math.min(PAGE_SIZE, this.page.size()) / 2 ? NO_ROTATION_IN_DEGREES : HALF_ROTATION_IN_DEGREES,
+					this.page.indexOf(this.mainSelectedToolMode) < Math.min(PAGE_SIZE, this.page.size()) / 2 ? NO_ROTATION_IN_DEGREES : HALF_ROTATION_IN_DEGREES,
 					SHOW_INACTIVE_MODES, OUTER_TORUS_INNER,
 					OUTER_TORUS_OUTER,
 					DISCARD_SELECTION_OUTSIDE_OF_AREA,
@@ -397,7 +397,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		@Override
 		public Identifier getIcon() {
 			return
-			isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo") :
+			isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo") : 
 			Identifier.fromNamespaceAndPath(Constants.MOD_ID, "redo");
 		}
 

@@ -173,7 +173,7 @@ public class KeyBindingManager {
 			if (toolModeSelectionPlusCoolDown == 15 && isCycleToolMenuRightKeyPressed()) {
 				workingIndex++;
 
-				if (workingIndex>= candidates.size()) {
+				if (workingIndex >= candidates.size()) {
 					workingIndex = 0;
 				}
 
@@ -184,7 +184,7 @@ public class KeyBindingManager {
 			} else if (toolModeSelectionMinusCoolDown == 15 && isCycleToolMenuLeftKeyPressed()) {
 				workingIndex--;
 
-				if (workingIndex <0) {
+				if (workingIndex < 0) {
 					workingIndex = candidates.size() - 1;
 				}
 
@@ -203,12 +203,12 @@ public class KeyBindingManager {
 			toolModeSelectionMinusCoolDown = 15;
 		}
 
-		if (isUndoOperationKeyPressed() && (TickHandler.getClientTicks() - lastChangeTime)> 10) {
+		if (isUndoOperationKeyPressed() && (TickHandler.getClientTicks() - lastChangeTime) > 10) {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(false));
 			lastChangeTime = TickHandler.getClientTicks();
 		}
 
-		if (isRedoOperationKeyPressed() && (TickHandler.getClientTicks() - lastChangeTime)> 10) {
+		if (isRedoOperationKeyPressed() && (TickHandler.getClientTicks() - lastChangeTime) > 10) {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(true));
 			lastChangeTime = TickHandler.getClientTicks();
 		}

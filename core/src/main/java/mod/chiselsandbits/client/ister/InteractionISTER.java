@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 /**
  * This class animates an interaction between the items in the two hands of the players.
  *
- * Cloned from: Creators-of-Create: <a href = "https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">...</a>
+ * Cloned from: Creators-of-Create: <a href = "https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">... </a>
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
 public record InteractionISTER(InteractableItemModel mainModel,
@@ -81,7 +81,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 						: (-TickHandler.getNonePausedTicks()) % stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player))) - partialTicks + 1.0F;
 			}
 
-			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) <0.8F) {
+			if (time / (float) stack.getUseDuration(Objects.requireNonNull(Minecraft.getInstance().player)) < 0.8F) {
 				float bobbing = -Mth.abs(Mth.cos(time / item.getBobbingTickCount() * (float) Math.PI) * 0.1F);
 
 				if (displayContext == ItemDisplayContext.GUI) {
@@ -111,7 +111,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 		if (firstPerson && player != null) {
 			int itemInUseCount = player.getUseItemRemainingTicks();
 
-			if (itemInUseCount> 0) {
+			if (itemInUseCount > 0) {
 				poseStack.translate(modifier *.5f, 0, -.25f);
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 10, 0), true));

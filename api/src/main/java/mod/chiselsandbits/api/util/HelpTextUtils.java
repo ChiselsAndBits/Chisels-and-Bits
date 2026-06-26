@@ -22,7 +22,7 @@ public class HelpTextUtils {
 	 * @param tooltip The tooltip lines to append to.
 	 * @param variables The variables to inject.
 	 */
-	public static void build(final LocalStrings helpText, final List<Component> tooltip, final Object...variables) {
+	public static void build(final LocalStrings helpText, final List<Component> tooltip, final Object... variables) {
 		build(helpText, tooltip::add, variables);
 	}
 
@@ -33,7 +33,7 @@ public class HelpTextUtils {
 	 * @param tooltip The tooltip lines to append to.
 	 * @param variables The variables to inject.
 	 */
-	public static void build(final LocalStrings helpText, final Consumer<Component> tooltip, final Object...variables) {
+	public static void build(final LocalStrings helpText, final Consumer<Component> tooltip, final Object... variables) {
 		if (ICommonConfiguration.getInstance().getEnableHelp().get()) {
 			helpText.getTextLines(variables).forEach(tooltip);
 		}
