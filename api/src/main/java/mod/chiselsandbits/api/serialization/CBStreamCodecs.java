@@ -30,11 +30,11 @@ import net.minecraft.world.phys.Vec3;
 
 public interface CBStreamCodecs {
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
-		public long @NotNull [] decode(FriendlyByteBuf buffer) {
+		public long [] decode(FriendlyByteBuf buffer) {
 			return buffer.readLongArray();
 		}
 
-		public void encode(FriendlyByteBuf buffer, long @NotNull [] payload) {
+		public void encode(FriendlyByteBuf buffer, long [] payload) {
 			buffer.writeLongArray(payload);
 		}
 	};
@@ -48,7 +48,6 @@ public interface CBStreamCodecs {
 	StreamCodec<ByteBuf, Vec3> VEC_3 = ByteBufCodecs.DOUBLE.apply(ByteBufCodecs.list(3))
 			.apply(codec -> codec.map(
 					doubles -> {
-
 						if (doubles.size() != 3) {
 							throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
 						}
@@ -96,7 +95,7 @@ public interface CBStreamCodecs {
 
 	static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1, final Function<C, T1> getter1, final StreamCodec<? super B, T2> codec2, final Function<C, T2> getter2, final StreamCodec<? super B, T3> codec3, final Function<C, T3> getter3, final StreamCodec<? super B, T4> codec4, final Function<C, T4> getter4, final StreamCodec<? super B, T5> codec5, final Function<C, T5> getter5, final StreamCodec<? super B, T6> codec6, final Function<C, T6> getter6, final StreamCodec<? super B, T7> codec7, final Function<C, T7> getter7, final Function7<T1, T2, T3, T4, T5, T6, T7, C> p_331335_) {
 		return new StreamCodec<>() {
-			public @NotNull C decode(@NotNull B buffer) {
+			public C decode(B buffer) {
 				T1 t1 = codec1.decode(buffer);
 				T2 t2 = codec2.decode(buffer);
 				T3 t3 = codec3.decode(buffer);
@@ -107,7 +106,7 @@ public interface CBStreamCodecs {
 				return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7);
 			}
 
-			public void encode(@NotNull B buffer, @NotNull C instance) {
+			public void encode(B buffer, C instance) {
 				codec1.encode(buffer, getter1.apply(instance));
 				codec2.encode(buffer, getter2.apply(instance));
 				codec3.encode(buffer, getter3.apply(instance));
@@ -146,7 +145,7 @@ public interface CBStreamCodecs {
 			final Function<C, T12> getter12,
 			final Function12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, C> p_331335_) {
 		return new StreamCodec<>() {
-			public @NotNull C decode(@NotNull B buffer) {
+			public C decode(B buffer) {
 				T1 t1 = codec1.decode(buffer);
 				T2 t2 = codec2.decode(buffer);
 				T3 t3 = codec3.decode(buffer);
@@ -162,7 +161,7 @@ public interface CBStreamCodecs {
 				return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
 			}
 
-			public void encode(@NotNull B buffer, @NotNull C instance) {
+			public void encode(B buffer, C instance) {
 				codec1.encode(buffer, getter1.apply(instance));
 				codec2.encode(buffer, getter2.apply(instance));
 				codec3.encode(buffer, getter3.apply(instance));
@@ -183,7 +182,7 @@ public interface CBStreamCodecs {
 	static <T> StreamCodec<RegistryFriendlyByteBuf, T> compressed(StreamCodec<RegistryFriendlyByteBuf, T> codec) {
 		return new StreamCodec<>() {
 			@Override
-			public @NotNull T decode(@NotNull RegistryFriendlyByteBuf buffer) {
+			public T decode(RegistryFriendlyByteBuf buffer) {
 				final byte[] compressedData = buffer.readByteArray();
 				final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(compressedData);
 
@@ -205,7 +204,7 @@ public interface CBStreamCodecs {
 			}
 
 			@Override
-			public void encode(@NotNull RegistryFriendlyByteBuf buffer, @NotNull T value) {
+			public void encode(RegistryFriendlyByteBuf buffer, T value) {
 				try {
 					final ByteBuf uncompressedBuffer = buffer.alloc().buffer();
 					final RegistryFriendlyByteBuf innerBuffer = new RegistryFriendlyByteBuf(uncompressedBuffer, buffer.registryAccess());
@@ -241,7 +240,7 @@ public interface CBStreamCodecs {
 	) {
 		return new StreamCodec<>() {
 			@Override
-			public @NotNull R decode(@NotNull B buffer) {
+			public R decode(B buffer) {
 				D dispatcher = dispatcherCodec.decode(buffer);
 				StreamCodec<B, ? extends R> codec = decoderFactory.apply(dispatcher);
 				return codec.decode(buffer);
@@ -249,7 +248,7 @@ public interface CBStreamCodecs {
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public void encode(@NotNull B buffer, @NotNull R value) {
+			public void encode(B buffer, R value) {
 				D dispatcher = dispatcherSelector.apply(value);
 				dispatcherCodec.encode(buffer, dispatcher);
 				StreamCodec<B, R> codec = (StreamCodec<B, R>) decoderFactory.apply(dispatcher);
@@ -264,7 +263,7 @@ public interface CBStreamCodecs {
 			private StreamCodec<B, T> codec;
 
 			@Override
-			public @NotNull T decode(@NotNull B buffer) {
+			public T decode(B buffer) {
 				if (codec == null) {
 					codec = supplier.get();
 				}
@@ -273,7 +272,7 @@ public interface CBStreamCodecs {
 			}
 
 			@Override
-			public void encode(@NotNull B buffer, @NotNull T value) {
+			public void encode(B buffer, T value) {
 				if (codec == null) {
 					codec = supplier.get();
 				}
@@ -287,7 +286,7 @@ public interface CBStreamCodecs {
 	static <B extends FriendlyByteBuf, S> StreamCodec.CodecOperation<B, S, S> nullable() {
 		return new StreamCodec.CodecOperation<>() {
 			@Override
-			public @NotNull StreamCodec<B, S> apply(@NotNull StreamCodec<B, S> codec) {
+			public StreamCodec<B, S> apply(StreamCodec<B, S> codec) {
 				return new StreamCodec<>() {
 					@SuppressWarnings("NullableProblems")
 					@Override
@@ -297,7 +296,7 @@ public interface CBStreamCodecs {
 					}
 
 					@Override
-					public void encode(@NotNull B buffer, @Nullable S value) {
+					public void encode(B buffer, @Nullable S value) {
 						buffer.writeBoolean(value != null);
 
 						if (value != null) {

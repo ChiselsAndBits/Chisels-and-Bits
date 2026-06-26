@@ -34,7 +34,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	}
 
 	@Override
-	public void onResourceManagerReload(final @NotNull ResourceManager manager) {
+	public void onResourceManagerReload(final ResourceManager manager) {
 		clearCaches();
 	}
 

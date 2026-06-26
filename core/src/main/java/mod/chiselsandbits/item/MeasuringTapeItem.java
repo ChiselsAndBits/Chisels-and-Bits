@@ -42,8 +42,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		super(properties);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public MeasuringMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MEASURING_MODE.get(), MeasuringMode.WHITE_BIT);
 	}
@@ -62,7 +61,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 	}
 
 	@Override
-	public @NotNull Collection<IMeasuringMode> getPossibleModes() {
+	public Collection<IMeasuringMode> getPossibleModes() {
 		return Lists.newArrayList(MeasuringMode.values());
 	}
 
@@ -149,17 +148,17 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 	}
 
 	@Override
-	public @NotNull Optional<Vec3> getStart(final @NotNull ItemStack stack) {
+	public Optional<Vec3> getStart(final ItemStack stack) {
 		return Optional.ofNullable(stack.get(ModDataComponentTypes.START.get()));
 	}
 
 	@Override
-	public void setStart(final @NotNull ItemStack stack, final @NotNull Vec3 start) {
+	public void setStart(final ItemStack stack, final Vec3 start) {
 		stack.set(ModDataComponentTypes.START.get(), start);
 	}
 
 	@Override
-	public void clear(final @NotNull ItemStack stack) {
+	public void clear(final ItemStack stack) {
 		stack.remove(ModDataComponentTypes.START.get());
 	}
 

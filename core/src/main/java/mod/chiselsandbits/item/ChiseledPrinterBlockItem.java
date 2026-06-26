@@ -22,11 +22,11 @@ public class ChiseledPrinterBlockItem extends BlockItem {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-			@NotNull ItemStack stack,
-			Item.@NotNull TooltipContext context,
-			@NotNull TooltipDisplay tooltipDisplay,
-			@NotNull Consumer<Component> tooltipAdder,
-			@NotNull TooltipFlag flag) {
+			ItemStack stack,
+			Item.TooltipContext context,
+			TooltipDisplay tooltipDisplay,
+			Consumer<Component> tooltipAdder,
+			TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		HelpTextUtils.build(LocalStrings.ChiselStationHelp, tooltipAdder);
 	}

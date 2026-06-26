@@ -80,7 +80,6 @@ public final class ModCreativeTabs {
 					if (!defaultStateVariants.isEmpty()) {
 						defaultStateVariants.forEach(blockInformation -> {
 							if (states.add(blockInformation)) {
-
 								if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
 									final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
 
@@ -106,7 +105,6 @@ public final class ModCreativeTabs {
 					final BlockInformation information = new BlockInformation(blockState, Optional.empty());
 
 					if (states.add(information)) {
-
 						if (IEligibilityManager.getInstance().canBeChiseled(information)) {
 							final ItemStack resultStack = IBitItemManager.getInstance().create(information);
 

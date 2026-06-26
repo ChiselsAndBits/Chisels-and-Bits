@@ -288,7 +288,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 

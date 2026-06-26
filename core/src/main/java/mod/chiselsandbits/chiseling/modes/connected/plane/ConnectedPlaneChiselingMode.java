@@ -143,7 +143,6 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 				UnaryOperator.identity(),
 				face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
 				(hitPos, inBlockTargetedPosition, hitFace, candidatePosition) -> {
-
 					if (inBlockTargetedPosition.equals(candidatePosition)) {
 						return Vec3.atLowerCornerOf(hitPos)
 						.add(inBlockTargetedPosition)
@@ -444,7 +443,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.CONNECTED_PLANE);
 	}
 

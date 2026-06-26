@@ -16,7 +16,7 @@ public class AABBUtils {
 		throw new IllegalStateException("Can not instantiate an instance of: AABBUtils.This is a utility class");
 	}
 
-	public static boolean areBoxesNeighbors(@NotNull final AABB l, @NotNull final AABB r, @NotNull final Direction direction) {
+	public static boolean areBoxesNeighbors(final AABB l, final AABB r, final Direction direction) {
 		final double endOfL = getDirectionalValue(l, direction);
 		final double startOfR = getDirectionalValue(r, direction.getOpposite());
 
@@ -34,7 +34,7 @@ public class AABBUtils {
 		));
 	}
 
-	public static double getDirectionalValue(@NotNull final AABB bb, @NotNull final Direction direction) {
+	public static double getDirectionalValue(final AABB bb, final Direction direction) {
 		return direction.getAxisDirection() == Direction.AxisDirection.POSITIVE
 				? bb.max(direction.getAxis())
 				: bb.min(direction.getAxis());

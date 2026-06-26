@@ -37,7 +37,7 @@ public final class BlockNeighborhood implements IBlockNeighborhood {
 	}
 
 	@Override
-	public @NotNull BlockInformation getBlockInformation(final Direction direction) {
+	public BlockInformation getBlockInformation(final Direction direction) {
 		return neighborhoodMap.get(direction).getBlockInformation();
 	}
 

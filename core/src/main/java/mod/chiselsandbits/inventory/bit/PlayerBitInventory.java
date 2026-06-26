@@ -58,7 +58,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 
 	@Override
 	public void extract(final BlockInformation blockInformation, int count) throws IllegalArgumentException {
-		for (int i = 0; i <getInventorySize(); i++) {
+		for (int i = 0; i < getInventorySize(); i++) {
 			if (count <= 0) {
 				return;
 			}
@@ -93,7 +93,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 	@Override
 	public void insert(final BlockInformation blockInformation, int count) throws IllegalArgumentException {
 	//Check for preferred bit bag pickup / insertion handling.
-		for (int i = 0; i <getInventorySize(); i++) {
+		for (int i = 0; i < getInventorySize(); i++) {
 			if (count <= 0) {
 				return;
 			}
@@ -114,7 +114,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 		}
 
 		//Now check if we can fill up the player inventory.
-		for (int i = 0; i <getInventorySize(); i++) {
+		for (int i = 0; i < getInventorySize(); i++) {
 			if (count <= 0) {
 				return;
 			}
@@ -142,7 +142,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 		}
 
 		//No more further space in the player inventory, so inject into all the none preferred bags.
-		for (int i = 0; i <getInventorySize(); i++) {
+		for (int i = 0; i < getInventorySize(); i++) {
 			if (count <= 0) {
 				return;
 			}

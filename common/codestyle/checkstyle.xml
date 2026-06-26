@@ -297,7 +297,7 @@
 
         <module name="MatchXpath">
             <property name="query" value="//ANNOTATION/IDENT[@text='NotNull']"/>
-            <message key="matchxpath.match" value="@NotNull annotation is not allowed"/>
+            <message key="matchxpath.match" value="annotation is not allowed"/>
         </module>
 	</module>
 </module>

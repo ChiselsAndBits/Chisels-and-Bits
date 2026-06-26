@@ -55,15 +55,15 @@ public final class StateVariantManager implements IStateVariantManager {
 	}
 
 	@Override
-	public StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull IStateVariantProvider> byNameStreamCodec() {
+	public StreamCodec<RegistryFriendlyByteBuf, IStateVariantProvider> byNameStreamCodec() {
 		return new StreamCodec<>() {
 			@Override
-			public @NotNull IStateVariantProvider decode(@NotNull RegistryFriendlyByteBuf buffer) {
+			public IStateVariantProvider decode(RegistryFriendlyByteBuf buffer) {
 				return providersByNames.get(buffer.readIdentifier());
 			}
 
 			@Override
-			public void encode(@NotNull RegistryFriendlyByteBuf buffer, @NotNull IStateVariantProvider value) {
+			public void encode(RegistryFriendlyByteBuf buffer, IStateVariantProvider value) {
 				buffer.writeIdentifier(value.getRegistryName());
 			}
 		};

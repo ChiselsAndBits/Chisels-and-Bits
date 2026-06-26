@@ -9,11 +9,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public interface IMeasuringType extends IToolModeGroup {
-	@NotNull Vec3 adaptClickedPosition(@NotNull BlockHitResult blockHitResult);
+	Vec3 adaptClickedPosition(BlockHitResult blockHitResult);
 
-	@NotNull Vec3 adaptStartCorner(@NotNull Vec3 startPosition, @NotNull Vec3 endPosition, @NotNull Direction hitFace);
+	Vec3 adaptStartCorner(Vec3 startPosition, Vec3 endPosition, Direction hitFace);
 
-	@NotNull Vec3 adaptEndCorner(@NotNull Vec3 startPosition, @NotNull Vec3 endPosition, @NotNull Direction hitFace);
+	Vec3 adaptEndCorner(Vec3 startPosition, Vec3 endPosition, Direction hitFace);
 
 	Vec3 getResolution();
 
@@ -21,8 +21,7 @@ public interface IMeasuringType extends IToolModeGroup {
 
 	@FunctionalInterface
 	public interface IPositionAdapter {
-		@NotNull
-		Vec3 adapt(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace);
+				Vec3 adapt(final Vec3 startPosition, final Vec3 endPosition, final Direction hitFace);
 	}
 
 	@FunctionalInterface
@@ -31,7 +30,6 @@ public interface IMeasuringType extends IToolModeGroup {
 			return HitResult::getLocation;
 		}
 
-		@NotNull
-		Vec3 adapt(@NotNull final BlockHitResult startPosition);
+				Vec3 adapt(final BlockHitResult startPosition);
 	}
 }

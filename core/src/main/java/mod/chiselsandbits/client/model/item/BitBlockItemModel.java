@@ -28,8 +28,8 @@ public record BitBlockItemModel(
 	public void update(
 			final ItemStackRenderState renderState,
 			final ItemStack stack,
-			final @NotNull ItemModelResolver itemModelResolver,
-			final @NotNull ItemDisplayContext displayContext,
+			final ItemModelResolver itemModelResolver,
+			final ItemDisplayContext displayContext,
 			@Nullable final ClientLevel level,
 			@Nullable final ItemOwner owner,
 			final int seed) {
@@ -79,7 +79,7 @@ public record BitBlockItemModel(
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
-		public @NotNull MapCodec<? extends ItemModel.Unbaked> type() {
+		public MapCodec<? extends ItemModel.Unbaked> type() {
 			return CODEC;
 		}
 

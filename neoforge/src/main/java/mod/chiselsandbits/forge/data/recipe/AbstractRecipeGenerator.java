@@ -45,12 +45,12 @@ public abstract class AbstractRecipeGenerator extends RecipeProvider {
 		}
 
 		@Override
-		protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.@NotNull Provider lookupProvider, @NotNull RecipeOutput output) {
+		protected RecipeProvider createRecipeProvider(HolderLookup.Provider lookupProvider, RecipeOutput output) {
 			return this.factory.build(lookupProvider, output, itemProvider);
 		}
 
 		@Override
-		public final @NotNull String getName() {
+		public final String getName() {
 			return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemProvider.asItem())) + " recipe generator";
 		}
 	}

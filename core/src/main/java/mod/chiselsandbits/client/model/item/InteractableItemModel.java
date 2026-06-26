@@ -20,10 +20,10 @@ import org.jspecify.annotations.NonNull;
 public record InteractableItemModel(ItemModel model) implements ItemModel {
 	@Override
 	public void update(
-			final @NotNull ItemStackRenderState renderState,
-			final @NotNull ItemStack stack,
-			final @NotNull ItemModelResolver itemModelResolver,
-			final @NotNull ItemDisplayContext displayContext,
+			final ItemStackRenderState renderState,
+			final ItemStack stack,
+			final ItemModelResolver itemModelResolver,
+			final ItemDisplayContext displayContext,
 			@Nullable final ClientLevel level,
 			@Nullable final ItemOwner owner,
 			final int seed) {
@@ -57,7 +57,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 		);
 
 		@Override
-		public @NotNull MapCodec<? extends ItemModel.Unbaked> type() {
+		public MapCodec<? extends ItemModel.Unbaked> type() {
 			return CODEC;
 		}
 
@@ -68,7 +68,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 		}
 
 		@Override
-		public void resolveDependencies(final @NotNull Resolver resolver) {
+		public void resolveDependencies(final Resolver resolver) {
 			model().resolveDependencies(resolver);
 		}
 	}

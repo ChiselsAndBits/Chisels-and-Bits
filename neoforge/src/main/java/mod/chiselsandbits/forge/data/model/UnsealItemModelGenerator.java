@@ -22,7 +22,7 @@ public class UnsealItemModelGenerator extends AbstractInteractableItemModelGener
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Unseal item model generator";
 	}
 }

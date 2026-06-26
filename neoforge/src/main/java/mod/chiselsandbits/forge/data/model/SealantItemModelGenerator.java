@@ -22,7 +22,7 @@ public class SealantItemModelGenerator extends AbstractInteractableItemModelGene
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Sealant item model generator";
 	}
 }

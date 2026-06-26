@@ -21,7 +21,7 @@ public interface IEligibilityManager {
 	 *
 	 * @return True when chiselable or already chiseled.
 	 */
-	default boolean canBeChiseled(@NotNull final BlockInformation blockInformation) {
+	default boolean canBeChiseled(final BlockInformation blockInformation) {
 		return analyse(blockInformation).canBeChiseled() || analyse(blockInformation).isAlreadyChiseled();
 	}
 
@@ -32,7 +32,7 @@ public interface IEligibilityManager {
 	 *
 	 * @return True when chiselable or already chiseled.
 	 */
-	default boolean canBeChiseled(@NotNull final ItemStack provider) {
+	default boolean canBeChiseled(final ItemStack provider) {
 		return analyse(provider).canBeChiseled();
 	}
 
@@ -43,7 +43,7 @@ public interface IEligibilityManager {
 	 *
 	 * @return The analysis result.
 	 */
-	IEligibilityAnalysisResult analyse(@NotNull final BlockInformation blockInformation);
+	IEligibilityAnalysisResult analyse(final BlockInformation blockInformation);
 
 	/**
 	 * Performs a chiselability analysis on the given {@link ItemStack}.
@@ -52,5 +52,5 @@ public interface IEligibilityManager {
 	 *
 	 * @return The analysis result.
 	 */
-	IEligibilityAnalysisResult analyse(@NotNull final ItemStack provider);
+	IEligibilityAnalysisResult analyse(final ItemStack provider);
 }

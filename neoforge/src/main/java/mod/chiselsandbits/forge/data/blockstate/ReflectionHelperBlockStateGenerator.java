@@ -33,7 +33,7 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
+	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		actOnBlock(ModBlocks.REFLECTION_HELPER_BLOCK.get(), blockModels);
 	}
 
@@ -42,7 +42,7 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
+	protected Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of(
 				BuiltInRegistries.BLOCK.wrapAsHolder(
 						ModBlocks.REFLECTION_HELPER_BLOCK.get()
@@ -51,12 +51,11 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
+	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public String getName() {
 		return "Reflection helper block blockstate generator";
 	}

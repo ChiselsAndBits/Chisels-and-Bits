@@ -194,12 +194,12 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	}
 
 	@Override
-	public @NotNull ItemStack getItem(final int index) {
+	public ItemStack getItem(final int index) {
 		return super.getItem(index);
 	}
 
 	@Override
-	public @NotNull ItemStack removeItem(final int index, final int count) {
+	public ItemStack removeItem(final int index, final int count) {
 		if (!this.slotMap.containsKey(index)) {
 			return ItemStack.EMPTY;
 		}
@@ -215,7 +215,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	}
 
 	@Override
-	public @NotNull ItemStack removeItemNoUpdate(final int index) {
+	public ItemStack removeItemNoUpdate(final int index) {
 		return removeItem(index, Integer.MAX_VALUE);
 	}
 
@@ -239,7 +239,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player) {
+	public boolean stillValid(final Player player) {
 		return true;
 	}
 

@@ -32,7 +32,7 @@ public class ConfigLangGenerator implements DataProvider {
 	}
 
 	@Override
-	public CompletableFuture<?> run(@NotNull final CachedOutput cache) {
+	public CompletableFuture<?> run(final CachedOutput cache) {
 		final List<String> langKeys = new ArrayList<>(ForgeConfigurationManager.getInstance().getAvailableKeys());
 		langKeys.sort(Comparator.comparing(s -> s.replace(".comment", "")));
 		final JsonObject returnValue = new JsonObject();
@@ -47,8 +47,7 @@ public class ConfigLangGenerator implements DataProvider {
 		return DataProvider.saveStable(cache, returnValue, langPath);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public String getName() {
 		return "Chiseled config lang generator";
 	}

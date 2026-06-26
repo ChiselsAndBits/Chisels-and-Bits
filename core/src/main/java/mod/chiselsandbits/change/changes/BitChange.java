@@ -75,7 +75,7 @@ public class BitChange implements IChange {
 	}
 
 	@Override
-	public boolean canUndo(@NotNull final Player player) {
+	public boolean canUndo(final Player player) {
 		final BlockEntity tileEntity = player.level().getBlockEntity(blockPos);
 
 		if (!(tileEntity instanceof final IMultiStateBlockEntity multiStateBlockEntity)) {
@@ -148,7 +148,6 @@ public class BitChange implements IChange {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			before.stream().forEach(
 					iStateEntryInfo -> {
-
 						try {
 					multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
 				} catch (SpaceOccupiedException e) {
@@ -219,7 +218,6 @@ public class BitChange implements IChange {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			after.stream().forEach(
 					s -> {
-
 						try {
 					multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
 				} catch (SpaceOccupiedException e) {

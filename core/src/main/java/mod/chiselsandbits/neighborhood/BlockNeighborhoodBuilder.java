@@ -25,7 +25,7 @@ public final class BlockNeighborhoodBuilder implements IBlockNeighborhoodBuilder
 	}
 
 	@Override
-	public @NotNull IBlockNeighborhood build(
+	public IBlockNeighborhood build(
 			@Nullable Function<Direction, BlockInformation> neighborhoodBlockStateProvider,
 			@Nullable Function<Direction, IAreaAccessor> neighborhoodAreaAccessorProvider
 	) {

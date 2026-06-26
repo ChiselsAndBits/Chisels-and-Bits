@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockStateModel {
 	@Override
-	public void collectParts(final @NotNull RandomSource random, final @NotNull List<BlockStateModelPart> output) {
+	public void collectParts(final RandomSource random, final List<BlockStateModelPart> output) {
 	//Noop
 	}
 
@@ -107,26 +107,15 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 		return information.materialFlags();
 	}
 
-	public final static class Direct extends ChiseledBlockStateModel {
-		private final ChiseledBlockModelInformation directInformation;
-
-		public Direct(final ChiseledBlockModelInformation directInformation) {this.directInformation = directInformation; }
-
-		@Override
-		protected @Nullable ChiseledBlockModelInformation getInformation(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos) {
-			return directInformation;
-		}
-	}
-
 	public record Unbaked() implements BlockStateModel.Unbaked {
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(new Unbaked());
 
 		@Override
-		public void resolveDependencies(final @NotNull Resolver resolver) {
+		public void resolveDependencies(final Resolver resolver) {
 		}
 
 		@Override
-		public @NotNull BlockStateModel bake(final @NotNull ModelBaker baker) {
+		public BlockStateModel bake(final ModelBaker baker) {
 			return new ChiseledBlockStateModel();
 		}
 	}

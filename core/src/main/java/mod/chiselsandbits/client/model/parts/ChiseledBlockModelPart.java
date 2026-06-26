@@ -48,8 +48,7 @@ public record ChiseledBlockModelPart(
 							Set<Vector3fc> set = new HashSet<>();
 
 							for (BakedQuad bakedquad : quads.getAll()) {
-
-								for (int i = 0; i <4; i++) {
+								for (int i = 0; i < 4; i++) {
 					set.add(bakedquad.position(i));
 				}
 							}
@@ -60,12 +59,12 @@ public record ChiseledBlockModelPart(
 	}
 
 	@Override
-	public @NotNull BlockState getBlockAppearance() {
+	public BlockState getBlockAppearance() {
 		return appearance();
 	}
 
 	@Override
-	public @NotNull List<BakedQuad> getQuads(@Nullable final Direction direction) {
+	public List<BakedQuad> getQuads(@Nullable final Direction direction) {
 		return quads.getQuads(direction);
 	}
 

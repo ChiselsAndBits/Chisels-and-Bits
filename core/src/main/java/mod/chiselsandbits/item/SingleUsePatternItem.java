@@ -44,7 +44,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-	public @NotNull Component getName(final ItemStack item) {
+	public Component getName(final ItemStack item) {
 		if (item.has(ModDataComponentTypes.HIGHLIGHT.get())) {
 			final Component highlight = item.get(ModDataComponentTypes.HIGHLIGHT.get());
 			return Objects.requireNonNull(highlight).copy().withStyle(ChatFormatting.RED);
@@ -59,8 +59,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	 * @param stack The stack to get an {@link IMultiStateItemStack} for.
 	 * @return The {@link IMultiStateItemStack} that represents the data in the given itemstack.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack) {
 	//Take care of an empty pattern.
 	//Generally the case when this is a stack from the creative menu.
@@ -72,8 +71,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-	@NotNull
-	public InteractionResult useOn(@NotNull UseOnContext context) {
+		public InteractionResult useOn(UseOnContext context) {
 		final IMultiStateItemStack contents = createItemStack(context.getItemInHand());
 
 		if (contents.getStatistics().isEmpty()) {
@@ -97,8 +95,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		return this.tryPlace(new BlockPlaceContext(context));
 	}
 
-	@NotNull
-	public InteractionResult tryPlace(@NotNull final BlockPlaceContext context) {
+		public InteractionResult tryPlace(final BlockPlaceContext context) {
 		if (context.getPlayer() == null) {
 			return InteractionResult.FAIL;
 		}
@@ -136,7 +133,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-	public @NotNull ItemStack seal(@NotNull final ItemStack source) throws SealingNotSupportedException {
+	public ItemStack seal(final ItemStack source) throws SealingNotSupportedException {
 		if (source.getItem() == this) {
 			if (!(source.getItem() instanceof IMultiUsePatternItem)) {
 				final ItemStack seal = new ItemStack(ModItems.MULTI_USE_PATTERN_ITEM.get());
@@ -178,7 +175,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-	public @NotNull IPatternPlacementType getMode(final ItemStack stack) {
+	public IPatternPlacementType getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.PATTERN_PLACEMENT_TYPE.get(), ModPatternPlacementTypes.PLACEMENT.get());
 	}
 
@@ -188,7 +185,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-	public @NotNull Collection<IPatternPlacementType> getPossibleModes() {
+	public Collection<IPatternPlacementType> getPossibleModes() {
 		return ModPatternPlacementTypes.REGISTRY_SUPPLIER.get().getValues();
 	}
 }

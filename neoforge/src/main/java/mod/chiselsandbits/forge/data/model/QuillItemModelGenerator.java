@@ -22,7 +22,7 @@ public class QuillItemModelGenerator extends AbstractInteractableItemModelGenera
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Quill item model generator";
 	}
 }

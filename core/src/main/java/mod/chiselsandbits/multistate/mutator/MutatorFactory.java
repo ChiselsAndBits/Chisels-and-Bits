@@ -26,12 +26,12 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory {
 	}
 
 	@Override
-	public @NotNull IWorldAreaMutator in(final LevelAccessor world, final BlockPos pos) {
+	public IWorldAreaMutator in(final LevelAccessor world, final BlockPos pos) {
 		return new ChiselAdaptingWorldMutator(world, pos);
 	}
 
 	@Override
-	public @NotNull IWorldAreaMutator covering(final LevelAccessor world, final BlockPos from, final BlockPos to) {
+	public IWorldAreaMutator covering(final LevelAccessor world, final BlockPos from, final BlockPos to) {
 		return new WorldWrappingMutator(
 				world,
 				Vec3.atLowerCornerOf(from),
@@ -43,7 +43,7 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory {
 	}
 
 	@Override
-	public @NotNull IWorldAreaMutator covering(final LevelAccessor world, final Vec3 from, final Vec3 to) {
+	public IWorldAreaMutator covering(final LevelAccessor world, final Vec3 from, final Vec3 to) {
 		return new WorldWrappingMutator(
 				world,
 				Vec3.atLowerCornerOf(VectorUtils.toBlockPos(from.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()))).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()).add(ONE_THOUSANDS, ONE_THOUSANDS, ONE_THOUSANDS),
@@ -52,7 +52,7 @@ public class MutatorFactory implements IMutatorFactory, IAccessorFactory {
 	}
 
 	@Override
-	public @NotNull IGenerallyModifiableAreaMutator clonedFromAccessor(final IAreaAccessor source) {
+	public IGenerallyModifiableAreaMutator clonedFromAccessor(final IAreaAccessor source) {
 		return source.createSnapshot();
 	}
 }

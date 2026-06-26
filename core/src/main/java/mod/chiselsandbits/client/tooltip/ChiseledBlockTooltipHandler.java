@@ -37,7 +37,7 @@ public class ChiseledBlockTooltipHandler {
 		}
 
 		@Override
-		public int getWidth(@NotNull Font font) {
+		public int getWidth(Font font) {
 			return 20;
 		}
 

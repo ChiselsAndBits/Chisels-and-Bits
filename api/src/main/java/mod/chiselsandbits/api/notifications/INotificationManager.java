@@ -29,7 +29,7 @@ public interface INotificationManager {
 	default void notify(final Identifier icon, final Vec3 color, final Component message) {
 		notify(new INotification() {
 			@Override
-			public @NotNull Vec3 getColorVector() {
+			public Vec3 getColorVector() {
 				return color;
 			}
 
@@ -39,7 +39,7 @@ public interface INotificationManager {
 			}
 
 			@Override
-			public @NotNull Component getText() {
+			public Component getText() {
 				return message;
 			}
 		});

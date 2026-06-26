@@ -252,7 +252,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.DRAW);
 	}
 

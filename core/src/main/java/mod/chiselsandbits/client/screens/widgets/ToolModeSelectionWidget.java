@@ -141,7 +141,7 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		} while (!allPagesCombined.isEmpty()) {
 			final List<IRenderableMode> page = new LinkedList<>();
 
-			for (int i = 0; i <PAGE_SIZE; i++) {
+			for (int i = 0; i < PAGE_SIZE; i++) {
 				if (!allPagesCombined.isEmpty()) {
 					page.add(allPagesCombined.remove(0));
 				}

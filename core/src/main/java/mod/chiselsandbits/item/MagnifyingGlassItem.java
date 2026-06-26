@@ -31,10 +31,9 @@ public class MagnifyingGlassItem extends Item implements IPermanentlyHighlighted
 	}
 
 	@Override
-	public @NotNull Component getName(final @NotNull ItemStack stack) {
+	public Component getName(final ItemStack stack) {
 		return DistExecutor.unsafeRunForDist(
 				() -> () -> {
-
 					if (Minecraft.getInstance().level == null) {
 						return super.getName(stack);
 					}

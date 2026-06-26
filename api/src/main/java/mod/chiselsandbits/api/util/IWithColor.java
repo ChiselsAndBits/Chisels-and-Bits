@@ -12,7 +12,7 @@ public interface IWithColor {
 	 *
 	 * @return The color in a 3d double vector as RGB.
 	 */
-	@NotNull Vec3 getColorVector();
+	Vec3 getColorVector();
 
 	/**
 	 * The alpha channel intensity to render with.

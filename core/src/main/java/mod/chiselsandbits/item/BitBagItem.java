@@ -53,7 +53,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 	}
 
 	@Override
-	public @NotNull Component getName(final @NotNull ItemStack stack) {
+	public Component getName(final ItemStack stack) {
 		DyedItemColor color = getDyedColor(stack);
 		final Component parent = super.getName(stack);
 
@@ -74,7 +74,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		HelpTextUtils.build(LocalStrings.HelpBitBag, tooltipAdder);
 
@@ -106,10 +106,10 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 	}
 
 	@Override
-	public @NotNull InteractionResult use(
-			final @NotNull Level worldIn,
-			final @NotNull Player playerIn,
-			final @NotNull InteractionHand hand) {
+	public InteractionResult use(
+			final Level worldIn,
+			final Player playerIn,
+			final InteractionHand hand) {
 		final ItemStack itemStackIn = playerIn.getItemInHand(hand);
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerIn);

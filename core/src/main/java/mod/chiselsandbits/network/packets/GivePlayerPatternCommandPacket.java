@@ -46,7 +46,7 @@ public class GivePlayerPatternCommandPacket extends ModPacket {
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

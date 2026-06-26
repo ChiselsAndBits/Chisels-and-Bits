@@ -21,7 +21,7 @@ public final class LaunchPropertyManager implements ILaunchPropertyManager {
 	}
 
 	@Override
-	public @NotNull String get(String key, String defaultValue) {
+	public String get(String key, String defaultValue) {
 		final String sysProValue = System.getProperty("chiselsandbits.launch.prop.%s".formatted(key));
 
 		if (sysProValue == null) {

@@ -12,14 +12,14 @@ public class NullUtils {
 		throw new IllegalStateException("Can not instantiate an instance of: NullUtils.This is a utility class");
 	}
 
-	public static <T> void whenNotNull(@Nullable final T obj, @NotNull final Consumer<@NotNull T> executor) {
+	public static <T> void whenNotNull(@Nullable final T obj, final Consumer<T> executor) {
 		if (obj != null) {
 			executor.accept(obj);
 		}
 	}
 
 	@Contract("null, _, _ -> param2; ")
-	public static <T, R> R whenNotNull(@Nullable final T obj, @Nullable final R defaultValue, @NotNull final Function<@NotNull T, R> executor) {
+	public static <T, R> R whenNotNull(@Nullable final T obj, @Nullable final R defaultValue, final Function<T, R> executor) {
 		if (obj != null) {
 			return executor.apply(obj);
 		}

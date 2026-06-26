@@ -33,7 +33,7 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
+	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		itemModels.itemModelOutput.accept(
 				this.targetRegistryObject.get(),
 			new InteractableItemModel.Unbaked(
@@ -43,12 +43,12 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
+	protected Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of();
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
+	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
 				BuiltInRegistries.ITEM.wrapAsHolder(
 						targetRegistryObject.get()

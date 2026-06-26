@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.item.ItemStack;
 
-public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@NotNull RenderState> {
+public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.RenderState> {
 	public BitStorageISTER() {
 	}
 
@@ -25,7 +25,7 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 
 	@Override
 	public void submit(
-			final BitStorageISTER.@NotNull RenderState argument,
+			final BitStorageISTER.RenderState argument,
 			final PoseStack poseStack,
 			final @NonNull SubmitNodeCollector submitNodeCollector,
 			final int lightCoords,
@@ -53,12 +53,12 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.@No
 	}
 
 	@Override
-	public void getExtents(final @NotNull Consumer<Vector3fc> output) {
+	public void getExtents(final Consumer<Vector3fc> output) {
 	//Noop., for now.Figure out later
 	}
 
 	@Override
-	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack) {
+	public @Nullable RenderState extractArgument(final ItemStack stack) {
 		return new RenderState(BitStorageBlock.createEntityFromStack(stack));
 	}
 }

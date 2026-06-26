@@ -16,7 +16,7 @@ public class SlotOverlayRenderHandler {
 
 		int centerOfScreen = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
 
-		for (int slotIndex = 0; slotIndex <9; ++slotIndex) {
+		for (int slotIndex = 0; slotIndex < 9; ++slotIndex) {
 			int xOffset = centerOfScreen - 90 + slotIndex * 20 + 2;
 			int yOffSet = Minecraft.getInstance().getWindow().getGuiScaledHeight() - 16 - 3;
 

@@ -22,7 +22,7 @@ public final class BagGuiStackPacket extends ModPacket {
 		readPayload(buffer);
 	}
 
-	public BagGuiStackPacket(final int index, @NotNull final ItemStack stack) {
+	public BagGuiStackPacket(final int index, final ItemStack stack) {
 		this.index = index;
 		this.stack = stack;
 	}
@@ -60,7 +60,7 @@ public final class BagGuiStackPacket extends ModPacket {
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

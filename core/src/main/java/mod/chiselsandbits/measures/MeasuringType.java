@@ -83,17 +83,17 @@ public enum MeasuringType implements IMeasuringType
 	}
 
 	@Override
-	public @NotNull Vec3 adaptClickedPosition(@NotNull final BlockHitResult blockHitResult) {
+	public Vec3 adaptClickedPosition(final BlockHitResult blockHitResult) {
 		return this.clickedPositionAdapter.adapt(blockHitResult);
 	}
 
 	@Override
-	public @NotNull Vec3 adaptStartCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace) {
+	public Vec3 adaptStartCorner(final Vec3 startPosition, final Vec3 endPosition, final Direction hitFace) {
 		return this.finalStartPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 
 	@Override
-	public @NotNull Vec3 adaptEndCorner(@NotNull final Vec3 startPosition, @NotNull final Vec3 endPosition, @NotNull final Direction hitFace) {
+	public Vec3 adaptEndCorner(final Vec3 startPosition, final Vec3 endPosition, final Direction hitFace) {
 		return this.finalEndPositionAdapter.adapt(startPosition, endPosition, hitFace);
 	}
 

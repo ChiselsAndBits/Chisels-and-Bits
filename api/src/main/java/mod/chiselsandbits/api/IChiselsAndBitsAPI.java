@@ -59,24 +59,21 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The factory used to create new accessors.
 	 */
-	@NotNull
-	IAccessorFactory getAccessorFactory();
+		IAccessorFactory getAccessorFactory();
 
 	/**
 	 * Gives access to the factory that can produce different mutators.
 	 *
 	 * @return The factory used to create new mutators.
 	 */
-	@NotNull
-	IMutatorFactory getMutatorFactory();
+		IMutatorFactory getMutatorFactory();
 
 	/**
 	 * Manager which deals with chiseling eligibility.
 	 *
 	 * @return The manager.
 	 */
-	@NotNull
-	IEligibilityManager getEligibilityManager();
+		IEligibilityManager getEligibilityManager();
 
 	/**
 	 * Manager which deals with converting eligible blocks, blockstates and IItemProviders into their chiseled
@@ -84,8 +81,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The conversion manager.
 	 */
-	@NotNull
-	IConversionManager getConversionManager();
+		IConversionManager getConversionManager();
 
 	/**
 	 * Manager which deals with calculating, and optionally caching, the voxel shapes, which
@@ -93,40 +89,35 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The voxel shape manager.
 	 */
-	@NotNull
-	IVoxelShapeManager getVoxelShapeManager();
+		IVoxelShapeManager getVoxelShapeManager();
 
 	/**
 	 * A factory which can produce a multistate item from a given source.
 	 *
 	 * @return The factory.
 	 */
-	@NotNull
-	IMultiStateItemFactory getMultiStateItemFactory();
+		IMultiStateItemFactory getMultiStateItemFactory();
 
 	/**
 	 * Represents the default mode for the chiseling system.
 	 *
 	 * @return The default mode.
 	 */
-	@NotNull
-	IChiselMode getDefaultChiselMode();
+		IChiselMode getDefaultChiselMode();
 
 	/**
 	 * Gives access to all registries which are used by chisels and bits.
 	 *
 	 * @return The manager for registries used by chisels and bits.
 	 */
-	@NotNull
-	IRegistryManager getRegistryManager();
+		IRegistryManager getRegistryManager();
 
 	/**
 	 * Gives access to the manager which controls chiseling operations.
 	 *
 	 * @return The current chiseling manager.
 	 */
-	@NotNull
-	IChiselingManager getChiselingManager();
+		IChiselingManager getChiselingManager();
 
 	/**
 	 * The configuration on top of which chisels and bits is running.
@@ -140,8 +131,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The blockstate id manager.
 	 */
-	@NotNull
-	IBlockStateIdManager getBlockStateIdManager();
+		IBlockStateIdManager getBlockStateIdManager();
 
 	/**
 	 * Gives access to the bits inventory manager, which allows the conversion of normal inventory systems to bit inventories.
@@ -149,8 +139,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The manager for dealing with bits.
 	 */
-	@NotNull
-	IBitInventoryManager getBitInventoryManager();
+		IBitInventoryManager getBitInventoryManager();
 
 	/**
 	 * The bit item manager.
@@ -158,8 +147,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The bit item manager.
 	 */
-	@NotNull
-	IBitItemManager getBitItemManager();
+		IBitItemManager getBitItemManager();
 
 	/**
 	 * The measuring manager.
@@ -167,16 +155,14 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The measuring manager.
 	 */
-	@NotNull
-	IMeasuringManager getMeasuringManager();
+		IMeasuringManager getMeasuringManager();
 
 	/**
 	 * Represents the size of the bits in the current instance.
 	 *
 	 * @return The size of the state entries in the current instance.
 	 */
-	@NotNull
-	default StateEntrySize getStateEntrySize() {
+		default StateEntrySize getStateEntrySize() {
 		try {
 			return getConfiguration().getServer().getBitSize().get();
 		} catch (Exception ignored) {
@@ -189,8 +175,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The profiling manager.
 	 */
-	@NotNull
-	IProfilingManager getProfilingManager();
+		IProfilingManager getProfilingManager();
 
 	/**
 	 * This method gives access to the client side local chiseling context cache.
@@ -199,8 +184,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The {@link ILocalChiselingContextCache}.
 	 */
-	@NotNull
-	ILocalChiselingContextCache getLocalChiselingContextCache();
+		ILocalChiselingContextCache getLocalChiselingContextCache();
 
 	/**
 	 * The change tracker manager.
@@ -208,8 +192,7 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The change tracker manager
 	 */
-	@NotNull
-	IChangeTrackerManager getChangeTrackerManager();
+		IChangeTrackerManager getChangeTrackerManager();
 
 	/**
 	 * Gives access to the block neighborhood builder.
@@ -217,50 +200,43 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The block neighborhood builder.
 	 */
-	@NotNull
-	IBlockNeighborhoodBuilder getBlockNeighborhoodBuilder();
+		IBlockNeighborhoodBuilder getBlockNeighborhoodBuilder();
 
 	/**
 	 * The default mode for performing modification operations if no other is supplied.
 	 * @return The default modification operation.
 	 */
-	@NotNull
-	IModificationOperation getDefaultModificationOperation();
+		IModificationOperation getDefaultModificationOperation();
 
 	/**
 	 * Gives access to the plugin manager that is used to process chisels and bits plugins
 	 * @return The plugin manager
 	 */
-	@NotNull
-	IPluginManager getPluginManager();
+		IPluginManager getPluginManager();
 
 	/**
 	 * Gives access to the chisel context preview renderer registry.
 	 * @return The registry.
 	 */
-	@NotNull
-	IChiselContextPreviewRendererRegistry getChiselContextPreviewRendererRegistry();
+		IChiselContextPreviewRendererRegistry getChiselContextPreviewRendererRegistry();
 
 	/**
 	 * Gives access to the selected tool mode icon renderer registry.
 	 * @return The registry.
 	 */
-	@NotNull
-	ISelectedToolModeIconRendererRegistry getSelectedToolModeIconRenderer();
+		ISelectedToolModeIconRendererRegistry getSelectedToolModeIconRenderer();
 
 	/**
 	 * Returns the tag used in the eligibility system to force compatibility.
 	 * @return The forced compatibility tag.
 	 */
-	@NotNull
-	TagKey<Block> getForcedTag();
+		TagKey<Block> getForcedTag();
 
 	/**
 	 * Returns the tag used in the eligibility system to block compatibility.
 	 * @return The blocked compatibility tag.
 	 */
-	@NotNull
-	TagKey<Block> getBlockedTag();
+		TagKey<Block> getBlockedTag();
 
 	/**
 	 * Returns the permission handler which is used to check if a particular area
@@ -268,16 +244,14 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The permission handler.
 	 */
-	@NotNull
-	IPermissionHandler getPermissionHandler();
+		IPermissionHandler getPermissionHandler();
 
 	/**
 	 * Returns the clipboard manager for the creative clipboard.
 	 *
 	 * @return The clipboard manager.
 	 */
-	@NotNull
-	ICreativeClipboardManager getCreativeClipboardManager();
+		ICreativeClipboardManager getCreativeClipboardManager();
 
 	/**
 	 * The pattern sharing manager.
@@ -285,46 +259,34 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return The pattern sharing manager.
 	 */
-	@NotNull
-	IPatternSharingManager getPatternSharingManager();
+		IPatternSharingManager getPatternSharingManager();
 
 	/**
 	 * Handles showing notifications to the player.
 	 *
 	 * @return The notifications manager.
 	 */
-	@NotNull
-	INotificationManager getNotificationManager();
+		INotificationManager getNotificationManager();
 
-	@NotNull
-	IStateVariantManager getStateVariantManager();
+		IStateVariantManager getStateVariantManager();
 
-	@NotNull
-	ICuttingOperation getDefaultCuttingOperation();
+		ICuttingOperation getDefaultCuttingOperation();
 
-	@NotNull
-	IGlueingOperation getDefaultGlueingOperation();
+		IGlueingOperation getDefaultGlueingOperation();
 
-	@NotNull
-	ISnapshotFactory getSnapshotFactory();
+		ISnapshotFactory getSnapshotFactory();
 
-	@NotNull
-	IEligibilityOptions getEligibilityOptions();
+		IEligibilityOptions getEligibilityOptions();
 
-	@NotNull
-	IAdaptingBitInventoryManager getAdaptingBitInventoryManager();
+		IAdaptingBitInventoryManager getAdaptingBitInventoryManager();
 
-	@NotNull
-	IPluginDiscoverer getPluginDiscoverer();
+		IPluginDiscoverer getPluginDiscoverer();
 
-	@NotNull
-	IClientStateVariantManager getClientStateVariantManager();
+		IClientStateVariantManager getClientStateVariantManager();
 
-	@NotNull
-	ILaunchPropertyManager getLaunchPropertyManager();
+		ILaunchPropertyManager getLaunchPropertyManager();
 
-	@NotNull
-	IIconManager getIconManager();
+		IIconManager getIconManager();
 
 	class Holder {
 		private static IChiselsAndBitsAPI apiInstance;

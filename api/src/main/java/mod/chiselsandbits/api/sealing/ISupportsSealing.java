@@ -15,6 +15,5 @@ public interface ISupportsSealing {
 	 * @return The sealed variant of the itemstack.
 	 * @throws SealingNotSupportedException Thrown when the given stack could not be sealed.
 	 */
-	@NotNull
-	ItemStack seal(@NotNull ItemStack source) throws SealingNotSupportedException;
+		ItemStack seal(ItemStack source) throws SealingNotSupportedException;
 }

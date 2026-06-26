@@ -16,7 +16,7 @@ public class DirectionUtils {
 		throw new IllegalStateException("Can not instantiate an instance of: DirectionUtils.This is a utility class");
 	}
 
-	public static List<Direction> getNotOnAxisOf(@NotNull final Direction direction) {
+	public static List<Direction> getNotOnAxisOf(final Direction direction) {
 		List<Direction> list = new ArrayList<>();
 
 		for (Direction d : Direction.values()) {

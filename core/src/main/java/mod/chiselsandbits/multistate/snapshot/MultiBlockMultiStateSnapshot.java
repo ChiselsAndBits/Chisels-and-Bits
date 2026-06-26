@@ -503,7 +503,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox() {
+	public AABB getBoundingBox() {
 		return new AABB(
 				startPoint.x(),
 				startPoint.y(),

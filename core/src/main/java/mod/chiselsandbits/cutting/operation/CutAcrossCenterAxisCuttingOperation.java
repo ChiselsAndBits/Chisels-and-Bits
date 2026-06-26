@@ -55,7 +55,7 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 	}
 
 	@Override
-	public @NotNull Optional<ICuttingOperationGroup> getGroup() {
+	public Optional<ICuttingOperationGroup> getGroup() {
 		return Optional.empty();
 	}
 

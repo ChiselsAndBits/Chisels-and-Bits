@@ -116,15 +116,13 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		return isAllowedToUse;
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public IChiselMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
 	}
 
-	@NotNull
-	@Override
-	public Component getName(@NotNull final ItemStack stack) {
+		@Override
+	public Component getName(final ItemStack stack) {
 		final BlockInformation containedStack = getBlockInformation(stack);
 		final Block block = containedStack.blockState().getBlock();
 
@@ -174,8 +172,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		stack.set(ModDataComponentTypes.CHISEL_MODE.get(), mode);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Collection<IChiselMode> getPossibleModes() {
 		return IChiselMode.getRegistry().getValues().stream().sorted(Comparator.comparing(IChiselMode::getRegistryName)).collect(Collectors.toList());
 	}
@@ -259,7 +256,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	}
 
 	@Override
-	public @NotNull BlockInformation getBlockInformation(final ItemStack stack) {
+	public BlockInformation getBlockInformation(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.BLOCK_INFORMATION.get(), BlockInformation.AIR);
 	}
 
@@ -274,7 +271,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 	}
 
 	@Override
-	public boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity) {
+	public boolean shouldDrawDefaultHighlight(final Player playerEntity) {
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 
 		if (itemStack.isEmpty() || itemStack.getItem() != this) {

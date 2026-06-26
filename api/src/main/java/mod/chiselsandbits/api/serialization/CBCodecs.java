@@ -74,7 +74,6 @@ public interface CBCodecs {
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
 				t -> 0,
 				key -> {
-
 					if (key != 0) {
 						throw new IllegalStateException("Wrong version stored for single version codec.");
 					}
@@ -98,7 +97,6 @@ public interface CBCodecs {
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
 				t -> maxVersion,
 				key -> {
-
 					if (!versions.containsKey(key)) {
 						throw new IllegalStateException("Unknown version: " + key);
 					}

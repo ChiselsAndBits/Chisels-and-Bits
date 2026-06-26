@@ -72,7 +72,7 @@ public class ModificationTableBlock extends Block {
 	}
 
 	@Override
-	protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult result) {
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		if (level.isClientSide()) {
 			return InteractionResult.PASS;
 		} else {
@@ -83,12 +83,12 @@ public class ModificationTableBlock extends Block {
 
 	@Nullable
 	@Override
-	public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos) {
+	public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
 		return new SimpleMenuProvider((id, inventory, player) -> new ModificationTableContainer(id, inventory, ContainerLevelAccess.create(worldIn, pos)), CONTAINER_NAME);
 	}
 
 	@Override
-	public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
+	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
 		return SHAPES.get(pState.getValue(FACING).getOpposite());
 	}
 }

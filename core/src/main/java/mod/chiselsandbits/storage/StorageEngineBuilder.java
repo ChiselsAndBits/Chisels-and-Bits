@@ -46,7 +46,7 @@ public class StorageEngineBuilder<TPayload> {
 
 		final Map<Integer, MapCodec<TPayload>> versions = new HashMap<>();
 
-		for (int i = 0; i <storageHandlers.size(); i++) {
+		for (int i = 0; i < storageHandlers.size(); i++) {
 			versions.put(i + minimalVersion, storageHandlers.get(i));
 		}
 

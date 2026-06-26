@@ -41,7 +41,7 @@ public class DropBlockLootTableGenerator extends LootTableProvider {
 	//Noop
 	}
 
-	private static @NotNull List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet) {
+	private static List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet) {
 		return ImmutableList.of(
 			new SubProviderEntry(
 					(provider) -> new SelfDroppingBlocks(featureFlagSet, provider),
@@ -62,7 +62,7 @@ public class DropBlockLootTableGenerator extends LootTableProvider {
 		}
 
 		@Override
-		protected @NotNull Iterable<Block> getKnownBlocks() {
+		protected Iterable<Block> getKnownBlocks() {
 			return ImmutableList.of(
 					ModBlocks.CHISELED_PRINTER.get(),
 					ModBlocks.MODIFICATION_TABLE.get()

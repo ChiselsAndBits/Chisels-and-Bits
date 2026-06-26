@@ -87,15 +87,15 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
 	}
 
-	public @NotNull BlockState rotate(BlockState state, Rotation rot) {
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
-	public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) {
+	public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
 
@@ -104,20 +104,20 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 	}
 
 	@Override
-	public @NotNull VoxelShape getShape(final BlockState state, final @NotNull BlockGetter worldIn, final @NotNull BlockPos pos, final @NotNull CollisionContext context) {
+	public VoxelShape getShape(final BlockState state, final BlockGetter worldIn, final BlockPos pos, final CollisionContext context) {
 		return VS_MAP.getOrDefault(state.getValue(FACING), Shapes.empty());
 	}
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(final @NotNull BlockPos pos, final @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
 		return new ChiseledPrinterBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-			final @NotNull Level world, final @NotNull BlockState state, final @NotNull BlockEntityType<T> type) {
+			final Level world, final BlockState state, final BlockEntityType<T> type) {
 		return (world1, pos, state1, tileEntity) -> {
 			if (tileEntity instanceof ChiseledPrinterBlockEntity entity) {
 				entity.setLevel(world1);
@@ -128,7 +128,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 	}
 
 	@Override
-	protected @NotNull InteractionResult useWithoutItem(final @NotNull BlockState state, final Level level, final @NotNull BlockPos pos, final @NotNull Player player, final @NotNull BlockHitResult hitResult) {
+	protected InteractionResult useWithoutItem(final BlockState state, final Level level, final BlockPos pos, final Player player, final BlockHitResult hitResult) {
 		if (!level.isClientSide()) {
 			player.openMenu((MenuProvider) level.getBlockEntity(pos));
 		}

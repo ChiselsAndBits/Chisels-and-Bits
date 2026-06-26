@@ -34,8 +34,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 		super(properties);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public IModificationOperation getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MODIFICATION_OPERATION.get(), IModificationOperation.getDefaultMode());
 	}
@@ -45,8 +44,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 		stack.set(ModDataComponentTypes.MODIFICATION_OPERATION.get(), mode);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Collection<IModificationOperation> getPossibleModes() {
 		return IModificationOperation.getRegistry().getValues().stream().sorted(Comparator.comparing(IModificationOperation::getRegistryName)).collect(Collectors.toList());
 	}

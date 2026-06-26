@@ -407,8 +407,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		return this.multiLineDisplayName;
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(
 				ModChiselModeGroups.SPHERE

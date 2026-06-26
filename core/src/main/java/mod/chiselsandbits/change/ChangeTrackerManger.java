@@ -24,7 +24,7 @@ public class ChangeTrackerManger implements IChangeTrackerManager {
 	}
 
 	@Override
-	public @NotNull IChangeTracker getChangeTracker(final Player player) {
+	public IChangeTracker getChangeTracker(final Player player) {
 		if (player.level().isClientSide()) {
 			return clientChangeTracker;
 		}

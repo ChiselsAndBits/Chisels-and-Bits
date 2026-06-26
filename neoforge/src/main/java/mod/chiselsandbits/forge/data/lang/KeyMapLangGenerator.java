@@ -33,7 +33,7 @@ public class KeyMapLangGenerator implements DataProvider {
 	}
 
 	@Override
-	public @NotNull CompletableFuture<?> run(@NotNull final CachedOutput cache) {
+	public CompletableFuture<?> run(final CachedOutput cache) {
 		final List<String> langKeys = new ArrayList<>(KeyBindingManager.getInstance().getAllKeyBinds()
 				.stream()
 				.map(KeyMapping::getName)
@@ -52,8 +52,7 @@ public class KeyMapLangGenerator implements DataProvider {
 		return DataProvider.saveStable(cache, returnValue, langPath);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public String getName() {
 		return "Key Mapping generator";
 	}

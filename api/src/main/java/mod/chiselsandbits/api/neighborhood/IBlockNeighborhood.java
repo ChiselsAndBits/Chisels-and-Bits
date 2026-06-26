@@ -22,7 +22,7 @@ public interface IBlockNeighborhood {
 	 */
 	IBlockNeighborhood EMPTY = new IBlockNeighborhood() {
 		@Override
-		public @NotNull BlockInformation getBlockInformation(final Direction direction) {
+		public BlockInformation getBlockInformation(final Direction direction) {
 			return BlockInformation.AIR;
 		}
 
@@ -81,8 +81,7 @@ public interface IBlockNeighborhood {
 	 * @param direction The direction.
 	 * @return The blockstate
 	 */
-	@NotNull
-	BlockInformation getBlockInformation(final Direction direction);
+		BlockInformation getBlockInformation(final Direction direction);
 
 	/**
 	 * Returns the blocks potential area accessor neighbor in the given direction.

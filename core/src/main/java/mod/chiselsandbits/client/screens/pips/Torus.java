@@ -83,18 +83,18 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 	}
 
 	@Override
-	public @NotNull Class<RenderState> getRenderStateClass() {
+	public Class<RenderState> getRenderStateClass() {
 		return Torus.RenderState.class;
 	}
 
 	@Override
-	protected void renderToTexture(final RenderState renderState, final @NotNull PoseStack poseStack) {
+	protected void renderToTexture(final RenderState renderState, final PoseStack poseStack) {
 		VertexConsumer vertexBuffer = this.bufferSource.getBuffer(RenderTypes.debugFilledBox());
 		poseStack.pushPose();
 		Matrix4f matrix4f = poseStack.last().pose();
 		float draws = DRAWS * (renderState.sizeAngle() / 360F);
 
-		for (int i = 0; i <draws; i++) {
+		for (int i = 0; i < draws; i++) {
 			float angle = (float) Math.toRadians(renderState.startAngle() + (i / DRAWS) * 360);
 			float endAngle = ((float) Math.toRadians(renderState.startAngle() + ((i + 1) / DRAWS) * 360));
 			final float outer = renderState.outer();
@@ -117,7 +117,7 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 	}
 
 	@Override
-	protected @NotNull String getTextureLabel() {
+	protected String getTextureLabel() {
 		return "C&B Torus";
 	}
 

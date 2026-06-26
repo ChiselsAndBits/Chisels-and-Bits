@@ -322,7 +322,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 
 	@SuppressWarnings("deprecation")
 	private static void drawSelectableSection(
-			@NotNull final GuiGraphicsExtractor graphics,
+			final GuiGraphicsExtractor graphics,
 			final float sectionArcAngle,
 			final float innerRadius,
 			final float outerRadius,
@@ -377,7 +377,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 
 	@SuppressWarnings("deprecation")
 	private static void drawDeactivatedSection(
-			@NotNull final GuiGraphicsExtractor graphics,
+			final GuiGraphicsExtractor graphics,
 			final float sectionArcAngle,
 			final float innerRadius,
 			final float outerRadius,
@@ -416,13 +416,13 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	private void renderModeIconAtAngle(
-			final @NotNull GuiGraphicsExtractor graphics,
+			final GuiGraphicsExtractor graphics,
 			final float innerRadius,
 			final float outerRadius,
 			final float itemTargetAngle,
 			final float iconScaleFactor,
 			final int iconTextSpacer,
-			final @NotNull IRenderableMode mode,
+			final IRenderableMode mode,
 			final Font fontRenderer) {
 		float workingAngle = itemTargetAngle - 90;
 
@@ -447,10 +447,10 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	private void renderModeIconCentered(
-			final @NotNull GuiGraphicsExtractor graphics,
+			final GuiGraphicsExtractor graphics,
 			final float iconScaleFactor,
 			final int iconTextSpacer,
-			final @NotNull IRenderableMode mode,
+			final IRenderableMode mode,
 			final Font fontRenderer
 	) {
 		final float itemCenterX = 0f;
@@ -470,10 +470,10 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	private static void renderModeIconAt(
-			final @NotNull GuiGraphicsExtractor graphics,
+			final GuiGraphicsExtractor graphics,
 			final float iconScaleFactor,
 			final int iconTextSpacer,
-			final @NotNull IRenderableMode mode,
+			final IRenderableMode mode,
 			final Font fontRenderer,
 			final int iconStartX,
 			final int iconStartY,
@@ -514,7 +514,7 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	@Override
-	public void onClick(final @NotNull MouseButtonEvent event, final boolean isDoubleClick) {
+	public void onClick(final MouseButtonEvent event, final boolean isDoubleClick) {
 		if (!this.active || !this.visible) {
 			return;
 		}

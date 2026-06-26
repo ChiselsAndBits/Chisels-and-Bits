@@ -31,24 +31,21 @@ public interface IChiselingContext extends IStateAccessor {
 	 *
 	 * @return The {@link Optional} containing the {@link IWorldAreaMutator}.
 	 */
-	@NotNull
-	Optional<IWorldAreaMutator> getMutator();
+		Optional<IWorldAreaMutator> getMutator();
 
 	/**
 	 * The {@link LevelAccessor} in which the current chiseling context is valid.
 	 *
 	 * @return The {@link LevelAccessor}.
 	 */
-	@NotNull
-	LevelAccessor getWorld();
+		LevelAccessor getWorld();
 
 	/**
 	 * Returns the current {@link IChiselMode} for which this context is valid.
 	 *
 	 * @return The {@link IChiselMode}.
 	 */
-	@NotNull
-	IChiselMode getMode();
+		IChiselMode getMode();
 
 	/**
 	 * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
@@ -65,8 +62,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * @param worldPosition The position in the current world to include.
 	 * @return The context, possibly with a mutated {@link IWorldAreaMutator}.
 	 */
-	@NotNull
-	IChiselingContext include(final Vec3 worldPosition);
+		IChiselingContext include(final Vec3 worldPosition);
 
 	/**
 	 * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
@@ -84,8 +80,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * @param relativeInBlockPosition The relative position to include.Relative to the given {@code inWorldPosition}
 	 * @return The context, possibly with a mutated {@link IWorldAreaMutator}.
 	 */
-	@NotNull
-	default IChiselingContext include(final BlockPos inWorldPosition, final Vec3 relativeInBlockPosition) {
+		default IChiselingContext include(final BlockPos inWorldPosition, final Vec3 relativeInBlockPosition) {
 		return this.include(Vec3.atLowerCornerOf(inWorldPosition).add(relativeInBlockPosition));
 	}
 
@@ -117,8 +112,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 *
 	 * @return {@link ChiselingOperation#CHISELING} when the context is used for breaking blocks, {@link ChiselingOperation#PLACING} for bit placement.
 	 */
-	@NotNull
-	ChiselingOperation getModeOfOperandus();
+		ChiselingOperation getModeOfOperandus();
 
 	/**
 	 * Creates a deep copy of the context, so that the copy can be modified, without modifying this instance.
@@ -126,8 +120,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 *
 	 * @return The snapshot context of this context.
 	 */
-	@NotNull
-	IChiselingContext createSnapshot();
+		IChiselingContext createSnapshot();
 
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operation.
@@ -239,7 +232,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 *
 	 * @param filterBuilder The new filterBuilder.
 	 */
-	void setStateFilter(@NotNull final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
+	void setStateFilter(final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
 
 	/**
 	 * Clears the state filter which is applied to the {@link IWorldAreaMutator} for this context.

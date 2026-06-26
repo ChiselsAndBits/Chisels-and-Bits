@@ -52,7 +52,6 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 
 		trashBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 3, LocalStrings.Trash.getText(), IconManager.getInstance().getTrashIcon(),
 				button -> {
-
 					if (requireConfirm) {
 						dontThrow = true;
 

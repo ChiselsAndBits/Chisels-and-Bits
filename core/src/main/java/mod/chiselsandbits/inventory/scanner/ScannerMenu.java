@@ -25,7 +25,7 @@ public class ScannerMenu extends ScenaContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player) {
+	public boolean stillValid(final Player player) {
 		return stillValid(containerLevelAccess, player, ModBlocks.PATTERN_SCANNER.get());
 	}
 

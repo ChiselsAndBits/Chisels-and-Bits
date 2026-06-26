@@ -62,12 +62,12 @@ public class SealantItem extends Item implements ISealantItem {
 	}
 
 	@Override
-	public int getUseDuration(@NotNull ItemStack $$0, @NotNull LivingEntity $$1) {
+	public int getUseDuration(ItemStack $$0, LivingEntity $$1) {
 		return 64;
 	}
 
 	public static void spawnParticles(Vec3 location, ItemStack stack, Level world) {
-		for (int i = 0; i <20; i++) {
+		for (int i = 0; i < 20; i++) {
 			Vec3 motion = VectorUtils.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
 			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.count(), stack.getComponentsPatch())), location.x, location.y,
 					location.z, motion.x, motion.y, motion.z);
@@ -75,7 +75,7 @@ public class SealantItem extends Item implements ISealantItem {
 	}
 
 	@Override
-	public boolean releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
+	public boolean releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (!(entityLiving instanceof Player player)) {
 			return false;
 		}
@@ -91,7 +91,7 @@ public class SealantItem extends Item implements ISealantItem {
 	}
 
 	@Override
-	public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving) {
+	public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 		if (!(entityLiving instanceof Player player)) {
 			return stack;
 		}
@@ -131,7 +131,7 @@ public class SealantItem extends Item implements ISealantItem {
 	}
 
 	@Override
-	public @NotNull InteractionResult use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
+	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 
 		if (isInteracting(itemstack)) {
@@ -169,11 +169,11 @@ public class SealantItem extends Item implements ISealantItem {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(
-			final @NotNull ItemStack stack,
-			final @NotNull TooltipContext context,
-			final @NotNull TooltipDisplay tooltipDisplay,
-			final @NotNull Consumer<Component> tooltipAdder,
-			final @NotNull TooltipFlag flag) {
+			final ItemStack stack,
+			final TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
 		DistExecutor.unsafeExecuteForDist(

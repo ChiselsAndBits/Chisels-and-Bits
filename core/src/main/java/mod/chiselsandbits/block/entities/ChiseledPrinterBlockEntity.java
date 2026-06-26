@@ -90,7 +90,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	protected void loadAdditional(final @NotNull ValueInput input) {
+	protected void loadAdditional(final ValueInput input) {
 		super.loadAdditional(input);
 
 		tool_handler = input.read(NbtConstants.TOOL, SimpleContainer.CODEC).orElse(new SimpleContainer(1));
@@ -101,7 +101,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	protected void saveAdditional(final @NotNull ValueOutput output) {
+	protected void saveAdditional(final ValueOutput output) {
 		super.saveAdditional(output);
 
 		output.store(NbtConstants.TOOL, SimpleContainer.CODEC, tool_handler);
@@ -112,7 +112,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider loader) {
+	public CompoundTag getUpdateTag(HolderLookup.Provider loader) {
 		return saveWithFullMetadata(loader);
 	}
 
@@ -300,7 +300,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 	@Nullable
 	@Override
-	public AbstractContainerMenu createMenu(final int containerId, @NotNull final Inventory playerInventory, @NotNull final Player playerEntity) {
+	public AbstractContainerMenu createMenu(final int containerId, final Inventory playerInventory, final Player playerEntity) {
 		return new ChiseledPrinterContainer(
 				containerId,
 				playerInventory,
@@ -323,7 +323,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public @NotNull Component getDisplayName() {
+	public Component getDisplayName() {
 		return LocalStrings.ChiselStationName.getText();
 	}
 
@@ -353,7 +353,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 		BlockPos pos = this.getBlockPos();
 
-		for (int i = 0; i <16; i++) {
+		for (int i = 0; i < 16; i++) {
 			pos = pos.relative(targetedFacing);
 			final BlockEntity targetedTileEntity = Objects.requireNonNull(this.getLevel()).getBlockEntity(pos);
 
@@ -376,7 +376,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public void preRemoveSideEffects(final @NotNull BlockPos pos, final @NotNull BlockState state) {
+	public void preRemoveSideEffects(final BlockPos pos, final BlockState state) {
 		super.preRemoveSideEffects(pos, state);
 		dropInventoryItems();
 	}
@@ -420,7 +420,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public int @NotNull [] getSlotsForFace(final @NotNull Direction direction) {
+	public int [] getSlotsForFace(final Direction direction) {
 		return switch (direction) {
 		case DOWN -> new int[] { 2};
 		case UP -> new int[] { 1};
@@ -430,7 +430,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public boolean canPlaceItemThroughFace(final int index, final @NotNull ItemStack itemStack, final Direction direction) {
+	public boolean canPlaceItemThroughFace(final int index, final ItemStack itemStack, final Direction direction) {
 		return switch (Objects.requireNonNull(direction)) {
 		case DOWN -> false;
 		case UP -> itemStack.getItem() instanceof IChiselItem;
@@ -440,7 +440,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(final int index, final @NotNull ItemStack itemStack, final @NotNull Direction direction) {
+	public boolean canTakeItemThroughFace(final int index, final ItemStack itemStack, final Direction direction) {
 		return switch (direction) {
 		case DOWN -> true;
 		case UP -> itemStack.getItem() instanceof IChiselItem;
@@ -462,7 +462,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public @NotNull ItemStack getItem(final int index) {
+	public ItemStack getItem(final int index) {
 		return switch (index) {
 		case 0 -> getPatternStack();
 		case 1 -> getToolStack();
@@ -473,7 +473,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public @NotNull ItemStack removeItem(final int index, final int count) {
+	public ItemStack removeItem(final int index, final int count) {
 		return switch (index) {
 		case 0 -> getPatternHandler().removeItem(0, count);
 		case 1 -> getToolHandler().removeItem(0, count);
@@ -484,7 +484,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public @NotNull ItemStack removeItemNoUpdate(final int index) {
+	public ItemStack removeItemNoUpdate(final int index) {
 		return switch (index) {
 		case 0 -> getPatternHandler().removeItemNoUpdate(0);
 		case 1 -> getToolHandler().removeItemNoUpdate(0);
@@ -495,7 +495,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public void setItem(final int index, final @NotNull ItemStack itemStack) {
+	public void setItem(final int index, final ItemStack itemStack) {
 		switch (index) {
 		case 0 -> getPatternHandler().setItem(0, itemStack);
 		case 1 -> getToolHandler().setItem(0, itemStack);
@@ -504,7 +504,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player) {
+	public boolean stillValid(final Player player) {
 		if (Objects.requireNonNull(this.level).getBlockEntity(this.worldPosition) != this) {
 			return false;
 		} else {

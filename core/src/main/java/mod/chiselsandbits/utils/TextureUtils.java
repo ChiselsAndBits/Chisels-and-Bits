@@ -28,8 +28,8 @@ public class TextureUtils {
 			try (GpuBuffer.MappedView bufView = cmdEncoder.mapBuffer(buffer, true, false); ) {
 				ByteBuffer data = bufView.data();
 
-				for (int y = 0; y <height; y++) {
-					for (int x = 0; x <width; x++) {
+				for (int y = 0; y < height; y++) {
+					for (int x = 0; x < width; x++) {
 						int pixel = data.getInt((x + y * width) * pixSize);
 						destImage.setPixelABGR(x, y, pixel);
 					}

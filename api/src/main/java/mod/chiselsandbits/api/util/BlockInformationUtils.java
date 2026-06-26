@@ -72,7 +72,7 @@ public class BlockInformationUtils {
 				.filter(blockInformation -> IEligibilityManager.getInstance().canBeChiseled(blockInformation))
 				.toArray(BlockInformation[]::new);
 
-		for (int i = 0; i <count; i++) {
+		for (int i = 0; i < count; i++) {
 			result[i] = blockLookup[random.nextInt(blockLookup.length)];
 		}
 

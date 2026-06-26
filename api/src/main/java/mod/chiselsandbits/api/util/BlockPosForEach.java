@@ -17,9 +17,9 @@ public class BlockPosForEach {
 	public static void forEachInRange(final int xSize, final int ySize, final int zSize, final Consumer<BlockPos> consumer) {
 		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-		for (int x = 0; x <xSize; x++) {
-			for (int y = 0; y <ySize; y++) {
-				for (int z = 0; z <zSize; z++) {
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
+				for (int z = 0; z < zSize; z++) {
 					pos.set(x, y, z);
 					consumer.accept(pos);
 				}

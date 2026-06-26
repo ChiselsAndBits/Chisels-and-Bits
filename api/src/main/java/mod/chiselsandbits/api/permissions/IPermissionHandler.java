@@ -34,5 +34,5 @@ public interface IPermissionHandler {
 	 * @param worldAreaAccessor The area which is being edited.
 	 * @return {@code true} if the area is marked as editable, {@code false} otherwise.
 	 */
-	boolean canManipulate(@NotNull final Player player, final IWorldAreaAccessor worldAreaAccessor);
+	boolean canManipulate(final Player player, final IWorldAreaAccessor worldAreaAccessor);
 }

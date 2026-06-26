@@ -19,7 +19,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NotNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(ModTags.Blocks.BLOCKED_CHISELABLE);
 		this.tag(ModTags.Blocks.FORCED_CHISELABLE)
 				.addTag(BlockTags.LEAVES)
@@ -38,7 +38,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Chisels & Bits Block Tags";
 	}
 }

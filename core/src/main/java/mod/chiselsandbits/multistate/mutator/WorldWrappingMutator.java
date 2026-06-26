@@ -455,7 +455,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox() {
+	public AABB getBoundingBox() {
 		return new AABB(
 				startPoint,
 				endPoint

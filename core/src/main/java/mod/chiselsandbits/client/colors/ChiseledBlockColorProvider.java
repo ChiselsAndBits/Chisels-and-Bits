@@ -38,7 +38,7 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 		intList.size(model.materials().size());
 		List<ChiseledBlockModelMaterial> materials = model.materials();
 
-		for (int i = 0; i <materials.size(); i++) {
+		for (int i = 0; i < materials.size(); i++) {
 			final ChiseledBlockModelMaterial material = materials.get(i);
 
 			if (material.tintIndex() == -1) {

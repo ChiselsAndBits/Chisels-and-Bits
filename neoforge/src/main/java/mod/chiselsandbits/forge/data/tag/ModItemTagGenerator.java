@@ -19,7 +19,7 @@ public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.Item
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NotNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(ModTags.Items.BIT_BAG).add(ModItems.ITEM_BIT_BAG.get(), ModItems.LEGACY_ITEM_BIT_BAG_DYED.get());
 		this.tag(ModTags.Items.CHISEL).add(
 				ModItems.ITEM_CHISEL_STONE.get(),

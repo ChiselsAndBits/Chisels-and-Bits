@@ -179,7 +179,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 

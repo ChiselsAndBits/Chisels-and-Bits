@@ -49,7 +49,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		slotData.forEach(data -> this.items.set(data.index(), data.stack()));
 	}
 
-	public @NotNull ItemStack getItem(int index) {
+	public ItemStack getItem(int index) {
 		return index>= 0 && index <this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
 	}
 
@@ -59,7 +59,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		return list;
 	}
 
-	public @NotNull ItemStack removeItem(int index, int count) {
+	public ItemStack removeItem(int index, int count) {
 		ItemStack removeResult = ContainerHelper.removeItem(this.items, index, count);
 
 		if (!removeResult.isEmpty()) {
@@ -72,7 +72,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public ItemStack removeItemType(Item item, int toExtract) {
 		ItemStack nullStack = new ItemStack(item, 0);
 
-		for (int reversedIndex = this.size - 1; reversedIndex>= 0; --reversedIndex) {
+		for (int reversedIndex = this.size - 1; reversedIndex >= 0; --reversedIndex) {
 			ItemStack stack = this.getItem(reversedIndex);
 
 			if (stack.getItem().equals(item)) {
@@ -118,7 +118,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		return foundEmptyOrMatching;
 	}
 
-	public @NotNull ItemStack removeItemNoUpdate(int index) {
+	public ItemStack removeItemNoUpdate(int index) {
 		ItemStack stack = this.items.get(index);
 
 		if (stack.isEmpty()) {
@@ -129,7 +129,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		}
 	}
 
-	public void setItem(int index, @NotNull ItemStack stack) {
+	public void setItem(int index, ItemStack stack) {
 		this.items.set(index, stack);
 
 		if (!stack.isEmpty() && stack.getCount()> this.getMaxStackSize()) {
@@ -151,7 +151,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 		return this.items.stream().allMatch(ItemStack::isEmpty);
 	}
 
-	public boolean stillValid(@NotNull Player player) {
+	public boolean stillValid(Player player) {
 		return true;
 	}
 
@@ -165,7 +165,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToEmptySlots(ItemStack input) {
-		for (int index = 0; index <this.size; ++index) {
+		for (int index = 0; index < this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (stack.isEmpty()) {
@@ -177,7 +177,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	private void moveItemToOccupiedSlotsWithSameType(ItemStack input) {
-		for (int index = 0; index <this.size; ++index) {
+		for (int index = 0; index < this.size; ++index) {
 			ItemStack stack = this.getItem(index);
 
 			if (ItemStack.isSameItemSameComponents(stack, input)) {

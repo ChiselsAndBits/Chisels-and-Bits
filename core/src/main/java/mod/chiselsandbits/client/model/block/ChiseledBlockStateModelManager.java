@@ -98,7 +98,6 @@ public class ChiseledBlockStateModelManager {
 
 			return cache.get(key,
 					() -> {
-
 						try (IProfilerSection ignored3 = ProfilingManager.getInstance().withSection("Cache mis")) {
 					return new ChiseledBlockModelInformationBuilder(
 							accessor,

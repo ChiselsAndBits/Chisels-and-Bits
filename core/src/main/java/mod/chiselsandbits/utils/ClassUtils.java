@@ -31,15 +31,13 @@ public class ClassUtils {
 		return null;
 	}
 
-	@NotNull
-	private static ClassLookupResult lookupResult(
+		private static ClassLookupResult lookupResult(
 			final Class<?> blkClass,
 			final String methodName,
 			final Class<?>...args) {
 		return CACHE.get(
 			new Key(blkClass, methodName, args),
 				() -> {
-
 					try {
 				return new ClassLookupResult(blkClass.getMethod(methodName, args).getDeclaringClass(), true);
 			} catch (final NoSuchMethodException e) {

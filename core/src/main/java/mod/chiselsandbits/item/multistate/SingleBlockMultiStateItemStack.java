@@ -318,7 +318,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox() {
+	public AABB getBoundingBox() {
 		return new AABB(0, 0, 0, 1, 1, 1);
 	}
 
@@ -384,17 +384,17 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		}
 
 		@Override
-		public @NotNull BlockInformation getBlockInformation() {
+		public BlockInformation getBlockInformation() {
 			return blockInformation;
 		}
 
 		@Override
-		public @NotNull Vec3 getStartPoint() {
+		public Vec3 getStartPoint() {
 			return startPoint;
 		}
 
 		@Override
-		public @NotNull Vec3 getEndPoint() {
+		public Vec3 getEndPoint() {
 			return endPoint;
 		}
 	}

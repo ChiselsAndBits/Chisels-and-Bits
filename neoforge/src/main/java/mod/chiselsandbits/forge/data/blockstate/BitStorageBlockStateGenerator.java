@@ -41,14 +41,14 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
+	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		actOnBlock(ModBlocks.BIT_STORAGE.get(), blockModels);
 	}
 
 	public void actOnBlock(final Block block, final BlockModelGenerators generators) {
 		generators.createHorizontallyRotatedBlock(block, new TexturedModel.Provider() {
 			@Override
-			public @NotNull TexturedModel get(final @NotNull Block block) {
+			public TexturedModel get(final Block block) {
 				return new TexturedModel(
 					new TextureMapping()
 						.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
@@ -71,7 +71,7 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
+	protected Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of(
 				BuiltInRegistries.BLOCK.wrapAsHolder(
 						ModBlocks.BIT_STORAGE.get()
@@ -80,12 +80,12 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
+	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Bit storage blockstate generator";
 	}
 }

@@ -61,7 +61,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 	}
 
 	@Override
-	public @NotNull Component getName(final ItemStack stack) {
+	public Component getName(final ItemStack stack) {
 		if (stack.has(ModDataComponentTypes.CHISEL_ERROR.get())) {
 			return Objects.requireNonNull(stack.get(ModDataComponentTypes.CHISEL_ERROR.get()));
 		}
@@ -87,8 +87,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public IChiselMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
 	}
@@ -98,8 +97,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		stack.set(ModDataComponentTypes.CHISEL_MODE.get(), mode);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Collection<IChiselMode> getPossibleModes() {
 		return IChiselMode.getRegistry()
 				.getValues()
@@ -177,7 +175,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 	}
 
 	@Override
-	public boolean canUse(final Player playerEntity, @NotNull final ItemStack stack) {
+	public boolean canUse(final Player playerEntity, final ItemStack stack) {
 		final boolean isAllowedToUse = ChiselingManager.getInstance().canChisel(playerEntity) && !playerEntity.getCooldowns().isOnCooldown(stack);
 
 		if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
@@ -192,7 +190,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 	}
 
 	@Override
-	public boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity) {
+	public boolean shouldDrawDefaultHighlight(final Player playerEntity) {
 		final ItemStack itemStack = ItemStackUtils.getHighlightItemStackFromPlayer(playerEntity);
 
 		if (itemStack.isEmpty() || itemStack.getItem() != this) {

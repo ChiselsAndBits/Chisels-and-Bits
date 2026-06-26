@@ -151,8 +151,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		createStorageEngine();
 	}
 
-	@NotNull
-	private static Executor createDefaultExecutor() {
+		private static Executor createDefaultExecutor() {
 		return DistExecutor.unsafeRunForDist(
 				() -> Minecraft::getInstance,
 				() -> () -> new ServerSchedulingExecutor(IScenaPlatform.getInstance().getCurrentServer())
@@ -186,7 +185,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	}
 
 	@Override
-	public void setLevel(final @NotNull Level level) {
+	public void setLevel(final Level level) {
 		super.setLevel(level);
 
 		IBlockEntityPositionManager.getInstance().add(this);
@@ -365,7 +364,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	}
 
 	@Override
-	protected void saveAdditional(final @NotNull ValueOutput output) {
+	protected void saveAdditional(final ValueOutput output) {
 		super.saveAdditional(output);
 
 		final ValueOutput dataOutput = output.child("data");
@@ -832,8 +831,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		this.modelData = modelData;
 	}
 
-	@NotNull
-	public IBlockModelData getBlockModelData() {
+		public IBlockModelData getBlockModelData() {
 		return this.modelData;
 	}
 
@@ -856,7 +854,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox() {
+	public AABB getBoundingBox() {
 		return new AABB(
 				this.getBlockPos().getX(),
 				this.getBlockPos().getY(),
@@ -914,7 +912,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		}
 
 		@Override
-		public @NotNull BlockInformation getBlockInformation() {
+		public BlockInformation getBlockInformation() {
 			return blockInformation;
 		}
 
@@ -924,12 +922,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		}
 
 		@Override
-		public @NotNull Vec3 getStartPoint() {
+		public Vec3 getStartPoint() {
 			return startPoint;
 		}
 
 		@Override
-		public @NotNull Vec3 getEndPoint() {
+		public Vec3 getEndPoint() {
 			return endPoint;
 		}
 
@@ -1687,7 +1685,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				highestBit = -1;
 				highestBitFriction = 0f;
 
-				for (int i = StateEntrySize.current().getBitsPerBlockSide() - 1; i>= 0; i--) {
+				for (int i = StateEntrySize.current().getBitsPerBlockSide() - 1; i >= 0; i--) {
 					if (noneAirBits.get(i)) {
 						highestBit = (short) i;
 						highestBitFriction = usingLevelReader(levelAccessor, blockInformation, ILevelBasedPropertyAccessor.getInstance()::getFriction);
@@ -1770,7 +1768,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 	private record ServerSchedulingExecutor(MinecraftServer server) implements Executor {
 		@Override
-		public void execute(@NotNull Runnable command) {
+		public void execute(Runnable command) {
 			server.schedule(new TickTask(server.getTickCount(), command));
 		}
 	}

@@ -55,8 +55,7 @@ public class BlockBitItemModelGenerator extends ModelProvider implements DataPro
 		);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public String getName() {
 		return "Bit item model generator";
 	}

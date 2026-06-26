@@ -21,8 +21,7 @@ public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem
 	 *
 	 * @return The block information contained in this bit item.
 	 */
-	@NotNull
-	BlockInformation getBlockInformation(final ItemStack stack);
+		BlockInformation getBlockInformation(final ItemStack stack);
 
 	/**
 	 * Invoked when a merge operation of a bit inside a bitbag is beginning during a shift-click interaction

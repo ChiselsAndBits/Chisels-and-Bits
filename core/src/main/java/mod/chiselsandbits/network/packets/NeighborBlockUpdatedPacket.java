@@ -56,7 +56,7 @@ public final class NeighborBlockUpdatedPacket extends ModPacket {
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

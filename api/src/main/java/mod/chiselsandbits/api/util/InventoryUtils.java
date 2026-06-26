@@ -16,7 +16,7 @@ public class InventoryUtils {
 	public static ItemStack getChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
-		for (int i = 0; i <player.getInventory().getContainerSize(); i++) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			final ItemStack stack = player.getInventory().getItem(i);
 
 			if (stack.getItem() instanceof IChiseledBlockItem) {
@@ -35,7 +35,7 @@ public class InventoryUtils {
 	public static void extractChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
 
-		for (int i = 0; i <player.getInventory().getContainerSize(); i++) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			final ItemStack stack = player.getInventory().getItem(i);
 
 			if (stack.getItem() instanceof IChiseledBlockItem) {

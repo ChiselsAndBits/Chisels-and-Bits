@@ -49,7 +49,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	protected void loadAdditional(final @NotNull ValueInput input) {
+	protected void loadAdditional(final ValueInput input) {
 		super.loadAdditional(input);
 		state = input.read(NbtConstants.BLOCK_INFORMATION, BlockInformation.CODEC).orElse(BlockInformation.AIR);
 
@@ -59,7 +59,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	protected void saveAdditional(final @NotNull ValueOutput output) {
+	protected void saveAdditional(final ValueOutput output) {
 		super.saveAdditional(output);
 
 		if (state != null && !state.isAir()) {
@@ -74,7 +74,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookup) {
+	public CompoundTag getUpdateTag(HolderLookup.Provider lookup) {
 		return saveWithFullMetadata(lookup);
 	}
 
@@ -306,7 +306,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public @NotNull ItemStack getItem(final int index) {
+	public ItemStack getItem(final int index) {
 		if (index != 0) {
 			return ItemStack.EMPTY;
 		}
@@ -319,7 +319,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public @NotNull ItemStack removeItem(final int index, final int count) {
+	public ItemStack removeItem(final int index, final int count) {
 		if (index != 0) {
 			return ItemStack.EMPTY;
 		}
@@ -333,13 +333,13 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public @NotNull ItemStack removeItemNoUpdate(final int index) {
+	public ItemStack removeItemNoUpdate(final int index) {
 	//Not supported
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public void setItem(final int index, final @NotNull ItemStack itemStack) {
+	public void setItem(final int index, final ItemStack itemStack) {
 		if (!(itemStack.getItem() instanceof IBitItem bitItem)) {
 			if (IEligibilityManager.getInstance().canBeChiseled(itemStack) && this.state == null && this.bits == 0) {
 				final BlockInformation blockInformation = ItemStackUtils.getStateFromItem(itemStack);
@@ -363,7 +363,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player) {
+	public boolean stillValid(final Player player) {
 		assert this.level != null;
 
 		if (this.level.getBlockEntity(this.worldPosition) != this) {

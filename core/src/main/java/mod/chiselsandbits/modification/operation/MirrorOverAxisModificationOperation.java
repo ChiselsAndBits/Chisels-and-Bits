@@ -45,7 +45,7 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 	}
 
 	@Override
-	public @NotNull Optional<IModificationOperationGroup> getGroup() {
+	public Optional<IModificationOperationGroup> getGroup() {
 		return Optional.of(ModModificationOperationGroups.MIRROR);
 	}
 

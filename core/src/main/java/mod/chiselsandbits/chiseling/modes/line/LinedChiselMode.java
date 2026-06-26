@@ -118,7 +118,6 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 				try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
 					mutator.inWorldMutableStream().filter(state -> state.getBlockInformation().isAir()).forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
 				}
-
 			} else {
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}
@@ -171,7 +170,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeDownAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int yOff = 0; yOff <inBlockBitVector.y(); yOff++) {
+			for (int yOff = 0; yOff < inBlockBitVector.y(); yOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(0, yOff, 0);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -186,9 +185,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int xOff = -bitsPerSide / 2; xOff <bitsPerSide / 2; xOff++) {
-			for (int zOff = -bitsPerSide / 2; zOff <bitsPerSide / 2; zOff++) {
-				for (int yOff = 0; yOff <inBlockBitVector.y(); yOff++) {
+		for (int xOff = -bitsPerSide / 2; xOff < bitsPerSide / 2; xOff++) {
+			for (int zOff = -bitsPerSide / 2; zOff < bitsPerSide / 2; zOff++) {
+				for (int yOff = 0; yOff < inBlockBitVector.y(); yOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(xOff, yOff, zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -205,7 +204,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeUpAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int yOff = 0; yOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.y()); yOff++) {
+			for (int yOff = 0; yOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.y()); yOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(0, -yOff, 0);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -220,9 +219,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int xOff = -bitsPerSide / 2; xOff <bitsPerSide / 2; xOff++) {
-			for (int zOff = -bitsPerSide / 2; zOff <bitsPerSide / 2; zOff++) {
-				for (int yOff = 0; yOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.y()); yOff++) {
+		for (int xOff = -bitsPerSide / 2; xOff < bitsPerSide / 2; xOff++) {
+			for (int zOff = -bitsPerSide / 2; zOff < bitsPerSide / 2; zOff++) {
+				for (int yOff = 0; yOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.y()); yOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(xOff, -yOff, zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -239,7 +238,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeNorthAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int zOff = 0; zOff <inBlockBitVector.z(); zOff++) {
+			for (int zOff = 0; zOff < inBlockBitVector.z(); zOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(0, 0, zOff);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -254,9 +253,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int xOff = -bitsPerSide / 2; xOff <bitsPerSide / 2; xOff++) {
-			for (int yOff = -bitsPerSide / 2; yOff <bitsPerSide / 2; yOff++) {
-				for (int zOff = 0; zOff <inBlockBitVector.z(); zOff++) {
+		for (int xOff = -bitsPerSide / 2; xOff < bitsPerSide / 2; xOff++) {
+			for (int yOff = -bitsPerSide / 2; yOff < bitsPerSide / 2; yOff++) {
+				for (int zOff = 0; zOff < inBlockBitVector.z(); zOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(xOff, yOff, zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -273,7 +272,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeSouthAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int zOff = 0; zOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.z()); zOff++) {
+			for (int zOff = 0; zOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.z()); zOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(0, 0, -zOff);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -288,9 +287,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int xOff = -bitsPerSide / 2; xOff <bitsPerSide / 2; xOff++) {
-			for (int yOff = -bitsPerSide / 2; yOff <bitsPerSide / 2; yOff++) {
-				for (int zOff = 0; zOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.z()); zOff++) {
+		for (int xOff = -bitsPerSide / 2; xOff < bitsPerSide / 2; xOff++) {
+			for (int yOff = -bitsPerSide / 2; yOff < bitsPerSide / 2; yOff++) {
+				for (int zOff = 0; zOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.z()); zOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(xOff, yOff, -zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -307,7 +306,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeWestAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int xOff = 0; xOff <inBlockBitVector.x(); xOff++) {
+			for (int xOff = 0; xOff < inBlockBitVector.x(); xOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(xOff, 0, 0);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -322,9 +321,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int zOff = -bitsPerSide / 2; zOff <bitsPerSide / 2; zOff++) {
-			for (int yOff = -bitsPerSide / 2; yOff <bitsPerSide / 2; yOff++) {
-				for (int xOff = 0; xOff <inBlockBitVector.x(); xOff++) {
+		for (int zOff = -bitsPerSide / 2; zOff < bitsPerSide / 2; zOff++) {
+			for (int yOff = -bitsPerSide / 2; yOff < bitsPerSide / 2; yOff++) {
+				for (int xOff = 0; xOff < inBlockBitVector.x(); xOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(xOff, yOff, zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -341,7 +340,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private void includeEastAxis(final IChiselingContext context, final boolean airOnly, final Vec3 hitBlockPosVector, final Vec3 inBlockBitVector) {
 		if (bitsPerSide == 1) {
-			for (int xOff = 0; xOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.x()); xOff++) {
+			for (int xOff = 0; xOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.x()); xOff++) {
 				final Vec3 targetBit = inBlockBitVector.subtract(-xOff, 0, 0);
 				final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 				final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -356,9 +355,9 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 			return;
 		}
 
-		for (int zOff = -bitsPerSide / 2; zOff <bitsPerSide / 2; zOff++) {
-			for (int yOff = -bitsPerSide / 2; yOff <bitsPerSide / 2; yOff++) {
-				for (int xOff = 0; xOff <(StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.x()); xOff++) {
+		for (int zOff = -bitsPerSide / 2; zOff < bitsPerSide / 2; zOff++) {
+			for (int yOff = -bitsPerSide / 2; yOff < bitsPerSide / 2; yOff++) {
+				for (int xOff = 0; xOff < (StateEntrySize.current().getBitsPerBlockSide() - inBlockBitVector.x()); xOff++) {
 					final Vec3 targetBit = inBlockBitVector.subtract(-xOff, yOff, zOff);
 					final Vec3 inWorldOffset = clampVectorToBlockAlongAxis(targetBit.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()), Direction.Axis.Y);
 					final Vec3 inWorldTarget = hitBlockPosVector.add(inWorldOffset);
@@ -410,8 +409,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return this.multiLineDisplayName;
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.LINE);
 	}

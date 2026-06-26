@@ -23,7 +23,7 @@ public class BitSlot extends Slot {
 
 	@Override
 	public boolean mayPlace(
-			final @NotNull ItemStack stack) {
+			final ItemStack stack) {
 		return !stack.isEmpty() && stack.getItem() instanceof BitItem;
 	}
 
@@ -38,16 +38,16 @@ public class BitSlot extends Slot {
 	}
 
 	@Override
-	public @NotNull Optional<ItemStack> tryRemove(int count, int decrement, @NotNull Player player) {
+	public Optional<ItemStack> tryRemove(int count, int decrement, Player player) {
 		count = Math.min(count, ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize());
 		return super.tryRemove(count, decrement, player);
 	}
 
-	public @NotNull ItemStack safeInsert(@NotNull ItemStack stack) {
+	public ItemStack safeInsert(ItemStack stack) {
 		return this.safeInsert(stack, stack.getCount());
 	}
 
-	public @NotNull ItemStack safeInsert(ItemStack toInsert, int increment) {
+	public ItemStack safeInsert(ItemStack toInsert, int increment) {
 		if (!toInsert.isEmpty() && this.mayPlace(toInsert)) {
 			ItemStack currentStack = this.getItem();
 

@@ -83,7 +83,6 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream().sequential().forEach(
 					stateEntryInfo -> {
-
 						try {
 					areaMutator.setInAreaTarget(
 							stateEntryInfo.getBlockInformation(),
@@ -125,7 +124,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 

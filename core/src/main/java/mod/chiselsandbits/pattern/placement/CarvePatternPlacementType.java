@@ -43,7 +43,7 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 	}
 
 	@Override
-	public @NotNull Optional<IToolModeGroup> getGroup() {
+	public Optional<IToolModeGroup> getGroup() {
 		return Optional.empty();
 	}
 

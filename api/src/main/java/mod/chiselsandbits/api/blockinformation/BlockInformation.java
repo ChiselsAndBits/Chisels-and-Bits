@@ -78,7 +78,7 @@ public record BlockInformation(BlockState blockState,
 	}
 
 	@Override
-	public int compareTo(@NotNull final BlockInformation blockInformation) {
+	public int compareTo(final BlockInformation blockInformation) {
 		return COMPARATOR.compare(this, blockInformation);
 	}
 

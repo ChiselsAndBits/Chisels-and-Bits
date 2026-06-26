@@ -19,8 +19,7 @@ public interface IBlockNeighborhoodBuilder {
 	 *
 	 * @return The current instance.
 	 */
-	@NotNull
-	static IBlockNeighborhoodBuilder getInstance() {
+		static IBlockNeighborhoodBuilder getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBlockNeighborhoodBuilder();
 	}
 
@@ -31,8 +30,7 @@ public interface IBlockNeighborhoodBuilder {
 	 * @param neighborhoodAreaAccessorProvider The area accessor provider to pull the neighborhood data from.
 	 * @return A comparable an unique element targeting the requested position and containing the neighborhood data of the target position.
 	 */
-	@NotNull
-	IBlockNeighborhood build(
+		IBlockNeighborhood build(
 			@Nullable Function<Direction, BlockInformation> neighborhoodBlockStateProvider,
 			@Nullable Function<Direction, IAreaAccessor> neighborhoodAreaAccessorProvider
 	);

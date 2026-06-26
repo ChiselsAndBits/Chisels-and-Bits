@@ -126,13 +126,13 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock {
 		builder.add(FACING);
 	}
 
-	public @NotNull InteractionResult use(
-			@NotNull BlockState state,
+	public InteractionResult use(
+			BlockState state,
 			Level level,
-			@NotNull BlockPos pos,
-			@NotNull Player player,
-			@NotNull InteractionHand hand,
-			@NotNull BlockHitResult hitResult) {
+			BlockPos pos,
+			Player player,
+			InteractionHand hand,
+			BlockHitResult hitResult) {
 		if (true) {
 			return InteractionResult.PASS;
 		}
@@ -146,13 +146,13 @@ public class PatternScannerBlock extends HorizontalDirectionalBlock {
 		}
 	}
 
-	public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos post) {
+	public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos post) {
 		return new SimpleMenuProvider((screenIndex, inventory, player) -> new CraftingMenu(screenIndex, inventory, ContainerLevelAccess.create(level, post)), Component.literal(""));
 	}
 
 	@Override
-	public @NotNull VoxelShape getShape(
-			final @NotNull BlockState state, final @NotNull BlockGetter blockGetter, final @NotNull BlockPos pos, final @NotNull CollisionContext context) {
+	public VoxelShape getShape(
+			final BlockState state, final BlockGetter blockGetter, final BlockPos pos, final CollisionContext context) {
 		return SHAPES.get(state.getValue(FACING));
 	}
 }

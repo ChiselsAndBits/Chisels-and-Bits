@@ -22,8 +22,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.isEmpty();
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack getItem(int index) {
 		if (index == 36) {
 			index += 4;
@@ -32,8 +31,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.getItem(index);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack removeItem(int index, final int count) {
 		if (index == 36) {
 			index += 4;
@@ -42,8 +40,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.removeItem(index, count);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack removeItemNoUpdate(int index) {
 		if (index == 36) {
 			index += 4;
@@ -53,7 +50,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	}
 
 	@Override
-	public void setItem(int index, @NotNull final ItemStack stack) {
+	public void setItem(int index, final ItemStack stack) {
 		if (index == 36) {
 			index += 4;
 		}
@@ -67,7 +64,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	}
 
 	@Override
-	public boolean stillValid(@NotNull final Player player) {
+	public boolean stillValid(final Player player) {
 		return playerInventory.stillValid(player);
 	}
 

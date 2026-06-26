@@ -215,7 +215,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	}
 
 	@Override
-	public @NotNull AABB getBoundingBox() {
+	public AABB getBoundingBox() {
 		return new AABB(0, 0, 0, 1, 1, 1);
 	}
 
@@ -339,7 +339,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		}
 
 		@Override
-		public @NotNull AABB getBoundingBox() {
+		public AABB getBoundingBox() {
 			return new AABB(0, 0, 0, 1, 1, 1);
 		}
 

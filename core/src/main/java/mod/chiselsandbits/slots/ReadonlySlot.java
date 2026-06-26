@@ -18,13 +18,13 @@ public class ReadonlySlot extends Slot {
 
 	@Override
 	public boolean mayPlace(
-			final @NotNull ItemStack stack) {
+			final ItemStack stack) {
 		return false;
 	}
 
 	@Override
 	public boolean mayPickup(
-			final @NotNull Player playerIn) {
+			final Player playerIn) {
 		return false;
 	}
 }

@@ -18,7 +18,7 @@ public class LegacyDyedBitBagItem extends Item {
 	}
 
 	@Override
-	public void inventoryTick(@NotNull ItemStack stack, final @NotNull ServerLevel level, final @NotNull Entity entity, @Nullable final EquipmentSlot slot) {
+	public void inventoryTick(ItemStack stack, final ServerLevel level, final Entity entity, @Nullable final EquipmentSlot slot) {
 		if (!(entity instanceof Player player)) {
 			return;
 		}

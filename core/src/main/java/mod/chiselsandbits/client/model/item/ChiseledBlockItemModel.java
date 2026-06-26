@@ -41,9 +41,9 @@ public record ChiseledBlockItemModel(
 	@Override
 	public void update(
 			final ItemStackRenderState renderState,
-			final @NotNull ItemStack stack,
-			final @NotNull ItemModelResolver itemModelResolver,
-			final @NotNull ItemDisplayContext displayContext,
+			final ItemStack stack,
+			final ItemModelResolver itemModelResolver,
+			final ItemDisplayContext displayContext,
 			@Nullable final ClientLevel level,
 			@Nullable final ItemOwner owner,
 			final int seed) {
@@ -86,7 +86,7 @@ public record ChiseledBlockItemModel(
 
 		List<ChiseledBlockModelMaterial> materials = blockModelInformation.materials();
 
-		for (int i = 0; i <materials.size(); i++) {
+		for (int i = 0; i < materials.size(); i++) {
 			final ChiseledBlockModelMaterial material = materials.get(i);
 			final ItemStack lookupStack = new ItemStack(material.blockInformation().blockState().getBlock());
 			final Identifier itemModelId = lookupStack.get(DataComponents.ITEM_MODEL);
@@ -153,7 +153,7 @@ public record ChiseledBlockItemModel(
 		public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
 
 		@Override
-		public @NotNull MapCodec<? extends ItemModel.Unbaked> type() {
+		public MapCodec<? extends ItemModel.Unbaked> type() {
 			return CODEC;
 		}
 

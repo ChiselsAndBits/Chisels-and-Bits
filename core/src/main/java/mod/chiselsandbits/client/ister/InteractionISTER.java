@@ -158,12 +158,12 @@ public record InteractionISTER(InteractableItemModel mainModel,
 	}
 
 	@Override
-	public void getExtents(final @NotNull Consumer<Vector3fc> output) {
+	public void getExtents(final Consumer<Vector3fc> output) {
 	//No clue how to do this, we do not have access to the outer layer!
 	}
 
 	@Override
-	public @Nullable RenderState extractArgument(final @NotNull ItemStack stack) {
+	public @Nullable RenderState extractArgument(final ItemStack stack) {
 		if (stack.getItem() instanceof IInteractableItem item) {
 			return new RenderState(stack, item);
 		}

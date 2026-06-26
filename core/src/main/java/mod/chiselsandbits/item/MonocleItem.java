@@ -25,7 +25,7 @@ import net.minecraft.world.phys.AABB;
 
 public class MonocleItem extends Item {
 	public static final DispenseItemBehavior DISPENSE_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior() {
-		protected @NotNull ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+		protected ItemStack execute(BlockSource source, ItemStack stack) {
 			return dispenseArmor(source, stack) ? stack : super.execute(source, stack);
 		}
 	};

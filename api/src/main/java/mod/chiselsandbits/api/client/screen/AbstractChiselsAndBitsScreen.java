@@ -42,12 +42,12 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	}
 
 	@Override
-	public <T extends GuiEventListener & Renderable & NarratableEntry> @NotNull T addRenderableWidget(final @NotNull T button) {
+	public <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(final T button) {
 		return super.addRenderableWidget(button);
 	}
 
 	@Override
-	protected <T extends Renderable> @NotNull T addRenderableOnly(final @NotNull T widget) {
+	protected <T extends Renderable> T addRenderableOnly(final T widget) {
 		final T resultingWidget = super.addRenderableOnly(widget);
 
 		if (resultingWidget instanceof Renderable) {
@@ -58,7 +58,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	}
 
 	@Override
-	public <T extends GuiEventListener & NarratableEntry> @NotNull T addWidget(final @NotNull T widget) {
+	public <T extends GuiEventListener & NarratableEntry> T addWidget(final T widget) {
 		final T resultingWidget = super.addWidget(widget);
 
 		if (isInitialized() && widget instanceof IChiselsAndBitsWidget) {
@@ -74,7 +74,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	}
 
 	@Override
-	public void removeWidget(final @NotNull GuiEventListener listener) {
+	public void removeWidget(final GuiEventListener listener) {
 		super.removeWidget(listener);
 
 		if (listener instanceof IChiselsAndBitsWidget) {
@@ -122,7 +122,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 	}
 
 	@Override
-	public void extractRenderState(final @NotNull GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float partialTickTime) {
+	public void extractRenderState(final GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float partialTickTime) {
 		final List<Renderable> renderTargets = new ArrayList<>(this.renderables);
 
 		for (Renderable widget : renderTargets) {

@@ -36,11 +36,11 @@ public class ModEffectHandlers {
 
 						@Override
 						public boolean addHitEffects(
-								@NotNull final BlockState blockState,
-								@NotNull final Level level,
-								@NotNull final BlockPos blockPos,
-								@NotNull final Direction direction,
-								@NotNull final ParticleEngine particleEngine) {
+								final BlockState blockState,
+								final Level level,
+								final BlockPos blockPos,
+								final Direction direction,
+								final ParticleEngine particleEngine) {
 							final BlockState primaryState = getPrimaryState(level, blockPos);
 
 							if (primaryState == null) {

@@ -89,7 +89,6 @@ public class ChiselingManager implements IChiselingManager {
 				mode,
 				modeOfOperandus,
 				simulation, () -> {
-
 					if (simulation) {
 						return;
 					}

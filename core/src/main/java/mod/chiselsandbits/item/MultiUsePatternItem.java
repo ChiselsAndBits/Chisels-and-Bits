@@ -33,7 +33,7 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 	}
 
 	@Override
-	public @NotNull ItemStack seal(final @NotNull ItemStack source) throws SealingNotSupportedException {
+	public ItemStack seal(final ItemStack source) throws SealingNotSupportedException {
 		throw new SealingNotSupportedException();
 	}
 
@@ -65,7 +65,7 @@ public class MultiUsePatternItem extends SingleUsePatternItem implements IMultiU
 	}
 
 	@Override
-	public @NotNull ItemStack unseal(@NotNull final ItemStack source) throws SealingNotSupportedException {
+	public ItemStack unseal(final ItemStack source) throws SealingNotSupportedException {
 		if (source.getItem() instanceof ISupportsUnsealing) {
 			final ItemStack seal = new ItemStack(ModItems.SINGLE_USE_PATTERN_ITEM.get());
 			final IMultiStateItemStack stack = createItemStack(source);

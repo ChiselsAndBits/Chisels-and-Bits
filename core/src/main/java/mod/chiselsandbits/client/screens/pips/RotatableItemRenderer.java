@@ -77,12 +77,12 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	}
 
 	@Override
-	protected @NotNull String getTextureLabel() {
+	protected String getTextureLabel() {
 		return "c&B rotatable item renderer";
 	}
 
 	@Override
-	public @NotNull Class<RenderState> getRenderStateClass() {
+	public Class<RenderState> getRenderStateClass() {
 		return RenderState.class;
 	}
 

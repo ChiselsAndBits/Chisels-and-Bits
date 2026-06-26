@@ -52,7 +52,7 @@ public final class BagGuiPacket extends ModPacket {
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

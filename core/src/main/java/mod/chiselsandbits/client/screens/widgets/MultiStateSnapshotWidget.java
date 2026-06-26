@@ -41,7 +41,7 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	@SuppressWarnings({"ConstantConditions"})
-	public void renderRotatableItemAndEffectIntoGui(@NotNull GuiGraphicsExtractor graphics) {
+	public void renderRotatableItemAndEffectIntoGui(GuiGraphicsExtractor graphics) {
 		final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 		extendedGuiGraphics.submitPip(
 			new RotatableItemRenderer.RenderState(
@@ -70,7 +70,7 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 	}
 
 	@Override
-	protected void onDrag(final @NotNull MouseButtonEvent event, final double mouseX, final double mouseY) {
+	protected void onDrag(final MouseButtonEvent event, final double mouseX, final double mouseY) {
 		this.facingVector = this.facingVector.add(mouseY * 0.1, 0, mouseX * 0.1);
 	}
 

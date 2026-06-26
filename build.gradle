@@ -14,7 +14,7 @@ tableau {
     }
 }
 
-allprojects {Project project ->
+allprojects { Project project ->
     apply plugin: 'checkstyle'
 
     java {

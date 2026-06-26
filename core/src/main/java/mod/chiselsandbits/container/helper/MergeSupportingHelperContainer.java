@@ -16,7 +16,7 @@ public class MergeSupportingHelperContainer extends AbstractContainerMenu {
 	}
 
 	@Override
-	public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
+	public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(pIndex);
 
@@ -43,7 +43,7 @@ public class MergeSupportingHelperContainer extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player playerIn) {
+	public boolean stillValid(final Player playerIn) {
 		return false;
 	}
 

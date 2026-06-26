@@ -22,7 +22,7 @@ public interface IWithHighlightItem {
 	 *
 	 * @return True to let minecraft handle the highlight rendering, false when not.
 	 */
-	boolean shouldDrawDefaultHighlight(@NotNull final Player playerEntity);
+	boolean shouldDrawDefaultHighlight(final Player playerEntity);
 
 	/**
 	 * Renders the highlight for the current item.

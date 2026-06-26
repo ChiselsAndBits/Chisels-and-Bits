@@ -30,7 +30,7 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 	}
 
 	@Override
-	public @NotNull Optional<IModificationOperationGroup> getGroup() {
+	public Optional<IModificationOperationGroup> getGroup() {
 		return Optional.of(ModModificationOperationGroups.ROTATE);
 	}
 

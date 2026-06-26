@@ -78,7 +78,7 @@ public record ChiseledBlockModelInformationBuilder(
 		);
 	}
 
-	private GreedyMeshFace @NotNull [] generateFaces() {
+	private GreedyMeshFace [] generateFaces() {
 		final GreedyMeshFace[] faces;
 
 		try (final IProfilerSection ignoredFaceProcessing = ProfilingManager.getInstance().withSection("processing")) {

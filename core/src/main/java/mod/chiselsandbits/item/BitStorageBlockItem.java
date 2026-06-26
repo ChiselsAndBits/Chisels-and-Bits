@@ -64,7 +64,7 @@ public class BitStorageBlockItem extends BlockItem {
 
 	@Override
 	protected boolean updateCustomBlockEntityTag(
-			final @NotNull BlockPos pos, final @NotNull Level worldIn, @Nullable final Player player, final @NotNull ItemStack stack, final @NotNull BlockState state) {
+			final BlockPos pos, final Level worldIn, @Nullable final Player player, final ItemStack stack, final BlockState state) {
 		super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
 
 		if (worldIn.isClientSide()) {

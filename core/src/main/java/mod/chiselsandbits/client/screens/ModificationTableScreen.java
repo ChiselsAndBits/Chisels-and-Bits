@@ -97,7 +97,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 			int k = this.recipeIndexOffset + 12;
 			List<RecipeHolder<ModificationTableRecipe>> list = this.menu.getRecipeList();
 
-			for (int l = this.recipeIndexOffset; l <k && l <this.menu.getRecipeListSize(); ++l) {
+			for (int l = this.recipeIndexOffset; l < k && l < this.menu.getRecipeListSize(); ++l) {
 				int i1 = l - this.recipeIndexOffset;
 				int j1 = i + i1 % 4 * 16;
 				int k1 = j + i1 / 4 * 18 + 2;
@@ -115,7 +115,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 	}
 
 	private void renderButtons(GuiGraphicsExtractor graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
-		for (int index = this.recipeIndexOffset; index <lastVisibleElementIndex && index <this.menu.getRecipeListSize(); ++index) {
+		for (int index = this.recipeIndexOffset; index < lastVisibleElementIndex && index < this.menu.getRecipeListSize(); ++index) {
 			int displayedIndex = index - this.recipeIndexOffset;
 			int drawX = x + displayedIndex % 4 * 16;
 			int rowIndex = displayedIndex / 4;
@@ -137,7 +137,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 	private void drawRecipesItems(final GuiGraphicsExtractor graphics, int recipesLeft, int recipesTop, int recipeIndexOffsetMax) {
 		List<RecipeHolder<ModificationTableRecipe>> list = this.menu.getRecipeList();
 
-		for (int offset = this.recipeIndexOffset; offset <recipeIndexOffsetMax && offset <this.menu.getRecipeListSize(); ++offset) {
+		for (int offset = this.recipeIndexOffset; offset < recipeIndexOffsetMax && offset < this.menu.getRecipeListSize(); ++offset) {
 			int itemIndex = offset - this.recipeIndexOffset;
 			int itemX = recipesLeft + itemIndex % 4 * 16;
 			int rowIndex = itemIndex / 4;
@@ -166,7 +166,7 @@ public class ModificationTableScreen extends AbstractContainerScreen<Modificatio
 			int j = this.topPos + 14;
 			int k = this.recipeIndexOffset + 12;
 
-			for (int l = this.recipeIndexOffset; l <k; ++l) {
+			for (int l = this.recipeIndexOffset; l < k; ++l) {
 				int i1 = l - this.recipeIndexOffset;
 				double d0 = mouseX - (double)(i + i1 % 4 * 16);
 				double d1 = mouseY - (double)(j + i1 / 4 * 18);

@@ -36,9 +36,9 @@ public class MultiStateBlockEntityDiscreteVoxelShape extends BitSetDiscreteVoxel
 		this.yMax = 0;
 		this.zMax = 0;
 
-		for (int x = 0; x <this.xSize; ++x) {
-			for (int y = 0; y <this.ySize; ++y) {
-				for (int z = 0; z <this.zSize; ++z) {
+		for (int x = 0; x < this.xSize; ++x) {
+			for (int y = 0; y < this.ySize; ++y) {
+				for (int z = 0; z < this.zSize; ++z) {
 					if (this.storage.get(BlockPosUtils.getCollisionIndex(x, y, z, this.ySize, this.zSize))) {
 						this.xMin = Math.min(this.xMin, x);
 						this.yMin = Math.min(this.yMin, y);

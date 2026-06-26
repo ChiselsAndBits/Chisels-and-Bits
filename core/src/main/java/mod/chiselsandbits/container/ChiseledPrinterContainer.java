@@ -51,7 +51,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					47
 			) {
 			@Override
-			public boolean mayPlace(@NotNull final ItemStack stack) {
+			public boolean mayPlace(final ItemStack stack) {
 				return stack.isEmpty() || stack.getItem() instanceof IPatternItem;
 			}
 		});
@@ -64,7 +64,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					21
 			) {
 			@Override
-			public boolean mayPlace(@NotNull final ItemStack stack) {
+			public boolean mayPlace(final ItemStack stack) {
 				return stack.getItem() instanceof IChiselItem;
 			}
 		});
@@ -77,13 +77,13 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 					47
 			) {
 			@Override
-			public boolean mayPlace(@NotNull final ItemStack stack) {
+			public boolean mayPlace(final ItemStack stack) {
 				return false;
 			}
 		});
 
-		for (int rowIndex = 0; rowIndex <PLAYER_INVENTORY_ROWS; ++rowIndex) {
-			for (int columnIndex = 0; columnIndex <PLAYER_INVENTORY_COLUMNS; ++columnIndex) {
+		for (int rowIndex = 0; rowIndex < PLAYER_INVENTORY_ROWS; ++rowIndex) {
+			for (int columnIndex = 0; columnIndex < PLAYER_INVENTORY_COLUMNS; ++columnIndex) {
 				this.addSlot(new Slot(
 						playerInventory,
 						columnIndex + rowIndex * PLAYER_INVENTORY_COLUMNS + PLAYER_INVENTORY_COLUMNS,
@@ -94,7 +94,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 			}
 		}
 
-		for (int toolbarIndex = 0; toolbarIndex <PLAYER_INVENTORY_COLUMNS; ++toolbarIndex) {
+		for (int toolbarIndex = 0; toolbarIndex < PLAYER_INVENTORY_COLUMNS; ++toolbarIndex) {
 			this.addSlot(new Slot(playerInventory, toolbarIndex, PLAYER_INVENTORY_X_OFFSET + toolbarIndex * SLOT_SIZE, PLAYER_TOOLBAR_Y_OFFSET));
 		}
 
@@ -115,8 +115,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 		return toolHandler.getItem(0);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack quickMoveStack(final Player playerIn, final int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);

@@ -117,7 +117,7 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public @NotNull Optional<IWorldAreaMutator> getMutator() {
+	public Optional<IWorldAreaMutator> getMutator() {
 		if (mutator == null || playerEntity == null || !(world instanceof Level)) {
 			return Optional.ofNullable(mutator);
 		}
@@ -135,17 +135,17 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public @NotNull LevelAccessor getWorld() {
+	public LevelAccessor getWorld() {
 		return world;
 	}
 
 	@Override
-	public @NotNull IChiselMode getMode() {
+	public IChiselMode getMode() {
 		return chiselMode;
 	}
 
 	@Override
-	public @NotNull IChiselingContext include(final Vec3 worldPosition) {
+	public IChiselingContext include(final Vec3 worldPosition) {
 		if (getMutator().map(m -> !m.isInside(worldPosition)).orElse(true)) {
 			if (getMutator().isPresent()) {
 				final IWorldAreaMutator worldAreaMutator = getMutator().get();
@@ -191,12 +191,12 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public @NotNull ChiselingOperation getModeOfOperandus() {
+	public ChiselingOperation getModeOfOperandus() {
 		return modeOfOperandus;
 	}
 
 	@Override
-	public @NotNull IChiselingContext createSnapshot() {
+	public IChiselingContext createSnapshot() {
 		final ChiselingContext context = createInnerSnapshot();
 		final Map<IMetadataKey<?>, Object> newMetadata = Maps.newHashMap();
 
@@ -209,7 +209,7 @@ public class ChiselingContext implements IChiselingContext {
 		return context;
 	}
 
-	private @NotNull ChiselingContext createInnerSnapshot() {
+	private ChiselingContext createInnerSnapshot() {
 		if (mutator == null) {
 			return new ChiselingContext(
 					world,
@@ -286,7 +286,7 @@ public class ChiselingContext implements IChiselingContext {
 	}
 
 	@Override
-	public void setStateFilter(final @NotNull Function<IAreaAccessor, Predicate<IStateEntryInfo>> filter) {
+	public void setStateFilter(final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filter) {
 		this.filterBuilder = filter;
 	}
 

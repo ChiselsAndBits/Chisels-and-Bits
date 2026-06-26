@@ -130,5 +130,5 @@ public interface IStateVariantProvider {
 	 * @param beaconPos The beacon position.
 	 * @return The beacon color multiplier.
 	 */
-	@NotNull Optional<Integer> getBeaconColorMultiplier(BlockInformation blockInformation, LevelReader levelReader, BlockPos pos, BlockPos beaconPos);
+	Optional<Integer> getBeaconColorMultiplier(BlockInformation blockInformation, LevelReader levelReader, BlockPos pos, BlockPos beaconPos);
 }

@@ -304,8 +304,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return this.multiLineDisplayName;
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.PLANE);
 	}

@@ -39,32 +39,32 @@ public class RegistryManager implements IRegistryManager {
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IModificationOperation> getModificationOperationRegistry() {
+	public ICustomRegistry<IModificationOperation> getModificationOperationRegistry() {
 		return ModModificationOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry() {
+	public ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry() {
 		return ModCuttingOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry() {
+	public ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry() {
 		return ModGlueingOperation.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IChangeType> getChangeTypeRegistry() {
+	public ICustomRegistry<IChangeType> getChangeTypeRegistry() {
 		return ModChangeTypes.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry() {
+	public ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry() {
 		return ModMultiStateSnapshotTypes.REGISTRY_SUPPLIER.get();
 	}
 
 	@Override
-	public @NotNull ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry() {
+	public ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry() {
 		return ModPatternPlacementTypes.REGISTRY_SUPPLIER.get();
 	}
 }

@@ -16,8 +16,7 @@ public interface IMutatorFactory {
 	 * Gives access to the the mutator factory.
 	 * @return The mutator factory.
 	 */
-	@NotNull
-	static IMutatorFactory getInstance() {
+		static IMutatorFactory getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getMutatorFactory();
 	}
 
@@ -28,8 +27,7 @@ public interface IMutatorFactory {
 	 * @param pos The position to mutate.
 	 * @return The mutator.
 	 */
-	@NotNull
-	IWorldAreaMutator in(
+		IWorldAreaMutator in(
 			final LevelAccessor world,
 			final BlockPos pos
 	);
@@ -42,8 +40,7 @@ public interface IMutatorFactory {
 	 * @param to The block to function as an end point.
 	 * @return The mutator.
 	 */
-	@NotNull
-	IWorldAreaMutator covering(
+		IWorldAreaMutator covering(
 			final LevelAccessor world,
 			final BlockPos from,
 			final BlockPos to
@@ -57,8 +54,7 @@ public interface IMutatorFactory {
 	 * @param to The end point.
 	 * @return The mutator.
 	 */
-	@NotNull
-	IWorldAreaMutator covering(
+		IWorldAreaMutator covering(
 			final LevelAccessor world,
 			final Vec3 from,
 			final Vec3 to
@@ -70,6 +66,5 @@ public interface IMutatorFactory {
 	 * @param source The source accessor.
 	 * @return The mutator.
 	 */
-	@NotNull
-	IGenerallyModifiableAreaMutator clonedFromAccessor(IAreaAccessor source);
+		IGenerallyModifiableAreaMutator clonedFromAccessor(IAreaAccessor source);
 }

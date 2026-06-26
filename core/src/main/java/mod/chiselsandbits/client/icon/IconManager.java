@@ -55,7 +55,7 @@ public class IconManager implements IIconManager {
 				.getSprite(name);
 	}
 
-	private @NotNull TextureAtlas getAtlasOrThrow() {
+	private TextureAtlas getAtlasOrThrow() {
 		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(ATLAS_ID);
 	}
 

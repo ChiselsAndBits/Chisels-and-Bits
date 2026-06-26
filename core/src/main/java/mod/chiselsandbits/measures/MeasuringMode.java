@@ -105,7 +105,7 @@ public enum MeasuringMode implements IMeasuringMode
 	}
 
 	@Override
-	public @NotNull Optional<IMeasuringType> getGroup() {
+	public Optional<IMeasuringType> getGroup() {
 		return Optional.of(getType());
 	}
 
@@ -115,7 +115,7 @@ public enum MeasuringMode implements IMeasuringMode
 	}
 
 	@Override
-	public @NotNull Vec3 getColorVector() {
+	public Vec3 getColorVector() {
 		final int color = getColor().getTextColor();
 
 		float r = (float) (color>> 16 & 255) / 255.0F;

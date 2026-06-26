@@ -90,7 +90,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 * @return The factory used to create new accessors.
 	 */
 	@Override
-	public @NotNull IAccessorFactory getAccessorFactory() {
+	public IAccessorFactory getAccessorFactory() {
 		return MutatorFactory.getInstance();
 	}
 
@@ -99,8 +99,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The factory used to create new mutators.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IMutatorFactory getMutatorFactory() {
 		return MutatorFactory.getInstance();
 	}
@@ -110,8 +109,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The manager.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IEligibilityManager getEligibilityManager() {
 		return EligibilityManager.getInstance();
 	}
@@ -121,8 +119,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The conversion manager.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IConversionManager getConversionManager() {
 		return ConversionManager.getInstance();
 	}
@@ -132,8 +129,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The voxel shape manager.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IVoxelShapeManager getVoxelShapeManager() {
 		return VoxelShapeManager.getInstance();
 	}
@@ -143,8 +139,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The factory.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IMultiStateItemFactory getMultiStateItemFactory() {
 		return MultiStateItemFactory.getInstance();
 	}
@@ -154,8 +149,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The default mode.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IChiselMode getDefaultChiselMode() {
 		return ModChiselModes.SINGLE_BIT.get();
 	}
@@ -165,8 +159,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The manager for registries used by chisels and bits.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IRegistryManager getRegistryManager() {
 		return RegistryManager.getInstance();
 	}
@@ -176,8 +169,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The current chiseling manager.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IChiselingManager getChiselingManager() {
 		return mod.chiselsandbits.chiseling.ChiselingManager.getInstance();
 	}
@@ -197,136 +189,133 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The blockstate id manager.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IBlockStateIdManager getBlockStateIdManager() {
 		return new IBlockStateIdManager() { };
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public IBitInventoryManager getBitInventoryManager() {
 		return BitInventoryManager.getInstance();
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public IBitItemManager getBitItemManager() {
 		return BitItemManager.getInstance();
 	}
 
 	@Override
-	public @NotNull IMeasuringManager getMeasuringManager() {
+	public IMeasuringManager getMeasuringManager() {
 		return MeasuringManager.getInstance();
 	}
 
 	@Override
-	public @NotNull IProfilingManager getProfilingManager() {
+	public IProfilingManager getProfilingManager() {
 		return ProfilingManager.getInstance();
 	}
 
 	@Override
-	public @NotNull ILocalChiselingContextCache getLocalChiselingContextCache() {
+	public ILocalChiselingContextCache getLocalChiselingContextCache() {
 		return LocalChiselingContextCache.getInstance();
 	}
 
 	@Override
-	public @NotNull IChangeTrackerManager getChangeTrackerManager() {
+	public IChangeTrackerManager getChangeTrackerManager() {
 		return ChangeTrackerManger.getInstance();
 	}
 
 	@Override
-	public @NotNull IBlockNeighborhoodBuilder getBlockNeighborhoodBuilder() {
+	public IBlockNeighborhoodBuilder getBlockNeighborhoodBuilder() {
 		return BlockNeighborhoodBuilder.getInstance();
 	}
 
 	@Override
-	public @NotNull IModificationOperation getDefaultModificationOperation() {
+	public IModificationOperation getDefaultModificationOperation() {
 		return ModModificationOperation.ROTATE_AROUND_X.get();
 	}
 
 	@Override
-	public @NotNull IPluginManager getPluginManager() {
+	public IPluginManager getPluginManager() {
 		return PluginManger.getInstance();
 	}
 
 	@Override
-	public @NotNull IChiselContextPreviewRendererRegistry getChiselContextPreviewRendererRegistry() {
+	public IChiselContextPreviewRendererRegistry getChiselContextPreviewRendererRegistry() {
 		return ChiselContextPreviewRendererRegistry.getInstance();
 	}
 
 	@Override
-	public @NotNull ISelectedToolModeIconRendererRegistry getSelectedToolModeIconRenderer() {
+	public ISelectedToolModeIconRendererRegistry getSelectedToolModeIconRenderer() {
 		return SelectedToolModeRendererRegistry.getInstance();
 	}
 
 	@Override
-	public @NotNull TagKey<Block> getForcedTag() {
+	public TagKey<Block> getForcedTag() {
 		return ModTags.Blocks.FORCED_CHISELABLE;
 	}
 
 	@Override
-	public @NotNull TagKey<Block> getBlockedTag() {
+	public TagKey<Block> getBlockedTag() {
 		return ModTags.Blocks.BLOCKED_CHISELABLE;
 	}
 
 	@Override
-	public @NotNull IPermissionHandler getPermissionHandler() {
+	public IPermissionHandler getPermissionHandler() {
 		return PermissionHandler.getInstance();
 	}
 
 	@Override
-	public @NotNull ICreativeClipboardManager getCreativeClipboardManager() {
+	public ICreativeClipboardManager getCreativeClipboardManager() {
 		return CreativeClipboardManager.getInstance();
 	}
 
 	@Override
-	public @NotNull IPatternSharingManager getPatternSharingManager() {
+	public IPatternSharingManager getPatternSharingManager() {
 		return PatternSharingManager.getInstance();
 	}
 
 	@Override
-	public @NotNull INotificationManager getNotificationManager() {
+	public INotificationManager getNotificationManager() {
 		return NotificationManager.getInstance();
 	}
 
 	@Override
-	public @NotNull IStateVariantManager getStateVariantManager() {
+	public IStateVariantManager getStateVariantManager() {
 		return StateVariantManager.getInstance();
 	}
 
 	@Override
-	public @NotNull ICuttingOperation getDefaultCuttingOperation() {
+	public ICuttingOperation getDefaultCuttingOperation() {
 		return null;
 	}
 
 	@Override
-	public @NotNull IGlueingOperation getDefaultGlueingOperation() {
+	public IGlueingOperation getDefaultGlueingOperation() {
 		return null;
 	}
 
 	@Override
-	public @NotNull ISnapshotFactory getSnapshotFactory() {
+	public ISnapshotFactory getSnapshotFactory() {
 		return SnapshotFactory.getInstance();
 	}
 
 	@Override
-	public @NotNull IEligibilityOptions getEligibilityOptions() {
+	public IEligibilityOptions getEligibilityOptions() {
 		return eligibilityOptions;
 	}
 
 	@Override
-	public @NotNull IAdaptingBitInventoryManager getAdaptingBitInventoryManager() {
+	public IAdaptingBitInventoryManager getAdaptingBitInventoryManager() {
 		return adaptingBitInventoryManager;
 	}
 
 	@Override
-	public @NotNull IPluginDiscoverer getPluginDiscoverer() {
+	public IPluginDiscoverer getPluginDiscoverer() {
 		return pluginDiscoverer;
 	}
 
 	@Override
-	public @NotNull IClientStateVariantManager getClientStateVariantManager() {
+	public IClientStateVariantManager getClientStateVariantManager() {
 		return DistExecutor.unsafeRunForDist(
 				() -> ClientStateVariantManager::getInstance,
 				() -> () -> null
@@ -334,12 +323,12 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	}
 
 	@Override
-	public @NotNull ILaunchPropertyManager getLaunchPropertyManager() {
+	public ILaunchPropertyManager getLaunchPropertyManager() {
 		return LaunchPropertyManager.getInstance();
 	}
 
 	@Override
-	public @NotNull IIconManager getIconManager() {
+	public IIconManager getIconManager() {
 		return DistExecutor.unsafeRunForDist(
 				() -> IconManager::getInstance,
 				() -> () -> null

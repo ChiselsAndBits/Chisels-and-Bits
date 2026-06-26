@@ -260,8 +260,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return this.multiLineDisplayName;
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(
 				aligned ? ModChiselModeGroups.CUBED_ALIGNED : ModChiselModeGroups.CUBED

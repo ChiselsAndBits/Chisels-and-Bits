@@ -31,7 +31,7 @@ public class LangEntryLangGenerator implements DataProvider {
 	private LangEntryLangGenerator(final PackOutput generator) {this.generator = generator; }
 
 	@Override
-	public @NotNull CompletableFuture<?> run(@NotNull final CachedOutput cache) {
+	public CompletableFuture<?> run(final CachedOutput cache) {
 		final List<String> langKeys = Arrays.stream(LocalStrings.values()).map(LocalStrings::toString).collect(Collectors.toList());
 		Collections.sort(langKeys);
 		final JsonObject returnValue = new JsonObject();
@@ -46,8 +46,7 @@ public class LangEntryLangGenerator implements DataProvider {
 		return DataProvider.saveStable(cache, returnValue, langPath);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public String getName() {
 		return "Local strings lang generator";
 	}

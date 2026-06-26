@@ -90,7 +90,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 		int toExtract = count;
 
-		for (int i = getInventorySize() - 1; i>= 0; i--) {
+		for (int i = getInventorySize() - 1; i >= 0; i--) {
 			final ItemStack stack = getItem(i);
 
 			if (stack.getItem() instanceof final IBitItem bitItem) {
@@ -182,7 +182,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 
 		int toInsert = count;
 
-		for (int i = 0; i <getInventorySize(); i++) {
+		for (int i = 0; i < getInventorySize(); i++) {
 			if (toInsert <= 0) {
 				break;
 			}

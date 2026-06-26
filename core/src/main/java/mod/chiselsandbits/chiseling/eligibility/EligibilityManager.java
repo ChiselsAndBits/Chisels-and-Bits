@@ -51,7 +51,7 @@ public class EligibilityManager implements IEligibilityManager {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public IEligibilityAnalysisResult analyse(@NotNull final BlockInformation blockInformation) {
+	public IEligibilityAnalysisResult analyse(final BlockInformation blockInformation) {
 		return cache.get(blockInformation, () -> {
 			if (blockInformation.blockState().getBlock() instanceof ChiseledBlock) {
 				return new EligibilityAnalysisResult(
@@ -202,7 +202,7 @@ public class EligibilityManager implements IEligibilityManager {
 	 * @return The analysis result.
 	 */
 	@Override
-	public IEligibilityAnalysisResult analyse(@NotNull final ItemStack provider) {
+	public IEligibilityAnalysisResult analyse(final ItemStack provider) {
 		final Item item = provider.getItem();
 
 		if (item instanceof BlockItem blockItem) {

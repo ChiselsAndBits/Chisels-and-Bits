@@ -36,14 +36,14 @@ public class BagContainer extends AbstractContainerMenu {
 
 		final int playerInventoryOffset = (7 - 4) * OUTER_SLOT_SIZE;
 
-		for (int yOffset = 0; yOffset <7; ++yOffset) {
-			for (int xOffset = 0; xOffset <9; ++xOffset) {
+		for (int yOffset = 0; yOffset < 7; ++yOffset) {
+			for (int xOffset = 0; xOffset < 9; ++xOffset) {
 				addCustomSlot(new BitSlot(visibleInventory, xOffset + yOffset * 9, 8 + xOffset * OUTER_SLOT_SIZE, 18 + yOffset * OUTER_SLOT_SIZE));
 			}
 		}
 
-		for (int xPlayerInventory = 0; xPlayerInventory <3; ++xPlayerInventory) {
-			for (int yPlayerInventory = 0; yPlayerInventory <9; ++yPlayerInventory) {
+		for (int xPlayerInventory = 0; xPlayerInventory < 3; ++xPlayerInventory) {
+			for (int yPlayerInventory = 0; yPlayerInventory < 9; ++yPlayerInventory) {
 				addSlot(new Slot(thePlayer.getInventory(),
 						yPlayerInventory + xPlayerInventory * 9 + 9,
 						8 + yPlayerInventory * OUTER_SLOT_SIZE,
@@ -51,7 +51,7 @@ public class BagContainer extends AbstractContainerMenu {
 			}
 		}
 
-		for (int xToolbar = 0; xToolbar <9; ++xToolbar) {
+		for (int xToolbar = 0; xToolbar < 9; ++xToolbar) {
 			if (thePlayer.getInventory().getSelectedSlot() == xToolbar) {
 				addSlot(bagSlot = new ReadonlySlot(thePlayer.getInventory(), xToolbar, 8 + xToolbar * OUTER_SLOT_SIZE, 162 + playerInventoryOffset));
 			} else {
@@ -83,7 +83,7 @@ public class BagContainer extends AbstractContainerMenu {
 		addSlot(newSlot);
 	}
 
-	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
+	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 
@@ -121,7 +121,7 @@ public class BagContainer extends AbstractContainerMenu {
 
 	@Override
 	public boolean stillValid(
-			@NotNull final Player playerIn) {
+			final Player playerIn) {
 		return bagInv != null && playerIn == thePlayer && hasBagInHand(thePlayer);
 	}
 

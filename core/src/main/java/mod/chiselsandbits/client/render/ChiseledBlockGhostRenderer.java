@@ -174,17 +174,17 @@ public class ChiseledBlockGhostRenderer {
 		}
 
 		@Override
-		public @NotNull VertexConsumer addVertex(final float x, final float y, final float z) {
+		public VertexConsumer addVertex(final float x, final float y, final float z) {
 			return delegate.addVertex(x, y, z);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setColor(final int red, final int green, final int blue, final int alpha) {
+		public VertexConsumer setColor(final int red, final int green, final int blue, final int alpha) {
 			return delegate.setColor(red, green, blue, this.alpha);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setColor(final int color) {
+		public VertexConsumer setColor(final int color) {
 		//Color is in RGBA format
 		//Extract the channels
 			final int red = (color>> 24) & 0xFF;
@@ -201,27 +201,27 @@ public class ChiseledBlockGhostRenderer {
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv(final float u, final float v) {
+		public VertexConsumer setUv(final float u, final float v) {
 			return delegate.setUv(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv1(final int u, final int v) {
+		public VertexConsumer setUv1(final int u, final int v) {
 			return delegate.setUv1(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv2(final int u, final int v) {
+		public VertexConsumer setUv2(final int u, final int v) {
 			return delegate.setUv2(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setNormal(final float normalX, final float normalY, final float normalZ) {
+		public VertexConsumer setNormal(final float normalX, final float normalY, final float normalZ) {
 			return delegate.setNormal(normalX, normalY, normalZ);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setLineWidth(final float lineWidth) {
+		public VertexConsumer setLineWidth(final float lineWidth) {
 			return delegate.setLineWidth(lineWidth);
 		}
 	}
@@ -327,7 +327,7 @@ public class ChiseledBlockGhostRenderer {
 			// Get vertex data
 		final Vector2f uv = new Vector2f();
 
-		for (int v = 0; v <4; ++v) {
+		for (int v = 0; v < 4; ++v) {
 			final var vertexPos = bakedQuad.position(v);
 			pos.set(vertexPos.x(), vertexPos.y(), vertexPos.z(), 1f);
 			pos.mul(pose);

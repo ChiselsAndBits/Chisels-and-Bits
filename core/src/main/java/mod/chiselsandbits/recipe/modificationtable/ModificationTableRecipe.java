@@ -49,7 +49,7 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 	);
 
 	@Override
-	public boolean matches(final CraftingInput inv, final @NotNull Level worldIn) {
+	public boolean matches(final CraftingInput inv, final Level worldIn) {
 		return inv.getItem(0).getItem() instanceof IPatternItem && !(inv.getItem(0).getItem() instanceof IMultiUsePatternItem);
 	}
 
@@ -83,11 +83,11 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 		return PlacementInfo.NOT_PLACEABLE;
 	}
 
-	public @NotNull ItemStack getCraftingBlockResult(final CraftingInput inv) {
+	public ItemStack getCraftingBlockResult(final CraftingInput inv) {
 		return getAppliedSnapshot(inv).toItemStack().toBlockStack();
 	}
 
-	public @NotNull IMultiStateSnapshot getAppliedSnapshot(final CraftingInput inv) {
+	public IMultiStateSnapshot getAppliedSnapshot(final CraftingInput inv) {
 		final ItemStack multiStateStack = inv.getItem(0);
 
 		if (multiStateStack.isEmpty()) {

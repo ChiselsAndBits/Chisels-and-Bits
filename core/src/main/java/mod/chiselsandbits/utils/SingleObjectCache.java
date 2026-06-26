@@ -10,13 +10,11 @@ public class SingleObjectCache<T> {
 	@Nullable
 	private T value;
 
-	@NotNull
-	private final Supplier<T> builder;
+		private final Supplier<T> builder;
 
-	@NotNull
-	private final Function<T, T> cloner;
+		private final Function<T, T> cloner;
 
-	public SingleObjectCache(final @NotNull Supplier<T> builder, final @NotNull Function<T, T> cloner) {
+	public SingleObjectCache(final Supplier<T> builder, final Function<T, T> cloner) {
 		this.builder = builder;
 		this.cloner = cloner;
 	}

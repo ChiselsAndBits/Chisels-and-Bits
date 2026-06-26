@@ -49,13 +49,13 @@ public class ModificationRecipesUpdated extends ModPacket {
 
 		final int count = buffer.readVarInt();
 
-		for (int i = 0; i <count; i++) {
+		for (int i = 0; i < count; i++) {
 			this.recipes.add((RecipeHolder<ModificationTableRecipe>) RecipeHolder.STREAM_CODEC.decode(buffer));
 		}
 	}
 
 	@Override
-	public @NotNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 

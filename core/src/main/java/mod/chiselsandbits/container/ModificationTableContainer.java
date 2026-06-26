@@ -69,11 +69,11 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			/**
 			 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 			 */
-			public boolean mayPlace(@NotNull ItemStack stack) {
+			public boolean mayPlace(ItemStack stack) {
 				return false;
 			}
 
-			public void onTake(@NotNull Player thePlayer, @NotNull ItemStack stack) {
+			public void onTake(Player thePlayer, ItemStack stack) {
 				stack.onCraftedBy(thePlayer, stack.getCount());
 				ModificationTableContainer.this.inventory.awardUsedRecipes(thePlayer, List.of(ModificationTableContainer.this.inputInventorySlot.getItem()));
 				ItemStack itemstack = ModificationTableContainer.this.inputInventorySlot.remove(1);
@@ -94,13 +94,13 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 			}
 		});
 
-		for (int i = 0; i <3; ++i) {
-			for (int j = 0; j <9; ++j) {
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlot(new Slot(playerInventoryIn, j + i * 9 + 9, 8 + j * 18, 115 + i * 18));
 			}
 		}
 
-		for (int k = 0; k <9; ++k) {
+		for (int k = 0; k < 9; ++k) {
 			this.addSlot(new Slot(playerInventoryIn, k, 8 + k * 18, 173));
 		}
 
@@ -130,14 +130,14 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	/**
 	 * Determines whether supplied player can use this container
 	 */
-	public boolean stillValid(@NotNull Player playerIn) {
+	public boolean stillValid(Player playerIn) {
 		return stillValid(this.worldPosCallable, playerIn, ModBlocks.MODIFICATION_TABLE.get());
 	}
 
 	/**
 	 * Handles the given Button-click on the server, currently only used by enchanting.Name is for legacy.
 	 */
-	public boolean clickMenuButton(@NotNull Player playerIn, int id) {
+	public boolean clickMenuButton(Player playerIn, int id) {
 		if (this.isValidRecipeIndex(id)) {
 			this.selectedRecipe.set(id);
 			this.updateRecipeResultSlot();
@@ -153,7 +153,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	/**
 	 * Callback for when the crafting matrix is changed.
 	 */
-	public void slotsChanged(@NotNull Container inventoryIn) {
+	public void slotsChanged(Container inventoryIn) {
 		ItemStack itemstack = this.inputInventorySlot.getItem();
 
 		if (itemstack.getItem() != this.inputItemStack.getItem()) {
@@ -195,7 +195,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 		this.broadcastChanges();
 	}
 
-	public @NotNull MenuType<?> getType() {
+	public MenuType<?> getType() {
 		return ModContainerTypes.MODIFICATION_TABLE.get();
 	}
 
@@ -207,7 +207,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	 * Called to determine if the current slot is valid for the stack merging (double-click) code.The stack passed in is
 	 * null for the initial slot that was double-clicked.
 	 */
-	public boolean canTakeItemForPickAll(@NotNull ItemStack stack, Slot slotIn) {
+	public boolean canTakeItemForPickAll(ItemStack stack, Slot slotIn) {
 		return slotIn.container != this.inventory && super.canTakeItemForPickAll(stack, slotIn);
 	}
 
@@ -215,7 +215,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	 * Handle when the stack in slot {@code index} is shift-clicked.Normally this moves the stack between the player
 	 * inventory and the other inventory(s).
 	 */
-	public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
+	public ItemStack quickMoveStack(Player playerIn, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 
@@ -271,7 +271,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	/**
 	 * Called when the container is closed.
 	 */
-	public void removed(@NotNull Player playerIn) {
+	public void removed(Player playerIn) {
 		super.removed(playerIn);
 		this.inventory.removeItemNoUpdate(1);
 		this.worldPosCallable.execute((p_217079_2_, p_217079_3_) -> this.clearContainer(playerIn, this.inputInventory));

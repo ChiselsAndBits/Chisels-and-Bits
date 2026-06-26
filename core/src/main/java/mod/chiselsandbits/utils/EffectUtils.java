@@ -37,9 +37,9 @@ public class EffectUtils {
 				final int j = Math.max(2, Mth.ceil(d2 / 0.25D));
 				final int k = Math.max(2, Mth.ceil(d3 / 0.25D));
 
-				for (int l = 0; l <i; ++l) {
-					for (int i1 = 0; i1 <j; ++i1) {
-						for (int j1 = 0; j1 <k; ++j1) {
+				for (int l = 0; l < i; ++l) {
+					for (int i1 = 0; i1 < j; ++i1) {
+						for (int j1 = 0; j1 < k; ++j1) {
 							final double d4 = ((double) l + 0.5D) / (double) i;
 							final double d5 = ((double) i1 + 0.5D) / (double) j;
 							final double d6 = ((double) j1 + 0.5D) / (double) k;

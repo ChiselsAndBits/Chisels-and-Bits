@@ -63,7 +63,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 		* (StateEntrySize.current().getBitsPerBlockSide() / 4);
 		final List<BlockInformation> blockInformation = new ArrayList<>(blockStateCount);
 
-		for (int i = 0; i <blockStateCount; i++) {
+		for (int i = 0; i < blockStateCount; i++) {
 			blockInformation.add(BlockInformationUtils.getRandomSupportedInformation(random));
 		}
 
@@ -93,7 +93,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	}
 
 	@Override
-	public @NotNull Component getName(final @NotNull ItemStack stack) {
+	public Component getName(final ItemStack stack) {
 		if (stack.getOrDefault(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), false)) {
 			return LocalStrings.DefaultChiseledBlockItemName.getText();
 		}
@@ -109,15 +109,13 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	 * @param stack The stack to get an {@link IMultiStateItemStack} for.
 	 * @return The {@link IMultiStateItemStack} that represents the data in the given itemstack.
 	 */
-	@NotNull
-	@Override
+		@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack) {
 		return new SingleBlockMultiStateItemStack(stack);
 	}
 
-	@NotNull
-	@Override
-	public InteractionResult place(@NotNull final BlockPlaceContext context) {
+		@Override
+	public InteractionResult place(final BlockPlaceContext context) {
 		final Player player = context.getPlayer();
 
 		if (player == null) {
@@ -155,7 +153,6 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 			try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 				source.stream().forEach(
 						stateEntryInfo -> {
-
 							try {
 						areaMutator.setInAreaTarget(
 								stateEntryInfo.getBlockInformation(),
@@ -184,11 +181,11 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 
 	@Override
 	public void appendHoverText(
-			final @NotNull ItemStack stack,
-			final @NotNull TooltipContext context,
-			final @NotNull TooltipDisplay tooltipDisplay,
-			final @NotNull Consumer<Component> tooltipAdder,
-			final @NotNull TooltipFlag flag) {
+			final ItemStack stack,
+			final TooltipContext context,
+			final TooltipDisplay tooltipDisplay,
+			final Consumer<Component> tooltipAdder,
+			final TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		DistExecutor.unsafeExecuteForDist(
 				() -> () ->
@@ -230,12 +227,12 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	}
 
 	@Override
-	public @NotNull ItemStack getDefaultInstance() {
+	public ItemStack getDefaultInstance() {
 		return DEFAULT_INSTANCE.get();
 	}
 
 	@Override
-	public @NotNull IModificationOperation getMode(final ItemStack stack) {
+	public IModificationOperation getMode(final ItemStack stack) {
 		return ModModificationOperation.ROTATE_AROUND_X.get();
 	}
 
@@ -249,7 +246,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	}
 
 	@Override
-	public @NotNull Collection<IModificationOperation> getPossibleModes() {
+	public Collection<IModificationOperation> getPossibleModes() {
 		return ModModificationOperation.REGISTRY_SUPPLIER.get().getValues();
 	}
 

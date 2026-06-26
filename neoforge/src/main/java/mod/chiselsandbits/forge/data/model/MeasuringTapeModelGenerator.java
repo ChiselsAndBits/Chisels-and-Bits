@@ -44,7 +44,7 @@ public class MeasuringTapeModelGenerator extends ModelProvider {
 	}
 
 	@Override
-	protected void registerModels(final @NotNull BlockModelGenerators blockModels, final @NotNull ItemModelGenerators itemModels) {
+	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		final ItemModel.Unbaked model = ItemModelUtils.conditional(
 			new IsMeasuringItemProperty(),
 				ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.MEASURING_TAPE.get(), "_default", ModelTemplates.FLAT_ITEM)),
@@ -55,12 +55,12 @@ public class MeasuringTapeModelGenerator extends ModelProvider {
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
+	protected Stream<? extends Holder<Block>> getKnownBlocks() {
 		return Stream.of();
 	}
 
 	@Override
-	protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
+	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
 				BuiltInRegistries.ITEM.wrapAsHolder(
 						ModItems.MEASURING_TAPE.get()
@@ -69,7 +69,7 @@ public class MeasuringTapeModelGenerator extends ModelProvider {
 	}
 
 	@Override
-	public @NotNull String getName() {
+	public String getName() {
 		return "Measuring tape item model generator";
 	}
 }

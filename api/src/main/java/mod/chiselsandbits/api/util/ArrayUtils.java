@@ -20,7 +20,7 @@ public class ArrayUtils {
 	public static float[] multiply(final float[] input, final float count) {
 		final float[] result = new float[input.length];
 
-		for (int i = 0; i <input.length; i++) {
+		for (int i = 0; i < input.length; i++) {
 			result[i] = input[i] * count;
 		}
 
@@ -30,7 +30,7 @@ public class ArrayUtils {
 	public static <T extends ISnapshotable<? extends T>> T[] createDeepClone(final T[] additionalStateInfos, IntFunction<T[]> arrayCreator) {
 		final T[] clone = arrayCreator.apply(additionalStateInfos.length);
 
-		for (int i = 0; i <additionalStateInfos.length; i++) {
+		for (int i = 0; i < additionalStateInfos.length; i++) {
 			if (additionalStateInfos[i] != null) {
 				clone[i] = additionalStateInfos[i].createSnapshot();
 			} else {

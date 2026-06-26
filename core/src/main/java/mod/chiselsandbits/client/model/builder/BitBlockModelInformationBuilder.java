@@ -51,11 +51,9 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 					myFace.getAxisDirection() == Direction.AxisDirection.POSITIVE ? TO : FROM,
 					myFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? TO : FROM,
 					(layer, quad) -> {
-
 						if (layer.material().tintIndex() != -1) {
 							quad.tintIndex(0);
 						}
-
 					},
 
 

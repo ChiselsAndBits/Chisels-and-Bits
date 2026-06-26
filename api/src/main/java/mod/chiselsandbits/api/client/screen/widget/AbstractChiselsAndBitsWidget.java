@@ -32,8 +32,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 	 *
 	 * @return The current instance of minecraft.
 	 */
-	@NotNull
-	public Minecraft getMinecraft() {
+		public Minecraft getMinecraft() {
 		return Minecraft.getInstance();
 	}
 
@@ -42,8 +41,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 	 *
 	 * @return The font used to render text in this widget.
 	 */
-	@NotNull
-	public Font getFont() {
+		public Font getFont() {
 		return Minecraft.getInstance().font;
 	}
 
@@ -56,11 +54,11 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 	}
 
 	@Override
-	protected void updateWidgetNarration(@NotNull NarrationElementOutput output) {
+	protected void updateWidgetNarration(NarrationElementOutput output) {
 		this.defaultButtonNarrationText(output);
 	}
 
-	protected static IExtendedGuiGraphics getExtendedGraphicsExtractor(@NotNull GuiGraphicsExtractor graphics) {
+	protected static IExtendedGuiGraphics getExtendedGraphicsExtractor(GuiGraphicsExtractor graphics) {
 		return ((IExtendedGuiGraphics) graphics);
 	}
 }

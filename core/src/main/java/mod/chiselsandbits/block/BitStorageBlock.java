@@ -60,12 +60,12 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(final @NotNull BlockPos pos, final @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(final BlockPos pos, final BlockState state) {
 		return new BitStorageBlockEntity(pos, state);
 	}
 
 	@Override
-	protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult result) {
 		final BlockEntity tileEntity = level.getBlockEntity(blockPos);
 
 		if (!(tileEntity instanceof final BitStorageBlockEntity tank)) {
@@ -95,11 +95,11 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 		return InteractionResult.FAIL;
 	}
 
-	public float getShadeBrightness(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos) {
+	public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		return 1.0F;
 	}
 
-	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos pos) {
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
 		return true;
 	}
 
@@ -113,7 +113,7 @@ public class BitStorageBlock extends Block implements EntityBlock, IBitBagAccept
 	}
 
 	@Override
-	public @NotNull List<ItemStack> getDrops(final @NotNull BlockState state, final LootParams.Builder builder) {
+	public List<ItemStack> getDrops(final BlockState state, final LootParams.Builder builder) {
 		if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) == null) {
 			return Lists.newArrayList();
 		}

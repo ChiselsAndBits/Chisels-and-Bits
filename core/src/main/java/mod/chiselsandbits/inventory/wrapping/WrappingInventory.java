@@ -32,8 +32,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack getItem(final int index) {
 		return whenNotNull(
 				getWrapped(),
@@ -42,8 +41,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack removeItem(final int index, final int count) {
 		return whenNotNull(
 				getWrapped(),
@@ -52,8 +50,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-	@NotNull
-	@Override
+		@Override
 	public ItemStack removeItemNoUpdate(final int index) {
 		return whenNotNull(
 				getWrapped(),
@@ -63,7 +60,7 @@ public class WrappingInventory implements Container {
 	}
 
 	@Override
-	public void setItem(final int index, final @NotNull ItemStack stack) {
+	public void setItem(final int index, final ItemStack stack) {
 		whenNotNull(
 				getWrapped(),
 				inventory -> inventory.setItem(index, stack)
@@ -79,7 +76,7 @@ public class WrappingInventory implements Container {
 	}
 
 	@Override
-	public boolean stillValid(final @NotNull Player player) {
+	public boolean stillValid(final Player player) {
 		return whenNotNull(
 				getWrapped(),
 				false,

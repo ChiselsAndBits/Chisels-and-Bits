@@ -31,16 +31,16 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 	}
 
 	@Override
-	public @NotNull RenderState createRenderState() {
+	public RenderState createRenderState() {
 		return new RenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-			final @NotNull ChiseledPrinterBlockEntity blockEntity,
-			final @NotNull RenderState renderState,
+			final ChiseledPrinterBlockEntity blockEntity,
+			final RenderState renderState,
 			final float partialTick,
-			final @NotNull Vec3 cameraPosition,
+			final Vec3 cameraPosition,
 			final ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.progress = blockEntity.getProgress();
@@ -48,7 +48,7 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 	}
 
 	@Override
-	public void submit(final @NotNull RenderState renderState, final @NotNull PoseStack poseStack, final @NotNull SubmitNodeCollector nodeCollector, final @NotNull CameraRenderState cameraRenderState) {
+	public void submit(final RenderState renderState, final PoseStack poseStack, final SubmitNodeCollector nodeCollector, final CameraRenderState cameraRenderState) {
 		if (renderState.snapshot.getStatics().isEmpty()) {
 			return;
 		}

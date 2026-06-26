@@ -48,16 +48,16 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 	}
 
 	@Override
-	public @NotNull RenderState createRenderState() {
+	public RenderState createRenderState() {
 		return new RenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-			final @NotNull BitStorageBlockEntity blockEntity,
-			final @NotNull RenderState renderState,
+			final BitStorageBlockEntity blockEntity,
+			final RenderState renderState,
 			final float partialTick,
-			final @NotNull Vec3 cameraPosition,
+			final Vec3 cameraPosition,
 			final ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 		renderState.containedFluid = blockEntity.getFluid().orElse(null);
@@ -67,10 +67,10 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 
 	@Override
 	public void submit(
-			final @NotNull RenderState renderState,
-			final @NotNull PoseStack poseStack,
-			final @NotNull SubmitNodeCollector nodeCollector,
-			final @NotNull CameraRenderState cameraRenderState) {
+			final RenderState renderState,
+			final PoseStack poseStack,
+			final SubmitNodeCollector nodeCollector,
+			final CameraRenderState cameraRenderState) {
 		if (renderState.containedFluid != null) {
 			final FluidInformation fluidStack = renderState.containedFluid;
 

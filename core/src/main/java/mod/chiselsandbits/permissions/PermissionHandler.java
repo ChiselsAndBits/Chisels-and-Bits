@@ -40,7 +40,7 @@ public final class PermissionHandler implements IPermissionHandler {
 
 	@Override
 	public boolean canManipulate(
-			final @NotNull Player player, final IWorldAreaAccessor worldAreaAccessor) {
+			final Player player, final IWorldAreaAccessor worldAreaAccessor) {
 		if (checkers.size() == 0) {
 			return true;
 		}
