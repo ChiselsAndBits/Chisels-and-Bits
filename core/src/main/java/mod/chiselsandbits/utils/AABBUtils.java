@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import mod.chiselsandbits.api.util.MathUtil;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;

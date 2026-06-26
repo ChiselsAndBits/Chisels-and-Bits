@@ -19,28 +19,28 @@ public interface IStateEntryInfo extends IAABBOwner {
 	 *
 	 * @return The state.
 	 */
-		BlockInformation getBlockInformation();
+	BlockInformation getBlockInformation();
 
 	/**
 	 * The start (lowest on all three axi) position of the state that this entry occupies.
 	 *
 	 * @return The start position of this entry in the given block.
 	 */
-		Vec3 getStartPoint();
+	Vec3 getStartPoint();
 
 	/**
 	 * The end (highest on all three axi) position of the state that this entry occupies.
 	 *
 	 * @return The start position of this entry in the given block.
 	 */
-		Vec3 getEndPoint();
+	Vec3 getEndPoint();
 
 	/**
 	 * The center point of the entry in the current block.
 	 *
 	 * @return The center position of this entry in the given block.
 	 */
-		default Vec3 getCenterPoint() {
+	default Vec3 getCenterPoint() {
 		return getStartPoint().add(getEndPoint()).multiply(0.5, 0.5, 0.5);
 	}
 
@@ -50,7 +50,7 @@ public interface IStateEntryInfo extends IAABBOwner {
 	 * @return The axis aligned bounding box.
 	 */
 	@Override
-		default AABB getBoundingBox() {
+	default AABB getBoundingBox() {
 		return new AABB(getStartPoint(), getEndPoint());
 	}
 }

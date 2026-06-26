@@ -15,7 +15,6 @@ import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
 import mod.chiselsandbits.registrars.ModRecipeSerializers;
 import mod.chiselsandbits.registrars.ModRecipeTypes;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;

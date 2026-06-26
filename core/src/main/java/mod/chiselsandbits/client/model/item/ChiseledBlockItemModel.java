@@ -10,7 +10,6 @@ import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.builder.ChiseledBlockModelMaterial;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;

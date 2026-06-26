@@ -24,7 +24,6 @@ import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

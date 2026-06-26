@@ -9,7 +9,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.api.serialization.Serializable;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;

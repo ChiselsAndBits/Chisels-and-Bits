@@ -67,7 +67,6 @@ import mod.chiselsandbits.registrars.ModTags;
 import mod.chiselsandbits.registries.RegistryManager;
 import mod.chiselsandbits.stateinfo.additional.StateVariantManager;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -99,7 +98,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The factory used to create new mutators.
 	 */
-		@Override
+	@Override
 	public IMutatorFactory getMutatorFactory() {
 		return MutatorFactory.getInstance();
 	}
@@ -109,7 +108,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The manager.
 	 */
-		@Override
+	@Override
 	public IEligibilityManager getEligibilityManager() {
 		return EligibilityManager.getInstance();
 	}
@@ -119,7 +118,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The conversion manager.
 	 */
-		@Override
+	@Override
 	public IConversionManager getConversionManager() {
 		return ConversionManager.getInstance();
 	}
@@ -129,7 +128,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The voxel shape manager.
 	 */
-		@Override
+	@Override
 	public IVoxelShapeManager getVoxelShapeManager() {
 		return VoxelShapeManager.getInstance();
 	}
@@ -139,7 +138,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The factory.
 	 */
-		@Override
+	@Override
 	public IMultiStateItemFactory getMultiStateItemFactory() {
 		return MultiStateItemFactory.getInstance();
 	}
@@ -149,7 +148,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The default mode.
 	 */
-		@Override
+	@Override
 	public IChiselMode getDefaultChiselMode() {
 		return ModChiselModes.SINGLE_BIT.get();
 	}
@@ -159,7 +158,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The manager for registries used by chisels and bits.
 	 */
-		@Override
+	@Override
 	public IRegistryManager getRegistryManager() {
 		return RegistryManager.getInstance();
 	}
@@ -169,7 +168,7 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The current chiseling manager.
 	 */
-		@Override
+	@Override
 	public IChiselingManager getChiselingManager() {
 		return mod.chiselsandbits.chiseling.ChiselingManager.getInstance();
 	}
@@ -189,17 +188,17 @@ public class ChiselsAndBitsAPI implements IChiselsAndBitsAPI {
 	 *
 	 * @return The blockstate id manager.
 	 */
-		@Override
+	@Override
 	public IBlockStateIdManager getBlockStateIdManager() {
 		return new IBlockStateIdManager() { };
 	}
 
-		@Override
+	@Override
 	public IBitInventoryManager getBitInventoryManager() {
 		return BitInventoryManager.getInstance();
 	}
 
-		@Override
+	@Override
 	public IBitItemManager getBitItemManager() {
 		return BitItemManager.getInstance();
 	}

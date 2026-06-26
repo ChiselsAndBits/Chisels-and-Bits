@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import com.communi.suggestu.scena.core.registries.deferred.IRegistryObject;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;

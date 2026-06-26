@@ -31,7 +31,6 @@ import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModModificationOperation;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -109,12 +108,12 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 	 * @param stack The stack to get an {@link IMultiStateItemStack} for.
 	 * @return The {@link IMultiStateItemStack} that represents the data in the given itemstack.
 	 */
-		@Override
+	@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack) {
 		return new SingleBlockMultiStateItemStack(stack);
 	}
 
-		@Override
+	@Override
 	public InteractionResult place(final BlockPlaceContext context) {
 		final Player player = context.getPlayer();
 

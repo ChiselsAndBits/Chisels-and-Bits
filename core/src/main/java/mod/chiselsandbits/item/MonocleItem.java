@@ -3,7 +3,6 @@ package mod.chiselsandbits.item;
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

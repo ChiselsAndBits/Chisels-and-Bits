@@ -9,7 +9,6 @@ import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhoodBuilder;
 import mod.chiselsandbits.api.profiling.IProfilerSection;
 import mod.chiselsandbits.profiling.ProfilingManager;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.Direction;

@@ -19,7 +19,7 @@ public interface IChangeTrackerManager {
 	 *
 	 * @return The change tracker manager.
 	 */
-		static IChangeTrackerManager getInstance() {
+	static IChangeTrackerManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getChangeTrackerManager();
 	}
 
@@ -29,5 +29,5 @@ public interface IChangeTrackerManager {
 	 * @param player The player in question.
 	 * @return The change tracker for the given player.
 	 */
-		IChangeTracker getChangeTracker(final Player player);
+	IChangeTracker getChangeTracker(final Player player);
 }

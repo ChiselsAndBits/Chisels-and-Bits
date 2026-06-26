@@ -81,7 +81,7 @@ public interface IBlockNeighborhood {
 	 * @param direction The direction.
 	 * @return The blockstate
 	 */
-		BlockInformation getBlockInformation(final Direction direction);
+	BlockInformation getBlockInformation(final Direction direction);
 
 	/**
 	 * Returns the blocks potential area accessor neighbor in the given direction.

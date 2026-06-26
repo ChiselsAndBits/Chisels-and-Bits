@@ -12,7 +12,6 @@ import mod.chiselsandbits.registrars.ModContainerTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.slots.BitSlot;
 import mod.chiselsandbits.slots.ReadonlySlot;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;

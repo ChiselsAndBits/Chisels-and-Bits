@@ -2,7 +2,6 @@ package mod.chiselsandbits.inventory.wrapping;
 
 import static mod.chiselsandbits.utils.NullUtils.whenNotNull;
 
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.world.Clearable;
@@ -32,7 +31,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-		@Override
+	@Override
 	public ItemStack getItem(final int index) {
 		return whenNotNull(
 				getWrapped(),
@@ -41,7 +40,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-		@Override
+	@Override
 	public ItemStack removeItem(final int index, final int count) {
 		return whenNotNull(
 				getWrapped(),
@@ -50,7 +49,7 @@ public class WrappingInventory implements Container {
 		);
 	}
 
-		@Override
+	@Override
 	public ItemStack removeItemNoUpdate(final int index) {
 		return whenNotNull(
 				getWrapped(),

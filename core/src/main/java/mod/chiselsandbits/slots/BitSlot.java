@@ -5,7 +5,6 @@ import java.util.Optional;
 import mod.chiselsandbits.api.config.IServerConfiguration;
 import mod.chiselsandbits.item.bit.BitItem;
 import mod.chiselsandbits.registrars.ModItems;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

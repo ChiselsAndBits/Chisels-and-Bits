@@ -8,7 +8,6 @@ import mod.chiselsandbits.api.modification.operation.IModificationOperationGroup
 import mod.chiselsandbits.api.multistate.mutator.IGenerallyModifiableAreaMutator;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.registrars.ModModificationOperationGroups;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

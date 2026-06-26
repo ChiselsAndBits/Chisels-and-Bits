@@ -19,7 +19,6 @@ import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

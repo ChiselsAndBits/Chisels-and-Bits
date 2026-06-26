@@ -37,7 +37,6 @@ import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.BlockPosUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -407,7 +406,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 		return this.multiLineDisplayName;
 	}
 
-		@Override
+	@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(
 				ModChiselModeGroups.SPHERE

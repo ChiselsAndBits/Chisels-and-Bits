@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import mod.chiselsandbits.api.change.changes.IChange;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

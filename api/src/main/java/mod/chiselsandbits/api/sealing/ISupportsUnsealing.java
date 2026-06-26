@@ -15,5 +15,5 @@ public interface ISupportsUnsealing {
 	 * @return The unsealed variant of the itemstack.
 	 * @throws SealingNotSupportedException Thrown when the given stack could not be unsealed.
 	 */
-		ItemStack unseal(ItemStack source) throws SealingNotSupportedException;
+	ItemStack unseal(ItemStack source) throws SealingNotSupportedException;
 }

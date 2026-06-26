@@ -29,7 +29,6 @@ import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -304,7 +303,7 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return this.multiLineDisplayName;
 	}
 
-		@Override
+	@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.PLANE);
 	}

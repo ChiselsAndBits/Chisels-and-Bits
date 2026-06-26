@@ -19,7 +19,6 @@ import mod.chiselsandbits.api.multistate.mutator.IMutatorFactory;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.permissions.IPermissionHandler;
 import mod.chiselsandbits.api.util.VectorUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.MutableComponent;

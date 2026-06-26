@@ -27,7 +27,6 @@ import mod.chiselsandbits.registrars.ModChiselModeGroups;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -409,7 +408,7 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		return this.multiLineDisplayName;
 	}
 
-		@Override
+	@Override
 	public Optional<IToolModeGroup> getGroup() {
 		return Optional.of(ModChiselModeGroups.LINE);
 	}

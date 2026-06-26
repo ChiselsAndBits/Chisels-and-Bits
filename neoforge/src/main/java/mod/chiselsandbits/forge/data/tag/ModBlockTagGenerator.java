@@ -6,7 +6,6 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

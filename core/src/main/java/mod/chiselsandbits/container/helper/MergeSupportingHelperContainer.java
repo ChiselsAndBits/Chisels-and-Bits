@@ -1,7 +1,5 @@
 package mod.chiselsandbits.container.helper;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;

@@ -11,7 +11,6 @@ import mod.chiselsandbits.api.item.named.IPermanentlyHighlightedNameItem;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.stateinfo.additional.StateVariantManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

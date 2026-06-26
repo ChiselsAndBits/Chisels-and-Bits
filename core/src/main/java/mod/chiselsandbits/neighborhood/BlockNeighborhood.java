@@ -6,7 +6,6 @@ import java.util.Objects;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.Direction;

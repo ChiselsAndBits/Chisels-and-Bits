@@ -12,7 +12,6 @@ import mod.chiselsandbits.keys.KeyBindingManager;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.data.CachedOutput;
@@ -52,7 +51,7 @@ public class KeyMapLangGenerator implements DataProvider {
 		return DataProvider.saveStable(cache, returnValue, langPath);
 	}
 
-		@Override
+	@Override
 	public String getName() {
 		return "Key Mapping generator";
 	}

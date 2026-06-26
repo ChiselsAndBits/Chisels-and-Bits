@@ -3,7 +3,6 @@ package mod.chiselsandbits.network.packets;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.measures.Measurement;
 import mod.chiselsandbits.measures.MeasuringManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

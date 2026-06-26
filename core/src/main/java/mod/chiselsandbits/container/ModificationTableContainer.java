@@ -13,7 +13,6 @@ import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModContainerTypes;
 import mod.chiselsandbits.registrars.ModRecipeTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

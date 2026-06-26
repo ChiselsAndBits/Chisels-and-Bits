@@ -5,7 +5,6 @@ import java.util.concurrent.CompletableFuture;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModTags;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

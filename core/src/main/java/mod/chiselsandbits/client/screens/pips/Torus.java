@@ -2,7 +2,6 @@ package mod.chiselsandbits.client.screens.pips;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.jspecify.annotations.Nullable;
 

@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import mod.chiselsandbits.api.client.icon.IIconManager;
 import mod.chiselsandbits.api.util.constants.Constants;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlas;

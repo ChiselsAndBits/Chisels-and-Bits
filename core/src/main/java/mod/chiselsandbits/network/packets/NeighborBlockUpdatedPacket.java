@@ -2,7 +2,6 @@ package mod.chiselsandbits.network.packets;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

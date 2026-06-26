@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableMap;
 import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

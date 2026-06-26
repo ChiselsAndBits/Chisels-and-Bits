@@ -21,7 +21,6 @@ import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.utils.BitInventoryUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -24,7 +24,6 @@ import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -59,7 +58,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	 * @param stack The stack to get an {@link IMultiStateItemStack} for.
 	 * @return The {@link IMultiStateItemStack} that represents the data in the given itemstack.
 	 */
-		@Override
+	@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack) {
 	//Take care of an empty pattern.
 	//Generally the case when this is a stack from the creative menu.
@@ -71,7 +70,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	}
 
 	@Override
-		public InteractionResult useOn(UseOnContext context) {
+	public InteractionResult useOn(UseOnContext context) {
 		final IMultiStateItemStack contents = createItemStack(context.getItemInHand());
 
 		if (contents.getStatistics().isEmpty()) {
@@ -95,7 +94,8 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 		return this.tryPlace(new BlockPlaceContext(context));
 	}
 
-		public InteractionResult tryPlace(final BlockPlaceContext context) {
+	public InteractionResult tryPlace(final BlockPlaceContext context) {
+
 		if (context.getPlayer() == null) {
 			return InteractionResult.FAIL;
 		}

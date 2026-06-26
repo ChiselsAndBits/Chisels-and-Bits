@@ -15,7 +15,6 @@ import mod.chiselsandbits.utils.ClassUtils;
 import mod.chiselsandbits.utils.ReflectionHelperBlock;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
 import mod.chiselsandbits.utils.TranslationUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;

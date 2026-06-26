@@ -14,5 +14,5 @@ public interface IMultiStateItem {
 	 * @param stack The stack to get an {@link IMultiStateItemStack} for.
 	 * @return The {@link IMultiStateItemStack} that represents the data in the given itemstack.
 	 */
-		IMultiStateItemStack createItemStack(final ItemStack stack);
+	IMultiStateItemStack createItemStack(final ItemStack stack);
 }

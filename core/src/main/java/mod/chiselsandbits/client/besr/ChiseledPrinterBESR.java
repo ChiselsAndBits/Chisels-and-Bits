@@ -7,7 +7,6 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.block.entities.ChiseledPrinterBlockEntity;
 import mod.chiselsandbits.client.util.ItemModelUtils;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.renderer.SubmitNodeCollector;

@@ -4,7 +4,6 @@ import mod.chiselsandbits.api.item.chisel.IChiselItem;
 import mod.chiselsandbits.api.item.pattern.IPatternItem;
 import mod.chiselsandbits.registrars.ModContainerTypes;
 import mod.chiselsandbits.utils.container.SimpleContainer;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -115,7 +114,7 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 		return toolHandler.getItem(0);
 	}
 
-		@Override
+	@Override
 	public ItemStack quickMoveStack(final Player playerIn, final int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);

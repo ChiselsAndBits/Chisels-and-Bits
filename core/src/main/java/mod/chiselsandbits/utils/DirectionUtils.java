@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import mod.chiselsandbits.api.util.MathUtil;
 import mod.chiselsandbits.api.util.VectorUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;

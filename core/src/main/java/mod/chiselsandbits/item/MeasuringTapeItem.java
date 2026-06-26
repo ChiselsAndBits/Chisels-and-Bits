@@ -19,7 +19,6 @@ import mod.chiselsandbits.measures.MeasuringManager;
 import mod.chiselsandbits.measures.MeasuringMode;
 import mod.chiselsandbits.network.packets.MeasurementsResetPacket;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -42,7 +41,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		super(properties);
 	}
 
-		@Override
+	@Override
 	public MeasuringMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MEASURING_MODE.get(), MeasuringMode.WHITE_BIT);
 	}

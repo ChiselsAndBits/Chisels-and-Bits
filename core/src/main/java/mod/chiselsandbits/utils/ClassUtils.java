@@ -1,7 +1,6 @@
 package mod.chiselsandbits.utils;
 
 import mod.chiselsandbits.api.config.ICommonConfiguration;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 public class ClassUtils {
@@ -31,7 +30,7 @@ public class ClassUtils {
 		return null;
 	}
 
-		private static ClassLookupResult lookupResult(
+	private static ClassLookupResult lookupResult(
 			final Class<?> blkClass,
 			final String methodName,
 			final Class<?>...args) {

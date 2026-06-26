@@ -21,7 +21,7 @@ public interface IMultiStateBlock extends EntityBlock, IBlockWithWorldlyProperti
 	 * @param pos The pos in the given world to get the primary blockstate from.Required to get access to the tile entity with the backing data.
 	 * @return The primary blockstate, or when not found the default state from the air block.{@link AirBlock#defaultBlockState()}
 	 */
-		BlockInformation getPrimaryState(
+	BlockInformation getPrimaryState(
 			BlockGetter world,
 			BlockPos pos);
 }

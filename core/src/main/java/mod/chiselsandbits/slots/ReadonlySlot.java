@@ -1,7 +1,5 @@
 package mod.chiselsandbits.slots;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;

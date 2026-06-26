@@ -32,40 +32,40 @@ public interface IRegistryManager {
 	 *
 	 * @return The modification operation registry.
 	 */
-		ICustomRegistry<IModificationOperation> getModificationOperationRegistry();
+	ICustomRegistry<IModificationOperation> getModificationOperationRegistry();
 
 	/**
 	 * The registry used for cutting of single use patterns.
 	 *
 	 * @return The cutting operation registry.
 	 */
-		ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry();
+	ICustomRegistry<ICuttingOperation> getCuttingOperationRegistry();
 
 	/**
 	 * The registry used for glueing of single use patterns.
 	 *
 	 * @return The glueing operation registry.
 	 */
-		ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry();
+	ICustomRegistry<IGlueingOperation> getGlueingOperationRegistry();
 
 	/**
 	 * The registry used for change types.
 	 *
 	 * @return The change type registry.
 	 */
-		ICustomRegistry<IChangeType> getChangeTypeRegistry();
+	ICustomRegistry<IChangeType> getChangeTypeRegistry();
 
 	/**
 	 * The registry used for multi state snapshot types.
 	 *
 	 * @return The multi state snapshot type registry.
 	 */
-		ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry();
+	ICustomRegistry<IMultiStateSnapshotType> getMultiStateSnapshotTypeRegistry();
 
 	/**
 	 * The registry used for pattern placement types.
 	 *
 	 * @return The pattern placement type registry.
 	 */
-		ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry();
+	ICustomRegistry<IPatternPlacementType> getPatternPlacementTypeRegistry();
 }

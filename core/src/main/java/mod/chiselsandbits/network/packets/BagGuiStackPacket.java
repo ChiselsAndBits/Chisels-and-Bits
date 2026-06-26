@@ -2,7 +2,6 @@ package mod.chiselsandbits.network.packets;
 
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.BagContainer;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;

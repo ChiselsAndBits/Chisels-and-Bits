@@ -8,7 +8,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -55,7 +54,7 @@ public class ReflectionHelperBlockStateGenerator extends ModelProvider implement
 		return Stream.of();
 	}
 
-		@Override
+	@Override
 	public String getName() {
 		return "Reflection helper block blockstate generator";
 	}

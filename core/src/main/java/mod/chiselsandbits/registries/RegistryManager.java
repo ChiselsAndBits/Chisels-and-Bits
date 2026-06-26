@@ -16,7 +16,6 @@ import mod.chiselsandbits.registrars.ModGlueingOperation;
 import mod.chiselsandbits.registrars.ModModificationOperation;
 import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import org.jetbrains.annotations.NotNull;
 
 public class RegistryManager implements IRegistryManager {
 	private static final RegistryManager INSTANCE = new RegistryManager();

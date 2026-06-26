@@ -9,7 +9,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import net.minecraft.core.Direction;
@@ -145,7 +144,7 @@ public class GreedyMeshBuilder {
 		}
 	}
 
-		private static GreedyMeshFace generateFace(
+	private static GreedyMeshFace generateFace(
 			int materialMask,
 			int secondDimensionIter,
 			int height,

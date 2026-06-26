@@ -24,7 +24,6 @@ import io.netty.buffer.ByteBuf;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.api.measuring.IMeasuringType;
 import mod.chiselsandbits.api.util.constants.Constants;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;

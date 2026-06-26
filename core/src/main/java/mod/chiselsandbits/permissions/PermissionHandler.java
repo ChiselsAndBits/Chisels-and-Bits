@@ -7,7 +7,6 @@ import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.permissions.ICheckerRegistration;
 import mod.chiselsandbits.api.permissions.IPermissionChecker;
 import mod.chiselsandbits.api.permissions.IPermissionHandler;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 

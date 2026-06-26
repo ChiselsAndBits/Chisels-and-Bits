@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.measuring;
 
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
@@ -21,7 +20,7 @@ public interface IMeasuringType extends IToolModeGroup {
 
 	@FunctionalInterface
 	public interface IPositionAdapter {
-				Vec3 adapt(final Vec3 startPosition, final Vec3 endPosition, final Direction hitFace);
+		Vec3 adapt(final Vec3 startPosition, final Vec3 endPosition, final Direction hitFace);
 	}
 
 	@FunctionalInterface
@@ -30,6 +29,6 @@ public interface IMeasuringType extends IToolModeGroup {
 			return HitResult::getLocation;
 		}
 
-				Vec3 adapt(final BlockHitResult startPosition);
+		Vec3 adapt(final BlockHitResult startPosition);
 	}
 }

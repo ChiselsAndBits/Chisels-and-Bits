@@ -16,7 +16,6 @@ import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation
 import mod.chiselsandbits.client.util.FluidCuboidUtils;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import mod.chiselsandbits.utils.SimpleMaxSizedCache;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.Minecraft;

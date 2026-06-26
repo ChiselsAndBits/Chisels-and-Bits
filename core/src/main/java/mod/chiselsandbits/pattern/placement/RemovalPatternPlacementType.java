@@ -27,7 +27,6 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.registrars.ModPatternPlacementTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

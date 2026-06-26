@@ -12,7 +12,6 @@ import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

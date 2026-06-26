@@ -29,7 +29,6 @@ import mod.chiselsandbits.registrars.ModBlockEntityTypes;
 import mod.chiselsandbits.utils.container.SimpleContainer;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

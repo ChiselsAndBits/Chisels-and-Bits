@@ -12,5 +12,5 @@ public interface IAABBOwner {
 	 *
 	 * @return The axis aligned bounding box.
 	 */
-		AABB getBoundingBox();
+	AABB getBoundingBox();
 }

@@ -3,8 +3,6 @@ package mod.chiselsandbits.forge.data.recipe;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;

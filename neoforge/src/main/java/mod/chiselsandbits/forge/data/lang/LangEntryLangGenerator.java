@@ -13,7 +13,6 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -46,7 +45,7 @@ public class LangEntryLangGenerator implements DataProvider {
 		return DataProvider.saveStable(cache, returnValue, langPath);
 	}
 
-		@Override
+	@Override
 	public String getName() {
 		return "Local strings lang generator";
 	}

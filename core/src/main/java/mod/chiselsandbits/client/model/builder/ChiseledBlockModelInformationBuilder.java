@@ -25,7 +25,6 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPartKey;
 import mod.chiselsandbits.client.util.QuadGenerationUtils;
 import mod.chiselsandbits.profiling.ProfilingManager;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.renderer.block.BlockAndTintGetter;

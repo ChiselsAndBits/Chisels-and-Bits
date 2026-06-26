@@ -8,7 +8,6 @@ import com.communi.suggestu.scena.core.dist.DistExecutor;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.recipe.modificationtable.ModificationTableRecipe;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;

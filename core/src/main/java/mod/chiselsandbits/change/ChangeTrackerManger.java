@@ -6,7 +6,6 @@ import java.util.UUID;
 import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.change.IChangeTracker;
 import mod.chiselsandbits.api.change.IChangeTrackerManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 

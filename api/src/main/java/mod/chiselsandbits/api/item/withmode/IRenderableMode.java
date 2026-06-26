@@ -40,7 +40,7 @@ public interface IRenderableMode extends IWithDisplayName, IWithIconAndColor {
 	}
 
 	@Override
-		default Vec3 getColorVector() {
+	default Vec3 getColorVector() {
 		return new Vec3(1d, 1d, 1d);
 	}
 

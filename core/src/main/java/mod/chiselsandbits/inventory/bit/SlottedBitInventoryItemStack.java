@@ -18,7 +18,6 @@ import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.components.data.SlottedBitInventoryData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

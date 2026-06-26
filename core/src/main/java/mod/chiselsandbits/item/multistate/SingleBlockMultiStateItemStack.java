@@ -38,7 +38,6 @@ import mod.chiselsandbits.item.ChiseledBlockItem;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.utils.MultiStateSnapshotUtils;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

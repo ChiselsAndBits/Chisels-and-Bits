@@ -5,7 +5,6 @@ import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModItems;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

@@ -10,7 +10,6 @@ import mod.chiselsandbits.registrars.ModBlocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;

@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.container.ModificationTableContainer;
 import mod.chiselsandbits.utils.VoxelShapeUtils;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

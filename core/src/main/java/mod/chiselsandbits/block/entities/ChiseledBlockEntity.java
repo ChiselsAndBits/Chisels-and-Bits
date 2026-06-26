@@ -82,7 +82,6 @@ import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
 import mod.chiselsandbits.voxelshape.SingleBlockVoxelShapeCache;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.function.TriFunction;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -151,7 +150,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		createStorageEngine();
 	}
 
-		private static Executor createDefaultExecutor() {
+	private static Executor createDefaultExecutor() {
 		return DistExecutor.unsafeRunForDist(
 				() -> Minecraft::getInstance,
 				() -> () -> new ServerSchedulingExecutor(IScenaPlatform.getInstance().getCurrentServer())
@@ -831,7 +830,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		this.modelData = modelData;
 	}
 
-		public IBlockModelData getBlockModelData() {
+	public IBlockModelData getBlockModelData() {
 		return this.modelData;
 	}
 

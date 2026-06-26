@@ -16,5 +16,5 @@ public interface IToolMode<G extends IToolModeGroup> extends IWithDisplayName, I
 	 *
 	 * @return The optional tool mode group.
 	 */
-		Optional<G> getGroup();
+	Optional<G> getGroup();
 }

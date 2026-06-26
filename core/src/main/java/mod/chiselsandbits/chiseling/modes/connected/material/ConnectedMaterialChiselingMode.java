@@ -37,7 +37,6 @@ import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

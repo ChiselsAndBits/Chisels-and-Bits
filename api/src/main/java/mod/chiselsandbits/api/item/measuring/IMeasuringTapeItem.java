@@ -6,7 +6,6 @@ import mod.chiselsandbits.api.item.INoHitEffectsItem;
 import mod.chiselsandbits.api.item.click.IRightClickControllingItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +18,7 @@ public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMe
 	 * @param stack The stack to get the start point from if it is available.
 	 * @return An optional with the start point if it is set.
 	 */
-		Optional<Vec3> getStart(final ItemStack stack);
+	Optional<Vec3> getStart(final ItemStack stack);
 
 	/**
 	 * Sets the start point of the current measurement.

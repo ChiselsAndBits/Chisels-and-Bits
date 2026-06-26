@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;

@@ -41,7 +41,6 @@ import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.utils.TranslationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -116,12 +115,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		return isAllowedToUse;
 	}
 
-		@Override
+	@Override
 	public IChiselMode getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.CHISEL_MODE.get(), IChiselMode.getDefaultMode());
 	}
 
-		@Override
+	@Override
 	public Component getName(final ItemStack stack) {
 		final BlockInformation containedStack = getBlockInformation(stack);
 		final Block block = containedStack.blockState().getBlock();
@@ -172,7 +171,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		stack.set(ModDataComponentTypes.CHISEL_MODE.get(), mode);
 	}
 
-		@Override
+	@Override
 	public Collection<IChiselMode> getPossibleModes() {
 		return IChiselMode.getRegistry().getValues().stream().sorted(Comparator.comparing(IChiselMode::getRegistryName)).collect(Collectors.toList());
 	}

@@ -16,7 +16,6 @@ import mod.chiselsandbits.item.BitBagItem;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.registrars.ModItems;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

@@ -7,7 +7,6 @@ import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 import mod.chiselsandbits.registrars.ModModelProperties;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 

@@ -17,7 +17,6 @@ import mod.chiselsandbits.inventory.bit.SlottedBitInventoryItemStack;
 import mod.chiselsandbits.network.packets.OpenBagGuiPacket;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleInstanceCache;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

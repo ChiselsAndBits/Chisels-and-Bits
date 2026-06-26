@@ -32,7 +32,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 	 *
 	 * @return The current instance of minecraft.
 	 */
-		public Minecraft getMinecraft() {
+	public Minecraft getMinecraft() {
 		return Minecraft.getInstance();
 	}
 
@@ -41,7 +41,7 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 	 *
 	 * @return The font used to render text in this widget.
 	 */
-		public Font getFont() {
+	public Font getFont() {
 		return Minecraft.getInstance().font;
 	}
 

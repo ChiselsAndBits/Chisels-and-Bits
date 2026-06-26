@@ -17,7 +17,6 @@ import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.variant.state.IStateVariantProvider;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -39,7 +39,6 @@ import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
 import mod.chiselsandbits.multistate.snapshot.SimpleSnapshot;
 import org.apache.commons.lang3.NotImplementedException;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

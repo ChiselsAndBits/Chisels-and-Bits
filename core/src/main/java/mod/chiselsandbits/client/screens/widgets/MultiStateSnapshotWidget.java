@@ -8,7 +8,6 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.util.ColorUtils;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.multistate.snapshot.EmptySnapshot;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;

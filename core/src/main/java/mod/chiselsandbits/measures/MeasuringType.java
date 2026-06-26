@@ -6,7 +6,6 @@ import mod.chiselsandbits.api.util.BlockHitResultUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.Constants;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

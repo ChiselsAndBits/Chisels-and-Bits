@@ -5,7 +5,6 @@ import com.communi.suggestu.scena.core.client.rendering.IRenderingManager;
 import com.communi.suggestu.scena.core.client.tooltip.IClientTooltipComponentConverter;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

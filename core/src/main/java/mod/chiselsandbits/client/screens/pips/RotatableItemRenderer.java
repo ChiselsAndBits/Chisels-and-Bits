@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 import net.minecraft.client.Minecraft;

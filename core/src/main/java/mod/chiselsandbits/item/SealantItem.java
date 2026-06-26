@@ -12,7 +12,6 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.components.data.InteractionData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ItemParticleOption;

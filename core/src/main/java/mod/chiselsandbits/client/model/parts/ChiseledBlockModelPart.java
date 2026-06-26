@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 import com.communi.suggestu.scena.core.client.rendering.ExtendedBlockStateModelPart;
 import com.google.common.base.Suppliers;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3fc;
 import org.jspecify.annotations.Nullable;
 

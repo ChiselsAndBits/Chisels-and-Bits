@@ -12,5 +12,5 @@ public interface IWithText {
 	 *
 	 * @return The text.
 	 */
-		Component getText();
+	Component getText();
 }

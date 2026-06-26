@@ -9,7 +9,6 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.block.BitStorageBlock;
 import mod.chiselsandbits.block.entities.BitStorageBlockEntity;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.Minecraft;

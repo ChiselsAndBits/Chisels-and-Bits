@@ -1,7 +1,5 @@
 package mod.chiselsandbits.inventory.player;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +20,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.isEmpty();
 	}
 
-		@Override
+	@Override
 	public ItemStack getItem(int index) {
 		if (index == 36) {
 			index += 4;
@@ -31,7 +29,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.getItem(index);
 	}
 
-		@Override
+	@Override
 	public ItemStack removeItem(int index, final int count) {
 		if (index == 36) {
 			index += 4;
@@ -40,7 +38,7 @@ public class PlayerMainAndOffhandInventoryWrapper implements Container {
 		return playerInventory.removeItem(index, count);
 	}
 
-		@Override
+	@Override
 	public ItemStack removeItemNoUpdate(int index) {
 		if (index == 36) {
 			index += 4;

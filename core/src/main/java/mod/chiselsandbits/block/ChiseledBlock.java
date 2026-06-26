@@ -32,7 +32,6 @@ import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.network.packets.NeighborBlockUpdatedPacket;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.Minecraft;
@@ -267,7 +266,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		return true;
 	}
 
-		private static Optional<IMultiStateBlockEntity> getBlockEntity(final BlockGetter worldIn, final BlockPos pos) {
+	private static Optional<IMultiStateBlockEntity> getBlockEntity(final BlockGetter worldIn, final BlockPos pos) {
 		final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
 		if (!(tileEntity instanceof IMultiStateBlockEntity)) {
@@ -329,7 +328,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		return true;
 	}
 
-		@Override
+	@Override
 	public BlockInformation getPrimaryState(final BlockGetter world, final BlockPos pos) {
 		return getBlockEntity(world, pos)
 				.map(e -> e.getStatistics().getPrimaryState())
@@ -360,21 +359,21 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				.orElse(1f);
 	}
 
-		@Override
+	@Override
 	public VoxelShape getShape(final BlockState state, final BlockGetter worldIn, final BlockPos pos, final CollisionContext context) {
 		return getBlockEntity(worldIn, pos)
 				.map(blockEntity -> blockEntity.getShape(CollisionType.NONE_AIR))
 				.orElse(Shapes.empty());
 	}
 
-		@Override
+	@Override
 	public VoxelShape getCollisionShape(final BlockState state, final BlockGetter worldIn, final BlockPos pos, final CollisionContext context) {
 		return getBlockEntity(worldIn, pos)
 				.map(blockEntity -> blockEntity.getShape(CollisionType.COLLIDEABLE_ONLY))
 				.orElse(Shapes.empty());
 	}
 
-		@Override
+	@Override
 	public VoxelShape getVisualShape(final BlockState state, final BlockGetter reader, final BlockPos pos, final CollisionContext context) {
 		return getShape(state, reader, pos, context);
 	}

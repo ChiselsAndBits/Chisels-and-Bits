@@ -6,7 +6,6 @@ import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.item.MeasuringTapeItem;
 import mod.chiselsandbits.keys.KeyBindingManager;
 import mod.chiselsandbits.network.packets.MeasurementsResetPacket;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;

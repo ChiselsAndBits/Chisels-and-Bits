@@ -40,7 +40,6 @@ import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
 import org.apache.commons.lang3.NotImplementedException;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

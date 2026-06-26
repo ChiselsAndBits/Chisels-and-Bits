@@ -35,7 +35,6 @@ import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
 import org.apache.commons.lang3.NotImplementedException;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

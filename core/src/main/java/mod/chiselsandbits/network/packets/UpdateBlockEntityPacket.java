@@ -7,7 +7,6 @@ import io.netty.buffer.Unpooled;
 import mod.chiselsandbits.api.block.entity.INetworkUpdatableEntity;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.network.handlers.ClientPacketHandlers;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;

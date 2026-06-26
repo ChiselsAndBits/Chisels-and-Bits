@@ -13,7 +13,6 @@ import mod.chiselsandbits.api.util.ComparatorUtils;
 import mod.chiselsandbits.api.util.ISnapshotable;
 import mod.chiselsandbits.api.util.constants.NbtConstants;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

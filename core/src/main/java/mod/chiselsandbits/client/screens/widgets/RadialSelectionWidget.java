@@ -12,7 +12,6 @@ import mod.chiselsandbits.api.item.withmode.IRenderableMode;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.client.icon.IconManager;
 import mod.chiselsandbits.client.screens.pips.Torus;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

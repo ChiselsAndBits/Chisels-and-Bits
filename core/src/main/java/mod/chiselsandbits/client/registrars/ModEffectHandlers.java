@@ -4,7 +4,6 @@ import com.communi.suggestu.scena.core.client.effect.IEffectManager;
 import mod.chiselsandbits.api.block.entity.IMultiStateBlockEntity;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.utils.EffectUtils;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.particle.ParticleEngine;

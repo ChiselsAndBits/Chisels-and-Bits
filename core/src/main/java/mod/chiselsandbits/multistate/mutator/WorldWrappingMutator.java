@@ -28,7 +28,6 @@ import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.VectorUtils;
 import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
 import mod.chiselsandbits.multistate.snapshot.MultiBlockMultiStateSnapshot;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

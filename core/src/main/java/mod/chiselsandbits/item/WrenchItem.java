@@ -15,7 +15,6 @@ import mod.chiselsandbits.api.util.RayTracingUtils;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +33,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 		super(properties);
 	}
 
-		@Override
+	@Override
 	public IModificationOperation getMode(final ItemStack stack) {
 		return stack.getOrDefault(ModDataComponentTypes.MODIFICATION_OPERATION.get(), IModificationOperation.getDefaultMode());
 	}
@@ -44,7 +43,7 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 		stack.set(ModDataComponentTypes.MODIFICATION_OPERATION.get(), mode);
 	}
 
-		@Override
+	@Override
 	public Collection<IModificationOperation> getPossibleModes() {
 		return IModificationOperation.getRegistry().getValues().stream().sorted(Comparator.comparing(IModificationOperation::getRegistryName)).collect(Collectors.toList());
 	}

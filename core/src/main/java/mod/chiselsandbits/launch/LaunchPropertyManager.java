@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import mod.chiselsandbits.api.launch.ILaunchPropertyManager;
-import org.jetbrains.annotations.NotNull;
 
 public final class LaunchPropertyManager implements ILaunchPropertyManager {
 	private static final LaunchPropertyManager INSTANCE = new LaunchPropertyManager();

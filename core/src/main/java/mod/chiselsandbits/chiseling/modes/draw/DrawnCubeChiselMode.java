@@ -25,7 +25,6 @@ import mod.chiselsandbits.registrars.ModMetadataKeys;
 import mod.chiselsandbits.utils.BitInventoryUtils;
 import mod.chiselsandbits.utils.ItemStackUtils;
 import mod.chiselsandbits.voxelshape.VoxelShapeManager;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

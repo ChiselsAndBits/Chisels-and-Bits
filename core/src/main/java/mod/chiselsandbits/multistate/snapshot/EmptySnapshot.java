@@ -23,7 +23,6 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.multistate.statistics.IMultiStateObjectStatistics;
 import mod.chiselsandbits.registrars.ModMultiStateSnapshotTypes;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

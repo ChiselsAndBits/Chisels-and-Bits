@@ -13,7 +13,6 @@ import net.neoforged.neoforge.client.model.block.CustomUnbakedBlockStateModel;
 import net.neoforged.neoforge.client.model.generators.blockstate.CustomBlockStateModelBuilder;
 import net.neoforged.neoforge.client.model.generators.blockstate.UnbakedMutator;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -57,7 +56,7 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 		actOnBlock(ModBlocks.CHISELED_BLOCK.get(), blockModels);
 	}
 
-		@Override
+	@Override
 	public String getName() {
 		return "Chiseled block blockstate generator";
 	}

@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;

@@ -9,7 +9,6 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.measures.Measurement;
 import mod.chiselsandbits.measures.MeasuringManager;
 import mod.chiselsandbits.measures.MeasuringMode;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;

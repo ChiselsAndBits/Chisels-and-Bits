@@ -12,7 +12,6 @@ import mod.chiselsandbits.api.sealing.ISupportsUnsealing;
 import mod.chiselsandbits.api.util.HelpTextUtils;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.registrars.ModItems;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
