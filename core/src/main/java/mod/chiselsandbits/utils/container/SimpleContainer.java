@@ -49,7 +49,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	}
 
 	public ItemStack getItem(int index) {
-		return index >= 0 && index <this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
+		return index >= 0 && index < this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
 	}
 
 	public List<ItemStack> removeAllItems() {

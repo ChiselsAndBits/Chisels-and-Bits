@@ -97,7 +97,7 @@ public class BagContainer extends AbstractContainerMenu {
 			itemstack = slotStack.copy();
 
 			//Source is the bag:
-			if (index <this.bitSlots.size()) {
+			if (index < this.bitSlots.size()) {
 				if (!this.moveItemStackTo(slotStack, this.bitSlots.size(), this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
@@ -106,7 +106,7 @@ public class BagContainer extends AbstractContainerMenu {
 			} else if (
 					!this.moveItemStackTo(slotStack, 0, this.bitSlots.size(), false)) {
 				return ItemStack.EMPTY;
-					}
+			}
 
 			if (slotStack.isEmpty()) {
 				slot.setByPlayer(original);

@@ -146,7 +146,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	}
 
 	private boolean isValidRecipeIndex(int recipeIndex) {
-		return recipeIndex >= 0 && recipeIndex <this.recipes.size();
+		return recipeIndex >= 0 && recipeIndex < this.recipes.size();
 	}
 
 	/**
