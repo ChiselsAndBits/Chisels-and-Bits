@@ -75,28 +75,28 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		context.setComplete();
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			try (IBatchMutation ignored = 
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+			try (IBatchMutation ignored =
+				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-						final int totalItemDamage = mutator.inWorldMutableStream()
-						.mapToInt(state -> {
-							final BlockInformation currentState = state.getBlockInformation();
-							return context.tryDamageItemAndDoOrSetBrokenError(
-									() -> {
-										resultingBitCount.putIfAbsent(currentState, 0);
-										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+					final int totalItemDamage = mutator.inWorldMutableStream()
+					.mapToInt(state -> {
+						final BlockInformation currentState = state.getBlockInformation();
+						return context.tryDamageItemAndDoOrSetBrokenError(
+								() -> {
+									resultingBitCount.putIfAbsent(currentState, 0);
+									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-										state.clear();
-									});
-						}).sum();
+									state.clear();
+								});
+					}).sum();
 
-						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								playerEntity,
-								blockState,
-								count
-						));
-					}
+					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+							playerEntity,
+							blockState,
+							count
+					));
+				}
 
 			return ClickProcessingState.ALLOW;
 		}).orElse(ClickProcessingState.DEFAULT)
@@ -141,12 +141,12 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-							mutator.inWorldMutableStream()
-							.filter(state -> state.getBlockInformation().isAir())
-							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-						}
+				try (IBatchMutation ignored =
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						mutator.inWorldMutableStream()
+						.filter(state -> state.getBlockInformation().isAir())
+						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+					}
 			} else {
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}

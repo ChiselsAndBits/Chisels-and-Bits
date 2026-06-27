@@ -346,10 +346,10 @@ public final class ModChiselModes {
 			.createReplaceChiselingMode()
 	);
 
-	public static Supplier<ICustomRegistry<IChiselMode>> REGISTRY = 
-	() -> {
+	public static Supplier<ICustomRegistry<IChiselMode>> REGISTRY =
+		() -> {
 		throw new IllegalStateException("Registry is not setup yet.Use a Deferred Register!");
-	};
+		};
 
 
 	private ModChiselModes() {

@@ -89,7 +89,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		if (!BlockPosStreamProvider.getForRange(startPoint, endPoint)
 				.allMatch(snapshots::containsKey)) {
 			throw new IllegalArgumentException("Not all required block positions are part of the given range.");
-				}
+		}
 	}
 
 	private Map<BlockPos, IMultiStateSnapshot> getSnapshots() {
@@ -460,12 +460,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				.collect(
 						Collectors.toMap(
 								e -> {
-									final int mirroredX = 
-									axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
-									final int mirroredY = 
-									axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
-									final int mirroredZ = 
-									axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
+									final int mirroredX =
+				axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
+									final int mirroredY =
+				axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
+									final int mirroredZ =
+				axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
 
 									return new BlockPos(mirroredX, mirroredY, mirroredZ);
 								},

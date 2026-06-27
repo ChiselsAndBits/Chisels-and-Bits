@@ -73,28 +73,28 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 		}
 
 		context.getMutator().ifPresent(mutator -> {
-			try (IBatchMutation ignored = 
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+			try (IBatchMutation ignored =
+				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-						mutator.inWorldMutableStream()
-						.forEach(state -> {
-							final BlockInformation currentState = state.getBlockInformation();
+					mutator.inWorldMutableStream()
+					.forEach(state -> {
+						final BlockInformation currentState = state.getBlockInformation();
 
-							if (context.tryDamageItem()) {
-								resultingBitCount.putIfAbsent(currentState, 0);
-								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+						if (context.tryDamageItem()) {
+							resultingBitCount.putIfAbsent(currentState, 0);
+							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-								state.clear();
-							}
-						});
+							state.clear();
+						}
+					});
 
-						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								playerEntity,
-								blockState,
-								count
-						));
-					}
+					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+							playerEntity,
+							blockState,
+							count
+					));
+				}
 		});
 	}
 
@@ -136,12 +136,12 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 					playerBitInventory.extract(heldBlockState, missingBitCount);
 				}
 
-				try (IBatchMutation ignored = 
-						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-							mutator.inWorldMutableStream()
-							.filter(state -> state.getBlockInformation().isAir())
-							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-						}
+				try (IBatchMutation ignored =
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						mutator.inWorldMutableStream()
+						.filter(state -> state.getBlockInformation().isAir())
+						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+					}
 			} else {
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}

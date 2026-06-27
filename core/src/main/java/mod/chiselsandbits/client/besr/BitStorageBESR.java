@@ -35,8 +35,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity, BitStorageBESR.RenderState> {
-	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE = 
-	new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
+	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE =
+		new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
 	private static final RandomSource RANDOM_SOURCE = RandomSource.createThreadLocalInstance(42L);
 
 	public BitStorageBESR() {
@@ -118,13 +118,13 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 				.withBlockEntity(blockInformation::newBlockEntityAtZero)
 				.createSingleBlockBlockAndTintGetter();
 
-		final ChiseledBlockModelInformation model = 
-		ChiseledBlockStateModelManager.getInstance().get(
-				blockAndTintGetter,
-				BlockPos.ZERO,
-			new SimpleSnapshot(finalInnerModelBlob),
-				IBlockNeighborhood.EMPTY
-		);
+		final ChiseledBlockModelInformation model =
+			ChiseledBlockStateModelManager.getInstance().get(
+					blockAndTintGetter,
+					BlockPos.ZERO,
+				new SimpleSnapshot(finalInnerModelBlob),
+					IBlockNeighborhood.EMPTY
+			);
 
 		float r;
 		float g;

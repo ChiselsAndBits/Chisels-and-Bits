@@ -53,8 +53,8 @@ public class BlockEligibilityAnalysisData {
 			final Class<? extends Block> blkClass = blk.getClass();
 
 			reflectBlock.getDestroyProgress(null, null, null, null);
-			final Class<?> b_Class = 
-			ClassUtils.getDeclaringClass(blkClass, reflectBlock.getLastInvokedThreadLocalMethodName(), BlockState.class, Player.class, BlockGetter.class, BlockPos.class);
+			final Class<?> b_Class =
+				ClassUtils.getDeclaringClass(blkClass, reflectBlock.getLastInvokedThreadLocalMethodName(), BlockState.class, Player.class, BlockGetter.class, BlockPos.class);
 			final boolean test_b = b_Class == Block.class || b_Class == BlockBehaviour.class;
 
 			reflectBlock.getExplosionResistance();
@@ -62,8 +62,8 @@ public class BlockEligibilityAnalysisData {
 			final boolean test_c = exploResistanceClz == Block.class || exploResistanceClz == BlockBehaviour.class;
 
 			reflectBlock.getExplosionResistance(null, null, null, null);
-			exploResistanceClz = 
-			ClassUtils.getDeclaringClass(blkClass, reflectBlock.getLastInvokedThreadLocalMethodName(), BlockState.class, BlockGetter.class, BlockPos.class, Explosion.class);
+			exploResistanceClz =
+				ClassUtils.getDeclaringClass(blkClass, reflectBlock.getLastInvokedThreadLocalMethodName(), BlockState.class, BlockGetter.class, BlockPos.class, Explosion.class);
 			final boolean test_d = exploResistanceClz == Block.class || exploResistanceClz == BlockBehaviour.class || exploResistanceClz == null
 			|| IEligibilityOptions.getInstance().isValidExplosionDefinitionClass(exploResistanceClz);
 

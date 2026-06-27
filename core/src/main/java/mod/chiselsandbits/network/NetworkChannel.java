@@ -25,10 +25,10 @@ public class NetworkChannel {
 	 * @throws IllegalArgumentException if channelName already exists
 	 */
 	public NetworkChannel(final String channelName) {
-		rawChannel = 
-		INetworkChannel.create(
-				LATEST_PROTO_VER
-		);
+		rawChannel =
+			INetworkChannel.create(
+					LATEST_PROTO_VER
+			);
 	}
 
 	/**

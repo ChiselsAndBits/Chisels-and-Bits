@@ -374,8 +374,8 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	@SuppressWarnings("unchecked")
 	public void updateSelection() {
 		if (this.mainSelectedToolMode != null) {
-			final M mainToolModeSelection = 
-			this.mainSelectedToolMode instanceof IToolModeGroup ? this.selectedOuterToolMode : (this.mainSelectedToolMode instanceof IToolMode) ? (M) this.mainSelectedToolMode
+			final M mainToolModeSelection =
+				this.mainSelectedToolMode instanceof IToolModeGroup ? this.selectedOuterToolMode : (this.mainSelectedToolMode instanceof IToolMode) ? (M) this.mainSelectedToolMode
 					: toolModeItem.getMode(this.sourceStack);
 
 			if (mainToolModeSelection != null) {

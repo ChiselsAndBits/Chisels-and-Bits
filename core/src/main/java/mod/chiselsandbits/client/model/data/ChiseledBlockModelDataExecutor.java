@@ -60,18 +60,18 @@ public class ChiseledBlockModelDataExecutor {
 				});
 
 		CompletableFuture.supplyAsync(() -> {
-			final ChiseledBlockModelInformation chiseledBlockModelInformation = 
-			ChiseledBlockStateModelManager.getInstance().get(
-				new SingleBlockBlockAndTintGetter.Builder()
-					.withBlockEntity(() -> tileEntity)
-					.withBlockState(tileEntity.getBlockState())
-					.withSource(tileEntity.getWorld())
-					.withPos(tileEntity.getBlockPos())
-					.createSingleBlockBlockAndTintGetter(),
-					tileEntity.blockPos(),
-					tileEntity,
-					neighborhood
-			);
+			final ChiseledBlockModelInformation chiseledBlockModelInformation =
+				ChiseledBlockStateModelManager.getInstance().get(
+					new SingleBlockBlockAndTintGetter.Builder()
+						.withBlockEntity(() -> tileEntity)
+						.withBlockState(tileEntity.getBlockState())
+						.withSource(tileEntity.getWorld())
+						.withPos(tileEntity.getBlockPos())
+						.createSingleBlockBlockAndTintGetter(),
+						tileEntity.blockPos(),
+						tileEntity,
+						neighborhood
+				);
 
 			return IModelDataBuilder.create()
 			.withInitial(

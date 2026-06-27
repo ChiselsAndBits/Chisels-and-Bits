@@ -178,10 +178,10 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 	public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTicks) {
 		if (trashBtn.isMouseOver(mouseX, mouseY)) {
 			if (isValidBitItem()) {
-				final Component msgNotConfirm = 
-				!getInHandItem().isEmpty() ? LocalStrings.TrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.Trash.getText();
-				final Component msgConfirm = 
-				!getInHandItem().isEmpty() ? LocalStrings.ReallyTrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.ReallyTrash.getText();
+				final Component msgNotConfirm =
+					!getInHandItem().isEmpty() ? LocalStrings.TrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.Trash.getText();
+				final Component msgConfirm =
+					!getInHandItem().isEmpty() ? LocalStrings.ReallyTrashItem.getText(getInHandItem().getHoverName().getString()) : LocalStrings.ReallyTrash.getText();
 
 				this.trashBtn.setTooltip(Tooltip.create(requireConfirm ? msgNotConfirm : msgConfirm));
 			} else {

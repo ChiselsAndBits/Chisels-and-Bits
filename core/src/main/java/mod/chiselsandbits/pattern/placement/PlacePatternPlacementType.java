@@ -47,12 +47,12 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 		final Vec3 targetedPosition = context.getPlayer() != null && context.getPlayer().isShiftKeyDown()
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos());
-		final IWorldAreaMutator areaMutator = 
-		IMutatorFactory.getInstance().covering(
-				context.getLevel(),
-				targetedPosition,
-				targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+		final IWorldAreaMutator areaMutator =
+			IMutatorFactory.getInstance().covering(
+					context.getLevel(),
+					targetedPosition,
+					targetedPosition.add(0.9999, 0.9999, 0.9999)
+			);
 
 		final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(context.getLevel()::getBlockState)

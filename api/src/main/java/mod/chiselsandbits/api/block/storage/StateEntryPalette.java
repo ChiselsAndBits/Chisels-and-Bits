@@ -26,8 +26,8 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 					Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
 					).apply(instance, StateEntryPalette::new));
 
-	public static final Codec<StateEntryPalette> LEGACY_CODEC = 
-	Entry.LEGACY_CODEC.listOf()
+	public static final Codec<StateEntryPalette> LEGACY_CODEC =
+		Entry.LEGACY_CODEC.listOf()
 			.xmap(StateEntryPalette::new, StateEntryPalette::paletteEntries);
 
 	public static final MapCodec<StateEntryPalette> MAP_CODEC = RecordCodecBuilder.mapCodec(instance ->

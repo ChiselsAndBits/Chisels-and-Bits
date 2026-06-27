@@ -75,62 +75,62 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			try (IBatchMutation ignored = 
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
-						final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
+			try (IBatchMutation ignored =
+				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
+					final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(player);
 
-						if (heldBlockState.isAir()) {
-							return ClickProcessingState.DEFAULT;
-						}
-
-						context.setComplete();
-
-						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
-
-						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-						.map(builder -> builder.apply(mutator))
-						.orElse((state) -> true);
-
-						final int missingBitCount = (int) mutator.stream()
-						.filter(filter)
-						.count();
-
-						final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
-
-						if (!player.isCreative() && !playerBitInventory.canExtract(heldBlockState, missingBitCount)) {
-							context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-							return ClickProcessingState.DEFAULT;
-						}
-
-						final int totalModifiedStates = mutator.inWorldMutableStream()
-						.filter(filter)
-						.mapToInt(LambdaExceptionUtils.rethrowToIntFunction(state -> {
-							final BlockInformation currentState = state.getBlockInformation();
-
-							return context.tryDamageItemAndDoOrSetBrokenError(
-									() -> {
-										resultingBitCount.putIfAbsent(currentState, 0);
-										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
-
-										state.overrideState(heldBlockState);
-									});
-						}))
-						.sum();
-
-						if (totalModifiedStates == 0) {
-							context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-						}
-
-						if (!player.isCreative()) {
-							playerBitInventory.extract(heldBlockState, missingBitCount);
-						}
-
-						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								player,
-								blockState,
-								count
-						));
+					if (heldBlockState.isAir()) {
+						return ClickProcessingState.DEFAULT;
 					}
+
+					context.setComplete();
+
+					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+
+					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+					.map(builder -> builder.apply(mutator))
+					.orElse((state) -> true);
+
+					final int missingBitCount = (int) mutator.stream()
+					.filter(filter)
+					.count();
+
+					final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(player);
+
+					if (!player.isCreative() && !playerBitInventory.canExtract(heldBlockState, missingBitCount)) {
+						context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+						return ClickProcessingState.DEFAULT;
+					}
+
+					final int totalModifiedStates = mutator.inWorldMutableStream()
+					.filter(filter)
+					.mapToInt(LambdaExceptionUtils.rethrowToIntFunction(state -> {
+						final BlockInformation currentState = state.getBlockInformation();
+
+						return context.tryDamageItemAndDoOrSetBrokenError(
+								() -> {
+									resultingBitCount.putIfAbsent(currentState, 0);
+									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+
+									state.overrideState(heldBlockState);
+								});
+					}))
+					.sum();
+
+					if (totalModifiedStates == 0) {
+						context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
+					}
+
+					if (!player.isCreative()) {
+						playerBitInventory.extract(heldBlockState, missingBitCount);
+					}
+
+					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+							player,
+							blockState,
+							count
+					));
+				}
 
 			return ClickProcessingState.ALLOW;
 		}).orElse(ClickProcessingState.DEFAULT)

@@ -539,14 +539,14 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	public record Payload(int progress, ItemStack patternStack) {
-		public static final StreamCodec<RegistryFriendlyByteBuf, Payload> STREAM_CODEC = 
-		StreamCodec.composite(
-				ByteBufCodecs.VAR_INT,
-				Payload::progress,
-				ItemStack.OPTIONAL_STREAM_CODEC,
-				Payload::patternStack,
-				Payload::new
-		);
+		public static final StreamCodec<RegistryFriendlyByteBuf, Payload> STREAM_CODEC =
+			StreamCodec.composite(
+					ByteBufCodecs.VAR_INT,
+					Payload::progress,
+					ItemStack.OPTIONAL_STREAM_CODEC,
+					Payload::patternStack,
+					Payload::new
+			);
 	}
 
 	@Override

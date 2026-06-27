@@ -199,8 +199,8 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
 		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
-		final Optional<IChiselingContext> potentiallyExistingContext = 
-		IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+		final Optional<IChiselingContext> potentiallyExistingContext =
+			IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
 		if (potentiallyExistingContext.isPresent()) {
 			final IChiselingContext context = potentiallyExistingContext.get();
@@ -277,8 +277,8 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final IChiselingItem chiselingItem = (IChiselingItem) itemStack.getItem();
 		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
-		final Optional<IChiselingContext> potentiallyExistingContext = 
-		IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+		final Optional<IChiselingContext> potentiallyExistingContext =
+			IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
 		final Optional<IChiselingContext> potentiallyCachedContext = ILocalChiselingContextCache.getInstance()
 				.get(ChiselingOperation.CHISELING);
@@ -347,10 +347,10 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
 	@Override
 	public ItemStack adaptItemStack(final ItemStack currentToolStack) {
-		final Optional<IChiselingContext> chiselingContext = 
-		ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
-		final Optional<IChiselingContext> placingContext = 
-		ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
+		final Optional<IChiselingContext> chiselingContext =
+			ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
+		final Optional<IChiselingContext> placingContext =
+			ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
 
 		if (chiselingContext.isPresent() && chiselingContext.get().getError().isPresent()) {
 			final ItemStack errorStack = currentToolStack.copy();

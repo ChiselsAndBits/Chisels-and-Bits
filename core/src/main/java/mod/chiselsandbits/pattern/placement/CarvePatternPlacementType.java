@@ -59,12 +59,12 @@ public class CarvePatternPlacementType extends AbstractCustomRegistryEntry imple
 		final Vec3 targetedPosition = context.getPlayer().isShiftKeyDown()
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
-		final IWorldAreaMutator areaMutator = 
-		IMutatorFactory.getInstance().covering(
-				context.getLevel(),
-				targetedPosition,
-				targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+		final IWorldAreaMutator areaMutator =
+			IMutatorFactory.getInstance().covering(
+					context.getLevel(),
+					targetedPosition,
+					targetedPosition.add(0.9999, 0.9999, 0.9999)
+			);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))

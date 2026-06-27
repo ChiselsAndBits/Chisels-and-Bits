@@ -58,10 +58,10 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 
 
 					generatedQuad -> {
-						final List<BlockTintSource> tintSources = 
-						information.isFluid()
-								? getFluidTintSources()
-								: Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
+						final List<BlockTintSource> tintSources =
+								information.isFluid()
+									? getFluidTintSources()
+									: Minecraft.getInstance().getBlockColors().getTintSources(information.blockState());
 						final IntList tints = new IntArrayList(tintSources.size());
 						tintSources.forEach(source -> {
 							tints.add(
@@ -72,14 +72,14 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 						});
 
 						quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
-						.add(generatedQuad.quad());
+							.add(generatedQuad.quad());
 					});
 		}
 
-		final List<BitBlockModelPart> parts = 
-		quadsByTints.entrySet().stream()
-				.map(c -> new BitBlockModelPart(c.getValue(), c.getKey()))
-				.toList();
+		final List<BitBlockModelPart> parts =
+				quadsByTints.entrySet().stream()
+					.map(c -> new BitBlockModelPart(c.getValue(), c.getKey()))
+					.toList();
 
 		return new BitBlockModelInformation(parts, true, isLarge());
 	}

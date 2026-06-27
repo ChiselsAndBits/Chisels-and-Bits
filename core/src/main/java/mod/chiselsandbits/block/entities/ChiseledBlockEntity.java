@@ -131,14 +131,14 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	private CompletableFuture<Void> storageFuture = null;
 	private final List<ValueInput> deserializationQueue = Collections.synchronizedList(Lists.newArrayList());
 	private final SingleBlockVoxelShapeCache voxelShapeCache = new SingleBlockVoxelShapeCache(this);
-	private final SingleObjectCache<BlockStack> blockStackCache = 
-	new SingleObjectCache<>(() -> {
-		final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
-		return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
-	},
+	private final SingleObjectCache<BlockStack> blockStackCache =
+		new SingleObjectCache<>(() -> {
+			final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
+			return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
+		},
 
 
-			BlockStack::copy);
+				BlockStack::copy);
 	private boolean isLoading = false;
 	private final Deque<Runnable> afterCurrentLoad = new ArrayDeque<>();
 
@@ -252,8 +252,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
-		final Vec3 exactAreaPos = 
-		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+		final Vec3 exactAreaPos =
+			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		final BlockInformation blockInformation = this.storage.getBlockInformation(
@@ -556,8 +556,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
-		final Vec3 exactAreaPos = 
-		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+		final Vec3 exactAreaPos =
+			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		final BlockInformation information = this.storage.getBlockInformation(
@@ -636,8 +636,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			throw new IllegalArgumentException("Target is not in the current area.");
 				}
 
-		final Vec3 exactAreaPos = 
-		inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+		final Vec3 exactAreaPos =
+			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		if (getLevel() == null) {

@@ -58,80 +58,80 @@ public class KeyBindingManager {
 		final Identifier debuggingCategory = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "debugging");
 		final Identifier creativeModeCategory = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "creative-mode");
 
-		IKeyBindingManager.getInstance().register(openToolMenuKeybinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.open",
-						HoldsWithToolItemInHandKeyConflictContext.getInstance(),
-						InputConstants.Type.KEYSYM,
-						GLFW.GLFW_KEY_R,
-						toolCategory));
+		IKeyBindingManager.getInstance().register(openToolMenuKeybinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.open",
+					HoldsWithToolItemInHandKeyConflictContext.getInstance(),
+					InputConstants.Type.KEYSYM,
+					GLFW.GLFW_KEY_R,
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(cycleToolMenuLeftKeybinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.left",
-						SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
-						InputConstants.Type.KEYSYM,
-						InputConstants.UNKNOWN.getValue(),
-						toolCategory));
+		IKeyBindingManager.getInstance().register(cycleToolMenuLeftKeybinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.left",
+					SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
+					InputConstants.Type.KEYSYM,
+					InputConstants.UNKNOWN.getValue(),
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(cycleToolMenuRightKeybinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.right",
-						SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
-						InputConstants.Type.KEYSYM,
-						InputConstants.UNKNOWN.getValue(),
-						toolCategory));
+		IKeyBindingManager.getInstance().register(cycleToolMenuRightKeybinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.modded-tool.cycle.right",
+					SpecificScreenOpenKeyConflictContext.RADIAL_TOOL_MENU,
+					InputConstants.Type.KEYSYM,
+					InputConstants.UNKNOWN.getValue(),
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(resetMeasuringTapeKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.measuring-tape.reset",
-						HoldsSpecificItemInHandKeyConflictContext.MEASURING_TAPE,
-						KeyModifier.CONTROL,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_R,
-						toolCategory));
+		IKeyBindingManager.getInstance().register(resetMeasuringTapeKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.measuring-tape.reset",
+					HoldsSpecificItemInHandKeyConflictContext.MEASURING_TAPE,
+					KeyModifier.CONTROL,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_R,
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(undoOperationKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.undo",
-						HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
-						KeyModifier.CONTROL,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_Z,
-						toolCategory));
+		IKeyBindingManager.getInstance().register(undoOperationKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.undo",
+					HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
+					KeyModifier.CONTROL,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_Z,
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(redoOperationKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.redo",
-						HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
-						KeyModifier.CONTROL,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_Y,
-						toolCategory));
+		IKeyBindingManager.getInstance().register(redoOperationKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.redo",
+					HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
+					KeyModifier.CONTROL,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_Y,
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(scopingKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.zoom",
-						HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_Z,
-						toolCategory));
+		IKeyBindingManager.getInstance().register(scopingKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.key.zoom",
+					HoldsSpecificItemInHandKeyConflictContext.CHANGE_TRACKING_ITEM,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_Z,
+					toolCategory));
 
-		IKeyBindingManager.getInstance().register(resetCachesKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.reset-caches",
-						IsPressingDebugKeyConflictContext.F3_DEBUG_KEY,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_C,
-						debuggingCategory));
+		IKeyBindingManager.getInstance().register(resetCachesKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.reset-caches",
+					IsPressingDebugKeyConflictContext.F3_DEBUG_KEY,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_C,
+					debuggingCategory));
 
-		IKeyBindingManager.getInstance().register(removeFromClipboardKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
-						SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
-						KeyModifier.SHIFT,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_D,
-						creativeModeCategory));
+		IKeyBindingManager.getInstance().register(removeFromClipboardKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.remove-from-clipboard",
+					SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
+					KeyModifier.SHIFT,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_D,
+					creativeModeCategory));
 
-		IKeyBindingManager.getInstance().register(clearClipboardKeyBinding = 
-				IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.clear-clipboard",
-						SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
-						KeyModifier.CONTROL,
-						InputConstants.Type.KEYSYM,
-						InputConstants.KEY_D,
-						creativeModeCategory));
+		IKeyBindingManager.getInstance().register(clearClipboardKeyBinding =
+			IKeyBindingManager.getInstance().createNew("mod.chiselsandbits.keys.clear-clipboard",
+					SpecificScreenOpenKeyConflictContext.CREATIVE_MENU,
+					KeyModifier.CONTROL,
+					InputConstants.Type.KEYSYM,
+					InputConstants.KEY_D,
+					creativeModeCategory));
 
 		initialized = true;
 	}

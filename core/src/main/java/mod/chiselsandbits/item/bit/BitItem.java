@@ -384,9 +384,9 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 					IChiselContextPreviewRendererRegistry.getInstance()
 							.getCurrent()
 							.renderExistingContextsBoundingBox(worldRenderer, matrixStack, bufferSource, levelRenderState, partialTicks, placingContext);
-						} else {
+				} else {
 					ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.PLACING);
-						}
+				}
 			}
 
 			return;

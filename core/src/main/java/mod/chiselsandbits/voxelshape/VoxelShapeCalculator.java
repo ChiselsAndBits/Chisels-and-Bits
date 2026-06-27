@@ -20,8 +20,8 @@ public class VoxelShapeCalculator {
 			return ((IAreaAccessorWithVoxelShape) areaAccessor).provideShape(sizeType, offset, simplify);
 		}
 
-		final VoxelShape shape = 
-		AABBManager.getInstance()
+		final VoxelShape shape =
+			AABBManager.getInstance()
 				.get(areaAccessor, sizeType)
 				.stream()
 				.map(aabb -> aabb.move(offset))

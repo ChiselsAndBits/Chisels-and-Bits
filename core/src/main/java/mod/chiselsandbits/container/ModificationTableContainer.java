@@ -168,8 +168,8 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 
 		if (!stack.isEmpty()) {
 			final CraftingInput input = CraftingInput.of(1, 1, List.of(stack));
-			this.recipes = 
-			this.world.getServer() != null
+			this.recipes =
+				this.world.getServer() != null
 					? this.world.getServer().getRecipeManager().recipes.getRecipesFor(ModRecipeTypes.MODIFICATION_TABLE.get(), input, this.world).collect(Collectors.toList())
 					: new ArrayList<>();
 			this.recipes.sort(Comparator.comparing(modificationTableRecipe -> Objects.requireNonNull(modificationTableRecipe.value().operation().getRegistryName()).toString()));
@@ -242,13 +242,13 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 				if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
-					} else if (index >= 2 && index < 29) {
+			} else if (index >= 2 && index < 29) {
 				if (!this.moveItemStackTo(itemstack1, 29, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-					} else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
+			} else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
 				return ItemStack.EMPTY;
-					}
+			}
 
 			if (itemstack1.isEmpty()) {
 				slot.set(ItemStack.EMPTY);
