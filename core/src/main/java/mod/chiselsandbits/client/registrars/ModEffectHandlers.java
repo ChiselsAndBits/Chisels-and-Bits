@@ -47,7 +47,7 @@ public class ModEffectHandlers {
 							}
 
 							return EffectUtils.addHitEffects(level, blockPos, direction, primaryState, particleEngine);
-				}
+						}
 					},
 
 

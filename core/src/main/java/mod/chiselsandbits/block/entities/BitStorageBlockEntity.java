@@ -165,14 +165,14 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 	public int getLightValue() {
 		return ILevelBasedPropertyAccessor.getInstance().getLightEmission(
-			new SingleBlockLevelReader.Builder()
-				.withBlockState(state == null ? BlockInformation.AIR.blockState() : state.blockState())
-				.withBlockEntity(() -> state == null ? null : state.newBlockEntity(getBlockPos()))
-				.withPos(getBlockPos())
-				.withSource(getLevel())
-				.createSingleBlockLevelReader(),
-				getBlockPos()
-		);
+						new SingleBlockLevelReader.Builder()
+						.withBlockState(state == null ? BlockInformation.AIR.blockState() : state.blockState())
+						.withBlockEntity(() -> state == null ? null : state.newBlockEntity(getBlockPos()))
+						.withPos(getBlockPos())
+						.withSource(getLevel())
+						.createSingleBlockLevelReader(),
+						getBlockPos()
+				);
 	}
 
 	public boolean addHeldBits(
@@ -393,10 +393,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 		}
 
 		return Optional.of(new FluidInformation(
-				((LiquidBlock) state.blockState().getBlock()).fluid.getSource(),
-				amount,
-				DataComponentPatch.EMPTY
-		));
+						((LiquidBlock) state.blockState().getBlock()).fluid.getSource(),
+						amount,
+						DataComponentPatch.EMPTY
+				));
 	}
 
 	public boolean containsFluid() {
@@ -413,7 +413,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 		}
 
 		return state.blockState().getBlock() instanceof LiquidBlock liquidBlock
-		&& !liquidBlock.fluid.getSource().isSame(Fluids.EMPTY);
+				&& !liquidBlock.fluid.getSource().isSame(Fluids.EMPTY);
 	}
 
 	public void extractBits(final int count) {

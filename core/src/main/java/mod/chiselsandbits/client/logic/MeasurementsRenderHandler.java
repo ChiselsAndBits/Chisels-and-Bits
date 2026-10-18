@@ -13,10 +13,10 @@ public class MeasurementsRenderHandler {
 			final float partialTickTime) {
 		if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isSpectator()) {
 			MeasurementRenderer.getInstance().renderMeasurements(
-					poseStack,
-					bufferSource,
-					partialTickTime
-			);
+							poseStack,
+							bufferSource,
+							partialTickTime
+					);
 		}
 	}
 }

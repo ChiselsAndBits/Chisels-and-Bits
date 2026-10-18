@@ -74,9 +74,9 @@ public final class QuadGenerationUtils {
 					final BakedQuad quad = adapter.build();
 
 					target.accept(new GeneratedQuad(
-							layer,
-							quad
-					));
+									layer,
+									quad
+							));
 				});
 	}
 

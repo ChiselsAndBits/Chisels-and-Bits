@@ -34,6 +34,6 @@ public interface IBatchMutation extends AutoCloseable {
 	 * <p>
 	 * However, implementers of this interface are strongly encouraged to make their {@code close} methods idempotent.
 	 */
-@Override
-void close();
+	@Override
+	void close();
 }

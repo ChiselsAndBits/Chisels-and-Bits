@@ -30,9 +30,9 @@ public final class ChangeTrackerSyncManager {
 	public void sync() {
 		entries.forEach(e -> {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
-				new ChangeTrackerUpdatedPacket(e.tracker().getChanges()),
-					e.serverPlayer()
-			);
+							new ChangeTrackerUpdatedPacket(e.tracker().getChanges()),
+							e.serverPlayer()
+					);
 		});
 		entries.clear();
 	}

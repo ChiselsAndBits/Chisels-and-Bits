@@ -11,11 +11,11 @@ public enum ChiselingOperation
 	 */
 	CHISELING(false),
 
-	/**
-	 * The current operation is a bit.
-	 * As such it places the bit underneath the cursor.
-	 */
-	PLACING(true);
+			/**
+			 * The current operation is a bit.
+			 * As such it places the bit underneath the cursor.
+			 */
+			PLACING(true);
 
 	private final boolean processesAir;
 

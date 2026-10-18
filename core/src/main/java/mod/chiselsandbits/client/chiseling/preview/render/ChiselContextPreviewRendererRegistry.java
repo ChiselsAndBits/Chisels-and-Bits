@@ -20,8 +20,8 @@ public class ChiselContextPreviewRendererRegistry implements IChiselContextPrevi
 
 	private ChiselContextPreviewRendererRegistry() {
 		this.register(
-			new ConfigurableColoredVoxelShapeChiselContextPreviewRenderer(),
-			new NoopChiselContextPreviewRenderer()
+				new ConfigurableColoredVoxelShapeChiselContextPreviewRenderer(),
+				new NoopChiselContextPreviewRenderer()
 		);
 	}
 

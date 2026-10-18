@@ -122,10 +122,10 @@ public class ChiselingContext implements IChiselingContext {
 		}
 
 		if (!IPermissionHandler.getInstance().canManipulate(
-				playerEntity, mutator
-		)) {
-		//We are not allowed to edit the current area.
-		//Nuke it.
+						playerEntity, mutator
+				)) {
+				//We are not allowed to edit the current area.
+				//Nuke it.
 			mutator = null;
 			return Optional.empty();
 		}
@@ -351,8 +351,8 @@ public class ChiselingContext implements IChiselingContext {
 		final Vec3 inBlockOffset = inAreaTarget.subtract(position.getX(), position.getY(), position.getZ());
 
 		return IMutatorFactory.getInstance().in(
-				getWorld(),
-				position
+						getWorld(),
+						position
 				).getInAreaTarget(
 						inBlockOffset
 				);

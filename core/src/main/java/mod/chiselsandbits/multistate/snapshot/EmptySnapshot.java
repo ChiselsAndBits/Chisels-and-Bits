@@ -36,74 +36,74 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	public static final EmptySnapshot INSTANCE = new EmptySnapshot();
 
 	private static final IMultiStateObjectStatistics EMPTY_STATISTICS = new IMultiStateObjectStatistics() {
-		@Override
-		public Codec<?> codec() {
-			return MapCodec.unitCodec(EMPTY_STATISTICS);
+				@Override
+				public Codec<?> codec() {
+					return MapCodec.unitCodec(EMPTY_STATISTICS);
 		}
 
-		@Override
-		public MapCodec<?> mapCodec() {
-			return MapCodec.unit(EMPTY_STATISTICS);
+				@Override
+				public MapCodec<?> mapCodec() {
+					return MapCodec.unit(EMPTY_STATISTICS);
 		}
 
-		@Override
-		public StreamCodec<?, ?> streamCodec() {
-			return StreamCodec.unit(EMPTY_STATISTICS);
+				@Override
+				public StreamCodec<?, ?> streamCodec() {
+					return StreamCodec.unit(EMPTY_STATISTICS);
 		}
 
-		@Override
-		public BlockInformation getPrimaryState() {
-			return BlockInformation.AIR;
+				@Override
+				public BlockInformation getPrimaryState() {
+					return BlockInformation.AIR;
 		}
 
-		@Override
-		public boolean isEmpty() {
-			return true;
+				@Override
+				public boolean isEmpty() {
+					return true;
 		}
 
-		@Override
-		public Map<BlockInformation, Integer> getStateCounts() {
-			return ImmutableMap.<BlockInformation, Integer>builder().build();
+				@Override
+				public Map<BlockInformation, Integer> getStateCounts() {
+					return ImmutableMap.<BlockInformation, Integer>builder().build();
 		}
 
-		@Override
-		public boolean shouldCheckWeakPower() {
-			return false;
+				@Override
+				public boolean shouldCheckWeakPower() {
+					return false;
 		}
 
-		@Override
-		public float getFullnessFactor() {
-			return 0;
+				@Override
+				public float getFullnessFactor() {
+					return 0;
 		}
 
-		@Override
-		public float getSlipperiness() {
-			return 0;
+				@Override
+				public float getSlipperiness() {
+					return 0;
 		}
 
-		@Override
-		public float getLightEmissionFactor() {
-			return 0;
+				@Override
+				public float getLightEmissionFactor() {
+					return 0;
 		}
 
-		@Override
-		public float getLightBlockingFactor() {
-			return 0;
+				@Override
+				public float getLightBlockingFactor() {
+					return 0;
 		}
 
-		@Override
-		public float getRelativeBlockHardness(final Player player) {
-			return 0;
+				@Override
+				public float getRelativeBlockHardness(final Player player) {
+					return 0;
 		}
 
-		@Override
-		public boolean canPropagateSkylight() {
-			return true;
+				@Override
+				public boolean canPropagateSkylight() {
+					return true;
 		}
 
-		@Override
-		public boolean canSustainGrassBelow() {
-			return false;
+				@Override
+				public boolean canSustainGrassBelow() {
+					return false;
 		}
 	};
 
@@ -231,34 +231,34 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		public static final Stack INSTANCE = new Stack();
 
 		public static final IStatistics EMPTY_STACK_STATISTICS = new IStatistics() {
-			@Override
-			public Codec<?> codec() {
-				return MapCodec.unitCodec(EMPTY_STACK_STATISTICS);
+					@Override
+					public Codec<?> codec() {
+						return MapCodec.unitCodec(EMPTY_STACK_STATISTICS);
 			}
 
-			@Override
-			public MapCodec<?> mapCodec() {
-				return MapCodec.unit(EMPTY_STACK_STATISTICS);
+					@Override
+					public MapCodec<?> mapCodec() {
+						return MapCodec.unit(EMPTY_STACK_STATISTICS);
 			}
 
-			@Override
-			public StreamCodec<?, ?> streamCodec() {
-				return StreamCodec.unit(EMPTY_STACK_STATISTICS);
+					@Override
+					public StreamCodec<?, ?> streamCodec() {
+						return StreamCodec.unit(EMPTY_STACK_STATISTICS);
 			}
 
-			@Override
-			public BlockInformation getPrimaryState() {
-				return BlockInformation.AIR;
+					@Override
+					public BlockInformation getPrimaryState() {
+						return BlockInformation.AIR;
 			}
 
-			@Override
-			public boolean isEmpty() {
-				return true;
+					@Override
+					public boolean isEmpty() {
+						return true;
 			}
 
-			@Override
-			public Set<BlockInformation> getContainedStates() {
-				return Collections.emptySet();
+					@Override
+					public Set<BlockInformation> getContainedStates() {
+						return Collections.emptySet();
 			}
 		};
 

@@ -13,7 +13,7 @@ import net.minecraft.server.MinecraftServer;
 
 @ChiselsAndBitsPlugin
 public class TagExporterEntrypoint implements IChiselsAndBitsPlugin {
-	private static final Logger LOGGER = LoggerFactory.getLogger(TagExporterEntrypoint.class);
+			private static final Logger LOGGER = LoggerFactory.getLogger(TagExporterEntrypoint.class);
 	private static MinecraftServer server;
 
 	@Override

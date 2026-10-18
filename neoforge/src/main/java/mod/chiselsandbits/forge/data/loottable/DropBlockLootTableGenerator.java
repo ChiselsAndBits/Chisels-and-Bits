@@ -42,10 +42,10 @@ public class DropBlockLootTableGenerator extends LootTableProvider {
 
 	private static List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet) {
 		return ImmutableList.of(
-			new SubProviderEntry(
-					(provider) -> new SelfDroppingBlocks(featureFlagSet, provider),
-					LootContextParamSets.BLOCK
-			)
+				new SubProviderEntry(
+						(provider) -> new SelfDroppingBlocks(featureFlagSet, provider),
+						LootContextParamSets.BLOCK
+				)
 		);
 	}
 

@@ -61,27 +61,27 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-				context.setComplete();
+					try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						context.setComplete();
 
-				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-				mutator.inWorldMutableStream().forEach(state -> {
-					final BlockInformation currentState = state.getBlockInformation();
+						mutator.inWorldMutableStream().forEach(state -> {
+							final BlockInformation currentState = state.getBlockInformation();
 
-					if (context.tryDamageItem()) {
-						resultingBitCount.putIfAbsent(currentState, 0);
-						resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							if (context.tryDamageItem()) {
+								resultingBitCount.putIfAbsent(currentState, 0);
+								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-						state.clear();
+								state.clear();
+							}
+						});
+
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(playerEntity, blockState, count));
 					}
-				});
 
-				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(playerEntity, blockState, count));
-			}
-
-			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT));
+					return ClickProcessingState.ALLOW;
+				}).orElse(ClickProcessingState.DEFAULT));
 	}
 
 	@Override
@@ -97,38 +97,38 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+					final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-			if (heldBlockState.isAir()) {
-				return ClickProcessingState.DEFAULT;
-			}
+					if (heldBlockState.isAir()) {
+						return ClickProcessingState.DEFAULT;
+					}
 
-			final int missingBitCount = (int) mutator.stream().filter(state -> state.getBlockInformation().isAir()).count();
+					final int missingBitCount = (int) mutator.stream().filter(state -> state.getBlockInformation().isAir()).count();
 
-			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+					final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
-			context.setComplete();
+					context.setComplete();
 
-			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-				if (!playerEntity.isCreative()) {
-					playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
+					if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+						if (!playerEntity.isCreative()) {
+							playerBitInventory.extract(heldBlockState, missingBitCount);
+						}
 
-				try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					mutator.inWorldMutableStream().filter(state -> state.getBlockInformation().isAir()).forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-				}
-			} else {
-				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-			}
+						try (IBatchMutation ignored = mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+							mutator.inWorldMutableStream().filter(state -> state.getBlockInformation().isAir()).forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+					} else {
+						context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+					}
 
-			if (missingBitCount == 0) {
-				if (!context.validateBuildHeights()) {
-					return ClickProcessingState.DENIED;
-				}
-			}
+					if (missingBitCount == 0) {
+						if (!context.validateBuildHeights()) {
+							return ClickProcessingState.DENIED;
+						}
+					}
 
-			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT));
+					return ClickProcessingState.ALLOW;
+				}).orElse(ClickProcessingState.DEFAULT));
 	}
 
 	@Override
@@ -156,12 +156,12 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		final Direction iterationDirection = iterationAdaptor.apply(blockRayTraceResult.getDirection());
 		switch (iterationDirection) {
-		case DOWN -> includeDownAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-		case UP -> includeUpAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-		case NORTH -> includeNorthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-		case SOUTH -> includeSouthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-		case WEST -> includeWestAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-		case EAST -> includeEastAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case DOWN -> includeDownAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case UP -> includeUpAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case NORTH -> includeNorthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case SOUTH -> includeSouthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case WEST -> includeWestAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+			case EAST -> includeEastAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
 		}
 
 		return Optional.empty();
@@ -373,16 +373,16 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private Vec3 clampVectorToBlockAlongAxis(final Vec3 v, final Direction.Axis axis) {
 		switch (axis) {
-		case X -> {
-				return new Vec3(v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()), v.y(), v.z());
-		}
-		case Y -> {
-				return new Vec3(v.x(), v.y() < 0 ? 0 : (v.y() >= 1 ? 1 - ONE_THOUSANDS : v.y()), v.z());
-		}
-		case Z -> {
-				return new Vec3(v.x(), v.y(), v.z() < 0 ? 0 : (v.z() >= 1 ? 1 - ONE_THOUSANDS : v.z()));
-		}
-			default -> throw new IllegalStateException("Unexpected value: " + axis);
+			case X -> {
+						return new Vec3(v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()), v.y(), v.z());
+			}
+					case Y -> {
+						return new Vec3(v.x(), v.y() < 0 ? 0 : (v.y() >= 1 ? 1 - ONE_THOUSANDS : v.y()), v.z());
+			}
+					case Z -> {
+						return new Vec3(v.x(), v.y(), v.z() < 0 ? 0 : (v.z() >= 1 ? 1 - ONE_THOUSANDS : v.z()));
+			}
+					default -> throw new IllegalStateException("Unexpected value: " + axis);
 		}
 	}
 

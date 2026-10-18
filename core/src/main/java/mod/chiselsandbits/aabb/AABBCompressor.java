@@ -38,70 +38,70 @@ public class AABBCompressor {
 		//noinspection Convert2Lambda We need this to be pre-compiled
 		accessor.forEachWithPositionMutator(
 				IPositionMutator.xyz(),
-			new Consumer<>() {
-				@Override
-				public void accept(final IStateEntryInfo stateEntryInfo) {
-					if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x()) {
-						state.setCurrentBox(null, null);
-					}
+				new Consumer<>() {
+					@Override
+					public void accept(final IStateEntryInfo stateEntryInfo) {
+						if (state.getRegionBuildingAxisValue() != stateEntryInfo.getStartPoint().x()) {
+							state.setCurrentBox(null, null);
+						}
 
-					state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
+						state.setRegionBuildingAxisValue(stateEntryInfo.getStartPoint().x());
 
-					if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y()) {
-						state.setCurrentBox(null, null);
-					}
+						if (state.getFaceBuildingAxisValue() != stateEntryInfo.getStartPoint().y()) {
+							state.setCurrentBox(null, null);
+						}
 
-					state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
+						state.setFaceBuildingAxisValue(stateEntryInfo.getStartPoint().y());
 
-					final Optional<Vec3> previousCenterPoint = state.getLastCenter();
-					final Vec3 centerPoint = stateEntryInfo.getCenterPoint();
-					state.onNextEntry(centerPoint);
+						final Optional<Vec3> previousCenterPoint = state.getLastCenter();
+						final Vec3 centerPoint = stateEntryInfo.getCenterPoint();
+						state.onNextEntry(centerPoint);
 
-					final Optional<Direction> stepDirection = previousCenterPoint.flatMap(
-							d -> DirectionUtils.getDirectionVectorBetweenIfAligned(centerPoint, d)
-					);
+						final Optional<Direction> stepDirection = previousCenterPoint.flatMap(
+								d -> DirectionUtils.getDirectionVectorBetweenIfAligned(centerPoint, d)
+						);
 
-					final Optional<AABB> potentialEntryData = buildBoundingBox(stateEntryInfo, sizeType);
+						final Optional<AABB> potentialEntryData = buildBoundingBox(stateEntryInfo, sizeType);
 
-					if (potentialEntryData.isEmpty()) {
-						state.setCurrentBox(null, centerPoint);
-						return;
-					}
-
-					final AABB entryData = potentialEntryData.get();
-
-					if (state.getCurrentBox() != null) {
-						if (stepDirection
-								.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
-								.filter(b -> b)
-								.isPresent()) {
-						state.expandCurrentBoxToInclude(entryData, centerPoint);
-
-						if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
+						if (potentialEntryData.isEmpty()) {
+							state.setCurrentBox(null, centerPoint);
 							return;
 						}
 
-						return;
-					}
-					}
+						final AABB entryData = potentialEntryData.get();
 
-					if (attemptMergeWithNeighbors(state, centerPoint, entryData)) {
-						return;
-					}
+						if (state.getCurrentBox() != null) {
+							if (stepDirection
+									.map(direction -> AABBUtils.areBoxesNeighbors(state.getCurrentBox(), entryData, direction))
+									.filter(b -> b)
+									.isPresent()) {
+								state.expandCurrentBoxToInclude(entryData, centerPoint);
 
-					state.setCurrentBox(potentialEntryData.get(), centerPoint);
-				}
-			});
+								if (attemptMergeWithNeighbors(state, centerPoint, state.getCurrentBox())) {
+									return;
+								}
+
+								return;
+							}
+						}
+
+						if (attemptMergeWithNeighbors(state, centerPoint, entryData)) {
+							return;
+						}
+
+						state.setCurrentBox(potentialEntryData.get(), centerPoint);
+					}
+				});
 		return Lists.newArrayList(state.getBoxes());
 	}
 
 	private static boolean attemptMergeWithNeighbors(final BuildingState state, final Vec3 centerPoint, final AABB entryData) {
 		for (final Direction offsetDirection :Direction.values()) {
 			final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getUnitVec3i()).multiply(
-					StateEntrySize.current().getSizePerBit(),
-					StateEntrySize.current().getSizePerBit(),
-					StateEntrySize.current().getSizePerBit()
-			));
+							StateEntrySize.current().getSizePerBit(),
+							StateEntrySize.current().getSizePerBit(),
+							StateEntrySize.current().getSizePerBit()
+					));
 			final Optional<AABB> potentialNeighborBox = state.getBoxFor(neighborCenter);
 
 			if (potentialNeighborBox.isPresent()) {

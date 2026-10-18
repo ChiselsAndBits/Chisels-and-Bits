@@ -42,11 +42,11 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
 
 		assert state != null;
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
-				state,
-				poseStack,
-				submitNodeCollector,
-			new CameraRenderState()
-		);
+						state,
+						poseStack,
+						submitNodeCollector,
+						new CameraRenderState()
+				);
 
 		poseStack.popPose();
 	}

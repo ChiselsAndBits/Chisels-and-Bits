@@ -37,8 +37,8 @@ public record ModificationTableRecipe(IModificationOperation operation) implemen
 					Identifier.CODEC.xmap(
 							resourceLocation -> IModificationOperation.getRegistry().get(resourceLocation).orElseThrow(),
 							ICustomRegistryEntry::getRegistryName
-							).fieldOf(NbtConstants.OPERATION).forGetter(ModificationTableRecipe::operation)
-					).apply(instance, ModificationTableRecipe::new)
+					).fieldOf(NbtConstants.OPERATION).forGetter(ModificationTableRecipe::operation)
+			).apply(instance, ModificationTableRecipe::new)
 	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, ModificationTableRecipe> STREAM_CODEC = StreamCodec.composite(

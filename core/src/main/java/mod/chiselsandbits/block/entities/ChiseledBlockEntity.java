@@ -132,13 +132,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	private final List<ValueInput> deserializationQueue = Collections.synchronizedList(Lists.newArrayList());
 	private final SingleBlockVoxelShapeCache voxelShapeCache = new SingleBlockVoxelShapeCache(this);
 	private final SingleObjectCache<BlockStack> blockStackCache =
-		new SingleObjectCache<>(() -> {
-			final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
-			return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
-		},
+			new SingleObjectCache<>(() -> {
+					final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
+					return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
+				},
 
 
-				BlockStack::copy);
+						BlockStack::copy);
 	private boolean isLoading = false;
 	private final Deque<Runnable> afterCurrentLoad = new ArrayDeque<>();
 
@@ -212,16 +212,16 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new StateEntry(
-						storage.getBlockInformation(
-								blockPos.getX(),
-								blockPos.getY(),
-								blockPos.getZ()
-						),
-						getLevel(),
-						getBlockPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
+								storage.getBlockInformation(
+										blockPos.getX(),
+										blockPos.getY(),
+										blockPos.getZ()
+								),
+								getLevel(),
+								getBlockPos(),
+								blockPos,
+								this::setInAreaTarget,
+								this::clearInAreaTarget)
 				);
 	}
 
@@ -234,11 +234,11 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	@Override
 	public boolean isInside(final Vec3 inAreaTarget) {
 		return !(inAreaTarget.x() < 0)
-		&& !(inAreaTarget.y() < 0)
-		&& !(inAreaTarget.z() < 0)
-		&& !(inAreaTarget.x() >= 1)
-		&& !(inAreaTarget.y() >= 1)
-		&& !(inAreaTarget.z() >= 1);
+				&& !(inAreaTarget.y() < 0)
+				&& !(inAreaTarget.z() < 0)
+				&& !(inAreaTarget.x() >= 1)
+				&& !(inAreaTarget.y() >= 1)
+				&& !(inAreaTarget.z() >= 1);
 	}
 
 	@Override
@@ -250,10 +250,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y() >= 1
 				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-				}
+		}
 
 		final Vec3 exactAreaPos =
-			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+				inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		final BlockInformation blockInformation = this.storage.getBlockInformation(
@@ -263,12 +263,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		);
 
 		return Optional.of(new StateEntry(
-				blockInformation,
-				getLevel(),
-				getBlockPos(),
-				inAreaPos,
-				this::setInAreaTarget,
-				this::clearInAreaTarget)
+						blockInformation,
+						getLevel(),
+						getBlockPos(),
+						inAreaPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
 		);
 	}
 
@@ -459,13 +459,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				this.lastTag = null;
 
 				this.storageFuture = writeAsync(TagValueOutput.createWithContext(
-					new ProblemReporter.ScopedCollector(LOGGER),
-						registryAccess()
-				));
+								new ProblemReporter.ScopedCollector(LOGGER),
+								registryAccess()
+						));
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
-					new UpdateBlockEntityPacket(this),
-						getLevel().getChunkAt(getBlockPos())
-				);
+								new UpdateBlockEntityPacket(this),
+								getLevel().getChunkAt(getBlockPos())
+						);
 			}
 		}
 	}
@@ -533,12 +533,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new StateEntry(
-						storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-						getLevel(),
-						getBlockPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
+								storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+								getLevel(),
+								getBlockPos(),
+								blockPos,
+								this::setInAreaTarget,
+								this::clearInAreaTarget)
 				);
 	}
 
@@ -554,10 +554,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y() >= 1
 				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-				}
+		}
 
 		final Vec3 exactAreaPos =
-			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+				inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		final BlockInformation information = this.storage.getBlockInformation(
@@ -634,10 +634,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				|| inAreaTarget.y() >= 1
 				|| inAreaTarget.z() >= 1) {
 			throw new IllegalArgumentException("Target is not in the current area.");
-				}
+		}
 
 		final Vec3 exactAreaPos =
-			inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
+				inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide());
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(exactAreaPos);
 
 		if (getLevel() == null) {
@@ -757,12 +757,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new StateEntry(
-						storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-						getLevel(),
-						getBlockPos(),
-						blockPos,
-						this::setInAreaTarget,
-						this::clearInAreaTarget)
+								storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+								getLevel(),
+								getBlockPos(),
+								blockPos,
+								this::setInAreaTarget,
+								this::clearInAreaTarget)
 				);
 	}
 
@@ -787,12 +787,12 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) -> {
 			final Vec3i pos = positionMutator.mutate(blockPos);
 			consumer.accept(new StateEntry(
-					storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
-					getLevel(),
-					getBlockPos(),
-					pos,
-					this::setInAreaTarget,
-					this::clearInAreaTarget));
+							storage.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
+							getLevel(),
+							getBlockPos(),
+							pos,
+							this::setInAreaTarget,
+							this::clearInAreaTarget));
 		});
 	}
 
@@ -803,13 +803,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		final IBatchMutation storageBatch = storage.batch();
 
 		this.batchMutations.put(id, new BatchMutationLock(() -> {
-			this.batchMutations.remove(id);
-			storageBatch.close();
+					this.batchMutations.remove(id);
+					storageBatch.close();
 
-			if (this.batchMutations.isEmpty()) {
-				setChanged();
-			}
-		}));
+					if (this.batchMutations.isEmpty()) {
+						setChanged();
+					}
+				}));
 		return this.batchMutations.get(id);
 	}
 
@@ -838,8 +838,8 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	public VoxelShape provideShape(
 			final CollisionType type, final BlockPos offset, final boolean simplify) {
 		VoxelShape shape = new CubeVoxelShape(new MultiStateBlockEntityDiscreteVoxelShape(
-				this.mutableStatistics.getCollideableEntries(type, storage)
-		));
+						this.mutableStatistics.getCollideableEntries(type, storage)
+				));
 
 		if (offset != BlockPos.ZERO) {
 			shape = shape.move(offset.getX(), offset.getY(), offset.getZ());
@@ -964,7 +964,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			}
 
 			return Arrays.equals(this.getBackingData(), that.getBackingData())
-			&& this.getPalette().equals(that.getPalette());
+					&& this.getPalette().equals(that.getPalette());
 		}
 
 		@Override
@@ -1001,35 +1001,35 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		private static final BiFunction<LevelReader, BlockPos, Integer> LIGHT_BLOCK_GETTER = (levelReader, pos) -> levelReader.getBlockState(pos).getLightDampening();
 
 		public static final Codec<MutableStatistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),
-				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(MutableStatistics::getStateCounts),
-				CBCodecs.unboundedTable(Codec.INT, Codec.INT, ColumnStatistics.CODEC).fieldOf(NbtConstants.COLUMN_STATISTICS).forGetter(MutableStatistics::getColumnStatisticsTable),
-				Codec.unboundedMap(CollisionType.CODEC, CBCodecs.BIT_SET).fieldOf(NbtConstants.COLLISION_DATA).forGetter(MutableStatistics::getCollisionData),
-				BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(MutableStatistics::getPrimaryState),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_USED_BLOCK_COUNT).forGetter(MutableStatistics::getTotalUsedBlockCount),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_USED_CHECKS_WEAK_POWER_COUNT).forGetter(MutableStatistics::getTotalUsedChecksWeakPowerCount),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_LEVEL).forGetter(MutableStatistics::getTotalLightLevel),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_BLOCK_LEVEL).forGetter(MutableStatistics::getTotalLightBlockLevel),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_BE_FLOODED).forGetter(MutableStatistics::isCanBeFlooded),
-				Codec.BOOL.fieldOf(NbtConstants.EMITS_LIGHT_BASED_ON_FULL_BLOCK).forGetter(MutableStatistics::isEmitsLightBasedOnFullBlock),
-				Codec.BOOL.fieldOf(NbtConstants.REQUIRES_RECALCULATION).forGetter(MutableStatistics::isRequiresRecalculation)
+						BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),
+						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(MutableStatistics::getStateCounts),
+						CBCodecs.unboundedTable(Codec.INT, Codec.INT, ColumnStatistics.CODEC).fieldOf(NbtConstants.COLUMN_STATISTICS).forGetter(MutableStatistics::getColumnStatisticsTable),
+						Codec.unboundedMap(CollisionType.CODEC, CBCodecs.BIT_SET).fieldOf(NbtConstants.COLLISION_DATA).forGetter(MutableStatistics::getCollisionData),
+						BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(MutableStatistics::getPrimaryState),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_USED_BLOCK_COUNT).forGetter(MutableStatistics::getTotalUsedBlockCount),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_USED_CHECKS_WEAK_POWER_COUNT).forGetter(MutableStatistics::getTotalUsedChecksWeakPowerCount),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_LEVEL).forGetter(MutableStatistics::getTotalLightLevel),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_BLOCK_LEVEL).forGetter(MutableStatistics::getTotalLightBlockLevel),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_BE_FLOODED).forGetter(MutableStatistics::isCanBeFlooded),
+						Codec.BOOL.fieldOf(NbtConstants.EMITS_LIGHT_BASED_ON_FULL_BLOCK).forGetter(MutableStatistics::isEmitsLightBasedOnFullBlock),
+						Codec.BOOL.fieldOf(NbtConstants.REQUIRES_RECALCULATION).forGetter(MutableStatistics::isRequiresRecalculation)
 				).apply(instance, MutableStatistics::new));
 
 		public static final Codec<MutableStatistics> LEGACY_CODEC = MapCodec.unitCodec(MutableStatistics::new);
 
 		public static final MapCodec<MutableStatistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),
-				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(MutableStatistics::getStateCounts),
-				CBCodecs.unboundedTable(Codec.INT, Codec.INT, ColumnStatistics.CODEC).fieldOf(NbtConstants.COLUMN_STATISTICS).forGetter(MutableStatistics::getColumnStatisticsTable),
-				Codec.unboundedMap(CollisionType.CODEC, CBCodecs.BIT_SET).fieldOf(NbtConstants.COLLISION_DATA).forGetter(MutableStatistics::getCollisionData),
-				BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(MutableStatistics::getPrimaryState),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_USED_BLOCK_COUNT).forGetter(MutableStatistics::getTotalUsedBlockCount),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_USED_CHECKS_WEAK_POWER_COUNT).forGetter(MutableStatistics::getTotalUsedChecksWeakPowerCount),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_LEVEL).forGetter(MutableStatistics::getTotalLightLevel),
-				Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_BLOCK_LEVEL).forGetter(MutableStatistics::getTotalLightBlockLevel),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_BE_FLOODED).forGetter(MutableStatistics::isCanBeFlooded),
-				Codec.BOOL.fieldOf(NbtConstants.EMITS_LIGHT_BASED_ON_FULL_BLOCK).forGetter(MutableStatistics::isEmitsLightBasedOnFullBlock),
-				Codec.BOOL.fieldOf(NbtConstants.REQUIRES_RECALCULATION).forGetter(MutableStatistics::isRequiresRecalculation)
+						BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(MutableStatistics::getInWorldPos),
+						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(MutableStatistics::getStateCounts),
+						CBCodecs.unboundedTable(Codec.INT, Codec.INT, ColumnStatistics.CODEC).fieldOf(NbtConstants.COLUMN_STATISTICS).forGetter(MutableStatistics::getColumnStatisticsTable),
+						Codec.unboundedMap(CollisionType.CODEC, CBCodecs.BIT_SET).fieldOf(NbtConstants.COLLISION_DATA).forGetter(MutableStatistics::getCollisionData),
+						BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(MutableStatistics::getPrimaryState),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_USED_BLOCK_COUNT).forGetter(MutableStatistics::getTotalUsedBlockCount),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_USED_CHECKS_WEAK_POWER_COUNT).forGetter(MutableStatistics::getTotalUsedChecksWeakPowerCount),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_LEVEL).forGetter(MutableStatistics::getTotalLightLevel),
+						Codec.INT.fieldOf(NbtConstants.TOTAL_LIGHT_BLOCK_LEVEL).forGetter(MutableStatistics::getTotalLightBlockLevel),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_BE_FLOODED).forGetter(MutableStatistics::isCanBeFlooded),
+						Codec.BOOL.fieldOf(NbtConstants.EMITS_LIGHT_BASED_ON_FULL_BLOCK).forGetter(MutableStatistics::isEmitsLightBasedOnFullBlock),
+						Codec.BOOL.fieldOf(NbtConstants.REQUIRES_RECALCULATION).forGetter(MutableStatistics::isRequiresRecalculation)
 				).apply(instance, MutableStatistics::new));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, MutableStatistics> STREAM_CODEC = CBStreamCodecs.composite(
@@ -1227,9 +1227,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		public float getRelativeBlockHardness(final Player player) {
 			final double totalRelativeHardness = (this.countMap.entrySet().stream()
 					.mapToDouble(entry -> (double) entry.getKey().blockState().getDestroyProgress(
-							player,
-							createLevelReaderFor(player.level(), entry.getKey()),
-							inWorldPos
+									player,
+									createLevelReaderFor(player.level(), entry.getKey()),
+									inWorldPos
 							) * entry.getValue())
 					.filter(Double::isFinite)
 					.sum());
@@ -1257,9 +1257,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			return collisionData.computeIfAbsent(collisionType, type -> {
 				final BitSet bitSet = new BitSet(StateEntrySize.current().getBitsPerBlock());
 				BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), blockPos -> bitSet.set(
-						BlockPosUtils.getCollisionIndex(blockPos),
-						type.isValidFor(storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()).blockState())
-				));
+								BlockPosUtils.getCollisionIndex(blockPos),
+								type.isValidFor(storage.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()).blockState())
+						));
 
 				return bitSet;
 			});
@@ -1312,10 +1312,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				} else if (currentPrimary != primaryState) {
 					final Optional<Block> optionalWithConvertedBlock = IConversionManager.getInstance().getChiseledVariantOf(this.primaryState.blockState());
 					optionalWithConvertedBlock.ifPresent(convertedBlock -> levelAccessor.setBlock(
-							inWorldPos,
-							convertedBlock.defaultBlockState(),
-							Block.UPDATE_ALL
-					));
+									inWorldPos,
+									convertedBlock.defaultBlockState(),
+									Block.UPDATE_ALL
+							));
 				}
 			}
 		}
@@ -1369,10 +1369,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			}
 
 			this.totalLightLevel += usingLevelReader(levelAccessor, blockInformation, ILevelBasedPropertyAccessor.getInstance()::getLightEmission)
-			* StateEntrySize.current().getBitsPerBlock();
+					* StateEntrySize.current().getBitsPerBlock();
 
 			this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockInformation, LIGHT_BLOCK_GETTER)
-			* StateEntrySize.current().getBitsPerBlock();
+					* StateEntrySize.current().getBitsPerBlock();
 
 			this.columnStatisticsTable.clear();
 			IntStream.range(0, StateEntrySize.current().getBitsPerBlockSide())
@@ -1437,10 +1437,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				}
 
 				this.totalLightLevel += usingLevelReader(levelAccessor, blockState, ILevelBasedPropertyAccessor.getInstance()::getLightEmission)
-				* count;
+						* count;
 
 				this.totalLightBlockLevel += usingLevelReader(levelAccessor, blockState, LIGHT_BLOCK_GETTER)
-				* count;
+						* count;
 			});
 
 			BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
@@ -1497,23 +1497,23 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		private static final BiFunction<LevelReader, BlockPos, Boolean> BLOCKS_SKYLIGHT_GETTER = (levelReader, pos) -> levelReader.getBlockState(pos).propagatesSkylightDown();
 
 		public static final Codec<ColumnStatistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(ColumnStatistics::getInWorldPos),
-				CBCodecs.BIT_SET.fieldOf(NbtConstants.SKYLIGHT_BLOCKING_BITS).forGetter(ColumnStatistics::getSkylightBlockingBits),
-				CBCodecs.BIT_SET.fieldOf(NbtConstants.NONE_AIR_BITS).forGetter(ColumnStatistics::getNoneAirBits),
-				Codec.SHORT.fieldOf(NbtConstants.HIGHEST_BIT).forGetter(ColumnStatistics::getHighestBit),
-				Codec.FLOAT.fieldOf(NbtConstants.HIGHEST_BIT_FRICTION).forGetter(ColumnStatistics::getHighestBitFriction),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_PROPAGATE_SKYLIGHT_DOWN).forGetter(ColumnStatistics::canPropagateSkylightDown),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_LOWEST_BIT_SUSTAIN_GRASS).forGetter(ColumnStatistics::canLowestBitSustainGrass)
+						BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(ColumnStatistics::getInWorldPos),
+						CBCodecs.BIT_SET.fieldOf(NbtConstants.SKYLIGHT_BLOCKING_BITS).forGetter(ColumnStatistics::getSkylightBlockingBits),
+						CBCodecs.BIT_SET.fieldOf(NbtConstants.NONE_AIR_BITS).forGetter(ColumnStatistics::getNoneAirBits),
+						Codec.SHORT.fieldOf(NbtConstants.HIGHEST_BIT).forGetter(ColumnStatistics::getHighestBit),
+						Codec.FLOAT.fieldOf(NbtConstants.HIGHEST_BIT_FRICTION).forGetter(ColumnStatistics::getHighestBitFriction),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_PROPAGATE_SKYLIGHT_DOWN).forGetter(ColumnStatistics::canPropagateSkylightDown),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_LOWEST_BIT_SUSTAIN_GRASS).forGetter(ColumnStatistics::canLowestBitSustainGrass)
 				).apply(instance, ColumnStatistics::new));
 
 		public static final MapCodec<ColumnStatistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(ColumnStatistics::getInWorldPos),
-				CBCodecs.BIT_SET.fieldOf(NbtConstants.SKYLIGHT_BLOCKING_BITS).forGetter(ColumnStatistics::getSkylightBlockingBits),
-				CBCodecs.BIT_SET.fieldOf(NbtConstants.NONE_AIR_BITS).forGetter(ColumnStatistics::getNoneAirBits),
-				Codec.SHORT.fieldOf(NbtConstants.HIGHEST_BIT).forGetter(ColumnStatistics::getHighestBit),
-				Codec.FLOAT.fieldOf(NbtConstants.HIGHEST_BIT_FRICTION).forGetter(ColumnStatistics::getHighestBitFriction),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_PROPAGATE_SKYLIGHT_DOWN).forGetter(ColumnStatistics::canPropagateSkylightDown),
-				Codec.BOOL.fieldOf(NbtConstants.CAN_LOWEST_BIT_SUSTAIN_GRASS).forGetter(ColumnStatistics::canLowestBitSustainGrass)
+						BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(ColumnStatistics::getInWorldPos),
+						CBCodecs.BIT_SET.fieldOf(NbtConstants.SKYLIGHT_BLOCKING_BITS).forGetter(ColumnStatistics::getSkylightBlockingBits),
+						CBCodecs.BIT_SET.fieldOf(NbtConstants.NONE_AIR_BITS).forGetter(ColumnStatistics::getNoneAirBits),
+						Codec.SHORT.fieldOf(NbtConstants.HIGHEST_BIT).forGetter(ColumnStatistics::getHighestBit),
+						Codec.FLOAT.fieldOf(NbtConstants.HIGHEST_BIT_FRICTION).forGetter(ColumnStatistics::getHighestBitFriction),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_PROPAGATE_SKYLIGHT_DOWN).forGetter(ColumnStatistics::canPropagateSkylightDown),
+						Codec.BOOL.fieldOf(NbtConstants.CAN_LOWEST_BIT_SUSTAIN_GRASS).forGetter(ColumnStatistics::canLowestBitSustainGrass)
 				).apply(instance, ColumnStatistics::new));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, ColumnStatistics> STREAM_CODEC = CBStreamCodecs.composite(
@@ -1625,10 +1625,10 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				final BlockInformation blockInformation
 		) {
 			return ILevelBasedPropertyAccessor.getInstance().canBeGrass(createLevelReaderFor(levelAccessor, blockInformation),
-					Blocks.GRASS_BLOCK.defaultBlockState(),
-					inWorldPos.below(),
-					blockInformation.blockState(),
-					inWorldPos);
+							Blocks.GRASS_BLOCK.defaultBlockState(),
+							inWorldPos.below(),
+							blockInformation.blockState(),
+							inWorldPos);
 		}
 
 		private Integer getLightBlockInto(
@@ -1740,17 +1740,17 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			MutableStatistics mutableStatistics) {
 		public static final Codec<Payload> CODEC = CBCodecs.compressed(
 				RecordCodecBuilder.create(instance -> instance.group(
-						StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(Payload::storage),
-						MutableStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(Payload::mutableStatistics)
+								StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(Payload::storage),
+								MutableStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(Payload::mutableStatistics)
 						).apply(instance, Payload::new))
 		);
 
 		private static final Codec<Payload> LEGACY_CODEC = CompressedDataFindingCodec.of(CBCodecs.readLegacyCompressed(
-				RecordCodecBuilder.create(instance -> instance.group(
-						StateEntryStorage.LEGACY_CODEC.fieldOf(NbtConstants.LEGACY_CHISELED_DATA).forGetter(Payload::storage),
-						MutableStatistics.LEGACY_CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(Payload::mutableStatistics)
-						).apply(instance, Payload::new))
-		));
+						RecordCodecBuilder.create(instance -> instance.group(
+										StateEntryStorage.LEGACY_CODEC.fieldOf(NbtConstants.LEGACY_CHISELED_DATA).forGetter(Payload::storage),
+										MutableStatistics.LEGACY_CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(Payload::mutableStatistics)
+								).apply(instance, Payload::new))
+				));
 
 		public static final MapCodec<Payload> MAP_CODEC = CODEC.fieldOf(NbtConstants.PAYLOAD);
 

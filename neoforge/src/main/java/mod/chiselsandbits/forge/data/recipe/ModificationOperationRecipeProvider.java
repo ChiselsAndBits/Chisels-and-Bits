@@ -22,28 +22,28 @@ public class ModificationOperationRecipeProvider extends RecipeProvider {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true,
-			new Runner(event.getGenerator().getPackOutput(), event.getLookupProvider()) {
-				@Override
-				protected RecipeProvider createRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output) {
-					return new ModificationOperationRecipeProvider(registries, output);
-				}
+				new Runner(event.getGenerator().getPackOutput(), event.getLookupProvider()) {
+					@Override
+					protected RecipeProvider createRecipeProvider(final HolderLookup.Provider registries, final RecipeOutput output) {
+						return new ModificationOperationRecipeProvider(registries, output);
+					}
 
-				@Override
-				public String getName() {
-					return "Modification table recipes";
-				}
-			});
+					@Override
+					public String getName() {
+						return "Modification table recipes";
+					}
+				});
 	}
 
 	@Override
 	protected void buildRecipes() {
 		ModModificationOperation.REGISTRY_SUPPLIER.get().forEach(
-				operation -> {
-					this.output.accept(
-							ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
-						new ModificationTableRecipe(operation),
-							null
-					);
-				});
+						operation -> {
+							this.output.accept(
+									ResourceKey.create(Registries.RECIPE, operation.getRegistryName()),
+									new ModificationTableRecipe(operation),
+									null
+							);
+						});
 	}
 }

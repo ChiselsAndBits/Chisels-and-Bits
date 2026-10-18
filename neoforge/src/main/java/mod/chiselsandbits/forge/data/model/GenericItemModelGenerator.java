@@ -38,19 +38,19 @@ public class GenericItemModelGenerator extends ModelProvider {
 	@Override
 	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
-				ModItems.ITEM_CHISEL_STONE.get(),
-				ModItems.ITEM_CHISEL_COPPER.get(),
-				ModItems.ITEM_CHISEL_IRON.get(),
-				ModItems.ITEM_CHISEL_GOLD.get(),
-				ModItems.ITEM_CHISEL_DIAMOND.get(),
-				ModItems.ITEM_CHISEL_NETHERITE.get(),
-				ModItems.MAGNIFYING_GLASS.get(),
-				ModItems.ITEM_BIT_BAG.get(),
-				ModItems.LEGACY_ITEM_BIT_BAG_DYED.get(),
-				ModItems.SINGLE_USE_PATTERN_ITEM.get(),
-				ModItems.MULTI_USE_PATTERN_ITEM.get(),
-				ModItems.WRENCH.get(),
-				ModItems.MONOCLE_ITEM.get()
+						ModItems.ITEM_CHISEL_STONE.get(),
+						ModItems.ITEM_CHISEL_COPPER.get(),
+						ModItems.ITEM_CHISEL_IRON.get(),
+						ModItems.ITEM_CHISEL_GOLD.get(),
+						ModItems.ITEM_CHISEL_DIAMOND.get(),
+						ModItems.ITEM_CHISEL_NETHERITE.get(),
+						ModItems.MAGNIFYING_GLASS.get(),
+						ModItems.ITEM_BIT_BAG.get(),
+						ModItems.LEGACY_ITEM_BIT_BAG_DYED.get(),
+						ModItems.SINGLE_USE_PATTERN_ITEM.get(),
+						ModItems.MULTI_USE_PATTERN_ITEM.get(),
+						ModItems.WRENCH.get(),
+						ModItems.MONOCLE_ITEM.get()
 				).map(Item::builtInRegistryHolder);
 	}
 

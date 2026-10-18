@@ -109,9 +109,9 @@ public interface IPositionMutator {
 	 */
 	static IPositionMutator fromAxis(final Direction.Axis axis) {
 		return switch (axis) {
-		case X -> IPositionMutator.xyz();
-		case Y -> IPositionMutator.yxz();
-		case Z -> IPositionMutator.zxy();
+			case X -> IPositionMutator.xyz();
+			case Y -> IPositionMutator.yxz();
+			case Z -> IPositionMutator.zxy();
 		};
 
 	}

@@ -45,7 +45,7 @@ public class MeasuringTapeModelGenerator extends ModelProvider {
 	@Override
 	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		final ItemModel.Unbaked model = ItemModelUtils.conditional(
-			new IsMeasuringItemProperty(),
+				new IsMeasuringItemProperty(),
 				ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.MEASURING_TAPE.get(), "_default", ModelTemplates.FLAT_ITEM)),
 				ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.MEASURING_TAPE.get(), "_is_measuring", FLAT_ITEM_IS_MEASURING))
 		);

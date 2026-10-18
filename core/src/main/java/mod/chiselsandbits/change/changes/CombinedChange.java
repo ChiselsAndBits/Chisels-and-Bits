@@ -17,7 +17,7 @@ public class CombinedChange implements IChange {
 	public static final MapCodec<CombinedChange> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					IChange.CODEC.listOf().fieldOf("changes").forGetter(CombinedChange::getChanges)
-					).apply(instance, CombinedChange::new)
+			).apply(instance, CombinedChange::new)
 	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, CombinedChange> STREAM_CODEC = StreamCodec.composite(

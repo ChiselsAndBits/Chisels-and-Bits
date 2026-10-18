@@ -10,7 +10,7 @@ public class ClassUtils {
 	private record ClassLookupResult(@Nullable Class<?> clazz, boolean isPresent) {
 	}
 
-	private static final SimpleMaxSizedCache<Key, ClassLookupResult> CACHE = new SimpleMaxSizedCache<>(ICommonConfiguration.getInstance().getClassMetadataCacheSize()::get);
+			private static final SimpleMaxSizedCache<Key, ClassLookupResult> CACHE = new SimpleMaxSizedCache<>(ICommonConfiguration.getInstance().getClassMetadataCacheSize()::get);
 
 	private ClassUtils() {
 		throw new IllegalStateException("Can not instantiate an instance of: ClassUtils.This is a utility class");
@@ -35,7 +35,7 @@ public class ClassUtils {
 			final String methodName,
 			final Class<?>... args) {
 		return CACHE.get(
-			new Key(blkClass, methodName, args),
+				new Key(blkClass, methodName, args),
 				() -> {
 					try {
 						return new ClassLookupResult(blkClass.getMethod(methodName, args).getDeclaringClass(), true);

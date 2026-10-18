@@ -22,7 +22,7 @@ public final class ModMetadataKeys {
 	private static final ICustomRegistrar<IMetadataKey<?>> KEY_REGISTRAR = ICustomRegistrar.create(IMetadataKey.class, Constants.MOD_ID);
 
 	public static final Supplier<ICustomRegistry<IMetadataKey<?>>
-	> REGISTRY_SUPPLIER = KEY_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple
+			> REGISTRY_SUPPLIER = KEY_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple
 	);
 
 	public static final Supplier<IMetadataKey<Vec3>> ANCHOR = KEY_REGISTRAR.register("anchor", () -> new SimpleMetadataKey<>() {
@@ -50,8 +50,8 @@ public final class ModMetadataKeys {
 		@Override
 		public Set<Vec3i> snapshot(final Set<Vec3i> value) {
 			return value.stream()
-			.map(val -> new Vec3i(val.getX(), val.getY(), val.getZ()))
-			.collect(Collectors.toSet());
+					.map(val -> new Vec3i(val.getX(), val.getY(), val.getZ()))
+					.collect(Collectors.toSet());
 		}
 	});
 

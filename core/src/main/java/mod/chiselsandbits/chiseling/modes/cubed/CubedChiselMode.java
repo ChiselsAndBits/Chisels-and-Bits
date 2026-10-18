@@ -75,31 +75,31 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		context.setComplete();
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			try (IBatchMutation ignored =
-				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+					try (IBatchMutation ignored =
+							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final int totalItemDamage = mutator.inWorldMutableStream()
-					.mapToInt(state -> {
-						final BlockInformation currentState = state.getBlockInformation();
-						return context.tryDamageItemAndDoOrSetBrokenError(
-								() -> {
-									resultingBitCount.putIfAbsent(currentState, 0);
-									resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+						final int totalItemDamage = mutator.inWorldMutableStream()
+								.mapToInt(state -> {
+									final BlockInformation currentState = state.getBlockInformation();
+									return context.tryDamageItemAndDoOrSetBrokenError(
+											() -> {
+												resultingBitCount.putIfAbsent(currentState, 0);
+												resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-									state.clear();
-								});
-					}).sum();
+												state.clear();
+									});
+								}).sum();
 
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
-				}
+						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+										playerEntity,
+										blockState,
+										count
+								));
+					}
 
-			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT)
+					return ClickProcessingState.ALLOW;
+				}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -122,43 +122,43 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+					final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-			if (heldBlockState.isAir()) {
-				return ClickProcessingState.DEFAULT;
-			}
-
-			final int missingBitCount = (int) mutator.stream()
-			.filter(state -> state.getBlockInformation().isAir())
-			.count();
-
-			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
-
-			context.setComplete();
-
-			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-				if (!playerEntity.isCreative()) {
-					playerBitInventory.extract(heldBlockState, missingBitCount);
-				}
-
-				try (IBatchMutation ignored =
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir())
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+					if (heldBlockState.isAir()) {
+						return ClickProcessingState.DEFAULT;
 					}
-			} else {
-				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-			}
 
-			if (missingBitCount == 0) {
-				if (!context.validateBuildHeights()) {
-					return ClickProcessingState.DENIED;
-				}
-			}
+					final int missingBitCount = (int) mutator.stream()
+							.filter(state -> state.getBlockInformation().isAir())
+							.count();
 
-			return ClickProcessingState.ALLOW;
-		}).orElse(ClickProcessingState.DEFAULT)
+					final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+
+					context.setComplete();
+
+					if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+						if (!playerEntity.isCreative()) {
+							playerBitInventory.extract(heldBlockState, missingBitCount);
+						}
+
+						try (IBatchMutation ignored =
+								mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+							mutator.inWorldMutableStream()
+									.filter(state -> state.getBlockInformation().isAir())
+									.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+						}
+					} else {
+						context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+					}
+
+					if (missingBitCount == 0) {
+						if (!context.validateBuildHeights()) {
+							return ClickProcessingState.DENIED;
+						}
+					}
+
+					return ClickProcessingState.ALLOW;
+				}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -201,8 +201,8 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		Vec3 alignmentOffset = Vec3.ZERO;
 		final Vec3 fullFacingVector = fullFacingVectorAdapter.apply(aligned ? new Vec3(1, 1, 1) : Vec3.atLowerCornerOf(
-				RayTracingUtils.getFullFacingVector(playerEntity)
-		));
+						RayTracingUtils.getFullFacingVector(playerEntity)
+				));
 
 		if (aligned) {
 			final Vec3 inBlockOffset = hitVector.subtract(Vec3.atLowerCornerOf(VectorUtils.toInteger(hitVector)));
@@ -234,12 +234,12 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 		final Vec3 finalAlignmentOffset = alignmentOffset.multiply(fullFacingVector);
 		BlockPosStreamProvider.getForRange(bitsPerSide)
 				.forEach(bitPos -> context.include(
-						hitVector
-						.subtract(finalAlignmentOffset)
-						.add(Vec3.atLowerCornerOf(bitPos)
-								.multiply(fullFacingVector)
-								.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
-				));
+								hitVector
+								.subtract(finalAlignmentOffset)
+								.add(Vec3.atLowerCornerOf(bitPos)
+										.multiply(fullFacingVector)
+										.multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
+						));
 
 		return Optional.empty();
 	}

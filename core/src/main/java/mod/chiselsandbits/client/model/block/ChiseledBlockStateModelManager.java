@@ -82,10 +82,10 @@ public class ChiseledBlockStateModelManager {
 			final List<@Nullable Object> cacheKeys = accessor.getStatistics().getContainedStates()
 					.stream()
 					.map(state -> IModelManager.getInstance().determineModelCacheKey(
-							state.blockState(),
-							() -> state.newBlockEntity(blockPos),
-							blockAndTintGetter,
-							blockPos
+									state.blockState(),
+									() -> state.newBlockEntity(blockPos),
+									blockAndTintGetter,
+									blockPos
 					))
 					.toList();
 
@@ -99,13 +99,13 @@ public class ChiseledBlockStateModelManager {
 			return cache.get(key,
 					() -> {
 						try (IProfilerSection ignored3 = ProfilingManager.getInstance().withSection("Cache mis")) {
-					return new ChiseledBlockModelInformationBuilder(
-							accessor,
-							key,
-							blockAndTintGetter,
-							blockPos
-							).build();
-				}
+							return new ChiseledBlockModelInformationBuilder(
+											accessor,
+											key,
+											blockAndTintGetter,
+											blockPos
+									).build();
+						}
 					});
 		}
 	}

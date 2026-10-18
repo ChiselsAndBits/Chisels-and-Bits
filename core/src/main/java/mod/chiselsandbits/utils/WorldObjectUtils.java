@@ -25,8 +25,8 @@ public class WorldObjectUtils {
 		final Vec3 bEnd = b.getInWorldEndPoint();
 
 		return bStart.x() <= aStart.x() && aEnd.x() <= bEnd.x()
-		&& bStart.y() <= aStart.y() && aEnd.y() <= bEnd.y()
-		&& bStart.z() <= aStart.z() && aEnd.z() <= bEnd.z();
+				&& bStart.y() <= aStart.y() && aEnd.y() <= bEnd.y()
+				&& bStart.z() <= aStart.z() && aEnd.z() <= bEnd.z();
 	}
 
 	public static boolean isACoveringB(final IWorldObject a, final IWorldObject b) {
@@ -41,13 +41,13 @@ public class WorldObjectUtils {
 		final Vec3 bUpperRightFront = new Vec3(bUpperRightBack.x(), bUpperRightBack.y(), bLowerLeftFront.z());
 
 		return isPointInside(a, bLowerLeftFront)
-		|| isPointInside(a, bUpperRightBack)
-		|| isPointInside(a, bLowerLeftBack)
-		|| isPointInside(a, bLowerRightFront)
-		|| isPointInside(a, bUpperLeftFront)
-		|| isPointInside(a, bLowerRightBack)
-		|| isPointInside(a, bUpperLeftBack)
-		|| isPointInside(a, bUpperRightFront);
+				|| isPointInside(a, bUpperRightBack)
+				|| isPointInside(a, bLowerLeftBack)
+				|| isPointInside(a, bLowerRightFront)
+				|| isPointInside(a, bUpperLeftFront)
+				|| isPointInside(a, bLowerRightBack)
+				|| isPointInside(a, bUpperLeftBack)
+				|| isPointInside(a, bUpperRightFront);
 	}
 
 	public static boolean isPointInside(final IWorldObject a, final Vec3 point) {
@@ -55,7 +55,7 @@ public class WorldObjectUtils {
 		final Vec3 aEnd = a.getInWorldEndPoint();
 
 		return aStart.x() <= point.x() && point.x() <= aEnd.x()
-		&& aStart.y() <= point.y() && point.y() <= aEnd.y()
-		&& aStart.z() <= point.z() && point.z() <= aEnd.z();
+				&& aStart.y() <= point.y() && point.y() <= aEnd.y()
+				&& aStart.z() <= point.z() && point.z() <= aEnd.z();
 	}
 }

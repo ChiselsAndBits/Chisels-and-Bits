@@ -65,8 +65,8 @@ public class ModificationRecipesUpdated extends ModPacket {
 				() -> () -> {
 					if (Minecraft.getInstance().player != null
 							&& Minecraft.getInstance().player.containerMenu instanceof ModificationTableContainer modificationTableContainer) {
-								modificationTableContainer.setRecipes(this.recipes);
-							}
+						modificationTableContainer.setRecipes(this.recipes);
+					}
 				});
 	}
 }

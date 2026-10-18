@@ -210,15 +210,15 @@ public final class StateVariantManager implements IStateVariantManager {
 
 		if (!providers.containsKey(blockInformation.blockState().getBlock())) {
 			return Optional.ofNullable(ILevelBasedPropertyAccessor.getInstance().getBeaconColorMultiplier(
-				new SingleBlockLevelReader.Builder()
-					.withBlockState(blockInformation.blockState())
-					.withBlockEntity(() -> blockInformation.newBlockEntity(pos))
-					.withPos(pos)
-					.withSource(levelReader)
-					.createSingleBlockLevelReader(),
-					pos,
-					beaconPos
-			));
+							new SingleBlockLevelReader.Builder()
+							.withBlockState(blockInformation.blockState())
+							.withBlockEntity(() -> blockInformation.newBlockEntity(pos))
+							.withPos(pos)
+							.withSource(levelReader)
+							.createSingleBlockLevelReader(),
+							pos,
+							beaconPos
+					));
 		}
 
 		return blockInformation.variant().flatMap(variant -> providers.get(blockInformation.blockState().getBlock()).getBeaconColorMultiplier(blockInformation, levelReader, pos, beaconPos));

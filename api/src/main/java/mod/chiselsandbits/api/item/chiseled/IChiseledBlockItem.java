@@ -21,9 +21,9 @@ public interface IChiseledBlockItem extends IMultiStateItem, IPlacementPreviewPr
 	default VoxelShape getWireFrame(
 			final ItemStack stack, final Player player, final BlockHitResult rayTraceResult) {
 		return IVoxelShapeManager.getInstance().get(
-				createItemStack(stack),
-				CollisionType.NONE_AIR
-		);
+						createItemStack(stack),
+						CollisionType.NONE_AIR
+				);
 	}
 
 	@Override

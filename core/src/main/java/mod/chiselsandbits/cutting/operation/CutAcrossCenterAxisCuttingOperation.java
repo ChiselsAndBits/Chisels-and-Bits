@@ -61,9 +61,9 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 	@Override
 	public Component getDisplayName() {
 		return switch (axis) {
-		case X -> LocalStrings.PatternCuttingAcrossXAxis.getText();
-		case Y -> LocalStrings.PatternCuttingAcrossYAxis.getText();
-		case Z -> LocalStrings.PatternCuttingAcrossZAxis.getText();
+			case X -> LocalStrings.PatternCuttingAcrossXAxis.getText();
+			case Y -> LocalStrings.PatternCuttingAcrossYAxis.getText();
+			case Z -> LocalStrings.PatternCuttingAcrossZAxis.getText();
 		};
 
 	}

@@ -44,10 +44,10 @@ public class RightClickInteractionHandler {
 						hand,
 						position,
 						hitFace,
-					new ClickProcessingState(
-							currentCancellationState,
-							currentItemUsageState
-					)
+						new ClickProcessingState(
+								currentCancellationState,
+								currentItemUsageState
+						)
 				);
 			}
 		}
@@ -81,10 +81,10 @@ public class RightClickInteractionHandler {
 						interactionHand,
 						rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getBlockPos() : new BlockPos(0, -1000, 0),
 						rayTrace instanceof BlockHitResult ? ((BlockHitResult) rayTrace).getDirection() : Direction.UP,
-					new ClickProcessingState(
-							currentCancellationState,
-							currentItemUsageState
-					)
+						new ClickProcessingState(
+								currentCancellationState,
+								currentItemUsageState
+						)
 				);
 			}
 		}

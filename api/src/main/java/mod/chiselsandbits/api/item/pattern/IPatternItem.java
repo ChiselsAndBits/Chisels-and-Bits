@@ -24,11 +24,11 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 	default VoxelShape getWireFrame(
 			final ItemStack stack, final Player player, final BlockHitResult rayTraceResult) {
 		return getMode(stack).buildVoxelShapeForWireframe(
-				createItemStack(stack).createSnapshot(),
-				player,
-				rayTraceResult.getLocation(),
-				rayTraceResult.getDirection()
-		);
+						createItemStack(stack).createSnapshot(),
+						player,
+						rayTraceResult.getLocation(),
+						rayTraceResult.getDirection()
+				);
 	}
 
 	@Override
@@ -44,16 +44,16 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 	@Override
 	default PlacementResult getPlacementResult(ItemStack heldStack, Player player, BlockHitResult blockHitResult) {
 		return this.getMode(heldStack).performPlacement(
-				createItemStack(heldStack).createSnapshot(),
-			new BlockPlaceContext(
-					player,
-					player.getMainHandItem() == heldStack
-					? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND,
-					heldStack,
-					blockHitResult
-			),
-				true
-		);
+						createItemStack(heldStack).createSnapshot(),
+						new BlockPlaceContext(
+								player,
+								player.getMainHandItem() == heldStack
+								? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND,
+								heldStack,
+								blockHitResult
+						),
+						true
+				);
 	}
 
 	@Override

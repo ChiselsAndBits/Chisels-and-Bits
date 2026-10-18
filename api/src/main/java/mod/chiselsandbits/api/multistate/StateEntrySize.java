@@ -14,26 +14,26 @@ public enum StateEntrySize
 	 */
 	ONE_SIXTEENTH(16),
 
-	/**
-	 * 8 Bits per block.
-	 */
-	ONE_EIGHT(8),
+			/**
+			 * 8 Bits per block.
+			 */
+			ONE_EIGHT(8),
 
-	/**
-	 * 4 Bits per block.
-	 */
-	ONE_QUARTER(4),
+			/**
+			 * 4 Bits per block.
+			 */
+			ONE_QUARTER(4),
 
-	/**
-	 * 2 Bits per block.
-	 */
-	ONE_HALF(2),
+			/**
+			 * 2 Bits per block.
+			 */
+			ONE_HALF(2),
 
-	/**
-	 * 1 Bit per block side.
-	 * Generally only used for testing.
-	 */
-	ONE(1);
+			/**
+			 * 1 Bit per block side.
+			 * Generally only used for testing.
+			 */
+			ONE(1);
 
 	private static StateEntrySize _current = null;
 

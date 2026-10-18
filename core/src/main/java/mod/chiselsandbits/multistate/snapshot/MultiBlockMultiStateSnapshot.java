@@ -52,19 +52,19 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 					CBCodecs.unboundedComplexMap(
 							BlockPos.CODEC,
 							IMultiStateSnapshot.CODEC
-							).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
+					).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
 					Vec3.CODEC.fieldOf(NbtConstants.START).forGetter(MultiBlockMultiStateSnapshot::getStartPoint),
 					Vec3.CODEC.fieldOf(NbtConstants.END).forGetter(MultiBlockMultiStateSnapshot::getEndPoint)
-					).apply(instance, MultiBlockMultiStateSnapshot::new)
+			).apply(instance, MultiBlockMultiStateSnapshot::new)
 	);
 
 	public static final MapCodec<MultiBlockMultiStateSnapshot> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			CBCodecs.unboundedComplexMap(
-					BlockPos.CODEC,
-					IMultiStateSnapshot.CODEC
+					CBCodecs.unboundedComplexMap(
+							BlockPos.CODEC,
+							IMultiStateSnapshot.CODEC
 					).fieldOf(NbtConstants.SNAPSHOTS).forGetter(MultiBlockMultiStateSnapshot::getSnapshots),
-			Vec3.CODEC.fieldOf(NbtConstants.START).forGetter(MultiBlockMultiStateSnapshot::getStartPoint),
-			Vec3.CODEC.fieldOf(NbtConstants.END).forGetter(MultiBlockMultiStateSnapshot::getEndPoint)
+					Vec3.CODEC.fieldOf(NbtConstants.START).forGetter(MultiBlockMultiStateSnapshot::getStartPoint),
+					Vec3.CODEC.fieldOf(NbtConstants.END).forGetter(MultiBlockMultiStateSnapshot::getEndPoint)
 			).apply(instance, MultiBlockMultiStateSnapshot::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, MultiBlockMultiStateSnapshot> STREAM_CODEC = StreamCodec.composite(
@@ -142,10 +142,10 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		final Map<BlockPos, IMultiStateSnapshot> copiedSnapshots = snapshots.keySet()
 				.stream()
 				.collect(Collectors.toMap(
-						Function.identity(),
-						pos -> snapshots.get(pos).createSnapshot()
+								Function.identity(),
+								pos -> snapshots.get(pos).createSnapshot()
 				)
-				);
+		);
 
 		return new MultiBlockMultiStateSnapshot(
 				copiedSnapshots,
@@ -157,9 +157,9 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(
-				startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
-				endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
-		)
+						startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
+						endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
+				)
 				.map(positionMutator::mutate)
 				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
 				.map(position -> {
@@ -370,10 +370,10 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 			@Override
 			public Map<BlockInformation, Integer> getStateCounts() {
 				return stream().collect(Collectors.toMap(
-						IStateEntryInfo::getBlockInformation,
-						s -> 1,
-						Integer::sum
-				));
+										IStateEntryInfo::getBlockInformation,
+										s -> 1,
+										Integer::sum
+								));
 			}
 
 			@Override
@@ -438,8 +438,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.rotate(axis, rotationCount);
 									return clone;
-								})
-				);
+						})
+		);
 
 		final Vec3 rotatedStartPoint = VectorUtils.rotateMultipleTimes90Degrees(startPoint.subtract(center), axis, rotationCount).add(center);
 		final Vec3 rotatedEndPoint = VectorUtils.rotateMultipleTimes90Degrees(endPoint.subtract(center), axis, rotationCount).add(center);
@@ -461,11 +461,11 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 						Collectors.toMap(
 								e -> {
 									final int mirroredX =
-				axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
+											axis == Direction.Axis.X ? (int) (center.x() - e.getKey().getX()) : e.getKey().getX();
 									final int mirroredY =
-				axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
+											axis == Direction.Axis.Y ? (int) (center.y() - e.getKey().getY()) : e.getKey().getY();
 									final int mirroredZ =
-				axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
+											axis == Direction.Axis.Z ? (int) (center.z() - e.getKey().getZ()) : e.getKey().getZ();
 
 									return new BlockPos(mirroredX, mirroredY, mirroredZ);
 								},
@@ -475,8 +475,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.mirror(axis);
 									return clone;
-								})
-				);
+						})
+		);
 	}
 
 	@Override
@@ -486,8 +486,8 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 						Collectors.toMap(
 								Map.Entry::getKey,
 								e -> e.getValue().clone()
-						)
-				);
+				)
+		);
 
 		return new MultiBlockMultiStateSnapshot(
 				clonedSnapshots,

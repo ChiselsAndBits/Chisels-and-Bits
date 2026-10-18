@@ -42,15 +42,15 @@ public class ChangeTracker implements IChangeTracker {
 		}
 
 		changes.addFirst(
-			new CombinedChange(
-					beforeStates.entrySet().stream()
-					.map(e -> new BitChange(
-							e.getKey(),
-							e.getValue(),
-							afterState.get(e.getKey())
-					))
-					.collect(Collectors.toList())
-			)
+				new CombinedChange(
+						beforeStates.entrySet().stream()
+						.map(e -> new BitChange(
+										e.getKey(),
+										e.getValue(),
+										afterState.get(e.getKey())
+								))
+						.collect(Collectors.toList())
+				)
 		);
 
 		currentIndex = 0;

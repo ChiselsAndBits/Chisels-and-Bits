@@ -64,8 +64,8 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 			}
 
 			return mutableComponent.copy().append(" - ").append(
-					Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
-			);
+							Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
+					);
 		} else {
 			return super.getName(stack);
 		}

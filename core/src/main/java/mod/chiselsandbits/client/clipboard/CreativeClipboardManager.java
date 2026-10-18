@@ -124,7 +124,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 
 		cache.forEach(stack -> {
 			ModCreativeTabs.CLIPBOARD.get()
-			.displayItems.add(stack.toBlockStack());
+					.displayItems.add(stack.toBlockStack());
 		});
 
 		if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {

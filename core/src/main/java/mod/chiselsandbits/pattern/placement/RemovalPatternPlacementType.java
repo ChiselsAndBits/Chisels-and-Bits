@@ -49,31 +49,31 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		final BlockPos targetedPosition = hitFace.getAxisDirection() == Direction.AxisDirection.NEGATIVE ? VectorUtils.toBlockPos(targetedPoint) : VectorUtils.toBlockPos(targetedPoint).offset(hitFace.getOpposite().getUnitVec3i());
 		final VoxelShape targetingShape = BlockPosStreamProvider.getForRange(
-				player.isShiftKeyDown() ? targetedPoint : Vec3.atLowerCornerOf(targetedPosition),
-				player.isShiftKeyDown() ? targetedPoint.add(0.9999, 0.9999, 0.9999) : Vec3.atLowerCornerOf(targetedPosition)
+						player.isShiftKeyDown() ? targetedPoint : Vec3.atLowerCornerOf(targetedPosition),
+						player.isShiftKeyDown() ? targetedPoint.add(0.9999, 0.9999, 0.9999) : Vec3.atLowerCornerOf(targetedPosition)
 				).map(position -> player.level().getBlockState(position).getShape(
-						player.level(),
-						position
+								player.level(),
+								position
 						).move(
 								position.getX() - targetedPosition.getX(),
 								position.getY() - targetedPosition.getY(),
 								position.getZ() - targetedPosition.getZ()
-						)
-						).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
+				)
+				).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
 
 		final Vec3 offSet = player.isShiftKeyDown()
 				? new Vec3(
 						targetedPoint.x() - targetedPosition.getX(),
 						targetedPoint.y() - targetedPosition.getY(),
 						targetedPoint.z() - targetedPosition.getZ()
-						) : Vec3.ZERO;
+				) : Vec3.ZERO;
 		final VoxelShape ownShape = ModPatternPlacementTypes.REMOVAL.get().buildVoxelShapeForWireframe(
-				sourceSnapshot, player, targetedPoint, hitFace
+						sourceSnapshot, player, targetedPoint, hitFace
 				).move(
 						offSet.x(),
 						offSet.y(),
 						offSet.z()
-				);
+		);
 
 		return Shapes.join(
 				targetingShape, ownShape, BooleanOp.ONLY_FIRST
@@ -87,11 +87,11 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator =
-			IMutatorFactory.getInstance().covering(
-					context.getLevel(),
-					targetedPosition,
-					targetedPosition.add(0.9999, 0.9999, 0.9999)
-			);
+				IMutatorFactory.getInstance().covering(
+							context.getLevel(),
+							targetedPosition,
+							targetedPosition.add(0.9999, 0.9999, 0.9999)
+		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -108,7 +108,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-				})
+		})
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
@@ -123,22 +123,22 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
 					return o
-					.filter(os -> !os.getBlockInformation().isAir())
-					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
-					.orElse(false);
-				})
+							.filter(os -> !os.getBlockInformation().isAir())
+							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
+							.orElse(false);
+		})
 				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toMap(
-						IStateEntryInfo::getBlockInformation,
-						s -> 1,
-						Integer::sum
+								IStateEntryInfo::getBlockInformation,
+								s -> 1,
+								Integer::sum
 				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
-		|| totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
+				|| totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace) {
 			return PlacementResult.failure(

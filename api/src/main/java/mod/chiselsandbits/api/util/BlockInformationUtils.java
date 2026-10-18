@@ -5,6 +5,7 @@ import com.communi.suggestu.scena.core.registries.IPlatformRegistryManager;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
+
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +32,7 @@ public class BlockInformationUtils {
 
 		Block candidate = blocks.getValues().stream().skip(
 				random.nextInt(blocks.getValues().size())
-				).findFirst().get();
+		).findFirst().get();
 
 		BlockInformation blockInformation = new BlockInformation(
 				candidate.defaultBlockState(),
@@ -41,7 +42,7 @@ public class BlockInformationUtils {
 		while (!IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
 			candidate = blocks.getValues().stream().skip(
 					random.nextInt(blocks.getValues().size())
-					).findFirst().get();
+			).findFirst().get();
 
 			blockInformation = new BlockInformation(
 					candidate.defaultBlockState(),
@@ -66,8 +67,8 @@ public class BlockInformationUtils {
 		final BlockInformation[] blockLookup = blocks.getValues().stream()
 				.parallel()
 				.map(block -> new BlockInformation(
-						block.defaultBlockState(),
-						IStateVariantManager.getInstance().getStateVariant(block.defaultBlockState(), Optional.empty())
+								block.defaultBlockState(),
+								IStateVariantManager.getInstance().getStateVariant(block.defaultBlockState(), Optional.empty())
 				))
 				.filter(blockInformation -> IEligibilityManager.getInstance().canBeChiseled(blockInformation))
 				.toArray(BlockInformation[]::new);

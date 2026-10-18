@@ -72,7 +72,7 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 						});
 
 						quadsByTints.computeIfAbsent(tints, (_) -> new ArrayList<>())
-							.add(generatedQuad.quad());
+								.add(generatedQuad.quad());
 					});
 		}
 

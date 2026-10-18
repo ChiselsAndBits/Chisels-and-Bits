@@ -36,9 +36,9 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 	@Override
 	public Component getDisplayName() {
 		return switch (axis) {
-		case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
-		case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
-		case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
+			case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
+			case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
+			case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
 		};
 
 	}

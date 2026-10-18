@@ -48,8 +48,8 @@ public record ChiseledBlockModelPart(
 
 							for (BakedQuad bakedquad : quads.getAll()) {
 								for (int i = 0; i < 4; i++) {
-					set.add(bakedquad.position(i));
-				}
+									set.add(bakedquad.position(i));
+								}
 							}
 
 							return set.toArray(Vector3fc[]::new);

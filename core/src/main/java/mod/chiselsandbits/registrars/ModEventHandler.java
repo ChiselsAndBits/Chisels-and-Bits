@@ -58,9 +58,9 @@ public final class ModEventHandler {
 			private static ClickProcessingState.ProcessingResult mapResult(
 					final IPlayerLeftClickBlockEvent.Result result) {
 				return switch (result.useItemResult()) {
-				case DENY -> ClickProcessingState.ProcessingResult.DENY;
-				case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
-				case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
+					case DENY -> ClickProcessingState.ProcessingResult.DENY;
+					case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
+					case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 				};
 
 			}
@@ -69,9 +69,9 @@ public final class ModEventHandler {
 					final ClickProcessingState.ProcessingResult processingResult
 			) {
 				return switch (processingResult) {
-				case DENY -> ProcessingResult.DENY;
-				case DEFAULT -> ProcessingResult.DEFAULT;
-				case ALLOW -> ProcessingResult.ALLOW;
+					case DENY -> ProcessingResult.DENY;
+					case DEFAULT -> ProcessingResult.DEFAULT;
+					case ALLOW -> ProcessingResult.ALLOW;
 				};
 
 			}
@@ -107,9 +107,9 @@ public final class ModEventHandler {
 			private static ClickProcessingState.ProcessingResult mapItemResult(
 					final IPlayerRightClickBlockEvent.Result result) {
 				return switch (result.useItemResult()) {
-				case DENY -> ClickProcessingState.ProcessingResult.DENY;
-				case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
-				case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
+					case DENY -> ClickProcessingState.ProcessingResult.DENY;
+					case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
+					case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 				};
 
 			}
@@ -119,9 +119,9 @@ public final class ModEventHandler {
 					final ProcessingResult current
 			) {
 				return switch (processingResult) {
-				case DENY -> ProcessingResult.DENY;
-				case DEFAULT -> current;
-				case ALLOW -> ProcessingResult.ALLOW;
+					case DENY -> ProcessingResult.DENY;
+					case DEFAULT -> current;
+					case ALLOW -> ProcessingResult.ALLOW;
 				};
 
 			}
@@ -131,16 +131,16 @@ public final class ModEventHandler {
 
 		IGameEvents.getInstance().getChunkSentEvent().register((serverPlayer, levelChunk, serverLevel) -> {
 			IBlockEntityPositionManager.getInstance().getPositions(ChiseledBlockEntity.class, serverLevel, levelChunk.getPos())
-			.stream()
-			.map(serverLevel::getBlockEntity)
-			.filter(ChiseledBlockEntity.class::isInstance)
-			.map(ChiseledBlockEntity.class::cast)
-			.forEach(chiseledBlockEntity -> {
-				ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
-					new UpdateBlockEntityPacket(chiseledBlockEntity),
-						serverLevel.getChunkAt(chiseledBlockEntity.getBlockPos())
-				);
-			});
+					.stream()
+					.map(serverLevel::getBlockEntity)
+					.filter(ChiseledBlockEntity.class::isInstance)
+					.map(ChiseledBlockEntity.class::cast)
+					.forEach(chiseledBlockEntity -> {
+						ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
+										new UpdateBlockEntityPacket(chiseledBlockEntity),
+										serverLevel.getChunkAt(chiseledBlockEntity.getBlockPos())
+								);
+					});
 		});
 
 		IGameEvents.getInstance().getIsPlayerScopingEvent().register(IsScopingHandler::isScoping);

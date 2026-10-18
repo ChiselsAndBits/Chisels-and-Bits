@@ -20,8 +20,8 @@ public class SelectedToolModeRendererRegistry implements ISelectedToolModeIconRe
 
 	private SelectedToolModeRendererRegistry() {
 		this.register(
-			new RootGroupTopLeftSelectedToolModeIconRenderer(),
-			new NoopSelectedToolModeIconRenderer()
+				new RootGroupTopLeftSelectedToolModeIconRenderer(),
+				new NoopSelectedToolModeIconRenderer()
 		);
 	}
 

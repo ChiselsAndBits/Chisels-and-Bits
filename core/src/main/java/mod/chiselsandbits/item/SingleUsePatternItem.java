@@ -111,10 +111,10 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 
 		if (!resultType.isSuccess() && context.getLevel().isClientSide()) {
 			INotificationManager.getInstance().notify(
-					mode.getIcon(),
-				new Vec3(1, 0, 0),
-					resultType.getFailureMessage()
-			);
+							mode.getIcon(),
+							new Vec3(1, 0, 0),
+							resultType.getFailureMessage()
+					);
 		}
 
 		return resultType.isSuccess()

@@ -65,7 +65,7 @@ public class DataReloadingResourceManager implements PreparableReloadListener {
 		},
 
 
-				applyExectutor);
+						applyExectutor);
 	}
 
 	public void clearCaches() {

@@ -20,7 +20,7 @@ public final class ModPatternPlacementTypes {
 	private static final ICustomRegistrar<IPatternPlacementType> TYPE_REGISTRAR = ICustomRegistrar.create(IPatternPlacementType.class, Constants.MOD_ID);
 
 	public static final Supplier<ICustomRegistry<IPatternPlacementType>
-	> REGISTRY_SUPPLIER = TYPE_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
+			> REGISTRY_SUPPLIER = TYPE_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
 	public static final IRegistryObject<IPatternPlacementType> PLACEMENT = TYPE_REGISTRAR.register(
 			"placement", PlacePatternPlacementType::new

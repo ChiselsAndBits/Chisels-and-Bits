@@ -347,9 +347,9 @@ public final class ModChiselModes {
 	);
 
 	public static Supplier<ICustomRegistry<IChiselMode>> REGISTRY =
-		() -> {
+	() -> {
 		throw new IllegalStateException("Registry is not setup yet.Use a Deferred Register!");
-		};
+	};
 
 
 	private ModChiselModes() {

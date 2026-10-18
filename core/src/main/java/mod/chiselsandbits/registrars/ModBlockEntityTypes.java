@@ -30,14 +30,14 @@ public final class ModBlockEntityTypes {
 	}
 
 	public static IRegistryObject<BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> new BlockEntityTypeBuilder<>(
-			ChiseledBlockEntity::new,
-			ModBlocks.CHISELED_BLOCK.get()
+					ChiseledBlockEntity::new,
+					ModBlocks.CHISELED_BLOCK.get()
 			).build()
 	);
 
 	public static IRegistryObject<BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> new BlockEntityTypeBuilder<>(
-			BitStorageBlockEntity::new,
-			ModBlocks.BIT_STORAGE.get()
+					BitStorageBlockEntity::new,
+					ModBlocks.BIT_STORAGE.get()
 			).build()
 	);
 
@@ -46,7 +46,7 @@ public final class ModBlockEntityTypes {
 			() -> new BlockEntityTypeBuilder<>(
 					ChiseledPrinterBlockEntity::new,
 					ModBlocks.CHISELED_PRINTER.get()
-					).build()
+			).build()
 	);
 
 	private record BlockEntityTypeBuilder<T extends BlockEntity>(BlockEntityType.BlockEntitySupplier<T> factory, Set<Block> allowedBlocks) {

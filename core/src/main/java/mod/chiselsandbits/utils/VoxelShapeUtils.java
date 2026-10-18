@@ -30,12 +30,12 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotate(AABB box, Direction side) {
 		return switch (side) {
-		case DOWN -> box;
-		case UP -> new AABB(box.minX, -box.minY, -box.minZ, box.maxX, -box.maxY, -box.maxZ);
-		case NORTH -> new AABB(box.minX, -box.minZ, box.minY, box.maxX, -box.maxZ, box.maxY);
-		case SOUTH -> new AABB(-box.minX, -box.minZ, -box.minY, -box.maxX, -box.maxZ, -box.maxY);
-		case WEST -> new AABB(box.minY, -box.minZ, -box.minX, box.maxY, -box.maxZ, -box.maxX);
-		case EAST -> new AABB(-box.minY, -box.minZ, box.minX, -box.maxY, -box.maxZ, box.maxX);
+			case DOWN -> box;
+			case UP -> new AABB(box.minX, -box.minY, -box.minZ, box.maxX, -box.maxY, -box.maxZ);
+			case NORTH -> new AABB(box.minX, -box.minZ, box.minY, box.maxX, -box.maxZ, box.maxY);
+			case SOUTH -> new AABB(-box.minX, -box.minZ, -box.minY, -box.maxX, -box.maxZ, -box.maxY);
+			case WEST -> new AABB(box.minY, -box.minZ, -box.minX, box.maxY, -box.maxZ, -box.maxX);
+			case EAST -> new AABB(-box.minY, -box.minZ, box.minX, -box.maxY, -box.maxZ, box.maxX);
 		};
 
 	}
@@ -50,10 +50,10 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotate(AABB box, Rotation rotation) {
 		return switch (rotation) {
-		case NONE -> box;
-		case CLOCKWISE_90 -> new AABB(-box.minZ, box.minY, box.minX, -box.maxZ, box.maxY, box.maxX);
-		case CLOCKWISE_180 -> new AABB(-box.minX, box.minY, -box.minZ, -box.maxX, box.maxY, -box.maxZ);
-		case COUNTERCLOCKWISE_90 -> new AABB(box.minZ, box.minY, -box.minX, box.maxZ, box.maxY, -box.maxX);
+			case NONE -> box;
+			case CLOCKWISE_90 -> new AABB(-box.minZ, box.minY, box.minX, -box.maxZ, box.maxY, box.maxX);
+			case CLOCKWISE_180 -> new AABB(-box.minX, box.minY, -box.minZ, -box.maxX, box.maxY, -box.maxZ);
+			case COUNTERCLOCKWISE_90 -> new AABB(box.minZ, box.minY, -box.minX, box.maxZ, box.maxY, -box.maxX);
 		};
 
 	}
@@ -68,10 +68,10 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotateHorizontal(AABB box, Direction side) {
 		return switch (side) {
-		case NORTH -> rotate(box, Rotation.NONE);
-		case SOUTH -> rotate(box, Rotation.CLOCKWISE_180);
-		case WEST -> rotate(box, Rotation.COUNTERCLOCKWISE_90);
-		case EAST -> rotate(box, Rotation.CLOCKWISE_90);
+			case NORTH -> rotate(box, Rotation.NONE);
+			case SOUTH -> rotate(box, Rotation.CLOCKWISE_180);
+			case WEST -> rotate(box, Rotation.COUNTERCLOCKWISE_90);
+			case EAST -> rotate(box, Rotation.CLOCKWISE_90);
 			default -> box;
 		};
 
@@ -130,7 +130,7 @@ public final class VoxelShapeUtils {
 		for (AABB sourceBoundingBox : sourceBoundingBoxes) {
 		//Make the bounding box be centered around the middle, and then move it back after rotating
 			rotatedPieces.add(Shapes.create(rotateFunction.apply(sourceBoundingBox.move(fromOrigin.x, fromOrigin.y, fromOrigin.z))
-					.move(-fromOrigin.x, -fromOrigin.z, -fromOrigin.z)));
+							.move(-fromOrigin.x, -fromOrigin.z, -fromOrigin.z)));
 		}
 
 		//return the recombined rotated voxel shape

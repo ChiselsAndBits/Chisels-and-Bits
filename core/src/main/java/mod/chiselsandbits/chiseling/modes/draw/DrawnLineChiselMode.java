@@ -85,32 +85,32 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 		context.getMutator().ifPresent(mutator -> {
 			try (IBatchMutation ignored =
-				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(factory -> factory.apply(mutator))
+						.orElse((s) -> true);
 
-					mutator.inWorldMutableStream()
-					.filter(filter)
-					.forEach(state -> {
-						final BlockInformation currentState = state.getBlockInformation();
+				mutator.inWorldMutableStream()
+						.filter(filter)
+						.forEach(state -> {
+							final BlockInformation currentState = state.getBlockInformation();
 
-						if (context.tryDamageItem()) {
-							resultingBitCount.putIfAbsent(currentState, 0);
-							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							if (context.tryDamageItem()) {
+								resultingBitCount.putIfAbsent(currentState, 0);
+								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-							state.clear();
-						}
-					});
+								state.clear();
+							}
+						});
 
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
-				}
+				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								playerEntity,
+								blockState,
+								count
+						));
+			}
 		});
 	}
 
@@ -140,12 +140,12 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			}
 
 			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-			.map(factory -> factory.apply(mutator))
-			.orElse((s) -> true);
+					.map(factory -> factory.apply(mutator))
+					.orElse((s) -> true);
 
 			final int missingBitCount = (int) mutator.stream()
-			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-			.count();
+					.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+					.count();
 
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
@@ -157,11 +157,11 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 				}
 
 				try (IBatchMutation ignored =
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-					}
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+				}
 			} else {
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}
@@ -235,14 +235,14 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 
 		final List<Vec3> startPoints = lineAreaFilter.included.stream().map(v -> v.multiply(StateEntrySize.current().getSizePerBitScalingVector())).toList();
 		return VoxelShapeUtils.batchCombine(Shapes.empty(), BooleanOp.OR, true, startPoints.stream()
-				.map(p -> Shapes.box(
-						p.x,
-						p.y,
-						p.z,
-						p.x + StateEntrySize.current().getSizePerBit(),
-						p.y + StateEntrySize.current().getSizePerBit(),
-						p.z + StateEntrySize.current().getSizePerBit()))
-				.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
+						.map(p -> Shapes.box(
+										p.x,
+										p.y,
+										p.z,
+										p.x + StateEntrySize.current().getSizePerBit(),
+										p.y + StateEntrySize.current().getSizePerBit(),
+										p.z + StateEntrySize.current().getSizePerBit()))
+						.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
 	}
 
 	@Override

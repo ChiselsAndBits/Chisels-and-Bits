@@ -61,27 +61,27 @@ public class ChiseledBlockModelDataExecutor {
 
 		CompletableFuture.supplyAsync(() -> {
 			final ChiseledBlockModelInformation chiseledBlockModelInformation =
-				ChiseledBlockStateModelManager.getInstance().get(
-					new SingleBlockBlockAndTintGetter.Builder()
-						.withBlockEntity(() -> tileEntity)
-						.withBlockState(tileEntity.getBlockState())
-						.withSource(tileEntity.getWorld())
-						.withPos(tileEntity.getBlockPos())
-						.createSingleBlockBlockAndTintGetter(),
-						tileEntity.blockPos(),
-						tileEntity,
-						neighborhood
-				);
+					ChiseledBlockStateModelManager.getInstance().get(
+								new SingleBlockBlockAndTintGetter.Builder()
+								.withBlockEntity(() -> tileEntity)
+								.withBlockState(tileEntity.getBlockState())
+								.withSource(tileEntity.getWorld())
+								.withPos(tileEntity.getBlockPos())
+								.createSingleBlockBlockAndTintGetter(),
+								tileEntity.blockPos(),
+								tileEntity,
+								neighborhood
+			);
 
 			return IModelDataBuilder.create()
-			.withInitial(
-					ModModelProperties.MODEL, chiseledBlockModelInformation
-			)
-			.build();
+					.withInitial(
+							ModModelProperties.MODEL, chiseledBlockModelInformation
+					)
+					.build();
 		},
 
 
-				recalculationService)
+						recalculationService)
 				.thenAcceptAsync(tileEntity::setModelData, recalculationService)
 				.thenRunAsync(onCompleteCallback, recalculationService)
 				.thenRunAsync(() -> {
@@ -90,11 +90,11 @@ public class ChiseledBlockModelDataExecutor {
 
 						if (tileEntity.getLevel() != null) {
 							tileEntity.getLevel().sendBlockUpdated(
-									tileEntity.getBlockPos(),
-									tileEntity.getBlockState(),
-									tileEntity.getBlockState(),
-									8
-							);
+											tileEntity.getBlockPos(),
+											tileEntity.getBlockState(),
+											tileEntity.getBlockState(),
+											8
+									);
 						}
 					} catch (Exception ignored) {
 					}

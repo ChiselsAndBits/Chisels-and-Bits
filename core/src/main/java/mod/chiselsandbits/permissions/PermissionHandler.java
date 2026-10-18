@@ -25,9 +25,9 @@ public final class PermissionHandler implements IPermissionHandler {
 	@Override
 	public ICheckerRegistration registerChecker(final IPermissionChecker checker) {
 		final ICheckerRegistration registration = new ICheckerRegistration() {
-			@Override
-			public void close() {
-				checkers.remove(this);
+					@Override
+					public void close() {
+						checkers.remove(this);
 			}
 		};
 

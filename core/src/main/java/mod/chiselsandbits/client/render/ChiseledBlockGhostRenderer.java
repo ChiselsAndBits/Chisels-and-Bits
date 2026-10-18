@@ -67,12 +67,12 @@ public class ChiseledBlockGhostRenderer {
 
 		final Vector4f color = placementResult.getColor();
 		final boolean renderColoredGhost = (placementResult.isSuccess() && success.isColoredGhost())
-		|| (!placementResult.isSuccess() && failure.isColoredGhost());
+				|| (!placementResult.isSuccess() && failure.isColoredGhost());
 
 		final ChiseledBlockModelInformation information = ChiseledBlockStateModelManager
 				.getInstance().get(
 						renderStack
-				);
+		);
 
 		renderGhost(
 				poseStack,

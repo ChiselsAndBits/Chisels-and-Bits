@@ -106,10 +106,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
 			INotificationManager.getInstance().notify(
-					getMode(stack).getIcon(),
-				new Vec3(1, 0, 0),
-					LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
-			);
+							getMode(stack).getIcon(),
+							new Vec3(1, 0, 0),
+							LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
+					);
 		}
 
 		return isAllowedToUse;
@@ -223,10 +223,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			if (offHandStack.isEmpty() || !(offHandStack.getItem() instanceof IChiselItem)) {
 				playerEntity.getCooldowns().addCooldown(itemStack, Constants.TICKS_BETWEEN_CHISEL_ERRORS);
 				INotificationManager.getInstance().notify(
-						getMode(itemStack).getIcon(),
-					new Vec3(1, 0, 0),
-						LocalStrings.ChiselAttemptMissingChiselInOffhand.getText()
-				);
+								getMode(itemStack).getIcon(),
+								new Vec3(1, 0, 0),
+								LocalStrings.ChiselAttemptMissingChiselInOffhand.getText()
+						);
 				return currentState;
 			}
 		}
@@ -245,10 +245,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 		if (context.getError().isPresent() && context.getWorld().isClientSide()) {
 			INotificationManager.getInstance().notify(
-					context.getMode().getIcon(),
-				new Vec3(1, 0, 0),
-					context.getError().get()
-			);
+							context.getMode().getIcon(),
+							new Vec3(1, 0, 0),
+							context.getError().get()
+					);
 		}
 
 		return resultState;
@@ -391,8 +391,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			return;
 		} else if (potentialPlacingContext.isPresent() && potentialPlacingContext.get().getMode() == chiselMode && chiselMode.isStillValid(playerEntity,
-				potentialPlacingContext.get(),
-				ChiselingOperation.PLACING)) {
+						potentialPlacingContext.get(),
+						ChiselingOperation.PLACING)) {
 			final IChiselingContext context = potentialPlacingContext.get();
 
 			IChiselContextPreviewRendererRegistry.getInstance()
@@ -440,10 +440,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		return this.availableBitStacks.stream()
 				.filter(stack -> !stack.isEmpty())
 				.collect(Collectors.toMap(stack -> "bit_" + IPlatformRegistryManager.getInstance()
-						.getBlockRegistry()
-						.getKey(this.getBlockInformation(stack).blockState().getBlock())
-						.toString()
-						.replace(":", "_"), Function.identity()));
+								.getBlockRegistry()
+								.getKey(this.getBlockInformation(stack).blockState().getBlock())
+								.toString()
+								.replace(":", "_"), Function.identity()));
 	}
 
 	private void ensureAvailableBitStacksAreLoaded() {
@@ -452,12 +452,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			availableBitStacks.addAll(ModCreativeTabs.BITS.get().getDisplayItems());
 
 			availableBitStacks.sort(Comparator.comparing(stack -> {
-				if (!(stack.getItem() instanceof IBitItem)) {
-					throw new IllegalStateException("Stack did not contain a bit item.");
-				}
+						if (!(stack.getItem() instanceof IBitItem)) {
+							throw new IllegalStateException("Stack did not contain a bit item.");
+						}
 
-				return ((IBitItem) stack.getItem()).getBlockInformation(stack);
-			}));
+						return ((IBitItem) stack.getItem()).getBlockInformation(stack);
+					}));
 		}
 	}
 }

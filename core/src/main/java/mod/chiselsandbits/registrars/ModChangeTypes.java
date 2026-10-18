@@ -16,7 +16,7 @@ public class ModChangeTypes {
 	private static final ICustomRegistrar<IChangeType> REGISTRAR = ICustomRegistrar.create(IChangeType.class, Constants.MOD_ID);
 
 	public static final Supplier<ICustomRegistry<IChangeType>
-	> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
+			> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
 	public static final IRegistryObject<ChangeType> BIT = REGISTRAR.register("bit", () -> ChangeType.BIT);
 	public static final IRegistryObject<ChangeType> COMBINED = REGISTRAR.register("combined", () -> ChangeType.COMBINED);

@@ -64,17 +64,17 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 	private static Direction.Axis getExtensionAxis(final Direction hitDirection) {
 		return switch (hitDirection) {
-		case DOWN, NORTH, SOUTH -> Direction.Axis.X;
-		case UP, WEST, EAST -> Direction.Axis.Z;
+			case DOWN, NORTH, SOUTH -> Direction.Axis.X;
+			case UP, WEST, EAST -> Direction.Axis.Z;
 		};
 
 	}
 
 	private static Vec3i getOffsetPosition(final Vec3i source, final int offset, Direction.Axis axis) {
 		return switch (axis) {
-		case X -> new Vec3i(source.getX() + offset, source.getY(), source.getZ());
-		case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
-		case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
+			case X -> new Vec3i(source.getX() + offset, source.getY(), source.getZ());
+			case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
+			case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
 		};
 
 	}
@@ -105,32 +105,32 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 		context.getMutator().ifPresent(mutator -> {
 			try (IBatchMutation ignored =
-				mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-					final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-					final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-					.map(factory -> factory.apply(mutator))
-					.orElse((s) -> true);
+				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(factory -> factory.apply(mutator))
+						.orElse((s) -> true);
 
-					mutator.inWorldMutableStream()
-					.filter(filter)
-					.forEach(state -> {
-						final BlockInformation currentState = state.getBlockInformation();
+				mutator.inWorldMutableStream()
+						.filter(filter)
+						.forEach(state -> {
+							final BlockInformation currentState = state.getBlockInformation();
 
-						if (context.tryDamageItem()) {
-							resultingBitCount.putIfAbsent(currentState, 0);
-							resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							if (context.tryDamageItem()) {
+								resultingBitCount.putIfAbsent(currentState, 0);
+								resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-							state.clear();
-						}
-					});
+								state.clear();
+							}
+						});
 
-					resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-							playerEntity,
-							blockState,
-							count
-					));
-				}
+				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+								playerEntity,
+								blockState,
+								count
+						));
+			}
 		});
 	}
 
@@ -160,12 +160,12 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			}
 
 			final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-			.map(factory -> factory.apply(mutator))
-			.orElse((s) -> true);
+					.map(factory -> factory.apply(mutator))
+					.orElse((s) -> true);
 
 			final int missingBitCount = (int) mutator.stream()
-			.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-			.count();
+					.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+					.count();
 
 			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
 
@@ -177,11 +177,11 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 				}
 
 				try (IBatchMutation ignored =
-					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						mutator.inWorldMutableStream()
-						.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
-						.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-					}
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					mutator.inWorldMutableStream()
+							.filter(state -> state.getBlockInformation().isAir() && filter.test(state))
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+				}
 			} else {
 				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
 			}
@@ -337,7 +337,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 						for (int j = -extensionWidth; j <= extensionWidth; j++) {
 							builder.add(getOffsetPosition(i, j, axis));
-				}
+						}
 
 						return builder.build();
 					})

@@ -142,10 +142,10 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
 		if (context.getError().isPresent() && context.getWorld().isClientSide()) {
 			INotificationManager.getInstance().notify(
-					context.getMode().getIcon(),
-				new Vec3(1, 0, 0),
-					context.getError().get()
-			);
+							context.getMode().getIcon(),
+							new Vec3(1, 0, 0),
+							context.getError().get()
+					);
 		}
 
 		return resultState;
@@ -179,10 +179,10 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
 		if (getMode(stack).isSingleClickUse() && !isAllowedToUse && playerEntity.level().isClientSide() && IClientConfiguration.getInstance().getShowCoolDownError().get()) {
 			INotificationManager.getInstance().notify(
-					getMode(stack).getIcon(),
-				new Vec3(1, 0, 0),
-					LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
-			);
+							getMode(stack).getIcon(),
+							new Vec3(1, 0, 0),
+							LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
+					);
 		}
 
 		return isAllowedToUse;
@@ -200,7 +200,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
 		final Optional<IChiselingContext> potentiallyExistingContext =
-			IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+				IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
 		if (potentiallyExistingContext.isPresent()) {
 			final IChiselingContext context = potentiallyExistingContext.get();
@@ -278,7 +278,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 		final IChiselMode chiselMode = chiselingItem.getMode(itemStack);
 
 		final Optional<IChiselingContext> potentiallyExistingContext =
-			IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
+				IChiselingManager.getInstance().get(playerEntity, chiselMode, ChiselingOperation.CHISELING);
 
 		final Optional<IChiselingContext> potentiallyCachedContext = ILocalChiselingContextCache.getInstance()
 				.get(ChiselingOperation.CHISELING);
@@ -296,7 +296,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				&& potentiallyCachedContext.get().getModeOfOperandus() == ChiselingOperation.CHISELING
 				&& chiselMode.isStillValid(playerEntity, potentiallyCachedContext.get(), ChiselingOperation.CHISELING)) {
 			context = potentiallyCachedContext.get();
-				} else {
+		} else {
 			context = IChiselingManager.getInstance().create(
 					playerEntity,
 					chiselMode,
@@ -309,7 +309,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 					playerEntity,
 					context
 			);
-				}
+		}
 
 		if (context.getMutator().isEmpty()) {
 			ILocalChiselingContextCache.getInstance().clear(ChiselingOperation.CHISELING);
@@ -348,9 +348,9 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 	@Override
 	public ItemStack adaptItemStack(final ItemStack currentToolStack) {
 		final Optional<IChiselingContext> chiselingContext =
-			ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
+				ILocalChiselingContextCache.getInstance().get(ChiselingOperation.CHISELING);
 		final Optional<IChiselingContext> placingContext =
-			ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
+				ILocalChiselingContextCache.getInstance().get(ChiselingOperation.PLACING);
 
 		if (chiselingContext.isPresent() && chiselingContext.get().getError().isPresent()) {
 			final ItemStack errorStack = currentToolStack.copy();

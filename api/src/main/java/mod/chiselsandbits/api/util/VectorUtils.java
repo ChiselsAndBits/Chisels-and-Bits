@@ -34,26 +34,26 @@ public class VectorUtils {
 
 	public static Vec3 rotate(final Vec3 vector3d, final Direction.Axis axis, final double angleInRadian) {
 		switch (axis) {
-		case X
-					: return new Vec3(
-							vector3d.x(),
-							vector3d.y() * Math.cos((float) angleInRadian) - vector3d.z() * Math.sin((float) angleInRadian),
-							vector3d.y() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
-					);
-		case Y
-					: return new Vec3(
-							vector3d.x() * Math.cos((float) angleInRadian) + vector3d.z() * Math.sin((float) angleInRadian),
-							vector3d.y(),
-							-vector3d.x() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
-					);
-		case Z
-					: return new Vec3(
-							vector3d.x() * Math.cos((float) angleInRadian) - vector3d.y() * Math.sin((float) angleInRadian),
-							vector3d.x() * Math.sin((float) angleInRadian) + vector3d.y() * Math.cos((float) angleInRadian),
-							vector3d.z()
-					);
+			case X
+			: return new Vec3(
+					vector3d.x(),
+					vector3d.y() * Math.cos((float) angleInRadian) - vector3d.z() * Math.sin((float) angleInRadian),
+					vector3d.y() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
+			);
+			case Y
+			: return new Vec3(
+					vector3d.x() * Math.cos((float) angleInRadian) + vector3d.z() * Math.sin((float) angleInRadian),
+					vector3d.y(),
+					-vector3d.x() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
+			);
+			case Z
+			: return new Vec3(
+					vector3d.x() * Math.cos((float) angleInRadian) - vector3d.y() * Math.sin((float) angleInRadian),
+					vector3d.x() * Math.sin((float) angleInRadian) + vector3d.y() * Math.cos((float) angleInRadian),
+					vector3d.z()
+			);
 			default
-					: throw new IllegalArgumentException(String.format("Unknown axis : %s", axis));
+			: throw new IllegalArgumentException(String.format("Unknown axis : %s", axis));
 		}
 	}
 
@@ -152,9 +152,9 @@ public class VectorUtils {
 
 	public static boolean allValuesBetweenInclusive(final Vector4f vector4f, final float min, final float max) {
 		return min <= vector4f.x() && vector4f.x() <= max
-		&& min <= vector4f.y() && vector4f.y() <= max
-		&& min <= vector4f.z() && vector4f.z() <= max
-		&& min <= vector4f.w() && vector4f.w() <= max;
+				&& min <= vector4f.y() && vector4f.y() <= max
+				&& min <= vector4f.z() && vector4f.z() <= max
+				&& min <= vector4f.w() && vector4f.w() <= max;
 	}
 
 	public static Vec3 nullifyNegatives(final Vec3 input) {

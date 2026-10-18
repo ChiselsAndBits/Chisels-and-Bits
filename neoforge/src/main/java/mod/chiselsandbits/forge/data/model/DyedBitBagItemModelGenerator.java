@@ -39,7 +39,7 @@ public class DyedBitBagItemModelGenerator extends ModelProvider {
 	@Override
 	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
-				ModItems.ITEM_BIT_BAG.get()
+						ModItems.ITEM_BIT_BAG.get()
 				).map(Item::builtInRegistryHolder);
 	}
 
@@ -58,7 +58,7 @@ public class DyedBitBagItemModelGenerator extends ModelProvider {
 				item.value(),
 				ItemModelUtils.tintedModel(
 						generators.createFlatItemModel(item.value(), "", ModelTemplates.FLAT_ITEM),
-					new Dye(-6265536)
+						new Dye(-6265536)
 				)
 		);
 	}

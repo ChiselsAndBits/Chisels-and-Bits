@@ -16,7 +16,7 @@ public class ModMultiStateSnapshotTypes {
 	private static final ICustomRegistrar<IMultiStateSnapshotType> REGISTRAR = ICustomRegistrar.create(IMultiStateSnapshotType.class, Constants.MOD_ID);
 
 	public static final Supplier<ICustomRegistry<IMultiStateSnapshotType>
-	> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
+			> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
 	public static final IRegistryObject<MultiStateSnapshotTypes> EMPTY = REGISTRAR.register("empty", () -> MultiStateSnapshotTypes.EMPTY);
 	public static final IRegistryObject<MultiStateSnapshotTypes> MULTI_BLOCK = REGISTRAR.register("multi_block", () -> MultiStateSnapshotTypes.MULTI_BLOCK);

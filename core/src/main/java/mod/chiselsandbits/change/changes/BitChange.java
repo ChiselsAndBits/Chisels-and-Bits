@@ -33,9 +33,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BitChange implements IChange {
 	public static final MapCodec<BitChange> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(BitChange::getBlockPos),
-			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.BEFORE).forGetter(BitChange::getBefore),
-			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.AFTER).forGetter(BitChange::getAfter)
+					BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(BitChange::getBlockPos),
+					IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.BEFORE).forGetter(BitChange::getBefore),
+					IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.AFTER).forGetter(BitChange::getAfter)
 			).apply(instance, BitChange::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, BitChange> STREAM_CODEC = StreamCodec.composite(
@@ -146,13 +146,13 @@ public class BitChange implements IChange {
 		try (IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			before.stream().forEach(
-					iStateEntryInfo -> {
-						try {
-							multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
-						} catch (SpaceOccupiedException e) {
-						//Noop
-						}
-					});
+							iStateEntryInfo -> {
+								try {
+									multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
+								} catch (SpaceOccupiedException e) {
+								//Noop
+								}
+							});
 		}
 
 		if (!player.isCreative()) {
@@ -216,13 +216,13 @@ public class BitChange implements IChange {
 		try (IBatchMutation batch = multiStateBlockEntity.batch()) {
 			multiStateBlockEntity.initializeWith(BlockInformation.AIR);
 			after.stream().forEach(
-					s -> {
-						try {
-							multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
-						} catch (SpaceOccupiedException e) {
-						//Noop
-						}
-					});
+							s -> {
+								try {
+									multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
+								} catch (SpaceOccupiedException e) {
+								//Noop
+								}
+							});
 		}
 
 		if (!player.isCreative()) {

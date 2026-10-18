@@ -21,13 +21,13 @@ public final class NeighborBlockUpdatedPacket extends ModPacket {
 	private Block neighborBlock = Blocks.AIR;
 	private @Nullable Orientation orientation = null;
 
-	public NeighborBlockUpdatedPacket(final BlockPos toUpdate, final Block neighborBlock, @Nullable final Orientation orientation) {
+			public NeighborBlockUpdatedPacket(final BlockPos toUpdate, final Block neighborBlock, @Nullable final Orientation orientation) {
 		this.toUpdate = toUpdate;
 		this.neighborBlock = neighborBlock;
 		this.orientation = orientation;
 	}
 
-	public NeighborBlockUpdatedPacket(RegistryFriendlyByteBuf buffer) {
+			public NeighborBlockUpdatedPacket(RegistryFriendlyByteBuf buffer) {
 		super();
 		readPayload(buffer);
 	}

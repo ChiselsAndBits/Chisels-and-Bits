@@ -24,16 +24,16 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 	public static final Codec<StateEntryPalette> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 					Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
-					).apply(instance, StateEntryPalette::new));
+			).apply(instance, StateEntryPalette::new));
 
 	public static final Codec<StateEntryPalette> LEGACY_CODEC =
-		Entry.LEGACY_CODEC.listOf()
-			.xmap(StateEntryPalette::new, StateEntryPalette::paletteEntries);
+			Entry.LEGACY_CODEC.listOf()
+				.xmap(StateEntryPalette::new, StateEntryPalette::paletteEntries);
 
 	public static final MapCodec<StateEntryPalette> MAP_CODEC = RecordCodecBuilder.mapCodec(instance ->
 			instance.group(
 					Entry.CODEC.listOf().fieldOf(NbtConstants.ENTRIES).forGetter(StateEntryPalette::paletteEntries)
-					).apply(instance, StateEntryPalette::new));
+			).apply(instance, StateEntryPalette::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, StateEntryPalette> STREAM_CODEC = StreamCodec.composite(
 			Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
@@ -161,13 +161,13 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 
 		public static final Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> {
 			return instance.group(
-					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
+							BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 					).apply(instance, Entry::new);
 		});
 
 		public static final MapCodec<Entry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> {
 			return instance.group(
-					BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
+							BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
 					).apply(instance, Entry::new);
 		});
 

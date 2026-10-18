@@ -16,52 +16,52 @@ import net.minecraft.resources.Identifier;
 public enum ModRenderPipelines
 {
 	CHISEL_PREVIEW_IN_BLOCKS(() -> RenderPipeline.builder(
-			LINES_SNIPPET,
-			ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_in_blocks")).build()),
+							LINES_SNIPPET,
+							ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_in_blocks")).build()),
 
-	CHISEL_PREVIEW_OUTSIDE_BLOCKS(() -> RenderPipeline.builder(
-			LINES_SNIPPET,
-			ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_outside_blocks")).build()),
+			CHISEL_PREVIEW_OUTSIDE_BLOCKS(() -> RenderPipeline.builder(
+							LINES_SNIPPET,
+							ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/chisel_preview_outside_blocks")).build()),
 
-	WIREFRAME(() -> RenderPipeline.builder(
-			LINES_SNIPPET,
-			ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe")).build()),
+			WIREFRAME(() -> RenderPipeline.builder(
+							LINES_SNIPPET,
+							ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe")).build()),
 
-	WIREFRAME_ALWAYS(() -> RenderPipeline.builder(
-			LINES_SNIPPET,
-			ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
+			WIREFRAME_ALWAYS(() -> RenderPipeline.builder(
+							LINES_SNIPPET,
+							ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
 
-	GHOST_BLOCK(() ->
-			RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
-			.withShaderDefine("ALPHA_CUTOUT", 0.1F)
-			.withShaderDefine("PER_FACE_LIGHTING")
-			.withSampler("Sampler1")
-			.withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
-			.withCull(false)
-			.withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block")).build()),
+			GHOST_BLOCK(() ->
+					RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
+					.withShaderDefine("ALPHA_CUTOUT", 0.1F)
+					.withShaderDefine("PER_FACE_LIGHTING")
+					.withSampler("Sampler1")
+					.withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+					.withCull(false)
+					.withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block")).build()),
 
-	GHOST_BLOCK_ALWAYS(() ->
-			RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET, ModRenderPipelineSnippets.GREATER_DEPTH_TEST.snippet())
-			.withShaderDefine("ALPHA_CUTOUT", 0.1F)
-			.withShaderDefine("PER_FACE_LIGHTING")
-			.withSampler("Sampler1")
-			.withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
-			.withCull(false)
-			.withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block_always")).build()),
+			GHOST_BLOCK_ALWAYS(() ->
+					RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET, ModRenderPipelineSnippets.GREATER_DEPTH_TEST.snippet())
+					.withShaderDefine("ALPHA_CUTOUT", 0.1F)
+					.withShaderDefine("PER_FACE_LIGHTING")
+					.withSampler("Sampler1")
+					.withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+					.withCull(false)
+					.withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/ghost_block_always")).build()),
 
-	GHOST_BLOCK_COLORED(() -> RenderPipeline.builder(
-			RenderPipelines.DEBUG_FILLED_SNIPPET,
-			ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
+			GHOST_BLOCK_COLORED(() -> RenderPipeline.builder(
+							RenderPipelines.DEBUG_FILLED_SNIPPET,
+							ModRenderPipelineSnippets.LESS_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build()),
 
-	GHOST_BLOCK_COLORED_ALWAYS(() -> RenderPipeline.builder(
-			RenderPipelines.DEBUG_FILLED_SNIPPET,
-			ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
-			).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build());
+			GHOST_BLOCK_COLORED_ALWAYS(() -> RenderPipeline.builder(
+							RenderPipelines.DEBUG_FILLED_SNIPPET,
+							ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()
+					).withLocation(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "pipeline/wireframe_always")).build());
 
 	private final Supplier<RenderPipeline> getter;
 

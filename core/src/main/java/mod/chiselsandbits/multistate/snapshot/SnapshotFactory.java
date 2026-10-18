@@ -18,7 +18,7 @@ public final class SnapshotFactory implements ISnapshotFactory {
 	@Override
 	public IMultiStateSnapshot singleBlock() {
 		return new SimpleSnapshot(
-			new StateEntryStorage()
+				new StateEntryStorage()
 		);
 	}
 

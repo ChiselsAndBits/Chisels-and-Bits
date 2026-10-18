@@ -83,13 +83,13 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 				write(
 						output.resolve(
 								registryIdentifier.getNamespace()
-								).resolve(
-										registryIdentifier.getPath()
-										).resolve(
-												tagHolder.key().location().getNamespace()
-												).resolve(
-														"%s.json".formatted(tagHolder.key().location().getPath())
-												),
+						).resolve(
+								registryIdentifier.getPath()
+						).resolve(
+								tagHolder.key().location().getNamespace()
+						).resolve(
+								"%s.json".formatted(tagHolder.key().location().getPath())
+						),
 						tagHolder.stream()
 						.map(holder -> registry.getKey(holder.value()))
 						.filter(Objects::nonNull)
@@ -105,7 +105,7 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 			}
 
 			try (FileOutputStream fileOutputStream = new FileOutputStream(output.toFile());
-					OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+			OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
 					JsonWriter jsonWriter = new JsonWriter(writer)) {
 				GSON.toJson(contents, List.class, jsonWriter);
 			}

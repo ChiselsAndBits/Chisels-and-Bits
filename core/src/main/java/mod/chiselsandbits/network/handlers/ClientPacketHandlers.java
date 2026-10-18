@@ -106,7 +106,7 @@ public final class ClientPacketHandlers {
 		final Either<IMultiStateItemStack, PatternIOException> importResult = IPatternSharingManager.getInstance().importPattern(name);
 		importResult.ifLeft(stack -> {
 			ChiselsAndBits.getInstance().getNetworkChannel()
-			.sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
+					.sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
 		});
 		importResult.ifRight(e -> {
 			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);

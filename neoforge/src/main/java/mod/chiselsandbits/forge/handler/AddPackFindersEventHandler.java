@@ -34,7 +34,7 @@ public class AddPackFindersEventHandler {
 		event.addRepositorySource(registrar -> {
 			try {
 				final URI coreJarMarkerUri = Objects.requireNonNull(ChiselsAndBits.class.getResource("/chisels-and-bits.core.marker"))
-				.toURI();
+						.toURI();
 
 				if (coreJarMarkerUri.getScheme().equals("jar")) {
 					try {
@@ -49,7 +49,7 @@ public class AddPackFindersEventHandler {
 						Component.literal("Chisels & Bits Core"),
 						PackSource.BUILT_IN,
 						Optional.of(
-							new KnownPack(Constants.MOD_ID, "core", ModList.get().getModFileById(Constants.MOD_ID).versionString())
+								new KnownPack(Constants.MOD_ID, "core", ModList.get().getModFileById(Constants.MOD_ID).versionString())
 						)
 				);
 
@@ -60,9 +60,9 @@ public class AddPackFindersEventHandler {
 
 				final Pack pack = Pack.readMetaAndCreate(
 						packLocationInfo,
-					new SinglePackResourceResourcesSupplier(packResources),
+						new SinglePackResourceResourcesSupplier(packResources),
 						event.getPackType(),
-					new PackSelectionConfig(true, Pack.Position.TOP, true)
+						new PackSelectionConfig(true, Pack.Position.TOP, true)
 				);
 
 				registrar.accept(pack);

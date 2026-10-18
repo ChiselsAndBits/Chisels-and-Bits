@@ -48,11 +48,11 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos());
 		final IWorldAreaMutator areaMutator =
-			IMutatorFactory.getInstance().covering(
-					context.getLevel(),
-					targetedPosition,
-					targetedPosition.add(0.9999, 0.9999, 0.9999)
-			);
+				IMutatorFactory.getInstance().covering(
+							context.getLevel(),
+							targetedPosition,
+							targetedPosition.add(0.9999, 0.9999, 0.9999)
+		);
 
 		final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(context.getLevel()::getBlockState)
@@ -81,14 +81,14 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 
 		try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 			source.stream().sequential().forEach(
-					stateEntryInfo -> {
-						try {
-							areaMutator.setInAreaTarget(
-									stateEntryInfo.getBlockInformation(),
-									stateEntryInfo.getStartPoint());
-						} catch (SpaceOccupiedException ignored1) {
-						}
-					});
+							stateEntryInfo -> {
+								try {
+									areaMutator.setInAreaTarget(
+											stateEntryInfo.getBlockInformation(),
+											stateEntryInfo.getStartPoint());
+								} catch (SpaceOccupiedException ignored1) {
+								}
+							});
 		}
 
 		if (!context.getPlayer().isCreative()) {

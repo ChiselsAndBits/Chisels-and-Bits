@@ -46,7 +46,7 @@ public class ModificationTableBlock extends Block {
 			Block.box(1, 0, 12, 4, 11, 15),
 			Block.box(4, 0, 0, 6, 2, 8),
 			Block.box(7, 0, 1, 9, 2, 9)
-			).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+	).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 	private static final Map<Direction, VoxelShape> SHAPES = Maps.newHashMap();
 	static {
 		SHAPES.put(Direction.NORTH, VoxelShapeUtils.rotateHorizontal(DEFAULT_SHAPE, Direction.SOUTH));

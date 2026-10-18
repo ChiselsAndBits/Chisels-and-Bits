@@ -72,14 +72,14 @@ public interface CBCodecs {
 	 */
 	static <T> Codec<T> versioned(MapCodec<T> singleVersionCodec, Codec<T> fallback) {
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
-				t -> 0,
-				key -> {
-					if (key != 0) {
-						throw new IllegalStateException("Wrong version stored for single version codec.");
-					}
+						t -> 0,
+						key -> {
+							if (key != 0) {
+								throw new IllegalStateException("Wrong version stored for single version codec.");
+							}
 
-					return singleVersionCodec;
-				}),
+							return singleVersionCodec;
+						}),
 				fallback
 		);
 	}
@@ -95,14 +95,14 @@ public interface CBCodecs {
 	static <T> Codec<T> versioned(Map<Integer, MapCodec<T>> versions, MapCodec<T> fallback) {
 		final int maxVersion = versions.keySet().stream().max(Integer::compareTo).orElse(0);
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
-				t -> maxVersion,
-				key -> {
-					if (!versions.containsKey(key)) {
-						throw new IllegalStateException("Unknown version: " + key);
-					}
+						t -> maxVersion,
+						key -> {
+							if (!versions.containsKey(key)) {
+								throw new IllegalStateException("Unknown version: " + key);
+							}
 
-					return versions.get(key);
-				}),
+							return versions.get(key);
+						}),
 				fallback.codec()
 		);
 	}
@@ -190,11 +190,11 @@ public interface CBCodecs {
 
 	static <R, C, V> Codec<Table<R, C, V>> unboundedTable(Codec<R> row, Codec<C> column, Codec<V> value) {
 		return unboundedComplexMap(
-				row,
-				unboundedComplexMap(
-						column,
-						value
-				)
+						row,
+						unboundedComplexMap(
+								column,
+								value
+						)
 				).xmap(
 						rMapMap -> {
 							final Table<R, C, V> table = HashBasedTable.create();
@@ -275,9 +275,9 @@ public interface CBCodecs {
 		Validate.notNull(value, "Value cannot be null");
 
 		return RecordCodecBuilder.<Map.Entry<K, V>> create(instance ->
-				instance.group(
-						keyCodec.fieldOf(key).forGetter(Map.Entry::getKey),
-						valueCodec.fieldOf(value).forGetter(Map.Entry::getValue)
+						instance.group(
+								keyCodec.fieldOf(key).forGetter(Map.Entry::getKey),
+								valueCodec.fieldOf(value).forGetter(Map.Entry::getValue)
 						).apply(instance, Map::entry)
 				).listOf().xmap(
 						entries -> {
@@ -336,7 +336,7 @@ public interface CBCodecs {
 		public <T> DataResult<Pair<BitSet, T>> decode(DynamicOps<T> ops, T input) {
 			if (input instanceof ByteArrayTag) {
 				return BYTE_BASED_CODEC
-						.decode(ops, input);
+				.decode(ops, input);
 			}
 
 			return DEFAULT_CODEC.decode(ops, input);

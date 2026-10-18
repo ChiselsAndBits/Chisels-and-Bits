@@ -21,14 +21,14 @@ public interface IBlockNeighborhood {
 	 * Empty neighborhood.
 	 */
 	IBlockNeighborhood EMPTY = new IBlockNeighborhood() {
-		@Override
-		public BlockInformation getBlockInformation(final Direction direction) {
-			return BlockInformation.AIR;
+				@Override
+				public BlockInformation getBlockInformation(final Direction direction) {
+					return BlockInformation.AIR;
 		}
 
-		@Override
-		public IAreaAccessor getAreaAccessor(final Direction direction) {
-			return null;
+				@Override
+				public IAreaAccessor getAreaAccessor(final Direction direction) {
+					return null;
 		}
 	};
 
@@ -41,38 +41,38 @@ public interface IBlockNeighborhood {
 	 */
 	static IBlockNeighborhood around(BlockEntity blockEntity) {
 		return IBlockNeighborhoodBuilder.getInstance().build(
-				direction -> {
-					final Level level = blockEntity.getLevel();
+						direction -> {
+							final Level level = blockEntity.getLevel();
 
-					if (level == null) {
-						return BlockInformation.AIR;
-					}
+							if (level == null) {
+								return BlockInformation.AIR;
+							}
 
-					final BlockState state = level.getBlockState(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
-					final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
-							state,
-							Optional.ofNullable(level.getBlockEntity(blockEntity.getBlockPos().offset(direction.getUnitVec3i())))
-					);
+							final BlockState state = level.getBlockState(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
+							final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance().getStateVariant(
+									state,
+									Optional.ofNullable(level.getBlockEntity(blockEntity.getBlockPos().offset(direction.getUnitVec3i())))
+							);
 
-					return new BlockInformation(state, additionalStateInfo);
-				},
+							return new BlockInformation(state, additionalStateInfo);
+						},
 
 
-				direction -> {
-					final Level level = blockEntity.getLevel();
+						direction -> {
+							final Level level = blockEntity.getLevel();
 
-					if (level == null) {
-						return null;
-					}
+							if (level == null) {
+								return null;
+							}
 
-					final BlockEntity otherTileEntity = level.getBlockEntity(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
+							final BlockEntity otherTileEntity = level.getBlockEntity(blockEntity.getBlockPos().offset(direction.getUnitVec3i()));
 
-					if (otherTileEntity instanceof IAreaAccessor otherAccessor) {
-						return otherAccessor;
-					}
+							if (otherTileEntity instanceof IAreaAccessor otherAccessor) {
+								return otherAccessor;
+							}
 
-					return null;
-				});
+							return null;
+						});
 	}
 
 	/**

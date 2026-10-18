@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public enum ChangeType implements IChangeType {
 	BIT(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"), BitChange.MAP_CODEC, BitChange.STREAM_CODEC),
-	COMBINED(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "combined"), CombinedChange.MAP_CODEC, CombinedChange.STREAM_CODEC);
+			COMBINED(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "combined"), CombinedChange.MAP_CODEC, CombinedChange.STREAM_CODEC);
 
 	private final Identifier registryName;
 	private final MapCodec<? extends IChange> codec;

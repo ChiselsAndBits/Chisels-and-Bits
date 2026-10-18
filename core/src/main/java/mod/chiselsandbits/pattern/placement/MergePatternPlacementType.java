@@ -50,8 +50,8 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 	public VoxelShape buildVoxelShapeForWireframe(
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.MERGE.get().buildVoxelShapeForWireframe(
-				sourceSnapshot, player, targetedPoint, hitFace
-		);
+						sourceSnapshot, player, targetedPoint, hitFace
+				);
 	}
 
 	@Override
@@ -60,11 +60,11 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator =
-			IMutatorFactory.getInstance().covering(
-					context.getLevel(),
-					targetedPosition,
-					targetedPosition.add(0.9999, 0.9999, 0.9999)
-			);
+				IMutatorFactory.getInstance().covering(
+							context.getLevel(),
+							targetedPosition,
+							targetedPosition.add(0.9999, 0.9999, 0.9999)
+		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -82,22 +82,22 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
 					return o
-					.filter(os -> !os.getBlockInformation().isAir())
-					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
-					.orElse(false);
-				})
+							.filter(os -> !os.getBlockInformation().isAir())
+							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
+							.orElse(false);
+		})
 				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toMap(
-						IStateEntryInfo::getBlockInformation,
-						s -> 1,
-						Integer::sum
+								IStateEntryInfo::getBlockInformation,
+								s -> 1,
+								Integer::sum
 				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
-		|| totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
+				|| totalRemovedBits.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace) {
 			return PlacementResult.failure(
@@ -111,17 +111,17 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 					final Optional<IStateEntryInfo> o = areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint()));
 
 					return o
-					.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
-					.orElse(false);
-				})
+							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
+							.orElse(false);
+		})
 				.collect(Collectors.toMap(
-						IStateEntryInfo::getBlockInformation,
-						s -> 1,
-						Integer::sum
+								IStateEntryInfo::getBlockInformation,
+								s -> 1,
+								Integer::sum
 				));
 
 		final boolean hasRequiredBits =
-			context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
+				context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));
 
 		if (!hasRequiredBits) {
 			return PlacementResult.failure(

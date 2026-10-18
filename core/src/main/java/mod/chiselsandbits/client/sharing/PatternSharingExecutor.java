@@ -106,7 +106,7 @@ public final class PatternSharingExecutor {
 		final RegistryOps<Tag> registryOps = RegistryOps.create(NbtOps.INSTANCE, provider);
 		final Tag payload = IMultiStateSnapshot.CODEC.encodeStart(
 				registryOps, multiStateItemStack.createSnapshot()
-				).getOrThrow();
+		).getOrThrow();
 
 		final ByteArrayDataOutput dataOutput = ByteStreams.newDataOutput();
 
@@ -125,8 +125,8 @@ public final class PatternSharingExecutor {
 
 	private static byte[] getBlockTextureAtlasData() throws PatternIOException {
 		try (NativeImage currentAtlas = TextureUtils.downloadTexture(
-				Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
-		)) {
+						Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getTexture()
+				)) {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			final WritableByteChannel channel = Channels.newChannel(byteArrayOutputStream);
 

@@ -24,7 +24,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 	public static final Codec<SimpleContainer> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).forGetter(SimpleContainer::slots)
-					).apply(instance, SimpleContainer::new)
+			).apply(instance, SimpleContainer::new)
 	);
 	public static final MapCodec<SimpleContainer> MAP_CODEC = SlotData.CODEC.listOf().fieldOf(NbtConstants.SLOTS).xmap(SimpleContainer::new, SimpleContainer::slots);
 	public static final StreamCodec<RegistryFriendlyByteBuf, SimpleContainer> STREAM_CODEC = SlotData.STREAM_CODEC.apply(ByteBufCodecs.list()).map(SimpleContainer::new, SimpleContainer::slots);
@@ -232,7 +232,7 @@ public class SimpleContainer implements Container, Serializable.Registry<SimpleC
 				instance -> instance.group(
 						Codec.INT.fieldOf("index").forGetter(SlotData::index),
 						ItemStack.OPTIONAL_CODEC.fieldOf("stack").forGetter(SlotData::stack)
-						).apply(instance, SlotData::new)
+				).apply(instance, SlotData::new)
 		);
 
 		static StreamCodec<RegistryFriendlyByteBuf, SlotData> STREAM_CODEC = StreamCodec.composite(

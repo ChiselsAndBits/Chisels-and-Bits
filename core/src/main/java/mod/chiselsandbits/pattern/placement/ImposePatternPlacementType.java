@@ -54,8 +54,8 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 	public VoxelShape buildVoxelShapeForWireframe(
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.IMPOSEMENT.get().buildVoxelShapeForWireframe(
-				sourceSnapshot, player, targetedPoint, hitFace
-		);
+						sourceSnapshot, player, targetedPoint, hitFace
+				);
 	}
 
 	@Override
@@ -64,11 +64,11 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 				? context.getClickLocation()
 				: Vec3.atLowerCornerOf(context.getClickedPos().offset(context.getClickedFace().getOpposite().getUnitVec3i()));
 		final IWorldAreaMutator areaMutator =
-			IMutatorFactory.getInstance().covering(
-					context.getLevel(),
-					targetedPosition,
-					targetedPosition.add(0.9999, 0.9999, 0.9999)
-			);
+				IMutatorFactory.getInstance().covering(
+							context.getLevel(),
+							targetedPosition,
+							targetedPosition.add(0.9999, 0.9999, 0.9999)
+		);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -85,7 +85,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-				})
+		})
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
@@ -107,12 +107,12 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 								IStateEntryInfo::getBlockInformation,
 								s -> 1,
 								Integer::sum
-						)
-				);
+				)
+		);
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
-		|| extractedBitsCount.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
+				|| extractedBitsCount.entrySet().stream().allMatch(e -> playerBitInventory.canInsert(e.getKey(), e.getValue()));
 
 		if (!hasRequiredSpace) {
 			return PlacementResult.failure(

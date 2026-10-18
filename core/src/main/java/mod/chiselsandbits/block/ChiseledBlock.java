@@ -103,7 +103,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 	@Override
 	public float getFriction(final BlockState state, final LevelReader levelReader, final BlockPos pos, @Nullable final Entity entity) {
-		final float frictionValue = getBlockEntity(levelReader, pos)
+				final float frictionValue = getBlockEntity(levelReader, pos)
 				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getSlipperiness())
 				.orElse(0f);
 
@@ -141,13 +141,13 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		blockEntity.getWorld().setBlock(
-				blockEntity.getInWorldStartBlockPoint(),
-				currentState
-				.setValue(LIGHT_EMISSION_LEVEL, emissionLevel)
-				.setValue(PROPAGATES_SKYLIGHT, propagatesSkyLight)
-				.setValue(LIGHT_BLOCK_LEVEL, blockLevel),
-				Block.UPDATE_ALL
-		);
+						blockEntity.getInWorldStartBlockPoint(),
+						currentState
+						.setValue(LIGHT_EMISSION_LEVEL, emissionLevel)
+						.setValue(PROPAGATES_SKYLIGHT, propagatesSkyLight)
+						.setValue(LIGHT_BLOCK_LEVEL, blockLevel),
+						Block.UPDATE_ALL
+				);
 	}
 
 	@Override
@@ -162,15 +162,15 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					final BlockInformation primaryState = e.getStatistics().getPrimaryState();
 
 					return ILevelBasedPropertyAccessor.getInstance().canHarvestBlock(
-						new SingleBlockBlockReader.Builder()
-							.withBlockEntity(() -> primaryState.newBlockEntity(pos))
-							.withBlockState(primaryState.blockState())
-							.withPos(pos)
-							.withSource(blockGetter)
-							.createSingleBlockBlockReader(),
-							pos,
-							player
-					);
+									new SingleBlockBlockReader.Builder()
+									.withBlockEntity(() -> primaryState.newBlockEntity(pos))
+									.withBlockState(primaryState.blockState())
+									.withPos(pos)
+									.withSource(blockGetter)
+									.createSingleBlockBlockReader(),
+									pos,
+									player
+							);
 				})
 				.orElse(true);
 	}
@@ -245,11 +245,11 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		getBlockEntity(levelAccessor, blockPos)
-				.ifPresent(e -> e.mirror(switch (mirror) {
-		case NONE -> throw new IllegalArgumentException("Invalid mirror");
-		case LEFT_RIGHT -> Direction.Axis.Z;
-		case FRONT_BACK -> Direction.Axis.X;
-				}));
+		.ifPresent(e -> e.mirror(switch (mirror) {
+							case NONE -> throw new IllegalArgumentException("Invalid mirror");
+							case LEFT_RIGHT -> Direction.Axis.Z;
+							case FRONT_BACK -> Direction.Axis.X;
+						}));
 
 		return blockState;
 	}
@@ -308,19 +308,19 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			@Nullable final LivingEntity placer,
 			final ItemStack stack) {
 		getBlockEntity(worldIn, pos)
-				.ifPresent(multiStateBlockEntity -> {
-					final Direction placementDirection = placer == null ? Direction.NORTH : placer.getDirection().getOpposite();
-					final int horizontalIndex = placementDirection.get2DDataValue();
+		.ifPresent(multiStateBlockEntity -> {
+			final Direction placementDirection = placer == null ? Direction.NORTH : placer.getDirection().getOpposite();
+			final int horizontalIndex = placementDirection.get2DDataValue();
 
-					int rotationCount = horizontalIndex - 4;
+			int rotationCount = horizontalIndex - 4;
 
-					if (rotationCount < 0) {
-						rotationCount += 4;
-					}
+			if (rotationCount < 0) {
+				rotationCount += 4;
+			}
 
-					multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
-					super.setPlacedBy(worldIn, pos, state, placer, stack);
-				});
+			multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
+			super.setPlacedBy(worldIn, pos, state, placer, stack);
+		});
 	}
 
 	@Override
@@ -394,7 +394,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		return IEligibilityManager.getInstance()
 				.canBeChiseled(new BlockInformation(fluidIn.defaultFluidState().createLegacyBlock(), IStateVariantManager.getInstance().getStateVariant(fluidIn.defaultFluidState())))
 
-		&& worldIn.getBlockEntity(pos) instanceof IMultiStateBlockEntity multiStateBlockEntity && multiStateBlockEntity.isCanBeFlooded();
+				&& worldIn.getBlockEntity(pos) instanceof IMultiStateBlockEntity multiStateBlockEntity && multiStateBlockEntity.isCanBeFlooded();
 	}
 
 	@Override
@@ -409,22 +409,22 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 				.map(entity -> {
 					try (IBatchMutation ignored = entity.batch()) {
 						entity.mutableStream().forEach(
-								stateEntry -> {
-									if (stateEntry.getBlockInformation().isAir()) {
-										final BlockState blockState = still.defaultFluidState().createLegacyBlock();
-										final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance()
-										.getStateVariant(
-												fluidStateIn
-										);
+										stateEntry -> {
+											if (stateEntry.getBlockInformation().isAir()) {
+												final BlockState blockState = still.defaultFluidState().createLegacyBlock();
+												final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance()
+														.getStateVariant(
+																fluidStateIn
+												);
 
-										try {
-											stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
-										} catch (SpaceOccupiedException e) {
-										//Ignore
-										}
-									}
-								});
-			}
+												try {
+													stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
+												} catch (SpaceOccupiedException e) {
+												//Ignore
+												}
+											}
+										});
+					}
 
 					return true;
 				})
@@ -458,9 +458,9 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			chiseledBlockEntity.updateModelData();
 		} else {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
-				new NeighborBlockUpdatedPacket(position, block, orientation),
-					level.getChunkAt(position)
-			);
+							new NeighborBlockUpdatedPacket(position, block, orientation),
+							level.getChunkAt(position)
+					);
 		}
 	}
 
@@ -478,8 +478,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						.map(entryState ->
 								IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState.getKey(), levelReader, pos, beaconPos)
 								.map(color -> ArrayUtils.multiply(
-										ColorUtils.unpack(color),
-										entryState.getValue())))
+												ColorUtils.unpack(color),
+												entryState.getValue())))
 						.filter(Optional::isPresent)
 						.map(Optional::get)
 						.reduce((floats, floats2) -> {
@@ -491,7 +491,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 							for (int i = 0; i < floats.length; i++) {
 								result[i] = floats[i] + floats2[i];
-			}
+							}
 
 							return result;
 						})
@@ -509,37 +509,37 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		return getBlockEntity(levelReader, pos)
 				.map(blockEntity -> blockEntity.getStatistics().getPrimaryState())
 				.map(blockState -> ILevelBasedPropertyAccessor.getInstance().getSoundType(
-					new SingleBlockLevelReader.Builder()
-						.withBlockState(blockState.blockState())
-						.withBlockEntity(() -> blockState.newBlockEntity(pos))
-						.withSource(levelReader)
-						.withPos(pos)
-						.createSingleBlockLevelReader(),
-						pos,
-						entity
-				))
+								new SingleBlockLevelReader.Builder()
+								.withBlockState(blockState.blockState())
+								.withBlockEntity(() -> blockState.newBlockEntity(pos))
+								.withSource(levelReader)
+								.withPos(pos)
+								.createSingleBlockLevelReader(),
+								pos,
+								entity
+						))
 				.orElse(SoundType.STONE);
 	}
 
 	@Override
 	public float getExplosionResistance(BlockState state, BlockGetter blockGetter, BlockPos position, Explosion explosion) {
 		return (float) (double) (getBlockEntity(blockGetter, position)
-				.map(e -> e.getStatistics().getStateCounts().entrySet()
-						.stream()
-						.filter(entryState -> !entryState.getKey().isAir())
-						.mapToDouble(entryState -> ILevelBasedPropertyAccessor.getInstance()
-								.getExplosionResistance(
-									new SingleBlockBlockReader.Builder()
-										.withBlockState(entryState.getKey().blockState())
-										.withBlockEntity(() -> entryState.getKey().newBlockEntity(position))
-										.withSource(blockGetter)
-										.withPos(position)
-										.createSingleBlockBlockReader(),
-										position,
-										explosion
+						.map(e -> e.getStatistics().getStateCounts().entrySet()
+								.stream()
+								.filter(entryState -> !entryState.getKey().isAir())
+								.mapToDouble(entryState -> ILevelBasedPropertyAccessor.getInstance()
+										.getExplosionResistance(
+												new SingleBlockBlockReader.Builder()
+												.withBlockState(entryState.getKey().blockState())
+												.withBlockEntity(() -> entryState.getKey().newBlockEntity(position))
+												.withSource(blockGetter)
+												.withPos(position)
+												.createSingleBlockBlockReader(),
+												position,
+												explosion
 										) * entryState.getValue()
-						)
-						.sum() / (e.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())
+								)
+								.sum() / (e.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())
 						).orElse(0d));
 	}
 
@@ -582,17 +582,17 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					.map(blockEntity -> {
 						try (IBatchMutation mutation = blockEntity.batch(IChangeTrackerManager.getInstance().getChangeTracker(player))) {
 							return blockEntity.mutableStream()
-							.filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())
-							.peek(IMutableStateEntryInfo::clear)
-							.count();
-				}
+									.filter(entry -> !entry.getBlockInformation().blockState().getFluidState().isEmpty())
+									.peek(IMutableStateEntryInfo::clear)
+									.count();
+						}
 					})
 					.map(count -> {
 						if (count > 0) {
 							itemStack.shrink(1);
 							IPlayerInventoryManager.getInstance().giveToPlayer(
-									player, new ItemStack(Items.WET_SPONGE)
-							);
+											player, new ItemStack(Items.WET_SPONGE)
+									);
 						}
 
 						return count > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;

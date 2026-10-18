@@ -131,8 +131,8 @@ public class BlockPosStreamProvider {
 	 */
 	public static Stream<BlockPos> getForRange(final double minX, final double minY, final double minZ, final double maxX, final double maxY, final double maxZ) {
 		return getForRange(
-			new Vec3(minX, minY, minZ),
-			new Vec3(maxX, maxY, maxZ)
+				new Vec3(minX, minY, minZ),
+				new Vec3(maxX, maxY, maxZ)
 		);
 	}
 

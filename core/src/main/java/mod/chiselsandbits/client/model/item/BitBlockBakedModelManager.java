@@ -114,37 +114,37 @@ public class BitBlockBakedModelManager {
 		try {
 			final @Nullable BlockInformation finalBlockInformation = blockInformation;
 			final ClientLevel finalLevel = level;
-			return target.get(blockInformation, () -> {
-				if (large) {
-					boolean isBlock = true;
-					ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
-							() -> new ItemStack(workingState.blockState().getBlock())
+					return target.get(blockInformation, () -> {
+						if (large) {
+							boolean isBlock = true;
+							ItemStack lookupStack = IStateVariantManager.getInstance().getItemStack(workingState).orElseGet(
+									() -> new ItemStack(workingState.blockState().getBlock())
 					);
 
-					if (workingState.blockState().getBlock() instanceof LiquidBlock) {
-						lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
-						isBlock = false;
+							if (workingState.blockState().getBlock() instanceof LiquidBlock) {
+								lookupStack = new ItemStack(workingState.blockState().getFluidState().getType().getBucket());
+								isBlock = false;
 					}
 
-					final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
-							Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
+							final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
+									Objects.requireNonNull(lookupStack.get(DataComponents.ITEM_MODEL))
 					);
 
-					final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
-					final List<BitBlockModelPart> parts = new ArrayList<>();
+							final ItemStackRenderState renderState = ItemModelUtils.update(lookupStack, model, ItemDisplayContext.GUI, null, null, 42);
+							final List<BitBlockModelPart> parts = new ArrayList<>();
 
-					for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
-						parts.add(
-							new BitBlockModelPart(
-									layer.prepareQuadList(),
-									layer.tintLayers()
-							)
+							for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
+								parts.add(
+										new BitBlockModelPart(
+												layer.prepareQuadList(),
+												layer.tintLayers()
+								)
 						);
 					}
 
-					return new BitBlockModelInformation(parts, isBlock, true);
-				} else {
-					return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
+							return new BitBlockModelInformation(parts, isBlock, true);
+						} else {
+							return new BitBlockModelInformationBuilder(finalBlockInformation, false).build(finalLevel);
 				}
 			});
 		} catch (ExecutionException e) {

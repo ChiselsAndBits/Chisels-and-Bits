@@ -33,7 +33,7 @@ public class MeasuringManager implements IMeasuringManager {
 	}
 
 	private final Table<Identifier, UUID, Map<MeasuringMode, Measurement>> measurements = Tables.newCustomTable(
-		new ConcurrentHashMap<>(),
+			new ConcurrentHashMap<>(),
 			ConcurrentHashMap::new
 	);
 
@@ -71,15 +71,15 @@ public class MeasuringManager implements IMeasuringManager {
 
 	public void syncToAll() {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToEveryone(
-			new MeasurementsUpdatedPacket(this.measurements)
-		);
+						new MeasurementsUpdatedPacket(this.measurements)
+				);
 	}
 
 	public void syncTo(final ServerPlayer player) {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
-			new MeasurementsUpdatedPacket(this.measurements),
-				player
-		);
+						new MeasurementsUpdatedPacket(this.measurements),
+						player
+				);
 	}
 
 	public void addOrUpdate(final Measurement measurement, final boolean updateAll) {

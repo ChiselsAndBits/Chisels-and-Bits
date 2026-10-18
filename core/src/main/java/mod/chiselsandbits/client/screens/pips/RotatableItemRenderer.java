@@ -23,7 +23,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	@Nullable
 	private Quaternionf lastRotY = null;
 
-	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
+			public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
 		super(bufferSource);
 	}
 
@@ -39,13 +39,13 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 
 		final ItemStackRenderState renderState = new ItemStackRenderState();
 		Minecraft.getInstance().getItemModelResolver().updateForTopItem(
-				renderState,
-				state.stack,
-				ItemDisplayContext.GUI,
-				null,
-				null,
-				42
-		);
+						renderState,
+						state.stack,
+						ItemDisplayContext.GUI,
+						null,
+						null,
+						42
+				);
 
 		renderState.submit(
 				poseStack,

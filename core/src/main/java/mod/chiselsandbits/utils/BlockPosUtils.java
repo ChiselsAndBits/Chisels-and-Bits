@@ -23,8 +23,8 @@ public class BlockPosUtils {
 
 	public static int getCollisionIndex(final int x, final int y, final int z, final StateEntrySize size) {
 		return x * (size.getBitsPerLayer())
-		+ y * (size.getBitsPerBlockSide())
-		+ z;
+				+ y * (size.getBitsPerBlockSide())
+				+ z;
 	}
 
 	public static int getCollisionIndex(final BlockPos blockPos, final int ySize, final int zSize) {
@@ -33,7 +33,7 @@ public class BlockPosUtils {
 
 	public static int getCollisionIndex(final int x, final int y, final int z, final int ySize, final int zSize) {
 		return x * (ySize * zSize)
-		+ y * (zSize)
-		+ z;
+				+ y * (zSize)
+				+ z;
 	}
 }

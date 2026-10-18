@@ -58,8 +58,8 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 		final RandomSource random = RandomSource.createThreadLocalInstance(42L);
 
 		final int blockStateCount = (StateEntrySize.current().getBitsPerBlockSide() / 4)
-		* (StateEntrySize.current().getBitsPerBlockSide() / 4)
-		* (StateEntrySize.current().getBitsPerBlockSide() / 4);
+				* (StateEntrySize.current().getBitsPerBlockSide() / 4)
+				* (StateEntrySize.current().getBitsPerBlockSide() / 4);
 		final List<BlockInformation> blockInformation = new ArrayList<>(blockStateCount);
 
 		for (int i = 0; i < blockStateCount; i++) {
@@ -69,18 +69,18 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 		final SimpleSnapshot results = new SimpleSnapshot(BlockInformation.AIR);
 
 		results.mutableStream()
-		.forEach(stateEntryInfo -> {
-			final Vec3 pos = stateEntryInfo.getStartPoint()
-			.multiply(StateEntrySize.current().getBitsPerBlockSideScalingVector());
+				.forEach(stateEntryInfo -> {
+					final Vec3 pos = stateEntryInfo.getStartPoint()
+							.multiply(StateEntrySize.current().getBitsPerBlockSideScalingVector());
 
-			final Vec3 indexPos = pos.multiply(1 / 4d, 1/4d, 1/4d);
-			final Vec3i index = VectorUtils.toInteger(indexPos.x(), indexPos.y(), indexPos.z());
+					final Vec3 indexPos = pos.multiply(1 / 4d, 1/4d, 1/4d);
+					final Vec3i index = VectorUtils.toInteger(indexPos.x(), indexPos.y(), indexPos.z());
 
-			final int size = StateEntrySize.current().getBitsPerBlockSide() / 4;
-			final int blockInformationIndex = index.getX() + (index.getY() * size) + (index.getZ() * size * size);
-			final BlockInformation info = blockInformation.get(blockInformationIndex);
-			stateEntryInfo.overrideState(info);
-		});
+					final int size = StateEntrySize.current().getBitsPerBlockSide() / 4;
+					final int blockInformationIndex = index.getX() + (index.getY() * size) + (index.getZ() * size * size);
+					final BlockInformation info = blockInformation.get(blockInformationIndex);
+					stateEntryInfo.overrideState(info);
+				});
 
 		final ItemStack stack = results.toItemStack().toBlockStack();
 		stack.set(ModDataComponentTypes.IS_DEFAULT_INSTANCE.get(), true);
@@ -130,7 +130,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						level,
 						context.getClickLocation(),
 						context.getClickLocation().add(1d, 1d, 1d)
-				)
+		)
 
 				: IMutatorFactory.getInstance().in(level, pos);
 		final IMultiStateSnapshot attemptTarget = areaMutator.createSnapshot();
@@ -145,20 +145,20 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						return true;
 					} catch (SpaceOccupiedException exception) {
 						return false;
-					}
-				});
+			}
+		});
 
 		if (noCollisions) {
 			try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
 				source.stream().forEach(
-						stateEntryInfo -> {
-							try {
-								areaMutator.setInAreaTarget(
-										stateEntryInfo.getBlockInformation(),
-										stateEntryInfo.getStartPoint());
-							} catch (SpaceOccupiedException ignored1) {
-							}
-						});
+								stateEntryInfo -> {
+									try {
+										areaMutator.setInAreaTarget(
+												stateEntryInfo.getBlockInformation(),
+												stateEntryInfo.getStartPoint());
+									} catch (SpaceOccupiedException ignored1) {
+									}
+								});
 			}
 
 			if (getBlock() instanceof ChiseledBlock chiseledBlock) {
@@ -216,8 +216,8 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						return true;
 					} catch (SpaceOccupiedException exception) {
 						return false;
-					}
-				});
+			}
+		});
 		return noSpaceOccupied
 				? PlacementResult.success()
 				: PlacementResult.failure(

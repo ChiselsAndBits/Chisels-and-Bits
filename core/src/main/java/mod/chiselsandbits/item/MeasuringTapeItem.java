@@ -73,8 +73,8 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		if (stack.getItem() == this) {
 		//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
 			if (DistExecutor.unsafeRunForDist(
-					() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
-					() -> () -> { return false; })
+							() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
+							() -> () -> { return false; })
 			) {
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
@@ -89,11 +89,11 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 					} else {
 						final Vec3 startPoint = startPointHandler.get();
 						MeasuringManager.getInstance().createAndSend(
-								startPoint,
-								getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
-								blockRayTraceResult.getDirection(),
-								getMode(stack)
-						);
+										startPoint,
+										getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
+										blockRayTraceResult.getDirection(),
+										getMode(stack)
+								);
 						clear(stack);
 					}
 
@@ -139,11 +139,11 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		final Vec3 startPoint = startPointHandler.get();
 
 		MeasuringManager.getInstance().createAndSend(
-				startPoint,
-				getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
-				blockRayTraceResult.getDirection(),
-				getMode(stack)
-		);
+						startPoint,
+						getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
+						blockRayTraceResult.getDirection(),
+						getMode(stack)
+				);
 	}
 
 	@Override

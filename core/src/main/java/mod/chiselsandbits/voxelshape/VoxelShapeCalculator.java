@@ -21,20 +21,20 @@ public class VoxelShapeCalculator {
 		}
 
 		final VoxelShape shape =
-			AABBManager.getInstance()
-				.get(areaAccessor, sizeType)
-				.stream()
-				.map(aabb -> aabb.move(offset))
-				.reduce(
-						Shapes.empty(),
-						(voxelShape, axisAlignedBB) -> {
-							final VoxelShape bbShape = Shapes.create(axisAlignedBB);
-							return Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR);
-						},
+				AABBManager.getInstance()
+					.get(areaAccessor, sizeType)
+					.stream()
+					.map(aabb -> aabb.move(offset))
+					.reduce(
+							Shapes.empty(),
+							(voxelShape, axisAlignedBB) -> {
+								final VoxelShape bbShape = Shapes.create(axisAlignedBB);
+								return Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR);
+							},
 
 
-						(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
-				);
+							(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
+		);
 
 		return simplify ? shape.optimize() : shape;
 	}

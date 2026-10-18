@@ -47,13 +47,13 @@ public class EffectUtils {
 							final double d8 = d5 * d2 + p_228348_5_;
 							final double d9 = d6 * d3 + p_228348_7_;
 							manager.add((new TerrainParticle((ClientLevel) renderingWorld,
-									(double) pos.getX() + d7,
-									(double) pos.getY() + d8,
-									(double) pos.getZ() + d9,
-									d4 - 0.5D,
-									d5 - 0.5D,
-									d6 - 0.5D,
-									primaryState, pos)));
+											(double) pos.getX() + d7,
+											(double) pos.getY() + d8,
+											(double) pos.getZ() + d9,
+											d4 - 0.5D,
+											d5 - 0.5D,
+											d6 - 0.5D,
+											primaryState, pos)));
 						}
 					}
 				}

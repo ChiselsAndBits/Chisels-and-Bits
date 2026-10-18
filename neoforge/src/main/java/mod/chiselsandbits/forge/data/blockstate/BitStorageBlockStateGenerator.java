@@ -49,24 +49,24 @@ public class BitStorageBlockStateGenerator extends ModelProvider implements Data
 			@Override
 			public TexturedModel get(final Block block) {
 				return new TexturedModel(
-					new TextureMapping()
+						new TextureMapping()
 						.put(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(block)))
 						.put(TextureSlot.PARTICLE, new Material(ModelLocationUtils.getModelLocation(block))),
-					new ModelTemplate(
-							Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
-							Optional.empty(),
-							TextureSlot.LAYER0,
-							TextureSlot.PARTICLE
-					)
+						new ModelTemplate(
+								Optional.of(ModelLocationUtils.getModelLocation(block).withSuffix("_spec")),
+								Optional.empty(),
+								TextureSlot.LAYER0,
+								TextureSlot.PARTICLE
+						)
 				);
 			}
 		});
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
-				ModelLocationUtils.getModelLocation(block),
-				Optional.empty(),
-				List.of()
-		));
+						ModelLocationUtils.getModelLocation(block),
+						Optional.empty(),
+						List.of()
+				));
 	}
 
 	@Override

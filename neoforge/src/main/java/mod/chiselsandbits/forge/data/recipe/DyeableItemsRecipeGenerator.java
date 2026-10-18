@@ -26,11 +26,11 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true,
-			new Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider()
-			)
-		);
+						new Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider()
+						)
+				);
 	}
 
 	private static final class Runner extends RecipeProvider.Runner {

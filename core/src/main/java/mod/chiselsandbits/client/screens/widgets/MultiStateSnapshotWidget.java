@@ -43,16 +43,16 @@ public class MultiStateSnapshotWidget extends AbstractChiselsAndBitsWidget {
 	public void renderRotatableItemAndEffectIntoGui(GuiGraphicsExtractor graphics) {
 		final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 		extendedGuiGraphics.submitPip(
-			new RotatableItemRenderer.RenderState(
-					this.snapshotBlockStack,
-					TransformationUtils.quatFromXYZ(this.facingVector.toVector3f(), false),
-					this.getX() + 1,
-					this.getY() + 1,
-					this.getX() + this.width - 1,
-					this.getY() + this.height - 1,
-					scaleFactor,
-					extendedGuiGraphics.currentScissorArea()
-			)
+				new RotatableItemRenderer.RenderState(
+						this.snapshotBlockStack,
+						TransformationUtils.quatFromXYZ(this.facingVector.toVector3f(), false),
+						this.getX() + 1,
+						this.getY() + 1,
+						this.getX() + this.width - 1,
+						this.getY() + this.height - 1,
+						scaleFactor,
+						extendedGuiGraphics.currentScissorArea()
+				)
 		);
 	}
 

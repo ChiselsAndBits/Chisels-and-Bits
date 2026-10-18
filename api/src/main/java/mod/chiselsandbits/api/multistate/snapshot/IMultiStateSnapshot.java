@@ -15,10 +15,10 @@ public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableArea
 			.byNameCodec().dispatch(IMultiStateSnapshot::getType, IMultiStateSnapshotType::codec));
 
 	StreamCodec<RegistryFriendlyByteBuf, IMultiStateSnapshot> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
-			IRegistryManager.getInstance().getMultiStateSnapshotTypeRegistry().byNameStreamCodec(),
-			IMultiStateSnapshotType::streamCodec,
-			IMultiStateSnapshot::getType
-	));
+					IRegistryManager.getInstance().getMultiStateSnapshotTypeRegistry().byNameStreamCodec(),
+					IMultiStateSnapshotType::streamCodec,
+					IMultiStateSnapshot::getType
+			));
 
 	/**
 	 * Gets the type of the snapshot.

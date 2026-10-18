@@ -29,71 +29,71 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModBlocks.CHISELED_PRINTER.get(),
-					(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							" c; l l; sss",
-							ImmutableMap.of(
-									'c', ModTags.Items.CHISEL,
-									'l', ItemTags.LOGS
-							),
-							ImmutableMap.of(
-									's', Blocks.SMOOTH_STONE_SLAB
-							)
-					)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModBlocks.CHISELED_PRINTER.get(),
+								(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										" c; l l; sss",
+										ImmutableMap.of(
+												'c', ModTags.Items.CHISEL,
+												'l', ItemTags.LOGS
+										),
+										ImmutableMap.of(
+												's', Blocks.SMOOTH_STONE_SLAB
+										)
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModBlocks.MODIFICATION_TABLE.get(),
-					(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							"scs; nbn; ppp",
-							ImmutableMap.of(
-									's', ItemTags.WOODEN_SLABS,
-									'n', Tags.Items.NUGGETS_IRON,
-									'b', ItemTags.LOGS,
-									'p', ItemTags.PLANKS,
-									'c', ModTags.Items.CHISEL
-							),
-							ImmutableMap.of()
-					)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModBlocks.MODIFICATION_TABLE.get(),
+								(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										"scs; nbn; ppp",
+										ImmutableMap.of(
+												's', ItemTags.WOODEN_SLABS,
+												'n', Tags.Items.NUGGETS_IRON,
+												'b', ItemTags.LOGS,
+												'p', ItemTags.PLANKS,
+												'c', ModTags.Items.CHISEL
+										),
+										ImmutableMap.of()
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModBlocks.BIT_STORAGE.get(),
-					(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							"igi; glg; ici",
-							ImmutableMap.of(
-									'g', Tags.Items.GLASS_BLOCKS,
-									'l', ItemTags.LOGS,
-									'i', Tags.Items.INGOTS_IRON,
-									'c', ModTags.Items.CHISEL
-							),
-							ImmutableMap.of()
-					)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModBlocks.BIT_STORAGE.get(),
+								(registries, output, itemProvider) -> new MachineBlocksRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										"igi; glg; ici",
+										ImmutableMap.of(
+												'g', Tags.Items.GLASS_BLOCKS,
+												'l', ItemTags.LOGS,
+												'i', Tags.Items.INGOTS_IRON,
+												'c', ModTags.Items.CHISEL
+										),
+										ImmutableMap.of()
+								)
+						)
+				);
 	}
 
 	private final List<String> pattern;

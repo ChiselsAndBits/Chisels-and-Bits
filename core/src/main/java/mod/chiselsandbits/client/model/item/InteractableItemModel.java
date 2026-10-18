@@ -27,7 +27,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 			@Nullable final ClientLevel level,
 			@Nullable final ItemOwner owner,
 			final int seed) {
-		final var renderer = new InteractionISTER(this, displayContext);
+				final var renderer = new InteractionISTER(this, displayContext);
 		final var specialRenderState = renderer.extractArgument(stack);
 
 		if (specialRenderState == null) {
@@ -45,15 +45,15 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 				specialRenderState
 		);
 		layer.setExtents(ItemModelUtils.redirectExtendsTo(
-				stack, model(), displayContext, level, owner, seed
-		));
+						stack, model(), displayContext, level, owner, seed
+				));
 	}
 
 	public record Unbaked(CuboidItemModelWrapper.Unbaked model) implements ItemModel.Unbaked {
 		public static final MapCodec<Unbaked> CODEC = RecordCodecBuilder.mapCodec(
 				instance -> instance.group(
 						CuboidItemModelWrapper.Unbaked.MAP_CODEC.fieldOf("model").forGetter(Unbaked::model)
-						).apply(instance, Unbaked::new)
+				).apply(instance, Unbaked::new)
 		);
 
 		@Override
@@ -63,7 +63,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 
 		@Override
 		public @NonNull ItemModel bake(final @NonNull BakingContext context, final @NonNull Matrix4fc transformation) {
-			final ItemModel wrapper = model().bake(context, transformation);
+					final ItemModel wrapper = model().bake(context, transformation);
 			return new InteractableItemModel(wrapper);
 		}
 

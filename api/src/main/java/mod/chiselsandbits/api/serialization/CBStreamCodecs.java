@@ -29,12 +29,12 @@ import net.minecraft.world.phys.Vec3;
 
 public interface CBStreamCodecs {
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
-		public long [] decode(FriendlyByteBuf buffer) {
-			return buffer.readLongArray();
+				public long [] decode(FriendlyByteBuf buffer) {
+					return buffer.readLongArray();
 		}
 
-		public void encode(FriendlyByteBuf buffer, long [] payload) {
-			buffer.writeLongArray(payload);
+				public void encode(FriendlyByteBuf buffer, long [] payload) {
+					buffer.writeLongArray(payload);
 		}
 	};
 
@@ -46,16 +46,16 @@ public interface CBStreamCodecs {
 
 	StreamCodec<ByteBuf, Vec3> VEC_3 = ByteBufCodecs.DOUBLE.apply(ByteBufCodecs.list(3))
 			.apply(codec -> codec.map(
-					doubles -> {
-						if (doubles.size() != 3) {
-							throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
+							doubles -> {
+								if (doubles.size() != 3) {
+									throw new IllegalArgumentException("Expected 3 doubles, got " + doubles.size());
 						}
 
-						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
-					},
+								return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
+							},
 
 
-					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
+							vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
 			));
 
 	static <R, C, V, B extends ByteBuf> StreamCodec<? super B, Table<R, C, V>> table(

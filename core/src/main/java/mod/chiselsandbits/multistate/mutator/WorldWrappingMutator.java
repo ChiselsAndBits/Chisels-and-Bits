@@ -162,8 +162,8 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		final Map<BlockPos, IMultiStateSnapshot> snapshots = positionStream
 				.collect(Collectors.toMap(
-						Function.identity(),
-						blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
+								Function.identity(),
+								blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
 				));
 
 		return new MultiBlockMultiStateSnapshot(
@@ -176,9 +176,9 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public Stream<IStateEntryInfo> streamWithPositionMutator(final IPositionMutator positionMutator) {
 		return BlockPosStreamProvider.getForRange(
-				getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
-				getInWorldEndPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
-		)
+						getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
+						getInWorldEndPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
+				)
 				.map(positionMutator::mutate)
 				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
 				.map(position -> {
@@ -243,7 +243,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| inAreaTarget.y() < 0
 				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
-				}
+		}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
@@ -251,7 +251,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| actualTarget.y() >= getInWorldEndPoint().y()
 				|| actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
-				}
+		}
 
 		final BlockPos blockPosTarget = VectorUtils.toBlockPos(actualTarget);
 
@@ -273,13 +273,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| target.y() < getInWorldStartPoint().y()
 				|| target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
-				}
+		}
 
 		if (target.x() >= getInWorldEndPoint().x()
 				|| target.y() >= getInWorldEndPoint().y()
 				|| target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
-				}
+		}
 
 		final ChiselAdaptingWorldMutator innerMutator = new ChiselAdaptingWorldMutator(
 				getWorld(), targetPos
@@ -299,7 +299,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| inAreaTarget.y() < 0
 				|| inAreaTarget.z() < 0) {
 			throw new IllegalArgumentException(String.format("The in area target can not have a negative component: %s", inAreaTarget));
-				}
+		}
 
 		final Vec3 actualTarget = getInWorldStartPoint().add(inAreaTarget);
 
@@ -307,7 +307,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| actualTarget.y() >= getInWorldEndPoint().y()
 				|| actualTarget.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The in area target is larger then the allowed size:%s", inAreaTarget));
-				}
+		}
 
 		final BlockPos blockPosTarget = VectorUtils.toBlockPos(actualTarget);
 
@@ -335,13 +335,13 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				|| target.y() < getInWorldStartPoint().y()
 				|| target.z() < getInWorldStartPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be smaller then the start point: %s", target));
-				}
+		}
 
 		if (target.x() >= getInWorldEndPoint().x()
 				|| target.y() >= getInWorldEndPoint().y()
 				|| target.z() >= getInWorldEndPoint().z()) {
 			throw new IllegalArgumentException(String.format("The target can not be greater then the start point: %s", target));
-				}
+		}
 
 		final ChiselAdaptingWorldMutator innerMutator = new ChiselAdaptingWorldMutator(
 				getWorld(), targetPos
@@ -358,7 +358,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream() {
 		return BlockPosStreamProvider.getForRange(
-				getInWorldStartPoint(), getInWorldEndPoint()
+						getInWorldStartPoint(), getInWorldEndPoint()
 				).flatMap(blockPos -> positionBasedInWorldMutableStream(blockPos)
 						.filter(entry -> this.getInWorldBoundingBox().intersects(entry.getInWorldBoundingBox()) || entry.getInWorldBoundingBox().intersects(this.getInWorldBoundingBox())));
 	}
@@ -383,7 +383,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		return new BatchMutationLock(
 				BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
-						).map(blockPos -> new ChiselAdaptingWorldMutator(
+				).map(blockPos -> new ChiselAdaptingWorldMutator(
 								getWorld(), blockPos))
 				.map(ChiselAdaptingWorldMutator::batch)
 				.collect(Collectors.toList())
@@ -393,24 +393,24 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	@Override
 	public IBatchMutation batch(final IChangeTracker changeTracker) {
 		final Map<BlockPos, IMultiStateSnapshot> before = BlockPosStreamProvider.getForRange(
-				getInWorldStartPoint(), getInWorldEndPoint()
+						getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
-						getWorld(), blockPos))
+								getWorld(), blockPos))
 				.collect(Collectors.toMap(
-						ChiselAdaptingWorldMutator::getPos,
-						ChiselAdaptingWorldMutator::createSnapshot
+								ChiselAdaptingWorldMutator::getPos,
+								ChiselAdaptingWorldMutator::createSnapshot
 				));
 
 		@SuppressWarnings("resource")
 		final IBatchMutation innerMutation = batch();
 		return () -> {
 			final Map<BlockPos, IMultiStateSnapshot> after = BlockPosStreamProvider.getForRange(
-					getInWorldStartPoint(), getInWorldEndPoint()
+							getInWorldStartPoint(), getInWorldEndPoint()
 					).map(blockPos -> new ChiselAdaptingWorldMutator(
-							getWorld(), blockPos))
+									getWorld(), blockPos))
 					.collect(Collectors.toMap(
-							ChiselAdaptingWorldMutator::getPos,
-							ChiselAdaptingWorldMutator::createSnapshot
+									ChiselAdaptingWorldMutator::getPos,
+									ChiselAdaptingWorldMutator::createSnapshot
 					));
 
 			innerMutation.close();
@@ -425,16 +425,16 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public VoxelShape provideShape(final CollisionType type, final BlockPos offset, final boolean simplify) {
 		final VoxelShape areaShape = Shapes.create(getInWorldBoundingBox().move(VectorUtils.invert(getInWorldStartBlockPoint())).move(offset));
 		final VoxelShape containedShape = BlockPosStreamProvider.getForRange(
-				getInWorldStartPoint(), getInWorldEndPoint()
+						getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
-						getWorld(), blockPos))
+								getWorld(), blockPos))
 				.map(a -> IVoxelShapeManager.getInstance().get(a, a.getInWorldStartBlockPoint().offset(VectorUtils.invert(getInWorldStartBlockPoint())).offset(offset),
-						type, simplify))
+								type, simplify))
 				.reduce(
 						Shapes.empty(),
 						(voxelShape, bbShape) -> Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR),
 						(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
-				);
+		);
 		final VoxelShape requestedShape = Shapes.joinUnoptimized(
 				areaShape,
 				containedShape,

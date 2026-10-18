@@ -64,138 +64,138 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_BIT_BAG.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							"www; wbw; www",
-							ImmutableMap.of(
-									'w', ItemTags.WOOL
-							),
-							ImmutableMap.of(
-									'b', ModItems.ITEM_BLOCK_BIT.get()
-							)
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_BIT_BAG.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										"www; wbw; www",
+										ImmutableMap.of(
+												'w', ItemTags.WOOL
+										),
+										ImmutableMap.of(
+												'b', ModItems.ITEM_BLOCK_BIT.get()
+										)
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.MAGNIFYING_GLASS.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							"cg; s; ",
-							ImmutableMap.of(
-									'c', ModTags.Items.CHISEL,
-									'g', Tags.Items.GLASS_BLOCKS,
-									's', Tags.Items.RODS_WOODEN
-							),
-							ImmutableMap.of()
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.MAGNIFYING_GLASS.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										"cg; s; ",
+										ImmutableMap.of(
+												'c', ModTags.Items.CHISEL,
+												'g', Tags.Items.GLASS_BLOCKS,
+												's', Tags.Items.RODS_WOODEN
+										),
+										ImmutableMap.of()
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.MEASURING_TAPE.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							" s; isy; ii ",
-							ImmutableMap.of(
-									'i', Tags.Items.INGOTS_IRON,
-									's', Tags.Items.STRINGS,
-									'y', Tags.Items.DYES_YELLOW
-							),
-							ImmutableMap.of()
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.MEASURING_TAPE.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										" s; isy; ii ",
+										ImmutableMap.of(
+												'i', Tags.Items.INGOTS_IRON,
+												's', Tags.Items.STRINGS,
+												'y', Tags.Items.DYES_YELLOW
+										),
+										ImmutableMap.of()
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.QUILL.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							ImmutableList.of(
-									Tags.Items.FEATHERS,
-									Tags.Items.DYES_BLACK,
-									Tags.Items.DYES_YELLOW
-							),
-							ImmutableList.of()
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.QUILL.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										ImmutableList.of(
+												Tags.Items.FEATHERS,
+												Tags.Items.DYES_BLACK,
+												Tags.Items.DYES_YELLOW
+										),
+										ImmutableList.of()
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.SEALANT_ITEM.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							ImmutableList.of(
-									Tags.Items.SLIME_BALLS,
-									Tags.Items.DRINKS_HONEY
-							),
-							ImmutableList.of()
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.SEALANT_ITEM.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										ImmutableList.of(
+												Tags.Items.SLIME_BALLS,
+												Tags.Items.DRINKS_HONEY
+										),
+										ImmutableList.of()
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.WRENCH.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							" pb; pp; p ",
-							ImmutableMap.of(
-									'p', ItemTags.PLANKS
-							),
-							ImmutableMap.of(
-									'b', ModItems.ITEM_BLOCK_BIT.get()
-							)
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.WRENCH.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										" pb; pp; p ",
+										ImmutableMap.of(
+												'p', ItemTags.PLANKS
+										),
+										ImmutableMap.of(
+												'b', ModItems.ITEM_BLOCK_BIT.get()
+										)
+								)
+						)
+				);
 
 		event.getGenerator().addProvider(true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.UNSEAL_ITEM.get(),
-					(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
-							registries,
-							output,
-							itemProvider,
-							ImmutableList.of(),
-							ImmutableList.of(
-									Blocks.WET_SPONGE
-							)
-					)
-			)
-		);
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.UNSEAL_ITEM.get(),
+								(registries, output, itemProvider) -> new SimpleItemsRecipeGenerator(
+										registries,
+										output,
+										itemProvider,
+										ImmutableList.of(),
+										ImmutableList.of(
+												Blocks.WET_SPONGE
+										)
+								)
+						)
+				);
 	}
 
 	@Override

@@ -23,14 +23,14 @@ public record ChiseledBlockModelInformation(
 		List<ChiseledBlockModelMaterial> materials,
 		ChiseledBlockModelCacheKey key
 ) implements BlockStateModel {
-	public static final ChiseledBlockModelInformation EMPTY = new ChiseledBlockModelInformation(
-		new Material.Baked(
-				Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation())),
-				true),
-			BakedQuad.FLAG_TRANSLUCENT,
-			List.of(),
-			List.of(),
-			ChiseledBlockModelCacheKey.EMPTY
+			public static final ChiseledBlockModelInformation EMPTY = new ChiseledBlockModelInformation(
+					new Material.Baked(
+							Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation())),
+							true),
+					BakedQuad.FLAG_TRANSLUCENT,
+					List.of(),
+					List.of(),
+					ChiseledBlockModelCacheKey.EMPTY
 	);
 
 	public ChiseledBlockModelInformation(

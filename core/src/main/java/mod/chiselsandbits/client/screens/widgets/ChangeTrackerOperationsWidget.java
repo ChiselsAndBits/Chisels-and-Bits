@@ -52,36 +52,36 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget 
 	public void init() {
 		super.init();
 		this.undoButton = owner.addRenderableWidget(
-			new GuiIconButton(
-					this.getX(),
-					this.getY(),
-					LocalStrings.ChangeTrackerOperationsButtonUndoName.getText(),
-					IconManager.getInstance().getUndoIcon(),
-					button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(false)),
-					Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonUndoName.getText())
-			)
+				new GuiIconButton(
+						this.getX(),
+						this.getY(),
+						LocalStrings.ChangeTrackerOperationsButtonUndoName.getText(),
+						IconManager.getInstance().getUndoIcon(),
+						button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(false)),
+						Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonUndoName.getText())
+				)
 		);
 
 		this.redoButton = owner.addRenderableWidget(
-			new GuiIconButton(
-					this.getX(),
-					this.getY() + WIDTH + ELEMENT_SEPARATOR,
-					LocalStrings.ChangeTrackerOperationsButtonRedoName.getText(),
-					IconManager.getInstance().getRedoIcon(),
-					button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(true)),
-					Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonRedoName.getText())
-			)
+				new GuiIconButton(
+						this.getX(),
+						this.getY() + WIDTH + ELEMENT_SEPARATOR,
+						LocalStrings.ChangeTrackerOperationsButtonRedoName.getText(),
+						IconManager.getInstance().getRedoIcon(),
+						button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new RequestChangeTrackerOperationPacket(true)),
+						Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonRedoName.getText())
+				)
 		);
 
 		this.clearButton = owner.addRenderableWidget(
-			new GuiIconButton(
-					this.getX(),
-					this.getY() + WIDTH + ELEMENT_SEPARATOR + WIDTH + ELEMENT_SEPARATOR,
-					LocalStrings.ChangeTrackerOperationsButtonClearName.getText(),
-					IconManager.getInstance().getTrashIcon(),
-					button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new ClearChangeTrackerPacket()),
-					Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonClearName.getText())
-			)
+				new GuiIconButton(
+						this.getX(),
+						this.getY() + WIDTH + ELEMENT_SEPARATOR + WIDTH + ELEMENT_SEPARATOR,
+						LocalStrings.ChangeTrackerOperationsButtonClearName.getText(),
+						IconManager.getInstance().getTrashIcon(),
+						button -> ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new ClearChangeTrackerPacket()),
+						Tooltip.create(LocalStrings.ChangeTrackerOperationsButtonClearName.getText())
+				)
 		);
 
 		updateState();

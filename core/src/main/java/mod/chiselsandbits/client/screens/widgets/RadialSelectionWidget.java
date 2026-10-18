@@ -405,12 +405,12 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 		final IExtendedGuiGraphics extendedGuiGraphics = getExtendedGraphicsExtractor(graphics);
 
 		extendedGuiGraphics.submitPip(
-			new Torus.RenderState(
-					startAngle, sizeAngle,
-					inner, outer, color,
-					centerX, centerY,
-					extendedGuiGraphics.currentScissorArea()
-			)
+				new Torus.RenderState(
+						startAngle, sizeAngle,
+						inner, outer, color,
+						centerX, centerY,
+						extendedGuiGraphics.currentScissorArea()
+				)
 		);
 	}
 

@@ -43,52 +43,52 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 		this.toolHandler = toolHandler;
 
 		this.addSlot(
-			new Slot(
-					patternHandler,
-					0,
-					50,
-					47
-			) {
-			@Override
-			public boolean mayPlace(final ItemStack stack) {
-				return stack.isEmpty() || stack.getItem() instanceof IPatternItem;
-			}
-		});
+				new Slot(
+						patternHandler,
+						0,
+						50,
+						47
+				) {
+					@Override
+					public boolean mayPlace(final ItemStack stack) {
+						return stack.isEmpty() || stack.getItem() instanceof IPatternItem;
+					}
+				});
 
 		this.addSlot(
-			new Slot(
-					toolHandler,
-					0,
-					81,
-					21
-			) {
-			@Override
-			public boolean mayPlace(final ItemStack stack) {
-				return stack.getItem() instanceof IChiselItem;
-			}
-		});
+				new Slot(
+						toolHandler,
+						0,
+						81,
+						21
+				) {
+					@Override
+					public boolean mayPlace(final ItemStack stack) {
+						return stack.getItem() instanceof IChiselItem;
+					}
+				});
 
 		this.addSlot(
-			new Slot(
-					resultHandler,
-					0,
-					116,
-					47
-			) {
-			@Override
-			public boolean mayPlace(final ItemStack stack) {
-				return false;
-			}
-		});
+				new Slot(
+						resultHandler,
+						0,
+						116,
+						47
+				) {
+					@Override
+					public boolean mayPlace(final ItemStack stack) {
+						return false;
+					}
+				});
 
 		for (int rowIndex = 0; rowIndex < PLAYER_INVENTORY_ROWS; ++rowIndex) {
 			for (int columnIndex = 0; columnIndex < PLAYER_INVENTORY_COLUMNS; ++columnIndex) {
 				this.addSlot(new Slot(
-						playerInventory,
-						columnIndex + rowIndex * PLAYER_INVENTORY_COLUMNS + PLAYER_INVENTORY_COLUMNS,
-						PLAYER_INVENTORY_X_OFFSET + columnIndex * SLOT_SIZE,
-						PLAYER_INVENTORY_Y_OFFSET + rowIndex * SLOT_SIZE
-				)
+								playerInventory,
+								columnIndex + rowIndex * PLAYER_INVENTORY_COLUMNS + PLAYER_INVENTORY_COLUMNS,
+								PLAYER_INVENTORY_X_OFFSET + columnIndex * SLOT_SIZE,
+								PLAYER_INVENTORY_Y_OFFSET + rowIndex * SLOT_SIZE
+						)
 				);
 			}
 		}

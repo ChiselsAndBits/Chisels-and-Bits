@@ -77,7 +77,7 @@ public class MultiStateBlockPreviewRenderHandler {
 				|| (!placementResult.isSuccess() && failure.isWireframe())
 				|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
 			renderWireFrame(poseStack, bufferSource, playerEntity, heldStack, wireframeItem, blockRayTraceResult, targetedRenderPos, placementResult.getColor(), ignoreDepth);
-				}
+		}
 	}
 
 	private static void renderWireFrame(
@@ -93,12 +93,12 @@ public class MultiStateBlockPreviewRenderHandler {
 		final VoxelShape wireFrame = wireframeItem.getWireFrame(heldStack, playerEntity, blockRayTraceResult);
 
 		ChiseledBlockWireframeRenderer.getInstance().renderShape(
-				poseStack,
-				wireFrame,
-				targetedRenderPos,
-				color,
-				ignoreDepth
-		);
+						poseStack,
+						wireFrame,
+						targetedRenderPos,
+						color,
+						ignoreDepth
+				);
 	}
 
 	private static boolean renderGhost(
@@ -124,15 +124,15 @@ public class MultiStateBlockPreviewRenderHandler {
 		}
 
 		ChiseledBlockGhostRenderer.getInstance().renderGhost(
-				poseStack,
-				bufferSource,
-				renderStack,
-				targetedRenderPos,
-				placementResult,
-				success,
-				failure,
-				ignoreDepth
-		);
+						poseStack,
+						bufferSource,
+						renderStack,
+						targetedRenderPos,
+						placementResult,
+						success,
+						failure,
+						ignoreDepth
+				);
 		return true;
 	}
 }

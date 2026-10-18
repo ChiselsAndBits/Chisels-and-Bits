@@ -33,10 +33,10 @@ public class LeftClickInteractionHandler {
 						hand,
 						position,
 						hitFace,
-					new ClickProcessingState(
-							currentCancellationState,
-							currentItemUsageState
-					)
+						new ClickProcessingState(
+								currentCancellationState,
+								currentItemUsageState
+						)
 				);
 			}
 		}

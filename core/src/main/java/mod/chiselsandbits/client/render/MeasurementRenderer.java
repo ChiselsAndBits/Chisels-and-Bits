@@ -105,7 +105,7 @@ public final class MeasurementRenderer {
 						bufferSource,
 						measurement,
 						lengths.y(),
-					new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
+						new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
 			}
 
 			if (lengths.x() > 1 / 16d) {
@@ -114,7 +114,7 @@ public final class MeasurementRenderer {
 						bufferSource,
 						measurement,
 						lengths.x(),
-					new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
+						new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
 			}
 
 			if (lengths.z() > 1 / 16d) {
@@ -123,14 +123,14 @@ public final class MeasurementRenderer {
 						bufferSource,
 						measurement,
 						lengths.z(),
-					new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()), partialTickTime);
+						new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()), partialTickTime);
 			}
 		} else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false)) {
 			final VertexConsumer bufferIn = bufferSource.getBuffer(RenderTypes.LINES);
 			bufferIn.addVertex(poseStack.last().pose(),
-					(float) (measurement.getFrom().x() - xView),
-					(float) (measurement.getFrom().y() - yView),
-					(float) (measurement.getFrom().z() - zView))
+							(float) (measurement.getFrom().x() - xView),
+							(float) (measurement.getFrom().y() - yView),
+							(float) (measurement.getFrom().z() - zView))
 					.setColor(
 							(float) measurement.getMode().getColorVector().x(),
 							(float) measurement.getMode().getColorVector().y(),
@@ -141,9 +141,9 @@ public final class MeasurementRenderer {
 					.setLineWidth(2.5f);
 
 			bufferIn.addVertex(poseStack.last().pose(),
-					(float) (measurement.getTo().x() - xView),
-					(float) (measurement.getTo().y() - yView),
-					(float) (measurement.getTo().z() - zView))
+							(float) (measurement.getTo().x() - xView),
+							(float) (measurement.getTo().y() - yView),
+							(float) (measurement.getTo().z() - zView))
 					.setColor(
 							(float) measurement.getMode().getColorVector().x(),
 							(float) measurement.getMode().getColorVector().y(),

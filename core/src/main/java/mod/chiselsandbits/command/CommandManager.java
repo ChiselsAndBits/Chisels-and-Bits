@@ -55,7 +55,7 @@ public class CommandManager {
 	}
 
 	private static final SimpleCommandExceptionType GIVE_NOT_CHISELABLE_EXCEPTION = new SimpleCommandExceptionType(Component.translatable(LocalStrings.CommandGiveErrorBlockStateNotChiselable
-			.toString()));
+					.toString()));
 
 	public static CommandManager getInstance() {
 		return INSTANCE;
@@ -156,9 +156,9 @@ public class CommandManager {
 				final long bitCount = mutator.mutableStream().count();
 				final BlockInformation information = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.empty()));
 				final ReportingBlockInformationOverrider reporter = new ReportingBlockInformationOverrider(context.getSource(), bitCount) {
-					@Override
-					protected BlockInformation getNextInformation() {
-						return information;
+							@Override
+							protected BlockInformation getNextInformation() {
+								return information;
 					}
 				};
 
@@ -166,29 +166,29 @@ public class CommandManager {
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
-					}
+			}
 		} else {
 			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 					: mutator.batch()) {
 				final long bitCount = mutator.mutableStream().count();
 				final ReportingBlockInformationOverrider reporter = new ReportingBlockInformationOverrider(context.getSource(), bitCount) {
-					BlockInformation[] lookup = null;
-					long total = bitCount;
-					int index = 0;
+							BlockInformation[] lookup = null;
+							long total = bitCount;
+							int index = 0;
 
-					@Override
-					protected BlockInformation getNextInformation() {
-						if (lookup == null || index == lookup.length) {
-							final int count = (int) Math.min(total, Integer.MAX_VALUE);
-							lookup = BlockInformationUtils.getRandomSupportedInformation(context.getSource().getLevel().getRandom(), count);
-							total -= count;
-							index = 0;
+							@Override
+							protected BlockInformation getNextInformation() {
+								if (lookup == null || index == lookup.length) {
+									final int count = (int) Math.min(total, Integer.MAX_VALUE);
+									lookup = BlockInformationUtils.getRandomSupportedInformation(context.getSource().getLevel().getRandom(), count);
+									total -= count;
+									index = 0;
 						}
 
-						final BlockInformation blockInformation = lookup[index];
-						index++;
+								final BlockInformation blockInformation = lookup[index];
+								index++;
 
-						return blockInformation;
+								return blockInformation;
 					}
 				};
 
@@ -196,7 +196,7 @@ public class CommandManager {
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
-					}
+			}
 		}
 
 		context.getSource().sendSuccess(() -> Component.translatable(LocalStrings.CommandFillCompleted.toString()), true);
@@ -216,9 +216,9 @@ public class CommandManager {
 		try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 				: mutator.batch()) {
 			mutator.mutableStream().forEach(
-					IMutableStateEntryInfo::clear
-			);
-				}
+							IMutableStateEntryInfo::clear
+					);
+		}
 
 		return 0;
 	}
@@ -272,8 +272,8 @@ public class CommandManager {
 		}
 
 		ProfilingManager.getInstance().setProfiler(
-				IProfilingManager.getInstance().startProfiling(Environment.from(context.getSource().getServer()))
-		);
+						IProfilingManager.getInstance().startProfiling(Environment.from(context.getSource().getServer()))
+				);
 
 		return 0;
 	}
@@ -331,9 +331,9 @@ public class CommandManager {
 		final String name = StringArgumentType.getString(context, "name");
 
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
-			new ExportPatternCommandMessagePacket(target, name),
-				context.getSource().getPlayerOrException()
-		);
+						new ExportPatternCommandMessagePacket(target, name),
+						context.getSource().getPlayerOrException()
+				);
 
 		return 0;
 	}
@@ -342,9 +342,9 @@ public class CommandManager {
 		final String name = StringArgumentType.getString(context, "name");
 
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
-			new ImportPatternCommandMessagePacket(name),
-				context.getSource().getPlayerOrException()
-		);
+						new ImportPatternCommandMessagePacket(name),
+						context.getSource().getPlayerOrException()
+				);
 
 		return 0;
 	}

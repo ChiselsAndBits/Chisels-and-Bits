@@ -36,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity, BitStorageBESR.RenderState> {
 	private static final SimpleMaxSizedCache<CacheKey, StateEntryStorage> STORAGE_CONTENTS_BLOB_CACHE =
-		new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
+			new SimpleMaxSizedCache<>(IClientConfiguration.getInstance().getBitStorageContentCacheSize()::get);
 	private static final RandomSource RANDOM_SOURCE = RandomSource.createThreadLocalInstance(42L);
 
 	public BitStorageBESR() {
@@ -119,12 +119,12 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 				.createSingleBlockBlockAndTintGetter();
 
 		final ChiseledBlockModelInformation model =
-			ChiseledBlockStateModelManager.getInstance().get(
-					blockAndTintGetter,
-					BlockPos.ZERO,
-				new SimpleSnapshot(finalInnerModelBlob),
-					IBlockNeighborhood.EMPTY
-			);
+				ChiseledBlockStateModelManager.getInstance().get(
+							blockAndTintGetter,
+							BlockPos.ZERO,
+							new SimpleSnapshot(finalInnerModelBlob),
+							IBlockNeighborhood.EMPTY
+		);
 
 		float r;
 		float g;
@@ -135,7 +135,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 				blockInformation.blockState(),
 				blockAndTintGetter,
 				BlockPos.ZERO
-				) : Integer.MAX_VALUE;
+		) : Integer.MAX_VALUE;
 		r = ((color >> 16) & 0xff) / 255f;
 		g = ((color >> 8) & 0xff) / 255f;
 		b = (color & 0xff) / 255f;
@@ -152,7 +152,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 				poseStack,
 				Sheets.translucentBlockSheet(),
 				parts,
-			new int[] {tintColor},
+				new int[] {tintColor},
 				renderState.lightCoords,
 				OverlayTexture.NO_OVERLAY,
 				0);

@@ -16,14 +16,14 @@ public class BakedQuadUtils {
 				input.packedUV2(),
 				input.packedUV3(),
 				input.direction(),
-			new BakedQuad.MaterialInfo(
-					input.materialInfo().sprite(),
-					input.materialInfo().layer(),
-					input.materialInfo().itemRenderType(),
-					tintIndex,
-					input.materialInfo().shade(),
-					input.materialInfo().lightEmission()
-			)
+				new BakedQuad.MaterialInfo(
+						input.materialInfo().sprite(),
+						input.materialInfo().layer(),
+						input.materialInfo().itemRenderType(),
+						tintIndex,
+						input.materialInfo().shade(),
+						input.materialInfo().lightEmission()
+				)
 		);
 	}
 

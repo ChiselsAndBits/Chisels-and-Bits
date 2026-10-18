@@ -44,9 +44,9 @@ public class BagContainer extends AbstractContainerMenu {
 		for (int xPlayerInventory = 0; xPlayerInventory < 3; ++xPlayerInventory) {
 			for (int yPlayerInventory = 0; yPlayerInventory < 9; ++yPlayerInventory) {
 				addSlot(new Slot(thePlayer.getInventory(),
-						yPlayerInventory + xPlayerInventory * 9 + 9,
-						8 + yPlayerInventory * OUTER_SLOT_SIZE,
-						104 + xPlayerInventory * OUTER_SLOT_SIZE + playerInventoryOffset));
+								yPlayerInventory + xPlayerInventory * 9 + 9,
+								8 + yPlayerInventory * OUTER_SLOT_SIZE,
+								104 + xPlayerInventory * OUTER_SLOT_SIZE + playerInventoryOffset));
 			}
 		}
 

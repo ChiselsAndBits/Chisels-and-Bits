@@ -35,9 +35,9 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
 	protected void registerModels(final BlockModelGenerators blockModels, final ItemModelGenerators itemModels) {
 		itemModels.itemModelOutput.accept(
 				this.targetRegistryObject.get(),
-			new InteractableItemModel.Unbaked(
-					createSpecModel(itemModels)
-			)
+				new InteractableItemModel.Unbaked(
+						createSpecModel(itemModels)
+				)
 		);
 	}
 
@@ -61,6 +61,6 @@ public abstract class AbstractInteractableItemModelGenerator extends ModelProvid
 						ModelLocationUtils.getModelLocation(this.targetRegistryObject.get()).withSuffix("_spec"),
 						TextureMapping.layer0(this.targetRegistryObject.get()),
 						itemModelGenerators.modelOutput
-						), Optional.empty(), List.of());
+				), Optional.empty(), List.of());
 	}
 }

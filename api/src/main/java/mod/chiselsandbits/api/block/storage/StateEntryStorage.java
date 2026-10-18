@@ -42,21 +42,21 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			instance -> instance.group(
 					StateEntryPalette.CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-					).apply(instance, StateEntryStorage::new)
+			).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final Codec<StateEntryStorage> LEGACY_CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					StateEntryPalette.LEGACY_CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-					).apply(instance, StateEntryStorage::new)
+			).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final MapCodec<StateEntryStorage> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					StateEntryPalette.MAP_CODEC.fieldOf(NbtConstants.PALETTE).forGetter(StateEntryStorage::palette),
 					CBCodecs.BIT_SET.fieldOf(NbtConstants.DATA).forGetter(StateEntryStorage::getData)
-					).apply(instance, StateEntryStorage::new)
+			).apply(instance, StateEntryStorage::new)
 	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, StateEntryStorage> STREAM_CODEC = StreamCodec.composite(
@@ -138,14 +138,14 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		try (IBatchMutation ignored = batch()) {
 			BlockPosStreamProvider.getForRange(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide())
 					.forEach(position -> setBlockInformation(
-							position.getX(),
-							position.getY(),
-							position.getZ(),
-						new BlockInformation(
-								chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
-								Optional.empty()
-						)
-					));
+									position.getX(),
+									position.getY(),
+									position.getZ(),
+									new BlockInformation(
+											chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
+											Optional.empty()
+									)
+							));
 		}
 	}
 
@@ -378,8 +378,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public IBatchMutation batch() {
 		final IBatchMutation mutation = new IBatchMutation() {
-			public void close() {
-				StateEntryStorage.this.ongoingBatchMutations.remove(this);
+					public void close() {
+						StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
 		};
 

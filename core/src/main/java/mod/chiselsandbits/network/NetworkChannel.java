@@ -26,9 +26,9 @@ public class NetworkChannel {
 	 */
 	public NetworkChannel(final String channelName) {
 		rawChannel =
-			INetworkChannel.create(
-					LATEST_PROTO_VER
-			);
+				INetworkChannel.create(
+							LATEST_PROTO_VER
+		);
 	}
 
 	/**

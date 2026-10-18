@@ -32,7 +32,7 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 						blockPos,
 						accessor,
 						blockNeighborHood
-				);
+		);
 
 		intList.clear();
 		intList.size(model.materials().size());

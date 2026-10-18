@@ -45,19 +45,19 @@ public class ToolModeSelectionScreen<M extends IToolMode<G>, G extends IToolMode
 		super.init();
 
 		this.addRenderableWidget(
-			new ToolModeSelectionWidget<>(
-					this,
-					toolModeItem,
-					sourceStack
-			)
+				new ToolModeSelectionWidget<>(
+						this,
+						toolModeItem,
+						sourceStack
+				)
 		);
 
 		this.addRenderableWidget(
-			new ChangeTrackerOperationsWidget(
-					this.width - ChangeTrackerOperationsWidget.WIDTH - 6,
-					(int) ((this.height / 2f) - ChangeTrackerOperationsWidget.HEIGHT / 2f),
-					this
-			)
+				new ChangeTrackerOperationsWidget(
+						this.width - ChangeTrackerOperationsWidget.WIDTH - 6,
+						(int) ((this.height / 2f) - ChangeTrackerOperationsWidget.HEIGHT / 2f),
+						this
+				)
 		);
 	}
 }

@@ -69,19 +69,44 @@ public final class ModCreativeTabs {
 			.displayItems((parameters, output) -> {
 				final Set<BlockInformation> states = Sets.newHashSet();
 				IPlatformRegistryManager.getInstance().getBlockRegistry().getValues()
-				.forEach(block -> {
-					if (block instanceof ChiseledBlock) {
-						return;
-					}
+						.forEach(block -> {
+							if (block instanceof ChiseledBlock) {
+								return;
+							}
 
-					BlockState blockState = block.defaultBlockState();
-					final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
+							BlockState blockState = block.defaultBlockState();
+							final Collection<BlockInformation> defaultStateVariants = IStateVariantManager.getInstance().getAllDefaultVariants(blockState);
 
-					if (!defaultStateVariants.isEmpty()) {
-						defaultStateVariants.forEach(blockInformation -> {
-							if (states.add(blockInformation)) {
-								if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
-									final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
+							if (!defaultStateVariants.isEmpty()) {
+								defaultStateVariants.forEach(blockInformation -> {
+									if (states.add(blockInformation)) {
+										if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
+											final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
+
+											if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
+												output.accept(resultStack);
+											}
+										}
+									}
+								});
+
+								return;
+							}
+
+							//We need to make sure that we only have still fluids in the interface!
+							if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
+								final Fluid fluid = liquidBlock.fluid;
+
+								if (fluid instanceof FlowingFluid flowingFluid) {
+									blockState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
+								}
+							}
+
+							final BlockInformation information = new BlockInformation(blockState, Optional.empty());
+
+							if (states.add(information)) {
+								if (IEligibilityManager.getInstance().canBeChiseled(information)) {
+									final ItemStack resultStack = IBitItemManager.getInstance().create(information);
 
 									if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
 										output.accept(resultStack);
@@ -89,31 +114,6 @@ public final class ModCreativeTabs {
 								}
 							}
 						});
-
-						return;
-					}
-
-					//We need to make sure that we only have still fluids in the interface!
-					if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
-						final Fluid fluid = liquidBlock.fluid;
-
-						if (fluid instanceof FlowingFluid flowingFluid) {
-							blockState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
-						}
-					}
-
-					final BlockInformation information = new BlockInformation(blockState, Optional.empty());
-
-					if (states.add(information)) {
-						if (IEligibilityManager.getInstance().canBeChiseled(information)) {
-							final ItemStack resultStack = IBitItemManager.getInstance().create(information);
-
-							if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-								output.accept(resultStack);
-							}
-						}
-					}
-				});
 			})
 			.build());
 

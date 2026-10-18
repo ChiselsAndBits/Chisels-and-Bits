@@ -18,16 +18,16 @@ public class CollectorUtils {
 	) {
 		return Collector.of(
 				mapConstructor,
-			new BiConsumer<>() {
-				char c = 'a';
+				new BiConsumer<>() {
+					char c = 'a';
 
-				@Override
-				public void accept(final M m, final T t) {
-					m.put(c, valueMapper.apply(t));
+					@Override
+					public void accept(final M m, final T t) {
+						m.put(c, valueMapper.apply(t));
 
-					c += 1;
-				}
-			},
+						c += 1;
+					}
+				},
 
 
 				(m, m2) -> {

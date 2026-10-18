@@ -26,9 +26,9 @@ public final class OpenBagGuiPacket extends ModPacket {
 	public void server(
 			final ServerPlayer player) {
 		player.openMenu(new SimpleMenuProvider(
-				(id, playerInventory, playerEntity) -> new BagContainer(id, playerInventory),
-				Component.translatable(LocalStrings.ContainerBitBag.toString())
-		));
+						(id, playerInventory, playerEntity) -> new BagContainer(id, playerInventory),
+						Component.translatable(LocalStrings.ContainerBitBag.toString())
+				));
 	}
 
 	@Override

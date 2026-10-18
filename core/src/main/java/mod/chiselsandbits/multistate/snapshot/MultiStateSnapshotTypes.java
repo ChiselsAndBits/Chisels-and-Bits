@@ -10,8 +10,8 @@ import net.minecraft.resources.Identifier;
 
 public enum MultiStateSnapshotTypes implements IMultiStateSnapshotType {
 	EMPTY(Identifier.fromNamespaceAndPath("chiselsandbits", "empty"), MapCodec.unit(EmptySnapshot.INSTANCE), StreamCodec.unit(EmptySnapshot.INSTANCE)),
-	MULTI_BLOCK(Identifier.fromNamespaceAndPath("chiselsandbits", "multi_block"), MultiBlockMultiStateSnapshot.MAP_CODEC, MultiBlockMultiStateSnapshot.STREAM_CODEC),
-	SIMPLE(Identifier.fromNamespaceAndPath("chiselsandbits", "simple"), SimpleSnapshot.MAP_CODEC, SimpleSnapshot.STREAM_CODEC);
+			MULTI_BLOCK(Identifier.fromNamespaceAndPath("chiselsandbits", "multi_block"), MultiBlockMultiStateSnapshot.MAP_CODEC, MultiBlockMultiStateSnapshot.STREAM_CODEC),
+			SIMPLE(Identifier.fromNamespaceAndPath("chiselsandbits", "simple"), SimpleSnapshot.MAP_CODEC, SimpleSnapshot.STREAM_CODEC);
 
 	private final Identifier registryName;
 	private final MapCodec<? extends IMultiStateSnapshot> codec;

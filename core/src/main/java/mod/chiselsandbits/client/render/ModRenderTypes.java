@@ -12,8 +12,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 
-public enum ModRenderTypes
-{
+public enum ModRenderTypes {
 	CHISEL_PREVIEW_INSIDE_BLOCKS(Internal.PREVIEW_INSIDE_BLOCKS),
 	CHISEL_PREVIEW_OUTSIDE_BLOCKS(Internal.PREVIEW_OUTSIDE_BLOCKS),
 	WIREFRAME_LINES(Internal.WIREFRAME),

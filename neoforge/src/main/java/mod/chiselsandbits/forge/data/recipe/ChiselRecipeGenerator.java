@@ -35,63 +35,63 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 	@SubscribeEvent
 	public static void dataGeneratorSetup(final GatherDataEvent.Client event) {
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_STONE.get(),
-					withWoodenRodFor(Tags.Items.STONES)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_STONE.get(),
+								withWoodenRodFor(Tags.Items.STONES)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_COPPER.get(),
-					withWoodenRodFor(Tags.Items.INGOTS_COPPER)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_COPPER.get(),
+								withWoodenRodFor(Tags.Items.INGOTS_COPPER)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_IRON.get(),
-					withWoodenRodFor(Tags.Items.INGOTS_IRON)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_IRON.get(),
+								withWoodenRodFor(Tags.Items.INGOTS_IRON)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_GOLD.get(),
-					withWoodenRodFor(Tags.Items.INGOTS_GOLD)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_GOLD.get(),
+								withWoodenRodFor(Tags.Items.INGOTS_GOLD)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_DIAMOND.get(),
-					withWoodenRodFor(Tags.Items.GEMS_DIAMOND)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_DIAMOND.get(),
+								withWoodenRodFor(Tags.Items.GEMS_DIAMOND)
+						)
+				);
 
 		event.getGenerator().addProvider(
-				true,
-			new AbstractRecipeGenerator.Runner(
-					event.getGenerator().getPackOutput(),
-					event.getLookupProvider(),
-					ModItems.ITEM_CHISEL_NETHERITE.get(),
-					withBlazeRodFor(Tags.Items.INGOTS_NETHERITE)
-			)
-		);
+						true,
+						new AbstractRecipeGenerator.Runner(
+								event.getGenerator().getPackOutput(),
+								event.getLookupProvider(),
+								ModItems.ITEM_CHISEL_NETHERITE.get(),
+								withBlazeRodFor(Tags.Items.INGOTS_NETHERITE)
+						)
+				);
 	}
 }
