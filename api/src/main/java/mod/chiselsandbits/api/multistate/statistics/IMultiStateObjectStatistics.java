@@ -92,7 +92,7 @@ public interface IMultiStateObjectStatistics extends IStatistics {
 	 *
 	 * @return The relative block hardness.
 	 */
-	float getRelativeBlockHardness(final Player player);
+	float getRelativeBlockHardness(Player player);
 
 	/**
 	 * Indicates if the current multistate block is empty.

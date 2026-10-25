@@ -19,6 +19,7 @@ public interface IAreaAccessor extends IStateAccessor, IAABBOwner {
 	/**
 	 * Creates a new area shape identifier.
 	 *
+	 * <p>
 	 * Note: This method always returns a new instance.
 	 *
 	 * @return The new identifier.
@@ -38,7 +39,7 @@ public interface IAreaAccessor extends IStateAccessor, IAABBOwner {
 	 * @param inAreaTarget The area target to check.
 	 * @return True when inside, false when not.
 	 */
-	boolean isInside(final Vec3 inAreaTarget);
+	boolean isInside(Vec3 inAreaTarget);
 
 	/**
 	 * Indicates if the given target (with the given block position offset) is inside of the current accessor.
@@ -74,5 +75,5 @@ public interface IAreaAccessor extends IStateAccessor, IAABBOwner {
 	 * @param positionMutator The position mutator to use.
 	 * @param consumer The consumer to pass the states to.
 	 */
-	void forEachWithPositionMutator(final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer);
+	void forEachWithPositionMutator(IPositionMutator positionMutator, Consumer<IStateEntryInfo> consumer);
 }

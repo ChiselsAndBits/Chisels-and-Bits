@@ -31,5 +31,5 @@ public interface IPluginManager {
 	 * @param action The name of the action to execute, used in logging.
 	 * @param callback The task to run for each plugin.
 	 */
-	void run(final String action, final Consumer<IChiselsAndBitsPlugin> callback);
+	void run(String action, Consumer<IChiselsAndBitsPlugin> callback);
 }

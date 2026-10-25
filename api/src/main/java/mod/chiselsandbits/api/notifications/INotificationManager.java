@@ -15,7 +15,7 @@ public interface INotificationManager {
 	 *
 	 * @return The notification manager.
 	 */
-	public static INotificationManager getInstance() {
+	static INotificationManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getNotificationManager();
 	}
 
@@ -60,5 +60,5 @@ public interface INotificationManager {
 	 *
 	 * @param notification The notification to display.
 	 */
-	void notify(final INotification notification);
+	void notify(INotification notification);
 }

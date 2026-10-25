@@ -15,8 +15,8 @@ public interface IBitBagAcceptingBlock {
 	 * @param blockRayTraceResult The ray trace result.
 	 */
 	ItemStack onBitBagInteraction(
-			final ItemStack bitBagStack,
-			final Player player,
-			final BlockHitResult blockRayTraceResult
+			ItemStack bitBagStack,
+			Player player,
+			BlockHitResult blockRayTraceResult
 	);
 }

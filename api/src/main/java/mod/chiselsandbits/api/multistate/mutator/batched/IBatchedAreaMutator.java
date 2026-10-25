@@ -16,5 +16,5 @@ public interface IBatchedAreaMutator extends IAreaMutator, IWithBatchableMutatio
 	 * @param changeTracker The change tracker to apply the changes to.
 	 * @return The batch mutation, which will record the changes automatically.
 	 */
-	IBatchMutation batch(final IChangeTracker changeTracker);
+	IBatchMutation batch(IChangeTracker changeTracker);
 }

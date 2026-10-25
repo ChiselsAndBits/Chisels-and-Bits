@@ -430,7 +430,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 	@FunctionalInterface
 	private interface ChiselModeInteractionCallback {
-		ClickProcessingState run(final IChiselMode chiselMode, final Player playerEntity, final IChiselingContext context);
+		ClickProcessingState run(IChiselMode chiselMode, Player playerEntity, IChiselingContext context);
 	}
 
 	@Override

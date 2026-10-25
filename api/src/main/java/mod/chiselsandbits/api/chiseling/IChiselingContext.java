@@ -26,6 +26,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * If a new chiseling operation is started no {@link IWorldAreaMutator} is available,
 	 * as such an empty {@link Optional} will be returned in that case.
 	 *
+	 * <p>
 	 * Only after the primary call to {@link #include(Vec3)} or {@link #include(BlockPos, Vec3)}
 	 * the returned {@link Optional} can contain a {@link IWorldAreaMutator}.
 	 *
@@ -51,9 +52,11 @@ public interface IChiselingContext extends IStateAccessor {
 	 * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
 	 * the current {@link IWorldAreaMutator}.
 	 *
+	 * <p>
 	 * If the given position is already contained in the current {@link IWorldAreaMutator}, this method makes
 	 * no changes to the current context.
 	 *
+	 * <p>
 	 * It is up to the contexts implementation as well as the entire implementation of the chisels and bits api
 	 * to round the given value up and down into a precision which it can process, meaning that a given exact position
 	 * might already be included in the current {@link IWorldAreaMutator} if it is within the precision of the
@@ -62,15 +65,17 @@ public interface IChiselingContext extends IStateAccessor {
 	 * @param worldPosition The position in the current world to include.
 	 * @return The context, possibly with a mutated {@link IWorldAreaMutator}.
 	 */
-	IChiselingContext include(final Vec3 worldPosition);
+	IChiselingContext include(Vec3 worldPosition);
 
 	/**
 	 * Includes the given exact position in the world of this context, retrievable via {@link #getWorld()}, in
 	 * the current {@link IWorldAreaMutator}.
 	 *
+	 * <p>
 	 * If the given position is already contained in the current {@link IWorldAreaMutator}, this method makes
 	 * no changes to the current context.
 	 *
+	 * <p>
 	 * It is up to the contexts implementation as well as the entire implementation of the chisels and bits api
 	 * to round the given value up and down into a precision which it can process, meaning that a given exact position
 	 * might already be included in the current {@link IWorldAreaMutator} if it is within the precision of the
@@ -88,6 +93,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * Marks the current context as complete, so that it can not be reused for interactions which
 	 * will follow this one.
 	 *
+	 * <p>
 	 * Indicates that an action has been performed using this context, making it invalid.
 	 */
 	void setComplete();
@@ -128,8 +134,10 @@ public interface IChiselingContext extends IStateAccessor {
 	 * If this item does not support damaging the item on a chiseling operation this method also
 	 * always returns successfully.
 	 *
+	 * <p>
 	 * Does exactly 1 damage to the item.
 	 *
+	 * <p>
 	 * The only case where this method does not return {@code True}, is when the item that caused the operation broke in the previous operation.
 	 * @return {@code True} when successful, {@code false} when not.
 	 */
@@ -144,6 +152,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 * If this item does not support damaging the item on a chiseling operation this method also
 	 * always returns successfully.
 	 *
+	 * <p>
 	 * The only case where this method does not return {@code True}, is when the item that caused the operation broke in the previous operation.
 	 *
 	 * @param damage The damage to apply to the item that caused the chiseling operation.
@@ -156,12 +165,15 @@ public interface IChiselingContext extends IStateAccessor {
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operations.
 	 *
+	 * <p>
 	 * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation, does not support damaging the item on a chiseling operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation is already broken, then the {@code onBroken} callback is always invoked.
 	 *
+	 * <p>
 	 * The total performed damaged is returned by this method, which is always {@code 0} if the item that caused the operation is already broken.
 	 *
+	 * <p>
 	 * Does exactly 1 damage to the item.
 	 *
 	 * @param onDamaged The callback to invoke when the item is damaged.
@@ -175,12 +187,15 @@ public interface IChiselingContext extends IStateAccessor {
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operations.
 	 *
+	 * <p>
 	 * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation, does not support damaging the item on a chiseling operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation is already broken, then the broken chisel item error message is set.
 	 *
+	 * <p>
 	 * The total performed damaged is returned by this method, which is always {@code 0} if the item that caused the operation is already broken.
 	 *
+	 * <p>
 	 * Does exactly 1 damage to the item.
 	 *
 	 * @param onDamaged The callback to invoke when the item is damaged.
@@ -193,10 +208,12 @@ public interface IChiselingContext extends IStateAccessor {
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operations.
 	 *
+	 * <p>
 	 * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation, does not support damaging the item on a chiseling operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation is already broken, then the broken chisel item error message is set.
 	 *
+	 * <p>
 	 * The total performed damaged is returned by this method, which is always {@code 0} if the item that caused the operation is already broken.
 	 *
 	 * @param damage The damage to apply to the item that caused the chiseling operation.
@@ -210,10 +227,12 @@ public interface IChiselingContext extends IStateAccessor {
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operations.
 	 *
+	 * <p>
 	 * If no item was the cause of the operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation, does not support damaging the item on a chiseling operation, then the {@code onDamaged} callback is always invoked.
 	 * If the item that caused the operation is already broken, then the {@code onBroken} callback is always invoked.
 	 *
+	 * <p>
 	 * The total performed damaged is returned by this method, which is always {@code 0} if the item that caused the operation is already broken.
 	 *
 	 * @param damage The damage to apply to the item that caused the chiseling operation.
@@ -221,18 +240,19 @@ public interface IChiselingContext extends IStateAccessor {
 	 * @param onBroken The callback to invoke when the item is broken.
 	 * @return The total damage applied to the item.
 	 */
-	int tryDamageItemAndDo(final int damage, final Runnable onDamaged, final Runnable onBroken);
+	int tryDamageItemAndDo(int damage, Runnable onDamaged, Runnable onBroken);
 
 	/**
 	 * Allows for the setting of a filterBuilder on the context, which limits which {@link IStateEntryInfo} are returned from
 	 * the relevant accessor methods of the {@link IWorldAreaMutator}, as well as which limits the setter methods on the same {@link IWorldAreaMutator}
 	 * contained in the returned optional of the {@link #getMutator()}.
 	 *
+	 * <p>
 	 * If this context has currently no mutator available, and gets a mutator available afterwards then this filterBuilder will be applied to the new mutator.
 	 *
 	 * @param filterBuilder The new filterBuilder.
 	 */
-	void setStateFilter(final Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
+	void setStateFilter(Function<IAreaAccessor, Predicate<IStateEntryInfo>> filterBuilder);
 
 	/**
 	 * Clears the state filter which is applied to the {@link IWorldAreaMutator} for this context.

@@ -24,20 +24,23 @@ public interface IBitInventoryManager {
 	/**
 	 * Creates a new bit inventory wrapping the inventory of the player.
 	 *
+	 * <p>
 	 * This player inventory is aware of items which themselves can act
 	 * as a bit inventory.
 	 *
 	 * @param playerEntity The player inventory.
 	 * @return The bit inventory which represents the players inventory.
 	 */
-	IBitInventory create(final Player playerEntity);
+	IBitInventory create(Player playerEntity);
 
 	/**
 	 * Creates a new bit inventory wrapping the given {@link Object}.
 	 *
+	 * <p>
 	 * This inventory is aware of items which themselves can act
 	 * as a bit inventory.
 	 *
+	 * <p>
 	 * This endpoint is platform specific and might or might not be able to convert the object given.
 	 * Importantly on forge this endpoint is able to accept IItemHandlers, while on Fabric it will only support
 	 * IInventory.
@@ -45,18 +48,19 @@ public interface IBitInventoryManager {
 	 * @param target The {@link Object}.
 	 * @return The bit inventory which represents the inventory.
 	 */
-	IBitInventory create(final Object target);
+	IBitInventory create(Object target);
 
 	/**
 	 * Creates a new bit inventory wrapping the given inventory.
 	 *
+	 * <p>
 	 * This inventory is aware of items which themselves can act
 	 * as a bit inventory.
 	 *
 	 * @param inventory The inventory.
 	 * @return The bit inventory which represents the inventory.
 	 */
-	IBitInventory create(final Container inventory);
+	IBitInventory create(Container inventory);
 
 	/**
 	 * Creates a new bit inventory wrapping the given itemstack.
@@ -65,5 +69,5 @@ public interface IBitInventoryManager {
 	 *
 	 * @return The bit inventory which represents the inventory.
 	 */
-	IBitInventoryItemStack create(final ItemStack stack);
+	IBitInventoryItemStack create(ItemStack stack);
 }

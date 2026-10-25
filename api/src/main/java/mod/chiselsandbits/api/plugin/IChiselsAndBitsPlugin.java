@@ -2,13 +2,16 @@ package mod.chiselsandbits.api.plugin;
 
 /**
  * Represents a plugin for ChiselsAndBits.
+ *
  * <p>
  * Plugins have callbacks that can be invoked by chisels and bits.
  * See their documentation for more information.
  * </p>
+ *
  * <p>
  * All methods are potentially invoked in parallel with other plugins, or even chisels and bits itself.
  * </p>
+ *
  * <p>
  * Plugins are loaded through the {@link java.util.ServiceLoader}.If annotated by {@link ChiselsAndBitsPlugin}
  * then additional metadata is checked, like required mods or experimental flags.

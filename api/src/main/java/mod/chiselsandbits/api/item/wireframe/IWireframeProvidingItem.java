@@ -22,9 +22,9 @@ public interface IWireframeProvidingItem {
 	 * @return The VoxelShape for the wire frame.
 	 */
 	VoxelShape getWireFrame(
-			final ItemStack stack,
-			final Player player,
-			final BlockHitResult rayTraceResult
+			ItemStack stack,
+			Player player,
+			BlockHitResult rayTraceResult
 	);
 
 	/**

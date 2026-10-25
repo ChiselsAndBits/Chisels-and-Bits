@@ -48,7 +48,7 @@ public record ChiseledBlockModelInformationBuilder(
 		final PartsBuilder builder = new PartsBuilder();
 		final GreedyMeshFace[] faces = generateFaces();
 
-		try (final IProfilerSection ignoredQuadGeneration = ProfilingManager.getInstance().withSection("quadGeneration")) {
+		try (IProfilerSection ignoredQuadGeneration = ProfilingManager.getInstance().withSection("quadGeneration")) {
 			for (final GreedyMeshFace region : faces) {
 				final Direction cullDirection = region.normalDirection();
 
@@ -77,10 +77,10 @@ public record ChiseledBlockModelInformationBuilder(
 		);
 	}
 
-	private GreedyMeshFace [] generateFaces() {
+	private GreedyMeshFace[] generateFaces() {
 		final GreedyMeshFace[] faces;
 
-		try (final IProfilerSection ignoredFaceProcessing = ProfilingManager.getInstance().withSection("processing")) {
+		try (IProfilerSection ignoredFaceProcessing = ProfilingManager.getInstance().withSection("processing")) {
 			faces = GreedyMeshBuilder.buildMesh(this::getBlockInformationForOffset);
 		}
 

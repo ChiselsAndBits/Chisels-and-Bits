@@ -80,6 +80,7 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 
 	/**
 	 * Represents the size information of the palette.
+	 *
 	 * <p>
 	 * The size is only accurate if it has changed.
 	 *

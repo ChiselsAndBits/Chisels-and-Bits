@@ -55,7 +55,7 @@ public interface IStateVariantProvider {
 	 * @param itemStack The item stack.
 	 * @return The state variant, if one exists.
 	 */
-	Optional<IStateVariant> getStateVariant(final BlockState blockState, ItemStack itemStack);
+	Optional<IStateVariant> getStateVariant(BlockState blockState, ItemStack itemStack);
 
 	/**
 	 * Returns the state variant, if one exists, for the fluid information.
@@ -71,7 +71,7 @@ public interface IStateVariantProvider {
 	 * @param state The block state.
 	 * @return The default variants.
 	 */
-	Collection<? extends IStateVariant> getAllDefaultVariants(final BlockState state);
+	Collection<? extends IStateVariant> getAllDefaultVariants(BlockState state);
 
 	/**
 	 * Returns the item stack for the given state variant.

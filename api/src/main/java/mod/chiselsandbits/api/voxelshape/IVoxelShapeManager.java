@@ -89,10 +89,10 @@ public interface IVoxelShapeManager {
 	 * @return The shape of the accessor.
 	 */
 	VoxelShape get(
-			final IAreaAccessor accessor,
-			final BlockPos offset,
-			final CollisionType sizeType,
-			final boolean simplify);
+			IAreaAccessor accessor,
+			BlockPos offset,
+			CollisionType sizeType,
+			boolean simplify);
 
 	/**
 	 * Returns the shape that is referenced by a given area shape identifier.
@@ -139,8 +139,8 @@ public interface IVoxelShapeManager {
 	 * @return The optional, optionally containing the voxel shape.
 	 */
 	Optional<VoxelShape> getCached(
-			final IAreaShapeIdentifier identifier,
-			final BlockPos offset,
-			final CollisionType sizeType,
+			IAreaShapeIdentifier identifier,
+			BlockPos offset,
+			CollisionType sizeType,
 			boolean simplify);
 }

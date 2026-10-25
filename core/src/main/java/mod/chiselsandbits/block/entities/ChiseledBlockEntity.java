@@ -719,7 +719,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		executeWhenLoaded(() -> {
 		//Large operation, better batch this together to prevent weird updates.
-			try (final IBatchMutation ignored = batch()) {
+			try (IBatchMutation ignored = batch()) {
 				this.storage.rotate(axis, rotationCount);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
@@ -734,7 +734,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		executeWhenLoaded(() -> {
 		//Large operation, better batch this together to prevent weird updates.
-			try (final IBatchMutation ignored = batch()) {
+			try (IBatchMutation ignored = batch()) {
 				this.storage.mirror(axis);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
 			}
@@ -874,7 +874,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		private final StateSetter stateSetter;
 		private final StateClearer stateClearer;
 
-		public StateEntry(
+		StateEntry(
 				final BlockInformation blockInformation,
 				final LevelAccessor reader,
 				final BlockPos blockPos,
@@ -1087,13 +1087,13 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			this.requiresRecalculation = true;
 		}
 
-		public MutableStatistics() {
+		MutableStatistics() {
 			this(
 					BlockPos.ZERO
 			);
 		}
 
-		public MutableStatistics(
+		MutableStatistics(
 				BlockPos inWorldPos,
 				Map<BlockInformation, Integer> countMap,
 				Table<Integer, Integer, ColumnStatistics> columnStatisticsTable,
@@ -1549,7 +1549,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			noneAirBits = new BitSet(StateEntrySize.current().getBitsPerBlockSide());
 		}
 
-		public ColumnStatistics(
+		ColumnStatistics(
 				BlockPos inWorldPos,
 				BitSet noneAirBits,
 				BitSet skylightBlockingBits,

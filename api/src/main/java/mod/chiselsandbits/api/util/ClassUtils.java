@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.function.Function;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.Nullable;
 // ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 
 /**
@@ -22,6 +23,7 @@ public final class ClassUtils {
 	/**
 	 * Gets or creates a new instance of the class with the given name.
 	 *
+	 * <p>
 	 * Verifies that the class is of a given base type, and checks if a field in this class potentially has the instance annotation.
 	 * If that annotation is present then the contents of that field are returned and verified for the requested type instance.
 	 *

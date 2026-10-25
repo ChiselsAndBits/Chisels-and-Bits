@@ -1,18 +1,11 @@
 package mod.chiselsandbits.api.change.changes;
 
-import java.util.function.Function;
-
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import io.netty.buffer.ByteBuf;
 import mod.chiselsandbits.api.registries.IRegistryManager;
 import mod.chiselsandbits.api.serialization.CBStreamCodecs;
-import mod.chiselsandbits.api.serialization.RawSerializable;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.Player;
 
 /**
  * Represents a single change that has been created with bits.

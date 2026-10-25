@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.communi.suggestu.scena.core.registries.ICustomRegistry;
 import com.communi.suggestu.scena.core.registries.ICustomRegistryEntry;
-import com.mojang.serialization.Codec;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.chiseling.ChiselingOperation;
 import mod.chiselsandbits.api.chiseling.IChiselingContext;
@@ -21,6 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Represents a chiselable operation that can be completed by a chisel or bit for example.
+ *
  * <p>
  * Has to be immutable as it is used in data components.
  */
@@ -50,21 +50,22 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 * @return The processing state, which indicates how the interaction should proceed.
 	 */
 	ClickProcessingState onLeftClickBy(
-			final Player playerEntity,
-			final IChiselingContext context
+			Player playerEntity,
+			IChiselingContext context
 	);
 
 	/**
 	 * Invoked by the system when the player has released the left click button.
 	 *
+	 * <p>
 	 * Currently not invoked by the system.Future endpoint.
 	 *
 	 * @param playerEntity The player who released the button.
 	 * @param context The chiseling context.
 	 */
 	void onStoppedLeftClicking(
-			final Player playerEntity,
-			final IChiselingContext context
+			Player playerEntity,
+			IChiselingContext context
 	);
 
 	/**
@@ -76,21 +77,22 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 * @return The processing state, which indicates how the interaction should proceed.
 	 */
 	ClickProcessingState onRightClickBy(
-			final Player playerEntity,
-			final IChiselingContext context
+			Player playerEntity,
+			IChiselingContext context
 	);
 
 	/**
 	 * Invoked by the system when the player has released the right click button.
 	 *
+	 * <p>
 	 * Currently not invoked by the system.Future endpoint.
 	 *
 	 * @param playerEntity The player who released the button.
 	 * @param context The chiseling context.
 	 */
 	void onStoppedRightClicking(
-			final Player playerEntity,
-			final IChiselingContext context
+			Player playerEntity,
+			IChiselingContext context
 	);
 
 	/**
@@ -99,7 +101,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 * @param context The chiseling context.
 	 * @return An optional, potentially containing an area accessor.
 	 */
-	Optional<IAreaAccessor> getCurrentAccessor(final IChiselingContext context);
+	Optional<IAreaAccessor> getCurrentAccessor(IChiselingContext context);
 
 	/**
 	 * Checks if the passed context is still valid for the given entity.

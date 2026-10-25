@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 
 public interface IIconManager {
-	public static IIconManager getInstance() {
+	static IIconManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getIconManager();
 	}
 

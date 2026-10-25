@@ -49,6 +49,7 @@ public interface CBCodecs {
 	/**
 	 * Creates a codec that attempts deserialization first using the first codec,
 	 * and if that fails using the second codec.
+	 *
 	 * <p>
 	 * Serialization always is triggered through the first codec.
 	 * </p>
@@ -274,7 +275,7 @@ public interface CBCodecs {
 		Validate.notNull(key, "Key cannot be null");
 		Validate.notNull(value, "Value cannot be null");
 
-		return RecordCodecBuilder.<Map.Entry<K, V>> create(instance ->
+		return RecordCodecBuilder.<Map.Entry<K, V>>create(instance ->
 						instance.group(
 								keyCodec.fieldOf(key).forGetter(Map.Entry::getKey),
 								valueCodec.fieldOf(value).forGetter(Map.Entry::getValue)

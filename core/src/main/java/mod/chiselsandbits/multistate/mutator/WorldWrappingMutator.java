@@ -59,6 +59,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	/**
 	 * Creates a new area shape identifier.
+	 *
 	 * <p>
 	 * Note: This method always returns a new instance.
 	 *
@@ -373,6 +374,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	/**
 	 * Trigger a batch mutation start.
+	 *
 	 * <p>
 	 * As long as at least one batch mutation is still running no changes are transmitted to the client.
 	 *
@@ -479,7 +481,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		private final Vec3 startPoint;
 		private final Vec3 endPoint;
 
-		public Identifier(final Collection<IAreaShapeIdentifier> innerSnapshots, final Vec3 startPoint, final Vec3 endPoint) {
+		Identifier(final Collection<IAreaShapeIdentifier> innerSnapshots, final Vec3 startPoint, final Vec3 endPoint) {
 			this.inners = innerSnapshots;
 			this.startPoint = startPoint;
 			this.endPoint = endPoint;

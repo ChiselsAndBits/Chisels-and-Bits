@@ -29,11 +29,11 @@ import net.minecraft.world.phys.Vec3;
 
 public interface CBStreamCodecs {
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
-		public long [] decode(FriendlyByteBuf buffer) {
+		public long[] decode(FriendlyByteBuf buffer) {
 			return buffer.readLongArray();
 		}
 
-		public void encode(FriendlyByteBuf buffer, long [] payload) {
+		public void encode(FriendlyByteBuf buffer, long[] payload) {
 			buffer.writeLongArray(payload);
 		}
 	};
@@ -118,7 +118,7 @@ public interface CBStreamCodecs {
 
 	}
 
-	public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
+	static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
 			final Function<C, T1> getter1,
 			final StreamCodec<? super B, T2> codec2,
 			final Function<C, T2> getter2,

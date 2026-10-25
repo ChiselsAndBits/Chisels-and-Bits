@@ -17,5 +17,5 @@ public interface IAreaAccessorWithVoxelShape extends IAreaAccessor {
 	 * @param simplify Whether to simplify the voxelshape.
 	 * @return The voxelshape of the {@link IAreaAccessorWithVoxelShape} at the given position.
 	 */
-	VoxelShape provideShape(final CollisionType type, final BlockPos offset, final boolean simplify);
+	VoxelShape provideShape(CollisionType type, BlockPos offset, boolean simplify);
 }

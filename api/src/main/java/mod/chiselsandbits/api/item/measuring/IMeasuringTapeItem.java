@@ -18,7 +18,7 @@ public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMe
 	 * @param stack The stack to get the start point from if it is available.
 	 * @return An optional with the start point if it is set.
 	 */
-	Optional<Vec3> getStart(final ItemStack stack);
+	Optional<Vec3> getStart(ItemStack stack);
 
 	/**
 	 * Sets the start point of the current measurement.
@@ -26,13 +26,13 @@ public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMe
 	 * @param stack The stack to set the start on.
 	 * @param start The start point.
 	 */
-	void setStart(final ItemStack stack, final Vec3 start);
+	void setStart(ItemStack stack, Vec3 start);
 
 	/**
 	 * Clears the measurement state of a given stack.
 	 * @param stack The stack to clear the measurement state from.
 	 */
-	void clear(final ItemStack stack);
+	void clear(ItemStack stack);
 
 	/**
 	 * Invoked by the platform to indicate to this item that a right-clicking procedure has ended.

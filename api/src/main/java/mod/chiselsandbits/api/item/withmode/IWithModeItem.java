@@ -28,7 +28,7 @@ public interface IWithModeItem<M extends IToolMode<?>> {
 	 * @param stack The stack in question.
 	 * @return The mode the given stack has.
 	 */
-	M getMode(final ItemStack stack);
+	M getMode(ItemStack stack);
 
 	/**
 	 * Set the given mode on the given itemstack.
@@ -36,7 +36,7 @@ public interface IWithModeItem<M extends IToolMode<?>> {
 	 * @param stack The stack to set the mode on.
 	 * @param mode The mode to set on the stack.
 	 */
-	void setMode(final ItemStack stack, final M mode);
+	void setMode(ItemStack stack, M mode);
 
 	/**
 	 * Set the mode with the given index on the given itemstack.

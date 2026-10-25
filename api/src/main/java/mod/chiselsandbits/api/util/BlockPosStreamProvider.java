@@ -21,6 +21,7 @@ public class BlockPosStreamProvider {
 	/**
 	 * Provides a stream of BlockPos objects within a given range which is {@code size} cubed in size.
 	 * The coordinates will as such (on each axis) run from 0 to {@code size - 1}.
+	 *
 	 * <p>
 	 * Internally invokes {@link #getForRange(int, int)}, with {@code 0} as the min value,
 	 * and {@code size - 1} as max value.
@@ -45,9 +46,11 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given world object.
+	 *
 	 * <p>
 	 * This rounds the vectors down to the block positions they are in, and then extracts the minimal and maximal values
 	 * for each axis.
+	 *
 	 * <p>
 	 * Internally invokes {@link #getForRange(int, int, int, int, int, int)}, with the rounded down vectors as the min and max values.
 	 *
@@ -60,9 +63,11 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given world accessor.
+	 *
 	 * <p>
 	 * This rounds the vectors down to the block positions they are in, and then extracts the minimal and maximal values
 	 * for each axis.
+	 *
 	 * <p>
 	 * Internally invokes {@link #getForRange(int, int, int, int, int, int)}, with the rounded down vectors as the min and max values.
 	 *
@@ -75,9 +80,11 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given world object.
+	 *
 	 * <p>
 	 * This rounds the vectors down to the block positions they are in, and then extracts the minimal and maximal values
 	 * for each axis.
+	 *
 	 * <p>
 	 * Internally invokes {@link #getForRange(int, int, int, int, int, int)}, with the rounded down vectors as the min and max values.
 	 *
@@ -96,9 +103,11 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given range from the given minimal value to the given maximal value.
+	 *
 	 * <p>
 	 * This rounds the vectors down to the block positions they are in, and then extracts the minimal and maximal values
 	 * for each axis.
+	 *
 	 * <p>
 	 * Internally invokes {@link #getForRange(int, int, int, int, int, int)}, with the rounded down vectors as the min and max values.
 	 *
@@ -118,6 +127,7 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given range from the given minimal value to the given maximal value.
+	 *
 	 * <p>
 	 * Internally this calls {@link #getForRange(Vec3, Vec3)}, with vectors constructed from the minimal and maximal values.
 	 * All of its logic (so the rounding) is as such also applied.
@@ -139,6 +149,7 @@ public class BlockPosStreamProvider {
 
 	/**
 	 * Provides a stream of BlockPos objects within a given range from the given minimal value to the given maximal value.
+	 *
 	 * <p>
 	 * If the minimal and maximal values are the same, then the stream will contain only one block position.
 	 *

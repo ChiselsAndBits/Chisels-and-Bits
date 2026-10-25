@@ -13,6 +13,7 @@ public interface IRightClickControllingItem {
 	/**
 	 * Callback invoked when a supported item is used to right click.
 	 *
+	 * <p>
 	 * Allows for said item to take over the processing logic of the right clicking
 	 * and can afterwards block the further vanilla processing.
 	 *
@@ -25,11 +26,11 @@ public interface IRightClickControllingItem {
 	 * @return The processing state with which the processing of the right click should continue.
 	 */
 	ClickProcessingState handleRightClickProcessing(
-			final Player playerEntity,
-			final InteractionHand hand,
-			final BlockPos position,
-			final Direction face,
-			final ClickProcessingState currentState
+			Player playerEntity,
+			InteractionHand hand,
+			BlockPos position,
+			Direction face,
+			ClickProcessingState currentState
 	);
 
 	/**
@@ -38,8 +39,8 @@ public interface IRightClickControllingItem {
 	 * @param stack The stack on which the clicking ended.
 	 */
 	void onRightClickProcessingEnd(
-			final Player player,
-			final ItemStack stack
+			Player player,
+			ItemStack stack
 	);
 
 	/**

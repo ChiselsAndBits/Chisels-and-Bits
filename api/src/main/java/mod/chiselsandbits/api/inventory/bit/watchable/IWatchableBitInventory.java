@@ -13,5 +13,5 @@ public interface IWatchableBitInventory extends IBitInventory {
 	 *
 	 * @return The watch object that can be closed to stop listening.
 	 */
-	IWatch startWatching(final Runnable onChangeCallback);
+	IWatch startWatching(Runnable onChangeCallback);
 }

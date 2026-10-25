@@ -61,9 +61,3 @@ hints:
     replace: ''
     mode: AGGRESSIVE
 
-  - id: compliance-matchxpath-10
-    modulePath: Checker[0]/TreeWalker[0]/MatchXpath[10]
-    find: '(?!)'
-    replace: ''
-    mode: AGGRESSIVE
-

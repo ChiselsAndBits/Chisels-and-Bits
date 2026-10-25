@@ -151,7 +151,7 @@ public class CommandManager {
 
 		if (CommandUtils.hasArgument(context, "state")) {
 			final BlockState state = BlockStateArgument.getBlock(context, "state").getState();
-			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
+			try (IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 					: mutator.batch()) {
 				final long bitCount = mutator.mutableStream().count();
 				final BlockInformation information = new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.empty()));
@@ -168,7 +168,7 @@ public class CommandManager {
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
 			}
 		} else {
-			try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
+			try (IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 					: mutator.batch()) {
 				final long bitCount = mutator.mutableStream().count();
 				final ReportingBlockInformationOverrider reporter = new ReportingBlockInformationOverrider(context.getSource(), bitCount) {
@@ -213,7 +213,7 @@ public class CommandManager {
 				end
 		);
 
-		try (final IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
+		try (IBatchMutation ignored = context.getSource().getEntity() != null ? mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getSource().getPlayerOrException()))
 				: mutator.batch()) {
 			mutator.mutableStream().forEach(
 							IMutableStateEntryInfo::clear
@@ -356,7 +356,7 @@ public class CommandManager {
 
 		protected int index = 0;
 
-		public ReportingBlockInformationOverrider(CommandSourceStack source, long count) {
+		ReportingBlockInformationOverrider(CommandSourceStack source, long count) {
 			this.source = source;
 			this.count = count;
 

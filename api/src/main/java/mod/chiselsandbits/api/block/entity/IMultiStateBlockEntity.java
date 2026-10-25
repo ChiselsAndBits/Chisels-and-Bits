@@ -67,7 +67,7 @@ public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
 	 * @param axis The axis to rotate around.
 	 * @param rotationCount The amount of times to rotate the
 	 */
-	void rotate(final Direction.Axis axis, final int rotationCount);
+	void rotate(Direction.Axis axis, int rotationCount);
 
 	/**
 	 * Initializes the block entity so that all its state entries

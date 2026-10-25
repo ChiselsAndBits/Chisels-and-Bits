@@ -7,6 +7,7 @@ import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import org.jetbrains.annotations.NotNull;
 // ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import net.minecraft.core.Direction;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents a system which can build unique block neighborhoods.

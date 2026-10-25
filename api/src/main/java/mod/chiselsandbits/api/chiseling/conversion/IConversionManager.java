@@ -41,7 +41,7 @@ public interface IConversionManager {
 	 * @param block The block to convert.
 	 * @return An optional, containing the converted block, if the given block is convertible.
 	 */
-	Optional<Block> getChiseledVariantOf(final Block block);
+	Optional<Block> getChiseledVariantOf(Block block);
 
 	/**
 	 * Allows you to get the chiseled block variant of a given item.

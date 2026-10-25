@@ -27,8 +27,8 @@ public interface IAccessorFactory {
 	 * @return The accessor.
 	 */
 	IWorldAreaAccessor in(
-			final LevelAccessor world,
-			final BlockPos pos
+			LevelAccessor world,
+			BlockPos pos
 	);
 
 	/**
@@ -40,9 +40,9 @@ public interface IAccessorFactory {
 	 * @return The accessor.
 	 */
 	IWorldAreaAccessor covering(
-			final LevelAccessor world,
-			final BlockPos from,
-			final BlockPos to
+			LevelAccessor world,
+			BlockPos from,
+			BlockPos to
 	);
 
 	/**
@@ -54,8 +54,8 @@ public interface IAccessorFactory {
 	 * @return The accessor.
 	 */
 	IWorldAreaAccessor covering(
-			final LevelAccessor world,
-			final Vec3 from,
-			final Vec3 to
+			LevelAccessor world,
+			Vec3 from,
+			Vec3 to
 	);
 }

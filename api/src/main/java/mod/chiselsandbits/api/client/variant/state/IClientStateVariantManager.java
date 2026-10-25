@@ -1,6 +1,5 @@
 package mod.chiselsandbits.api.client.variant.state;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -12,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -51,9 +49,9 @@ public interface IClientStateVariantManager {
 	 * @param tooltipDisplay The display information regarding the tooltip.
 	 */
 	void appendHoverText(BlockInformation blockInformation,
-			final Item.TooltipContext context,
-			final TooltipDisplay tooltipDisplay,
-			final Consumer<Component> tooltipAdder,
-			final TooltipFlag flag
+			Item.TooltipContext context,
+			TooltipDisplay tooltipDisplay,
+			Consumer<Component> tooltipAdder,
+			TooltipFlag flag
 	);
 }

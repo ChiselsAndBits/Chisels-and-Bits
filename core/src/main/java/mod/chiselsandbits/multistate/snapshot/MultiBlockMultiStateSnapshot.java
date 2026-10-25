@@ -106,6 +106,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 
 	/**
 	 * Creates a new area shape identifier.
+	 *
 	 * <p>
 	 * Note: This method always returns a new instance.
 	 *
@@ -516,7 +517,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	private static final class Identifier implements IAreaShapeIdentifier {
 		private final Collection<IAreaShapeIdentifier> inners;
 
-		public Identifier(final Collection<IMultiStateSnapshot> innerSnapshots) {
+		Identifier(final Collection<IMultiStateSnapshot> innerSnapshots) {
 			this.inners = innerSnapshots.stream().map(IAreaAccessor::createNewShapeIdentifier).collect(Collectors.toList());
 		}
 

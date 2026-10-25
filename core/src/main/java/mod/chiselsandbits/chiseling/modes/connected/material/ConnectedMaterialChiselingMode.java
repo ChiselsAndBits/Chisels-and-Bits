@@ -463,7 +463,7 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
 		private final Vec3i offset;
 		private final Set<Vec3i> validPositions;
 
-		public SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions) {
+		SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions) {
 			this.offset = offset;
 			this.validPositions = validPositions;
 		}

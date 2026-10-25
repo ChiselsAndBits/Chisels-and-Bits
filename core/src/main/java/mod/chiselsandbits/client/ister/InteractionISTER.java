@@ -20,10 +20,12 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class animates an interaction between the items in the two hands of the players.
  *
+ * <p>
  * Cloned from: Creators-of-Create: <a href = "https://github.com/Creators-of-Create/Create/blob/mc1.16/dev/src/main/java/com/simibubi/create/content/curiosities/tools/SandPaperItemRenderer.java">... </a>
  * Modified some behaviour and fields to target the general use better, but functionally the same.
  */
@@ -33,7 +35,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 
 	@Override
 	public void submit(
-			@Nullable final InteractionISTER.RenderState argument,
+			final InteractionISTER.@Nullable RenderState argument,
 			final @NonNull PoseStack poseStack,
 			final @NonNull SubmitNodeCollector submitNodeCollector,
 			final int lightCoords,

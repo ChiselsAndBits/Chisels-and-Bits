@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Marker interface used to detect block neighborhoods in cache keys.
@@ -79,7 +80,7 @@ public interface IBlockNeighborhood {
 	 * @param direction The direction.
 	 * @return The blockstate
 	 */
-	BlockInformation getBlockInformation(final Direction direction);
+	BlockInformation getBlockInformation(Direction direction);
 
 	/**
 	 * Returns the blocks potential area accessor neighbor in the given direction.
@@ -88,5 +89,5 @@ public interface IBlockNeighborhood {
 	 * @return The area accessor.
 	 */
 	@Nullable
-	IAreaAccessor getAreaAccessor(final Direction direction);
+	IAreaAccessor getAreaAccessor(Direction direction);
 }

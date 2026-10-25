@@ -16,7 +16,7 @@ public interface IMultiThreadedStorageEngine<TPayload> {
 	 * @param valueOutput The value output to write to.
 	 * @return The off-thread encode task.
 	 */
-	CompletableFuture<Void> encodeAsync(TPayload payload, final ValueOutput valueOutput);
+	CompletableFuture<Void> encodeAsync(TPayload payload, ValueOutput valueOutput);
 
 	/**
 	 * Decodes the given nbt data off-thread.
@@ -24,5 +24,5 @@ public interface IMultiThreadedStorageEngine<TPayload> {
 	 * @param valueInput The value input to read from.
 	 * @return The off-thread decode task.
 	 */
-	CompletableFuture<TPayload> decodeAsync(final ValueInput valueInput);
+	CompletableFuture<TPayload> decodeAsync(ValueInput valueInput);
 }

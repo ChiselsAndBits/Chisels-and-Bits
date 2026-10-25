@@ -7,6 +7,7 @@ import net.minecraft.core.Vec3i;
  * Represents an object which can mutate the order of the coordinate members
  * before they are retrieved from storage.
  *
+ * <p>
  * The default loop order is XYZ.
  * However by swapping for example the X and Y coordinate member of the
  * passed coordinates a YXZ loop order can be achieved without
@@ -21,7 +22,7 @@ public interface IPositionMutator {
 	 *
 	 * @return The mutated output.
 	 */
-	Vec3i mutate(final Vec3i input);
+	Vec3i mutate(Vec3i input);
 
 	/**
 	 * Creates a new mutator which chains the current and the next mutator into one.

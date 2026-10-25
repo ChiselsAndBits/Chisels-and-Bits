@@ -2,7 +2,6 @@ package mod.chiselsandbits.api.chiseling.eligibility;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.item.ItemStack;
 
@@ -44,7 +43,7 @@ public interface IEligibilityManager {
 	 *
 	 * @return The analysis result.
 	 */
-	IEligibilityAnalysisResult analyse(final BlockInformation blockInformation);
+	IEligibilityAnalysisResult analyse(BlockInformation blockInformation);
 
 	/**
 	 * Performs a chiselability analysis on the given {@link ItemStack}.
@@ -53,5 +52,5 @@ public interface IEligibilityManager {
 	 *
 	 * @return The analysis result.
 	 */
-	IEligibilityAnalysisResult analyse(final ItemStack provider);
+	IEligibilityAnalysisResult analyse(ItemStack provider);
 }

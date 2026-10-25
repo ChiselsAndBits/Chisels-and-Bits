@@ -91,6 +91,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 
 	/**
 	 * Creates a new area shape identifier.
+	 *
 	 * <p>
 	 * Note: This method always returns a new instance.
 	 *
@@ -363,7 +364,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		private final Vec3 startPoint;
 		private final Vec3 endPoint;
 
-		public StateEntry(
+		StateEntry(
 				final BlockInformation blockInformation,
 				final Vec3i startPoint) {
 			this(
@@ -420,12 +421,12 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		private BlockInformation primaryState;
 		private final Map<BlockInformation, Integer> countMap;
 
-		public Statistics(BlockInformation primaryState, Map<BlockInformation, Integer> countMap) {
+		Statistics(BlockInformation primaryState, Map<BlockInformation, Integer> countMap) {
 			this.countMap = countMap;
 			this.primaryState = primaryState;
 		}
 
-		public Statistics() {
+		Statistics() {
 			this(BlockInformation.AIR, Maps.newHashMap());
 		}
 

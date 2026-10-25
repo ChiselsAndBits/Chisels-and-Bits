@@ -16,6 +16,7 @@ public interface IChiselingManager {
 	/**
 	 * Gets or creates a new chiseling context for the given player.
 	 *
+	 * <p>
 	 * A new context is created when either one of the following conditions is met:
 	 * - No context has been created before.
 	 * - The world of the player and the world of the existing context are not equal
@@ -53,8 +54,8 @@ public interface IChiselingManager {
 	 * @return An optional potentially containing the current context of the player.
 	 */
 	Optional<IChiselingContext> get(
-			final Player playerEntity,
-			final IChiselMode mode
+			Player playerEntity,
+			IChiselMode mode
 	);
 
 	/**
@@ -67,9 +68,9 @@ public interface IChiselingManager {
 	 * @return An optional potentially containing the current context of the player.
 	 */
 	Optional<IChiselingContext> get(
-			final Player playerEntity,
-			final IChiselMode mode,
-			final ChiselingOperation modeOfOperandus
+			Player playerEntity,
+			IChiselMode mode,
+			ChiselingOperation modeOfOperandus
 	);
 
 	/**
@@ -85,10 +86,10 @@ public interface IChiselingManager {
 	 * @return The newly created context.
 	 */
 	IChiselingContext create(
-			final Player playerEntity,
-			final IChiselMode mode,
-			final ChiselingOperation modeOfOperandus,
-			final boolean simulation,
-			final ItemStack causingItemStack
+			Player playerEntity,
+			IChiselMode mode,
+			ChiselingOperation modeOfOperandus,
+			boolean simulation,
+			ItemStack causingItemStack
 	);
 }

@@ -14,7 +14,7 @@ public interface IBitInventoryItem {
 	 *
 	 * @return The bit inventory.
 	 */
-	IBitInventoryItemStack create(final ItemStack stack);
+	IBitInventoryItemStack create(ItemStack stack);
 
 	/**
 	 * Indicates if this items inventory is an inventory which should be preferred when bits are being picked up by the player.
@@ -22,7 +22,7 @@ public interface IBitInventoryItem {
 	 * @param stack The stack to check for.
 	 * @return True when preferred, false when not.
 	 */
-	boolean isPreferredPickupInventory(final ItemStack stack);
+	boolean isPreferredPickupInventory(ItemStack stack);
 
 	/**
 	 * Indicates if this items inventory is an inventory which is filtered, so that only bits which are already in the inventory are added when the player picks them up.
@@ -30,5 +30,5 @@ public interface IBitInventoryItem {
 	 * @param stack The stack to check for.
 	 * @return True when filtered, false when not.
 	 */
-	boolean isFilteredPickupInventory(final ItemStack stack);
+	boolean isFilteredPickupInventory(ItemStack stack);
 }

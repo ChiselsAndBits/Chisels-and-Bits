@@ -60,7 +60,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	 * @param index The index of the slot to read.
 	 * @return A copy of the stack in the slot.
 	 */
-	protected abstract ItemStack getItem(final int index);
+	protected abstract ItemStack getItem(int index);
 
 	/**
 	 * The size of the inventory.
@@ -112,7 +112,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 	 * @param index The index of the slot.
 	 * @param stack The stack to insert.
 	 */
-	protected abstract void setItem(final int index, final ItemStack stack);
+	protected abstract void setItem(int index, ItemStack stack);
 
 	/**
 	 * Checks if it is possible to insert a given amount of bits with the given blockstate from the the current inventory.

@@ -192,6 +192,7 @@ public enum StateEntrySize
 
 	/**
 	 * Calculates how much damage should be applied to tools for the harvest of a given bit within this size.
+	 *
 	 * <p>
 	 * The scale factor is 1 for 1/16, and grows with the cubicly per level, with the amount of 1/16 bits that the size represents.
 	 * So for 1/8, it is 8 (as 2x2x2 1/16th bits fit in one 1/8 bit)

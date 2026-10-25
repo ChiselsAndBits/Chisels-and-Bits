@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.item.*;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An {@link ItemModel} which indicates interaction with it.

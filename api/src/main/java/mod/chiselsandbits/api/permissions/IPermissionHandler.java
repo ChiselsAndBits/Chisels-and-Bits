@@ -24,7 +24,7 @@ public interface IPermissionHandler {
 	 *
 	 * @return The registration token which can be used to unregister the checker.
 	 */
-	ICheckerRegistration registerChecker(final IPermissionChecker checker);
+	ICheckerRegistration registerChecker(IPermissionChecker checker);
 
 	/**
 	 * Allows for external systems to check if a particular player
@@ -34,5 +34,5 @@ public interface IPermissionHandler {
 	 * @param worldAreaAccessor The area which is being edited.
 	 * @return {@code true} if the area is marked as editable, {@code false} otherwise.
 	 */
-	boolean canManipulate(final Player player, final IWorldAreaAccessor worldAreaAccessor);
+	boolean canManipulate(Player player, IWorldAreaAccessor worldAreaAccessor);
 }

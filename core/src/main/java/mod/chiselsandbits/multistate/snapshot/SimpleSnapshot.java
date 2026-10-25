@@ -101,6 +101,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 	/**
 	 * Creates a new area shape identifier.
+	 *
 	 * <p>
 	 * Note: This method always returns a new instance.
 	 *

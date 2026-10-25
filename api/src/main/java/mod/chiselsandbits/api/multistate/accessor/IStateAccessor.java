@@ -11,6 +11,7 @@ public interface IStateAccessor {
 	 * Note if this accessor potentially targets more than 1 block position (even if it does not in reality the potential is what matters here)
 	 * you will need to pass in the world position exactly.
 	 *
+	 * <p>
 	 * If this accessor can not potentially ever target more than 1 block position, you can pass in the relative position.
 	 * This is a nasty implementation detail, and matters most when you are making new chisel or pattern placement modes!
 	 *
@@ -26,6 +27,7 @@ public interface IStateAccessor {
 	 * Note if this accessor potentially targets more than 1 block position (even if it does not in reality the potential is what matters here)
 	 * you will need to pass in the world position exactly.
 	 *
+	 * <p>
 	 * If this accessor can not potentially ever target more than 1 block position, you can pass in the relative position.
 	 * This is a nasty implementation detail, and matters most when you are making new chisel or pattern placement modes!
 	 *

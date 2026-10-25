@@ -460,7 +460,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 		private final Vec3i offset;
 		private final Set<Vec3i> validPositions;
 
-		public SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions) {
+		SelectedBitStateFilter(final Vec3i offset, final Set<Vec3i> validPositions) {
 			this.offset = offset;
 			this.validPositions = validPositions;
 		}

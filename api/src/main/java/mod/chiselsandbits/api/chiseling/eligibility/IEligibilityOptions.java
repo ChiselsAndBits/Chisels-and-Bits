@@ -22,5 +22,5 @@ public interface IEligibilityOptions {
 	 * @param explosionDefinitionClass The class that defines the explosion resistance.
 	 * @return True when the class is valid, false when not.
 	 */
-	boolean isValidExplosionDefinitionClass(final Class<?> explosionDefinitionClass);
+	boolean isValidExplosionDefinitionClass(Class<?> explosionDefinitionClass);
 }

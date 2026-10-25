@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * The blockstate id manager which manages the blockstate ids for the current session.
  *
+ * <p>
  * Generally this manager is comparable to the relevant methods in the game registry.
  */
 public interface IBlockStateIdManager {

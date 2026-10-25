@@ -33,12 +33,14 @@ public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICutt
 	 * Performs a Cutting on the snapshot.
 	 * The returned collection contains the individual pieces that result of this cut.
 	 *
+	 * <p>
 	 * In total a maximum 64 pieces can be returned.
 	 *
+	 * <p>
 	 * Note: The cutter generates a bundle if more than one unique piece is cut.
 	 *
 	 * @param source The mutator to modify.
 	 * @return A collection of accessors that were created by the operation.
 	 */
-	Collection<IAreaAccessor> apply(final IAreaAccessor source);
+	Collection<IAreaAccessor> apply(IAreaAccessor source);
 }

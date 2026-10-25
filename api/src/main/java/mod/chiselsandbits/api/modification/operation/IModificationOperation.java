@@ -32,5 +32,5 @@ public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<
 	 *
 	 * @param source The mutator to modify.
 	 */
-	void apply(final IGenerallyModifiableAreaMutator source);
+	void apply(IGenerallyModifiableAreaMutator source);
 }

@@ -35,7 +35,7 @@ public interface IMeasuringManager {
 	 * @param worldKey The world key in question.
 	 * @return A collection of measurements which are active in the given world.
 	 */
-	Collection<? extends IMeasurement> getInWorld(final Identifier worldKey);
+	Collection<? extends IMeasurement> getInWorld(Identifier worldKey);
 
 	/**
 	 * Determines the active measurements for a given player.
@@ -53,7 +53,7 @@ public interface IMeasuringManager {
 	 * @param playerId The if of the player in question.
 	 * @return A collection of measurements which are active for the given player.
 	 */
-	Collection<? extends IMeasurement> getForPlayer(final UUID playerId);
+	Collection<? extends IMeasurement> getForPlayer(UUID playerId);
 
 	/**
 	 * Creates a new measurement for the given player in the given world.
@@ -67,12 +67,12 @@ public interface IMeasuringManager {
 	 * @return The newly created and processed measurement.
 	 */
 	IMeasurement create(
-			final Level world,
-			final Player playerEntity,
-			final Vec3 from,
-			final Vec3 to,
-			final Direction hitFace,
-			final IMeasuringMode mode
+			Level world,
+			Player playerEntity,
+			Vec3 from,
+			Vec3 to,
+			Direction hitFace,
+			IMeasuringMode mode
 	);
 
 	/**

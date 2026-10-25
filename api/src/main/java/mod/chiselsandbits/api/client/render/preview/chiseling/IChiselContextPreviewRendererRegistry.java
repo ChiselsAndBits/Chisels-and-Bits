@@ -23,5 +23,5 @@ public interface IChiselContextPreviewRendererRegistry {
 	 * @param renderers The candidates.
 	 * @return The registry.
 	 */
-	IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers);
+	IChiselContextPreviewRendererRegistry register(IChiselContextPreviewRenderer... renderers);
 }

@@ -31,10 +31,10 @@ public interface IChiselContextPreviewRenderer {
 	 * @param currentContextSnapshot The current snapshot to render.
 	 */
 	void renderExistingContextsBoundingBox(
-			final LevelRenderer levelRenderer,
-			final PoseStack matrixStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final LevelRenderState levelRenderState,
-			final float partialTicks,
-			final IChiselingContext currentContextSnapshot);
+			LevelRenderer levelRenderer,
+			PoseStack matrixStack,
+			MultiBufferSource.BufferSource bufferSource,
+			LevelRenderState levelRenderState,
+			float partialTicks,
+			IChiselingContext currentContextSnapshot);
 }

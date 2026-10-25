@@ -17,5 +17,5 @@ public interface IProfilerResult {
 	 * Writes all profiling result data in a readable manor into the given consumer, allows for the outputting of the results to a player in chat, or the server console.
 	 * @param lineConsumer The line consumer.
 	 */
-	void writeAsResponse(final Consumer<String> lineConsumer);
+	void writeAsResponse(Consumer<String> lineConsumer);
 }

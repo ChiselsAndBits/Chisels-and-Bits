@@ -9,6 +9,7 @@ import org.joml.Vector4f;
 /**
  * All client configuration values that are relevant for the client side of C{@literal &}B.
  *
+ * <p>
  * These options are only available on the client, and are not synced between
  * the server and the client.
  */

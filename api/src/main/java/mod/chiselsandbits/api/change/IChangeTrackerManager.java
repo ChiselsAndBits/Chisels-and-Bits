@@ -1,9 +1,6 @@
 package mod.chiselsandbits.api.change;
 
-import java.util.UUID;
-
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.entity.player.Player;
 
@@ -12,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
  * This data is not synced.
  * On the client generally this data is only available for the current player, all other players return an empty change tracker.
  *
+ * <p>
  * All change trackers are reset upon server restart or datapack reload.
  */
 public interface IChangeTrackerManager {
@@ -30,5 +28,5 @@ public interface IChangeTrackerManager {
 	 * @param player The player in question.
 	 * @return The change tracker for the given player.
 	 */
-	IChangeTracker getChangeTracker(final Player player);
+	IChangeTracker getChangeTracker(Player player);
 }

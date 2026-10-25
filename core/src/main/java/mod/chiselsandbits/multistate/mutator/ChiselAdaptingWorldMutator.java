@@ -65,6 +65,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 	/**
 	 * Creates a new area shape identifier.
+	 *
 	 * <p>
 	 * Note: This method always returns a new instance.
 	 *
@@ -619,6 +620,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 	/**
 	 * Trigger a batch mutation start.
+	 *
 	 * <p>
 	 * As long as at least one batch mutation is still running no changes are transmitted to the client.
 	 *
@@ -777,7 +779,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		private final StateSetter setCallback;
 		private final StateClearer clearCallback;
 
-		public MutablePreAdaptedStateEntry(
+		MutablePreAdaptedStateEntry(
 				final BlockInformation blockInformation,
 				final LevelAccessor world,
 				final BlockPos blockPos,

@@ -24,5 +24,5 @@ public interface ILaunchPropertyManager {
 	 * @param defaultValue The default value if not configured.
 	 * @return The current value of the property.
 	 */
-	String get(final String key, final String defaultValue);
+	String get(String key, String defaultValue);
 }

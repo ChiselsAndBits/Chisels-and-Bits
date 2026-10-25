@@ -30,7 +30,7 @@ public interface IBitInventory {
 	 * @param count The amount of bits to extract.
 	 * @return {@code true} when extraction is possible.
 	 */
-	boolean canExtract(final BlockInformation blockInformation, final int count);
+	boolean canExtract(BlockInformation blockInformation, int count);
 
 	/**
 	 * Returns the maximal amount of bits with a given block information which can be extracted
@@ -39,7 +39,7 @@ public interface IBitInventory {
 	 * @param blockInformation The block information in question.
 	 * @return The amount of bits that can be extracted with a given blockstate.
 	 */
-	int getMaxExtractAmount(final BlockInformation blockInformation);
+	int getMaxExtractAmount(BlockInformation blockInformation);
 
 	/**
 	 * Extracts exactly one bit with the given block information from
@@ -60,7 +60,7 @@ public interface IBitInventory {
 	 * @param count The amount of bits to extract.
 	 * @throws IllegalArgumentException when extraction is not possible.
 	 */
-	void extract(final BlockInformation blockInformation, final int count) throws IllegalArgumentException;
+	void extract(BlockInformation blockInformation, int count) throws IllegalArgumentException;
 
 	/**
 	 * Checks if it is possible to insert exactly one bit with the given block information from
@@ -81,7 +81,7 @@ public interface IBitInventory {
 	 * @param count The amount of bits to insert.
 	 * @return {@code true} when insertion is possible.
 	 */
-	boolean canInsert(final BlockInformation blockInformation, final int count);
+	boolean canInsert(BlockInformation blockInformation, int count);
 
 	/**
 	 * Returns the maximal amount of bits with a given block information which can be inserted
@@ -90,7 +90,7 @@ public interface IBitInventory {
 	 * @param blockInformation The blockstate in question.
 	 * @return The amount of bits that can be inserted with a given blockstate.
 	 */
-	int getMaxInsertAmount(final BlockInformation blockInformation);
+	int getMaxInsertAmount(BlockInformation blockInformation);
 
 	/**
 	 * Inserts exactly one bit with the given block information from
@@ -111,7 +111,7 @@ public interface IBitInventory {
 	 * @param count The amount of bits to insert.
 	 * @throws IllegalArgumentException when insertion is not possible.
 	 */
-	void insert(final BlockInformation blockInformation, final int count) throws IllegalArgumentException;
+	void insert(BlockInformation blockInformation, int count) throws IllegalArgumentException;
 
 	/**
 	 * Inserts a given amount of bits with the given block information from

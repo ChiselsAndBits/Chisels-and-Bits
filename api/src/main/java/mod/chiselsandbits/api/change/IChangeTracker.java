@@ -35,7 +35,7 @@ public interface IChangeTracker extends IChangeHandler {
 	 * @param beforeStates The states before the update.
 	 * @param afterState The states after the update.
 	 */
-	void onBlocksUpdated(Map<BlockPos, IMultiStateSnapshot> beforeStates, final Map<BlockPos, IMultiStateSnapshot> afterState);
+	void onBlocksUpdated(Map<BlockPos, IMultiStateSnapshot> beforeStates, Map<BlockPos, IMultiStateSnapshot> afterState);
 
 	/**
 	 * Gets a readonly-copy of the changes in the queue.

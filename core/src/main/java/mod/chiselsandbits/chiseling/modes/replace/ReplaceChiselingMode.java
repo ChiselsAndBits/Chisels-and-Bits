@@ -304,7 +304,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 	private static final class SelectedBitStateFilter implements Predicate<IStateEntryInfo> {
 		private final Set<Vec3i> validPositions;
 
-		public SelectedBitStateFilter(final Set<Vec3i> validPositions) {
+		SelectedBitStateFilter(final Set<Vec3i> validPositions) {
 			this.validPositions = validPositions;
 		}
 

@@ -11,21 +11,21 @@ public interface IInteractableItem {
 	 * @param stack The stack in question.
 	 * @return {@code true} when an interaction with the given stack is going on.
 	 */
-	boolean isInteracting(final ItemStack stack);
+	boolean isInteracting(ItemStack stack);
 
 	/**
 	 * Gives access to the stack the interaction is occurring with.
 	 * @param stack The stack that is leading the interaction.
 	 * @return The stack that the interaction is occuring with.
 	 */
-	ItemStack getInteractionTarget(final ItemStack stack);
+	ItemStack getInteractionTarget(ItemStack stack);
 
 	/**
 	 * Indicates if the interactable stack is used in a simulation for display purposes.
 	 * @param stack The stack in question
 	 * @return {@code true} when a simulation is taking place.
 	 */
-	boolean isRunningASimulatedInteraction(final ItemStack stack);
+	boolean isRunningASimulatedInteraction(ItemStack stack);
 
 	/**
 	 * Indicates how often the bobbing animation needs to play inside the use time of the item.

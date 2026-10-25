@@ -27,6 +27,7 @@ import net.minecraft.world.level.material.FluidState;
 public interface IStateVariantManager {
 	/**
 	 * The codec for the state variant provider.
+	 *
 	 * <p>
 	 * This codec is used to serialize and deserialize the state variant provider that created a given state variant.
 	 * It is used to store the state variant provider type in the serialized data.
@@ -37,6 +38,7 @@ public interface IStateVariantManager {
 
 	/**
 	 * The codec for the state variant provider.
+	 *
 	 * <p>
 	 * This codec is used to serialize and deserialize the state variant provider that created a given state variant.
 	 * It is used to store the state variant provider type in the serialized streaming data.
@@ -61,7 +63,7 @@ public interface IStateVariantManager {
 	 * @param provider The provider to register.
 	 * @return The manager instance.
 	 */
-	public IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block);
+	IStateVariantProvider registerProvider(IStateVariantProvider provider, Supplier<Block>... block);
 
 	/**
 	 * Returns the state variant, if one exists, for the blockstate and block entity combination.
@@ -88,7 +90,7 @@ public interface IStateVariantManager {
 	 * @param itemStack The item stack.
 	 * @return The state variant, if one exists.
 	 */
-	Optional<IStateVariant> getStateVariant(final BlockState blockState, ItemStack itemStack);
+	Optional<IStateVariant> getStateVariant(BlockState blockState, ItemStack itemStack);
 
 	/**
 	 * Returns the state variant, if one exists, for the fluid information.
@@ -104,7 +106,7 @@ public interface IStateVariantManager {
 	 * @param state The block state.
 	 * @return The default variants.
 	 */
-	Collection<BlockInformation> getAllDefaultVariants(final BlockState state);
+	Collection<BlockInformation> getAllDefaultVariants(BlockState state);
 
 	/**
 	 * Returns the item stack for the given block information entry.

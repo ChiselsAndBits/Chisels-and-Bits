@@ -16,13 +16,14 @@ public interface IWithHighlightItem {
 	 * Indicates if the given player is allowed to use the
 	 * default render method.
 	 *
+	 * <p>
 	 * If this is false.The default highlight rendering is cancelled.
 	 *
 	 * @param playerEntity The player entity in question.
 	 *
 	 * @return True to let minecraft handle the highlight rendering, false when not.
 	 */
-	boolean shouldDrawDefaultHighlight(final Player playerEntity);
+	boolean shouldDrawDefaultHighlight(Player playerEntity);
 
 	/**
 	 * Renders the highlight for the current item.
@@ -35,7 +36,7 @@ public interface IWithHighlightItem {
 	 * @param partialTicks The partial ticks used for animations.
 	 */
 	void renderHighlight(Player playerEntity, LevelRenderer worldRenderer, PoseStack matrixStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final LevelRenderState levelRenderState,
+			MultiBufferSource.BufferSource bufferSource,
+			LevelRenderState levelRenderState,
 			float partialTicks);
 }

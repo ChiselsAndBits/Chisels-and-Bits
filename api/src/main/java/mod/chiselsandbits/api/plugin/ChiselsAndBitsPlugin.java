@@ -22,6 +22,7 @@ public @interface ChiselsAndBitsPlugin {
 	/**
 	 * Indicator for an experimental plugin.
 	 * Is only loaded when the user enables experimental plugins in the config.
+	 *
 	 * <p>
 	 * Experimental plugins get constructed if their mods list matches, however their
 	 * initialization methods are never called!

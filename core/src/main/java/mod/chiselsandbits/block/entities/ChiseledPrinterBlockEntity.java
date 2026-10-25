@@ -419,7 +419,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	}
 
 	@Override
-	public int [] getSlotsForFace(final Direction direction) {
+	public int[] getSlotsForFace(final Direction direction) {
 		return switch (direction) {
 			case DOWN -> new int[] { 2};
 			case UP -> new int[] { 1};

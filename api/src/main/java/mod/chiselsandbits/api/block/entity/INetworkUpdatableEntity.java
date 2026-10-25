@@ -34,5 +34,5 @@ public interface INetworkUpdatableEntity<TPayload> {
 	 *
 	 * @param payload The payload to receive.
 	 */
-	void receivePayload(final TPayload payload);
+	void receivePayload(TPayload payload);
 }
