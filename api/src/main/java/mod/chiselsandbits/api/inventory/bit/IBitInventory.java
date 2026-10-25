@@ -1,10 +1,11 @@
 package mod.chiselsandbits.api.inventory.bit;
 
+import java.util.Map;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
-import net.minecraft.world.item.ItemStack;
 
-import java.util.Map;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Represents an inventory in which bits are contained.

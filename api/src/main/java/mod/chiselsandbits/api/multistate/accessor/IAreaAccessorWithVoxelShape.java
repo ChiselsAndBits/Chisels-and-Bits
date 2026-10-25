@@ -1,6 +1,7 @@
 package mod.chiselsandbits.api.multistate.accessor;
 
 import mod.chiselsandbits.api.axissize.CollisionType;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.VoxelShape;
 

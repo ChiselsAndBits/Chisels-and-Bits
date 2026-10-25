@@ -2,8 +2,9 @@ package mod.chiselsandbits.api.chiseling.eligibility;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.world.item.ItemStack;
 
 /**
  * An object which can manage the eligibility of chiseling of blocks, blockstates,

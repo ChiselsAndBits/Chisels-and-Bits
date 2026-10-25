@@ -1,5 +1,7 @@
 package mod.chiselsandbits.api.chiseling.mode;
 
+import java.util.Optional;
+
 import com.communi.suggestu.scena.core.registries.ICustomRegistry;
 import com.communi.suggestu.scena.core.registries.ICustomRegistryEntry;
 import com.mojang.serialization.Codec;
@@ -12,11 +14,10 @@ import mod.chiselsandbits.api.item.withmode.IToolMode;
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.registries.IRegistryManager;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Optional;
 
 /**
  * Represents a chiselable operation that can be completed by a chisel or bit for example.

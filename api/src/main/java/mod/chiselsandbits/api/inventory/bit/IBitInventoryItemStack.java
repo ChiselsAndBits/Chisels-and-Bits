@@ -1,13 +1,13 @@
 package mod.chiselsandbits.api.inventory.bit;
 
+import java.util.List;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import net.minecraft.core.HolderLookup;
+
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
-
-import java.util.List;
 
 /**
  * A bit inventory which can be converted to an itemstack.

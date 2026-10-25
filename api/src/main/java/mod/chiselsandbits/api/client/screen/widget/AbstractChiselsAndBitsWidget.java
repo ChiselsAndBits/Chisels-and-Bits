@@ -1,13 +1,13 @@
 package mod.chiselsandbits.api.client.screen.widget;
 
 import com.communi.suggestu.scena.core.client.rendering.IExtendedGuiGraphics;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * All chisels and bits widgets inherit from this class.

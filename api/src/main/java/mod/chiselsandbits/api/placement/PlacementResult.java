@@ -1,12 +1,13 @@
 package mod.chiselsandbits.api.placement;
 
-import com.communi.suggestu.scena.core.dist.DistExecutor;
-import mod.chiselsandbits.api.config.IClientConfiguration;
-import net.minecraft.network.chat.Component;
-import org.joml.Vector4f;
-
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import com.communi.suggestu.scena.core.dist.DistExecutor;
+import mod.chiselsandbits.api.config.IClientConfiguration;
+import org.joml.Vector4f;
+
+import net.minecraft.network.chat.Component;
 
 /**
  * Represents a result of a placement attempt.

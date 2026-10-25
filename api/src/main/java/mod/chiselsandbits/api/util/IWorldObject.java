@@ -1,10 +1,9 @@
 package mod.chiselsandbits.api.util;
 
-import mod.chiselsandbits.api.aabb.IAABBOwner;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.LevelAccessor;
 
 /**
  * Represents a 3D object in world.

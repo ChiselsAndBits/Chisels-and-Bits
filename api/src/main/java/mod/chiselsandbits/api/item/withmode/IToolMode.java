@@ -1,10 +1,9 @@
 package mod.chiselsandbits.api.item.withmode;
 
+import java.util.Optional;
+
 import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
 import mod.chiselsandbits.api.util.IWithDisplayName;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 /**
  * A mode of a given tool.

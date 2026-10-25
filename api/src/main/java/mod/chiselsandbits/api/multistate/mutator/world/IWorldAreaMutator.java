@@ -1,10 +1,10 @@
 package mod.chiselsandbits.api.multistate.mutator.world;
 
+import java.util.stream.Stream;
+
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.IAreaMutator;
 import mod.chiselsandbits.api.multistate.mutator.batched.IBatchedAreaMutator;
-
-import java.util.stream.Stream;
 
 /**
  * Allows for a given area in the world to be mutated.

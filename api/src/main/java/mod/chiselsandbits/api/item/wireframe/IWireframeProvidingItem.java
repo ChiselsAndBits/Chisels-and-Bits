@@ -1,11 +1,12 @@
 package mod.chiselsandbits.api.item.wireframe;
 
+import org.joml.Vector4f;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Vector4f;
 
 /**
  * Represents an item which can provide a wireframe for different purposes,

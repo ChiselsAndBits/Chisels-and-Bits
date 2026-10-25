@@ -1,18 +1,19 @@
 package mod.chiselsandbits.api.client.variant.state;
 
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * The state variant provider for the client.

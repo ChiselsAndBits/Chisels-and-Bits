@@ -1,12 +1,13 @@
 package mod.chiselsandbits.api.multistate.mutator;
 
+import java.util.stream.Stream;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.exceptions.SpaceOccupiedException;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.stream.Stream;
 
 /**
  * A mutator for a given area.

@@ -1,11 +1,12 @@
 package mod.chiselsandbits.api.item.documentation;
 
+import java.util.Map;
+
 import com.communi.suggestu.scena.core.registries.IPlatformRegistryManager;
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Map;
 
 /**
  * Represents an item that is documented via the Chisels and Bits documentation export system.

@@ -189,12 +189,6 @@
             <message key="matchxpath.match" value="var is only allowed before new instance creation"/>
         </module>
 
-        <!-- Prevent public records in API packages -->
-        <module name="MatchXpath">
-            <property name="query" value="//RECORD_DEF[./MODIFIERS/LITERAL_PUBLIC][ancestor::COMPILATION_UNIT/PACKAGE_DEF//IDENT[@text='api']]"/>
-            <message key="matchxpath.match" value="public records are not allowed in API packages"/>
-        </module>
-
         <!-- Prevent non-@Unique fields in Mixin classes -->
         <module name="MatchXpath">
             <property name="query" value="

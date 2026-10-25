@@ -3,6 +3,7 @@ package mod.chiselsandbits.api.change.changes;
 import com.communi.suggestu.scena.core.registries.ICustomRegistryEntry;
 import com.mojang.serialization.MapCodec;
 import io.netty.buffer.ByteBuf;
+
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 

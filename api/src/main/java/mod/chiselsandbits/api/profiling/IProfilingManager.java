@@ -1,6 +1,7 @@
 package mod.chiselsandbits.api.profiling;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
+
 import net.minecraft.util.profiling.jfr.Environment;
 
 /**

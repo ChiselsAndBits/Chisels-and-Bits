@@ -1,5 +1,9 @@
 package mod.chiselsandbits.api.chiseling;
 
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import mod.chiselsandbits.api.chiseling.metadata.IMetadataKey;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
@@ -7,15 +11,11 @@ import mod.chiselsandbits.api.multistate.accessor.IStateAccessor;
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
 import mod.chiselsandbits.api.util.LocalStrings;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelAccessor;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * The current context for the running chiseling operation.

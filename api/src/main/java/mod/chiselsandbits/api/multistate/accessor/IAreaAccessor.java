@@ -1,15 +1,15 @@
 package mod.chiselsandbits.api.multistate.accessor;
 
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
 import mod.chiselsandbits.api.aabb.IAABBOwner;
-import mod.chiselsandbits.api.item.multistate.IStatistics;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
 import mod.chiselsandbits.api.multistate.accessor.sortable.IPositionMutator;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 /**
  * Gives access to all states in a given area.

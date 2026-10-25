@@ -3,10 +3,10 @@ package mod.chiselsandbits.api.multistate.mutator;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.mutator.world.IWorldAreaMutator;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelAccessor;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Allows for the creation of new mutators used to modify chiselable areas.

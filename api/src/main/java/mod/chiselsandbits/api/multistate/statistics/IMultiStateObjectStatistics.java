@@ -1,14 +1,13 @@
 package mod.chiselsandbits.api.multistate.statistics;
 
-import mod.chiselsandbits.api.axissize.CollisionType;
-import mod.chiselsandbits.api.blockinformation.BlockInformation;
-import mod.chiselsandbits.api.item.multistate.IStatistics;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.AirBlock;
-
-import java.util.BitSet;
 import java.util.Map;
 import java.util.Set;
+
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
+import mod.chiselsandbits.api.item.multistate.IStatistics;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.AirBlock;
 
 /**
  * The statistics of a multistate block.

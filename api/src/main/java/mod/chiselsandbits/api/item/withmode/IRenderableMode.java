@@ -1,12 +1,10 @@
 package mod.chiselsandbits.api.item.withmode;
 
-import mod.chiselsandbits.api.util.IWithColor;
 import mod.chiselsandbits.api.util.IWithDisplayName;
-import mod.chiselsandbits.api.util.IWithIcon;
 import mod.chiselsandbits.api.util.IWithIconAndColor;
+
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a tool mode which can be rendered.

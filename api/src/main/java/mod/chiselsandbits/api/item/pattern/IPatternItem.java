@@ -1,12 +1,14 @@
 package mod.chiselsandbits.api.item.pattern;
 
 import mod.chiselsandbits.api.item.change.IChangeTrackingItem;
-import mod.chiselsandbits.api.placement.IPlacementPreviewProvidingItem;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
+import mod.chiselsandbits.api.placement.IPlacementPreviewProvidingItem;
 import mod.chiselsandbits.api.placement.PlacementResult;
 import mod.chiselsandbits.api.sealing.ISupportsSealing;
+import org.joml.Vector4f;
+
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +16,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Vector4f;
 
 /**
  * Represents an item that can be a pattern

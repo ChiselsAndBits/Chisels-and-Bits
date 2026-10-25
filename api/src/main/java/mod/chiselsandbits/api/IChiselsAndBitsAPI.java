@@ -37,9 +37,10 @@ import mod.chiselsandbits.api.profiling.IProfilingManager;
 import mod.chiselsandbits.api.registries.IRegistryManager;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Do not implement it can be accessed via its {@link #getInstance()}-method.

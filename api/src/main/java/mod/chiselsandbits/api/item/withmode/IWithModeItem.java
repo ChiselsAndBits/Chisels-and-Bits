@@ -1,11 +1,11 @@
 package mod.chiselsandbits.api.item.withmode;
 
-import com.google.common.collect.Lists;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.List;
+
+import com.google.common.collect.Lists;
+
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Represents an item with several operational modes.

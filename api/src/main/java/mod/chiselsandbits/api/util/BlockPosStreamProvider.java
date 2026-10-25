@@ -1,13 +1,14 @@
 package mod.chiselsandbits.api.util;
 
-import mod.chiselsandbits.api.multistate.StateEntrySize;
-import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import mod.chiselsandbits.api.multistate.StateEntrySize;
+import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Utility class which provides a stream of BlockPos objects within a given range.
@@ -25,7 +26,7 @@ public class BlockPosStreamProvider {
 	 * and {@code size - 1} as max value.
 	 *
 	 * @param size The size of each axis for the block positions stream.
-	 * @return A stream of blockpositions in the {@code size} cubed in area.
+	 * @return A stream of block positions in the {@code size} cubed in area.
 	 */
 	public static Stream<BlockPos> getForRange(final int size) {
 		return getForRange(0, size - 1);

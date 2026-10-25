@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an object with a text associated with it.

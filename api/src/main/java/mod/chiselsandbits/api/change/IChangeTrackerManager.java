@@ -1,10 +1,11 @@
 package mod.chiselsandbits.api.change;
 
+import java.util.UUID;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * The central change tracker manager which gives access to each players individual change tracker if applicable.

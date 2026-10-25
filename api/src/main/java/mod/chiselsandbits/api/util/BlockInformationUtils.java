@@ -1,5 +1,7 @@
 package mod.chiselsandbits.api.util;
 
+import java.util.Optional;
+
 import com.communi.suggestu.scena.core.registries.IPlatformRegistry;
 import com.communi.suggestu.scena.core.registries.IPlatformRegistryManager;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
@@ -9,8 +11,6 @@ import mod.chiselsandbits.api.variant.state.IStateVariantManager;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Optional;
 
 /**
  * Utility class for handling {@link BlockState}s.

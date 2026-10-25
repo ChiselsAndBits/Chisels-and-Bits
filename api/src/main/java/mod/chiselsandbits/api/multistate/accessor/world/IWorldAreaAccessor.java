@@ -1,11 +1,12 @@
 package mod.chiselsandbits.api.multistate.accessor.world;
 
+import java.util.stream.Stream;
+
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.util.BlockPosStreamProvider;
 import mod.chiselsandbits.api.util.IWorldObject;
-import net.minecraft.core.BlockPos;
 
-import java.util.stream.Stream;
+import net.minecraft.core.BlockPos;
 
 /**
  * Represents an area accessor which actually exists in the world.

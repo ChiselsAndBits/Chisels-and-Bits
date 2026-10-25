@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.util;
 
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An object with a color associated with it.

@@ -1,14 +1,15 @@
 package mod.chiselsandbits.api.measuring;
 
+import java.util.Collection;
+import java.util.UUID;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
+
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Collection;
-import java.util.UUID;
 
 /**
  * A manager for dealing with measurements made by different players in different worlds.

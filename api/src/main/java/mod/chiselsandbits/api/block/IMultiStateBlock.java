@@ -2,11 +2,11 @@ package mod.chiselsandbits.api.block;
 
 import com.communi.suggestu.saecularia.caudices.core.block.IBlockWithWorldlyProperties;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.EntityBlock;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Implemented by Chisels and Bits Blocks, can be used to request a material that represents

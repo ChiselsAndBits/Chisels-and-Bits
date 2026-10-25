@@ -1,9 +1,14 @@
 package mod.chiselsandbits.api.variant.state;
 
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Supplier;
+
 import com.communi.suggestu.scena.core.fluid.FluidInformation;
 import com.mojang.serialization.Codec;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,10 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-
-import java.util.Collection;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Represents the state variant manager, which allows external mods to provide their own state variants.

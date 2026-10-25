@@ -3,7 +3,7 @@ package mod.chiselsandbits.api.variant.state;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import mod.chiselsandbits.api.util.ISnapshotable;
-import mod.chiselsandbits.api.serialization.Serializable;
+
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.entity.BlockEntity;

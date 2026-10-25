@@ -1,8 +1,8 @@
 package mod.chiselsandbits.api.multistate.accessor.identifier;
 
-import mod.chiselsandbits.api.blockinformation.BlockInformation;
-
 import java.util.List;
+
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
 
 /**
  * Indicates that the {@link IAreaShapeIdentifier} is backed by a long array and as such its core data can directly be used to

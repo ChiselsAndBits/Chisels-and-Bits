@@ -1,10 +1,11 @@
 package mod.chiselsandbits.api.util;
 
-import mod.chiselsandbits.api.config.ICommonConfiguration;
-import net.minecraft.network.chat.Component;
-
 import java.util.List;
 import java.util.function.Consumer;
+
+import mod.chiselsandbits.api.config.ICommonConfiguration;
+
+import net.minecraft.network.chat.Component;
 
 /**
  * Utility class for processing help texts,

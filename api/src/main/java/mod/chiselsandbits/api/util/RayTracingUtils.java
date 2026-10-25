@@ -1,6 +1,7 @@
 package mod.chiselsandbits.api.util;
 
 import com.communi.suggestu.scena.core.entity.IEntityInformationManager;
+
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.HitResult;

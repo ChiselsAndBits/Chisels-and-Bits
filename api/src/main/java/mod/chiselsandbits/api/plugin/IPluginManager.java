@@ -1,9 +1,9 @@
 package mod.chiselsandbits.api.plugin;
 
+import java.util.function.Consumer;
+
 import com.google.common.collect.ImmutableSet;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-
-import java.util.function.Consumer;
 
 /**
  * The manager for plugins.

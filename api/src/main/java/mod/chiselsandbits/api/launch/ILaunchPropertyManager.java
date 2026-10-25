@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.launch;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a manager that handles properties related to how the game is launcher

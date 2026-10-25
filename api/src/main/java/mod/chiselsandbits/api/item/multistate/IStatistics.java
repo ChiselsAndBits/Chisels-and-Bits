@@ -1,9 +1,9 @@
 package mod.chiselsandbits.api.item.multistate;
 
+import java.util.Set;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.serialization.RawSerializable;
-
-import java.util.Set;
 
 /**
  * The statistics of a multi state itemstack.

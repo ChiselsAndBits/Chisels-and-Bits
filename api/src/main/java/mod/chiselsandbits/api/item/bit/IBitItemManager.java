@@ -2,6 +2,7 @@ package mod.chiselsandbits.api.item.bit;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import net.minecraft.world.item.ItemStack;
 
 /**

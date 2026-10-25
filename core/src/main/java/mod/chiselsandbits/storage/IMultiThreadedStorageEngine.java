@@ -1,11 +1,9 @@
 package mod.chiselsandbits.storage;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.Tag;
+import java.util.concurrent.CompletableFuture;
+
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Represents a multithreaded storage engine, which can process data for IO purposes.

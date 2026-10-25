@@ -1,9 +1,7 @@
 package mod.chiselsandbits.api.block.entity;
 
-import mod.chiselsandbits.api.serialization.Serializable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 

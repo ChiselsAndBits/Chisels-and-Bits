@@ -1,10 +1,10 @@
 package mod.chiselsandbits.api.notifications;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Manager which handles notifying players of events in the game.

@@ -1,12 +1,13 @@
 package mod.chiselsandbits.api.client.variant.state;
 
+import java.util.List;
+
 import com.communi.suggestu.scena.core.client.models.data.IBlockModelData;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
-
-import java.util.List;
 
 /**
  * A state variant provider for client side interactions.

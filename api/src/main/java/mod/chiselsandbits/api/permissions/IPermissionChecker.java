@@ -1,8 +1,8 @@
 package mod.chiselsandbits.api.permissions;
 
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a permission checker, which can indicate if a particular

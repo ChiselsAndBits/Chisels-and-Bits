@@ -2,9 +2,9 @@ package mod.chiselsandbits.api.multistate.accessor;
 
 import mod.chiselsandbits.api.aabb.IAABBOwner;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a single entry inside an area which can have multiple states.

@@ -1,11 +1,10 @@
 package mod.chiselsandbits.api.config;
 
+import java.util.List;
+import java.util.function.Supplier;
+
 import mod.chiselsandbits.api.client.render.preview.placement.PlacementPreviewRenderMode;
 import org.joml.Vector4f;
-
-import java.util.List;
-import java.util.function.LongSupplier;
-import java.util.function.Supplier;
 
 /**
  * All client configuration values that are relevant for the client side of C{@literal &}B.

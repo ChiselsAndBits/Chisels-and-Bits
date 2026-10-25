@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.item.multistate;
 
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An item whose itemstacks contain multistate information.

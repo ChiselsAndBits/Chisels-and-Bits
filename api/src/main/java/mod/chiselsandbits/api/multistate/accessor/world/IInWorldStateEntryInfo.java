@@ -2,6 +2,7 @@ package mod.chiselsandbits.api.multistate.accessor.world;
 
 import mod.chiselsandbits.api.multistate.accessor.IStateEntryInfo;
 import mod.chiselsandbits.api.util.IWorldObject;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 

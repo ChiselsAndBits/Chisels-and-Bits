@@ -1,14 +1,14 @@
 package mod.chiselsandbits.api.plugin;
 
-import com.mojang.logging.LogUtils;
-import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import mod.chiselsandbits.api.launch.ILaunchPropertyManager;
-import org.slf4j.Logger;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.Stream;
+
+import com.mojang.logging.LogUtils;
+import mod.chiselsandbits.api.IChiselsAndBitsAPI;
+import mod.chiselsandbits.api.launch.ILaunchPropertyManager;
+import org.slf4j.Logger;
 
 /**
  * The platform plugin manager which can load the plugins for C{@literal &}B on a given platform.

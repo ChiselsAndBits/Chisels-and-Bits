@@ -1,13 +1,14 @@
 package mod.chiselsandbits.api.chiseling.conversion;
 
+import java.util.Optional;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-
-import java.util.Optional;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Manages converting none chiseled objects into chiseled variants and back.

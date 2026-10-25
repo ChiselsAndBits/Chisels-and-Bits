@@ -1,11 +1,17 @@
 package mod.chiselsandbits.client.ister;
 
+import java.util.Objects;
+import java.util.function.Consumer;
 import com.communi.suggestu.scena.core.util.TransformationUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.item.interactable.IInteractableItem;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.client.util.ItemModelUtils;
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
+import org.jspecify.annotations.NonNull;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -14,14 +20,6 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
-import org.joml.Vector3fc;
-import org.jspecify.annotations.NonNull;
-
-import java.util.Objects;
-import java.util.function.Consumer;
 
 /**
  * This class animates an interaction between the items in the two hands of the players.

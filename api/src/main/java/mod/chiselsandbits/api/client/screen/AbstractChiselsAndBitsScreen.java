@@ -1,18 +1,17 @@
 package mod.chiselsandbits.api.client.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.client.screen.widget.IChiselsAndBitsWidget;
+
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Custom screens which inherit from this class implement custom logic related to chisels and bits widgets and buttons.

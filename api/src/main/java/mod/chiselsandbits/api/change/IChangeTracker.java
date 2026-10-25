@@ -1,13 +1,14 @@
 package mod.chiselsandbits.api.change;
 
+import java.util.Deque;
+import java.util.Map;
+
 import com.google.common.collect.ImmutableMap;
 import mod.chiselsandbits.api.change.changes.IChange;
 import mod.chiselsandbits.api.change.changes.IChangeHandler;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
-import net.minecraft.core.BlockPos;
 
-import java.util.Deque;
-import java.util.Map;
+import net.minecraft.core.BlockPos;
 
 /**
  * The change tracker for tracking changes to bit blocks.

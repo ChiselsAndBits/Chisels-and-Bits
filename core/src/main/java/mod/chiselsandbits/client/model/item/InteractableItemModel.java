@@ -4,15 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.client.ister.InteractionISTER;
 import mod.chiselsandbits.client.util.ItemModelUtils;
+import org.jetbrains.annotations.NotNull;
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
+import org.joml.Matrix4fc;
+import org.jspecify.annotations.NonNull;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4fc;
-import org.jspecify.annotations.NonNull;
 
 /**
  * An {@link ItemModel} which indicates interaction with it.

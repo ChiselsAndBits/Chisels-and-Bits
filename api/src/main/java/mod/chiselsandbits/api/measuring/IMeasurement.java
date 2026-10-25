@@ -1,9 +1,9 @@
 package mod.chiselsandbits.api.measuring;
 
+import java.util.UUID;
+
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.UUID;
 
 /**
  * Represents a measurement made in a given world by a given player.

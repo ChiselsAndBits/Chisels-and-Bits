@@ -1,7 +1,6 @@
 package mod.chiselsandbits.api.registries;
 
 import com.communi.suggestu.scena.core.registries.ICustomRegistry;
-import com.communi.suggestu.scena.core.registries.ICustomRegistryEntry;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.change.changes.IChangeType;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
@@ -10,7 +9,6 @@ import mod.chiselsandbits.api.glueing.operation.IGlueingOperation;
 import mod.chiselsandbits.api.modification.operation.IModificationOperation;
 import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshotType;
 import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Manages all registries which are used by Chisels and Bits.

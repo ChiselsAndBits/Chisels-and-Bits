@@ -1,13 +1,14 @@
 package mod.chiselsandbits.api.voxelshape;
 
+import java.util.Optional;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.multistate.accessor.identifier.IAreaShapeIdentifier;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Optional;
 
 /**
  * A manager for dealing with voxelshapes related to chiseled blocks and areas.

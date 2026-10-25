@@ -2,16 +2,17 @@ package mod.chiselsandbits.api.item.chiseled;
 
 import mod.chiselsandbits.api.axissize.CollisionType;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
-import mod.chiselsandbits.api.placement.IPlacementPreviewProvidingItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.modification.operation.IModificationOperation;
+import mod.chiselsandbits.api.placement.IPlacementPreviewProvidingItem;
 import mod.chiselsandbits.api.voxelshape.IVoxelShapeManager;
+import org.joml.Vector4f;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Vector4f;
 
 /**
  * Represents items which represent a broken chiseled block.

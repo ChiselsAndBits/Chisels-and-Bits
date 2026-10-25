@@ -2,8 +2,8 @@ package mod.chiselsandbits.api.permissions;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.multistate.accessor.world.IWorldAreaAccessor;
+
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Permission handler for checking if a particular user can manipulate a particular area.

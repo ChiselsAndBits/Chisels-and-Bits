@@ -1,8 +1,8 @@
 package mod.chiselsandbits.api.chiseling;
 
-import mod.chiselsandbits.api.IChiselsAndBitsAPI;
-
 import java.util.Optional;
+
+import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 
 /**
  * This small cache is used on the client side, primarily, to store a single active context

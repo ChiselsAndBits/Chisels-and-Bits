@@ -1,13 +1,13 @@
 package mod.chiselsandbits.api.cutting.operation;
 
+import java.util.Collection;
+
 import com.communi.suggestu.scena.core.registries.ICustomRegistry;
 import com.communi.suggestu.scena.core.registries.ICustomRegistryEntry;
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.item.withmode.IToolMode;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.registries.IRegistryManager;
-
-import java.util.Collection;
 
 /**
  * A Cutting operation that can be performed in the Cutting table.

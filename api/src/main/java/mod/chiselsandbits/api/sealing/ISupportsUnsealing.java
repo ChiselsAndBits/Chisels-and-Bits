@@ -1,8 +1,8 @@
 package mod.chiselsandbits.api.sealing;
 
 import mod.chiselsandbits.api.exceptions.SealingNotSupportedException;
+
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents something which supports the unsealing of itemstacks.
