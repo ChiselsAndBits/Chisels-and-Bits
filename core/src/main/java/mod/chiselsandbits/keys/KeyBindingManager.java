@@ -258,11 +258,11 @@ public class KeyBindingManager {
 		}
 
 		boolean isDown = switch (keybinding.key.getType()) {
-					case KEYSYM ->
-					InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keybinding.key.getValue());
-					case MOUSE ->
-					GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
-					default -> false;
+			case KEYSYM ->
+			InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keybinding.key.getValue());
+			case MOUSE ->
+			GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
+			default -> false;
 		};
 
 

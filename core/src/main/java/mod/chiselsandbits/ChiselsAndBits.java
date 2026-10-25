@@ -45,10 +45,10 @@ public class ChiselsAndBits {
 
 		this.configuration = new ChiselsAndBitsConfiguration();
 		IChiselsAndBitsAPI.Holder.setInstance(new ChiselsAndBitsAPI(
-						eligibilityOptions,
-						adaptingBitInventoryManager,
-						pluginDiscoverer
-				));
+				eligibilityOptions,
+				adaptingBitInventoryManager,
+				pluginDiscoverer
+		));
 
 		ModBlockEntityTypes.onModConstruction();
 		ModBlocks.onModConstruction();

@@ -16,39 +16,39 @@ import net.minecraft.world.phys.Vec3;
 public enum MeasuringType implements IMeasuringType
 {
 	BIT(LocalStrings.TapeMeasureBit.getText(),
-					Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
-					blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->
-					new Vec3(
-							Math.min(from.x(), to.x()) - StateEntrySize.current().getSizePerHalfBit(),
-							Math.min(from.y(), to.y()) - StateEntrySize.current().getSizePerHalfBit(),
-							Math.min(from.z(), to.z()) - StateEntrySize.current().getSizePerHalfBit()
-					),
+			Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
+			blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->
+			new Vec3(
+					Math.min(from.x(), to.x()) - StateEntrySize.current().getSizePerHalfBit(),
+					Math.min(from.y(), to.y()) - StateEntrySize.current().getSizePerHalfBit(),
+					Math.min(from.z(), to.z()) - StateEntrySize.current().getSizePerHalfBit()
+			),
 
-					(from, to, hitFace) ->
-					new Vec3(
-							Math.max(from.x(), to.x()) + StateEntrySize.current().getSizePerHalfBit(),
-							Math.max(from.y(), to.y()) + StateEntrySize.current().getSizePerHalfBit(),
-							Math.max(from.z(), to.z()) + StateEntrySize.current().getSizePerHalfBit()
-					),
-					true),
-			BLOCK(LocalStrings.TapeMeasureBlock.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "block"),
-					blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, VectorUtils.ONE), (from, to, hitFace) ->
-					new Vec3(
-							Math.min(from.x(), to.x()) - 0.499,
-							Math.min(from.y(), to.y()) - 0.499,
-							Math.min(from.z(), to.z()) - 0.499
-					),
+			(from, to, hitFace) ->
+			new Vec3(
+					Math.max(from.x(), to.x()) + StateEntrySize.current().getSizePerHalfBit(),
+					Math.max(from.y(), to.y()) + StateEntrySize.current().getSizePerHalfBit(),
+					Math.max(from.z(), to.z()) + StateEntrySize.current().getSizePerHalfBit()
+			),
+			true),
+	BLOCK(LocalStrings.TapeMeasureBlock.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "block"),
+			blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, VectorUtils.ONE), (from, to, hitFace) ->
+			new Vec3(
+					Math.min(from.x(), to.x()) - 0.499,
+					Math.min(from.y(), to.y()) - 0.499,
+					Math.min(from.z(), to.z()) - 0.499
+			),
 
-					(from, to, hitFace) ->
-					new Vec3(
-							Math.max(from.x(), to.x()) + 0.499,
-							Math.max(from.y(), to.y()) + 0.499,
-							Math.max(from.z(), to.z()) + 0.499
-					),
-					true),
-			DISTANCE(LocalStrings.TapeMeasureDistance.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line"),
-					IClickedPositionAdapter.identity(), (from, to, hitFace) -> from,
-					(from, to, hitFace) -> to, false);
+			(from, to, hitFace) ->
+			new Vec3(
+					Math.max(from.x(), to.x()) + 0.499,
+					Math.max(from.y(), to.y()) + 0.499,
+					Math.max(from.z(), to.z()) + 0.499
+			),
+			true),
+	DISTANCE(LocalStrings.TapeMeasureDistance.getText(), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line"),
+			IClickedPositionAdapter.identity(), (from, to, hitFace) -> from,
+			(from, to, hitFace) -> to, false);
 
 	private final Component displayName;
 	private final Identifier icon;

@@ -138,14 +138,14 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		try (IBatchMutation ignored = batch()) {
 			BlockPosStreamProvider.getForRange(StateEntrySize.ONE_SIXTEENTH.getBitsPerBlockSide())
 					.forEach(position -> setBlockInformation(
-									position.getX(),
-									position.getY(),
-									position.getZ(),
-									new BlockInformation(
-											chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
-											Optional.empty()
-									)
-							));
+							position.getX(),
+							position.getY(),
+							position.getZ(),
+							new BlockInformation(
+									chunkSection.getBlockState(position.getX(), position.getY(), position.getZ()),
+									Optional.empty()
+							)
+					));
 		}
 	}
 
@@ -378,8 +378,8 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public IBatchMutation batch() {
 		final IBatchMutation mutation = new IBatchMutation() {
-					public void close() {
-						StateEntryStorage.this.ongoingBatchMutations.remove(this);
+			public void close() {
+				StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
 		};
 

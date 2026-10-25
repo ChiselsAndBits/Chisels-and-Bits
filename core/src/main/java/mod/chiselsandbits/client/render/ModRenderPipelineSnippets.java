@@ -10,19 +10,19 @@ import com.mojang.blaze3d.platform.CompareOp;
 public enum ModRenderPipelineSnippets
 {
 	NO_DEPTH_TEST(() -> RenderPipeline.builder()
-					.withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
-					.buildSnippet()
-			),
+			.withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
+			.buildSnippet()
+	),
 
-			GREATER_DEPTH_TEST(() -> RenderPipeline.builder()
-					.withDepthStencilState(new DepthStencilState(CompareOp.GREATER_THAN, false))
-					.buildSnippet()
-			),
+	GREATER_DEPTH_TEST(() -> RenderPipeline.builder()
+			.withDepthStencilState(new DepthStencilState(CompareOp.GREATER_THAN, false))
+			.buildSnippet()
+	),
 
-			LESS_DEPTH_TEST(() -> RenderPipeline.builder()
-					.withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN, false))
-					.buildSnippet()
-			);
+	LESS_DEPTH_TEST(() -> RenderPipeline.builder()
+			.withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN, false))
+			.buildSnippet()
+	);
 
 	private final Supplier<RenderPipeline.Snippet> getter;
 

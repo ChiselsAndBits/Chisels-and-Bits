@@ -52,32 +52,32 @@ public final class QuadGenerationUtils {
 			final BiConsumer<DeconstructedModelPartComponent, BakedQuadBuilder> quadAdapter,
 			final Consumer<GeneratedQuad> target) {
 		FaceManager.getInstance().extractQuads(
-				blockInformation,
-				facingDirection,
-				blockAndTintGetter,
-				pos,
-				(layer) -> {
-					final Collection<VertexData> adaptedVertices;
+						blockInformation,
+						facingDirection,
+						blockAndTintGetter,
+						pos,
+						(layer) -> {
+							final Collection<VertexData> adaptedVertices;
 
-					try {
-						adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
-					} catch (IllegalStateException e) {
-						return;
-					}
+							try {
+								adaptedVertices = VertexDataUtils.adaptVertices(layer.vertexData(), layer.cullDirection(), from, to);
+							} catch (IllegalStateException e) {
+								return;
+							}
 
-					final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
-					adaptedVertices.forEach(adapter);
-					adapter.cullDirection(facingDirection);
+							final BakedQuadBuilder adapter = new BakedQuadBuilder(layer.material());
+							adaptedVertices.forEach(adapter);
+							adapter.cullDirection(facingDirection);
 
-					quadAdapter.accept(layer, adapter);
+							quadAdapter.accept(layer, adapter);
 
-					final BakedQuad quad = adapter.build();
+							final BakedQuad quad = adapter.build();
 
-					target.accept(new GeneratedQuad(
+							target.accept(new GeneratedQuad(
 									layer,
 									quad
 							));
-				});
+						});
 	}
 
 	public record GeneratedQuad(

@@ -110,9 +110,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new StateEntry(
-								this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-								blockPos
-						)
+						this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos
+				)
 				);
 	}
 
@@ -142,9 +142,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		);
 
 		return currentState.isAir() ? Optional.empty() : Optional.of(new StateEntry(
-								currentState,
-								inAreaPos
-						));
+						currentState,
+						inAreaPos
+				));
 	}
 
 	/**
@@ -262,9 +262,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(positionMutator::mutate)
 				.map(blockPos -> new StateEntry(
-								this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-								blockPos
-						)
+						this.compressedSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos
+				)
 				);
 	}
 
@@ -274,9 +274,9 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (BlockPos blockPos) -> {
 			final Vec3i pos = positionMutator.mutate(blockPos);
 			consumer.accept(new StateEntry(
-							this.compressedSection.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
-							pos
-					));
+					this.compressedSection.getBlockInformation(pos.getX(), pos.getY(), pos.getZ()),
+					pos
+			));
 		});
 	}
 
@@ -287,8 +287,8 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 
 		BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.forEach(position -> this.statistics.onBlockStateAdded(
-								this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
-						));
+						this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
+				));
 	}
 
 	@Override
@@ -298,8 +298,8 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 
 		BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.forEach(position -> this.statistics.onBlockStateAdded(
-								this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
-						));
+						this.compressedSection.getBlockInformation(position.getX(), position.getY(), position.getZ())
+				));
 	}
 
 	@Override
@@ -400,14 +400,14 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 
 	private static final class Statistics implements IStatistics, Serializable.Registry<Statistics> {
 		private static final Codec<Statistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-						BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(Statistics::getPrimaryState),
-						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.BLOCK_STATES).forGetter(Statistics::getCountMap)
-				).apply(instance, Statistics::new));
+				BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(Statistics::getPrimaryState),
+				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.BLOCK_STATES).forGetter(Statistics::getCountMap)
+		).apply(instance, Statistics::new));
 
 		private static final MapCodec<Statistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-						BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(Statistics::getPrimaryState),
-						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.BLOCK_STATES).forGetter(Statistics::getCountMap)
-				).apply(instance, Statistics::new));
+				BlockInformation.CODEC.fieldOf(NbtConstants.PRIMARY_STATE).forGetter(Statistics::getPrimaryState),
+				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.BLOCK_STATES).forGetter(Statistics::getCountMap)
+		).apply(instance, Statistics::new));
 
 		private static final StreamCodec<RegistryFriendlyByteBuf, Statistics> STREAM_CODEC = StreamCodec.composite(
 				BlockInformation.STREAM_CODEC,

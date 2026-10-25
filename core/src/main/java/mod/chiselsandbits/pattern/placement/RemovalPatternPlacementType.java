@@ -52,13 +52,13 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 						player.isShiftKeyDown() ? targetedPoint : Vec3.atLowerCornerOf(targetedPosition),
 						player.isShiftKeyDown() ? targetedPoint.add(0.9999, 0.9999, 0.9999) : Vec3.atLowerCornerOf(targetedPosition)
 				).map(position -> player.level().getBlockState(position).getShape(
-								player.level(),
-								position
-						).move(
+						player.level(),
+						position
+				).move(
 								position.getX() - targetedPosition.getX(),
 								position.getY() - targetedPosition.getY(),
 								position.getZ() - targetedPosition.getZ()
-				)
+						)
 				).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
 
 		final Vec3 offSet = player.isShiftKeyDown()
@@ -108,7 +108,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-		})
+				})
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
@@ -126,15 +126,15 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 							.filter(os -> !os.getBlockInformation().isAir())
 							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 							.orElse(false);
-		})
+				})
 				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toMap(
-								IStateEntryInfo::getBlockInformation,
-								s -> 1,
-								Integer::sum
-				));
+						IStateEntryInfo::getBlockInformation,
+						s -> 1,
+						Integer::sum
+		));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()

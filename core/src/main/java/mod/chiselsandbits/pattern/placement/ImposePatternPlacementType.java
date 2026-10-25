@@ -85,7 +85,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 					final BlockState state = context.getLevel().getBlockState(pos);
 					final BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
 					return new BlockInformation(state, IStateVariantManager.getInstance().getStateVariant(state, Optional.ofNullable(blockEntity)));
-		})
+				})
 				.allMatch(state -> IEligibilityManager.getInstance().canBeChiseled(state) || state.isAir());
 
 		if (!isSupported) {
@@ -107,7 +107,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 								IStateEntryInfo::getBlockInformation,
 								s -> 1,
 								Integer::sum
-				)
+						)
 		);
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());

@@ -30,15 +30,15 @@ public final class ModBlockEntityTypes {
 	}
 
 	public static IRegistryObject<BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> new BlockEntityTypeBuilder<>(
-					ChiseledBlockEntity::new,
-					ModBlocks.CHISELED_BLOCK.get()
-			).build()
+			ChiseledBlockEntity::new,
+			ModBlocks.CHISELED_BLOCK.get()
+	).build()
 	);
 
 	public static IRegistryObject<BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> new BlockEntityTypeBuilder<>(
-					BitStorageBlockEntity::new,
-					ModBlocks.BIT_STORAGE.get()
-			).build()
+			BitStorageBlockEntity::new,
+			ModBlocks.BIT_STORAGE.get()
+	).build()
 	);
 
 	public static final IRegistryObject<BlockEntityType<ChiseledPrinterBlockEntity>> CHISELED_PRINTER = REGISTRAR.register(

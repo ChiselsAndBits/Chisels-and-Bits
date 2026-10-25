@@ -63,10 +63,10 @@ public class ModificationTableBlockStateGenerator extends ModelProvider implemen
 		});
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
-						ModelLocationUtils.getModelLocation(block),
-						Optional.empty(),
-						List.of()
-				));
+				ModelLocationUtils.getModelLocation(block),
+				Optional.empty(),
+				List.of()
+		));
 	}
 
 	@Override

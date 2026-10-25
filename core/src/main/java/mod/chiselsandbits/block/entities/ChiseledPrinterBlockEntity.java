@@ -62,22 +62,22 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	private SimpleContainer result_handler = new SimpleContainer(1);
 	private int progress = 0;
 	protected final ContainerData stationData = new ContainerData() {
-				public int get(int index) {
-					if (index == 0) {
-						return ChiseledPrinterBlockEntity.this.progress;
+		public int get(int index) {
+			if (index == 0) {
+				return ChiseledPrinterBlockEntity.this.progress;
 			}
 
-					return 0;
+			return 0;
 		}
 
-				public void set(int index, int value) {
-					if (index == 0) {
-						ChiseledPrinterBlockEntity.this.progress = value;
+		public void set(int index, int value) {
+			if (index == 0) {
+				ChiseledPrinterBlockEntity.this.progress = value;
 			}
 		}
 
-				public int getCount() {
-					return 1;
+		public int getCount() {
+			return 1;
 		}
 	};
 
@@ -235,16 +235,16 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 				.build()
 				.stream()
 				.collect(Collectors.groupingBy(
-								BlockInformationSource::blockInformation,
-								Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
+						BlockInformationSource::blockInformation,
+						Collectors.mapping(bis -> new PositionAndCount(bis.pos(), bis.count()), Collectors.toSet())
 				))
 				.entrySet()
 				.stream()
 				.map(e -> new BlockInformationSources(
-								e.getKey(),
-								e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
-								e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
-						)).toList();
+						e.getKey(),
+						e.getValue().stream().mapToInt(PositionAndCount::count).sum(),
+						e.getValue().stream().sorted(Comparator.comparing(PositionAndCount::count)).collect(Collectors.toCollection(LinkedHashSet::new))
+				)).toList();
 
 		if (states.isEmpty()) {
 			return ItemStack.EMPTY;

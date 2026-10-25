@@ -162,9 +162,9 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 		final Map<BlockPos, IMultiStateSnapshot> snapshots = positionStream
 				.collect(Collectors.toMap(
-								Function.identity(),
-								blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
-				));
+						Function.identity(),
+						blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
+		));
 
 		return new MultiBlockMultiStateSnapshot(
 				snapshots,
@@ -384,7 +384,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
-								getWorld(), blockPos))
+						getWorld(), blockPos))
 				.map(ChiselAdaptingWorldMutator::batch)
 				.collect(Collectors.toList())
 		);
@@ -395,23 +395,23 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		final Map<BlockPos, IMultiStateSnapshot> before = BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
-								getWorld(), blockPos))
+						getWorld(), blockPos))
 				.collect(Collectors.toMap(
-								ChiselAdaptingWorldMutator::getPos,
-								ChiselAdaptingWorldMutator::createSnapshot
-				));
+						ChiselAdaptingWorldMutator::getPos,
+						ChiselAdaptingWorldMutator::createSnapshot
+		));
 
 		@SuppressWarnings("resource")
-		final IBatchMutation innerMutation = batch();
+				final IBatchMutation innerMutation = batch();
 		return () -> {
 			final Map<BlockPos, IMultiStateSnapshot> after = BlockPosStreamProvider.getForRange(
 							getInWorldStartPoint(), getInWorldEndPoint()
 					).map(blockPos -> new ChiselAdaptingWorldMutator(
-									getWorld(), blockPos))
+							getWorld(), blockPos))
 					.collect(Collectors.toMap(
-									ChiselAdaptingWorldMutator::getPos,
-									ChiselAdaptingWorldMutator::createSnapshot
-					));
+							ChiselAdaptingWorldMutator::getPos,
+							ChiselAdaptingWorldMutator::createSnapshot
+			));
 
 			innerMutation.close();
 			changeTracker.onBlocksUpdated(
@@ -427,9 +427,9 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		final VoxelShape containedShape = BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
 				).map(blockPos -> new ChiselAdaptingWorldMutator(
-								getWorld(), blockPos))
+						getWorld(), blockPos))
 				.map(a -> IVoxelShapeManager.getInstance().get(a, a.getInWorldStartBlockPoint().offset(VectorUtils.invert(getInWorldStartBlockPoint())).offset(offset),
-								type, simplify))
+						type, simplify))
 				.reduce(
 						Shapes.empty(),
 						(voxelShape, bbShape) -> Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR),

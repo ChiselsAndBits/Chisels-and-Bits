@@ -90,10 +90,10 @@ public class DrawnCubeChiselMode extends AbstractCustomRegistryEntry implements 
 						});
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								playerEntity,
-								blockState,
-								count
-						));
+						playerEntity,
+						blockState,
+						count
+				));
 			}
 		});
 	}

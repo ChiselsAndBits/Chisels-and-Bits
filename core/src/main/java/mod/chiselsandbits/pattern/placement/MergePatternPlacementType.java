@@ -85,15 +85,15 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 							.filter(os -> !os.getBlockInformation().isAir())
 							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 							.orElse(false);
-		})
+				})
 				.map(s -> areaMutator.getInAreaTarget(s.getStartPoint().add(areaMutator.getInWorldStartPoint())))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toMap(
-								IStateEntryInfo::getBlockInformation,
-								s -> 1,
-								Integer::sum
-				));
+						IStateEntryInfo::getBlockInformation,
+						s -> 1,
+						Integer::sum
+		));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
@@ -113,12 +113,12 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 					return o
 							.map(os -> !os.getBlockInformation().equals(s.getBlockInformation()))
 							.orElse(false);
-		})
+				})
 				.collect(Collectors.toMap(
-								IStateEntryInfo::getBlockInformation,
-								s -> 1,
-								Integer::sum
-				));
+						IStateEntryInfo::getBlockInformation,
+						s -> 1,
+						Integer::sum
+		));
 
 		final boolean hasRequiredBits =
 				context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));

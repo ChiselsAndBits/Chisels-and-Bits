@@ -73,8 +73,8 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		if (stack.getItem() == this) {
 		//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
 			if (DistExecutor.unsafeRunForDist(
-							() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
-							() -> () -> { return false; })
+					() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
+					() -> () -> { return false; })
 			) {
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());

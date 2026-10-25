@@ -72,14 +72,14 @@ public interface CBCodecs {
 	 */
 	static <T> Codec<T> versioned(MapCodec<T> singleVersionCodec, Codec<T> fallback) {
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
-						t -> 0,
-						key -> {
-							if (key != 0) {
-								throw new IllegalStateException("Wrong version stored for single version codec.");
-							}
+				t -> 0,
+				key -> {
+					if (key != 0) {
+						throw new IllegalStateException("Wrong version stored for single version codec.");
+					}
 
-							return singleVersionCodec;
-						}),
+					return singleVersionCodec;
+				}),
 				fallback
 		);
 	}
@@ -95,14 +95,14 @@ public interface CBCodecs {
 	static <T> Codec<T> versioned(Map<Integer, MapCodec<T>> versions, MapCodec<T> fallback) {
 		final int maxVersion = versions.keySet().stream().max(Integer::compareTo).orElse(0);
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
-						t -> maxVersion,
-						key -> {
-							if (!versions.containsKey(key)) {
-								throw new IllegalStateException("Unknown version: " + key);
-							}
+				t -> maxVersion,
+				key -> {
+					if (!versions.containsKey(key)) {
+						throw new IllegalStateException("Unknown version: " + key);
+					}
 
-							return versions.get(key);
-						}),
+					return versions.get(key);
+				}),
 				fallback.codec()
 		);
 	}

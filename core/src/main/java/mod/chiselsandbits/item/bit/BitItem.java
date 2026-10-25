@@ -391,8 +391,8 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 
 			return;
 		} else if (potentialPlacingContext.isPresent() && potentialPlacingContext.get().getMode() == chiselMode && chiselMode.isStillValid(playerEntity,
-						potentialPlacingContext.get(),
-						ChiselingOperation.PLACING)) {
+				potentialPlacingContext.get(),
+				ChiselingOperation.PLACING)) {
 			final IChiselingContext context = potentialPlacingContext.get();
 
 			IChiselContextPreviewRendererRegistry.getInstance()
@@ -440,10 +440,10 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 		return this.availableBitStacks.stream()
 				.filter(stack -> !stack.isEmpty())
 				.collect(Collectors.toMap(stack -> "bit_" + IPlatformRegistryManager.getInstance()
-								.getBlockRegistry()
-								.getKey(this.getBlockInformation(stack).blockState().getBlock())
-								.toString()
-								.replace(":", "_"), Function.identity()));
+						.getBlockRegistry()
+						.getKey(this.getBlockInformation(stack).blockState().getBlock())
+						.toString()
+						.replace(":", "_"), Function.identity()));
 	}
 
 	private void ensureAvailableBitStacksAreLoaded() {
@@ -452,12 +452,12 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 			availableBitStacks.addAll(ModCreativeTabs.BITS.get().getDisplayItems());
 
 			availableBitStacks.sort(Comparator.comparing(stack -> {
-						if (!(stack.getItem() instanceof IBitItem)) {
-							throw new IllegalStateException("Stack did not contain a bit item.");
-						}
+				if (!(stack.getItem() instanceof IBitItem)) {
+					throw new IllegalStateException("Stack did not contain a bit item.");
+				}
 
-						return ((IBitItem) stack.getItem()).getBlockInformation(stack);
-					}));
+				return ((IBitItem) stack.getItem()).getBlockInformation(stack);
+			}));
 		}
 	}
 }

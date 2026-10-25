@@ -393,10 +393,10 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 		}
 
 		return Optional.of(new FluidInformation(
-						((LiquidBlock) state.blockState().getBlock()).fluid.getSource(),
-						amount,
-						DataComponentPatch.EMPTY
-				));
+				((LiquidBlock) state.blockState().getBlock()).fluid.getSource(),
+				amount,
+				DataComponentPatch.EMPTY
+		));
 	}
 
 	public boolean containsFluid() {

@@ -12,14 +12,14 @@ public interface IAreaShapeIdentifier {
 	 * but needs to be supplied.
 	 */
 	IAreaShapeIdentifier DUMMY = new IAreaShapeIdentifier() {
-				@Override
-				public int hashCode() {
-					return 0;
+		@Override
+		public int hashCode() {
+			return 0;
 		}
 
-				@Override
-				public boolean equals(final Object obj) {
-					return obj == this;
+		@Override
+		public boolean equals(final Object obj) {
+			return obj == this;
 		}
 	};
 

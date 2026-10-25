@@ -17,7 +17,7 @@ public class StorageEngineBuilder<TPayload> {
 
 	private int minimalVersion = 0;
 
-			private StorageEngineBuilder() {
+	private StorageEngineBuilder() {
 	}
 
 	public static <T> StorageEngineBuilder<T> create() {

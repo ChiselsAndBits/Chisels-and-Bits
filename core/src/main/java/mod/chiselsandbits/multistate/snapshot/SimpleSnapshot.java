@@ -53,14 +53,14 @@ import net.minecraft.world.phys.Vec3;
 
 public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlignedAreaAccessor {
 	public static final Codec<SimpleSnapshot> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
-					SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
-			).apply(instance, SimpleSnapshot::new));
+			StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
+			SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
+	).apply(instance, SimpleSnapshot::new));
 
 	public static final MapCodec<SimpleSnapshot> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-					StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
-					SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
-			).apply(instance, SimpleSnapshot::new));
+			StateEntryStorage.CODEC.fieldOf(NbtConstants.STORAGE).forGetter(SimpleSnapshot::getChunkSection),
+			SimpleStatistics.CODEC.fieldOf(NbtConstants.STATISTICS).forGetter(SimpleSnapshot::getStateObjectStatistics)
+	).apply(instance, SimpleSnapshot::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, SimpleSnapshot> STREAM_CODEC = StreamCodec.composite(
 			StateEntryStorage.STREAM_CODEC,
@@ -115,10 +115,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public Stream<IStateEntryInfo> stream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new SimpleSnapshot.StateEntry(
-								chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-								blockPos,
-								this::setInAreaTarget,
-								this::clearInAreaTarget)
+						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
 				);
 	}
 
@@ -151,10 +151,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(positionMutator::mutate)
 				.map(blockPos -> new SimpleSnapshot.StateEntry(
-								this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-								blockPos,
-								this::setInAreaTarget,
-								this::clearInAreaTarget)
+						this.chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
 				);
 	}
 
@@ -177,8 +177,8 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide()));
+				StateEntrySize.current().getBitsPerBlockSide(),
+				StateEntrySize.current().getBitsPerBlockSide()));
 
 		final BlockInformation currentState = this.chunkSection.getBlockInformation(
 				inAreaPos.getX(),
@@ -187,10 +187,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		);
 
 		return currentState.isAir() ? Optional.empty() : Optional.of(new SimpleSnapshot.StateEntry(
-								currentState,
-								inAreaPos,
-								this::setInAreaTarget,
-								this::clearInAreaTarget)
+						currentState,
+						inAreaPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
 				);
 	}
 
@@ -200,10 +200,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		BlockPosForEach.forEachInRange(StateEntrySize.current().getBitsPerBlockSide(), (blockPos) -> {
 			final Vec3i target = positionMutator.mutate(blockPos);
 			consumer.accept(new SimpleSnapshot.StateEntry(
-							this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
-							target,
-							this::setInAreaTarget,
-							this::clearInAreaTarget));
+					this.chunkSection.getBlockInformation(target.getX(), target.getY(), target.getZ()),
+					target,
+					this::setInAreaTarget,
+					this::clearInAreaTarget));
 		});
 	}
 
@@ -221,10 +221,10 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public Stream<IMutableStateEntryInfo> mutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
 				.map(blockPos -> new SimpleSnapshot.StateEntry(
-								chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
-								blockPos,
-								this::setInAreaTarget,
-								this::clearInAreaTarget)
+						chunkSection.getBlockInformation(blockPos.getX(), blockPos.getY(), blockPos.getZ()),
+						blockPos,
+						this::setInAreaTarget,
+						this::clearInAreaTarget)
 				);
 	}
 
@@ -243,8 +243,8 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide()));
+				StateEntrySize.current().getBitsPerBlockSide(),
+				StateEntrySize.current().getBitsPerBlockSide()));
 
 		final BlockInformation currentState = this.chunkSection.getBlockInformation(inAreaPos.getX(), inAreaPos.getY(), inAreaPos.getZ());
 
@@ -308,8 +308,8 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		}
 
 		final BlockPos inAreaPos = VectorUtils.toBlockPos(inAreaTarget.multiply(StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide(),
-						StateEntrySize.current().getBitsPerBlockSide()));
+				StateEntrySize.current().getBitsPerBlockSide(),
+				StateEntrySize.current().getBitsPerBlockSide()));
 
 		final BlockInformation blockState = BlockInformation.AIR;
 
@@ -489,14 +489,14 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 
 	public static final class SimpleStatistics implements IMultiStateObjectStatistics {
 		public static final Codec<SimpleStatistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-						BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
-						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
-				).apply(instance, SimpleStatistics::new));
+				BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
+				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
+		).apply(instance, SimpleStatistics::new));
 
 		public static final MapCodec<SimpleStatistics> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-						BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
-						CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
-				).apply(instance, SimpleStatistics::new));
+				BlockInformation.CODEC.fieldOf(NbtConstants.BLOCK_INFORMATION).forGetter(SimpleStatistics::getPrimaryState),
+				CBCodecs.unboundedComplexMap(BlockInformation.CODEC, Codec.INT).fieldOf(NbtConstants.STATE_COUNTS).forGetter(SimpleStatistics::getStateCounts)
+		).apply(instance, SimpleStatistics::new));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, SimpleStatistics> STREAM_CODEC = StreamCodec.composite(
 				BlockInformation.STREAM_CODEC,

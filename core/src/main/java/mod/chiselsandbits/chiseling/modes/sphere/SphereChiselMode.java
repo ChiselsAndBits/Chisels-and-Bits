@@ -144,8 +144,8 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
 										state.clear();
-							});
-				})
+									});
+						})
 						.sum();
 
 				if (totalModifiedStates == 0) {
@@ -153,10 +153,10 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 				}
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								playerEntity,
-								blockState,
-								count
-						));
+						playerEntity,
+						blockState,
+						count
+				));
 			}
 
 			return ClickProcessingState.ALLOW;
@@ -254,7 +254,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 						playerEntity,
 						face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()),
 						facing -> facing.multiply(-1, -1, -1)
-		)
+				)
 				: this.processRayTraceIntoCenter(
 						playerEntity,
 						face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),

@@ -20,20 +20,20 @@ import net.minecraft.world.phys.Vec3;
 
 public class Measurement implements IMeasurement, Serializable<Measurement, FriendlyByteBuf> {
 	public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
-					Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
-					Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
-					MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-					Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
-			).apply(instance, Measurement::new));
+			UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
+			Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
+			Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
+			MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
+			Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+	).apply(instance, Measurement::new));
 
 	public static final MapCodec<Measurement> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-					UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
-					Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
-					Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
-					MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
-					Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
-			).apply(instance, Measurement::new));
+			UUIDUtil.CODEC.fieldOf(NbtConstants.OWNER).forGetter(Measurement::getOwner),
+			Vec3.CODEC.fieldOf(NbtConstants.FROM).forGetter(Measurement::getFrom),
+			Vec3.CODEC.fieldOf(NbtConstants.TO).forGetter(Measurement::getTo),
+			MeasuringMode.CODEC.fieldOf(NbtConstants.MODE).forGetter(Measurement::getMode),
+			Identifier.CODEC.fieldOf(NbtConstants.LEVEL).forGetter(Measurement::getWorldKey)
+	).apply(instance, Measurement::new));
 
 	public static final StreamCodec<FriendlyByteBuf, Measurement> STREAM_CODEC = StreamCodec.composite(
 			UUIDUtil.STREAM_CODEC,

@@ -130,7 +130,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						level,
 						context.getClickLocation(),
 						context.getClickLocation().add(1d, 1d, 1d)
-		)
+				)
 
 				: IMutatorFactory.getInstance().in(level, pos);
 		final IMultiStateSnapshot attemptTarget = areaMutator.createSnapshot();
@@ -145,7 +145,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						return true;
 					} catch (SpaceOccupiedException exception) {
 						return false;
-			}
+					}
 		});
 
 		if (noCollisions) {
@@ -216,7 +216,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 						return true;
 					} catch (SpaceOccupiedException exception) {
 						return false;
-			}
+					}
 		});
 		return noSpaceOccupied
 				? PlacementResult.success()

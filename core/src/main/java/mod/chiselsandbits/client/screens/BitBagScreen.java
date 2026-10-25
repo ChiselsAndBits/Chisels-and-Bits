@@ -51,59 +51,59 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 		super.init();
 
 		trashBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 3, LocalStrings.Trash.getText(), IconManager.getInstance().getTrashIcon(),
-						button -> {
-							if (requireConfirm) {
-								dontThrow = true;
+				button -> {
+					if (requireConfirm) {
+						dontThrow = true;
 
-								if (isValidBitItem()) {
-									requireConfirm = false;
-								}
-							} else {
-								requireConfirm = true;
-								// server side!
-								final ClearBagGuiPacket packet = new ClearBagGuiPacket(getInHandItem());
-								ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
-								assert Minecraft.getInstance().player != null;
-								packet.execute(Minecraft.getInstance().player);
-							}
-						}));
+						if (isValidBitItem()) {
+							requireConfirm = false;
+						}
+					} else {
+						requireConfirm = true;
+						// server side!
+						final ClearBagGuiPacket packet = new ClearBagGuiPacket(getInHandItem());
+						ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+						assert Minecraft.getInstance().player != null;
+						packet.execute(Minecraft.getInstance().player);
+					}
+				}));
 
 		sortBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 25, LocalStrings.Sort.getText(), IconManager.getInstance().getSortIcon(),
-						button -> {
-							final SortBagGuiPacket packet = new SortBagGuiPacket();
-							ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
-							assert Minecraft.getInstance().player != null;
-							packet.execute(Minecraft.getInstance().player);
-						},
+				button -> {
+					final SortBagGuiPacket packet = new SortBagGuiPacket();
+					ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+					assert Minecraft.getInstance().player != null;
+					packet.execute(Minecraft.getInstance().player);
+				},
 
 
-						Tooltip.create(LocalStrings.Sort.getText())));
+				Tooltip.create(LocalStrings.Sort.getText())));
 
 		convertBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 47, LocalStrings.Convert.getText(), IconManager.getInstance().getPlaceIcon(),
-						button -> {
-							final ConvertBagGuiPacket packet = new ConvertBagGuiPacket();
-							ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
-							assert Minecraft.getInstance().player != null;
-							packet.execute(Minecraft.getInstance().player);
-						},
+				button -> {
+					final ConvertBagGuiPacket packet = new ConvertBagGuiPacket();
+					ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+					assert Minecraft.getInstance().player != null;
+					packet.execute(Minecraft.getInstance().player);
+				},
 
 
-						Tooltip.create(LocalStrings.Convert.getText())
-				));
+				Tooltip.create(LocalStrings.Convert.getText())
+		));
 
 		preferedBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 89, LocalStrings.NonPreferredPickup.getText(), IconManager.getInstance().getBagPicksUpSecondIcon(),
-						button -> {
-							final UpdateBagModesPacket packet = new UpdateBagModesPacket(
-									isCurrentlyFiltered(), !isCurrentlyPreferred()
-							);
-							ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
-							assert Minecraft.getInstance().player != null;
-							packet.execute(Minecraft.getInstance().player);
-							updatePreferredButtonTooltip();
-						},
+				button -> {
+					final UpdateBagModesPacket packet = new UpdateBagModesPacket(
+							isCurrentlyFiltered(), !isCurrentlyPreferred()
+					);
+					ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+					assert Minecraft.getInstance().player != null;
+					packet.execute(Minecraft.getInstance().player);
+					updatePreferredButtonTooltip();
+				},
 
 
-						Tooltip.create(LocalStrings.NonPreferredPickup.getText())) {
+				Tooltip.create(LocalStrings.NonPreferredPickup.getText())) {
 					@Override
 					protected TextureAtlasSprite getDefaultIcon() {
 						if (isCurrentlyPreferred()) {
@@ -115,18 +115,18 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 				});
 
 		filteredBtn = addRenderableWidget(new GuiIconButton(leftPos - 22, topPos + 111, LocalStrings.NonFilteredPickup.getText(), IconManager.getInstance().getNormalBagModeIcon(),
-						button -> {
-							final UpdateBagModesPacket packet = new UpdateBagModesPacket(
-									!isCurrentlyFiltered(), isCurrentlyPreferred()
-							);
-							ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
-							assert Minecraft.getInstance().player != null;
-							packet.execute(Minecraft.getInstance().player);
-							updateFilteredButtonTooltip();
-						},
+				button -> {
+					final UpdateBagModesPacket packet = new UpdateBagModesPacket(
+							!isCurrentlyFiltered(), isCurrentlyPreferred()
+					);
+					ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(packet);
+					assert Minecraft.getInstance().player != null;
+					packet.execute(Minecraft.getInstance().player);
+					updateFilteredButtonTooltip();
+				},
 
 
-						Tooltip.create(LocalStrings.FilteredPickup.getText())) {
+				Tooltip.create(LocalStrings.FilteredPickup.getText())) {
 					@Override
 					protected TextureAtlasSprite getDefaultIcon() {
 						if (isCurrentlyFiltered()) {
@@ -150,8 +150,8 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 				? LocalStrings.PreferredPickup : LocalStrings.NonPreferredPickup;
 
 		preferedBtn.setTooltip(Tooltip.create(newTooltip.getText(
-								Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
-						)));
+				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
+		)));
 	}
 
 	private void updateFilteredButtonTooltip() {
@@ -159,8 +159,8 @@ public class BitBagScreen extends AbstractContainerScreen<BagContainer> {
 				? LocalStrings.FilteredPickup : LocalStrings.NonFilteredPickup;
 
 		filteredBtn.setTooltip(Tooltip.create(newTooltip.getText(
-								Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
-						)));
+				Minecraft.getInstance().options.keyAttack.getTranslatedKeyMessage()
+		)));
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	@Nullable
 	private Quaternionf lastRotY = null;
 
-			public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
+	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
 		super(bufferSource);
 	}
 

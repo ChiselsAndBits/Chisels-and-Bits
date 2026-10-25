@@ -52,9 +52,9 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider {
 							true,
 							true)
 					.addCriterion("chisel", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
-									.of(itemRegistry, ModTags.Items.CHISEL)
-									.withCount(MinMaxBounds.Ints.ANY)
-									.build()))
+							.of(itemRegistry, ModTags.Items.CHISEL)
+							.withCount(MinMaxBounds.Ints.ANY)
+							.build()))
 					.save(consumer, Constants.MOD_ID + ":chiselsandbits/root");
 
 			AdvancementHolder findChiselables = Advancement.Builder.advancement()
@@ -81,9 +81,9 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider {
 							true,
 							true)
 					.addCriterion("bit_bag", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
-									.of(itemRegistry, ModTags.Items.BIT_BAG)
-									.withCount(MinMaxBounds.Ints.ANY)
-									.build()))
+							.of(itemRegistry, ModTags.Items.BIT_BAG)
+							.withCount(MinMaxBounds.Ints.ANY)
+							.build()))
 					.save(consumer, Constants.MOD_ID + ":chiselsandbits/collect_bits");
 
 			AdvancementHolder makeTank = Advancement.Builder.advancement()

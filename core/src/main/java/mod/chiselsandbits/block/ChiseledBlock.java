@@ -103,7 +103,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 	@Override
 	public float getFriction(final BlockState state, final LevelReader levelReader, final BlockPos pos, @Nullable final Entity entity) {
-				final float frictionValue = getBlockEntity(levelReader, pos)
+		final float frictionValue = getBlockEntity(levelReader, pos)
 				.map(multiStateBlockEntity -> multiStateBlockEntity.getStatistics().getSlipperiness())
 				.orElse(0f);
 
@@ -245,7 +245,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		}
 
 		getBlockEntity(levelAccessor, blockPos)
-		.ifPresent(e -> e.mirror(switch (mirror) {
+				.ifPresent(e -> e.mirror(switch (mirror) {
 							case NONE -> throw new IllegalArgumentException("Invalid mirror");
 							case LEFT_RIGHT -> Direction.Axis.Z;
 							case FRONT_BACK -> Direction.Axis.X;
@@ -308,19 +308,19 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			@Nullable final LivingEntity placer,
 			final ItemStack stack) {
 		getBlockEntity(worldIn, pos)
-		.ifPresent(multiStateBlockEntity -> {
-			final Direction placementDirection = placer == null ? Direction.NORTH : placer.getDirection().getOpposite();
-			final int horizontalIndex = placementDirection.get2DDataValue();
+				.ifPresent(multiStateBlockEntity -> {
+					final Direction placementDirection = placer == null ? Direction.NORTH : placer.getDirection().getOpposite();
+					final int horizontalIndex = placementDirection.get2DDataValue();
 
-			int rotationCount = horizontalIndex - 4;
+					int rotationCount = horizontalIndex - 4;
 
-			if (rotationCount < 0) {
-				rotationCount += 4;
-			}
+					if (rotationCount < 0) {
+						rotationCount += 4;
+					}
 
-			multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
-			super.setPlacedBy(worldIn, pos, state, placer, stack);
-		});
+					multiStateBlockEntity.rotate(Direction.Axis.Y, rotationCount);
+					super.setPlacedBy(worldIn, pos, state, placer, stack);
+				});
 	}
 
 	@Override
@@ -478,8 +478,8 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						.map(entryState ->
 								IStateVariantManager.getInstance().getBeaconColorMultiplier(entryState.getKey(), levelReader, pos, beaconPos)
 								.map(color -> ArrayUtils.multiply(
-												ColorUtils.unpack(color),
-												entryState.getValue())))
+										ColorUtils.unpack(color),
+										entryState.getValue())))
 						.filter(Optional::isPresent)
 						.map(Optional::get)
 						.reduce((floats, floats2) -> {
@@ -509,38 +509,38 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		return getBlockEntity(levelReader, pos)
 				.map(blockEntity -> blockEntity.getStatistics().getPrimaryState())
 				.map(blockState -> ILevelBasedPropertyAccessor.getInstance().getSoundType(
-								new SingleBlockLevelReader.Builder()
-								.withBlockState(blockState.blockState())
-								.withBlockEntity(() -> blockState.newBlockEntity(pos))
-								.withSource(levelReader)
-								.withPos(pos)
-								.createSingleBlockLevelReader(),
-								pos,
-								entity
-						))
+						new SingleBlockLevelReader.Builder()
+						.withBlockState(blockState.blockState())
+						.withBlockEntity(() -> blockState.newBlockEntity(pos))
+						.withSource(levelReader)
+						.withPos(pos)
+						.createSingleBlockLevelReader(),
+						pos,
+						entity
+				))
 				.orElse(SoundType.STONE);
 	}
 
 	@Override
 	public float getExplosionResistance(BlockState state, BlockGetter blockGetter, BlockPos position, Explosion explosion) {
 		return (float) (double) (getBlockEntity(blockGetter, position)
-						.map(e -> e.getStatistics().getStateCounts().entrySet()
-								.stream()
-								.filter(entryState -> !entryState.getKey().isAir())
-								.mapToDouble(entryState -> ILevelBasedPropertyAccessor.getInstance()
-										.getExplosionResistance(
-												new SingleBlockBlockReader.Builder()
-												.withBlockState(entryState.getKey().blockState())
-												.withBlockEntity(() -> entryState.getKey().newBlockEntity(position))
-												.withSource(blockGetter)
-												.withPos(position)
-												.createSingleBlockBlockReader(),
-												position,
-												explosion
-										) * entryState.getValue()
-								)
-								.sum() / (e.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())
-						).orElse(0d));
+				.map(e -> e.getStatistics().getStateCounts().entrySet()
+						.stream()
+						.filter(entryState -> !entryState.getKey().isAir())
+						.mapToDouble(entryState -> ILevelBasedPropertyAccessor.getInstance()
+								.getExplosionResistance(
+										new SingleBlockBlockReader.Builder()
+										.withBlockState(entryState.getKey().blockState())
+										.withBlockEntity(() -> entryState.getKey().newBlockEntity(position))
+										.withSource(blockGetter)
+										.withPos(position)
+										.createSingleBlockBlockReader(),
+										position,
+										explosion
+								) * entryState.getValue()
+						)
+						.sum() / (e.getStatistics().getFullnessFactor() * StateEntrySize.current().getBitsPerBlock())
+				).orElse(0d));
 	}
 
 	@Override

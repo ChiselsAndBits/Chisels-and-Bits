@@ -11,10 +11,10 @@ import org.jspecify.annotations.Nullable;
 public record ChiseledBlockModelCacheKey(
 		IAreaShapeIdentifier identifier, BlockInformation primaryState,
 		IBlockNeighborhood neighborhood, Collection<@Nullable Object> modelCacheKeys) {
-			public static final ChiseledBlockModelCacheKey EMPTY = new ChiseledBlockModelCacheKey(
-					IAreaShapeIdentifier.DUMMY,
-					BlockInformation.AIR,
-					IBlockNeighborhood.EMPTY,
-					List.of()
+	public static final ChiseledBlockModelCacheKey EMPTY = new ChiseledBlockModelCacheKey(
+			IAreaShapeIdentifier.DUMMY,
+			BlockInformation.AIR,
+			IBlockNeighborhood.EMPTY,
+			List.of()
 	);
 }

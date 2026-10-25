@@ -106,10 +106,10 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 						});
 
 				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-								playerEntity,
-								blockState,
-								count
-						));
+						playerEntity,
+						blockState,
+						count
+				));
 			}
 		});
 	}
@@ -236,12 +236,12 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 		final List<Vec3> startPoints = lineAreaFilter.included.stream().map(v -> v.multiply(StateEntrySize.current().getSizePerBitScalingVector())).toList();
 		return VoxelShapeUtils.batchCombine(Shapes.empty(), BooleanOp.OR, true, startPoints.stream()
 						.map(p -> Shapes.box(
-										p.x,
-										p.y,
-										p.z,
-										p.x + StateEntrySize.current().getSizePerBit(),
-										p.y + StateEntrySize.current().getSizePerBit(),
-										p.z + StateEntrySize.current().getSizePerBit()))
+								p.x,
+								p.y,
+								p.z,
+								p.x + StateEntrySize.current().getSizePerBit(),
+								p.y + StateEntrySize.current().getSizePerBit(),
+								p.z + StateEntrySize.current().getSizePerBit()))
 						.collect(Collectors.toList())).move(offset.getX(), offset.getY(), offset.getZ());
 	}
 

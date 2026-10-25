@@ -34,10 +34,10 @@ public class Forge {
 		//We need to use the platform initialization manager to handle the init in the constructor since this runs in parallel with scena itself.
 		PlatformInitializationHandler.getInstance().onInit(platform -> {
 			setChiselsAndBits(new ChiselsAndBits(
-							block -> block == IBlockExtension.class,
-							ForgeAdaptingBitInventoryManager.getInstance(),
-							ForgePluginDiscoverer.getInstance()
-					));
+					block -> block == IBlockExtension.class,
+					ForgeAdaptingBitInventoryManager.getInstance(),
+					ForgePluginDiscoverer.getInstance()
+			));
 		});
 
 		modBus.addListener((Consumer<FMLCommonSetupEvent>) event -> chiselsAndBits.onInitialize());

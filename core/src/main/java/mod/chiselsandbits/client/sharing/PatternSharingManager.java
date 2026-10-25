@@ -30,8 +30,8 @@ public final class PatternSharingManager implements IPatternSharingManager {
 		return DistExecutor.unsafeRunForDist(
 				() -> () -> PatternSharingExecutor.doImportPattern(name, Minecraft.getInstance().level.registryAccess()),
 				() -> () -> Either.right(new PatternIOException(
-								LocalStrings.PatternImportInvokedFromTheServer.getText(),
-								"Pattern invoked from the server side!"
-						)));
+						LocalStrings.PatternImportInvokedFromTheServer.getText(),
+						"Pattern invoked from the server side!"
+				)));
 	}
 }

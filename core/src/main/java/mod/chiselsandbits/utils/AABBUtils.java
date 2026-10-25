@@ -28,9 +28,9 @@ public class AABBUtils {
 		final Map<Direction, Double> valuesOfR = remainingDirectionsToCheck.stream().collect(Collectors.toMap(Function.identity(), d -> getDirectionalValue(r, d)));
 
 		return remainingDirectionsToCheck.stream().allMatch(d -> MathUtil.almostEqual(
-								valuesOfL.get(d),
-								valuesOfR.get(d)
-						));
+						valuesOfL.get(d),
+						valuesOfR.get(d)
+				));
 	}
 
 	public static double getDirectionalValue(final AABB bb, final Direction direction) {

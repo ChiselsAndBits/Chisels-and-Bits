@@ -28,19 +28,19 @@ import net.minecraft.world.level.block.state.BlockState;
 public record BlockInformation(BlockState blockState,
 		Optional<IStateVariant> variant) implements Serializable.Registry<BlockInformation>, ISnapshotable<BlockInformation>, Comparable<BlockInformation> {
 	public static final Codec<BlockInformation> LEGACY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					BlockStateSerializationUtils.LEGACY_BLOCK_STATE_CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
-					IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
-			).apply(instance, BlockInformation::new));
+			BlockStateSerializationUtils.LEGACY_BLOCK_STATE_CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
+			IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
+	).apply(instance, BlockInformation::new));
 
 	public static final Codec<BlockInformation> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					BlockState.CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
-					IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
-			).apply(instance, BlockInformation::new));
+			BlockState.CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
+			IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
+	).apply(instance, BlockInformation::new));
 
 	public static final MapCodec<BlockInformation> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-					BlockState.CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
-					IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
-			).apply(instance, BlockInformation::new));
+			BlockState.CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
+			IStateVariant.CODEC.optionalFieldOf(NbtConstants.VARIANT).forGetter(BlockInformation::variant)
+	).apply(instance, BlockInformation::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, BlockInformation> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.idMapper(Block.BLOCK_STATE_REGISTRY),

@@ -74,44 +74,44 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-					try (IBatchMutation ignored =
-							mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-						context.setComplete();
+			try (IBatchMutation ignored =
+					mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+				context.setComplete();
 
-						final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
+				final Map<BlockInformation, Integer> resultingBitCount = Maps.newHashMap();
 
-						final Predicate<IStateEntryInfo> filter = context.getStateFilter()
-								.map(builder -> builder.apply(mutator))
-								.orElse((state) -> true);
+				final Predicate<IStateEntryInfo> filter = context.getStateFilter()
+						.map(builder -> builder.apply(mutator))
+						.orElse((state) -> true);
 
-						final int totalModifiedStates = mutator.inWorldMutableStream()
-								.filter(filter)
-								.mapToInt(state -> {
-									final BlockInformation currentState = state.getBlockInformation();
+				final int totalModifiedStates = mutator.inWorldMutableStream()
+						.filter(filter)
+						.mapToInt(state -> {
+							final BlockInformation currentState = state.getBlockInformation();
 
-									return context.tryDamageItemAndDoOrSetBrokenError(
-											() -> {
-												resultingBitCount.putIfAbsent(currentState, 0);
-												resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+							return context.tryDamageItemAndDoOrSetBrokenError(
+									() -> {
+										resultingBitCount.putIfAbsent(currentState, 0);
+										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-												state.clear();
+										state.clear();
 									});
 						})
-								.sum();
+						.sum();
 
-						if (totalModifiedStates == 0) {
-							context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-						}
+				if (totalModifiedStates == 0) {
+					context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
+				}
 
-						resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
-										playerEntity,
-										blockState,
-										count
-								));
-					}
+				resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
+						playerEntity,
+						blockState,
+						count
+				));
+			}
 
-					return ClickProcessingState.ALLOW;
-				}).orElse(ClickProcessingState.DEFAULT)
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 
@@ -133,43 +133,43 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 		}
 
 		return rayTraceHandle.orElseGet(() -> context.getMutator().map(mutator -> {
-					final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
+			final BlockInformation heldBlockState = ItemStackUtils.getHeldBitBlockInformationFromPlayer(playerEntity);
 
-					if (heldBlockState.isAir()) {
-						return ClickProcessingState.DEFAULT;
-					}
+			if (heldBlockState.isAir()) {
+				return ClickProcessingState.DEFAULT;
+			}
 
-					final int missingBitCount = (int) mutator.stream()
+			final int missingBitCount = (int) mutator.stream()
+					.filter(state -> state.getBlockInformation().isAir())
+					.count();
+
+			final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+
+			context.setComplete();
+
+			if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
+				if (!playerEntity.isCreative()) {
+					playerBitInventory.extract(heldBlockState, missingBitCount);
+				}
+
+				try (IBatchMutation ignored =
+						mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
+					mutator.inWorldMutableStream()
 							.filter(state -> state.getBlockInformation().isAir())
-							.count();
+							.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
+				}
+			} else {
+				context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
+			}
 
-					final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(playerEntity);
+			if (missingBitCount == 0) {
+				if (!context.validateBuildHeights()) {
+					return ClickProcessingState.DENIED;
+				}
+			}
 
-					context.setComplete();
-
-					if (playerBitInventory.canExtract(heldBlockState, missingBitCount) || playerEntity.isCreative()) {
-						if (!playerEntity.isCreative()) {
-							playerBitInventory.extract(heldBlockState, missingBitCount);
-						}
-
-						try (IBatchMutation ignored =
-								mutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(playerEntity))) {
-							mutator.inWorldMutableStream()
-									.filter(state -> state.getBlockInformation().isAir())
-									.forEach(state -> state.overrideState(heldBlockState)); //We can use override state here to prevent the try-catch block.
-						}
-					} else {
-						context.setError(LocalStrings.ChiselAttemptFailedNotEnoughBits.getText(heldBlockState.blockState().getBlock().getName()));
-					}
-
-					if (missingBitCount == 0) {
-						if (!context.validateBuildHeights()) {
-							return ClickProcessingState.DENIED;
-						}
-					}
-
-					return ClickProcessingState.ALLOW;
-				}).orElse(ClickProcessingState.DEFAULT)
+			return ClickProcessingState.ALLOW;
+		}).orElse(ClickProcessingState.DEFAULT)
 		);
 	}
 

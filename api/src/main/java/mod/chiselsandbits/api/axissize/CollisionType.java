@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public enum CollisionType
 {
 	NONE_AIR(BlockStatePredicates.NOT_AIR, Blocks.STONE.defaultBlockState(), false),
-			COLLIDEABLE_ONLY(BlockStatePredicates.COLLIDEABLE_ONLY, Blocks.STONE.defaultBlockState(), true),
-			ALL(BlockStatePredicates.ALL, Blocks.AIR.defaultBlockState(), false);
+	COLLIDEABLE_ONLY(BlockStatePredicates.COLLIDEABLE_ONLY, Blocks.STONE.defaultBlockState(), true),
+	ALL(BlockStatePredicates.ALL, Blocks.AIR.defaultBlockState(), false);
 
 	public static final Codec<CollisionType> CODEC = Codec.STRING.xmap(CollisionType::valueOf, CollisionType::name);
 	public static final StreamCodec<ByteBuf, CollisionType> STREAM_CODEC = ByteBufCodecs.INT.map(i -> values()[i], Enum::ordinal);

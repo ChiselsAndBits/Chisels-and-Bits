@@ -98,10 +98,10 @@ public class AABBCompressor {
 	private static boolean attemptMergeWithNeighbors(final BuildingState state, final Vec3 centerPoint, final AABB entryData) {
 		for (final Direction offsetDirection :Direction.values()) {
 			final Vec3 neighborCenter = centerPoint.add(Vec3.atLowerCornerOf(offsetDirection.getUnitVec3i()).multiply(
-							StateEntrySize.current().getSizePerBit(),
-							StateEntrySize.current().getSizePerBit(),
-							StateEntrySize.current().getSizePerBit()
-					));
+					StateEntrySize.current().getSizePerBit(),
+					StateEntrySize.current().getSizePerBit(),
+					StateEntrySize.current().getSizePerBit()
+			));
 			final Optional<AABB> potentialNeighborBox = state.getBoxFor(neighborCenter);
 
 			if (potentialNeighborBox.isPresent()) {

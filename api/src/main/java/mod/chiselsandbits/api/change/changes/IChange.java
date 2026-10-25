@@ -21,10 +21,10 @@ public interface IChange extends IChangeHandler {
 			.dispatch(IChange::getType, IChangeType::codec));
 
 	StreamCodec<RegistryFriendlyByteBuf, IChange> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
-					IRegistryManager.getInstance().getChangeTypeRegistry().byNameStreamCodec(),
-					IChangeType::streamCodec,
-					IChange::getType
-			));
+			IRegistryManager.getInstance().getChangeTypeRegistry().byNameStreamCodec(),
+			IChangeType::streamCodec,
+			IChange::getType
+	));
 
 	/**
 	 * {@return The type of the change.}

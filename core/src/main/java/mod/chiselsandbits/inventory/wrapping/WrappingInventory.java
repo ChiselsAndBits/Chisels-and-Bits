@@ -13,8 +13,8 @@ public class WrappingInventory implements Container {
 	@Nullable
 	private Container wrapped = null;
 
-			@Override
-			public int getContainerSize() {
+	@Override
+	public int getContainerSize() {
 		return whenNotNull(
 				getWrapped(),
 				0,

@@ -139,12 +139,12 @@ public record ChiseledBlockModelInformationBuilder(
 
 		public Consumer<QuadGenerationUtils.GeneratedQuad> newQuadProcessor(GreedyMeshFace region, @Nullable Direction cullDirection) {
 			return quad -> {
-						final ChiseledBlockModelPartKey key = new ChiseledBlockModelPartKey(
-								region.faceValue(),
-								region.faceValue().blockState(),
-								quad.source().part().ambientOcclusion(),
-								quad.source().part().particleMaterial(),
-								quad.quad().materialInfo().flags()
+				final ChiseledBlockModelPartKey key = new ChiseledBlockModelPartKey(
+						region.faceValue(),
+						region.faceValue().blockState(),
+						quad.source().part().ambientOcclusion(),
+						quad.source().part().particleMaterial(),
+						quad.quad().materialInfo().flags()
 				);
 
 				final QuadCollection.Builder builder = partBuilders.computeIfAbsent(

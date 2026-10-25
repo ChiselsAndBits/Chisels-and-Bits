@@ -45,10 +45,10 @@ public class ChangeTracker implements IChangeTracker {
 				new CombinedChange(
 						beforeStates.entrySet().stream()
 						.map(e -> new BitChange(
-										e.getKey(),
-										e.getValue(),
-										afterState.get(e.getKey())
-								))
+								e.getKey(),
+								e.getValue(),
+								afterState.get(e.getKey())
+						))
 						.collect(Collectors.toList())
 				)
 		);

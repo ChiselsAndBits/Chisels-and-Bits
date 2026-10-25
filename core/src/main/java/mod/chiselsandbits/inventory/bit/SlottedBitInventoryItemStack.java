@@ -43,12 +43,12 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 		final SlottedBitInventoryData data = new SlottedBitInventoryData(
 				this.slotMap.int2ObjectEntrySet().stream()
 				.collect(Collectors.toMap(
-								Map.Entry::getKey,
-								entry -> new SlottedBitInventoryData.BitSlotData(
-										entry.getValue().isEmpty() ? BlockInformation.AIR
-										: ((IBitItem) entry.getValue().getItem()).getBlockInformation(entry.getValue()),
-										entry.getValue().getCount())
-						))
+						Map.Entry::getKey,
+						entry -> new SlottedBitInventoryData.BitSlotData(
+								entry.getValue().isEmpty() ? BlockInformation.AIR
+								: ((IBitItem) entry.getValue().getItem()).getBlockInformation(entry.getValue()),
+								entry.getValue().getCount())
+				))
 		);
 
 		final ItemStack clone = stack.copy();

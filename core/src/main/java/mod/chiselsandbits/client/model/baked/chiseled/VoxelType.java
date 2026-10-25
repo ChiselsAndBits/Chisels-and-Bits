@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public enum VoxelType
 {
 	SOLID(s -> s.getFluidState().isEmpty()),
-			FLUID(s -> !s.getFluidState().isEmpty()),
-			UNKNOWN(s -> true);
+	FLUID(s -> !s.getFluidState().isEmpty()),
+	UNKNOWN(s -> true);
 
 	private final Predicate<BlockState> isValidBlockStateCallback;
 

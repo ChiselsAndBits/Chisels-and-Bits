@@ -33,10 +33,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BitChange implements IChange {
 	public static final MapCodec<BitChange> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-					BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(BitChange::getBlockPos),
-					IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.BEFORE).forGetter(BitChange::getBefore),
-					IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.AFTER).forGetter(BitChange::getAfter)
-			).apply(instance, BitChange::new));
+			BlockPos.CODEC.fieldOf(NbtConstants.POSITION).forGetter(BitChange::getBlockPos),
+			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.BEFORE).forGetter(BitChange::getBefore),
+			IMultiStateSnapshot.CODEC.fieldOf(NbtConstants.AFTER).forGetter(BitChange::getAfter)
+	).apply(instance, BitChange::new));
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, BitChange> STREAM_CODEC = StreamCodec.composite(
 			BlockPos.STREAM_CODEC,

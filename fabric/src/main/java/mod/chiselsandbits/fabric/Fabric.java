@@ -19,10 +19,10 @@ public class Fabric implements ModInitializer {
 	public Fabric() {
 		LOGGER.info("Initialized chisels-and-bits for Fabric");
 		PlatformInitializationHandler.getInstance().onInit(platform -> setChiselsAndBits(new ChiselsAndBits(
-										Objects::isNull,
-										target -> Optional.empty(),
-										FabricPluginDiscoverer.getInstance()
-								)));
+						Objects::isNull,
+						target -> Optional.empty(),
+						FabricPluginDiscoverer.getInstance()
+				)));
 	}
 
 	@Override

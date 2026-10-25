@@ -57,22 +57,22 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 
 	private static VoxelShape createForDirection(final Direction direction) {
 		return Shapes.join(Shapes.join(Stream.of(
-								Block.box(0, 5, 0, 2, 16, 2),
-								Block.box(14, 5, 0, 16, 16, 2),
-								Block.box(0, 5, 14, 2, 16, 16),
-								Block.box(14, 5, 14, 16, 16, 16)
-						).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), Stream.of(
-								Block.box(2, 14, 0, 14, 16, 2),
-								Block.box(2, 14, 14, 14, 16, 16),
-								Block.box(0, 14, 2, 2, 16, 14),
-								Block.box(14, 14, 2, 16, 16, 14),
-								Stream.of(
-										Block.box(2, 14, 7, 14, 16, 9),
-										Block.box(7, 13.99, 2, 9, 15.98, 14),
-										Block.box(7, 11, 7, 9, 14, 9),
-										Block.box(7.5, 10, 7.5, 8.5, 11, 8.5)
-								).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty())
-						).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), BooleanOp.OR),
+				Block.box(0, 5, 0, 2, 16, 2),
+				Block.box(14, 5, 0, 16, 16, 2),
+				Block.box(0, 5, 14, 2, 16, 16),
+				Block.box(14, 5, 14, 16, 16, 16)
+		).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), Stream.of(
+						Block.box(2, 14, 0, 14, 16, 2),
+						Block.box(2, 14, 14, 14, 16, 16),
+						Block.box(0, 14, 2, 2, 16, 14),
+						Block.box(14, 14, 2, 16, 16, 14),
+						Stream.of(
+								Block.box(2, 14, 7, 14, 16, 9),
+								Block.box(7, 13.99, 2, 9, 15.98, 14),
+								Block.box(7, 11, 7, 9, 14, 9),
+								Block.box(7.5, 10, 7.5, 8.5, 11, 8.5)
+						).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty())
+				).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), BooleanOp.OR),
 				Shapes.join(Block.box(0, 0, 0, 16, 5, 16), BUTTON_VS_MAP.getOrDefault(direction, Shapes.empty()), BooleanOp.OR),
 				BooleanOp.OR);
 	}

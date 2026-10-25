@@ -33,7 +33,7 @@ public class ItemModelUtils {
 			@Nullable ClientLevel level,
 			@Nullable ItemOwner owner,
 			int seed) {
-				final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
+		final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
 
 		return () -> {
 			final List<Vector3f> vectors = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ItemModelUtils {
 			@Nullable ItemOwner owner,
 			int seed
 	) {
-				final ItemStackRenderState renderState = new ItemStackRenderState();
+		final ItemStackRenderState renderState = new ItemStackRenderState();
 		model.update(
 				renderState,
 				stack,
@@ -78,8 +78,8 @@ public class ItemModelUtils {
 			@Nullable ItemOwner owner,
 			int seed
 	) {
-				final ItemStackRenderState renderState = update(
-						stack, model, context, level, owner, seed
+		final ItemStackRenderState renderState = update(
+				stack, model, context, level, owner, seed
 		);
 
 		renderState.submit(
@@ -103,7 +103,7 @@ public class ItemModelUtils {
 			@Nullable ItemOwner owner,
 			int seed
 	) {
-				final ItemStackRenderState renderState = new ItemStackRenderState();
+		final ItemStackRenderState renderState = new ItemStackRenderState();
 		Minecraft.getInstance().getItemModelResolver().updateForTopItem(
 						renderState,
 						stack,
@@ -130,7 +130,7 @@ public class ItemModelUtils {
 			@Nullable ItemOwner owner,
 			int seed
 	) {
-				final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
+		final ItemStackRenderState renderState = update(stack, model, context, level, owner, seed);
 		final QuadCollection.Builder result = new QuadCollection.Builder();
 
 		for (final ItemStackRenderState.LayerRenderState layer : renderState.layers) {
@@ -148,7 +148,7 @@ public class ItemModelUtils {
 			@Nullable ItemOwner owner,
 			int seed
 	) {
-				final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
+		final ItemModel model = Minecraft.getInstance().getModelManager().getItemModel(
 				Objects.requireNonNull(stack.get(DataComponents.ITEM_MODEL))
 		);
 

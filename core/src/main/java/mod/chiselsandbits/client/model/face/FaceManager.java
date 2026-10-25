@@ -50,21 +50,21 @@ public class FaceManager {
 			final @Nullable BlockAndTintGetter blockAndTintGetter,
 			final BlockPos pos,
 			final Consumer<DeconstructedModelPartComponent> pipeline) {
-				final Key key = new Key(
-						blockInformation,
-						cullDirection,
-						IModelManager.getInstance().determineModelCacheKey(
-								blockInformation.blockState(),
-								() -> blockInformation.newBlockEntity(pos),
-								blockAndTintGetter,
-								pos
+		final Key key = new Key(
+				blockInformation,
+				cullDirection,
+				IModelManager.getInstance().determineModelCacheKey(
+						blockInformation.blockState(),
+						() -> blockInformation.newBlockEntity(pos),
+						blockAndTintGetter,
+						pos
 				)
 		);
 
 		for (final DeconstructedModelPartComponent component : quadCache.get(
-						key,
-						() -> buildQuadCollection(key, blockAndTintGetter, pos)
-				)) {
+				key,
+				() -> buildQuadCollection(key, blockAndTintGetter, pos)
+		)) {
 			pipeline.accept(component);
 		}
 	}
@@ -150,99 +150,99 @@ public class FaceManager {
 	}
 
 	private static void injectFluidVertexDataForSide(final DeconstructedModelPartComponent.Builder builder, final float minU, final float maxU, final float minV, final float maxV, final Direction cullDirection) {
-			if (cullDirection == null) {
+		if (cullDirection == null) {
 			return;
-			}
+		}
 
-				switch (cullDirection) {
-					case DOWN -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
-						});
-					}
-					case UP -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
-						});
-					}
-					case NORTH -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
-						});
-					}
-					case SOUTH -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
-						});
-					}
-					case WEST -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
-						});
-					}
-					case EAST -> {
-						builder.vertex(v -> {
-							v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
-						});
-						builder.vertex(v -> {
-							v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
-						});
-					}
-				}
+		switch (cullDirection) {
+			case DOWN -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(0).withY(0).withZ(1).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
+				});
 			}
+			case UP -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(0).withY(1).withZ(1).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(1).withY(1).withZ(1).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
+				});
+			}
+			case NORTH -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(1).withY(1).withZ(0).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(1).withY(0).withZ(0).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(0).withY(0).withZ(0).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(0).withY(1).withZ(0).withU(maxU).withV(minV);
+				});
+			}
+			case SOUTH -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(0).withY(1).withZ(1).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(0).withY(0).withZ(1).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(1).withY(1).withZ(1).withU(maxU).withV(minV);
+				});
+			}
+			case WEST -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(0).withY(1).withZ(0).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(0).withY(0).withZ(1).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(0).withY(1).withZ(1).withU(maxU).withV(minV);
+				});
+			}
+			case EAST -> {
+				builder.vertex(v -> {
+					v.withVertexIndex(0).withX(1).withY(1).withZ(1).withU(minU).withV(minV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(1).withX(1).withY(0).withZ(1).withU(minU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
+				});
+				builder.vertex(v -> {
+					v.withVertexIndex(3).withX(1).withY(1).withZ(0).withU(maxU).withV(minV);
+				});
+			}
+		}
+	}
 
-			public void clearCache() {
-				quadCache.clear();
-			}
+	public void clearCache() {
+		quadCache.clear();
+	}
 }

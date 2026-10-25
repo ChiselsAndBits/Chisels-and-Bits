@@ -63,26 +63,26 @@ public class ChiseledBlockBlockStateGenerator extends ModelProvider implements D
 
 	public void actOnBlock(final Block block, BlockModelGenerators generators) {
 		generators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(
-						block,
-						MultiVariant.of(new CustomBlockStateModelBuilder() {
-							@Override
-							public CustomBlockStateModelBuilder with(final VariantMutator variantMutator) {
-								return this;
-							}
+				block,
+				MultiVariant.of(new CustomBlockStateModelBuilder() {
+					@Override
+					public CustomBlockStateModelBuilder with(final VariantMutator variantMutator) {
+						return this;
+					}
 
-							@Override
-							public CustomBlockStateModelBuilder with(final UnbakedMutator variantMutator) {
-								return this;
-							}
+					@Override
+					public CustomBlockStateModelBuilder with(final UnbakedMutator variantMutator) {
+						return this;
+					}
 
-							@Override
-							public CustomUnbakedBlockStateModel toUnbaked() {
-							//noinspection rawtypes, unchecked
-								return new UnbakedCustomModelWrapper(
-										ChiseledBlockStateModel.Unbaked.CODEC
-								);
-							}
-						})
-				));
+					@Override
+					public CustomUnbakedBlockStateModel toUnbaked() {
+					//noinspection rawtypes, unchecked
+						return new UnbakedCustomModelWrapper(
+								ChiseledBlockStateModel.Unbaked.CODEC
+						);
+					}
+				})
+		));
 	}
 }

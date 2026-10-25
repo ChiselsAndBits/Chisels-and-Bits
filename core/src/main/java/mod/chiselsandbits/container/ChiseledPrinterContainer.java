@@ -84,11 +84,11 @@ public class ChiseledPrinterContainer extends AbstractContainerMenu {
 		for (int rowIndex = 0; rowIndex < PLAYER_INVENTORY_ROWS; ++rowIndex) {
 			for (int columnIndex = 0; columnIndex < PLAYER_INVENTORY_COLUMNS; ++columnIndex) {
 				this.addSlot(new Slot(
-								playerInventory,
-								columnIndex + rowIndex * PLAYER_INVENTORY_COLUMNS + PLAYER_INVENTORY_COLUMNS,
-								PLAYER_INVENTORY_X_OFFSET + columnIndex * SLOT_SIZE,
-								PLAYER_INVENTORY_Y_OFFSET + rowIndex * SLOT_SIZE
-						)
+						playerInventory,
+						columnIndex + rowIndex * PLAYER_INVENTORY_COLUMNS + PLAYER_INVENTORY_COLUMNS,
+						PLAYER_INVENTORY_X_OFFSET + columnIndex * SLOT_SIZE,
+						PLAYER_INVENTORY_Y_OFFSET + rowIndex * SLOT_SIZE
+				)
 				);
 			}
 		}

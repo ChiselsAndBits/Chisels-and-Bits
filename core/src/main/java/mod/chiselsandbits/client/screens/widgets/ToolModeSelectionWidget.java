@@ -129,12 +129,12 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		allPagesCombined.addAll(groupings.keySet());
 		allPagesCombined.addAll(noneGroupedModes);
 		allPagesCombined.sort(Comparator.comparingInt(renderableMode -> {
-					if (noneGroupedModes.contains(renderableMode)) {
-						return modes.indexOf(renderableMode);
-					}
+			if (noneGroupedModes.contains(renderableMode)) {
+				return modes.indexOf(renderableMode);
+			}
 
-					return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
-				}));
+			return modes.indexOf(groupings.get((G) renderableMode).iterator().next());
+		}));
 
 		if (allPagesCombined.isEmpty()) {
 			return;
@@ -183,27 +183,27 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		removePagingControl();
 
 		this.pageSelectionWidget = owner.addRenderableWidget(new RadialSelectionWidget(
-						this,
-						PAGING_WIDGET_SIZE * 2,
-						PAGING_WIDGET_SIZE * 2,
-						LocalStrings.ToolMenuPageSelectorName.getText(),
-						() -> this.currentHoveredPage,
-						this::onPageSelectorHover,
-						this::onPageSelected,
-						pagingModes,
-						FULL_ROTATION_IN_DEGREES,
-						NO_ROTATION_IN_DEGREES,
-						HIDE_INACTIVE_MODES,
-						PAGING_INNER_SELECTION_RADIUS,
-						PAGING_OUTER_SELECTION_RADIUS,
-						DISCARD_SELECTION_OUTSIDE_OF_AREA,
-						PAGING_INNER_RENDERING_RADIUS,
-						PAGING_OUTER_RENDERING_RADIUS,
-						DEFAULT_ICON_SIZE,
-						NO_ICON_SCALING_FACTOR,
-						DEFAULT_ICON_NAME_SPACER,
-						getFont()
-				));
+				this,
+				PAGING_WIDGET_SIZE * 2,
+				PAGING_WIDGET_SIZE * 2,
+				LocalStrings.ToolMenuPageSelectorName.getText(),
+				() -> this.currentHoveredPage,
+				this::onPageSelectorHover,
+				this::onPageSelected,
+				pagingModes,
+				FULL_ROTATION_IN_DEGREES,
+				NO_ROTATION_IN_DEGREES,
+				HIDE_INACTIVE_MODES,
+				PAGING_INNER_SELECTION_RADIUS,
+				PAGING_OUTER_SELECTION_RADIUS,
+				DISCARD_SELECTION_OUTSIDE_OF_AREA,
+				PAGING_INNER_RENDERING_RADIUS,
+				PAGING_OUTER_RENDERING_RADIUS,
+				DEFAULT_ICON_SIZE,
+				NO_ICON_SCALING_FACTOR,
+				DEFAULT_ICON_NAME_SPACER,
+				getFont()
+		));
 
 		if (pages.size() == 1) {
 			this.pageSelectionWidget.visible = false;
@@ -221,27 +221,27 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 		this.page = this.pages.get(this.currentPageIndex);
 
 		this.currentPageSelectionWidget = owner.addRenderableWidget(new RadialSelectionWidget(
-						this,
-						MAIN_WIDGET_SIZE * 2,
-						MAIN_WIDGET_SIZE * 2,
-						LocalStrings.ToolMenuGroupSelectorName.getText(),
-						() -> this.mainSelectedToolMode,
-						this::onMainToolModeHover,
-						this::onMainToolModeClick,
-						page,
-						FULL_ROTATION_IN_DEGREES,
-						NO_ROTATION_IN_DEGREES,
-						SHOW_INACTIVE_MODES,
-						MAIN_TORUS_INNER,
-						MAIN_TORUS_OUTER,
-						KEEP_SELECTION_OUTSIDE_OF_AREA,
-						MAIN_TORUS_INNER,
-						MAIN_TORUS_OUTER,
-						DEFAULT_ICON_SIZE,
-						NO_ICON_SCALING_FACTOR,
-						DEFAULT_ICON_NAME_SPACER,
-						getFont()
-				));
+				this,
+				MAIN_WIDGET_SIZE * 2,
+				MAIN_WIDGET_SIZE * 2,
+				LocalStrings.ToolMenuGroupSelectorName.getText(),
+				() -> this.mainSelectedToolMode,
+				this::onMainToolModeHover,
+				this::onMainToolModeClick,
+				page,
+				FULL_ROTATION_IN_DEGREES,
+				NO_ROTATION_IN_DEGREES,
+				SHOW_INACTIVE_MODES,
+				MAIN_TORUS_INNER,
+				MAIN_TORUS_OUTER,
+				KEEP_SELECTION_OUTSIDE_OF_AREA,
+				MAIN_TORUS_INNER,
+				MAIN_TORUS_OUTER,
+				DEFAULT_ICON_SIZE,
+				NO_ICON_SCALING_FACTOR,
+				DEFAULT_ICON_NAME_SPACER,
+				getFont()
+		));
 	}
 
 	@SuppressWarnings("SuspiciousMethodCalls")
@@ -250,26 +250,26 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 		if (this.selectedOuterToolMode != null && this.mainSelectedToolMode instanceof IToolModeGroup) {
 			this.currentGroupSelectionWidget = owner.addRenderableWidget(new RadialSelectionWidget(
-							this,
-							OUTER_WIDGET_SIZE * 2,
-							OUTER_WIDGET_SIZE * 2,
-							LocalStrings.ToolMenuModeSelectorName.getText(),
-							() -> this.selectedOuterToolMode,
-							this::onGroupedToolModeHover,
-							this::onGroupedToolModeClick,
-							this.groupings.get(this.mainSelectedToolMode),
-							HALF_ROTATION_IN_DEGREES,
-							this.page.indexOf(this.mainSelectedToolMode) < Math.min(PAGE_SIZE, this.page.size()) / 2 ? NO_ROTATION_IN_DEGREES : HALF_ROTATION_IN_DEGREES,
-							SHOW_INACTIVE_MODES, OUTER_TORUS_INNER,
-							OUTER_TORUS_OUTER,
-							DISCARD_SELECTION_OUTSIDE_OF_AREA,
-							OUTER_TORUS_INNER,
-							OUTER_TORUS_OUTER,
-							DEFAULT_ICON_SIZE,
-							OUTER_TORUS_ICON_SCALE_FACTOR,
-							OUTER_DEFAULT_ICON_TEXT_SPACER,
-							getFont()
-					));
+					this,
+					OUTER_WIDGET_SIZE * 2,
+					OUTER_WIDGET_SIZE * 2,
+					LocalStrings.ToolMenuModeSelectorName.getText(),
+					() -> this.selectedOuterToolMode,
+					this::onGroupedToolModeHover,
+					this::onGroupedToolModeClick,
+					this.groupings.get(this.mainSelectedToolMode),
+					HALF_ROTATION_IN_DEGREES,
+					this.page.indexOf(this.mainSelectedToolMode) < Math.min(PAGE_SIZE, this.page.size()) / 2 ? NO_ROTATION_IN_DEGREES : HALF_ROTATION_IN_DEGREES,
+					SHOW_INACTIVE_MODES, OUTER_TORUS_INNER,
+					OUTER_TORUS_OUTER,
+					DISCARD_SELECTION_OUTSIDE_OF_AREA,
+					OUTER_TORUS_INNER,
+					OUTER_TORUS_OUTER,
+					DEFAULT_ICON_SIZE,
+					OUTER_TORUS_ICON_SCALE_FACTOR,
+					OUTER_DEFAULT_ICON_TEXT_SPACER,
+					getFont()
+			));
 		}
 	}
 

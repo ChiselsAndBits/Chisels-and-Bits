@@ -82,10 +82,10 @@ public class ChiseledBlockStateModelManager {
 			final List<@Nullable Object> cacheKeys = accessor.getStatistics().getContainedStates()
 					.stream()
 					.map(state -> IModelManager.getInstance().determineModelCacheKey(
-									state.blockState(),
-									() -> state.newBlockEntity(blockPos),
-									blockAndTintGetter,
-									blockPos
+							state.blockState(),
+							() -> state.newBlockEntity(blockPos),
+							blockAndTintGetter,
+							blockPos
 					))
 					.toList();
 

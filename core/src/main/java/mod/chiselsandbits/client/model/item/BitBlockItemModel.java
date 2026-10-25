@@ -84,7 +84,7 @@ public record BitBlockItemModel(
 
 		@Override
 		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation) {
-					final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
+			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new BitBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
 		}
 

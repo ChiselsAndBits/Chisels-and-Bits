@@ -63,10 +63,10 @@ public class ChiseledPrinterBlockStateGenerator extends ModelProvider implements
 		});
 
 		generators.itemModelOutput.accept(block.asItem(), new CuboidItemModelWrapper.Unbaked(
-						ModelLocationUtils.getModelLocation(block),
-						Optional.empty(),
-						List.of()
-				));
+				ModelLocationUtils.getModelLocation(block),
+				Optional.empty(),
+				List.of()
+		));
 	}
 
 	@Override

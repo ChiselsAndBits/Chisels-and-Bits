@@ -47,13 +47,13 @@ public class EffectUtils {
 							final double d8 = d5 * d2 + p_228348_5_;
 							final double d9 = d6 * d3 + p_228348_7_;
 							manager.add((new TerrainParticle((ClientLevel) renderingWorld,
-											(double) pos.getX() + d7,
-											(double) pos.getY() + d8,
-											(double) pos.getZ() + d9,
-											d4 - 0.5D,
-											d5 - 0.5D,
-											d6 - 0.5D,
-											primaryState, pos)));
+									(double) pos.getX() + d7,
+									(double) pos.getY() + d8,
+									(double) pos.getZ() + d9,
+									d4 - 0.5D,
+									d5 - 0.5D,
+									d6 - 0.5D,
+									primaryState, pos)));
 						}
 					}
 				}
@@ -81,12 +81,12 @@ public class EffectUtils {
 		double z = blockPos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
 
 		switch (hitDirection) {
-		case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
-		case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
-		case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
-		case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
-		case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
-		case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
+			case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
+			case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
+			case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
+			case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
+			case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
+			case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
 			default -> {
 			}
 		}

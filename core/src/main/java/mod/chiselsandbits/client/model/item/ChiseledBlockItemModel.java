@@ -137,10 +137,10 @@ public record ChiseledBlockItemModel(
 				final ItemTintSource source = tintSources.get(material.tintIndex());
 
 				tintList.set(i, source.calculate(
-								lookupStack,
-								level,
-								owner == null ? null : owner.asLivingEntity()
-						));
+						lookupStack,
+						level,
+						owner == null ? null : owner.asLivingEntity()
+				));
 				continue;
 			}
 
@@ -158,7 +158,7 @@ public record ChiseledBlockItemModel(
 
 		@Override
 		public @NonNull ItemModel bake(final BakingContext context, final @NonNull Matrix4fc transformation) {
-					final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
+			final ResolvedModel model = context.blockModelBaker().getModel(ModelLocationUtils.decorateBlockModelLocation("block"));
 			return new ChiseledBlockItemModel(model.getTopGuiLight().lightLikeBlock(), model.getTopTransforms());
 		}
 

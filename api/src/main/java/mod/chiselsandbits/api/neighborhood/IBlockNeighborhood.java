@@ -21,14 +21,14 @@ public interface IBlockNeighborhood {
 	 * Empty neighborhood.
 	 */
 	IBlockNeighborhood EMPTY = new IBlockNeighborhood() {
-				@Override
-				public BlockInformation getBlockInformation(final Direction direction) {
-					return BlockInformation.AIR;
+		@Override
+		public BlockInformation getBlockInformation(final Direction direction) {
+			return BlockInformation.AIR;
 		}
 
-				@Override
-				public IAreaAccessor getAreaAccessor(final Direction direction) {
-					return null;
+		@Override
+		public IAreaAccessor getAreaAccessor(final Direction direction) {
+			return null;
 		}
 	};
 
