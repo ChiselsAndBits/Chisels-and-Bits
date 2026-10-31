@@ -1,19 +1,22 @@
 package mod.chiselsandbits.client.model.item;
 
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.chiselsandbits.client.ister.InteractionISTER;
 import mod.chiselsandbits.client.util.ItemModelUtils;
-import org.jetbrains.annotations.NotNull;
-// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.*;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 /**
  * An {@link ItemModel} which indicates interaction with it.
@@ -28,8 +31,8 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 			@Nullable final ClientLevel level,
 			@Nullable final ItemOwner owner,
 			final int seed) {
-		final var renderer = new InteractionISTER(this, displayContext);
-		final var specialRenderState = renderer.extractArgument(stack);
+		final InteractionISTER renderer = new InteractionISTER(this, displayContext);
+		final InteractionISTER.RenderState specialRenderState = renderer.extractArgument(stack);
 
 		if (specialRenderState == null) {
 			return;
@@ -40,7 +43,7 @@ public record InteractableItemModel(ItemModel model) implements ItemModel {
 		renderState.appendModelIdentityElement(specialRenderState.item().isInteracting(stack));
 		renderState.appendModelIdentityElement(specialRenderState.item().getInteractionTarget(stack));
 
-		final var layer = renderState.newLayer();
+		final ItemStackRenderState.LayerRenderState layer = renderState.newLayer();
 		layer.setupSpecialModel(
 				renderer,
 				specialRenderState

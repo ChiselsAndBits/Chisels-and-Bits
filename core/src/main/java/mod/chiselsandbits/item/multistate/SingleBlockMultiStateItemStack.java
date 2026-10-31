@@ -145,7 +145,7 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 		return currentState.isAir() ? Optional.empty() : Optional.of(new StateEntry(
 						currentState,
 						inAreaPos
-				));
+		));
 	}
 
 	/**
@@ -220,8 +220,8 @@ public class SingleBlockMultiStateItemStack implements IMultiStateItemStack {
 	@Override
 	public ItemStack toBlockStack() {
 		if (this.sourceStack.getItem() instanceof IPatternItem) {
-		//We were created with a pattern item, instead of the block item
-		//Create a new item, and copy the nbt.
+			//We were created with a pattern item, instead of the block item
+			//Create a new item, and copy the nbt.
 			final ChiseledBlockItem chiseledBlockItem = ModItems.CHISELED_BLOCK.get();
 			final ItemStack blockStack = new ItemStack(chiseledBlockItem);
 			blockStack.set(ModDataComponentTypes.MULTI_STATE_ITEM_STACK_DATA.get(), toData());

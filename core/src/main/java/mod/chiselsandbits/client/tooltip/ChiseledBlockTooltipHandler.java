@@ -16,7 +16,7 @@ public class ChiseledBlockTooltipHandler {
 	public static void configure() {
 		IRenderingManager.getInstance().registerClientTooltipComponentConverter(
 						registrar -> registrar.registerConvert(Payload.class, new Converter())
-				);
+		);
 
 		IClientEvents.getInstance().getGatherTooltipComponentsEvent().register((itemStack, screenWidth, screenHeight, maxWidth, tooltipElements) -> {
 			if (itemStack.getItem() instanceof IMultiStateItem multiStateItem) {

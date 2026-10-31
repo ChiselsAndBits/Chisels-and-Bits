@@ -37,7 +37,7 @@ public final class ClassUtils {
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public static <T> T createOrGetInstance(String className, Class<T> baseClass, Class<? extends Annotation> instanceAnnotation, Function<T, String> nameFunction) {
-	//Try to create an instance of the class
+		//Try to create an instance of the class
 		try {
 			Class<? extends T> subClass = Class.forName(className).asSubclass(baseClass);
 			//First try looking at the fields of the class to see if one of them is specified as the instance
@@ -46,22 +46,7 @@ public final class ClassUtils {
 			for (Field field : fields) {
 				if (field.isAnnotationPresent(instanceAnnotation)) {
 					if (Modifier.isStatic(field.getModifiers())) {
-						try {
-							Object fieldValue = field.get(null);
-
-							if (baseClass.isInstance(fieldValue)) {
-								T instance = (T) fieldValue;
-								LOGGER.debug("Found specified {} instance for: {}. Using it rather than creating a new instance.", baseClass.getSimpleName(),
-										nameFunction.apply(instance));
-								return instance;
-							} else {
-								LOGGER.error("{} annotation found on non {} field: {}", instanceAnnotation.getSimpleName(), baseClass.getSimpleName(), field);
-								return null;
-							}
-						} catch (IllegalAccessException e) {
-							LOGGER.error("{} annotation found on inaccessible field: {}", instanceAnnotation.getSimpleName(), field);
-							return null;
-						}
+						return getStaticInstance(baseClass, instanceAnnotation, nameFunction, field);
 					} else {
 						LOGGER.error("{} annotation found on non static field: {}", instanceAnnotation.getSimpleName(), field);
 						return null;
@@ -79,5 +64,25 @@ public final class ClassUtils {
 		}
 
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> @Nullable T getStaticInstance(final Class<T> baseClass, final Class<? extends Annotation> instanceAnnotation, final Function<T, String> nameFunction, final Field field) {
+		try {
+			Object fieldValue = field.get(null);
+
+			if (baseClass.isInstance(fieldValue)) {
+				T instance = (T) fieldValue;
+				LOGGER.debug("Found specified {} instance for: {}. Using it rather than creating a new instance.", baseClass.getSimpleName(),
+						nameFunction.apply(instance));
+				return instance;
+			} else {
+				LOGGER.error("{} annotation found on non {} field: {}", instanceAnnotation.getSimpleName(), baseClass.getSimpleName(), field);
+				return null;
+			}
+		} catch (IllegalAccessException e) {
+			LOGGER.error("{} annotation found on inaccessible field: {}", instanceAnnotation.getSimpleName(), field);
+			return null;
+		}
 	}
 }

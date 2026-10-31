@@ -52,8 +52,8 @@ public class ChiseledPrinterBESR implements BlockEntityRenderer<ChiseledPrinterB
 			return;
 		}
 
-		final var shapeKey = renderState.snapshot.createNewShapeIdentifier();
-		final var cacheKey = new CacheKey(shapeKey, renderState.progress);
+		final IAreaShapeIdentifier shapeKey = renderState.snapshot.createNewShapeIdentifier();
+		final CacheKey cacheKey = new CacheKey(shapeKey, renderState.progress);
 		IMultiStateSnapshot innerModelBlob = STORAGE_CONTENTS_BLOB_CACHE.get(cacheKey);
 
 		if (innerModelBlob == null) {

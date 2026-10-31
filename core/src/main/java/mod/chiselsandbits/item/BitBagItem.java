@@ -17,6 +17,7 @@ import mod.chiselsandbits.inventory.bit.SlottedBitInventoryItemStack;
 import mod.chiselsandbits.network.packets.OpenBagGuiPacket;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 import mod.chiselsandbits.utils.SimpleInstanceCache;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -52,7 +53,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 	}
 
 	@Override
-	public Component getName(final ItemStack stack) {
+	public @NonNull Component getName(final @NonNull ItemStack stack) {
 		DyedItemColor color = getDyedColor(stack);
 		final Component parent = super.getName(stack);
 
@@ -65,7 +66,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 			return mutableComponent.copy().append(" - ").append(
 							Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", color.rgb())).withStyle(ChatFormatting.GRAY)
-					);
+			);
 		} else {
 			return super.getName(stack);
 		}
@@ -73,7 +74,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+	public void appendHoverText(@NonNull ItemStack stack, Item.@NonNull TooltipContext context, @NonNull TooltipDisplay tooltipDisplay, @NonNull Consumer<Component> tooltipAdder, @NonNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 		HelpTextUtils.build(LocalStrings.HelpBitBag, tooltipAdder);
 
@@ -99,16 +100,16 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 				inventoryItemStack = tooltipCache.getCached();
 			}
 
-			var contents = inventoryItemStack.listContents();
+			IBitInventoryItemStack.DisplayContents contents = inventoryItemStack.listContents();
 			contents.displayComponents().forEach(tooltipAdder);
 		});
 	}
 
 	@Override
-	public InteractionResult use(
-			final Level worldIn,
+	public @NonNull InteractionResult use(
+			final @NonNull Level worldIn,
 			final Player playerIn,
-			final InteractionHand hand) {
+			final @NonNull InteractionHand hand) {
 		final ItemStack itemStackIn = playerIn.getItemInHand(hand);
 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerIn);
@@ -117,7 +118,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 			final BlockState hitBlockState = worldIn.getBlockState(blockRayTraceResult.getBlockPos());
 
 			if (hitBlockState.getBlock() instanceof IBitBagAcceptingBlock bitBagAcceptingBlock) {
-				final var resultStack = bitBagAcceptingBlock.onBitBagInteraction(itemStackIn, playerIn, blockRayTraceResult);
+				final ItemStack resultStack = bitBagAcceptingBlock.onBitBagInteraction(itemStackIn, playerIn, blockRayTraceResult);
 				playerIn.setItemInHand(hand, resultStack);
 				return InteractionResult.SUCCESS;
 			}
@@ -182,7 +183,7 @@ public class BitBagItem extends Item implements IBitInventoryItem {
 		final IBitInventoryItemStack inventoryItemStack = item.create(stack);
 
 		final double filledRatio = inventoryItemStack.getFilledRatio();
-		return Math.min(1.0d, Math.max(0.0d, IClientConfiguration.getInstance().getInvertBitBagFullness().get() ? filledRatio : 1.0 - filledRatio));
+		return Math.clamp(IClientConfiguration.getInstance().getInvertBitBagFullness().get() ? filledRatio : 1.0 - filledRatio, 0.0d, 1.0d);
 	}
 
 	public static DyedItemColor getDyedColor(

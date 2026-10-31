@@ -61,8 +61,8 @@ public class TagExporterFactory implements ExporterModuleFactory<TagExporterFact
 		@Override
 		public void run(final Path output) throws Exception {
 			for (final String registryName : config.registries()) {
-				var registryIdentifier = Identifier.parse(registryName);
-				var registryKey = ResourceKey.createRegistryKey(registryIdentifier);
+				Identifier registryIdentifier = Identifier.parse(registryName);
+				ResourceKey<Registry<Object>> registryKey = ResourceKey.createRegistryKey(registryIdentifier);
 				Registry<?> registry = TagExporterEntrypoint.getServer().registryAccess()
 						.registries()
 						.filter(registryEntry -> registryEntry.key().equals(registryKey))

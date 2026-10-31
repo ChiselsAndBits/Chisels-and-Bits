@@ -64,19 +64,17 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 
 	private static Direction.Axis getExtensionAxis(final Direction hitDirection) {
 		return switch (hitDirection) {
-			case DOWN, NORTH, SOUTH -> Direction.Axis.X;
-			case UP, WEST, EAST -> Direction.Axis.Z;
+		case DOWN, NORTH, SOUTH -> Direction.Axis.X;
+		case UP, WEST, EAST -> Direction.Axis.Z;
 		};
-
 	}
 
 	private static Vec3i getOffsetPosition(final Vec3i source, final int offset, Direction.Axis axis) {
 		return switch (axis) {
-			case X -> new Vec3i(source.getX() + offset, source.getY(), source.getZ());
-			case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
-			case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
+		case X -> new Vec3i(source.getX() + offset, source.getY(), source.getZ());
+		case Y -> new Vec3i(source.getX(), source.getY() + offset, source.getZ());
+		case Z -> new Vec3i(source.getX(), source.getY(), source.getZ() + offset);
 		};
-
 	}
 
 	@Override
@@ -388,8 +386,8 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 			while (distanceFromStart <= reach) {
 				positions.add(pos);
 
-				if (xDist <yDist) {
-					if (xDist <zDist) {
+				if (xDist < yDist) {
+					if (xDist < zDist) {
 						distanceFromStart = xDist;
 						xDist += xLen;
 						pos = pos.offset(direction.x() > 0 ? 1 : -1, 0, 0);
@@ -399,7 +397,7 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				} else {
-					if (yDist <zDist) {
+					if (yDist < zDist) {
 						distanceFromStart = yDist;
 						yDist += yLen;
 						pos = pos.offset(0, direction.y() > 0 ? 1 : -1, 0);

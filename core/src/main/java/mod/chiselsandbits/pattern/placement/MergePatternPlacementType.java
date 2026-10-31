@@ -51,7 +51,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.MERGE.get().buildVoxelShapeForWireframe(
 						sourceSnapshot, player, targetedPoint, hitFace
-				);
+		);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 							context.getLevel(),
 							targetedPosition,
 							targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+				);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -93,7 +93,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 						IStateEntryInfo::getBlockInformation,
 						s -> 1,
 						Integer::sum
-		));
+				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()
@@ -118,7 +118,7 @@ public class MergePatternPlacementType extends AbstractCustomRegistryEntry imple
 						IStateEntryInfo::getBlockInformation,
 						s -> 1,
 						Integer::sum
-		));
+				));
 
 		final boolean hasRequiredBits =
 				context.getPlayer().isCreative() || totalAddedBits.entrySet().stream().allMatch(e -> playerBitInventory.canExtract(e.getKey(), e.getValue()));

@@ -116,7 +116,7 @@ import net.minecraft.world.phys.shapes.CubeVoxelShape;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ChiseledBlockEntity extends BlockEntity implements
-IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IBlockEntityWithModelData {
+		IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IBlockEntityWithModelData {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final float ONE_THOUSANDS = 1 / 1000f;
@@ -133,10 +133,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 	private final SingleBlockVoxelShapeCache voxelShapeCache = new SingleBlockVoxelShapeCache(this);
 	private final SingleObjectCache<BlockStack> blockStackCache =
 			new SingleObjectCache<>(() -> {
-					final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
-					return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
-				},
-
+				final IMultiStateItemStack snapshotStack = createSnapshot().toItemStack();
+				return new BlockStack(snapshotStack.toBlockStack(), snapshotStack);
+			},
 
 						BlockStack::copy);
 	private boolean isLoading = false;
@@ -326,7 +325,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			return;
 		}
 
-		var dataInput = data.get();
+		ValueInput dataInput = data.get();
 
 		readAsync(dataInput)
 				.thenAcceptAsync(payload -> {
@@ -351,7 +350,6 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 						this.afterCurrentLoad.pop().run();
 					}
 				},
-
 
 						getExecutor());
 
@@ -465,7 +463,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
 								new UpdateBlockEntityPacket(this),
 								getLevel().getChunkAt(getBlockPos())
-						);
+				);
 			}
 		}
 	}
@@ -718,7 +716,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		}
 
 		executeWhenLoaded(() -> {
-		//Large operation, better batch this together to prevent weird updates.
+			//Large operation, better batch this together to prevent weird updates.
 			try (IBatchMutation ignored = batch()) {
 				this.storage.rotate(axis, rotationCount);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
@@ -733,7 +731,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 		}
 
 		executeWhenLoaded(() -> {
-		//Large operation, better batch this together to prevent weird updates.
+			//Large operation, better batch this together to prevent weird updates.
 			try (IBatchMutation ignored = batch()) {
 				this.storage.mirror(axis);
 				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
@@ -823,7 +821,6 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 			innerMutation.close();
 			changeTracker.onBlockUpdated(getBlockPos(), before, after);
 		};
-
 	}
 
 	public void setModelData(final IBlockModelData modelData) {
@@ -974,9 +971,9 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 
 		@Override
 		public String toString() {
-			return "Identifier{" +
-			"snapshot = " + snapshot +
-			'}';
+			return "Identifier{"
+				+ "snapshot = " + snapshot
+				+ '}';
 		}
 
 		@Override
@@ -1650,7 +1647,7 @@ IMultiStateBlockEntity, INetworkUpdatableEntity<ChiseledBlockEntity.Payload>, IB
 							return false;
 						} else {
 							int i = getLightBlockInto(blockState);
-							return i <LightEngine.MAX_LEVEL;
+							return i < LightEngine.MAX_LEVEL;
 						}
 					});
 		}

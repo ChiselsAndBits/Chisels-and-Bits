@@ -7,8 +7,7 @@ import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.platform.CompareOp;
 
-public enum ModRenderPipelineSnippets
-{
+public enum ModRenderPipelineSnippets {
 	NO_DEPTH_TEST(() -> RenderPipeline.builder()
 			.withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
 			.buildSnippet()

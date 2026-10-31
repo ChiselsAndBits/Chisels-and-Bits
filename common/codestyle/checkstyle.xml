@@ -156,7 +156,9 @@
 		<module name="MissingOverride"/>
 
 		<!-- By default this allows catch blocks with only comments -->
-		<module name="EmptyCatchBlock"/>
+		<module name="EmptyCatchBlock">
+			<property name="exceptionVariableName" value="^(ignored[0-9]*|ignore)$"/>
+		</module>
 
 		<!-- Enforce tabs -->
 		<module name="RegexpSinglelineJava">

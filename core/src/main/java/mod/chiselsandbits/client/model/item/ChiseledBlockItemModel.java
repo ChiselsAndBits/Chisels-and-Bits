@@ -19,6 +19,7 @@ import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -92,7 +93,7 @@ public record ChiseledBlockItemModel(
 
 			if (itemModelId == null) {
 				if (!material.blockInformation().blockState().getFluidState().isEmpty() && level != null) {
-					var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
+					FluidModel fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
 							material.blockInformation().blockState().getFluidState()
 					);
 
@@ -108,7 +109,7 @@ public record ChiseledBlockItemModel(
 							.withSource((BlockAndTintGetter) level)
 							.createSingleBlockBlockAndTintGetter();
 
-					var tint = fluidModel.tintSource().colorInWorld(
+					int tint = fluidModel.tintSource().colorInWorld(
 							material.blockInformation().blockState(),
 							blockAndTintGetter,
 							BlockPos.ZERO

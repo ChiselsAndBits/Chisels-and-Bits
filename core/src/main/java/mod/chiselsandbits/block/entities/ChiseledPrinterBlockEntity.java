@@ -81,7 +81,6 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 		}
 	};
 
-
 	private long lastTickTime = 0L;
 
 	public ChiseledPrinterBlockEntity(BlockPos pos, BlockState state) {
@@ -123,7 +122,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
 							new UpdateBlockEntityPacket(this),
 							level.getChunkAt(getBlockPos())
-					);
+			);
 		}
 	}
 
@@ -261,7 +260,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 
 		if (modifiableSnapshot.getStatics().getStateCounts().size() == 1
 				&& modifiableSnapshot.getStatics().getStateCounts().containsKey(BlockInformation.AIR)) {
-				//Just air.
+			//Just air.
 			return ItemStack.EMPTY;
 		}
 
@@ -421,31 +420,28 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	@Override
 	public int[] getSlotsForFace(final Direction direction) {
 		return switch (direction) {
-			case DOWN -> new int[] { 2};
-			case UP -> new int[] { 1};
-			case NORTH, SOUTH, WEST, EAST -> new int[] { 0};
+		case DOWN -> new int[] { 2};
+		case UP -> new int[] { 1};
+		case NORTH, SOUTH, WEST, EAST -> new int[] { 0};
 		};
-
 	}
 
 	@Override
 	public boolean canPlaceItemThroughFace(final int index, final ItemStack itemStack, final Direction direction) {
 		return switch (Objects.requireNonNull(direction)) {
-			case DOWN -> false;
-			case UP -> itemStack.getItem() instanceof IChiselItem;
-			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
+		case DOWN -> false;
+		case UP -> itemStack.getItem() instanceof IChiselItem;
+		case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
 		};
-
 	}
 
 	@Override
 	public boolean canTakeItemThroughFace(final int index, final ItemStack itemStack, final Direction direction) {
 		return switch (direction) {
-			case DOWN -> true;
-			case UP -> itemStack.getItem() instanceof IChiselItem;
-			case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
+		case DOWN -> true;
+		case UP -> itemStack.getItem() instanceof IChiselItem;
+		case NORTH, SOUTH, WEST, EAST -> itemStack.getItem() instanceof IMultiUsePatternItem;
 		};
-
 	}
 
 	@Override
@@ -463,42 +459,39 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 	@Override
 	public ItemStack getItem(final int index) {
 		return switch (index) {
-			case 0 -> getPatternStack();
-			case 1 -> getToolStack();
-			case 2 -> getOutputStack();
-			default -> ItemStack.EMPTY;
+		case 0 -> getPatternStack();
+		case 1 -> getToolStack();
+		case 2 -> getOutputStack();
+		default -> ItemStack.EMPTY;
 		};
-
 	}
 
 	@Override
 	public ItemStack removeItem(final int index, final int count) {
 		return switch (index) {
-			case 0 -> getPatternHandler().removeItem(0, count);
-			case 1 -> getToolHandler().removeItem(0, count);
-			case 2 -> getResultHandler().removeItem(0, count);
-			default -> ItemStack.EMPTY;
+		case 0 -> getPatternHandler().removeItem(0, count);
+		case 1 -> getToolHandler().removeItem(0, count);
+		case 2 -> getResultHandler().removeItem(0, count);
+		default -> ItemStack.EMPTY;
 		};
-
 	}
 
 	@Override
 	public ItemStack removeItemNoUpdate(final int index) {
 		return switch (index) {
-			case 0 -> getPatternHandler().removeItemNoUpdate(0);
-			case 1 -> getToolHandler().removeItemNoUpdate(0);
-			case 2 -> getResultHandler().removeItemNoUpdate(0);
-			default -> ItemStack.EMPTY;
+		case 0 -> getPatternHandler().removeItemNoUpdate(0);
+		case 1 -> getToolHandler().removeItemNoUpdate(0);
+		case 2 -> getResultHandler().removeItemNoUpdate(0);
+		default -> ItemStack.EMPTY;
 		};
-
 	}
 
 	@Override
 	public void setItem(final int index, final ItemStack itemStack) {
 		switch (index) {
-			case 0 -> getPatternHandler().setItem(0, itemStack);
-			case 1 -> getToolHandler().setItem(0, itemStack);
-			case 2 -> getResultHandler().setItem(0, itemStack);
+		case 0 -> getPatternHandler().setItem(0, itemStack);
+		case 1 -> getToolHandler().setItem(0, itemStack);
+		case 2 -> getResultHandler().setItem(0, itemStack);
 		}
 	}
 
@@ -546,7 +539,7 @@ public class ChiseledPrinterBlockEntity extends BlockEntity implements MenuProvi
 							ItemStack.OPTIONAL_STREAM_CODEC,
 							Payload::patternStack,
 							Payload::new
-		);
+				);
 	}
 
 	@Override

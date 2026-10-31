@@ -28,7 +28,7 @@ public class BitItemManager implements IBitItemManager {
 			return ItemStack.EMPTY;
 		}
 
-		if (count <= 0 && count> ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize()) {
+		if (count <= 0 && count > ModItems.ITEM_BLOCK_BIT.get().getDefaultMaxStackSize()) {
 			return ItemStack.EMPTY;
 		}
 

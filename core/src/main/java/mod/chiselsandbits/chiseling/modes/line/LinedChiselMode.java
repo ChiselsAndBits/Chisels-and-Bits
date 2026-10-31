@@ -156,12 +156,12 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		final Direction iterationDirection = iterationAdaptor.apply(blockRayTraceResult.getDirection());
 		switch (iterationDirection) {
-			case DOWN -> includeDownAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-			case UP -> includeUpAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-			case NORTH -> includeNorthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-			case SOUTH -> includeSouthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-			case WEST -> includeWestAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
-			case EAST -> includeEastAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case DOWN -> includeDownAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case UP -> includeUpAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case NORTH -> includeNorthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case SOUTH -> includeSouthAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case WEST -> includeWestAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
+		case EAST -> includeEastAxis(context, airOnly, hitBlockPosVector, inBlockBitVector);
 		}
 
 		return Optional.empty();
@@ -373,16 +373,16 @@ public class LinedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	private Vec3 clampVectorToBlockAlongAxis(final Vec3 v, final Direction.Axis axis) {
 		switch (axis) {
-			case X -> {
-				return new Vec3(v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()), v.y(), v.z());
-			}
-			case Y -> {
-				return new Vec3(v.x(), v.y() < 0 ? 0 : (v.y() >= 1 ? 1 - ONE_THOUSANDS : v.y()), v.z());
-			}
-			case Z -> {
-				return new Vec3(v.x(), v.y(), v.z() < 0 ? 0 : (v.z() >= 1 ? 1 - ONE_THOUSANDS : v.z()));
-			}
-			default -> throw new IllegalStateException("Unexpected value: " + axis);
+		case X -> {
+			return new Vec3(v.x() < 0 ? 0 : (v.x() >= 1 ? 1 - ONE_THOUSANDS : v.x()), v.y(), v.z());
+		}
+		case Y -> {
+			return new Vec3(v.x(), v.y() < 0 ? 0 : (v.y() >= 1 ? 1 - ONE_THOUSANDS : v.y()), v.z());
+		}
+		case Z -> {
+			return new Vec3(v.x(), v.y(), v.z() < 0 ? 0 : (v.z() >= 1 ? 1 - ONE_THOUSANDS : v.z()));
+		}
+		default -> throw new IllegalStateException("Unexpected value: " + axis);
 		}
 	}
 

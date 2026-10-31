@@ -1,5 +1,6 @@
 package mod.chiselsandbits.block.entities;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import com.communi.suggestu.scena.core.blockstate.ILevelBasedPropertyAccessor;
@@ -172,7 +173,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 						.withSource(getLevel())
 						.createSingleBlockLevelReader(),
 						getBlockPos()
-				);
+		);
 	}
 
 	public boolean addHeldBits(
@@ -290,8 +291,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 	}
 
 	public Direction getFacing() {
-		assert getLevel() != null;
-		return getLevel().getBlockState(getBlockPos()).getValue(BitStorageBlock.FACING);
+		return Objects.requireNonNull(getLevel()).getBlockState(getBlockPos()).getValue(BitStorageBlock.FACING);
 	}
 
 	@Override
@@ -333,7 +333,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 	@Override
 	public ItemStack removeItemNoUpdate(final int index) {
-	//Not supported
+		//Not supported
 		return ItemStack.EMPTY;
 	}
 
@@ -363,9 +363,7 @@ public class BitStorageBlockEntity extends BlockEntity implements Container {
 
 	@Override
 	public boolean stillValid(final Player player) {
-		assert this.level != null;
-
-		if (this.level.getBlockEntity(this.worldPosition) != this) {
+		if (Objects.requireNonNull(this.level).getBlockEntity(this.worldPosition) != this) {
 			return false;
 		} else {
 			return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);

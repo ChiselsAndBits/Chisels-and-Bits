@@ -36,7 +36,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> PREVIEW_INSIDE_BLOCKS = Suppliers.memoize(Internal::chiselPreviewInsideBlocks);
 
 		private static RenderType chiselPreviewInsideBlocks() {
-			var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
 					.bufferSize(256)
 					.sortOnUpload()
@@ -48,7 +48,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> PREVIEW_OUTSIDE_BLOCKS = Suppliers.memoize(Internal::chiselPreviewOutsideBlocks);
 
 		private static RenderType chiselPreviewOutsideBlocks() {
-			var state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
 					.bufferSize(256)
 					.sortOnUpload()
@@ -60,7 +60,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> WIREFRAME = Suppliers.memoize(Internal::wireframe);
 
 		private static RenderType wireframe() {
-			var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.WIREFRAME.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
 					.bufferSize(256)
 					.sortOnUpload()
@@ -72,7 +72,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> WIREFRAME_ALWAYS = Suppliers.memoize(Internal::wireframeAlways);
 
 		private static RenderType wireframeAlways() {
-			var state = RenderSetup.builder(ModRenderPipelines.WIREFRAME_ALWAYS.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.WIREFRAME_ALWAYS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
 					.bufferSize(256)
 					.sortOnUpload()
@@ -84,7 +84,7 @@ public enum ModRenderTypes {
 		public static Function<Identifier, Supplier<RenderType>> GHOST_BLOCK = (rl) -> Suppliers.memoize(() -> ghostBlock(rl));
 
 		private static RenderType ghostBlock(Identifier texture) {
-			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK.pipeline())
 					.withTexture("Sampler0", texture)
 					.useLightmap()
 					.useOverlay()
@@ -100,7 +100,7 @@ public enum ModRenderTypes {
 		public static Function<Identifier, Supplier<RenderType>> GHOST_BLOCK_ALWAYS = (rl) -> Suppliers.memoize(() -> ghostBlockAlways(rl));
 
 		private static RenderType ghostBlockAlways(Identifier texture) {
-			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_ALWAYS.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_ALWAYS.pipeline())
 					.withTexture("Sampler0", texture)
 					.useLightmap()
 					.useOverlay()
@@ -116,7 +116,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> GHOST_BLOCK_COLORED = Suppliers.memoize(Internal::ghostBlockColored);
 
 		private static RenderType ghostBlockColored() {
-			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline())
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.bufferSize(256)
 					.affectsCrumbling()
@@ -129,7 +129,7 @@ public enum ModRenderTypes {
 		public static Supplier<RenderType> GHOST_BLOCK_COLORED_ALWAYS = Suppliers.memoize(Internal::ghostBlockColoredAlways);
 
 		private static RenderType ghostBlockColoredAlways() {
-			var state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline())
+			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline())
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.bufferSize(256)
 					.affectsCrumbling()

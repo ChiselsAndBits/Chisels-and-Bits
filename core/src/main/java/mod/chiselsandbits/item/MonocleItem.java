@@ -1,6 +1,7 @@
 package mod.chiselsandbits.item;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.jspecify.annotations.Nullable;
@@ -29,7 +30,6 @@ public class MonocleItem extends Item {
 		}
 	};
 
-
 	private static boolean dispenseArmor(BlockSource source, ItemStack stack) {
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		List<LivingEntity> list = source.level().getEntitiesOfClass(LivingEntity.class, new AABB(blockpos), EntitySelector.NO_SPECTATORS.and(new MobCanWearArmorEntitySelector(stack)));
@@ -43,8 +43,8 @@ public class MonocleItem extends Item {
 			targetEntity.setItemSlot(slot, stackToDispense);
 
 			if (targetEntity instanceof Mob) {
-				((Mob)targetEntity).setDropChance(slot, 2.0F);
-				((Mob)targetEntity).setPersistenceRequired();
+				((Mob) targetEntity).setDropChance(slot, 2.0F);
+				((Mob) targetEntity).setPersistenceRequired();
 			}
 
 			return true;
@@ -74,17 +74,12 @@ public class MonocleItem extends Item {
 			}
 
 			Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
-			assert equippable != null;
 
-			if (!equippable.canBeEquippedBy(entity.typeHolder())) {
+			if (!Objects.requireNonNull(equippable).canBeEquippedBy(entity.typeHolder())) {
 				return false;
 			}
 
-			if (livingEntity.isEquippableInSlot(itemStack, equippable.slot()) && !livingEntity.hasItemInSlot(equippable.slot()) && entity.isAlive()) {
-				return true;
-			} else {
-				return false;
-			}
+			return livingEntity.isEquippableInSlot(itemStack, equippable.slot()) && !livingEntity.hasItemInSlot(equippable.slot()) && entity.isAlive();
 		}
 	}
 }

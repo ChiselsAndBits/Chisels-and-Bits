@@ -27,7 +27,6 @@ public final class ModChiselModeGroups {
 		}
 	};
 
-
 	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -41,7 +40,6 @@ public final class ModChiselModeGroups {
 			);
 		}
 	};
-
 
 	public static IToolModeGroup LINE = new IToolModeGroup() {
 		@Override
@@ -57,7 +55,6 @@ public final class ModChiselModeGroups {
 		}
 	};
 
-
 	public static IToolModeGroup PLANE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -71,7 +68,6 @@ public final class ModChiselModeGroups {
 			);
 		}
 	};
-
 
 	public static IToolModeGroup SPHERE = new IToolModeGroup() {
 		@Override
@@ -87,7 +83,6 @@ public final class ModChiselModeGroups {
 		}
 	};
 
-
 	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -99,7 +94,6 @@ public final class ModChiselModeGroups {
 			return LocalStrings.ChiselModeConnectedPlane.getText();
 		}
 	};
-
 
 	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup() {
 		@Override
@@ -113,7 +107,6 @@ public final class ModChiselModeGroups {
 		}
 	};
 
-
 	public static IToolModeGroup DRAW = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -125,7 +118,6 @@ public final class ModChiselModeGroups {
 			return LocalStrings.ChiselModeDrawnCube.getText();
 		}
 	};
-
 
 	private ModChiselModeGroups() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModChiselModeGroups.This is a utility class");

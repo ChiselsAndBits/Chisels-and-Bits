@@ -163,13 +163,13 @@ public record StateEntryPalette(List<Entry> paletteEntries, Map<BlockInformation
 		public static final Codec<Entry> CODEC = RecordCodecBuilder.create(instance -> {
 			return instance.group(
 							BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
-					).apply(instance, Entry::new);
+			).apply(instance, Entry::new);
 		});
 
 		public static final MapCodec<Entry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> {
 			return instance.group(
 							BlockInformation.CODEC.fieldOf("state").forGetter(Entry::blockInformation)
-					).apply(instance, Entry::new);
+			).apply(instance, Entry::new);
 		});
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, Entry> STREAM_CODEC = StreamCodec.composite(

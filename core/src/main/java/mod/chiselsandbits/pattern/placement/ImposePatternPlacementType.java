@@ -55,7 +55,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 			final IMultiStateSnapshot sourceSnapshot, final Player player, final Vec3 targetedPoint, final Direction hitFace) {
 		return ModPatternPlacementTypes.IMPOSEMENT.get().buildVoxelShapeForWireframe(
 						sourceSnapshot, player, targetedPoint, hitFace
-				);
+		);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 							context.getLevel(),
 							targetedPosition,
 							targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+				);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -108,7 +108,7 @@ public class ImposePatternPlacementType extends AbstractCustomRegistryEntry impl
 								s -> 1,
 								Integer::sum
 						)
-		);
+				);
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()

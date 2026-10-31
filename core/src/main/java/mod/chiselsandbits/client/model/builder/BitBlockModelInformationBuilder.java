@@ -17,6 +17,7 @@ import org.joml.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +32,6 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 		FROM,
 		TO
 	};
-
 
 	public BitBlockModelInformation build(final BlockAndTintGetter surroundings) {
 		final Map<IntList, List<BakedQuad>> quadsByTints = new HashMap<>();
@@ -55,7 +55,6 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 							quad.tintIndex(0);
 						}
 					},
-
 
 					generatedQuad -> {
 						final List<BlockTintSource> tintSources =
@@ -85,10 +84,10 @@ public record BitBlockModelInformationBuilder(BlockInformation information, bool
 	}
 
 	private List<BlockTintSource> getFluidTintSources() {
-		final var fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
+		final FluidModel fluidModel = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(
 				information.blockState().getFluidState()
 		);
-		final var tintSource = fluidModel.tintSource();
+		final BlockTintSource tintSource = fluidModel.tintSource();
 
 		if (tintSource == null) {
 			return List.of();

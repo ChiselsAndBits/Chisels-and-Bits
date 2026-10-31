@@ -19,7 +19,6 @@ public record BitBlockQuadCollectionBuilder(BlockInformation information) {
 		TO
 	};
 
-
 	public QuadCollection build() {
 		final QuadCollection.Builder result = new QuadCollection.Builder();
 

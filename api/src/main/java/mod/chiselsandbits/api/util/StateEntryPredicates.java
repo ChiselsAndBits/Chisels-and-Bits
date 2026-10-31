@@ -26,7 +26,6 @@ public class StateEntryPredicates {
 		}
 	};
 
-
 	public static final Predicate<IStateEntryInfo> ALL = new Predicate<>() {
 		@Override
 		public boolean test(final IStateEntryInfo iStateEntryInfo) {
@@ -44,7 +43,6 @@ public class StateEntryPredicates {
 		}
 	};
 
-
 	public static final Predicate<IStateEntryInfo> COLLIDEABLE_ONLY = new Predicate<>() {
 		@Override
 		public boolean test(final IStateEntryInfo iStateEntryInfo) {
@@ -61,5 +59,4 @@ public class StateEntryPredicates {
 			return obj == this;
 		}
 	};
-
 }

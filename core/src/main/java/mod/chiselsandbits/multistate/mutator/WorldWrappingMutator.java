@@ -165,7 +165,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 				.collect(Collectors.toMap(
 						Function.identity(),
 						blockPos -> new ChiselAdaptingWorldMutator(getWorld(), blockPos).createSnapshot()
-		));
+				));
 
 		return new MultiBlockMultiStateSnapshot(
 				snapshots,
@@ -179,7 +179,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		return BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 						getInWorldEndPoint().multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
-				)
+		)
 				.map(positionMutator::mutate)
 				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
 				.map(position -> {
@@ -360,7 +360,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream() {
 		return BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
-				).flatMap(blockPos -> positionBasedInWorldMutableStream(blockPos)
+		).flatMap(blockPos -> positionBasedInWorldMutableStream(blockPos)
 						.filter(entry -> this.getInWorldBoundingBox().intersects(entry.getInWorldBoundingBox()) || entry.getInWorldBoundingBox().intersects(this.getInWorldBoundingBox())));
 	}
 
@@ -396,31 +396,30 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	public IBatchMutation batch(final IChangeTracker changeTracker) {
 		final Map<BlockPos, IMultiStateSnapshot> before = BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
-				).map(blockPos -> new ChiselAdaptingWorldMutator(
+		).map(blockPos -> new ChiselAdaptingWorldMutator(
 						getWorld(), blockPos))
 				.collect(Collectors.toMap(
 						ChiselAdaptingWorldMutator::getPos,
 						ChiselAdaptingWorldMutator::createSnapshot
-		));
+				));
 
 		@SuppressWarnings("resource")
 				final IBatchMutation innerMutation = batch();
 		return () -> {
 			final Map<BlockPos, IMultiStateSnapshot> after = BlockPosStreamProvider.getForRange(
 							getInWorldStartPoint(), getInWorldEndPoint()
-					).map(blockPos -> new ChiselAdaptingWorldMutator(
+			).map(blockPos -> new ChiselAdaptingWorldMutator(
 							getWorld(), blockPos))
 					.collect(Collectors.toMap(
 							ChiselAdaptingWorldMutator::getPos,
 							ChiselAdaptingWorldMutator::createSnapshot
-			));
+					));
 
 			innerMutation.close();
 			changeTracker.onBlocksUpdated(
 					before, after
 			);
 		};
-
 	}
 
 	@Override
@@ -428,7 +427,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 		final VoxelShape areaShape = Shapes.create(getInWorldBoundingBox().move(VectorUtils.invert(getInWorldStartBlockPoint())).move(offset));
 		final VoxelShape containedShape = BlockPosStreamProvider.getForRange(
 						getInWorldStartPoint(), getInWorldEndPoint()
-				).map(blockPos -> new ChiselAdaptingWorldMutator(
+		).map(blockPos -> new ChiselAdaptingWorldMutator(
 						getWorld(), blockPos))
 				.map(a -> IVoxelShapeManager.getInstance().get(a, a.getInWorldStartBlockPoint().offset(VectorUtils.invert(getInWorldStartBlockPoint())).offset(offset),
 						type, simplify))
@@ -436,7 +435,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 						Shapes.empty(),
 						(voxelShape, bbShape) -> Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR),
 						(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
-		);
+				);
 		final VoxelShape requestedShape = Shapes.joinUnoptimized(
 				areaShape,
 				containedShape,
@@ -448,11 +447,11 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 
 	@Override
 	public String toString() {
-		return "WorldWrappingMutator{" +
-		"world = " + world +
-		", startPoint = " + startPoint +
-		", endPoint = " + endPoint +
-		'}';
+		return "WorldWrappingMutator{"
+			+ "world = " + world
+			+ ", startPoint = " + startPoint
+			+ ", endPoint = " + endPoint
+			+ '}';
 	}
 
 	@Override
@@ -466,7 +465,8 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	private static final class BatchMutationLock implements IBatchMutation {
 		private final Iterable<IBatchMutation> innerLocks;
 
-		private BatchMutationLock(final Iterable<IBatchMutation> innerLocks) {this.innerLocks = innerLocks; }
+		private BatchMutationLock(final Iterable<IBatchMutation> innerLocks) {
+			this.innerLocks = innerLocks; }
 
 		@Override
 		public void close() {

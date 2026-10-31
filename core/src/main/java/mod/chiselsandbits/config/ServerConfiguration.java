@@ -60,7 +60,6 @@ public class ServerConfiguration implements IServerConfiguration {
 				return StateEntrySize.ONE_SIXTEENTH;
 			}
 		};
-
 	}
 
 	@Override

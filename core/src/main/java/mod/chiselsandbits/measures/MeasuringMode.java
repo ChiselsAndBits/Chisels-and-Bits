@@ -32,8 +32,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.phys.Vec3;
 
-public enum MeasuringMode implements IMeasuringMode
-{
+public enum MeasuringMode implements IMeasuringMode {
 	WHITE_BIT(WHITE, MeasuringType.BIT, Component.translatable(Constants.MOD_ID + ".measuring.types.bit.white"), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "white")),
 	ORANGE_BIT(ORANGE, MeasuringType.BIT, Component.translatable(Constants.MOD_ID + ".measuring.types.bit.orange"), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "white")),
 	MAGENTA_BIT(MAGENTA, MeasuringType.BIT, Component.translatable(Constants.MOD_ID + ".measuring.types.bit.magenta"), Identifier.fromNamespaceAndPath(Constants.MOD_ID, "white")),

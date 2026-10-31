@@ -107,7 +107,6 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		}
 	};
 
-
 	@Override
 	public IAreaShapeIdentifier createNewShapeIdentifier() {
 		return Identifier.INSTANCE;
@@ -151,7 +150,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 	@Override
 	public void forEachWithPositionMutator(
 			final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
-			//Noop
+				//Noop
 	}
 
 	@Override
@@ -205,12 +204,12 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 	@Override
 	public void rotate(final Direction.Axis axis, final int rotationCount) {
-	//Noop
+		//Noop
 	}
 
 	@Override
 	public void mirror(final Direction.Axis axis) {
-	//Noop
+		//Noop
 	}
 
 	@Override
@@ -262,7 +261,6 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 			}
 		};
 
-
 		@Override
 		public ItemStack toBlockStack() {
 			return ItemStack.EMPTY;
@@ -275,7 +273,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 
 		@Override
 		public void writeDataTo(ItemStack stack) {
-		//Noop
+			//Noop
 		}
 
 		@Override
@@ -326,7 +324,7 @@ public class EmptySnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlign
 		@Override
 		public void forEachWithPositionMutator(
 				final IPositionMutator positionMutator, final Consumer<IStateEntryInfo> consumer) {
-				//Noop
+					//Noop
 		}
 
 		@Override

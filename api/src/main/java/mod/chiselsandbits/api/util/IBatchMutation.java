@@ -15,7 +15,7 @@ public interface IBatchMutation extends AutoCloseable {
 	 * Exception}, implementers are <em>strongly</em> encouraged to declare concrete implementations of the {@code close} method to throw more specific exceptions, or to throw no
 	 * exception at all if the close operation cannot fail.
 	 *
-	 * <p> Cases where the close operation may fail require careful
+	 * <p>Cases where the close operation may fail require careful
 	 * attention by implementers.It is strongly advised to relinquish the underlying resources and to internally <em>mark</em> the resource as closed, prior to throwing the
 	 * exception.The {@code close} method is unlikely to be invoked more than once and so this ensures that the resources are released in a timely manner.Furthermore it reduces
 	 * problems that could arise when the resource wraps, or is wrapped, by another resource.

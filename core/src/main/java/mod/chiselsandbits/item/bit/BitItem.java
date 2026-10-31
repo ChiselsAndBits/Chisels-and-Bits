@@ -109,7 +109,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 							getMode(stack).getIcon(),
 							new Vec3(1, 0, 0),
 							LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
-					);
+			);
 		}
 
 		return isAllowedToUse;
@@ -226,7 +226,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 								getMode(itemStack).getIcon(),
 								new Vec3(1, 0, 0),
 								LocalStrings.ChiselAttemptMissingChiselInOffhand.getText()
-						);
+				);
 				return currentState;
 			}
 		}
@@ -248,7 +248,7 @@ public class BitItem extends Item implements IChiselingItem, IBitItem, IDocument
 							context.getMode().getIcon(),
 							new Vec3(1, 0, 0),
 							context.getError().get()
-					);
+			);
 		}
 
 		return resultState;

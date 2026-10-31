@@ -48,7 +48,6 @@ public class ChiseledBlockModelDataExecutor {
 					return new BlockInformation(state, additionalStateInfo);
 				},
 
-
 				direction -> {
 					final BlockEntity otherTileEntity = Objects.requireNonNull(tileEntity.getLevel()).getBlockEntity(tileEntity.getBlockPos().offset(direction.getUnitVec3i()));
 
@@ -71,7 +70,7 @@ public class ChiseledBlockModelDataExecutor {
 								tileEntity.blockPos(),
 								tileEntity,
 								neighborhood
-			);
+					);
 
 			return IModelDataBuilder.create()
 					.withInitial(
@@ -79,7 +78,6 @@ public class ChiseledBlockModelDataExecutor {
 					)
 					.build();
 		},
-
 
 						recalculationService)
 				.thenAcceptAsync(tileEntity::setModelData, recalculationService)
@@ -94,12 +92,11 @@ public class ChiseledBlockModelDataExecutor {
 											tileEntity.getBlockState(),
 											tileEntity.getBlockState(),
 											8
-									);
+							);
 						}
 					} catch (Exception ignored) {
 					}
 				},
-
 
 						Minecraft.getInstance())
 				.exceptionally(throwable -> {

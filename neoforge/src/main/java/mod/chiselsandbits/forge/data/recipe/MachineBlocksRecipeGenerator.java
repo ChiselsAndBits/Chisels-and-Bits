@@ -48,7 +48,7 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 										)
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -71,7 +71,7 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableMap.of()
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -93,7 +93,7 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableMap.of()
 								)
 						)
-				);
+		);
 	}
 
 	private final List<String> pattern;

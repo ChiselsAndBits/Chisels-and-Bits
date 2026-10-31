@@ -27,7 +27,7 @@ public class ModItemTagGenerator extends net.neoforged.neoforge.common.data.Item
 						ModItems.ITEM_CHISEL_GOLD.get(),
 						ModItems.ITEM_CHISEL_DIAMOND.get(),
 						ModItems.ITEM_CHISEL_NETHERITE.get()
-				);
+		);
 		this.tag(ModTags.Items.FORGE_PAPER).add(Items.PAPER);
 		this.tag(ItemTags.PIGLIN_LOVED).add(ModItems.ITEM_CHISEL_GOLD.get());
 		this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTags(ModTags.Items.CHISEL);

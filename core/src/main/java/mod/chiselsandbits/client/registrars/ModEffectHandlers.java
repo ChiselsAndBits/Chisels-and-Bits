@@ -50,7 +50,6 @@ public class ModEffectHandlers {
 						}
 					},
 
-
 							ModBlocks.CHISELED_BLOCK.get());
 				});
 
@@ -80,7 +79,6 @@ public class ModEffectHandlers {
 							return true;
 						}
 					},
-
 
 							ModBlocks.CHISELED_BLOCK.get());
 				});

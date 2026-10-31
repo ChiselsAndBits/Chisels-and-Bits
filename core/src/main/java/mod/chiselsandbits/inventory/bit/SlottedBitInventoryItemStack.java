@@ -19,6 +19,7 @@ import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.components.data.SlottedBitInventoryData;
 import mod.chiselsandbits.registrars.ModDataComponentTypes;
 
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -59,18 +60,18 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 	@Override
 	public DisplayContents listContents() {
-		final var count = getContents().count();
+		final long count = getContents().count();
 
 		if (count == 0) {
 			return new DisplayContents(List.of(LocalStrings.BitBagEmpty.getText()), true, false);
 		}
 
-		var clipped = false;
-		var stream = getContents()
+		boolean clipped = false;
+		Stream<MutableComponent> stream = getContents()
 				.sorted(Comparator.comparingInt(BitSlot::getCount).reversed())
 				.map(slot ->
 						LocalStrings.BitBagEntry.getText(slot.getCount(), slot.getBlockInformation().blockState().getBlock().getName())
-		);
+				);
 
 		if (count > 5) {
 			stream = stream.limit(5);
@@ -105,7 +106,7 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 	@Override
 	public void convert(Player player) {
-	// Get counts of all the bits present in the bag and clear it.
+		// Get counts of all the bits present in the bag and clear it.
 		final Map<BlockInformation, Integer> contentMap = Maps.newHashMap();
 		this.slotMap.values().forEach(bitSlot -> {
 			final BlockInformation blockInformation = ((IBitItem) bitSlot.getItem()).getBlockInformation(bitSlot);
@@ -128,19 +129,19 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 			// Give player items for each 4096 bits they have (full block) 16^3
 			while (count >= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock()) {
-			// Give the block to the player
+				// Give the block to the player
 				ItemStack block = new ItemStack(e.getKey().blockState().getBlock().asItem());
 
 				if (player.getInventory().add(block)) {
 					count -= IServerConfiguration.getInstance().getBitSize().get().getBitsPerBlock();
 				} else {
-				// The player has run out of space!
+					// The player has run out of space!
 					break;
 				}
 			}
 
 			// Sort the remaining bits into stacks.
-			while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
+			while (count > IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
 				slotIndex++;
 				count -= IServerConfiguration.getInstance().getBagStackSize().get();
@@ -174,7 +175,9 @@ public class SlottedBitInventoryItemStack extends SlottedBitInventory implements
 
 			if (count == 0) {
 				continue;
-			} while (count> IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
+			}
+
+			while (count > IServerConfiguration.getInstance().getBagStackSize().get() && count > 0) {
 				this.slotMap.put(slotIndex, IChiselsAndBitsAPI.getInstance().getBitItemManager().create(e.getKey(), IServerConfiguration.getInstance().getBagStackSize().get()));
 				slotIndex++;
 				count -= IServerConfiguration.getInstance().getBagStackSize().get();

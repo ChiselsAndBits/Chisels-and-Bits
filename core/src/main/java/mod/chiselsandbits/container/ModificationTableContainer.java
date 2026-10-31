@@ -52,7 +52,6 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 		}
 	};
 
-
 	private final ResultContainer inventory = new ResultContainer();
 
 	public ModificationTableContainer(int windowIdIn, Inventory playerInventoryIn) {
@@ -127,7 +126,7 @@ public class ModificationTableContainer extends AbstractContainerMenu {
 	}
 
 	/**
-	 * Determines whether supplied player can use this container
+	 * Determines whether supplied player can use this container.
 	 */
 	public boolean stillValid(Player playerIn) {
 		return stillValid(this.worldPosCallable, playerIn, ModBlocks.MODIFICATION_TABLE.get());

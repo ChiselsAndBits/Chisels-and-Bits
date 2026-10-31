@@ -105,7 +105,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context) {
-	//Noop.
+		//Noop.
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class CubedChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context) {
-	//Noop.
+		//Noop.
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class DyedBitBagItemModelGenerator extends ModelProvider {
 	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of(
 						ModItems.ITEM_BIT_BAG.get()
-				).map(Item::builtInRegistryHolder);
+		).map(Item::builtInRegistryHolder);
 	}
 
 	@Override

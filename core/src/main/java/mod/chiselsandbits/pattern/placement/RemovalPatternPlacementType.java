@@ -51,14 +51,14 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 		final VoxelShape targetingShape = BlockPosStreamProvider.getForRange(
 						player.isShiftKeyDown() ? targetedPoint : Vec3.atLowerCornerOf(targetedPosition),
 						player.isShiftKeyDown() ? targetedPoint.add(0.9999, 0.9999, 0.9999) : Vec3.atLowerCornerOf(targetedPosition)
-				).map(position -> player.level().getBlockState(position).getShape(
+		).map(position -> player.level().getBlockState(position).getShape(
 						player.level(),
 						position
-				).move(
+		).move(
 								position.getX() - targetedPosition.getX(),
 								position.getY() - targetedPosition.getY(),
 								position.getZ() - targetedPosition.getZ()
-						)
+				)
 				).reduce(Shapes.empty(), (voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)).optimize();
 
 		final Vec3 offSet = player.isShiftKeyDown()
@@ -69,11 +69,11 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 				) : Vec3.ZERO;
 		final VoxelShape ownShape = ModPatternPlacementTypes.REMOVAL.get().buildVoxelShapeForWireframe(
 						sourceSnapshot, player, targetedPoint, hitFace
-				).move(
+		).move(
 						offSet.x(),
 						offSet.y(),
 						offSet.z()
-		);
+				);
 
 		return Shapes.join(
 				targetingShape, ownShape, BooleanOp.ONLY_FIRST
@@ -91,7 +91,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 							context.getLevel(),
 							targetedPosition,
 							targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+				);
 
 		final boolean isChiseledBlock = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(pos -> context.getLevel().getBlockState(pos))
@@ -134,7 +134,7 @@ public class RemovalPatternPlacementType extends AbstractCustomRegistryEntry imp
 						IStateEntryInfo::getBlockInformation,
 						s -> 1,
 						Integer::sum
-		));
+				));
 
 		final IBitInventory playerBitInventory = IBitInventoryManager.getInstance().create(context.getPlayer());
 		final boolean hasRequiredSpace = context.getPlayer().isCreative()

@@ -8,8 +8,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * The size of state entries in the current instance.
  */
-public enum StateEntrySize
-{
+public enum StateEntrySize {
 	/**
 	 * 16 Bits per block.
 	 */

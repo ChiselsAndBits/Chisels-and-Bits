@@ -28,6 +28,7 @@ import mod.chiselsandbits.profiling.ProfilingManager;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +41,7 @@ public record ChiseledBlockModelInformationBuilder(
 		BlockPos pos
 ) {
 	public ChiseledBlockModelInformation build() {
-	//Handle the case where we have no bits in the system.
+		//Handle the case where we have no bits in the system.
 		if (key().primaryState().isAir()) {
 			return ChiseledBlockModelInformation.EMPTY;
 		}
@@ -127,7 +128,7 @@ public record ChiseledBlockModelInformationBuilder(
 		private final Map<ChiseledBlockModelPartKey, QuadCollection.Builder> partBuilders = new HashMap<>();
 
 		public int material(BlockInformation information, int tintIndex) {
-			var material = new ChiseledBlockModelMaterial(information, tintIndex);
+			ChiseledBlockModelMaterial material = new ChiseledBlockModelMaterial(information, tintIndex);
 
 			if (knownMaterials.add(material)) {
 				materialRegistrationOrder.add(material);
@@ -152,11 +153,11 @@ public record ChiseledBlockModelInformationBuilder(
 						$ -> new QuadCollection.Builder()
 				);
 
-				var materialIndex = material(region.faceValue(), quad.quad().materialInfo().tintIndex());
-				var quadBuilder = new BakedQuadBuilder(quad.quad().materialInfo());
+				int materialIndex = material(region.faceValue(), quad.quad().materialInfo().tintIndex());
+				BakedQuadBuilder quadBuilder = new BakedQuadBuilder(quad.quad().materialInfo());
 				quadBuilder.from(quad.quad());
 				quadBuilder.tintIndex(materialIndex);
-				var bakedQuad = quadBuilder.build();
+				BakedQuad bakedQuad = quadBuilder.build();
 
 				if (region.isOnOuterFace() && cullDirection != null) {
 					builder.addCulledFace(cullDirection, bakedQuad);
@@ -164,7 +165,6 @@ public record ChiseledBlockModelInformationBuilder(
 					builder.addUnculledFace(bakedQuad);
 				}
 			};
-
 		}
 
 		public List<ChiseledBlockModelPart> build() {

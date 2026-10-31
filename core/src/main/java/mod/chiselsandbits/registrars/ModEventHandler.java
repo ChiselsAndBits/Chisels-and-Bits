@@ -58,24 +58,22 @@ public final class ModEventHandler {
 					private static ClickProcessingState.ProcessingResult mapResult(
 							final IPlayerLeftClickBlockEvent.Result result) {
 						return switch (result.useItemResult()) {
-							case DENY -> ClickProcessingState.ProcessingResult.DENY;
-							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
-							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
+						case DENY -> ClickProcessingState.ProcessingResult.DENY;
+						case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
+						case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 						};
-
 					}
 
 					private static ProcessingResult mapResult(
 							final ClickProcessingState.ProcessingResult processingResult
 					) {
 						return switch (processingResult) {
-							case DENY -> ProcessingResult.DENY;
-							case DEFAULT -> ProcessingResult.DEFAULT;
-							case ALLOW -> ProcessingResult.ALLOW;
+						case DENY -> ProcessingResult.DENY;
+						case DEFAULT -> ProcessingResult.DEFAULT;
+						case ALLOW -> ProcessingResult.ALLOW;
 						};
-
 					}
-				});
+		});
 		IGameEvents.getInstance().getDataPackSyncEvent().register((list, players, recipeTypeSynchroniser) -> {
 			MeasuringSynchronisationHandler.syncToAll();
 		});
@@ -107,11 +105,10 @@ public final class ModEventHandler {
 					private static ClickProcessingState.ProcessingResult mapItemResult(
 							final IPlayerRightClickBlockEvent.Result result) {
 						return switch (result.useItemResult()) {
-							case DENY -> ClickProcessingState.ProcessingResult.DENY;
-							case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
-							case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
+						case DENY -> ClickProcessingState.ProcessingResult.DENY;
+						case DEFAULT -> ClickProcessingState.ProcessingResult.DEFAULT;
+						case ALLOW -> ClickProcessingState.ProcessingResult.ALLOW;
 						};
-
 					}
 
 					private static ProcessingResult mapResult(
@@ -119,13 +116,12 @@ public final class ModEventHandler {
 							final ProcessingResult current
 					) {
 						return switch (processingResult) {
-							case DENY -> ProcessingResult.DENY;
-							case DEFAULT -> current;
-							case ALLOW -> ProcessingResult.ALLOW;
+						case DENY -> ProcessingResult.DENY;
+						case DEFAULT -> current;
+						case ALLOW -> ProcessingResult.ALLOW;
 						};
-
 					}
-				});
+		});
 		IGameEvents.getInstance().getServerAboutToStartEvent().register(minecraftServer -> ServerStartHandler.onServerStart());
 		IGameEvents.getInstance().getServerPostTickEvent().register(minecraftServer -> ServerTickHandler.onPostServerTick());
 
@@ -139,7 +135,7 @@ public final class ModEventHandler {
 						ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
 										new UpdateBlockEntityPacket(chiseledBlockEntity),
 										serverLevel.getChunkAt(chiseledBlockEntity.getBlockPos())
-								);
+						);
 					});
 		});
 

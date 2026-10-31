@@ -50,7 +50,7 @@ public interface IBitInventoryItemStack extends IBitInventory, Container {
 	void sort();
 
 	/**
-	 * Converts the inventory into blocks
+	 * Converts the inventory into blocks.
 	 */
 	void convert(Player player);
 }

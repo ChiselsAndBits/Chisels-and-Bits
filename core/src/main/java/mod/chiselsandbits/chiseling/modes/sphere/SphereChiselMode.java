@@ -165,7 +165,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context) {
-	//Noop.
+		//Noop.
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context) {
-	//Noop.
+		//Noop.
 	}
 
 	@Override
@@ -259,7 +259,7 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
 						playerEntity,
 						face -> Vec3.atLowerCornerOf(face.getUnitVec3i()),
 						Function.identity()
-		);
+				);
 
 		final Optional<Vec3> contextAnchor = context.getMetadata(ModMetadataKeys.ANCHOR.get());
 		return rayTraceHandle.map(d -> contextAnchor.filter(d::equals).isPresent()).orElseGet(contextAnchor::isPresent);

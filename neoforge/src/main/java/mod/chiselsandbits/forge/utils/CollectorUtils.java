@@ -29,7 +29,6 @@ public class CollectorUtils {
 					}
 				},
 
-
 				(m, m2) -> {
 					m.putAll(m2);
 					return m;

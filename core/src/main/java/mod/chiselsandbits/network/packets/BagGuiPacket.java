@@ -30,7 +30,7 @@ public final class BagGuiPacket extends ModPacket {
 	@Override
 	public void server(
 			final ServerPlayer player) {
-			//doAction(player);
+				//doAction(player);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public final class ChangeTrackerUpdatedPacket extends ModPacket {
 
 	@Override
 	public void writePayload(final RegistryFriendlyByteBuf buffer) {
-	//We directly use the RFBB here as it is the same instance, and because we need that type.
+		//We directly use the RFBB here as it is the same instance, and because we need that type.
 		buffer.writeCollection(this.changes, (fbb, change) -> IChange.STREAM_CODEC.encode(buffer, change));
 	}
 

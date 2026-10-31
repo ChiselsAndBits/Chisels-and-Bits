@@ -81,7 +81,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										)
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -101,7 +101,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableMap.of()
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -121,7 +121,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableMap.of()
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -140,7 +140,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableList.of()
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -158,7 +158,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										ImmutableList.of()
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -178,7 +178,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										)
 								)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(true,
 						new AbstractRecipeGenerator.Runner(
@@ -195,7 +195,7 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 										)
 								)
 						)
-				);
+		);
 	}
 
 	@Override

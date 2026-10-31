@@ -64,7 +64,7 @@ public class GreedyMeshBuilder {
 			calculatedDimensionsOffset[dimension] = 1;
 
 			for (dimensionalIterator[dimension] = -1; dimensionalIterator[dimension] < sizePerDimension; ) {
-			//Compute mask
+				//Compute mask
 				int maskIndex = 0;
 
 				for (dimensionalIterator[secondDimensionIter] = 0; dimensionalIterator[secondDimensionIter] < sizePerDimension; ++dimensionalIterator[secondDimensionIter]) {
@@ -218,7 +218,7 @@ public class GreedyMeshBuilder {
 	private static int computeWidth(int materialMask, int[] mask, int maskIndex, int i, int sizePerDimension) {
 		int width = 1;
 
-		while (i + width <sizePerDimension && materialMask == mask[maskIndex + width]) {
+		while (i + width < sizePerDimension && materialMask == mask[maskIndex + width]) {
 			width++;
 		}
 

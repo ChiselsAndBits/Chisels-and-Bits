@@ -66,7 +66,6 @@ public final class StateVariantManager implements IStateVariantManager {
 				buffer.writeIdentifier(value.getRegistryName());
 			}
 		};
-
 	}
 
 	@SafeVarargs

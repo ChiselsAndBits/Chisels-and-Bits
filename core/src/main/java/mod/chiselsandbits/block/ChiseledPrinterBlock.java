@@ -72,7 +72,7 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 								Block.box(7, 11, 7, 9, 14, 9),
 								Block.box(7.5, 10, 7.5, 8.5, 11, 8.5)
 						).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty())
-				).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), BooleanOp.OR),
+		).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).orElse(Shapes.empty()), BooleanOp.OR),
 				Shapes.join(Block.box(0, 0, 0, 16, 5, 16), BUTTON_VS_MAP.getOrDefault(direction, Shapes.empty()), BooleanOp.OR),
 				BooleanOp.OR);
 	}
@@ -123,7 +123,6 @@ public class ChiseledPrinterBlock extends Block implements EntityBlock {
 				entity.tick();
 			}
 		};
-
 	}
 
 	@Override

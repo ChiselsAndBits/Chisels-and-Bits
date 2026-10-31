@@ -146,7 +146,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 						Function.identity(),
 						pos -> snapshots.get(pos).createSnapshot()
 				)
-		);
+				);
 
 		return new MultiBlockMultiStateSnapshot(
 				copiedSnapshots,
@@ -160,7 +160,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		return BlockPosStreamProvider.getForRange(
 						startPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide()),
 						endPoint.multiply(StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide(), StateEntrySize.current().getBitsPerBlockSide())
-				)
+		)
 				.map(positionMutator::mutate)
 				.map(position -> Vec3.atLowerCornerOf(position).multiply(StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit(), StateEntrySize.current().getSizePerBit()))
 				.map(position -> {
@@ -374,7 +374,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 								IStateEntryInfo::getBlockInformation,
 								s -> 1,
 								Integer::sum
-						));
+				));
 			}
 
 			@Override
@@ -417,7 +417,6 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 				throw new NotImplementedException("Is a snapshot");
 			}
 		};
-
 	}
 
 	@Override
@@ -434,13 +433,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									return VectorUtils.toBlockPos(startPoint.add(rotatedOffset));
 								},
 
-
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.rotate(axis, rotationCount);
 									return clone;
 								})
-		);
+				);
 
 		final Vec3 rotatedStartPoint = VectorUtils.rotateMultipleTimes90Degrees(startPoint.subtract(center), axis, rotationCount).add(center);
 		final Vec3 rotatedEndPoint = VectorUtils.rotateMultipleTimes90Degrees(endPoint.subtract(center), axis, rotationCount).add(center);
@@ -471,13 +469,12 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 									return new BlockPos(mirroredX, mirroredY, mirroredZ);
 								},
 
-
 								e -> {
 									final IMultiStateSnapshot clone = e.getValue().clone();
 									clone.mirror(axis);
 									return clone;
 								})
-		);
+				);
 	}
 
 	@Override
@@ -488,7 +485,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 								Map.Entry::getKey,
 								e -> e.getValue().clone()
 						)
-		);
+				);
 
 		return new MultiBlockMultiStateSnapshot(
 				clonedSnapshots,

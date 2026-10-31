@@ -32,12 +32,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 /**
- * Our wrapper for Forge network layer
+ * Our wrapper for Forge network layer.
  */
 public class NetworkChannel {
 	private static final String LATEST_PROTO_VER = "1.0";
 	/**
-	 * Forge network channel
+	 * Forge network channel.
 	 */
 	private final INetworkChannel rawChannel;
 
@@ -51,7 +51,7 @@ public class NetworkChannel {
 		rawChannel =
 				INetworkChannel.create(
 							LATEST_PROTO_VER
-		);
+				);
 	}
 
 	/**

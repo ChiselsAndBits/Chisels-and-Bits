@@ -38,8 +38,8 @@ public class EligibilityManager implements IEligibilityManager {
 
 	private static final SimpleMaxSizedCache<BlockInformation, IEligibilityAnalysisResult> cache =
 			new SimpleMaxSizedCache<>(() -> {
-					return IPlatformRegistryManager.getInstance().getBlockStateIdMap().size() == 0 ? 1000 : IPlatformRegistryManager.getInstance().getBlockStateIdMap().size();
-	});
+				return IPlatformRegistryManager.getInstance().getBlockStateIdMap().size() == 0 ? 1000 : IPlatformRegistryManager.getInstance().getBlockStateIdMap().size();
+			});
 
 	private EligibilityManager() {
 	}
@@ -60,7 +60,7 @@ public class EligibilityManager implements IEligibilityManager {
 				);
 			}
 
-			if (blockInformation.variant().isPresent()){
+			if (blockInformation.variant().isPresent()) {
 				return new EligibilityAnalysisResult(
 						true,
 						false,
@@ -87,7 +87,7 @@ public class EligibilityManager implements IEligibilityManager {
 			}
 
 			try {
-			// require basic hardness behavior...
+				// require basic hardness behavior...
 				final ReflectionHelperBlock pb = ModBlocks.REFLECTION_HELPER_BLOCK.get();
 				final Class<? extends Block> blkClass = blk.getClass();
 

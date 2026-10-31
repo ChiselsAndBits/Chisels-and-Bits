@@ -47,7 +47,7 @@ public class BlockEligibilityAnalysisData {
 	public static BlockEligibilityAnalysisData createFromState(
 			final BlockInformation state) {
 		try {
-		// require basic hardness behavior...
+			// require basic hardness behavior...
 			final ReflectionHelperBlock reflectBlock = ModBlocks.REFLECTION_HELPER_BLOCK.get();
 			final Block blk = state.blockState().getBlock();
 			final Class<? extends Block> blkClass = blk.getClass();
@@ -89,7 +89,7 @@ public class BlockEligibilityAnalysisData {
 
 				return new BlockEligibilityAnalysisData(true, blockHardness, resistance);
 			} else if (test_b && test_c && test_d) {
-			//TODO Adapt this
+				//TODO Adapt this
 				return new BlockEligibilityAnalysisData(true, 2f, 6f);
 			} else {
 				return new BlockEligibilityAnalysisData(IServerConfiguration.getInstance().getCompatabilityMode().get(), 2f, 6f);

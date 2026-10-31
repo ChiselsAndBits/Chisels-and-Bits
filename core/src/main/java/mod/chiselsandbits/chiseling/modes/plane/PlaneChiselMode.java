@@ -206,12 +206,12 @@ public class PlaneChiselMode extends AbstractCustomRegistryEntry implements IChi
 
 		final Direction iterationDirection = iterationAdaptor.apply(blockRayTraceResult.getDirection());
 		switch (iterationDirection) {
-			case DOWN -> includeDownAxis(context, hitBlockPosVector, inBlockBitVector);
-			case UP -> includeUpAxis(context, hitBlockPosVector, inBlockBitVector);
-			case NORTH -> includeNorthAxis(context, hitBlockPosVector, inBlockBitVector);
-			case SOUTH -> includeSouthAxis(context, hitBlockPosVector, inBlockBitVector);
-			case WEST -> includeWestAxis(context, hitBlockPosVector, inBlockBitVector);
-			case EAST -> includeEastAxis(context, hitBlockPosVector, inBlockBitVector);
+		case DOWN -> includeDownAxis(context, hitBlockPosVector, inBlockBitVector);
+		case UP -> includeUpAxis(context, hitBlockPosVector, inBlockBitVector);
+		case NORTH -> includeNorthAxis(context, hitBlockPosVector, inBlockBitVector);
+		case SOUTH -> includeSouthAxis(context, hitBlockPosVector, inBlockBitVector);
+		case WEST -> includeWestAxis(context, hitBlockPosVector, inBlockBitVector);
+		case EAST -> includeEastAxis(context, hitBlockPosVector, inBlockBitVector);
 		}
 
 		return Optional.empty();

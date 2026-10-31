@@ -27,7 +27,8 @@ public class LangEntryLangGenerator implements DataProvider {
 
 	private final PackOutput generator;
 
-	private LangEntryLangGenerator(final PackOutput generator) {this.generator = generator; }
+	private LangEntryLangGenerator(final PackOutput generator) {
+		this.generator = generator; }
 
 	@Override
 	public CompletableFuture<?> run(final CachedOutput cache) {

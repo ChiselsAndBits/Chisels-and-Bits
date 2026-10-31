@@ -23,7 +23,6 @@ public final class ModModificationOperationGroups {
 		}
 	};
 
-
 	public static final IModificationOperationGroup MIRROR = new IModificationOperationGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -35,7 +34,6 @@ public final class ModModificationOperationGroups {
 			return LocalStrings.PatternModificationGroupMirror.getText();
 		}
 	};
-
 
 	private ModModificationOperationGroups() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModModificationOperationGroups.This is a utility class");

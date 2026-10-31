@@ -357,7 +357,6 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				throw new NotImplementedException("A chisel adapting world mutator statistics are ephemeral.");
 			}
 		};
-
 	}
 
 	@Override
@@ -380,7 +379,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 						15 * StateEntrySize.current().getSizePerBit(),
 						15 * StateEntrySize.current().getSizePerBit(),
 						15 * StateEntrySize.current().getSizePerBit()
-				);
+		);
 	}
 
 	/**
@@ -472,7 +471,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 							getPos(),
 							convertedBlock.defaultBlockState(),
 							Block.UPDATE_ALL
-					);
+			);
 
 			final BlockEntity convertedTileEntity = getWorld().getBlockEntity(getPos());
 
@@ -546,7 +545,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 							getPos(),
 							convertedBlock.defaultBlockState(),
 							Block.UPDATE_ALL
-					);
+			);
 
 			final BlockEntity convertedTileEntity = getWorld().getBlockEntity(getPos());
 
@@ -631,9 +630,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 	public IBatchMutation batch() {
 		if (getWorld().isOutsideBuildHeight(getPos())) {
 			return () -> {
-			//Noop
+				//Noop
 			};
-
 		}
 
 		final BlockEntity blockEntity = getWorld().getBlockEntity(getPos());
@@ -650,17 +648,16 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		BlockInformation initializationState = currentState;
 
 		if (currentState.isAir()) {
-		//This happens when placing into an empty blockspace.
-		//We will assume a simple rock as the base material.The TE will fix itself after the placement.
+			//This happens when placing into an empty blockspace.
+			//We will assume a simple rock as the base material.The TE will fix itself after the placement.
 			currentState = DEFAULT_STATE;
 			initializationState = BlockInformation.AIR;
 		}
 
 		if (!IEligibilityManager.getInstance().canBeChiseled(currentState) && !currentState.isAir()) {
 			return () -> {
-			//Noop
+				//Noop
 			};
-
 		}
 
 		final Optional<Block> optionalWithConvertedBlock = IConversionManager.getInstance().getChiseledVariantOf(currentState.blockState());
@@ -671,7 +668,7 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 							getPos(),
 							convertedBlock.defaultBlockState(),
 							Block.UPDATE_ALL
-					);
+			);
 
 			final BlockEntity convertedTileEntity = getWorld().getBlockEntity(getPos());
 
@@ -685,18 +682,16 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 		}
 
 		return () -> {
-		//Noop
+			//Noop
 		};
-
 	}
 
 	@Override
 	public IBatchMutation batch(final IChangeTracker changeTracker) {
 		if (getWorld().isOutsideBuildHeight(getPos())) {
 			return () -> {
-			//Noop
+				//Noop
 			};
-
 		}
 
 		final BlockState blockState = getWorld().getBlockState(getPos());
@@ -708,9 +703,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 
 		if (!IEligibilityManager.getInstance().canBeChiseled(currentState) && !currentState.isAir()) {
 			return () -> {
-			//Noop
+				//Noop
 			};
-
 		}
 
 		final IBatchMutation innerMutation = batch();
@@ -722,7 +716,6 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 				innerMutation.close();
 				changeTracker.onBlockUpdated(getPos(), before, after);
 			};
-
 		}
 
 		return innerMutation;
@@ -838,7 +831,8 @@ public class ChiselAdaptingWorldMutator implements IWorldAreaMutator, IAreaAcces
 	private static class PreAdaptedShapeIdentifier implements ISingleStateAreaShareIdentifier {
 		private final int blockState;
 
-		private PreAdaptedShapeIdentifier(final BlockState blockState) {this.blockState = IBlockStateIdManager.getInstance().getIdFrom(blockState); }
+		private PreAdaptedShapeIdentifier(final BlockState blockState) {
+			this.blockState = IBlockStateIdManager.getInstance().getIdFrom(blockState); }
 
 		@Override
 		public boolean equals(final Object o) {

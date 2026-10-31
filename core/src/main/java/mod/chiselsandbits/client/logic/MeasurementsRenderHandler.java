@@ -16,7 +16,7 @@ public class MeasurementsRenderHandler {
 							poseStack,
 							bufferSource,
 							partialTickTime
-					);
+			);
 		}
 	}
 }

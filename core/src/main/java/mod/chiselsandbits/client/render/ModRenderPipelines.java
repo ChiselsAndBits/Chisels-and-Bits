@@ -13,8 +13,7 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
-public enum ModRenderPipelines
-{
+public enum ModRenderPipelines {
 	CHISEL_PREVIEW_IN_BLOCKS(() -> RenderPipeline.builder(
 			LINES_SNIPPET,
 			ModRenderPipelineSnippets.NO_DEPTH_TEST.snippet()

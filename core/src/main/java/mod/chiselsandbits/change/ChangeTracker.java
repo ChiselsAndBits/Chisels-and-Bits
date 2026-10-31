@@ -27,7 +27,8 @@ public class ChangeTracker implements IChangeTracker {
 		this.player = null;
 	}
 
-	public ChangeTracker(final Player player) {this.player = player; }
+	public ChangeTracker(final Player player) {
+		this.player = player; }
 
 	public void reset() {
 		changes.clear();

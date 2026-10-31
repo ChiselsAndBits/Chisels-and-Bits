@@ -18,11 +18,11 @@ public final class ProcessingInputTracker {
 	}
 
 	public void onStartedLeftClicking(final Player player) {
-	//Noop
+		//Noop
 	}
 
 	public void onStartedRightClicking(final Player player) {
-	//Noop
+		//Noop
 	}
 
 	public void onStoppedLeftClicking(final Player player) {

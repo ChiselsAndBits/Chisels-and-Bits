@@ -109,7 +109,6 @@ public interface IVoxelShapeManager {
 		return getCached(identifier, offset, CollisionType.NONE_AIR);
 	};
 
-
 	/**
 	 * Returns the shape that is referenced by a given area shape identifier.
 	 * If no shape with the given identifier is known then an empty optional is returned.

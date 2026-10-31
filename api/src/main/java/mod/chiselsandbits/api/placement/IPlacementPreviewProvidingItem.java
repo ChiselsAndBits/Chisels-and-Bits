@@ -20,7 +20,7 @@ public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem,
 	}
 
 	/**
-	 * Returns whether to effectively ignore the depth buffer and render in front of everything
+	 * Returns whether to effectively ignore the depth buffer and render in front of everything.
 	 *
 	 * @param heldStack The stack to get depth logic for.
 	 * @return Whether depth is effectively ignored.

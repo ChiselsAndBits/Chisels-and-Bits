@@ -9,7 +9,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public class VectorUtils {
-	public final static double DEG_TO_RAD_FACTOR = (2*Math.PI) / 360d;
+	public static final double DEG_TO_RAD_FACTOR = (2 * Math.PI) / 360d;
 	public static final Vec3 ONE = new Vec3(1, 1, 1);
 
 	private VectorUtils() {
@@ -34,25 +34,25 @@ public class VectorUtils {
 
 	public static Vec3 rotate(final Vec3 vector3d, final Direction.Axis axis, final double angleInRadian) {
 		switch (axis) {
-			case X
+		case X
 			: return new Vec3(
 					vector3d.x(),
 					vector3d.y() * Math.cos((float) angleInRadian) - vector3d.z() * Math.sin((float) angleInRadian),
 					vector3d.y() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
 			);
-			case Y
+		case Y
 			: return new Vec3(
 					vector3d.x() * Math.cos((float) angleInRadian) + vector3d.z() * Math.sin((float) angleInRadian),
 					vector3d.y(),
 					-vector3d.x() * Math.sin((float) angleInRadian) + vector3d.z() * Math.cos((float) angleInRadian)
 			);
-			case Z
+		case Z
 			: return new Vec3(
 					vector3d.x() * Math.cos((float) angleInRadian) - vector3d.y() * Math.sin((float) angleInRadian),
 					vector3d.x() * Math.sin((float) angleInRadian) + vector3d.y() * Math.cos((float) angleInRadian),
 					vector3d.z()
 			);
-			default
+		default
 			: throw new IllegalArgumentException(String.format("Unknown axis : %s", axis));
 		}
 	}

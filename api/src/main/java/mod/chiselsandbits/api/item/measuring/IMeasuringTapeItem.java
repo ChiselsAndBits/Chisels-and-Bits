@@ -41,6 +41,6 @@ public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMe
 	 */
 	@Override
 	default void onRightClickProcessingEnd(final Player player, final ItemStack stack) {
-	//Noop -> Measurement tapes don't care for continuous clicking.
+		//Noop -> Measurement tapes don't care for continuous clicking.
 	}
 }

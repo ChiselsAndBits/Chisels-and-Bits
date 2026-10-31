@@ -20,7 +20,7 @@ public class CompressedDataFindingCodec<V> implements Codec<V> {
 
 	@Override
 	public <T> DataResult<Pair<V, T>> decode(DynamicOps<T> ops, T input) {
-		final var mapDataResult = ops.getMap(input);
+		final DataResult<MapLike<T>> mapDataResult = ops.getMap(input);
 		final MapLike<T> map;
 
 		try {
@@ -29,8 +29,8 @@ public class CompressedDataFindingCodec<V> implements Codec<V> {
 			return elementCodec.decode(ops, input);
 		}
 
-		final var compressedIndicator = map.get(NbtConstants.COMPRESSED);
-		final var innerData = map.get(NbtConstants.DATA);
+		final T compressedIndicator = map.get(NbtConstants.COMPRESSED);
+		final T innerData = map.get(NbtConstants.DATA);
 
 		if (compressedIndicator == null && innerData != null) {
 			return decode(ops, innerData);

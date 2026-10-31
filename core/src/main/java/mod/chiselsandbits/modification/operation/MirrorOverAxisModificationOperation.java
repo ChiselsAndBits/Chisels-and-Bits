@@ -16,7 +16,8 @@ import net.minecraft.resources.Identifier;
 public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryEntry implements IModificationOperation {
 	private final Direction.Axis axis;
 
-	private MirrorOverAxisModificationOperation(final Direction.Axis axis) {this.axis = axis; }
+	private MirrorOverAxisModificationOperation(final Direction.Axis axis) {
+		this.axis = axis; }
 
 	@Override
 	public void apply(final IGenerallyModifiableAreaMutator source) {
@@ -28,14 +29,16 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 
 		private Builder() { }
 
-		public static Builder create() { return new Builder(); }
+		public static Builder create() {
+			return new Builder(); }
 
 		public Builder withAxis(Direction.Axis axis) {
 			this.axis = axis;
 			return this;
 		}
 
-		public MirrorOverAxisModificationOperation build() { return new MirrorOverAxisModificationOperation(axis); }
+		public MirrorOverAxisModificationOperation build() {
+			return new MirrorOverAxisModificationOperation(axis); }
 	}
 
 	@Override
@@ -51,10 +54,9 @@ public class MirrorOverAxisModificationOperation extends AbstractCustomRegistryE
 	@Override
 	public Component getDisplayName() {
 		return switch (axis) {
-			case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
-			case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
-			case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
+		case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
+		case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
+		case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
 		};
-
 	}
 }

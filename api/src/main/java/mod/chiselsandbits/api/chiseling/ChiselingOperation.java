@@ -3,8 +3,7 @@ package mod.chiselsandbits.api.chiseling;
 /**
  * Represents the mode of operandus of the current chiseling context.
  */
-public enum ChiselingOperation
-{
+public enum ChiselingOperation {
 	/**
 	 * The current operation is a chisel.
 	 * As such it removes the bit underneath the cursor.
@@ -19,7 +18,8 @@ public enum ChiselingOperation
 
 	private final boolean processesAir;
 
-	ChiselingOperation(final boolean processesAir) {this.processesAir = processesAir; }
+	ChiselingOperation(final boolean processesAir) {
+		this.processesAir = processesAir; }
 
 	/**
 	 * Indicates if this operation processes air.

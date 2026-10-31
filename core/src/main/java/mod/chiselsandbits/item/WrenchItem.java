@@ -84,6 +84,6 @@ public class WrenchItem extends Item implements IWithModeItem<IModificationOpera
 
 	@Override
 	public void onRightClickProcessingEnd(final Player player, final ItemStack stack) {
-	//Noop
+		//Noop
 	}
 }

@@ -31,7 +31,7 @@ public interface IMultiStateObjectStatistics extends IStatistics {
 	Map<BlockInformation, Integer> getStateCounts();
 
 	/**
-	 * Returns all states (without count) that are contained in the object
+	 * Returns all states (without count) that are contained in the object.
 	 *
 	 * @return All states in the object.
 	 */

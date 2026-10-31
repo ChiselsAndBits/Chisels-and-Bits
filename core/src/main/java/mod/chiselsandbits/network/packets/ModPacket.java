@@ -28,10 +28,10 @@ public abstract class ModPacket implements CustomPacketPayload {
 		throw new RuntimeException(getClass().getName() + " is not a client packet.");
 	}
 
-	abstract public void writePayload(
+	public abstract void writePayload(
 			RegistryFriendlyByteBuf buffer);
 
-	abstract public void readPayload(
+	public abstract void readPayload(
 			RegistryFriendlyByteBuf buffer);
 
 	public void processPacket(

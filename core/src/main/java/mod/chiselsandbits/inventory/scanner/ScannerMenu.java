@@ -30,6 +30,6 @@ public class ScannerMenu extends ScenaContainerMenu {
 
 	@Override
 	protected void registerQuickMoveRules() {
-	//Noop for now.
+		//Noop for now.
 	}
 }

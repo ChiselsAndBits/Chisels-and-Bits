@@ -122,7 +122,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 			return;
 		}
 
-		final var result = palette.getIndex(currentState);
+		final StateEntryPalette.Result<Integer> result = palette.getIndex(currentState);
 		result.whenSizeChanged(this::onPaletteResize);
 		final int blockStateId = result.value();
 		this.data = ByteArrayUtils.fill(blockStateId, entryWidth, getTotalEntryCount());
@@ -158,7 +158,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 
 	public void setBlockInformation(final int x, final int y, final int z, final BlockInformation blockState) {
 		final int offSetIndex = doCalculatePositionIndex(x, y, z);
-		final var result = palette.getIndex(blockState);
+		final StateEntryPalette.Result<Integer> result = palette.getIndex(blockState);
 		result.whenSizeChanged(this::onPaletteResize);
 		final int blockStateId = result.value();
 
@@ -249,14 +249,14 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	public StateEntryStorage limitedToProgress(final float progress) {
-		final var noneAirCounts = count().entrySet()
+		final int noneAirCounts = count().entrySet()
 				.stream()
 				.filter(e -> !e.getKey().isAir())
 				.mapToInt(Map.Entry::getValue)
 				.sum();
 
-		final var allowedCounts = (int) Math.floor(noneAirCounts * progress);
-		final var result = new StateEntryStorage();
+		final int allowedCounts = (int) Math.floor(noneAirCounts * progress);
+		final StateEntryStorage result = new StateEntryStorage();
 
 		if (allowedCounts == 0) {
 			return result;
@@ -365,7 +365,7 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 		this.entryWidth = LongMath.log2(newSize, RoundingMode.CEILING);
 
 		if (this.entryWidth != currentEntryWidth) {
-		//We need to update the data array to match the new palette size
+			//We need to update the data array to match the new palette size
 			final BitSet rawData = this.data;
 
 			this.data = new BitSet(getTotalEntryCount() * entryWidth);
@@ -382,7 +382,6 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 				StateEntryStorage.this.ongoingBatchMutations.remove(this);
 			}
 		};
-
 
 		ongoingBatchMutations.add(mutation);
 
@@ -419,11 +418,11 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	public String toString() {
-		return "SimpleStateEntryStorage{" +
-		"palette = " + palette +
-		", data = " + data +
-		", entryWidth = " + entryWidth +
-		'}';
+		return "SimpleStateEntryStorage{"
+			+ "palette = " + palette
+			+ ", data = " + data
+			+ ", entryWidth = " + entryWidth
+			+ '}';
 	}
 
 	public Codec<StateEntryStorage> codec() {

@@ -37,7 +37,7 @@ public class DropBlockLootTableGenerator extends LootTableProvider {
 
 	@Override
 	protected void validate(final WritableRegistry<LootTable> tables, final ValidationContextSource validationContext, final ProblemReporter.Collector problems) {
-	//Noop
+		//Noop
 	}
 
 	private static List<LootTableProvider.SubProviderEntry> createTables(final FeatureFlagSet featureFlagSet) {

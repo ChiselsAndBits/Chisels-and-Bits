@@ -26,6 +26,6 @@ public class NoopChiselContextPreviewRenderer implements IChiselContextPreviewRe
 			final LevelRenderState levelRenderState,
 			final float partialTicks,
 			final IChiselingContext currentContextSnapshot) {
-			//Some people do not want this, so we have this.
+				//Some people do not want this, so we have this.
 	}
 }

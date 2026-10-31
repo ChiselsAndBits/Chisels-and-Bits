@@ -132,7 +132,7 @@ public abstract class AbstractBitInventory implements IBitInventory {
 			return 64;
 		}
 
-		//TODO: Figure this out... ...
+		//TODO: Figure this out......
 		return stack.getMaxStackSize();
 	}
 

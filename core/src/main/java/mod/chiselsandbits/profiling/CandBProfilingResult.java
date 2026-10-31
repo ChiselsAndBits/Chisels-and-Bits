@@ -14,7 +14,8 @@ import net.minecraft.util.profiling.ResultField;
 public class CandBProfilingResult implements IProfilerResult {
 	private final ProfileResults innerResult;
 
-	public CandBProfilingResult(final ProfileResults innerResult) {this.innerResult = innerResult; }
+	public CandBProfilingResult(final ProfileResults innerResult) {
+		this.innerResult = innerResult; }
 
 	@Override
 	public void writeToFile(final Path file) {

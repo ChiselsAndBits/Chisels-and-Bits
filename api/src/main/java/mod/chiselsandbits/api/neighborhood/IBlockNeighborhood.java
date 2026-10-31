@@ -1,16 +1,17 @@
 package mod.chiselsandbits.api.neighborhood;
 
 import java.util.Optional;
+
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
 import mod.chiselsandbits.api.variant.state.IStateVariant;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
-// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
 
 /**
  * Marker interface used to detect block neighborhoods in cache keys.
@@ -30,7 +31,6 @@ public interface IBlockNeighborhood {
 			return null;
 		}
 	};
-
 
 	/**
 	 * Creates a block neighborhood around the given block entity.
@@ -55,7 +55,6 @@ public interface IBlockNeighborhood {
 
 							return new BlockInformation(state, additionalStateInfo);
 						},
-
 
 						direction -> {
 							final Level level = blockEntity.getLevel();

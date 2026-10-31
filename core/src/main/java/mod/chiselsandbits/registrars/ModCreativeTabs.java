@@ -79,15 +79,7 @@ public final class ModCreativeTabs {
 
 							if (!defaultStateVariants.isEmpty()) {
 								defaultStateVariants.forEach(blockInformation -> {
-									if (states.add(blockInformation)) {
-										if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
-											final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
-
-											if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-												output.accept(resultStack);
-											}
-										}
-									}
+									emitDefaultStateVariant(output, blockInformation, states);
 								});
 
 								return;
@@ -104,18 +96,22 @@ public final class ModCreativeTabs {
 
 							final BlockInformation information = new BlockInformation(blockState, Optional.empty());
 
-							if (states.add(information)) {
-								if (IEligibilityManager.getInstance().canBeChiseled(information)) {
-									final ItemStack resultStack = IBitItemManager.getInstance().create(information);
-
-									if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
-										output.accept(resultStack);
-									}
-								}
-							}
+							emitDefaultStateVariant(output, information, states);
 						});
 			})
 			.build());
+
+	private static void emitDefaultStateVariant(final CreativeModeTab.Output output, final BlockInformation blockInformation, final Set<BlockInformation> states) {
+		if (states.add(blockInformation)) {
+			if (IEligibilityManager.getInstance().canBeChiseled(blockInformation)) {
+				final ItemStack resultStack = IBitItemManager.getInstance().create(blockInformation);
+
+				if (!resultStack.isEmpty() && resultStack.getItem() instanceof IBitItem) {
+					output.accept(resultStack);
+				}
+			}
+		}
+	}
 
 	public static IRegistryObject<CreativeModeTab> CLIPBOARD = REGISTRAR.register("clipboard", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.PATTERN_SCANNER.get()))

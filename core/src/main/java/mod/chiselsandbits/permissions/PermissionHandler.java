@@ -31,7 +31,6 @@ public final class PermissionHandler implements IPermissionHandler {
 			}
 		};
 
-
 		checkers.put(registration, checker);
 
 		return registration;

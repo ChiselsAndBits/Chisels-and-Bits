@@ -124,8 +124,8 @@ public class ChiselingContext implements IChiselingContext {
 		if (!IPermissionHandler.getInstance().canManipulate(
 				playerEntity, mutator
 		)) {
-		//We are not allowed to edit the current area.
-		//Nuke it.
+			//We are not allowed to edit the current area.
+			//Nuke it.
 			mutator = null;
 			return Optional.empty();
 		}
@@ -353,7 +353,7 @@ public class ChiselingContext implements IChiselingContext {
 		return IMutatorFactory.getInstance().in(
 						getWorld(),
 						position
-				).getInAreaTarget(
+		).getInAreaTarget(
 						inBlockOffset
 				);
 	}

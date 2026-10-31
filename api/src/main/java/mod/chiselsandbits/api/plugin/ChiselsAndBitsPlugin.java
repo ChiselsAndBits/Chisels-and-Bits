@@ -17,7 +17,7 @@ public @interface ChiselsAndBitsPlugin {
 	 *
 	 * @return The ids of the mods required to load.
 	 */
-	String[] requiredMods() default { };
+	String[] requiredMods() default {};
 
 	/**
 	 * Indicator for an experimental plugin.

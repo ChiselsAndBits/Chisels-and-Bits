@@ -17,6 +17,6 @@ public class NoopSelectedToolModeIconRenderer implements ISelectedToolModeIconRe
 
 	@Override
 	public void extractGraphics(final GuiGraphicsExtractor guiGraphics, final ItemStack stack) {
-	//Noop
+		//Noop
 	}
 }

@@ -28,7 +28,8 @@ public class CombinedChange implements IChange {
 
 	private final List<IChange> changes;
 
-	public CombinedChange(final List<IChange> changes) {this.changes = changes; }
+	public CombinedChange(final List<IChange> changes) {
+		this.changes = changes; }
 
 	public List<IChange> getChanges() {
 		return changes;

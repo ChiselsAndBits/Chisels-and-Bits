@@ -88,12 +88,12 @@ public class VoxelShapeManager implements IVoxelShapeManager {
 
 		@Override
 		public String toString() {
-			return "Key{" +
-					"identifier = " + identifier.toString() +
-					", offset = " + offset +
-					", predicate = " + sizeType +
-					", simplify = " + simplify +
-					'}';
+			return "Key{"
+					+ "identifier = " + identifier.toString()
+					+ ", offset = " + offset
+					+ ", predicate = " + sizeType
+					+ ", simplify = " + simplify
+					+ '}';
 		}
 
 		@Override

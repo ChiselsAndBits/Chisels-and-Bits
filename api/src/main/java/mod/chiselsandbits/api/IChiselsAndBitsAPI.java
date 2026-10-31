@@ -209,7 +209,7 @@ public interface IChiselsAndBitsAPI {
 	IModificationOperation getDefaultModificationOperation();
 
 	/**
-	 * Gives access to the plugin manager that is used to process chisels and bits plugins
+	 * Gives access to the plugin manager that is used to process chisels and bits plugins.
 	 * @return The plugin manager
 	 */
 	IPluginManager getPluginManager();

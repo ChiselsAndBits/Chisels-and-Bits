@@ -46,7 +46,6 @@ final class MultiThreadAwareStorageEngine<TPayload> implements IMultiThreadedSto
 			output.store(MapCodec.assumeMapUnsafe(internalEngine), payload);
 		},
 
-
 				saveService);
 	}
 

@@ -30,7 +30,7 @@ public class DyeableItemsRecipeGenerator extends RecipeProvider {
 								event.getGenerator().getPackOutput(),
 								event.getLookupProvider()
 						)
-				);
+		);
 	}
 
 	private static final class Runner extends RecipeProvider.Runner {

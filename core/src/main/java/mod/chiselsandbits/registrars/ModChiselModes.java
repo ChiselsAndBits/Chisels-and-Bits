@@ -347,10 +347,9 @@ public final class ModChiselModes {
 	);
 
 	public static Supplier<ICustomRegistry<IChiselMode>> REGISTRY =
-	() -> {
-		throw new IllegalStateException("Registry is not setup yet.Use a Deferred Register!");
-	};
-
+			() -> {
+				throw new IllegalStateException("Registry is not setup yet.Use a Deferred Register!");
+			};
 
 	private ModChiselModes() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModChiselModes.This is a utility class");

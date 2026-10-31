@@ -56,9 +56,7 @@ public class ClickProcessingState {
 	/**
 	 * The processing result of the click interaction.
 	 */
-	public enum ProcessingResult
-
-	{
+	public enum ProcessingResult {
 		/**
 		 * Deny the further processing of the interaction.
 		 */

@@ -52,7 +52,7 @@ public class PlacePatternPlacementType extends AbstractCustomRegistryEntry imple
 							context.getLevel(),
 							targetedPosition,
 							targetedPosition.add(0.9999, 0.9999, 0.9999)
-		);
+				);
 
 		final boolean isAir = BlockPosStreamProvider.getForAccessor(areaMutator)
 				.map(context.getLevel()::getBlockState)

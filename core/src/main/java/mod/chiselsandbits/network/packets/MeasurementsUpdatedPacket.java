@@ -66,7 +66,7 @@ public final class MeasurementsUpdatedPacket extends ModPacket {
 
 	@Override
 	public void server(final ServerPlayer playerEntity) {
-	//Noop
+		//Noop
 	}
 
 	@Override

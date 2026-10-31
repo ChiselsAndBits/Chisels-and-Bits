@@ -146,7 +146,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 					} catch (SpaceOccupiedException exception) {
 						return false;
 					}
-		});
+				});
 
 		if (noCollisions) {
 			try (IBatchMutation ignored = areaMutator.batch(IChangeTrackerManager.getInstance().getChangeTracker(context.getPlayer()))) {
@@ -217,7 +217,7 @@ public class ChiseledBlockItem extends BlockItem implements IChiseledBlockItem {
 					} catch (SpaceOccupiedException exception) {
 						return false;
 					}
-		});
+				});
 		return noSpaceOccupied
 				? PlacementResult.success()
 				: PlacementResult.failure(

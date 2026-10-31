@@ -11,7 +11,8 @@ import net.minecraft.world.item.ItemStack;
 public class IItemHandlerBitInventory extends AbstractBitInventory {
 	private final ResourceHandler<ItemResource> itemHandler;
 
-	public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {this.itemHandler = itemHandler; }
+	public IItemHandlerBitInventory(final ResourceHandler<ItemResource> itemHandler) {
+		this.itemHandler = itemHandler; }
 
 	/**
 	 * Gets a copy of the stack that is in the given slot.

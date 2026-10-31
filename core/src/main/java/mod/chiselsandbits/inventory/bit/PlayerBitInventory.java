@@ -92,7 +92,7 @@ public class PlayerBitInventory extends ContainerBitInventory {
 
 	@Override
 	public void insert(final BlockInformation blockInformation, int count) throws IllegalArgumentException {
-	//Check for preferred bit bag pickup / insertion handling.
+		//Check for preferred bit bag pickup / insertion handling.
 		for (int i = 0; i < getInventorySize(); i++) {
 			if (count <= 0) {
 				return;

@@ -22,5 +22,4 @@ public interface IAreaShapeIdentifier {
 			return obj == this;
 		}
 	};
-
 }

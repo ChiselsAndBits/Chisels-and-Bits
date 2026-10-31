@@ -22,7 +22,7 @@ public class Fabric implements ModInitializer {
 						Objects::isNull,
 						target -> Optional.empty(),
 						FabricPluginDiscoverer.getInstance()
-				)));
+		)));
 	}
 
 	@Override

@@ -150,7 +150,7 @@ public class BitChange implements IChange {
 								try {
 									multiStateBlockEntity.setInAreaTarget(iStateEntryInfo.getBlockInformation(), iStateEntryInfo.getStartPoint());
 								} catch (SpaceOccupiedException e) {
-								//Noop
+									//Noop
 								}
 							});
 		}
@@ -220,7 +220,7 @@ public class BitChange implements IChange {
 								try {
 									multiStateBlockEntity.setInAreaTarget(s.getBlockInformation(), s.getStartPoint());
 								} catch (SpaceOccupiedException e) {
-								//Noop
+									//Noop
 								}
 							});
 		}

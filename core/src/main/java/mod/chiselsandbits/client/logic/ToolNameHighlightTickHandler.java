@@ -23,7 +23,7 @@ public class ToolNameHighlightTickHandler {
 					if (stack.has(ModDataComponentTypes.HIGHLIGHT_START_TIME.get())) {
 						final long startTime = stack.getOrDefault(ModDataComponentTypes.HIGHLIGHT_START_TIME.get(), -50L);
 
-						if (Minecraft.getInstance().level.getGameTime() + 2 <startTime || startTime + 40 <Minecraft.getInstance().level.getGameTime()) {
+						if (Minecraft.getInstance().level.getGameTime() + 2 < startTime || startTime + 40 < Minecraft.getInstance().level.getGameTime()) {
 							stack.remove(ModDataComponentTypes.HIGHLIGHT_START_TIME.get());
 						}
 					}

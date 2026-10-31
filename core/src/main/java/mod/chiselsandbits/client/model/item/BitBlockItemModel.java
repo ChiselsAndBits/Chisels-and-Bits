@@ -2,6 +2,7 @@ package mod.chiselsandbits.client.model.item;
 
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.IntList;
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
 import mod.chiselsandbits.client.model.builder.BitBlockQuadCollectionBuilder;
 import mod.chiselsandbits.client.model.information.BitBlockModelInformation;
@@ -38,7 +39,7 @@ public record BitBlockItemModel(
 			return;
 		}
 
-		var information = bitItem.getBlockInformation(stack);
+		BlockInformation information = bitItem.getBlockInformation(stack);
 		renderState.appendModelIdentityElement(information);
 
 		final BitBlockModelInformation modelInformation = BitBlockBakedModelManager.getInstance().get(

@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Represents an item that can be a pattern
+ * Represents an item that can be a pattern.
  */
 public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithModeItem<IPatternPlacementType>, IPlacementPreviewProvidingItem, IChangeTrackingItem {
 	@Override
@@ -29,7 +29,7 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 						player,
 						rayTraceResult.getLocation(),
 						rayTraceResult.getDirection()
-				);
+		);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public interface IPatternItem extends IMultiStateItem, ISupportsSealing, IWithMo
 								blockHitResult
 						),
 						true
-				);
+		);
 	}
 
 	@Override

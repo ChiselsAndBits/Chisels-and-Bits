@@ -81,14 +81,14 @@ public class EffectUtils {
 		double z = blockPos.getZ() + RANDOM.nextDouble() * (bb.maxZ - bb.minZ - boxOffset * 2d) + boxOffset + bb.minZ;
 
 		switch (hitDirection) {
-			case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
-			case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
-			case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
-			case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
-			case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
-			case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
-			default -> {
-			}
+		case DOWN -> y = blockPos.getY() + bb.minY - boxOffset;
+		case UP -> y = blockPos.getY() + bb.maxY + boxOffset;
+		case NORTH -> z = blockPos.getZ() + bb.minZ - boxOffset;
+		case SOUTH -> z = blockPos.getZ() + bb.maxZ + boxOffset;
+		case WEST -> x = blockPos.getX() + bb.minX - boxOffset;
+		case EAST -> x = blockPos.getX() + bb.maxX + boxOffset;
+		default -> {
+		}
 		}
 
 		manager.add((new TerrainParticle((ClientLevel) world, x, y, z, 0.0D, 0.0D, 0.0D, primaryState, blockPos))

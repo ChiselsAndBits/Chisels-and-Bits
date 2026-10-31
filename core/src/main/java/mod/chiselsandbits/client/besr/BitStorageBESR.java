@@ -124,7 +124,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 							BlockPos.ZERO,
 							new SimpleSnapshot(finalInnerModelBlob),
 							IBlockNeighborhood.EMPTY
-		);
+				);
 
 		float r;
 		float g;
@@ -140,9 +140,9 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 		g = ((color >> 8) & 0xff) / 255f;
 		b = (color & 0xff) / 255f;
 
-		var tintColor = ARGB.color((int) (r * 255f), (int) (g * 255f), (int) (b * 255f));
+		int tintColor = ARGB.color((int) (r * 255f), (int) (g * 255f), (int) (b * 255f));
 
-		var parts = new ArrayList<BlockStateModelPart>();
+		ArrayList<BlockStateModelPart> parts = new ArrayList<>();
 		model.collectParts(
 				RANDOM_SOURCE,
 				parts

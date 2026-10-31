@@ -1,7 +1,7 @@
 package mod.chiselsandbits.client.util;
 
 /**
- * Interpolation helper
+ * Interpolation helper.
  * @author Covers1624 -> Permission granted for reuse
  */
 public class InterpolationHelper {
@@ -68,7 +68,7 @@ public class InterpolationHelper {
 				this.p01 = i; // Top left.
 				this.y1 = y;
 			} else {
-			// Top right.
+				// Top right.
 				this.p11 = i;
 			}
 		}

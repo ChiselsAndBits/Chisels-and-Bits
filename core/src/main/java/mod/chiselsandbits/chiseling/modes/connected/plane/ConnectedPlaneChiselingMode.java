@@ -131,7 +131,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 	@Override
 	public void onStoppedLeftClicking(final Player playerEntity, final IChiselingContext context) {
-	//NOOP
+		//NOOP
 	}
 
 	@Override
@@ -179,7 +179,6 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 									.multiply(StateEntrySize.current().getSizePerBitScalingVector())
 							);
 				},
-
 
 				position -> IMutatorFactory.getInstance().covering(
 						context.getWorld(),
@@ -245,7 +244,7 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 	@Override
 	public void onStoppedRightClicking(final Player playerEntity, final IChiselingContext context) {
-	//NOOP
+		//NOOP
 	}
 
 	@Override
@@ -274,8 +273,8 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
-				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
-				face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
+				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i())
+				: face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockRayTraceResult.getLocation().add(
 				placementFacingAdapter.apply(blockRayTraceResult.getDirection())
@@ -348,9 +347,9 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 		final Vec3 selectedInBlockPosition = Vec3.atLowerCornerOf(
 						selectedPosition
-				).multiply(
+		).multiply(
 						StateEntrySize.current().getSizePerBitScalingVector()
-		);
+				);
 
 		final Optional<IStateEntryInfo> targetedInfo = worldAccessor.getInAreaTarget(
 				stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockRayTraceResult.getDirection(), selectedInBlockPosition)
@@ -359,13 +358,15 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 		if (targetedInfo.isEmpty()) {
 			context.setError(LocalStrings.ChiselAttemptFailedTargetedBlockNotChiselable.getText());
 			return Optional.of(ClickProcessingState.DEFAULT);
-		} while (!toProcess.isEmpty()) {
+		}
+
+		while (!toProcess.isEmpty()) {
 			final Vec3i targetedPosition = toProcess.removeFirst();
 			final Vec3 targetedInBlockPosition = Vec3.atLowerCornerOf(
 							targetedPosition
-					).multiply(
+			).multiply(
 							StateEntrySize.current().getSizePerBitScalingVector()
-			);
+					);
 			final Optional<IStateEntryInfo> targetCandidate = worldAccessor.getInAreaTarget(
 					stateExtractionAdapter.apply(hitPos, selectedInBlockPosition, blockRayTraceResult.getDirection(), targetedInBlockPosition)
 			);
@@ -379,39 +380,11 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 			IStateEntryInfo target = targetCandidate.get();
 
 			if (target.getBlockInformation().equals(targetedInfo.get().getBlockInformation())) {
-			//We are somehow connected to the targeted bit and of the same state.
+				//We are somehow connected to the targeted bit and of the same state.
 				validPositions.add(targetedPosition);
 
 				offsets.forEach(offset -> {
-					final Vec3i newTarget = new Vec3i(
-							targetedPosition.getX() + offset.getX(),
-							targetedPosition.getY() + offset.getY(),
-							targetedPosition.getZ() + offset.getZ()
-					);
-					if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide()
-							&& newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide()
-							&& newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
-						final Vec3i relevantNewTargetAxisVector =
-								new Vec3i(
-											newTarget.getX() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getX()),
-											newTarget.getY() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getY()),
-											newTarget.getZ() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getZ())
-						);
-
-						final int targetedDepth = Math.abs(
-								relevantSelectedAxisVector.get(blockRayTraceResult.getDirection().getAxis())
-								- relevantNewTargetAxisVector.get(blockRayTraceResult.getDirection().getAxis())
-						);
-
-						if (targetedDepth <= depth - 1) {
-						//Valid offset found
-							if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
-								toProcess.addLast(newTarget);
-							}
-						}
-					} else {
-						processed.add(newTarget);
-					}
+					processOffsetsIntoContext(blockRayTraceResult, offset, targetedPosition, relevantSelectedAxisVector, processed, toProcess);
 				});
 			}
 		}
@@ -425,6 +398,44 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 		context.setMetadata(ModMetadataKeys.TARGETED_BLOCK.get(), hitPos);
 
 		return Optional.empty();
+	}
+
+	private void processOffsetsIntoContext(
+			final BlockHitResult blockRayTraceResult,
+			final Vec3i offset,
+			final Vec3i targetedPosition,
+			final Vec3i relevantSelectedAxisVector,
+			final Set<Vec3i> processed,
+			final Deque<Vec3i> toProcess) {
+		final Vec3i newTarget = new Vec3i(
+				targetedPosition.getX() + offset.getX(),
+				targetedPosition.getY() + offset.getY(),
+				targetedPosition.getZ() + offset.getZ()
+		);
+		if (newTarget.getX() >= 0 && newTarget.getX() < StateEntrySize.current().getBitsPerBlockSide()
+				&& newTarget.getY() >= 0 && newTarget.getY() < StateEntrySize.current().getBitsPerBlockSide()
+				&& newTarget.getZ() >= 0 && newTarget.getZ() < StateEntrySize.current().getBitsPerBlockSide()) {
+			final Vec3i relevantNewTargetAxisVector =
+					new Vec3i(
+								newTarget.getX() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getX()),
+								newTarget.getY() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getY()),
+								newTarget.getZ() * Math.abs(blockRayTraceResult.getDirection().getUnitVec3i().getZ())
+			);
+
+			final int targetedDepth = Math.abs(
+					relevantSelectedAxisVector.get(blockRayTraceResult.getDirection().getAxis())
+					- relevantNewTargetAxisVector.get(blockRayTraceResult.getDirection().getAxis())
+			);
+
+			if (targetedDepth <= depth - 1) {
+				//Valid offset found
+				if (!processed.contains(newTarget) && !toProcess.contains(newTarget)) {
+					toProcess.addLast(newTarget);
+				}
+			}
+		} else {
+			processed.add(newTarget);
+		}
 	}
 
 	@Override
@@ -504,10 +515,10 @@ public class ConnectedPlaneChiselingMode extends AbstractCustomRegistryEntry imp
 
 		@Override
 		public String toString() {
-			return "SelectedBitStateFilter{" +
-			"offset = " + offset +
-			", validPositions = " + validPositions +
-			'}';
+			return "SelectedBitStateFilter{"
+				+ "offset = " + offset
+				+ ", validPositions = " + validPositions
+				+ '}';
 		}
 	}
 }

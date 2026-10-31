@@ -23,7 +23,7 @@ public final class ModMetadataKeys {
 
 	public static final Supplier<ICustomRegistry<IMetadataKey<?>>
 			> REGISTRY_SUPPLIER = KEY_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple
-	);
+			);
 
 	public static final Supplier<IMetadataKey<Vec3>> ANCHOR = KEY_REGISTRAR.register("anchor", () -> new SimpleMetadataKey<>() {
 		@Override

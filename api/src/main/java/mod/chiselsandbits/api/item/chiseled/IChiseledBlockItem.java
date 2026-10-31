@@ -24,7 +24,7 @@ public interface IChiseledBlockItem extends IMultiStateItem, IPlacementPreviewPr
 		return IVoxelShapeManager.getInstance().get(
 						createItemStack(stack),
 						CollisionType.NONE_AIR
-				);
+		);
 	}
 
 	@Override

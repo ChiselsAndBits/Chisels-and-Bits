@@ -30,14 +30,13 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotate(AABB box, Direction side) {
 		return switch (side) {
-			case DOWN -> box;
-			case UP -> new AABB(box.minX, -box.minY, -box.minZ, box.maxX, -box.maxY, -box.maxZ);
-			case NORTH -> new AABB(box.minX, -box.minZ, box.minY, box.maxX, -box.maxZ, box.maxY);
-			case SOUTH -> new AABB(-box.minX, -box.minZ, -box.minY, -box.maxX, -box.maxZ, -box.maxY);
-			case WEST -> new AABB(box.minY, -box.minZ, -box.minX, box.maxY, -box.maxZ, -box.maxX);
-			case EAST -> new AABB(-box.minY, -box.minZ, box.minX, -box.maxY, -box.maxZ, box.maxX);
+		case DOWN -> box;
+		case UP -> new AABB(box.minX, -box.minY, -box.minZ, box.maxX, -box.maxY, -box.maxZ);
+		case NORTH -> new AABB(box.minX, -box.minZ, box.minY, box.maxX, -box.maxZ, box.maxY);
+		case SOUTH -> new AABB(-box.minX, -box.minZ, -box.minY, -box.maxX, -box.maxZ, -box.maxY);
+		case WEST -> new AABB(box.minY, -box.minZ, -box.minX, box.maxY, -box.maxZ, -box.maxX);
+		case EAST -> new AABB(-box.minY, -box.minZ, box.minX, -box.maxY, -box.maxZ, box.maxX);
 		};
-
 	}
 
 	/**
@@ -50,16 +49,15 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotate(AABB box, Rotation rotation) {
 		return switch (rotation) {
-			case NONE -> box;
-			case CLOCKWISE_90 -> new AABB(-box.minZ, box.minY, box.minX, -box.maxZ, box.maxY, box.maxX);
-			case CLOCKWISE_180 -> new AABB(-box.minX, box.minY, -box.minZ, -box.maxX, box.maxY, -box.maxZ);
-			case COUNTERCLOCKWISE_90 -> new AABB(box.minZ, box.minY, -box.minX, box.maxZ, box.maxY, -box.maxX);
+		case NONE -> box;
+		case CLOCKWISE_90 -> new AABB(-box.minZ, box.minY, box.minX, -box.maxZ, box.maxY, box.maxX);
+		case CLOCKWISE_180 -> new AABB(-box.minX, box.minY, -box.minZ, -box.maxX, box.maxY, -box.maxZ);
+		case COUNTERCLOCKWISE_90 -> new AABB(box.minZ, box.minY, -box.minX, box.maxZ, box.maxY, -box.maxX);
 		};
-
 	}
 
 	/**
-	 * Rotates an {@link AABB} to a specific side horizontally.This is a default most common rotation setup as to {@link #rotate(AABB, Rotation)}
+	 * Rotates an {@link AABB} to a specific side horizontally.This is a default most common rotation setup as to {@link #rotate(AABB, Rotation)}.
 	 *
 	 * @param box The {@link AABB} to rotate
 	 * @param side The side to rotate it to.
@@ -68,13 +66,12 @@ public final class VoxelShapeUtils {
 	 */
 	public static AABB rotateHorizontal(AABB box, Direction side) {
 		return switch (side) {
-			case NORTH -> rotate(box, Rotation.NONE);
-			case SOUTH -> rotate(box, Rotation.CLOCKWISE_180);
-			case WEST -> rotate(box, Rotation.COUNTERCLOCKWISE_90);
-			case EAST -> rotate(box, Rotation.CLOCKWISE_90);
-			default -> box;
+		case NORTH -> rotate(box, Rotation.NONE);
+		case SOUTH -> rotate(box, Rotation.CLOCKWISE_180);
+		case WEST -> rotate(box, Rotation.COUNTERCLOCKWISE_90);
+		case EAST -> rotate(box, Rotation.CLOCKWISE_90);
+		default -> box;
 		};
-
 	}
 
 	/**
@@ -102,7 +99,7 @@ public final class VoxelShapeUtils {
 	}
 
 	/**
-	 * Rotates a {@link VoxelShape} to a specific side horizontally.This is a default most common rotation setup as to {@link #rotate(VoxelShape, Rotation)}
+	 * Rotates a {@link VoxelShape} to a specific side horizontally.This is a default most common rotation setup as to {@link #rotate(VoxelShape, Rotation)}.
 	 *
 	 * @param shape The {@link VoxelShape} to rotate
 	 * @param side The side to rotate it to.
@@ -128,7 +125,7 @@ public final class VoxelShapeUtils {
 
 		//Rotate them and convert them each back into a voxel shape
 		for (AABB sourceBoundingBox : sourceBoundingBoxes) {
-		//Make the bounding box be centered around the middle, and then move it back after rotating
+			//Make the bounding box be centered around the middle, and then move it back after rotating
 			rotatedPieces.add(Shapes.create(rotateFunction.apply(sourceBoundingBox.move(fromOrigin.x, fromOrigin.y, fromOrigin.z))
 					.move(-fromOrigin.x, -fromOrigin.z, -fromOrigin.z)));
 		}
@@ -138,7 +135,7 @@ public final class VoxelShapeUtils {
 	}
 
 	/**
-	 * Used for mass combining shapes
+	 * Used for mass combining shapes.
 	 *
 	 * @param shapes The list of {@link VoxelShape}s to include
 	 *
@@ -149,7 +146,7 @@ public final class VoxelShapeUtils {
 	}
 
 	/**
-	 * Used for mass combining shapes
+	 * Used for mass combining shapes.
 	 *
 	 * @param shapes The collection of {@link VoxelShape}s to include
 	 *
@@ -160,7 +157,7 @@ public final class VoxelShapeUtils {
 	}
 
 	/**
-	 * Used for cutting shapes out of a full cube
+	 * Used for cutting shapes out of a full cube.
 	 *
 	 * @param shapes The list of {@link VoxelShape}s to cut out
 	 *

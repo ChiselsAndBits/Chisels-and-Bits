@@ -1,13 +1,14 @@
 package mod.chiselsandbits.api.neighborhood;
 
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import java.util.function.Function;
+
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.multistate.accessor.IAreaAccessor;
-import org.jetbrains.annotations.NotNull;
-// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
-import net.minecraft.core.Direction;
 import org.jspecify.annotations.Nullable;
+
+import net.minecraft.core.Direction;
 
 /**
  * Represents a system which can build unique block neighborhoods.

@@ -139,7 +139,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public void onStoppedLeftClicking(final Player Player, final IChiselingContext context) {
-	//NOOP
+		//NOOP
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 	@Override
 	public void onStoppedRightClicking(final Player Player, final IChiselingContext context) {
-	//NOOP
+		//NOOP
 	}
 
 	@Override
@@ -173,8 +173,8 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 		}
 
 		final Function<Direction, Vec3> placementFacingAdapter = modeOfOperation == ChiselingOperation.CHISELING
-				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i()) : 
-				face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
+				? face -> Vec3.atLowerCornerOf(face.getOpposite().getUnitVec3i())
+				: face -> Vec3.atLowerCornerOf(face.getUnitVec3i());
 
 		final Vec3 hitVector = blockHitResult.getLocation().add(
 				placementFacingAdapter.apply(blockHitResult.getDirection())
@@ -233,9 +233,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		final Vec3 selectedInBlockPosition = Vec3.atLowerCornerOf(
 						selectedPosition
-				).multiply(
+		).multiply(
 						StateEntrySize.current().getSizePerBitScalingVector()
-		);
+				);
 
 		final Optional<IStateEntryInfo> targetedInfo = worldAccessor.getInAreaTarget(
 				selectedInBlockPosition
@@ -341,9 +341,9 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 
 		@Override
 		public String toString() {
-			return "SelectedBitStateFilter{" +
-			"validPositions = " + validPositions +
-			'}';
+			return "SelectedBitStateFilter{"
+				+ "validPositions = " + validPositions
+				+ '}';
 		}
 	}
 }

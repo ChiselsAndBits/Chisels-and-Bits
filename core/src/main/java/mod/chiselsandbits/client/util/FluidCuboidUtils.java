@@ -29,7 +29,7 @@ public class FluidCuboidUtils {
 	}
 
 	/**
-	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 using block model coordinates, so from 0-16
+	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 using block model coordinates, so from 0-16.
 	 */
 	public static void renderScaledFluidCuboid(
 			final FluidInformation fluid,
@@ -47,7 +47,7 @@ public class FluidCuboidUtils {
 	}
 
 	/**
-	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1
+	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1.
 	 */
 	public static void renderFluidCuboid(
 			FluidInformation fluid,
@@ -66,7 +66,7 @@ public class FluidCuboidUtils {
 	}
 
 	/**
-	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1
+	 * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1.
 	 */
 	public static void renderFluidCuboid(
 			FluidInformation fluid,
@@ -112,7 +112,7 @@ public class FluidCuboidUtils {
 				matrices,
 				renderType,
 				(pose, consumer) -> {
-				// x/y/z2 - x/y/z1 is because we need the width/height/depth
+					// x/y/z2 - x/y/z1 is because we need the width/height/depth
 					putTexturedQuad(consumer, pose, stillSprite, x2 - x1, y2 - y1, z2 - z1, DOWN, color, combinedOverlay, combinedLight, false);
 					putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, NORTH, color, combinedOverlay, combinedLight, true);
 					putTexturedQuad(consumer, pose, flowingSprite, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedOverlay, combinedLight, true);
@@ -152,8 +152,8 @@ public class FluidCuboidUtils {
 	public static void putTexturedQuad(
 			VertexConsumer renderer, PoseStack.Pose matrices, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
 			int r, int g, int b, int a, int light1, int light2, final int overlay1, final int overlay2, boolean flowing, boolean flipHorizontally, boolean flipVertically) {
-			// safety
 		if (sprite == null) {
+			//We can not emit a quad without a sprite. Abort
 			return;
 		}
 
@@ -197,30 +197,30 @@ public class FluidCuboidUtils {
 		}
 
 		switch (face) {
-			case DOWN, UP -> {
-				minU = sprite.getU(xt1 * size);
-				maxU = sprite.getU(xt2 * size);
-				minV = sprite.getV(zt1 * size);
-				maxV = sprite.getV(zt2 * size);
-			}
-			case NORTH, SOUTH -> {
-				minU = sprite.getU(xt2 * size);
-				maxU = sprite.getU(xt1 * size);
-				minV = sprite.getV(yt1 * size);
-				maxV = sprite.getV(yt2 * size);
-			}
-			case WEST, EAST -> {
-				minU = sprite.getU(zt2 * size);
-				maxU = sprite.getU(zt1 * size);
-				minV = sprite.getV(yt1 * size);
-				maxV = sprite.getV(yt2 * size);
-			}
-			default -> {
-				minU = sprite.getU0();
-				maxU = sprite.getU1();
-				minV = sprite.getV0();
-				maxV = sprite.getV1();
-			}
+		case DOWN, UP -> {
+			minU = sprite.getU(xt1 * size);
+			maxU = sprite.getU(xt2 * size);
+			minV = sprite.getV(zt1 * size);
+			maxV = sprite.getV(zt2 * size);
+		}
+		case NORTH, SOUTH -> {
+			minU = sprite.getU(xt2 * size);
+			maxU = sprite.getU(xt1 * size);
+			minV = sprite.getV(yt1 * size);
+			maxV = sprite.getV(yt2 * size);
+		}
+		case WEST, EAST -> {
+			minU = sprite.getU(zt2 * size);
+			maxU = sprite.getU(zt1 * size);
+			minV = sprite.getV(yt1 * size);
+			maxV = sprite.getV(yt2 * size);
+		}
+		default -> {
+			minU = sprite.getU0();
+			maxU = sprite.getU1();
+			minV = sprite.getV0();
+			maxV = sprite.getV1();
+		}
 		}
 
 		if (flipHorizontally) {
@@ -239,162 +239,162 @@ public class FluidCuboidUtils {
 		final Matrix3f normalMatrix = matrices.normal();
 
 		switch (face) {
-			case DOWN -> {
-				renderer.addVertex(worldMatrix, 0, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
-				renderer.addVertex(worldMatrix, w, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
-				renderer.addVertex(worldMatrix, w, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
-				renderer.addVertex(worldMatrix, 0, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
-			}
-			case UP -> {
-				renderer.addVertex(worldMatrix, 0, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
-				renderer.addVertex(worldMatrix, 0, h, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
-			}
-			case NORTH -> {
-				renderer.addVertex(worldMatrix, 0, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
-				renderer.addVertex(worldMatrix, 0, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
-				renderer.addVertex(worldMatrix, w, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
-			}
-			case SOUTH -> {
-				renderer.addVertex(worldMatrix, 0, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
-				renderer.addVertex(worldMatrix, w, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
-				renderer.addVertex(worldMatrix, 0, h, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
-			}
-			case WEST -> {
-				renderer.addVertex(worldMatrix, 0, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
-				renderer.addVertex(worldMatrix, 0, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
-				renderer.addVertex(worldMatrix, 0, h, d)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
-				renderer.addVertex(worldMatrix, 0, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
-			}
-			case EAST -> {
-				renderer.addVertex(worldMatrix, w, 0, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, 0)
-						.setColor(r, g, b, a)
-						.setUv(minU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
-				renderer.addVertex(worldMatrix, w, h, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, minV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
-				renderer.addVertex(worldMatrix, w, 0, d)
-						.setColor(r, g, b, a)
-						.setUv(maxU, maxV)
-						.setUv1(overlay1, overlay2)
-						.setUv2(light1, light2)
-						.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
-			}
+		case DOWN -> {
+			renderer.addVertex(worldMatrix, 0, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
+			renderer.addVertex(worldMatrix, w, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
+			renderer.addVertex(worldMatrix, w, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
+			renderer.addVertex(worldMatrix, 0, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, DOWN.getStepX(), DOWN.getStepY(), DOWN.getStepZ());
+		}
+		case UP -> {
+			renderer.addVertex(worldMatrix, 0, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
+			renderer.addVertex(worldMatrix, 0, h, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, UP.getStepX(), UP.getStepY(), UP.getStepZ());
+		}
+		case NORTH -> {
+			renderer.addVertex(worldMatrix, 0, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
+			renderer.addVertex(worldMatrix, 0, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
+			renderer.addVertex(worldMatrix, w, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, NORTH.getStepX(), NORTH.getStepY(), NORTH.getStepZ());
+		}
+		case SOUTH -> {
+			renderer.addVertex(worldMatrix, 0, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
+			renderer.addVertex(worldMatrix, w, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
+			renderer.addVertex(worldMatrix, 0, h, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, SOUTH.getStepX(), SOUTH.getStepY(), SOUTH.getStepZ());
+		}
+		case WEST -> {
+			renderer.addVertex(worldMatrix, 0, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
+			renderer.addVertex(worldMatrix, 0, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
+			renderer.addVertex(worldMatrix, 0, h, d)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
+			renderer.addVertex(worldMatrix, 0, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, WEST.getStepX(), WEST.getStepY(), WEST.getStepZ());
+		}
+		case EAST -> {
+			renderer.addVertex(worldMatrix, w, 0, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, 0)
+					.setColor(r, g, b, a)
+					.setUv(minU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
+			renderer.addVertex(worldMatrix, w, h, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, minV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
+			renderer.addVertex(worldMatrix, w, 0, d)
+					.setColor(r, g, b, a)
+					.setUv(maxU, maxV)
+					.setUv1(overlay1, overlay2)
+					.setUv2(light1, light2)
+					.setNormal(matrices, EAST.getStepX(), EAST.getStepY(), EAST.getStepZ());
+		}
 		}
 	}
 }

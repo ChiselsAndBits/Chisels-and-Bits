@@ -32,9 +32,8 @@ public class VoxelShapeCalculator {
 								return Shapes.joinUnoptimized(voxelShape, bbShape, BooleanOp.OR);
 							},
 
-
 							(voxelShape, voxelShape2) -> Shapes.joinUnoptimized(voxelShape, voxelShape2, BooleanOp.OR)
-		);
+					);
 
 		return simplify ? shape.optimize() : shape;
 	}

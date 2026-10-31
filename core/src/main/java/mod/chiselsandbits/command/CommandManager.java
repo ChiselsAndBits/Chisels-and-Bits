@@ -162,7 +162,6 @@ public class CommandManager {
 					}
 				};
 
-
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
@@ -192,7 +191,6 @@ public class CommandManager {
 					}
 				};
 
-
 				context.getSource().sendSystemMessage(LocalStrings.CommandToFill.getText(bitCount));
 				mutator.mutableStream().forEach(reporter);
 				context.getSource().sendSystemMessage(LocalStrings.CommandProcessingBlockUpdates.getText());
@@ -217,7 +215,7 @@ public class CommandManager {
 				: mutator.batch()) {
 			mutator.mutableStream().forEach(
 							IMutableStateEntryInfo::clear
-					);
+			);
 		}
 
 		return 0;
@@ -273,7 +271,7 @@ public class CommandManager {
 
 		ProfilingManager.getInstance().setProfiler(
 						IProfilingManager.getInstance().startProfiling(Environment.from(context.getSource().getServer()))
-				);
+		);
 
 		return 0;
 	}
@@ -333,7 +331,7 @@ public class CommandManager {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
 						new ExportPatternCommandMessagePacket(target, name),
 						context.getSource().getPlayerOrException()
-				);
+		);
 
 		return 0;
 	}
@@ -344,12 +342,12 @@ public class CommandManager {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
 						new ImportPatternCommandMessagePacket(name),
 						context.getSource().getPlayerOrException()
-				);
+		);
 
 		return 0;
 	}
 
-	private static abstract class ReportingBlockInformationOverrider implements Consumer<IMutableStateEntryInfo> {
+	private abstract static class ReportingBlockInformationOverrider implements Consumer<IMutableStateEntryInfo> {
 		private final CommandSourceStack source;
 		private final long count;
 		private final long reportEvery;

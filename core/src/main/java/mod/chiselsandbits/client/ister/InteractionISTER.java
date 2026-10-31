@@ -1,17 +1,20 @@
 package mod.chiselsandbits.client.ister;
 
+// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import java.util.Objects;
 import java.util.function.Consumer;
+
 import com.communi.suggestu.scena.core.util.TransformationUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.item.interactable.IInteractableItem;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.client.util.ItemModelUtils;
-// ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -20,7 +23,6 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 /**
  * This class animates an interaction between the items in the two hands of the players.
@@ -112,7 +114,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 			int itemInUseCount = player.getUseItemRemainingTicks();
 
 			if (itemInUseCount > 0) {
-				poseStack.translate(modifier *.5f, 0, -.25f);
+				poseStack.translate(modifier * .5f, 0, -.25f);
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 40, 0), true));
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 10, 0), true));
 				poseStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, modifier * 90, 0), true));
@@ -159,7 +161,7 @@ public record InteractionISTER(InteractableItemModel mainModel,
 
 	@Override
 	public void getExtents(final Consumer<Vector3fc> output) {
-	//No clue how to do this, we do not have access to the outer layer!
+		//No clue how to do this, we do not have access to the outer layer!
 	}
 
 	@Override

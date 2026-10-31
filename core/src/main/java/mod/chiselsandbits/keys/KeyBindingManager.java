@@ -10,7 +10,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils; import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
+import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
+import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.ToolModeSelectionScreen;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.keys.contexts.HoldsSpecificItemInHandKeyConflictContext;
@@ -145,14 +146,7 @@ public class KeyBindingManager {
 			if (toolMenuKeyIsDown && !toolMenuKeyWasDown) {
 				if (isOpenToolMenuKeyPressed()) {
 					if (mc.screen == null) {
-						ItemStack inHand = ItemStackUtils.getModeItemStackFromPlayer(mc.player);
-
-						if (!inHand.isEmpty() && inHand.getItem() instanceof IWithModeItem) {
-							try {
-								mc.setScreen(ToolModeSelectionScreen.create(inHand));
-							} catch (ClassCastException ignored) {
-							}
-						}
+						openModeScreen(mc);
 					}
 				}
 			}
@@ -228,6 +222,17 @@ public class KeyBindingManager {
 		}
 	}
 
+	private static void openModeScreen(final Minecraft mc) {
+		ItemStack inHand = ItemStackUtils.getModeItemStackFromPlayer(mc.player);
+
+		if (!inHand.isEmpty() && inHand.getItem() instanceof IWithModeItem) {
+			try {
+				mc.setScreen(ToolModeSelectionScreen.create(inHand));
+			} catch (ClassCastException ignored) {
+			}
+		}
+	}
+
 	public boolean hasBeenInitialized() {
 		return initialized;
 	}
@@ -258,13 +263,12 @@ public class KeyBindingManager {
 		}
 
 		boolean isDown = switch (keybinding.key.getType()) {
-			case KEYSYM ->
-			InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keybinding.key.getValue());
-			case MOUSE ->
-			GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
-			default -> false;
+		case KEYSYM ->
+				InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keybinding.key.getValue());
+		case MOUSE ->
+				GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), keybinding.key.getValue()) == GLFW.GLFW_PRESS;
+		default -> false;
 		};
-
 
 		return (isDown || keybinding.isDown()) && IKeyBindingManager.getInstance().isKeyConflictOfActive(keybinding)
 				&& IKeyBindingManager.getInstance().isKeyModifierActive(keybinding);

@@ -1,7 +1,6 @@
 package mod.chiselsandbits.command;
 
-public enum ScanType
-{
+public enum ScanType {
 	SINGLE,
 	MULTI;
 }

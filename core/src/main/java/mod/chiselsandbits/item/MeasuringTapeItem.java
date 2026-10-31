@@ -71,10 +71,12 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 		final ItemStack stack = playerEntity.getItemInHand(hand);
 
 		if (stack.getItem() == this) {
-		//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
+			//We only check for this on the client not on the server side, the client sends the packet to the server and then performs the code.
 			if (DistExecutor.unsafeRunForDist(
-					() -> () -> { return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
-					() -> () -> { return false; })
+					() -> () -> {
+						return KeyBindingManager.getInstance().isResetMeasuringTapeKeyPressed(); },
+					() -> () -> {
+						return false; })
 			) {
 				clear(stack);
 				ChiselsAndBits.getInstance().getNetworkChannel().sendToServer(new MeasurementsResetPacket());
@@ -93,7 +95,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 										getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
 										blockRayTraceResult.getDirection(),
 										getMode(stack)
-								);
+						);
 						clear(stack);
 					}
 
@@ -143,7 +145,7 @@ public class MeasuringTapeItem extends Item implements IMeasuringTapeItem {
 						getMode(stack).getType().adaptClickedPosition(blockRayTraceResult),
 						blockRayTraceResult.getDirection(),
 						getMode(stack)
-				);
+		);
 	}
 
 	@Override

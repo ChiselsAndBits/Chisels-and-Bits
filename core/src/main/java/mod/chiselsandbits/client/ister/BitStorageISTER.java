@@ -1,5 +1,6 @@
 package mod.chiselsandbits.client.ister;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -33,27 +34,25 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
 			final int outlineColor) {
 		poseStack.pushPose();
 
-		assert argument != null;
 		final BlockEntityRenderState state = Minecraft.getInstance().getBlockEntityRenderDispatcher().tryExtractRenderState(
-				argument.entity(),
-				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false... ...
+				Objects.requireNonNull(argument).entity(),
+				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
 				null
 		);
 
-		assert state != null;
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
-						state,
+						Objects.requireNonNull(state),
 						poseStack,
 						submitNodeCollector,
 						new CameraRenderState()
-				);
+		);
 
 		poseStack.popPose();
 	}
 
 	@Override
 	public void getExtents(final Consumer<Vector3fc> output) {
-	//Noop., for now.Figure out later
+		//Noop., for now.Figure out later
 	}
 
 	@Override

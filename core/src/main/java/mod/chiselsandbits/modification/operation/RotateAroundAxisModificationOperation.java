@@ -16,7 +16,8 @@ import net.minecraft.resources.Identifier;
 public class RotateAroundAxisModificationOperation extends AbstractCustomRegistryEntry implements IModificationOperation {
 	private final Direction.Axis axis;
 
-	private RotateAroundAxisModificationOperation(final Direction.Axis axis) {this.axis = axis; }
+	private RotateAroundAxisModificationOperation(final Direction.Axis axis) {
+		this.axis = axis; }
 
 	@Override
 	public void apply(final IGenerallyModifiableAreaMutator source) {
@@ -36,11 +37,10 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 	@Override
 	public Component getDisplayName() {
 		return switch (axis) {
-			case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
-			case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
-			case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
+		case X -> LocalStrings.PatternModificationAcrossXAxis.getText();
+		case Y -> LocalStrings.PatternModificationAcrossYAxis.getText();
+		case Z -> LocalStrings.PatternModificationAcrossZAxis.getText();
 		};
-
 	}
 
 	public static final class Builder {
@@ -48,13 +48,15 @@ public class RotateAroundAxisModificationOperation extends AbstractCustomRegistr
 
 		private Builder() { }
 
-		public static Builder create() { return new Builder(); }
+		public static Builder create() {
+			return new Builder(); }
 
 		public Builder withAxis(Direction.Axis axis) {
 			this.axis = axis;
 			return this;
 		}
 
-		public RotateAroundAxisModificationOperation build() { return new RotateAroundAxisModificationOperation(axis); }
+		public RotateAroundAxisModificationOperation build() {
+			return new RotateAroundAxisModificationOperation(axis); }
 	}
 }

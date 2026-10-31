@@ -13,8 +13,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-public enum MeasuringType implements IMeasuringType
-{
+public enum MeasuringType implements IMeasuringType {
 	BIT(LocalStrings.TapeMeasureBit.getText(),
 			Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"),
 			blockHitResult -> BlockHitResultUtils.getCenterOfHitObject(blockHitResult, StateEntrySize.current().getSizePerBitScalingVector()), (from, to, hitFace) ->

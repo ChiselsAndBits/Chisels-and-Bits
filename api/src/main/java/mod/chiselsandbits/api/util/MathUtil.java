@@ -13,7 +13,7 @@ public class MathUtil {
 
 	public static boolean almostEqual(final Number l, final Number r, final Number epsilon) {
 		final double diff = Math.abs(l.doubleValue() - r.doubleValue());
-		return diff <epsilon.doubleValue();
+		return diff < epsilon.doubleValue();
 	}
 
 	public static double minimizeTowardsZero(final double l, final double r) {

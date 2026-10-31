@@ -42,7 +42,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_STONE.get(),
 								withWoodenRodFor(Tags.Items.STONES)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -52,7 +52,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_COPPER.get(),
 								withWoodenRodFor(Tags.Items.INGOTS_COPPER)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -62,7 +62,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_IRON.get(),
 								withWoodenRodFor(Tags.Items.INGOTS_IRON)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -72,7 +72,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_GOLD.get(),
 								withWoodenRodFor(Tags.Items.INGOTS_GOLD)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -82,7 +82,7 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_DIAMOND.get(),
 								withWoodenRodFor(Tags.Items.GEMS_DIAMOND)
 						)
-				);
+		);
 
 		event.getGenerator().addProvider(
 						true,
@@ -92,6 +92,6 @@ public class ChiselRecipeGenerator extends AbstractChiselRecipeGenerator {
 								ModItems.ITEM_CHISEL_NETHERITE.get(),
 								withBlazeRodFor(Tags.Items.INGOTS_NETHERITE)
 						)
-				);
+		);
 	}
 }

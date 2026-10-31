@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockStateModel {
 	@Override
 	public void collectParts(final RandomSource random, final List<BlockStateModelPart> output) {
-	//Noop
+		//Noop
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class ChiseledBlockStateModel implements BlockStateModel, DataAwareBlockS
 
 	@Override
 	public @BakedQuad.MaterialFlags int materialFlags(final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final BlockState blockState) {
-		var information = getInformation(blockAndTintGetter, blockPos);
+		ChiseledBlockModelInformation information = getInformation(blockAndTintGetter, blockPos);
 
 		if (information == null) {
 			return materialFlags();

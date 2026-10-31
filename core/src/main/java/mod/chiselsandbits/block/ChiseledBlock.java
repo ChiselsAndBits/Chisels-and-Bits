@@ -147,7 +147,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 						.setValue(PROPAGATES_SKYLIGHT, propagatesSkyLight)
 						.setValue(LIGHT_BLOCK_LEVEL, blockLevel),
 						Block.UPDATE_ALL
-				);
+		);
 	}
 
 	@Override
@@ -170,7 +170,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 									.createSingleBlockBlockReader(),
 									pos,
 									player
-							);
+					);
 				})
 				.orElse(true);
 	}
@@ -213,7 +213,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					try {
 						return e.getInAreaTarget(hitDelta);
 					} catch (IllegalArgumentException exception) {
-					//Because people do stupid stuff.
+						//Because people do stupid stuff.
 						return Optional.empty();
 					}
 				})
@@ -246,10 +246,10 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 
 		getBlockEntity(levelAccessor, blockPos)
 				.ifPresent(e -> e.mirror(switch (mirror) {
-							case NONE -> throw new IllegalArgumentException("Invalid mirror");
-							case LEFT_RIGHT -> Direction.Axis.Z;
-							case FRONT_BACK -> Direction.Axis.X;
-						}));
+				case NONE -> throw new IllegalArgumentException("Invalid mirror");
+				case LEFT_RIGHT -> Direction.Axis.Z;
+				case FRONT_BACK -> Direction.Axis.X;
+				}));
 
 		return blockState;
 	}
@@ -415,12 +415,12 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 												final Optional<IStateVariant> additionalStateInfo = IStateVariantManager.getInstance()
 														.getStateVariant(
 																fluidStateIn
-												);
+														);
 
 												try {
 													stateEntry.setBlockInformation(new BlockInformation(blockState, additionalStateInfo));
 												} catch (SpaceOccupiedException e) {
-												//Ignore
+													//Ignore
 												}
 											}
 										});
@@ -460,7 +460,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToTrackingChunk(
 							new NeighborBlockUpdatedPacket(position, block, orientation),
 							level.getChunkAt(position)
-					);
+			);
 		}
 	}
 
@@ -592,7 +592,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 							itemStack.shrink(1);
 							IPlayerInventoryManager.getInstance().giveToPlayer(
 											player, new ItemStack(Items.WET_SPONGE)
-									);
+							);
 						}
 
 						return count > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;

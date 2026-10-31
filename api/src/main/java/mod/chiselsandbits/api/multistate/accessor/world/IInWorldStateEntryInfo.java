@@ -25,7 +25,7 @@ public interface IInWorldStateEntryInfo extends IStateEntryInfo, IWorldObject {
 	 *
 	 * @return The start position of this entry in the given world.
 	 */
-	default Vec3 getInWorldStartPoint(){
+	default Vec3 getInWorldStartPoint() {
 		return Vec3.atLowerCornerOf(getBlockPos()).add(getStartPoint());
 	}
 
@@ -34,7 +34,7 @@ public interface IInWorldStateEntryInfo extends IStateEntryInfo, IWorldObject {
 	 *
 	 * @return The end position of this entry in the given world.
 	 */
-	default Vec3 getInWorldEndPoint(){
+	default Vec3 getInWorldEndPoint() {
 		return Vec3.atLowerCornerOf(getBlockPos()).add(getEndPoint());
 	}
 

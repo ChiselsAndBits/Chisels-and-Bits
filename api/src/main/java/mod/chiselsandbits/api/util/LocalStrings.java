@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-public enum LocalStrings
-{
+public enum LocalStrings {
 	ChiselModeSingle("chiselmode.single"),
 	ChiselModeSnap2("chiselmode.snap2"),
 	ChiselModeSnap4("chiselmode.snap4"),

@@ -102,7 +102,9 @@ public final class ClientPacketHandlers {
 		IPatternSharingManager.getInstance().exportPattern(multiStateItemStack, name);
 	}
 
-	public static void handleImportPatternCommandMessage(final String name) {;
+	public static void handleImportPatternCommandMessage(final String name) {
+		;
+
 		final Either<IMultiStateItemStack, PatternIOException> importResult = IPatternSharingManager.getInstance().importPattern(name);
 		importResult.ifLeft(stack -> {
 			ChiselsAndBits.getInstance().getNetworkChannel()

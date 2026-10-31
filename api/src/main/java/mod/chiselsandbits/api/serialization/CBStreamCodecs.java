@@ -38,7 +38,6 @@ public interface CBStreamCodecs {
 		}
 	};
 
-
 	StreamCodec<FriendlyByteBuf, BitSet> BIT_SET = LONG_ARRAY.map(
 			BitSet::valueOf,
 			BitSet::toLongArray
@@ -54,9 +53,8 @@ public interface CBStreamCodecs {
 						return new Vec3(doubles.get(0), doubles.get(1), doubles.get(2));
 					},
 
-
 					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
-	));
+			));
 
 	static <R, C, V, B extends ByteBuf> StreamCodec<? super B, Table<R, C, V>> table(
 			IntFunction<Map<R, Map<C, V>>> mapFactory,
@@ -87,7 +85,6 @@ public interface CBStreamCodecs {
 					return table;
 				},
 
-
 				Table::rowMap
 		);
 	}
@@ -115,7 +112,6 @@ public interface CBStreamCodecs {
 				codec7.encode(buffer, getter7.apply(instance));
 			}
 		};
-
 	}
 
 	static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
@@ -175,7 +171,6 @@ public interface CBStreamCodecs {
 				codec12.encode(buffer, getter12.apply(instance));
 			}
 		};
-
 	}
 
 	static <T> StreamCodec<RegistryFriendlyByteBuf, T> compressed(StreamCodec<RegistryFriendlyByteBuf, T> codec) {
@@ -229,13 +224,12 @@ public interface CBStreamCodecs {
 				}
 			}
 		};
-
 	}
 
 	static <B, R, D> StreamCodec<B, R> dispatch(
 			StreamCodec<? super B, D> dispatcherCodec,
 			Function<D, StreamCodec<B, ? extends R>> decoderFactory,
-					Function<R, D> dispatcherSelector
+			Function<R, D> dispatcherSelector
 	) {
 		return new StreamCodec<>() {
 			@Override
@@ -254,7 +248,6 @@ public interface CBStreamCodecs {
 				codec.encode(buffer, value);
 			}
 		};
-
 	}
 
 	static <B, T> StreamCodec<B, T> lazyInitialized(Supplier<StreamCodec<B, T>> supplier) {
@@ -279,7 +272,6 @@ public interface CBStreamCodecs {
 				codec.encode(buffer, value);
 			}
 		};
-
 	}
 
 	static <B extends FriendlyByteBuf, S> StreamCodec.CodecOperation<B, S, S> nullable() {
@@ -303,9 +295,7 @@ public interface CBStreamCodecs {
 						}
 					}
 				};
-
 			}
 		};
-
 	}
 }

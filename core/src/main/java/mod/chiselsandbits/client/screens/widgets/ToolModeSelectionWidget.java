@@ -138,7 +138,9 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 
 		if (allPagesCombined.isEmpty()) {
 			return;
-		} while (!allPagesCombined.isEmpty()) {
+		}
+
+		while (!allPagesCombined.isEmpty()) {
 			final List<IRenderableMode> page = new LinkedList<>();
 
 			for (int i = 0; i < PAGE_SIZE; i++) {
@@ -392,13 +394,14 @@ public class ToolModeSelectionWidget<M extends IToolMode<G>, G extends IToolMode
 	private final class PageSelectionMode implements IRenderableMode {
 		private final boolean isPrevious;
 
-		private PageSelectionMode(final boolean isPrevious) {this.isPrevious = isPrevious; }
+		private PageSelectionMode(final boolean isPrevious) {
+			this.isPrevious = isPrevious; }
 
 		@Override
 		public Identifier getIcon() {
 			return
-					isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo") : 
-					Identifier.fromNamespaceAndPath(Constants.MOD_ID, "redo");
+					isPrevious ? Identifier.fromNamespaceAndPath(Constants.MOD_ID, "undo")
+					: Identifier.fromNamespaceAndPath(Constants.MOD_ID, "redo");
 		}
 
 		@Override

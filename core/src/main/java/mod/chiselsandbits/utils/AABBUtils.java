@@ -30,7 +30,7 @@ public class AABBUtils {
 		return remainingDirectionsToCheck.stream().allMatch(d -> MathUtil.almostEqual(
 						valuesOfL.get(d),
 						valuesOfR.get(d)
-				));
+		));
 	}
 
 	public static double getDirectionalValue(final AABB bb, final Direction direction) {

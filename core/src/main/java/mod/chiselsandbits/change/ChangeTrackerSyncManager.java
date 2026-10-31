@@ -32,7 +32,7 @@ public final class ChangeTrackerSyncManager {
 			ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
 							new ChangeTrackerUpdatedPacket(e.tracker().getChanges()),
 							e.serverPlayer()
-					);
+			);
 		});
 		entries.clear();
 	}

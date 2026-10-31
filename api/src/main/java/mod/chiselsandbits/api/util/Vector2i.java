@@ -95,35 +95,35 @@ public class Vector2i implements Comparable<Vector2i> {
 	}
 
 	/**
-	 * Offset this BlockPos 1 block up
+	 * Offset this BlockPos 1 block up.
 	 */
 	public Vector2i up() {
 		return this.up(1);
 	}
 
 	/**
-	 * Offset this BlockPos n blocks up
+	 * Offset this BlockPos n blocks up.
 	 */
 	public Vector2i up(int n) {
 		return this.offset(Direction.UP, n);
 	}
 
 	/**
-	 * Offsets this BlockPos n blocks in the given direction
+	 * Offsets this BlockPos n blocks in the given direction.
 	 */
 	public Vector2i offset(Direction facing, int n) {
 		return n == 0 ? this : new Vector2i(this.getX() + facing.getStepX() * n, this.getY() + facing.getStepY() * n);
 	}
 
 	/**
-	 * Offset this BlockPos 1 block down
+	 * Offset this BlockPos 1 block down.
 	 */
 	public Vector2i down() {
 		return this.down(1);
 	}
 
 	/**
-	 * Offset this BlockPos n blocks down
+	 * Offset this BlockPos n blocks down.
 	 */
 	public Vector2i down(int n) {
 		return this.offset(Direction.DOWN, n);
@@ -145,7 +145,7 @@ public class Vector2i implements Comparable<Vector2i> {
 	}
 
 	/**
-	 * Calculate squared distance to the given Vector
+	 * Calculate squared distance to the given Vector.
 	 */
 	public double distanceSq(Vector2i to) {
 		return this.distanceSq((double) to.getX(), (double) to.getY(), true);

@@ -24,7 +24,6 @@ public final class ModGlueingOperationGroups {
 		}
 	};
 
-
 	public static IModificationOperationGroup ALL_AXI = new IModificationOperationGroup() {
 		@Override
 		public Identifier getIcon() {
@@ -36,7 +35,6 @@ public final class ModGlueingOperationGroups {
 			return LocalStrings.PatternModificationGroupRotate.getText();
 		}
 	};
-
 
 	private ModGlueingOperationGroups() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModGlueingOperationGroups.This is a utility class");

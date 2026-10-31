@@ -72,14 +72,14 @@ public class MeasuringManager implements IMeasuringManager {
 	public void syncToAll() {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToEveryone(
 						new MeasurementsUpdatedPacket(this.measurements)
-				);
+		);
 	}
 
 	public void syncTo(final ServerPlayer player) {
 		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
 						new MeasurementsUpdatedPacket(this.measurements),
 						player
-				);
+		);
 	}
 
 	public void addOrUpdate(final Measurement measurement, final boolean updateAll) {

@@ -28,7 +28,8 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 		Minecraft.getInstance().getToastManager().addToast(new ChiselsAndBitsNotificationToast<>(contents));
 	}
 
-	private ChiselsAndBitsNotificationToast(final T contents) {this.contents = contents; }
+	private ChiselsAndBitsNotificationToast(final T contents) {
+		this.contents = contents; }
 
 	@Override
 	public @NonNull Visibility getWantedVisibility() {

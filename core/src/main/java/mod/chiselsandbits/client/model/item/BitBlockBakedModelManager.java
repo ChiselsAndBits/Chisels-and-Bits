@@ -148,7 +148,7 @@ public class BitBlockBakedModelManager {
 				}
 			});
 		} catch (ExecutionException e) {
-			LOGGER.warn("Failed to get a model for a bit: { } the model calculation got aborted.", blockInformation, e);
+			LOGGER.warn("Failed to get a model for a bit: {} the model calculation got aborted.", blockInformation, e);
 			return BitBlockModelInformation.EMPTY;
 		}
 	}

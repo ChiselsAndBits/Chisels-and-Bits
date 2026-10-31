@@ -26,7 +26,7 @@ public interface IProfilingManager {
 	IProfiler startProfiling(Environment profilingEnvironment);
 
 	/**
-	 * Ends the profiling of a given profiler
+	 * Ends the profiling of a given profiler.
 	 * @param profiler The profiler to end profiling.
 	 *
 	 * @return The result of the profiling.

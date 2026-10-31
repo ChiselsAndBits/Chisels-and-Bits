@@ -51,7 +51,7 @@ public class GenericItemModelGenerator extends ModelProvider {
 						ModItems.MULTI_USE_PATTERN_ITEM.get(),
 						ModItems.WRENCH.get(),
 						ModItems.MONOCLE_ITEM.get()
-				).map(Item::builtInRegistryHolder);
+		).map(Item::builtInRegistryHolder);
 	}
 
 	@Override

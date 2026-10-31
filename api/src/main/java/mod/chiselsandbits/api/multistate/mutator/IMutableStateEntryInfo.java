@@ -20,7 +20,7 @@ public interface IMutableStateEntryInfo extends IStateEntryInfo {
 	void clear();
 
 	/**
-	 * Overrides the current entries block information
+	 * Overrides the current entries block information.
 	 *
 	 * @param blockInformation The new block information of the entry.
 	 */

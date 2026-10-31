@@ -6,7 +6,8 @@ import net.minecraft.world.item.ItemStack;
 public class ContainerBitInventory extends AbstractBitInventory {
 	private final Container inventory;
 
-	public ContainerBitInventory(final Container inventory) {this.inventory = inventory; }
+	public ContainerBitInventory(final Container inventory) {
+		this.inventory = inventory; }
 
 	/**
 	 * Gets a copy of the stack that is in the given slot.

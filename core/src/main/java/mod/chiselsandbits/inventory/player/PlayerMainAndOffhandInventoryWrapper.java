@@ -8,11 +8,12 @@ import net.minecraft.world.item.ItemStack;
 public class PlayerMainAndOffhandInventoryWrapper implements Container {
 	private final Inventory playerInventory;
 
-	public PlayerMainAndOffhandInventoryWrapper(final Inventory playerInventory) {this.playerInventory = playerInventory; }
+	public PlayerMainAndOffhandInventoryWrapper(final Inventory playerInventory) {
+		this.playerInventory = playerInventory; }
 
 	@Override
 	public int getContainerSize() {
-		return 9*4+1;
+		return 9 * 4+1;
 	}
 
 	@Override

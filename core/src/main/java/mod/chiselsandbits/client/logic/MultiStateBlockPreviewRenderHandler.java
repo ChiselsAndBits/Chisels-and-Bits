@@ -98,7 +98,7 @@ public class MultiStateBlockPreviewRenderHandler {
 						targetedRenderPos,
 						color,
 						ignoreDepth
-				);
+		);
 	}
 
 	private static boolean renderGhost(
@@ -132,7 +132,7 @@ public class MultiStateBlockPreviewRenderHandler {
 						success,
 						failure,
 						ignoreDepth
-				);
+		);
 		return true;
 	}
 }

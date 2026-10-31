@@ -65,7 +65,6 @@ public class ColorUtils {
 		return pack((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
 	};
 
-
 	public static int pack(final float[] color) {
 		return pack(color[0], color[1], color[2], color[3]);
 	}
@@ -77,6 +76,5 @@ public class ColorUtils {
 			ARGB.blue(color) / 255f,
 			ARGB.alpha(color) / 255f
 		};
-
 	}
 }

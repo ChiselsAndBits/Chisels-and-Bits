@@ -15,6 +15,7 @@ import mod.chiselsandbits.client.model.parts.ChiseledBlockModelPart;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.joml.Vector4f;
 
 import net.minecraft.client.Minecraft;
@@ -72,7 +73,7 @@ public class ChiseledBlockGhostRenderer {
 		final ChiseledBlockModelInformation information = ChiseledBlockStateModelManager
 				.getInstance().get(
 						renderStack
-		);
+				);
 
 		renderGhost(
 				poseStack,
@@ -184,8 +185,8 @@ public class ChiseledBlockGhostRenderer {
 
 		@Override
 		public VertexConsumer setColor(final int color) {
-		//Color is in RGBA format
-		//Extract the channels
+			//Color is in RGBA format
+			//Extract the channels
 			final int red = (color >> 24) & 0xFF;
 			final int green = (color >> 16) & 0xFF;
 			final int blue = (color >> 8) & 0xFF;
@@ -228,7 +229,7 @@ public class ChiseledBlockGhostRenderer {
 	private static final float[] DIRECTIONAL_BRIGHTNESS = {0.5f, 1f, 0.7f, 0.7f, 0.6f, 0.6f};
 
 	private static Vector3f[] getShadedColors(final Vector4f color) {
-	// Directionally shade the color by the amount MC normally does
+		// Directionally shade the color by the amount MC normally does
 		return Arrays.stream(Direction.values())
 				.map(direction -> {
 					final float brightness = DIRECTIONAL_BRIGHTNESS[direction.get3DDataValue()];
@@ -240,7 +241,7 @@ public class ChiseledBlockGhostRenderer {
 	}
 
 	private static Vector3f[] getNormals(final PoseStack.Pose pose) {
-	// Transform the normal vector of each direction by the pose's normal matrix
+		// Transform the normal vector of each direction by the pose's normal matrix
 		return Arrays.stream(Direction.values())
 				.map(direction -> {
 					final Vec3i faceNormal = direction.getUnitVec3i();
@@ -252,7 +253,7 @@ public class ChiseledBlockGhostRenderer {
 
 	/**
 	 * Optimized version of ItemRenderer#renderModelLists that ignores textures, and renders a model's
-	 * quads with a single RGBA color shaded by the quads' direction to match MCs similar shading
+	 * quads with a single RGBA color shaded by the quads' direction to match MCs similar shading.
 	 */
 	private static void renderModelLists(
 			final ChiseledBlockModelInformation model,
@@ -271,7 +272,7 @@ public class ChiseledBlockGhostRenderer {
 
 		for (final ChiseledBlockModelPart part : model.parts()) {
 			for (final Direction direction : Direction.values()) {
-			// Render outer directional quads
+				// Render outer directional quads
 				random.setSeed(42L);
 				renderQuadList(poseStack.last().pose(),
 						bufferSource.getBuffer(renderType),
@@ -293,7 +294,7 @@ public class ChiseledBlockGhostRenderer {
 	}
 
 	/**
-	 * Optimized version of ItemRenderer#renderQuadList
+	 * Optimized version of ItemRenderer#renderQuadList.
 	 */
 	private static void renderQuadList(
 			final Matrix4f pose,
@@ -314,7 +315,7 @@ public class ChiseledBlockGhostRenderer {
 	}
 
 	/**
-	 * Optimized and stripped down version of IForgeVertexConsumer#putBulkData
+	 * Optimized and stripped down version of IForgeVertexConsumer#putBulkData.
 	 */
 	private static void putBulkData(
 			final VertexConsumer buffer,
@@ -323,11 +324,11 @@ public class ChiseledBlockGhostRenderer {
 			final Vector3f color,
 			final Vector3f normal,
 			final Vector4f pos) {
-			// Get vertex data
+		// Get vertex data
 		final Vector2f uv = new Vector2f();
 
 		for (int v = 0; v < 4; ++v) {
-			final var vertexPos = bakedQuad.position(v);
+			final Vector3fc vertexPos = bakedQuad.position(v);
 			pos.set(vertexPos.x(), vertexPos.y(), vertexPos.z(), 1f);
 			pos.mul(pose);
 

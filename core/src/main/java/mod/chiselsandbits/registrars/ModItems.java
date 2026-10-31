@@ -32,7 +32,7 @@ import net.minecraft.world.item.ToolMaterial;
 
 public final class ModItems {
 	private static final Logger LOGGER = LogManager.getLogger();
-	private final static IRegistrar<Item> ITEM_REGISTRAR = IRegistrar.create(Registries.ITEM, Constants.MOD_ID);
+	private static final IRegistrar<Item> ITEM_REGISTRAR = IRegistrar.create(Registries.ITEM, Constants.MOD_ID);
 	public static final IRegistryObject<ChiselItem> ITEM_CHISEL_STONE =
 			ITEM_REGISTRAR.register("chisel_stone", () -> new ChiselItem(ToolMaterial.STONE, new Item.Properties()
 						.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chisel_stone")))
@@ -66,12 +66,12 @@ public final class ModItems {
 			> ITEM_BIT_STORAGE =
 			ITEM_REGISTRAR.register("bit_storage", () -> new BitStorageBlockItem(ModBlocks.BIT_STORAGE.get(), new Item.Properties()
 					.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit_storage")))
-	));
+			));
 	public static final IRegistryObject<BlockItem
 			> ITEM_MODIFICATION_TABLE =
 			ITEM_REGISTRAR.register("modification_table", () -> new ModificationTableBlockItem(ModBlocks.MODIFICATION_TABLE.get(), new Item.Properties()
 					.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "modification_table")))
-	));
+			));
 	public static final IRegistryObject<MeasuringTapeItem> MEASURING_TAPE =
 			ITEM_REGISTRAR.register("measuring_tape", () -> new MeasuringTapeItem(new Item.Properties()
 						.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measuring_tape")))));
@@ -108,7 +108,7 @@ public final class ModItems {
 						.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "chiseled_block")))));
 
 	@SuppressWarnings("deprecation")
-			public static final IRegistryObject<LegacyDyedBitBagItem> LEGACY_ITEM_BIT_BAG_DYED =
+	public static final IRegistryObject<LegacyDyedBitBagItem> LEGACY_ITEM_BIT_BAG_DYED =
 			ITEM_REGISTRAR.register("bit_bag_dyed", () -> new LegacyDyedBitBagItem(new Item.Properties()
 					.setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit_bag_dyed")))));
 

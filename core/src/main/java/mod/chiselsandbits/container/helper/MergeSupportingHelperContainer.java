@@ -22,7 +22,7 @@ public class MergeSupportingHelperContainer extends AbstractContainerMenu {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
 
-			if (pIndex <slotCount) {
+			if (pIndex < slotCount) {
 				if (!this.moveItemStackTo(itemstack1, slotCount, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}

@@ -39,7 +39,6 @@ public class TextureUtils {
 			buffer.close();
 		},
 
-
 				0);
 		return destImage;
 	}

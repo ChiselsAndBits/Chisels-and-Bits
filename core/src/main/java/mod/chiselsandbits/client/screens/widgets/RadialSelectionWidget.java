@@ -97,18 +97,18 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final Consumer<IRenderableMode> currentlyHoveredModeCallback,
 			final Consumer<IRenderableMode> currentlyClickedModeCallback,
 			final List<? extends IRenderableMode> modes,
-					final float sectionArcAngle,
-					final float sectionStartAngle,
-					final boolean hideInactiveIcons,
-					final float innerSelectionRadius,
-					final float outerSelectionRadius,
-					final boolean keepSelectionWhenBeyondOuterSelectionRadius,
-					final float innerRadius,
-					final float outerRadius,
-					final float iconSize,
-					final float iconScaleFactor,
-					final int iconTextSpacer,
-					final Font fontRenderer
+			final float sectionArcAngle,
+			final float sectionStartAngle,
+			final boolean hideInactiveIcons,
+			final float innerSelectionRadius,
+			final float outerSelectionRadius,
+			final boolean keepSelectionWhenBeyondOuterSelectionRadius,
+			final float innerRadius,
+			final float outerRadius,
+			final float iconSize,
+			final float iconScaleFactor,
+			final int iconTextSpacer,
+			final Font fontRenderer
 	) {
 		super(x, y, width, height, message);
 		this.currentlySelectedModeSupplier = currentlySelectedModeSupplier;
@@ -140,18 +140,18 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			final Consumer<IRenderableMode> currentlyHoveredModeCallback,
 			final Consumer<IRenderableMode> currentlyClickedModeCallback,
 			final List<? extends IRenderableMode> modes,
-					final float sectionArcAngle,
-					final float sectionStartAngle,
-					final boolean hideInactiveIcons,
-					final float innerSelectionRadius,
-					final float outerSelectionRadius,
-					final boolean keepSelectionWhenBeyondOuterSelectionRadius,
-					final float innerRadius,
-					final float outerRadius,
-					final float iconSize,
-					final float iconScaleFactor,
-					final int iconTextSpacer,
-					final Font fontRenderer) {
+			final float sectionArcAngle,
+			final float sectionStartAngle,
+			final boolean hideInactiveIcons,
+			final float innerSelectionRadius,
+			final float outerSelectionRadius,
+			final boolean keepSelectionWhenBeyondOuterSelectionRadius,
+			final float innerRadius,
+			final float outerRadius,
+			final float iconSize,
+			final float iconScaleFactor,
+			final int iconTextSpacer,
+			final Font fontRenderer) {
 		this(
 				(int) (widget.getX() + (widget.getWidth() / 2f) - (width / 2f)),
 				(int) (widget.getY() + (widget.getHeight() / 2f) - (height / 2f)),
@@ -206,8 +206,8 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 
 		if (!isMouseInSection && current != null && modes.contains(current) && keepSelectionWhenBeyondOuterSelectionRadius) {
 			if (mouseIsInSectionArc && mouseRadius >= innerSelectionRadius) {
-			//We are at least in our arc bundle
-			//Lets just assume we are in a sub menu of hours and keep the current.
+				//We are at least in our arc bundle
+				//Lets just assume we are in a sub menu of hours and keep the current.
 				isMouseInSection = true;
 				hoveredItemIndex = modes.indexOf(current);
 			}
@@ -248,18 +248,18 @@ public class RadialSelectionWidget extends AbstractChiselsAndBitsWidget {
 			}
 		});
 
-		if (isMouseInSection && hoveredItemIndex >= 0 && hoveredItemIndex <modes.size() && modes.get(hoveredItemIndex).isActive()) {
+		if (isMouseInSection && hoveredItemIndex >= 0 && hoveredItemIndex < modes.size() && modes.get(hoveredItemIndex).isActive()) {
 			if (IClientConfiguration.getInstance().getEnableMouseIndicatorInRadialMenu().get()) {
 				float startOfMouseArcAngle = mouseAngle - (itemArcAngle / 2);
 				float mouseArcAngle = itemArcAngle;
 
 				if (sectionArcAngle != 360) {
-					if (startOfMouseArcAngle <sectionStartAngle) {
+					if (startOfMouseArcAngle < sectionStartAngle) {
 						mouseArcAngle -= (sectionStartAngle - startOfMouseArcAngle);
 						startOfMouseArcAngle = sectionStartAngle;
 					}
 
-					if ((startOfMouseArcAngle + mouseArcAngle)> (sectionStartAngle + sectionArcAngle)) {
+					if ((startOfMouseArcAngle + mouseArcAngle) > (sectionStartAngle + sectionArcAngle)) {
 						mouseArcAngle = (sectionStartAngle + sectionArcAngle) - startOfMouseArcAngle;
 					}
 				}

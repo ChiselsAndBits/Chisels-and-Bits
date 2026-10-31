@@ -145,7 +145,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 							context.getMode().getIcon(),
 							new Vec3(1, 0, 0),
 							context.getError().get()
-					);
+			);
 		}
 
 		return resultState;
@@ -182,7 +182,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 							getMode(stack).getIcon(),
 							new Vec3(1, 0, 0),
 							LocalStrings.ChiselAttemptFailedWaitForCoolDown.getText()
-					);
+			);
 		}
 
 		return isAllowedToUse;
@@ -230,10 +230,10 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 
 			if (
 					context.getMode() == chiselMode
-			)
-
-			if (context.getMutator().isPresent()) {
-				return false;
+			) {
+				if (context.getMutator().isPresent()) {
+					return false;
+				}
 			}
 
 			return context.getMutator().isEmpty();
@@ -246,7 +246,7 @@ public class ChiselItem extends Item implements IChiselItem, IDynamicallyHighlig
 				true,
 				itemStack);
 
-				//We try a left click render primary.
+		//We try a left click render primary.
 		chiselMode.onLeftClickBy(
 				playerEntity,
 				context

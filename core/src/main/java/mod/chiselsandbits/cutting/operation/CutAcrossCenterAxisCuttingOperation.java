@@ -25,7 +25,8 @@ import net.minecraft.world.phys.Vec3;
 public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryEntry implements ICuttingOperation {
 	private final Direction.Axis axis;
 
-	public CutAcrossCenterAxisCuttingOperation(final Direction.Axis axis) {this.axis = axis; }
+	public CutAcrossCenterAxisCuttingOperation(final Direction.Axis axis) {
+		this.axis = axis; }
 
 	@Override
 	public Collection<IAreaAccessor> apply(final IAreaAccessor source) {
@@ -61,11 +62,10 @@ public class CutAcrossCenterAxisCuttingOperation extends AbstractCustomRegistryE
 	@Override
 	public Component getDisplayName() {
 		return switch (axis) {
-			case X -> LocalStrings.PatternCuttingAcrossXAxis.getText();
-			case Y -> LocalStrings.PatternCuttingAcrossYAxis.getText();
-			case Z -> LocalStrings.PatternCuttingAcrossZAxis.getText();
+		case X -> LocalStrings.PatternCuttingAcrossXAxis.getText();
+		case Y -> LocalStrings.PatternCuttingAcrossYAxis.getText();
+		case Z -> LocalStrings.PatternCuttingAcrossZAxis.getText();
 		};
-
 	}
 
 	@Override

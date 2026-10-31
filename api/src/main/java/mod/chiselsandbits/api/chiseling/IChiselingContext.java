@@ -145,7 +145,6 @@ public interface IChiselingContext extends IStateAccessor {
 		return tryDamageItem(1);
 	};
 
-
 	/**
 	 * Invoked to try to damage the item that caused the chiseling operation.
 	 * If no item was the cause of the operation this function always returns successfully.

@@ -25,7 +25,7 @@ public interface IStatistics extends RawSerializable {
 	boolean isEmpty();
 
 	/**
-	 * Returns all states (without count) that are contained in the object
+	 * Returns all states (without count) that are contained in the object.
 	 *
 	 * @return All states in the object.
 	 */

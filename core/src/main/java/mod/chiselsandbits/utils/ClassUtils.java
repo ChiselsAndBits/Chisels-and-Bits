@@ -40,9 +40,9 @@ public class ClassUtils {
 					try {
 						return new ClassLookupResult(blkClass.getMethod(methodName, args).getDeclaringClass(), true);
 					} catch (final NoSuchMethodException e) {
-					// nothing here...
+						// nothing here...
 					} catch (final SecurityException e) {
-					// nothing here..
+						// nothing here..
 					} catch (final Throwable e) {
 						return new ClassLookupResult(null, false);
 					}
@@ -50,9 +50,9 @@ public class ClassUtils {
 					try {
 						return new ClassLookupResult(blkClass.getDeclaredMethod(methodName, args).getDeclaringClass(), true);
 					} catch (final NoSuchMethodException e) {
-					// nothing here...
+						// nothing here...
 					} catch (final SecurityException e) {
-					// nothing here..
+						// nothing here..
 					} catch (final Throwable e) {
 						return new ClassLookupResult(null, false);
 					}

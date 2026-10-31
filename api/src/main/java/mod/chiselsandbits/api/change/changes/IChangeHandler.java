@@ -31,7 +31,7 @@ public interface IChangeHandler {
 	void undo(Player player) throws IllegalChangeAttempt;
 
 	/**
-	 * Redoes the change
+	 * Redoes the change.
 	 *
 	 * @param player The player for which redoes the change.
 	 * @throws IllegalChangeAttempt when the change can not be redone.

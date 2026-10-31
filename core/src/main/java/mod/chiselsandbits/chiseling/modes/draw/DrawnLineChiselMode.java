@@ -312,8 +312,8 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 			while (distanceFromStart <= reach) {
 				positions.add(pos);
 
-				if (xDist <yDist) {
-					if (xDist <zDist) {
+				if (xDist < yDist) {
+					if (xDist < zDist) {
 						distanceFromStart = xDist;
 						xDist += xLen;
 						pos = pos.offset(direction.x() > 0 ? 1 : -1, 0, 0);
@@ -323,7 +323,7 @@ public class DrawnLineChiselMode extends AbstractCustomRegistryEntry implements 
 						pos = pos.offset(0, 0, direction.z() > 0 ? 1 : -1);
 					}
 				} else {
-					if (yDist <zDist) {
+					if (yDist < zDist) {
 						distanceFromStart = yDist;
 						yDist += yLen;
 						pos = pos.offset(0, direction.y() > 0 ? 1 : -1, 0);

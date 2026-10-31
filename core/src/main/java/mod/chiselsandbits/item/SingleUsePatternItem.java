@@ -60,8 +60,8 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 	 */
 	@Override
 	public IMultiStateItemStack createItemStack(final ItemStack stack) {
-	//Take care of an empty pattern.
-	//Generally the case when this is a stack from the creative menu.
+		//Take care of an empty pattern.
+		//Generally the case when this is a stack from the creative menu.
 		if (!SingleBlockMultiStateItemStack.hasData(stack)) {
 			return EmptySnapshot.Stack.INSTANCE;
 		}
@@ -114,7 +114,7 @@ public class SingleUsePatternItem extends Item implements IPatternItem {
 							mode.getIcon(),
 							new Vec3(1, 0, 0),
 							resultType.getFailureMessage()
-					);
+			);
 		}
 
 		return resultType.isSuccess()

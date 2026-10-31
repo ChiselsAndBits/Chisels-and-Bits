@@ -192,7 +192,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 						inAreaPos,
 						this::setInAreaTarget,
 						this::clearInAreaTarget)
-				);
+		);
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	public void setInAreaTarget(
 			final BlockInformation blockInformation,
 			final Vec3 inAreaTarget)
-	throws SpaceOccupiedException {
+		throws SpaceOccupiedException {
 		if (inAreaTarget.x() < 0
 				|| inAreaTarget.y() < 0
 				|| inAreaTarget.z() < 0
@@ -529,7 +529,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 			int maxCount = 0;
 
 			for (final Map.Entry<BlockInformation, Integer> blockStateIntegerEntry : countMap.entrySet()) {
-				if (maxCount <blockStateIntegerEntry.getValue() && !blockStateIntegerEntry.getKey().isAir()) {
+				if (maxCount < blockStateIntegerEntry.getValue() && !blockStateIntegerEntry.getKey().isAir()) {
 					maxState = blockStateIntegerEntry.getKey();
 					maxCount = blockStateIntegerEntry.getValue();
 				}

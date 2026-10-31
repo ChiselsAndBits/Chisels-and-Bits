@@ -9,30 +9,33 @@ import mod.chiselsandbits.api.multistate.accessor.ISingleBlockAxisAlignedAreaAcc
 import mod.chiselsandbits.api.neighborhood.IBlockNeighborhood;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.builder.ChiseledBlockModelMaterial;
+import mod.chiselsandbits.client.model.information.ChiseledBlockModelInformation;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorProvider {
 	@Override
 	public void collect(final BlockState blockState, final BlockAndTintGetter blockAndTintGetter, final BlockPos blockPos, final IntList intList) {
-		var blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
+		BlockEntity blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
 
 		if (!(blockEntity instanceof ISingleBlockAxisAlignedAreaAccessor accessor)) {
 			return;
 		}
 
-		var blockNeighborHood = IBlockNeighborhood.around(blockEntity);
+		IBlockNeighborhood blockNeighborHood = IBlockNeighborhood.around(blockEntity);
 
-		var model = ChiseledBlockStateModelManager.getInstance()
+		ChiseledBlockModelInformation model = ChiseledBlockStateModelManager.getInstance()
 				.get(
 						blockAndTintGetter,
 						blockPos,
 						accessor,
 						blockNeighborHood
-		);
+				);
 
 		intList.clear();
 		intList.size(model.materials().size());
@@ -46,7 +49,7 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 				continue;
 			}
 
-			var tintSource = Minecraft.getInstance().getBlockColors().getTintSource(
+			BlockTintSource tintSource = Minecraft.getInstance().getBlockColors().getTintSource(
 					material.blockInformation().blockState(),
 					material.tintIndex()
 			);
@@ -56,14 +59,14 @@ public class ChiseledBlockColorProvider implements IColorManager.IDynamicColorPr
 				continue;
 			}
 
-			var simulatedEnvironment = new SingleBlockBlockAndTintGetter.Builder()
+			SingleBlockBlockAndTintGetter simulatedEnvironment = new SingleBlockBlockAndTintGetter.Builder()
 					.withBlockState(material.blockInformation().blockState())
 					.withPos(blockPos)
 					.withSource(blockAndTintGetter)
 					.withBlockEntity(() -> material.blockInformation().newBlockEntity(blockPos))
 					.createSingleBlockBlockAndTintGetter();
 
-			var tint = tintSource.colorInWorld(
+			int tint = tintSource.colorInWorld(
 					material.blockInformation().blockState(),
 					simulatedEnvironment,
 					blockPos
