@@ -27,6 +27,7 @@ public interface IWorldAreaAccessor extends IAreaAccessor, IWorldObject {
 
 	/**
 	 * Gives access to a stream which represents all the blocks touched by the accessor.
+	 *
 	 * @return The blocks touched by the accessor.
 	 */
 	default Stream<BlockPos> coveredAreaStream() {

@@ -67,7 +67,11 @@ public final class ClassUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T> @Nullable T getStaticInstance(final Class<T> baseClass, final Class<? extends Annotation> instanceAnnotation, final Function<T, String> nameFunction, final Field field) {
+	private static <T> @Nullable T getStaticInstance(
+			final Class<T> baseClass,
+			final Class<? extends Annotation> instanceAnnotation,
+			final Function<T, String> nameFunction,
+			final Field field) {
 		try {
 			Object fieldValue = field.get(null);
 

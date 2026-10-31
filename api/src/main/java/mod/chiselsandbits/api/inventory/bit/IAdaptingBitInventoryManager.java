@@ -4,7 +4,16 @@ import java.util.Optional;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 
+/**
+ * Manages bit inventories by adapting compatible player inventory slots.
+ */
+
 public interface IAdaptingBitInventoryManager {
+	/**
+	 * Returns the shared adapting bit inventory manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IAdaptingBitInventoryManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getAdaptingBitInventoryManager();
 	}

@@ -8,10 +8,22 @@ import mod.chiselsandbits.api.multistate.snapshot.IMultiStateSnapshot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Helpers for finding and extracting chiseled items from player inventories.
+ */
+
 public class InventoryUtils {
 	private InventoryUtils() {
 		throw new IllegalStateException("Can not instantiate an instance of: InventoryUtils.This is a utility class");
 	}
+
+	/**
+	 * Finds a chiseled item whose shape identifier matches the supplied snapshot.
+	 *
+	 * @param player player whose inventory is searched
+	 * @param snapshot snapshot providing the shape identifier to match
+	 * @return the matching item stack, or {@link ItemStack#EMPTY} if none is present
+	 */
 
 	public static ItemStack getChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();
@@ -31,6 +43,13 @@ public class InventoryUtils {
 
 		return ItemStack.EMPTY;
 	}
+
+	/**
+	 * Removes one item from the first chiseled stack matching the supplied snapshot.
+	 *
+	 * @param player player whose inventory is searched
+	 * @param snapshot snapshot providing the shape identifier to match
+	 */
 
 	public static void extractChiseledStackMatchingSnapshot(final Player player, final IMultiStateSnapshot snapshot) {
 		final IAreaShapeIdentifier identifier = snapshot.createNewShapeIdentifier();

@@ -170,15 +170,16 @@ public final class VoxelShapeUtils {
 	/**
 	 * Used for mass combining shapes using a specific {@link BooleanOp} and a given start shape.
 	 *
+	 * <p>
+	 * We do not do any simplification until after combining all the shapes, and then only if the {@code simplify} is True.This is because there is a
+	 * performance hit in calculating the simplified shape each time if we still have more changers we are making to it.
+	 *
 	 * @param initial The {@link VoxelShape} to start with
 	 * @param function The {@link BooleanOp} to perform
 	 * @param simplify True if the returned shape should run {@link VoxelShape#optimize()}, False otherwise
 	 * @param shapes The collection of {@link VoxelShape}s to include
 	 *
 	 * @return A {@link VoxelShape} based on the input parameters.
-	 *
-	 * @implNote We do not do any simplification until after combining all the shapes, and then only if the {@code simplify} is True.This is because there is a
-	 * performance hit in calculating the simplified shape each time if we still have more changers we are making to it.
 	 */
 	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, Collection<VoxelShape> shapes) {
 		VoxelShape combinedShape = initial;
@@ -193,16 +194,16 @@ public final class VoxelShapeUtils {
 	/**
 	 * Used for mass combining shapes using a specific {@link BooleanOp} and a given start shape.
 	 *
+	 * <p>
+	 * We do not do any simplification until after combining all the shapes, and then only if the {@code simplify} is True.This is because there is a
+	 * performance hit in calculating the simplified shape each time if we still have more changers we are making to it.
+	 *
 	 * @param initial The {@link VoxelShape} to start with
 	 * @param function The {@link BooleanOp} to perform
 	 * @param simplify True if the returned shape should run {@link VoxelShape#optimize()}, False otherwise
 	 * @param shapes The list of {@link VoxelShape}s to include
 	 *
-	 * @return A {@link VoxelShape} based on the input parameters.
-	 *
-	 * @implNote We do not do any simplification until after combining all the shapes, and then only if the {@code simplify} is True.This is because there is a
-	 * performance hit in calculating the simplified shape each time if we still have more changers we are making to it.
-	 */
+	 * @return A {@link VoxelShape} based on the input parameters.*/
 	public static VoxelShape batchCombine(VoxelShape initial, BooleanOp function, boolean simplify, VoxelShape... shapes) {
 		VoxelShape combinedShape = initial;
 

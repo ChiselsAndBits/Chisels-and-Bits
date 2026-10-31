@@ -18,7 +18,6 @@ public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem
 	 * given bit item.
 	 *
 	 * @param stack The stack which contains this bit item.
-	 *
 	 * @return The block information contained in this bit item.
 	 */
 	BlockInformation getBlockInformation(ItemStack stack);

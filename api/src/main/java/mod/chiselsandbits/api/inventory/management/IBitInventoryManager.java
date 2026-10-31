@@ -66,7 +66,6 @@ public interface IBitInventoryManager {
 	 * Creates a new bit inventory wrapping the given itemstack.
 	 *
 	 * @param stack The itemstack to wrap.
-	 *
 	 * @return The bit inventory which represents the inventory.
 	 */
 	IBitInventoryItemStack create(ItemStack stack);

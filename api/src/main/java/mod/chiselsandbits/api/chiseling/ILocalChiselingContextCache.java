@@ -11,6 +11,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 public interface ILocalChiselingContextCache {
 	/**
 	 * Gives access to the instance.
+	 *
 	 * @return The instance.
 	 */
 	static ILocalChiselingContextCache getInstance() {
@@ -36,6 +37,7 @@ public interface ILocalChiselingContextCache {
 
 	/**
 	 * Clears the current context.
+	 *
 	 * @param operation The operation to get the context for from the cache.
 	 */
 	void clear(ChiselingOperation operation);

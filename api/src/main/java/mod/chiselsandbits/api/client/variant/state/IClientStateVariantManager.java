@@ -18,6 +18,11 @@ import net.minecraft.world.level.block.Block;
  * Handles client specific logic related to the state variant.
  */
 public interface IClientStateVariantManager {
+	/**
+	 * Returns the client state-variant manager exposed by the active API instance.
+	 *
+	 * @return the requested value.
+	 */
 	static IClientStateVariantManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getClientStateVariantManager();
 	}
@@ -25,6 +30,7 @@ public interface IClientStateVariantManager {
 	/**
 	 * Registers a new state variant provider.
 	 *
+	 * @param block supplies the block whose variants are handled by the provider
 	 * @param provider The provider to register.
 	 * @return The manager instance.
 	 */
@@ -48,7 +54,8 @@ public interface IClientStateVariantManager {
 	 * @param flag The flags
 	 * @param tooltipDisplay The display information regarding the tooltip.
 	 */
-	void appendHoverText(BlockInformation blockInformation,
+	void appendHoverText(
+			BlockInformation blockInformation,
 			Item.TooltipContext context,
 			TooltipDisplay tooltipDisplay,
 			Consumer<Component> tooltipAdder,

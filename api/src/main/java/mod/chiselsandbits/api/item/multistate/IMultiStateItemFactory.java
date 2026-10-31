@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 public interface IMultiStateItemFactory {
 	/**
 	 * The instance of the manager.
+	 *
 	 * @return The instance.
 	 */
 	static IMultiStateItemFactory getInstance() {

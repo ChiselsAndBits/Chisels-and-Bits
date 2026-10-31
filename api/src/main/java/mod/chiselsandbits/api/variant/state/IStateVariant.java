@@ -45,7 +45,9 @@ public interface IStateVariant extends Comparable<IStateVariant>, ISnapshotable<
 	 * By default, this does nothing, however a particular implementation can decide to properly instantiate it so that
 	 * the model extraction system can provide other minecraft subsystems, like coloring, the correct information needed
 	 * for this variant.
-	 * </p
-	> */
+	 * </p>
+	 *
+	 * @param blockEntity block entity to update with this variant's state
+	 */
 	default void updateBlockEntity(BlockEntity blockEntity) { }
 }

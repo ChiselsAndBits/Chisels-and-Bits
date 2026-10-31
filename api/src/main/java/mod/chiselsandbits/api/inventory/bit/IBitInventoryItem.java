@@ -11,7 +11,6 @@ public interface IBitInventoryItem {
 	 * given itemstack which contains this item.
 	 *
 	 * @param stack The stack to create an inventory of.
-	 *
 	 * @return The bit inventory.
 	 */
 	IBitInventoryItemStack create(ItemStack stack);

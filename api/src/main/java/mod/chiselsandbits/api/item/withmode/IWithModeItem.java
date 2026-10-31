@@ -25,6 +25,7 @@ public interface IWithModeItem<M extends IToolMode<?>> {
 
 	/**
 	 * Returns the current mode of the itemstack.
+	 *
 	 * @param stack The stack in question.
 	 * @return The mode the given stack has.
 	 */

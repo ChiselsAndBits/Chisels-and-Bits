@@ -34,9 +34,13 @@ dependencies {
     api "com.communi-suggestu.scena:core:${project.property('communi.suggestu.scena.version')}"
 }
 
-tasks.withType(Javadoc.class).configureEach { it -> {
-    it.options.tags = [ "implNote:a:Note on the Implementation" ]
-}}
+tasks.withType(Javadoc.class).configureEach { Javadoc javadoc ->
+    javadoc.options.tags = ["implNote:a:Note on the Implementation"]
+    // Missing-javadoc doclint is enforced as a hard error for this library only;
+    // every other subproject mutes it (see root build.gradle).
+    javadoc.options.addStringOption('-Xdoclint:missing')
+    javadoc.options.addStringOption('-Werror')
+}
 
 java {
     withJavadocJar()

@@ -8,7 +8,16 @@ import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Coordinates chiseling operations and their active state.
+ */
+
 public interface IChiselingManager {
+	/**
+	 * Returns the shared chiseling manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IChiselingManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getChiselingManager();
 	}
@@ -50,7 +59,6 @@ public interface IChiselingManager {
 	 *
 	 * @param playerEntity The player for which the context is looked up.
 	 * @param mode The mode which the player wants to chisel in
-	 *
 	 * @return An optional potentially containing the current context of the player.
 	 */
 	Optional<IChiselingContext> get(
@@ -64,7 +72,6 @@ public interface IChiselingManager {
 	 * @param playerEntity The player for which the context is looked up.
 	 * @param mode The mode which the player wants to chisel in.
 	 * @param modeOfOperandus The mode of operation for the current context.
-	 *
 	 * @return An optional potentially containing the current context of the player.
 	 */
 	Optional<IChiselingContext> get(
@@ -82,7 +89,6 @@ public interface IChiselingManager {
 	 * @param modeOfOperandus The mode of operation for the current context.
 	 * @param simulation Indicates if the context is used in contextual simulation.{@code true}, prevents overriding of the current context and also does not save the context in the manager.
 	 * @param causingItemStack The stack that triggered the chiseling operation.
-	 *
 	 * @return The newly created context.
 	 */
 	IChiselingContext create(

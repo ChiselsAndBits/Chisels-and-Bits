@@ -149,6 +149,7 @@ public interface IStateVariantManager {
 	 * @param levelReader The level reader.
 	 * @param pos The position.
 	 * @param beaconPos The beacon position.
+	 * @return the requested value.
 	 */
 	Optional<Integer> getBeaconColorMultiplier(BlockInformation blockInformation, LevelReader levelReader, BlockPos pos, BlockPos beaconPos);
 }

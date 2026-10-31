@@ -27,6 +27,15 @@ public class ArrayUtils {
 		return result;
 	}
 
+	/**
+	 * Creates a deep clone of {@code additionalStateInfos} by replacing each non-null element with its own snapshot,
+	 * passing null entries through unchanged.
+	 *
+	 * @param <T> The snapshot state type described by each element.
+	 * @param additionalStateInfos The source array whose elements are cloned via {@link ISnapshotable#createSnapshot()}.
+	 * @param arrayCreator Factory that allocates the destination array of matching size.
+	 * @return A new array holding a snapshot for each non-null input element, or null for null entries.
+	 */
 	public static <T extends ISnapshotable<? extends T>> T[] createDeepClone(final T[] additionalStateInfos, IntFunction<T[]> arrayCreator) {
 		final T[] clone = arrayCreator.apply(additionalStateInfos.length);
 

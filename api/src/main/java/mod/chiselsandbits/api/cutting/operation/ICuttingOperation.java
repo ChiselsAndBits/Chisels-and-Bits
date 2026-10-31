@@ -15,6 +15,7 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
 public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICuttingOperationGroup> {
 	/**
 	 * The default Cutting operation.
+	 *
 	 * @return The default operation.
 	 */
 	static ICuttingOperation getDefaultMode() {
@@ -23,6 +24,7 @@ public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICutt
 
 	/**
 	 * The underlying registry that contains the different Cutting modes that can be performed.
+	 *
 	 * @return The underlying forge registry.
 	 */
 	static ICustomRegistry<ICuttingOperation> getRegistry() {

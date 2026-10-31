@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 public interface IInteractableItem {
 	/**
 	 * Indicates if the current given itemstack is in use during an interaction.
+	 *
 	 * @param stack The stack in question.
 	 * @return {@code true} when an interaction with the given stack is going on.
 	 */
@@ -15,6 +16,7 @@ public interface IInteractableItem {
 
 	/**
 	 * Gives access to the stack the interaction is occurring with.
+	 *
 	 * @param stack The stack that is leading the interaction.
 	 * @return The stack that the interaction is occuring with.
 	 */
@@ -22,6 +24,7 @@ public interface IInteractableItem {
 
 	/**
 	 * Indicates if the interactable stack is used in a simulation for display purposes.
+	 *
 	 * @param stack The stack in question
 	 * @return {@code true} when a simulation is taking place.
 	 */

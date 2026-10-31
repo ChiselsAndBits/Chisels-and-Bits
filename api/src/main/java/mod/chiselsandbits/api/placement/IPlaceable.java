@@ -4,6 +4,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 
+/**
+ * Contract for values that can be placed into the world.
+ */
+
 public interface IPlaceable {
 	/**
 	 * Invoked to determine the result of attempting actual placement in the world.

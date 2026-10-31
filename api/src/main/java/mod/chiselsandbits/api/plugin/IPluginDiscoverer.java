@@ -31,8 +31,16 @@ public interface IPluginDiscoverer {
 	 */
 	Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins();
 
+	/**
+	 * Shared service-loader implementation that filters plugins by platform availability and experimental status.
+	 */
 	abstract class AbstractPluginDiscoverer implements IPluginDiscoverer {
 		private static final Logger LOGGER = LogUtils.getLogger();
+
+		/**
+		 * Creates a platform plugin discoverer.
+		 */
+		protected AbstractPluginDiscoverer() { }
 
 		@Override
 		public Stream<PluginData<IChiselsAndBitsPlugin>> loadPlugins() {
@@ -72,6 +80,12 @@ public interface IPluginDiscoverer {
 			return true;
 		}
 
+		/**
+		 * Checks whether a required mod identifier is unavailable on this platform.
+		 *
+		 * @param modId required mod identifier to check
+		 * @return {@code true} when the required mod is not loaded
+		 */
 		protected abstract boolean isModNotLoaded(String modId);
 	}
 }

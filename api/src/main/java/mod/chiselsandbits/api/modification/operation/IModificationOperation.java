@@ -13,6 +13,7 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
 public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<IModificationOperationGroup> {
 	/**
 	 * The default modification operation.
+	 *
 	 * @return The default operation.
 	 */
 	static IModificationOperation getDefaultMode() {
@@ -21,6 +22,7 @@ public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<
 
 	/**
 	 * The underlying registry that contains the different modification modes that can be performed.
+	 *
 	 * @return The underlying forge registry.
 	 */
 	static ICustomRegistry<IModificationOperation> getRegistry() {

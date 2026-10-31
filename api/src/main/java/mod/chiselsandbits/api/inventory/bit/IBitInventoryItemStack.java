@@ -13,7 +13,17 @@ import net.minecraft.world.item.ItemStack;
  * A bit inventory which can be converted to an itemstack.
  */
 public interface IBitInventoryItemStack extends IBitInventory, Container {
-	record DisplayContents(List<Component> displayComponents, boolean isEmpty, boolean clipped) { };
+	/**
+	 * Display-ready summary of an item-backed bit inventory and whether the summary was truncated.
+	 *
+	 * @param displayComponents lines to show in the inventory tooltip
+	 * @param isEmpty whether the underlying inventory contains no bits
+	 * @param clipped whether some contents were omitted from the display
+	 */
+	record DisplayContents(
+			List<Component> displayComponents,
+			boolean isEmpty,
+			boolean clipped) { };
 
 	/**
 	 * Converts this bit inventory into an itemstack.
@@ -50,7 +60,9 @@ public interface IBitInventoryItemStack extends IBitInventory, Container {
 	void sort();
 
 	/**
-	 * Converts the inventory into blocks.
+	 * Converts the inventory contents into blocks for the given player.
+	 *
+	 * @param player player receiving or performing the conversion
 	 */
 	void convert(Player player);
 }

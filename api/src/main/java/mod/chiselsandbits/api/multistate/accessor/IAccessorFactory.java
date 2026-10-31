@@ -13,6 +13,7 @@ import net.minecraft.world.phys.Vec3;
 public interface IAccessorFactory {
 	/**
 	 * Gives access to the accessor factory.
+	 *
 	 * @return The accessor factory.
 	 */
 	static IAccessorFactory getInstance() {

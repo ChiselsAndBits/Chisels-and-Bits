@@ -11,9 +11,14 @@ import net.minecraft.network.codec.StreamCodec;
  * Represents a single change that has been created with bits.
  */
 public interface IChange extends IChangeHandler {
+	/**
+	 * Codec for serializing changes by their registered change type.
+	 */
 	Codec<IChange> CODEC = Codec.lazyInitialized(() -> IRegistryManager.getInstance().getChangeTypeRegistry().byNameCodec()
 			.dispatch(IChange::getType, IChangeType::codec));
-
+	/**
+	 * Network codec for serializing changes by their registered change type.
+	 */
 	StreamCodec<RegistryFriendlyByteBuf, IChange> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
 			IRegistryManager.getInstance().getChangeTypeRegistry().byNameStreamCodec(),
 			IChangeType::streamCodec,

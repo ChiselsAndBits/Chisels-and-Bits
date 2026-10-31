@@ -20,8 +20,8 @@ public interface IPermissionHandler {
 
 	/**
 	 * Registers a new {@link IPermissionChecker} with the permission handler.
-	 * @param checker The new permission checker
 	 *
+	 * @param checker The new permission checker
 	 * @return The registration token which can be used to unregister the checker.
 	 */
 	ICheckerRegistration registerChecker(IPermissionChecker checker);

@@ -5,6 +5,10 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Resolves state entries at positions within a multistate area.
+ */
+
 public interface IStateAccessor {
 	/**
 	 * Gets the target state in the current area, using the offset from the area as well as the in area target offset.

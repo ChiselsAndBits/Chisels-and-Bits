@@ -5,6 +5,11 @@ package mod.chiselsandbits.api.axissize;
  * of the multistate object.
  */
 public interface IAxisSizeHandler {
+	/**
+	 * Creates an axis-size handler with no configured sizes.
+	 *
+	 * @return a handler whose lowest and highest values are both zero
+	 */
 	static IAxisSizeHandler empty() {
 		return new IAxisSizeHandler() {
 			@Override

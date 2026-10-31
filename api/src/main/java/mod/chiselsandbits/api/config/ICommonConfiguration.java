@@ -2,6 +2,10 @@ package mod.chiselsandbits.api.config;
 
 import java.util.function.Supplier;
 
+/**
+ * Exposes configuration values shared by client and server code.
+ */
+
 public interface ICommonConfiguration {
 	/**
 	 * The common configuration.

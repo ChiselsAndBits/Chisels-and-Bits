@@ -39,5 +39,12 @@ allprojects { Project project ->
     tasks.withType(Checkstyle).configureEach {
         group "verification"
     }
-}
 
+    tasks.withType(Javadoc.class).configureEach {
+        // Missing-javadoc doclint is muted everywhere by default; the api module
+        // opts back into enforcement in its own build file.
+        options.addStringOption('-Xdoclint:-missing')
+        options.addStringOption('Xmaxerrs', '10000')
+        options.addStringOption('Xmaxwarns', '10000')
+    }
+}

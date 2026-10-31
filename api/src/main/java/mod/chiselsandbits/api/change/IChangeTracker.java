@@ -39,12 +39,14 @@ public interface IChangeTracker extends IChangeHandler {
 
 	/**
 	 * Gets a readonly-copy of the changes in the queue.
+	 *
 	 * @return The changes last performed and recorded by this tracker.
 	 */
 	Deque<IChange> getChanges();
 
 	/**
 	 * Sets the changes in the tracker.
+	 *
 	 * @param changes The changes to set.
 	 */
 	void setChanges(Deque<IChange> changes);

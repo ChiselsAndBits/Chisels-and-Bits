@@ -37,6 +37,12 @@ public enum StateEntrySize {
 
 	private static StateEntrySize _current = null;
 
+	/**
+	 * Returns the currently configured state-entry size.
+	 *
+	 * @return configured size, or {@link #ONE_SIXTEENTH} before API initialization
+	 */
+
 	public static StateEntrySize current() {
 		if (_current == null) {
 			if (IChiselsAndBitsAPI.getInstance() == null) {

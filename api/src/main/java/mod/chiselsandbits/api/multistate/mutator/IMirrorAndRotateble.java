@@ -2,6 +2,10 @@ package mod.chiselsandbits.api.multistate.mutator;
 
 import net.minecraft.core.Direction;
 
+/**
+ * Contract for multistate storage that supports mirroring and rotation.
+ */
+
 public interface IMirrorAndRotateble {
 	/**
 	 * Rotates the current multistate block 90 degrees around the given axis with the given rotation count.

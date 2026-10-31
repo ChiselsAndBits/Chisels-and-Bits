@@ -22,13 +22,31 @@ public enum PlacementPreviewRenderMode {
 	 */
 	WIREFRAME;
 
+	/**
+	 * Reports whether this mode renders the preview as a ghost model.
+	 *
+	 * @return whether the requested condition holds.
+	 */
+
 	public boolean isGhost() {
 		return this == GHOST_BLOCK_MODEL;
 	}
 
+	/**
+	 * Reports whether this mode renders a solid-color ghost model.
+	 *
+	 * @return whether the requested condition holds.
+	 */
+
 	public boolean isColoredGhost() {
 		return this == GHOST_BLOCK_MODEL_SOLID_COLOR;
 	}
+
+	/**
+	 * Reports whether this mode renders a wireframe.
+	 *
+	 * @return whether the requested condition holds.
+	 */
 
 	public boolean isWireframe() {
 		return this == WIREFRAME;

@@ -27,6 +27,8 @@ public interface IMultiStateItemStack extends IAreaAccessor, IMirrorAndRotateble
 
 	/**
 	 * Writes the state data to the itemstack.
+	 *
+	 * @param stack item stack associated with the operation.
 	 */
 	void writeDataTo(ItemStack stack);
 

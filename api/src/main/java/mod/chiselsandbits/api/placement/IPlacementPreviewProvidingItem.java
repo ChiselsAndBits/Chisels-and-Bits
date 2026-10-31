@@ -4,6 +4,10 @@ import mod.chiselsandbits.api.item.wireframe.IWireframeProvidingItem;
 
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Contract for items that provide a preview before multistate placement.
+ */
+
 public interface IPlacementPreviewProvidingItem extends IWireframeProvidingItem, IPlaceable, IPlacementProperties {
 	/**
 	 * Returns whether to effectively ignore the depth buffer and render in front of everything for a given placement result.

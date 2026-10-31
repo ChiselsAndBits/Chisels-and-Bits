@@ -4,11 +4,17 @@ import java.util.function.Predicate;
 
 import net.minecraft.world.level.block.state.BlockState;
 
+/**
+ * Common {@link java.util.function.Predicate} instances for filtering {@link net.minecraft.world.level.block.state.BlockState} values.
+ */
 public class BlockStatePredicates {
 	private BlockStatePredicates() {
 		throw new IllegalStateException("Can not instantiate an instance of: StateEntryPredicates.This is a utility class");
 	}
 
+	/**
+	 * A predicate matching any non-air {@code BlockState}.
+	 */
 	public static final Predicate<BlockState> NOT_AIR = new Predicate<>() {
 		@Override
 		public boolean test(final BlockState blockState) {
@@ -26,6 +32,9 @@ public class BlockStatePredicates {
 		}
 	};
 
+	/**
+	 * A predicate that always matches, regardless of the evaluated {@code BlockState}.
+	 */
 	public static final Predicate<BlockState> ALL = new Predicate<>() {
 		@Override
 		public boolean test(final BlockState blockState) {
@@ -43,6 +52,10 @@ public class BlockStatePredicates {
 		}
 	};
 
+	/**
+	 * A predicate matching only states that occupy space — non-air with an empty fluid state (excluding air and liquids/gases).
+	 * Okey,
+	 */
 	public static final Predicate<BlockState> COLLIDEABLE_ONLY = new Predicate<>() {
 		@Override
 		public boolean test(final BlockState blockState) {

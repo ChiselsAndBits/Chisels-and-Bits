@@ -40,6 +40,10 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 
+/**
+ * Codec helpers for Chisels &amp; Bits serialization formats and compatibility.
+ */
+
 public interface CBCodecs {
 	/**
 	 * Codec for a bit set.
@@ -68,8 +72,9 @@ public interface CBCodecs {
 	 * The version is stored as an integer in the payload, its value will always be 0
 	 *
 	 * @param singleVersionCodec The versions to use.
+	 * @param fallback codec used to read values from the legacy representation
 	 * @param <T> The type of the codec.
-	 * @return The codec.
+	 * @return a versioned codec that writes version zero and can read the fallback format
 	 */
 	static <T> Codec<T> versioned(MapCodec<T> singleVersionCodec, Codec<T> fallback) {
 		return withFallback(Codec.INT.dispatch(NbtConstants.VERSION,
@@ -90,8 +95,9 @@ public interface CBCodecs {
 	 * The version is stored as an integer in the payload.
 	 *
 	 * @param versions The versions to use.
+	 * @param fallback codec used when reading data without a recognized version
 	 * @param <T> The type of the codec.
-	 * @return The codec.
+	 * @return a codec that writes the newest supplied version and reads supported versions
 	 */
 	static <T> Codec<T> versioned(Map<Integer, MapCodec<T>> versions, MapCodec<T> fallback) {
 		final int maxVersion = versions.keySet().stream().max(Integer::compareTo).orElse(0);
@@ -112,7 +118,9 @@ public interface CBCodecs {
 	 * Creates a codec that compresses the data using LZ4.
 	 * The compressed data is stored as a byte array in the payload.
 	 *
-	 * @param inner The inner codec.
+	 * @param <T> the decoded value type
+	 * @param inner codec for the uncompressed payload
+	 * @return a codec that reads legacy LZ4-compressed NBT and rejects encoding
 	 */
 	static <T> Codec<T> readLegacyCompressed(Codec<T> inner) {
 		return Codec.BYTE_BUFFER.flatXmap(
@@ -144,7 +152,9 @@ public interface CBCodecs {
 	 * Creates a codec that compresses the data using LZ4.
 	 * The compressed data is stored as a byte array in the payload.
 	 *
-	 * @param inner The inner codec.
+	 * @param <T> the encoded value type
+	 * @param inner codec for the uncompressed payload
+	 * @return a codec that reads and writes LZ4-compressed NBT
 	 */
 	static <T> Codec<T> compressed(Codec<T> inner) {
 		return Codec.BYTE_BUFFER.flatXmap(
@@ -187,6 +197,17 @@ public interface CBCodecs {
 				});
 	}
 
+	/**
+	 * Creates a codec for a table with arbitrary row and column keys.
+	 *
+	 * @param row codec for table row keys
+	 * @param column codec for table column keys
+	 * @param value codec for table cell values
+	 * @param <R> row-key type
+	 * @param <C> column-key type
+	 * @param <V> cell-value type
+	 * @return a codec that serializes the table as nested row and column maps
+	 */
 	static <R, C, V> Codec<Table<R, C, V>> unboundedTable(Codec<R> row, Codec<C> column, Codec<V> value) {
 		return unboundedComplexMap(
 						row,
@@ -205,6 +226,14 @@ public interface CBCodecs {
 				);
 	}
 
+	/**
+	 * Wraps a codec so a supplied NBT tag can be reused directly when encoding.
+	 *
+	 * @param codec codec used when no pre-serialized tag is available
+	 * @param lazyTagSupplier supplies a reusable encoded tag, or {@code null} when unavailable
+	 * @param <T> value type handled by the codec
+	 * @return a codec that uses the supplied tag for encoding when available and delegates decoding
+	 */
 	static <T> Codec<T> lazyNbtAware(Codec<T> codec, Supplier<? extends Tag> lazyTagSupplier) {
 		return new Codec<T>() {
 			@Override
@@ -226,6 +255,14 @@ public interface CBCodecs {
 		};
 	}
 
+	/**
+	 * Wraps a map codec so fields from a supplied NBT compound can be reused when encoding.
+	 *
+	 * @param codec map codec used when no pre-serialized compound is available
+	 * @param lazyTagSupplier extracts a reusable encoded compound, or {@code null} when unavailable
+	 * @param <T> value type handled by the map codec
+	 * @return a map codec that reuses the supplied compound's fields when available
+	 */
 	static <T> MapCodec<T> lazyNbtAware(MapCodec<T> codec, Function<T, CompoundTag> lazyTagSupplier) {
 		return new MapCodec<T>() {
 			@Override
@@ -260,10 +297,30 @@ public interface CBCodecs {
 		};
 	}
 
+	/**
+	 * Creates a map codec using the default {@code key} and {@code value} field names.
+	 *
+	 * @param keyCodec codec for map keys
+	 * @param valueCodec codec for map values
+	 * @param <K> map-key type
+	 * @param <V> map-value type
+	 * @return a codec that stores each entry under {@code key} and {@code value} fields
+	 */
 	static <K, V> Codec<Map<K, V>> unboundedComplexMap(Codec<K> keyCodec, Codec<V> valueCodec) {
 		return unboundedComplexMap("key", keyCodec, "value", valueCodec);
 	}
 
+	/**
+	 * Creates a map codec whose entries use the supplied key and value field names.
+	 *
+	 * @param key field name used for each map key
+	 * @param keyCodec codec for map keys
+	 * @param value field name used for each map value
+	 * @param valueCodec codec for map values
+	 * @param <K> map-key type
+	 * @param <V> map-value type
+	 * @return a codec that serializes map entries using the supplied field names
+	 */
 	static <K, V> Codec<Map<K, V>> unboundedComplexMap(String key, Codec<K> keyCodec, String value, Codec<V> valueCodec) {
 		Validate.notNull(keyCodec, "Key codec cannot be null");
 		Validate.notNull(valueCodec, "Value codec cannot be null");
@@ -286,7 +343,16 @@ public interface CBCodecs {
 				);
 	}
 
-	record FallbackCodec<F>(Codec<F> primary, Codec<F> fallback) implements Codec<F> {
+	/**
+	 * Codec that reads from primary then fallback, but always writes with primary.
+	 *
+	 * @param primary codec tried first and always used for encoding
+	 * @param fallback codec tried when decoding with {@code primary} fails
+	 * @param <F> value type handled by both codecs
+	 */
+	record FallbackCodec<F>(
+			Codec<F> primary,
+			Codec<F> fallback) implements Codec<F> {
 		@Override
 		public <T> DataResult<Pair<F, T>> decode(final DynamicOps<T> ops, final T input) {
 			final DataResult<Pair<F, T>> firstRead = primary.decode(ops, input);
@@ -318,6 +384,9 @@ public interface CBCodecs {
 		}
 	}
 
+	/**
+	 * Reads legacy byte-array bitsets as well as the current long-stream representation.
+	 */
 	record NbtAwareBitsetCodec() implements Codec<BitSet> {
 		private static final Codec<BitSet> BYTE_BASED_CODEC = Codec.BYTE_BUFFER
 				.xmap(ByteBuffer::array, ByteBuffer::wrap)

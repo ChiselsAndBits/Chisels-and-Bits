@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -195,7 +196,7 @@ public class EligibilityManager implements IEligibilityManager {
 	}
 
 	/**
-	 * Performs a chiselability analysis on the given {@link ItemStack}.
+	 * Performs a chisel-ability analysis on the given {@link ItemStack}.
 	 *
 	 * @param provider The {@link ItemLike} to analyze.
 	 * @return The analysis result.

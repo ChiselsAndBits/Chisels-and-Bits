@@ -92,7 +92,20 @@ public interface IMultiStateBlockEntity extends IWorldAreaAccessor,
 	 */
 	BlockStack getBlockStack();
 
-	record BlockStack(ItemStack stack, IMultiStateItemStack multiStateItemStack) {
+	/**
+	 * Placement stack pairing the ordinary block item with its multi-state payload.
+	 *
+	 * @param stack ordinary item stack used to place the block
+	 * @param multiStateItemStack item-backed multi-state data for the block
+	 */
+	record BlockStack(
+			ItemStack stack,
+			IMultiStateItemStack multiStateItemStack) {
+		/**
+		 * Copies both the item stack and the associated multi-state item data.
+		 *
+		 * @return an independent copy of this placement stack
+		 */
 		public BlockStack copy() {
 			return new BlockStack(stack.copy(), multiStateItemStack.copy());
 		}

@@ -24,6 +24,7 @@ public class AbstractChiselsAndBitsScreen extends Screen implements IChiselsAndB
 
 	/**
 	 * Creates a new screen, playing the narration message when opened.
+	 *
 	 * @param narrationMessage The narration message for the screen.
 	 */
 	protected AbstractChiselsAndBitsScreen(final Component narrationMessage) {

@@ -42,9 +42,21 @@ public interface IRenderableMode extends IWithDisplayName, IWithIconAndColor {
 		return new Vec3(1d, 1d, 1d);
 	}
 
+	/**
+	 * Returns the default offset for rendering this mode's icon.
+	 *
+	 * @return icon offset relative to its default position
+	 */
+
 	default Vec2 getPositionVector() {
 		return new Vec2(-0.1f, -0.1f);
 	}
+
+	/**
+	 * Returns the default scale for rendering this mode's icon.
+	 *
+	 * @return icon scale along the horizontal and vertical axes
+	 */
 
 	default Vec2 getScaleVector() {
 		return new Vec2(0.45f, 0.45f);

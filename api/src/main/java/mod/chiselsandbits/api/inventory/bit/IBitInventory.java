@@ -126,6 +126,7 @@ public interface IBitInventory {
 
 	/**
 	 * Indicates if this inventory is empty or not.
+	 *
 	 * @return {@code true} when empty.
 	 */
 	boolean isEmpty();
@@ -157,6 +158,7 @@ public interface IBitInventory {
 
 	/**
 	 * Returns the summed contained states of all bits in the inventory.
+	 *
 	 * @return The contained state count of all bits in the inventory.
 	 */
 	Map<BlockInformation, Integer> getContainedStates();

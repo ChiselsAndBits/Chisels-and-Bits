@@ -12,6 +12,11 @@ import net.minecraft.world.level.block.state.BlockState;
  * Generally this manager is comparable to the relevant methods in the game registry.
  */
 public interface IBlockStateIdManager {
+	/**
+	 * Returns the shared block state id manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IBlockStateIdManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBlockStateIdManager();
 	}
@@ -20,7 +25,6 @@ public interface IBlockStateIdManager {
 	 * Calculates the the integer id representation of the blockstate.
 	 *
 	 * @param blockState The blockstate for which the id is requested.
-	 *
 	 * @return The id of the given blockstate.
 	 */
 	default int getIdFrom(final BlockState blockState) {
@@ -31,7 +35,6 @@ public interface IBlockStateIdManager {
 	 * Calculates the blockstate from the given id.
 	 *
 	 * @param id The integer id representation of the requested blockstate.
-	 *
 	 * @return The blockstate which is represented by the given id.
 	 */
 	default BlockState getBlockStateFrom(final int id) {

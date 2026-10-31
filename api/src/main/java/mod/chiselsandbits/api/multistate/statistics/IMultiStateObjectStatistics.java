@@ -26,6 +26,7 @@ public interface IMultiStateObjectStatistics extends IStatistics {
 
 	/**
 	 * An immutable copy of the map that contains the counts of all blockstates in the multistate block.
+	 *
 	 * @return The blockstate count map.
 	 */
 	Map<BlockInformation, Integer> getStateCounts();
@@ -89,7 +90,6 @@ public interface IMultiStateObjectStatistics extends IStatistics {
 	 * Indicates the relative block hardness for a given player.
 	 *
 	 * @param player The players to get the hardness for.
-	 *
 	 * @return The relative block hardness.
 	 */
 	float getRelativeBlockHardness(Player player);

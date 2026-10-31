@@ -15,6 +15,7 @@ import mod.chiselsandbits.api.registries.IRegistryManager;
 public interface IGlueingOperation extends ICustomRegistryEntry, IToolMode<IGlueingOperationGroup> {
 	/**
 	 * The default Glueing operation.
+	 *
 	 * @return The default operation.
 	 */
 	static IGlueingOperation getDefaultMode() {
@@ -23,6 +24,7 @@ public interface IGlueingOperation extends ICustomRegistryEntry, IToolMode<IGlue
 
 	/**
 	 * The underlying registry that contains the different Glueing modes that can be performed.
+	 *
 	 * @return The underlying forge registry.
 	 */
 	static ICustomRegistry<IGlueingOperation> getRegistry() {

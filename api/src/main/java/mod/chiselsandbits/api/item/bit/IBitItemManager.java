@@ -9,6 +9,11 @@ import net.minecraft.world.item.ItemStack;
  * A manager which deals with items for bits.
  */
 public interface IBitItemManager {
+	/**
+	 * Returns the shared bit item manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IBitItemManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getBitItemManager();
 	}

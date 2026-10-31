@@ -22,7 +22,6 @@ public interface IRightClickControllingItem {
 	 * @param position The position on which the entity right clicked.
 	 * @param face The face on which the entity right clicked.
 	 * @param currentState The current state of the right click processing.
-	 *
 	 * @return The processing state with which the processing of the right click should continue.
 	 */
 	ClickProcessingState handleRightClickProcessing(
@@ -35,6 +34,7 @@ public interface IRightClickControllingItem {
 
 	/**
 	 * Invoked by the platform to indicate to this item that a right-clicking procedure has ended.
+	 *
 	 * @param player The player who stopped right-clicking.
 	 * @param stack The stack on which the clicking ended.
 	 */
@@ -49,10 +49,11 @@ public interface IRightClickControllingItem {
 	 * event is cancelled.
 	 *
 	 * @param playerEntity The player in question.
-	 *
+	 * @param stack item stack associated with the operation.
 	 * @return True when useable, false when not.
 	 */
-	default boolean canUse(final Player playerEntity,
+	default boolean canUse(
+			final Player playerEntity,
 			final ItemStack stack) {
 		return true;
 	}

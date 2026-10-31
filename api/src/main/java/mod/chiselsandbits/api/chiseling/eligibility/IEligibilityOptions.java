@@ -19,6 +19,7 @@ public interface IEligibilityOptions {
 
 	/**
 	 * Indicates if the class that defines the explosion resistance is valid for compatibility.
+	 *
 	 * @param explosionDefinitionClass The class that defines the explosion resistance.
 	 * @return True when the class is valid, false when not.
 	 */

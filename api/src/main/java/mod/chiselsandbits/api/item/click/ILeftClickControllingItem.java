@@ -22,7 +22,6 @@ public interface ILeftClickControllingItem {
 	 * @param position The position on which the entity left clicked.
 	 * @param face The face on which the entity left clicked.
 	 * @param currentState The current state of the left click processing.
-	 *
 	 * @return The processing state with which the processing of the left click should continue.
 	 */
 	ClickProcessingState handleLeftClickProcessing(
@@ -35,6 +34,7 @@ public interface ILeftClickControllingItem {
 
 	/**
 	 * Invoked by the platform to indicate to this item that a left-clicking procedure has ended.
+	 *
 	 * @param player The player who stopped left-clicking.
 	 * @param stack The stack on which the clicking ended.
 	 */
@@ -49,10 +49,11 @@ public interface ILeftClickControllingItem {
 	 * event is cancelled.
 	 *
 	 * @param playerEntity The player in question.
-	 *
+	 * @param stack Item stack on which the interaction is being performed.
 	 * @return True when useable, false when not.
 	 */
-	default boolean canUse(final Player playerEntity,
+	default boolean canUse(
+			final Player playerEntity,
 			final ItemStack stack) {
 		return true;
 	}

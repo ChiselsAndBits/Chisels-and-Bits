@@ -10,6 +10,11 @@ import net.minecraft.world.item.ItemStack;
  * or itemstacks (which contain blocks eligible) for chiseling.
  */
 public interface IEligibilityManager {
+	/**
+	 * Returns the shared eligibility manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IEligibilityManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getEligibilityManager();
 	}
@@ -18,7 +23,6 @@ public interface IEligibilityManager {
 	 * Checks if a given block information can be chiseled or is already chiseled.
 	 *
 	 * @param blockInformation The given block information in question.
-	 *
 	 * @return True when chiselable or already chiseled.
 	 */
 	default boolean canBeChiseled(final BlockInformation blockInformation) {
@@ -29,7 +33,6 @@ public interface IEligibilityManager {
 	 * Checks if a given {@link ItemStack} can be chiseled or is already chiseled.
 	 *
 	 * @param provider The given {@link ItemStack} in question.
-	 *
 	 * @return True when chiselable or already chiseled.
 	 */
 	default boolean canBeChiseled(final ItemStack provider) {
@@ -40,7 +43,6 @@ public interface IEligibilityManager {
 	 * Performs a chiselability analysis on the given block information.
 	 *
 	 * @param blockInformation The block information to analyze.
-	 *
 	 * @return The analysis result.
 	 */
 	IEligibilityAnalysisResult analyse(BlockInformation blockInformation);
@@ -49,7 +51,6 @@ public interface IEligibilityManager {
 	 * Performs a chiselability analysis on the given {@link ItemStack}.
 	 *
 	 * @param provider The {@link ItemStack} to analyze.
-	 *
 	 * @return The analysis result.
 	 */
 	IEligibilityAnalysisResult analyse(ItemStack provider);

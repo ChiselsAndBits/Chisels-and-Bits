@@ -8,6 +8,7 @@ import mod.chiselsandbits.api.IChiselsAndBitsAPI;
 public interface IChiselsAndBitsConfiguration {
 	/**
 	 * Gives access to the current configuration of C{@literal &}B.
+	 *
 	 * @return The current configuration.
 	 */
 	static IChiselsAndBitsConfiguration getInstance() {

@@ -25,7 +25,20 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record BlockInformation(BlockState blockState,
+/**
+ * Immutable description of a micro-block held in the Chisels &amp; Bits world: a base {@link net.minecraft.world.level.block.state.BlockState}
+ * paired with an optional {@link mod.chiselsandbits.api.variant.state.IStateVariant} that preserves per-instance overrides.
+ *
+ * <p>
+ * Instances are (de)serialised through the {@code CODEC}, {@code MAP_CODEC}, and {@code STREAM_CODEC} fields, snapshotted via
+ * {@link #createSnapshot()}, ordered by block-state id then variant in {@link #compareTo(BlockInformation)}, and used to build block entities at a position.
+ * The {@link #AIR} constant describes empty space.
+ *
+ * @param blockState base Minecraft block state represented by this information
+ * @param variant optional per-instance state variant
+ */
+public record BlockInformation(
+		BlockState blockState,
 		Optional<IStateVariant> variant) implements Serializable.Registry<BlockInformation>, ISnapshotable<BlockInformation>, Comparable<BlockInformation> {
 	public static final Codec<BlockInformation> LEGACY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			BlockStateSerializationUtils.LEGACY_BLOCK_STATE_CODEC.fieldOf(NbtConstants.STATE).forGetter(BlockInformation::blockState),
@@ -63,17 +76,28 @@ public record BlockInformation(BlockState blockState,
 	private static final Comparator<BlockInformation> COMPARATOR = Comparator.comparing(BlockInformation::blockState, STATE_COMPARATOR)
 			.thenComparing(BlockInformation::variant, OPTIONAL_VARIANT_COMPARATOR);
 
+	/**
+	 * Reports whether the stored block state currently holds a source (still) fluid such as water or lava.
+	 *
+	 * @return {@code true} if this position occupies a still/source fluid; {@code false} for solids, air, and flowing fluids.
+	 */
 	public boolean isFluid() {
 		return blockState().getFluidState().isSource();
 	}
 
+	/**
+	 * Reports whether the stored block state is air, i.e. represents empty space in the micro-block world.
+	 *
+	 * @return {@code true} if the block state is air; otherwise {@code false}.
+	 */
 	public boolean isAir() {
 		return blockState().isAir();
 	}
 
 	@Override
 	public BlockInformation createSnapshot() {
-		return variant.map(stateVariant -> new BlockInformation(blockState, Optional.ofNullable(stateVariant.createSnapshot()))).orElseGet(() -> new BlockInformation(blockState, Optional.empty()));
+		return variant.map(stateVariant -> new BlockInformation(blockState, Optional.ofNullable(stateVariant.createSnapshot())))
+				.orElseGet(() -> new BlockInformation(blockState, Optional.empty()));
 	}
 
 	@Override
@@ -96,11 +120,22 @@ public record BlockInformation(BlockState blockState,
 		return STREAM_CODEC;
 	}
 
+	/**
+	 * Creates a fresh block entity for this block state at origin ({@link net.minecraft.core.BlockPos#ZERO}).
+	 *
+	 * @return the created block entity, or {@code null} if no entity could be constructed. The value may be {@code null}.
+	 */
 	@Nullable
 	public BlockEntity newBlockEntityAtZero() {
 		return newBlockEntity(BlockPos.ZERO);
 	}
 
+	/**
+	 * Creates a fresh block entity for this block state at the given position, then applies this information's variant to it when present.
+	 *
+	 * @param pos the world position at which to create the block entity.
+	 * @return the newly created block entity, or {@code null} if the block is not an entity block or no entity was constructed. The value may be {@code null}.
+	 */
 	@Nullable
 	public BlockEntity newBlockEntity(BlockPos pos) {
 		if (!(blockState.getBlock() instanceof EntityBlock entityBlock)) {

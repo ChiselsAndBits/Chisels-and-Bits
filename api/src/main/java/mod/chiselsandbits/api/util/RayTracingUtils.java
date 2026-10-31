@@ -28,6 +28,13 @@ public class RayTracingUtils {
 		return playerEntity.pick(reachDistance, 0.5f, true);
 	}
 
+	/**
+	 * Returns the full integer vector for the direction the player is facing.
+	 *
+	 * @param playerEntity player whose look direction is converted
+	 * @return a vector containing the signs of the player's look-direction components
+	 */
+
 	public static Vec3i getFullFacingVector(final Player playerEntity) {
 		final Vec3 facingVector = playerEntity.getLookAngle();
 

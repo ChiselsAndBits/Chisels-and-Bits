@@ -19,7 +19,6 @@ public interface IPositionMutator {
 	 * Applies the mutation that this mutator performs on a given position.
 	 *
 	 * @param input The input position.
-	 *
 	 * @return The mutated output.
 	 */
 	Vec3i mutate(Vec3i input);
@@ -28,7 +27,6 @@ public interface IPositionMutator {
 	 * Creates a new mutator which chains the current and the next mutator into one.
 	 *
 	 * @param next The mutator that needs to be applied after the current mutator.
-	 *
 	 * @return The combined mutator.
 	 */
 	default IPositionMutator then(final IPositionMutator next) {

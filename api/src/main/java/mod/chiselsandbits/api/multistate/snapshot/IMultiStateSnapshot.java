@@ -10,10 +10,19 @@ import mod.chiselsandbits.api.serialization.CBStreamCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
+/**
+ * Immutable snapshot of the block information in a multistate area.
+ */
+
 public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableAreaMutator {
+	/**
+	 * Codec for serializing snapshots by their registered snapshot type.
+	 */
 	Codec<IMultiStateSnapshot> CODEC = Codec.lazyInitialized(() -> IRegistryManager.getInstance().getMultiStateSnapshotTypeRegistry()
 			.byNameCodec().dispatch(IMultiStateSnapshot::getType, IMultiStateSnapshotType::codec));
-
+	/**
+	 * Network codec for serializing snapshots by their registered snapshot type.
+	 */
 	StreamCodec<RegistryFriendlyByteBuf, IMultiStateSnapshot> STREAM_CODEC = CBStreamCodecs.lazyInitialized(() -> CBStreamCodecs.dispatch(
 			IRegistryManager.getInstance().getMultiStateSnapshotTypeRegistry().byNameStreamCodec(),
 			IMultiStateSnapshotType::streamCodec,
@@ -50,6 +59,7 @@ public interface IMultiStateSnapshot extends Cloneable, IGenerallyModifiableArea
 
 	/**
 	 * Creates a new snapshot which limits the currents snapshots contents to the given progression.
+	 *
 	 * @param progress The current progress in procent
 	 * @return The progress
 	 */

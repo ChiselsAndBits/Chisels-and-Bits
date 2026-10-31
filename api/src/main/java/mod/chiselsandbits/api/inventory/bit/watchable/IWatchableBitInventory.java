@@ -10,7 +10,6 @@ public interface IWatchableBitInventory extends IBitInventory {
 	 * Invoke to start receiving change callbacks on this given callback.
 	 *
 	 * @param onChangeCallback Triggered when the inventory changes.
-	 *
 	 * @return The watch object that can be closed to stop listening.
 	 */
 	IWatch startWatching(Runnable onChangeCallback);

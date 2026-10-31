@@ -61,14 +61,35 @@ public class ColorUtils {
 		return color;
 	}
 
+	/**
+	 * Packs four color channels given as floats in the range {@code 0..1} into an ARGB integer, scaling each channel to its full byte range.
+	 *
+	 * @param r The red channel value between 0 and 1.
+	 * @param g The green channel value between 0 and 1.
+	 * @param b The blue channel value between 0 and 1.
+	 * @param a The alpha channel value between 0 and 1.
+	 * @return A packed ARGB integer with each channel scaled from {@code 0..1} to {@code 0..255}.
+	 */
 	public static int pack(final float r, final float g, final float b, final float a) {
 		return pack((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
 	};
 
+	/**
+	 * Packs the four channels of {@code color} (red, green, blue, alpha in that order) as floats into an ARGB integer.
+	 *
+	 * @param color An array with at least four float channel values between 0 and 1.
+	 * @return A packed ARGB integer for the supplied channels.
+	 */
 	public static int pack(final float[] color) {
 		return pack(color[0], color[1], color[2], color[3]);
 	}
 
+	/**
+	 * Splits an ARGB integer into its four channels, returned as floats scaled to the range {@code 0..1}.
+	 *
+	 * @param color The packed ARGB color to decompose.
+	 * @return A float array of length four holding red, green, blue and alpha in that order.
+	 */
 	public static float[] unpack(final int color) {
 		return new float[] {
 			ARGB.red(color) / 255f,

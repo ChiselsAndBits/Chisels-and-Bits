@@ -6,11 +6,21 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Computes placement geometry for a {@link net.minecraft.world.phys.BlockHitResult}.
+ */
 public class BlockHitResultUtils {
 	private BlockHitResultUtils() {
 		throw new IllegalStateException("Can not instantiate an instance of: BlockHitResultUtils.This is a utility class");
 	}
 
+	/**
+	 * Computes the center point of an object being placed at a block hit result, offset by the given object size.
+	 *
+	 * @param blockHitResult the ray-hit result indicating the placement location and facing
+	 * @param objectSize the full extent (size) of the target object along each axis
+	 * @return the center coordinate of the placed object
+	 */
 	public static Vec3 getCenterOfHitObject(final BlockHitResult blockHitResult, final Vec3 objectSize) {
 		return getCenterOfHitObject(
 				blockHitResult,

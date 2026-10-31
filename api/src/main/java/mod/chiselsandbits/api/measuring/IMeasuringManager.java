@@ -15,6 +15,11 @@ import net.minecraft.world.phys.Vec3;
  * A manager for dealing with measurements made by different players in different worlds.
  */
 public interface IMeasuringManager {
+	/**
+	 * Returns the measuring manager exposed by the active API instance.
+	 *
+	 * @return active measuring manager
+	 */
 	static IMeasuringManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getMeasuringManager();
 	}
@@ -50,7 +55,7 @@ public interface IMeasuringManager {
 	/**
 	 * Determines the active measurements for a given player represented by his unique UUID.
 	 *
-	 * @param playerId The if of the player in question.
+	 * @param playerId The UUID of the player in question.
 	 * @return A collection of measurements which are active for the given player.
 	 */
 	Collection<? extends IMeasurement> getForPlayer(UUID playerId);
@@ -62,7 +67,7 @@ public interface IMeasuringManager {
 	 * @param playerEntity The player to create the given measurement for.
 	 * @param from The start-point of the measurement.
 	 * @param to The end-point of the measurement.
-	 * @param hitFace
+	 * @param hitFace face that was clicked when the measurement was started
 	 * @param mode The measurement mode.
 	 * @return The newly created and processed measurement.
 	 */

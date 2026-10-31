@@ -19,7 +19,8 @@ public enum ChiselingOperation {
 	private final boolean processesAir;
 
 	ChiselingOperation(final boolean processesAir) {
-		this.processesAir = processesAir; }
+		this.processesAir = processesAir;
+	}
 
 	/**
 	 * Indicates if this operation processes air.

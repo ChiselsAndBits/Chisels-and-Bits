@@ -14,6 +14,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * A manager for dealing with voxelshapes related to chiseled blocks and areas.
  */
 public interface IVoxelShapeManager {
+	/**
+	 * Returns the shared voxel shape manager instance.
+	 *
+	 * @return the manager provided by the active Chisels &amp; Bits API instance
+	 */
 	static IVoxelShapeManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getVoxelShapeManager();
 	}
@@ -52,7 +57,8 @@ public interface IVoxelShapeManager {
 	 * @param sizeType The type of the shape to include.
 	 * @return The shape of the accessor.
 	 */
-	default VoxelShape get(final IAreaAccessor accessor,
+	default VoxelShape get(
+			final IAreaAccessor accessor,
 			final CollisionType sizeType) {
 		return get(
 				accessor,
@@ -69,7 +75,8 @@ public interface IVoxelShapeManager {
 	 * @param simplify Indicates if the returned voxelshape should be simplified.Generally good for performance, but might cause some shapes to not work properly.
 	 * @return The shape of the accessor.
 	 */
-	default VoxelShape get(final IAreaAccessor accessor,
+	default VoxelShape get(
+			final IAreaAccessor accessor,
 			final CollisionType sizeType,
 			final boolean simplify) {
 		return get(

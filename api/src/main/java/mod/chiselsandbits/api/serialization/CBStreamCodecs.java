@@ -27,7 +27,14 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Stream codecs for Chisels &amp; Bits values and common packet transformations.
+ */
+
 public interface CBStreamCodecs {
+	/**
+	 * Network codec for arrays of 64-bit values.
+	 */
 	StreamCodec<FriendlyByteBuf, long[]> LONG_ARRAY = new StreamCodec<>() {
 		public long[] decode(FriendlyByteBuf buffer) {
 			return buffer.readLongArray();
@@ -38,11 +45,17 @@ public interface CBStreamCodecs {
 		}
 	};
 
+	/**
+	 * Network codec for bit sets represented as arrays of 64-bit words.
+	 */
 	StreamCodec<FriendlyByteBuf, BitSet> BIT_SET = LONG_ARRAY.map(
 			BitSet::valueOf,
 			BitSet::toLongArray
 	);
 
+	/**
+	 * Network codec for a three-component floating-point vector.
+	 */
 	StreamCodec<ByteBuf, Vec3> VEC_3 = ByteBufCodecs.DOUBLE.apply(ByteBufCodecs.list(3))
 			.apply(codec -> codec.map(
 					doubles -> {
@@ -56,6 +69,21 @@ public interface CBStreamCodecs {
 					vec3 -> List.of(vec3.x(), vec3.y(), vec3.z())
 			));
 
+	/**
+	 * Creates a codec that serializes a table as nested row-to-column maps.
+	 *
+	 * @param mapFactory factory for the outer row map
+	 * @param innerMapFactory factory for each row's column map
+	 * @param innerMapSupplier supplier for a new column map
+	 * @param rowCodec codec for row keys
+	 * @param columnCodec codec for column keys
+	 * @param valueCodec codec for cell values
+	 * @param <R> row-key type
+	 * @param <C> column-key type
+	 * @param <V> cell-value type
+	 * @param <B> buffer type
+	 * @return a codec that encodes and decodes the table's rows, columns, and values
+	 */
 	static <R, C, V, B extends ByteBuf> StreamCodec<? super B, Table<R, C, V>> table(
 			IntFunction<Map<R, Map<C, V>>> mapFactory,
 			IntFunction<Map<C, V>> innerMapFactory,
@@ -89,7 +117,51 @@ public interface CBStreamCodecs {
 		);
 	}
 
-	static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1, final Function<C, T1> getter1, final StreamCodec<? super B, T2> codec2, final Function<C, T2> getter2, final StreamCodec<? super B, T3> codec3, final Function<C, T3> getter3, final StreamCodec<? super B, T4> codec4, final Function<C, T4> getter4, final StreamCodec<? super B, T5> codec5, final Function<C, T5> getter5, final StreamCodec<? super B, T6> codec6, final Function<C, T6> getter6, final StreamCodec<? super B, T7> codec7, final Function<C, T7> getter7, final Function7<T1, T2, T3, T4, T5, T6, T7, C> p_331335_) {
+	/**
+	 * Combines seven field codecs, accessors, and a constructor into a codec for a composite value.
+	 *
+	 * @param codec1 codec for the first field
+	 * @param getter1 accessor for the first field
+	 * @param codec2 codec for the second field
+	 * @param getter2 accessor for the second field
+	 * @param codec3 codec for the third field
+	 * @param getter3 accessor for the third field
+	 * @param codec4 codec for the fourth field
+	 * @param getter4 accessor for the fourth field
+	 * @param codec5 codec for the fifth field
+	 * @param getter5 accessor for the fifth field
+	 * @param codec6 codec for the sixth field
+	 * @param getter6 accessor for the sixth field
+	 * @param codec7 codec for the seventh field
+	 * @param getter7 accessor for the seventh field
+	 * @param p_331335_ function that constructs the composite value from the decoded fields
+	 * @param <B> buffer type
+	 * @param <C> composite value type
+	 * @param <T1> first field type
+	 * @param <T2> second field type
+	 * @param <T3> third field type
+	 * @param <T4> fourth field type
+	 * @param <T5> fifth field type
+	 * @param <T6> sixth field type
+	 * @param <T7> seventh field type
+	 * @return a codec that reads and writes the seven fields in order
+	 */
+	static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> composite(
+			final StreamCodec<? super B, T1> codec1,
+			final Function<C, T1> getter1,
+			final StreamCodec<? super B, T2> codec2,
+			final Function<C, T2> getter2,
+			final StreamCodec<? super B, T3> codec3,
+			final Function<C, T3> getter3,
+			final StreamCodec<? super B, T4> codec4,
+			final Function<C, T4> getter4,
+			final StreamCodec<? super B, T5> codec5,
+			final Function<C, T5> getter5,
+			final StreamCodec<? super B, T6> codec6,
+			final Function<C, T6> getter6,
+			final StreamCodec<? super B, T7> codec7,
+			final Function<C, T7> getter7,
+			final Function7<T1, T2, T3, T4, T5, T6, T7, C> p_331335_) {
 		return new StreamCodec<>() {
 			public C decode(B buffer) {
 				T1 t1 = codec1.decode(buffer);
@@ -114,7 +186,52 @@ public interface CBStreamCodecs {
 		};
 	}
 
-	static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(final StreamCodec<? super B, T1> codec1,
+	/**
+	 * Combines twelve field codecs, accessors, and a constructor into a codec for a composite value.
+	 *
+	 * @param codec1 codec for the first field
+	 * @param getter1 accessor for the first field
+	 * @param codec2 codec for the second field
+	 * @param getter2 accessor for the second field
+	 * @param codec3 codec for the third field
+	 * @param getter3 accessor for the third field
+	 * @param codec4 codec for the fourth field
+	 * @param getter4 accessor for the fourth field
+	 * @param codec5 codec for the fifth field
+	 * @param getter5 accessor for the fifth field
+	 * @param codec6 codec for the sixth field
+	 * @param getter6 accessor for the sixth field
+	 * @param codec7 codec for the seventh field
+	 * @param getter7 accessor for the seventh field
+	 * @param codec8 codec for the eighth field
+	 * @param getter8 accessor for the eighth field
+	 * @param codec9 codec for the ninth field
+	 * @param getter9 accessor for the ninth field
+	 * @param codec10 codec for the tenth field
+	 * @param getter10 accessor for the tenth field
+	 * @param codec11 codec for the eleventh field
+	 * @param getter11 accessor for the eleventh field
+	 * @param codec12 codec for the twelfth field
+	 * @param getter12 accessor for the twelfth field
+	 * @param p_331335_ function that constructs the composite value from the decoded fields
+	 * @param <B> buffer type
+	 * @param <C> composite value type
+	 * @param <T1> first field type
+	 * @param <T2> second field type
+	 * @param <T3> third field type
+	 * @param <T4> fourth field type
+	 * @param <T5> fifth field type
+	 * @param <T6> sixth field type
+	 * @param <T7> seventh field type
+	 * @param <T8> eighth field type
+	 * @param <T9> ninth field type
+	 * @param <T10> tenth field type
+	 * @param <T11> eleventh field type
+	 * @param <T12> twelfth field type
+	 * @return a codec that reads and writes the twelve fields in order
+	 */
+	static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> composite(
+			final StreamCodec<? super B, T1> codec1,
 			final Function<C, T1> getter1,
 			final StreamCodec<? super B, T2> codec2,
 			final Function<C, T2> getter2,
@@ -173,6 +290,13 @@ public interface CBStreamCodecs {
 		};
 	}
 
+	/**
+	 * Compresses a registry-aware packet payload with LZ4.
+	 *
+	 * @param codec codec for the uncompressed payload
+	 * @param <T> payload type
+	 * @return a codec that compresses encoded payloads and decompresses them before decoding
+	 */
 	static <T> StreamCodec<RegistryFriendlyByteBuf, T> compressed(StreamCodec<RegistryFriendlyByteBuf, T> codec) {
 		return new StreamCodec<>() {
 			@Override
@@ -226,6 +350,17 @@ public interface CBStreamCodecs {
 		};
 	}
 
+	/**
+	 * Selects a payload codec from a discriminator encoded before the payload.
+	 *
+	 * @param dispatcherCodec codec for the discriminator
+	 * @param decoderFactory selects the payload codec for a decoded discriminator
+	 * @param dispatcherSelector extracts the discriminator from a value when encoding
+	 * @param <B> buffer type
+	 * @param <R> payload type
+	 * @param <D> discriminator type
+	 * @return a codec that writes the discriminator before the corresponding payload
+	 */
 	static <B, R, D> StreamCodec<B, R> dispatch(
 			StreamCodec<? super B, D> dispatcherCodec,
 			Function<D, StreamCodec<B, ? extends R>> decoderFactory,
@@ -250,6 +385,14 @@ public interface CBStreamCodecs {
 		};
 	}
 
+	/**
+	 * Defers creation of a stream codec until its first encode or decode operation.
+	 *
+	 * @param supplier supplies the codec on its first use
+	 * @param <B> buffer type
+	 * @param <T> payload type
+	 * @return a codec that initializes and caches the supplied codec on first use
+	 */
 	static <B, T> StreamCodec<B, T> lazyInitialized(Supplier<StreamCodec<B, T>> supplier) {
 		return new StreamCodec<B, T>() {
 			private StreamCodec<B, T> codec;
@@ -274,6 +417,13 @@ public interface CBStreamCodecs {
 		};
 	}
 
+	/**
+	 * Adds a presence bit around a codec so values may be encoded as null.
+	 *
+	 * @param <B> friendly byte-buffer type
+	 * @param <S> non-null payload type handled by the wrapped codec
+	 * @return a codec operation that encodes a presence bit before any non-null value
+	 */
 	static <B extends FriendlyByteBuf, S> StreamCodec.CodecOperation<B, S, S> nullable() {
 		return new StreamCodec.CodecOperation<>() {
 			@Override

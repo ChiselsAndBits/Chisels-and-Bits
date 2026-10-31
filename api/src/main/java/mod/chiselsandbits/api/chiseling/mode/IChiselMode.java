@@ -27,6 +27,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGroup> {
 	/**
 	 * The default mode of the chisel or bit.
+	 *
 	 * @return The default mode.
 	 */
 	static IChiselMode getDefaultMode() {
@@ -35,6 +36,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 
 	/**
 	 * The underlying registry that contains the different modes a chisel can assume.
+	 *
 	 * @return The underlying forge registry.
 	 */
 	static ICustomRegistry<IChiselMode> getRegistry() {
@@ -46,7 +48,6 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 *
 	 * @param playerEntity The entity that is executing the operation.
 	 * @param context The chiseling context.
-	 *
 	 * @return The processing state, which indicates how the interaction should proceed.
 	 */
 	ClickProcessingState onLeftClickBy(
@@ -73,7 +74,6 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 *
 	 * @param playerEntity The entity that is executing the operation.
 	 * @param context The chiseling context.
-	 *
 	 * @return The processing state, which indicates how the interaction should proceed.
 	 */
 	ClickProcessingState onRightClickBy(
@@ -105,6 +105,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 
 	/**
 	 * Checks if the passed context is still valid for the given entity.
+	 *
 	 * @param playerEntity The entity to check for.
 	 * @param context The context to check.
 	 * @param modeOfOperation The mode of operandus for the check.
@@ -143,6 +144,7 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	/**
 	 * Indicates that this mode is only available on a stack which has a placeable mode.
 	 * Useful when placement and removal perform the same task AND requires a bit to be held.
+	 *
 	 * @return True when a "bit" needs to be held.
 	 */
 	default boolean requiresPlaceableEditStack() {
@@ -153,9 +155,9 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	 * Defines the shape of the area that is to be chiseled.
 	 * This is the general shape, so a sphere, cube, or line any area specific changes are not returned by this method.
 	 *
-	 * @implNote This shape should make use of a heavily cached version, it will be called during rendering.
 	 * @param context The current context that it is supposed to be for.
 	 * @return The shape of the area to be chiseled.
+	 * @implNote This shape should make use of a heavily cached version, it will be called during rendering.
 	 */
 	VoxelShape getShape(IChiselingContext context);
 

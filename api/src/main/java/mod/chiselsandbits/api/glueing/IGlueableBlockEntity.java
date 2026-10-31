@@ -11,15 +11,43 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+/**
+ * Supplies block-entity data used to connect adjacent glued blocks into a structure.
+ */
 public interface IGlueableBlockEntity {
+	/**
+	 * Returns the block reader used to inspect neighboring block entities.
+	 *
+	 * @return the block reader used for neighbor lookups
+	 */
 	BlockGetter blockGetter();
 
+	/**
+	 * Returns this entity's world position.
+	 *
+	 * @return this entity's block position
+	 */
 	BlockPos blockPos();
 
+	/**
+	 * Returns the directions in which this entity is glued to neighbors.
+	 *
+	 * @return the set of connected directions
+	 */
 	EnumSet<Direction> gluedSides();
 
+	/**
+	 * Creates the item stack dropped when this glued entity is broken.
+	 *
+	 * @return the created value.
+	 */
 	ItemStack createGluedDrop();
 
+	/**
+	 * Traverses glued neighbors and returns all positions in this connected structure.
+	 *
+	 * @return all block positions connected by glue, including this entity's position
+	 */
 	default Set<BlockPos> connectedPositions() {
 		final Set<Direction> gluedSides = gluedSides();
 

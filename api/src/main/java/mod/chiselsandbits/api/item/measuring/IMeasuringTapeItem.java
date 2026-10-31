@@ -11,6 +11,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Contract for a tool item that records and displays world measurements.
+ */
+
 public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMeasuringMode>, IRightClickControllingItem {
 	/**
 	 * Determines the start point stored in the stack of the item.
@@ -30,12 +34,14 @@ public interface IMeasuringTapeItem extends INoHitEffectsItem, IWithModeItem<IMe
 
 	/**
 	 * Clears the measurement state of a given stack.
+	 *
 	 * @param stack The stack to clear the measurement state from.
 	 */
 	void clear(ItemStack stack);
 
 	/**
 	 * Invoked by the platform to indicate to this item that a right-clicking procedure has ended.
+	 *
 	 * @param player The player who stopped right-clicking.
 	 * @param stack The stack on which the clicking ended.
 	 */

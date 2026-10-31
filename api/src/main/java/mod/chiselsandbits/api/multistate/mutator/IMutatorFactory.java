@@ -14,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 public interface IMutatorFactory {
 	/**
 	 * Gives access to the the mutator factory.
+	 *
 	 * @return The mutator factory.
 	 */
 	static IMutatorFactory getInstance() {

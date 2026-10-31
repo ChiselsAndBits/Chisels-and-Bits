@@ -28,7 +28,8 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
 	 * @param hitFace The face hit by the player.
 	 * @return The VoxelShape used to render the wireframe.
 	 */
-	VoxelShape buildVoxelShapeForWireframe(IMultiStateSnapshot sourceSnapshot,
+	VoxelShape buildVoxelShapeForWireframe(
+			IMultiStateSnapshot sourceSnapshot,
 			Player player,
 			Vec3 targetedPoint,
 			Direction hitFace);
@@ -39,7 +40,6 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
 	 * @param source The snapshot stored in the pattern for placement.
 	 * @param context The use context of the pattern item on a block.
 	 * @param simulate Indicates if the placement operation is a simulation or not.
-	 *
 	 * @return The action result which influences the further processing of the click interaction.
 	 */
 	PlacementResult performPlacement(

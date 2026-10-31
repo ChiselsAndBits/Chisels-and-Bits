@@ -27,8 +27,8 @@ public interface IProfilingManager {
 
 	/**
 	 * Ends the profiling of a given profiler.
-	 * @param profiler The profiler to end profiling.
 	 *
+	 * @param profiler The profiler to end profiling.
 	 * @return The result of the profiling.
 	 */
 	IProfilerResult endProfiling(IProfiler profiler);

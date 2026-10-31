@@ -25,7 +25,6 @@ public final class GroupingUtils {
 	 * @param extractor The key extractor.
 	 * @param <T> The type of the objects to group.
 	 * @param <O> The key to group by.
-	 *
 	 * @return A collection of collections, which contain all objects which have the same key.
 	 */
 	public static <T, O> Collection<Collection<T>> groupByUsingSet(final Iterable<T> source, Function<T, O> extractor) {
@@ -40,7 +39,6 @@ public final class GroupingUtils {
 	 * @param extractor The key extractor.
 	 * @param <T> The type of the objects to group.
 	 * @param <O> The key to group by.
-	 *
 	 * @return A collection of collections, which contain all objects which have the same key.
 	 */
 	public static <T, O> Collection<Collection<T>> groupByUsingList(final Iterable<T> source, Function<T, O> extractor) {

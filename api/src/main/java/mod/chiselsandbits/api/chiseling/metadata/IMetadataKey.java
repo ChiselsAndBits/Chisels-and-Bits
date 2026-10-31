@@ -6,6 +6,7 @@ import mod.chiselsandbits.api.chiseling.IChiselingContext;
 /**
  * Represents a key passed to an instance of {@link IChiselingContext} so that additional data can be stored
  * on the context.
+ *
  * @param <T> The internal type.
  */
 public interface IMetadataKey<T> extends ICustomRegistryEntry {

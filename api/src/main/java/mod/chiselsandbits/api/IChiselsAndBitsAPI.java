@@ -204,36 +204,42 @@ public interface IChiselsAndBitsAPI {
 
 	/**
 	 * The default mode for performing modification operations if no other is supplied.
+	 *
 	 * @return The default modification operation.
 	 */
 	IModificationOperation getDefaultModificationOperation();
 
 	/**
 	 * Gives access to the plugin manager that is used to process chisels and bits plugins.
+	 *
 	 * @return The plugin manager
 	 */
 	IPluginManager getPluginManager();
 
 	/**
 	 * Gives access to the chisel context preview renderer registry.
+	 *
 	 * @return The registry.
 	 */
 	IChiselContextPreviewRendererRegistry getChiselContextPreviewRendererRegistry();
 
 	/**
 	 * Gives access to the selected tool mode icon renderer registry.
+	 *
 	 * @return The registry.
 	 */
 	ISelectedToolModeIconRendererRegistry getSelectedToolModeIconRenderer();
 
 	/**
 	 * Returns the tag used in the eligibility system to force compatibility.
+	 *
 	 * @return The forced compatibility tag.
 	 */
 	TagKey<Block> getForcedTag();
 
 	/**
 	 * Returns the tag used in the eligibility system to block compatibility.
+	 *
 	 * @return The blocked compatibility tag.
 	 */
 	TagKey<Block> getBlockedTag();
@@ -268,33 +274,101 @@ public interface IChiselsAndBitsAPI {
 	 */
 	INotificationManager getNotificationManager();
 
+	/**
+	 * Returns the manager that registers and applies state variants.
+	 *
+	 * @return the requested value.
+	 */
 	IStateVariantManager getStateVariantManager();
 
+	/**
+	 * Returns the default cutting operation used when no operation is selected.
+	 *
+	 * @return the requested value.
+	 */
 	ICuttingOperation getDefaultCuttingOperation();
 
+	/**
+	 * Returns the default glueing operation used when no operation is selected.
+	 *
+	 * @return the requested value.
+	 */
 	IGlueingOperation getDefaultGlueingOperation();
 
+	/**
+	 * Returns the factory used to create snapshots of multi-state objects.
+	 *
+	 * @return the requested value.
+	 */
 	ISnapshotFactory getSnapshotFactory();
 
+	/**
+	 * Returns the options used to determine whether blocks may be chiseled.
+	 *
+	 * @return the requested value.
+	 */
 	IEligibilityOptions getEligibilityOptions();
 
+	/**
+	 * Returns the manager that adapts ordinary inventories to bit inventories.
+	 *
+	 * @return the requested value.
+	 */
 	IAdaptingBitInventoryManager getAdaptingBitInventoryManager();
 
+	/**
+	 * Returns the service that discovers platform plugins.
+	 *
+	 * @return the requested value.
+	 */
 	IPluginDiscoverer getPluginDiscoverer();
 
+	/**
+	 * Returns the client manager for state variants.
+	 *
+	 * @return the requested value.
+	 */
 	IClientStateVariantManager getClientStateVariantManager();
 
+	/**
+	 * Returns the manager for launch-time properties.
+	 *
+	 * @return the requested value.
+	 */
 	ILaunchPropertyManager getLaunchPropertyManager();
 
+	/**
+	 * Returns the manager that provides UI atlas sprites.
+	 *
+	 * @return the requested value.
+	 */
 	IIconManager getIconManager();
 
+	/**
+	 * Holds the API instance installed by the platform bootstrap.
+	 */
 	class Holder {
 		private static IChiselsAndBitsAPI apiInstance;
 
+		/**
+		 * Creates the holder; the API instance is shared statically.
+		 */
+		public Holder() { }
+
+		/**
+		 * Returns the API instance installed during bootstrap.
+		 *
+		 * @return the requested value.
+		 */
 		public static IChiselsAndBitsAPI getInstance() {
 			return apiInstance;
 		}
 
+		/**
+		 * Installs the API instance once during platform initialization.
+		 *
+		 * @param instance API implementation to install
+		 */
 		public static void setInstance(final IChiselsAndBitsAPI instance) {
 			if (apiInstance != null) {
 				throw new IllegalStateException("Can not setup API twice!");

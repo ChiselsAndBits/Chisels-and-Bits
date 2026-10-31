@@ -10,9 +10,11 @@ import net.minecraft.world.phys.BlockHitResult;
 public interface IBitBagAcceptingBlock {
 	/**
 	 * Invoked when a bit bag interaction is performed against a given block.
+	 *
 	 * @param bitBagStack The bit bag stack.
 	 * @param player The player performing the action.
 	 * @param blockRayTraceResult The ray trace result.
+	 * @return the updated bit bag stack after the interaction
 	 */
 	ItemStack onBitBagInteraction(
 			ItemStack bitBagStack,

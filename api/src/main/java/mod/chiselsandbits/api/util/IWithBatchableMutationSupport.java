@@ -6,6 +6,7 @@ package mod.chiselsandbits.api.util;
 public interface IWithBatchableMutationSupport {
 	/**
 	 * Trigger a batch mutation start.
+	 *
 	 * @return The batch mutation lock.
 	 */
 	IBatchMutation batch();

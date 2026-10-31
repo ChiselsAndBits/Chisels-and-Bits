@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 public interface IDocumentableItem {
 	/**
 	 * Gives access to the variants of the item that are exportable.
+	 *
 	 * @param item The item instance in question.
 	 * @return The variants with their names as key.
 	 */

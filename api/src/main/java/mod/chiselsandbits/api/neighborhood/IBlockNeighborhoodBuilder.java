@@ -1,6 +1,7 @@
 package mod.chiselsandbits.api.neighborhood;
 
 // ILLEGAL IMPORT: -> import org.jetbrains.annotations.Nullable; -> We use JSpecify nullable annotations in this project.
+
 import java.util.function.Function;
 
 import mod.chiselsandbits.api.IChiselsAndBitsAPI;

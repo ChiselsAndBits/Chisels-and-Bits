@@ -14,6 +14,11 @@ import mod.chiselsandbits.api.pattern.placement.IPatternPlacementType;
  * Manages all registries which are used by Chisels and Bits.
  */
 public interface IRegistryManager {
+	/**
+	 * Returns the shared registry manager instance.
+	 *
+	 * @return the manager provided by the active Chisels and Bits API instance
+	 */
 	static IRegistryManager getInstance() {
 		return IChiselsAndBitsAPI.getInstance().getRegistryManager();
 	}

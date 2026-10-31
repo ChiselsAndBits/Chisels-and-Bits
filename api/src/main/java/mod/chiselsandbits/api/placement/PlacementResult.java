@@ -104,14 +104,29 @@ public class PlacementResult {
 		this.failureMessage = failureMessage;
 	}
 
+	/**
+	 * Returns whether the placement attempt succeeded.
+	 *
+	 * @return {@code true} when placement is allowed
+	 */
 	public boolean isSuccess() {
 		return success;
 	}
 
+	/**
+	 * Returns the color used to render the placement preview.
+	 *
+	 * @return preview RGBA color
+	 */
 	public Vector4f getColor() {
 		return color;
 	}
 
+	/**
+	 * Returns the user-facing reason for a failed placement, or an empty component on success.
+	 *
+	 * @return failure message component
+	 */
 	public Component getFailureMessage() {
 		return failureMessage;
 	}

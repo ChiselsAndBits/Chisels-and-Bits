@@ -139,6 +139,7 @@ public interface IChiselingContext extends IStateAccessor {
 	 *
 	 * <p>
 	 * The only case where this method does not return {@code True}, is when the item that caused the operation broke in the previous operation.
+	 *
 	 * @return {@code True} when successful, {@code false} when not.
 	 */
 	default boolean tryDamageItem() {
@@ -268,6 +269,7 @@ public interface IChiselingContext extends IStateAccessor {
 
 	/**
 	 * Allows the storage of metadata on the context.
+	 *
 	 * @param key The key of the metadata.
 	 * @param <T> The type of the metadata.
 	 * @return An optional possibly containing the stored metadata, or empty if no metadata is stored with the given key.
@@ -276,12 +278,14 @@ public interface IChiselingContext extends IStateAccessor {
 
 	/**
 	 * Removes the metadata from the context.
+	 *
 	 * @param key The key for the metadata.
 	 */
 	void removeMetadata(IMetadataKey<?> key);
 
 	/**
 	 * Allows for the setting of the metadata on the context.
+	 *
 	 * @param key The key of the metadata.
 	 * @param value The value of the metadata.
 	 * @param <T> The type of the metadata.

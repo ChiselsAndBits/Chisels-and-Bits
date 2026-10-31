@@ -58,6 +58,13 @@ public abstract class AbstractChiselsAndBitsWidget extends AbstractWidget implem
 		this.defaultButtonNarrationText(output);
 	}
 
+	/**
+	 * Returns the extended graphics interface for the supplied extractor.
+	 *
+	 * @param graphics graphics extractor to adapt
+	 * @return the extended graphics view of the supplied extractor
+	 */
+
 	protected static IExtendedGuiGraphics getExtendedGraphicsExtractor(GuiGraphicsExtractor graphics) {
 		return ((IExtendedGuiGraphics) graphics);
 	}

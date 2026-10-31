@@ -6,7 +6,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
 /**
- * Marks the entity as a network updatable entity.
+ * Marks an updatable block entity whose state is synchronized across the network.
+ *
+ * @param <TPayload> The type of payload transferred with this entity.
  */
 public interface INetworkUpdatableEntity<TPayload> {
 	/**
