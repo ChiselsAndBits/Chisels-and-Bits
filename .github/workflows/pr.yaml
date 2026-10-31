@@ -56,3 +56,6 @@ jobs:
         run: ./gradlew test
         env:
           VERSION: ${{ steps.extract-major-minor.outputs.joined }}.${{ steps.extract-patch.outputs.count }}
+
+      - name: Verify code style
+        run: ./gradlew immaculateCheck checkstyle
