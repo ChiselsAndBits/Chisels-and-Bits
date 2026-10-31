@@ -46,4 +46,13 @@ bonorum {
     configFile = rootProject.file('website/exporter/config.json')
 }
 
-
+afterEvaluate {
+    tasks.curseforge.doFirst { t ->
+        t.uploadArtifacts.each { a ->
+            t.logger.lifecycle "=== artifact ==="
+            a.gameVersions.each { v ->
+                t.logger.lifecycle "Version: %s".formatted(v)
+            }
+        }
+    }
+}
