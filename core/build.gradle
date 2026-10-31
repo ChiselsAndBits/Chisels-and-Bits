@@ -1,5 +1,5 @@
 plugins {
-    id 'com.ldtteam.tableau.maven-publishing' version '0.0.111'
+    id 'com.ldtteam.tableau.maven-publishing' version '0.0.112'
 }
 
 platform {
