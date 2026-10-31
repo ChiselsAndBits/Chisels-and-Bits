@@ -46,3 +46,13 @@ dependencies {
     implementation "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
     include "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
 }
+
+afterEvaluate {
+    tasks.curseforge.doFirst { t ->
+        t.uploadArtifacts.each { a ->
+            a.gameVersions.each { v ->
+                t.logger.lifecycle "Version: %s".formatted(v)
+            }
+        }
+    }
+}
