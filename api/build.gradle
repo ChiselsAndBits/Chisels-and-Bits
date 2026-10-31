@@ -37,9 +37,9 @@ dependencies {
 tasks.withType(Javadoc.class).configureEach { Javadoc javadoc ->
     javadoc.options.tags = ["implNote:a:Note on the Implementation"]
     // Missing-javadoc doclint is enforced as a hard error for this library only;
-    // every other subproject mutes it (see root build.gradle).
-    javadoc.options.addStringOption('-Xdoclint:missing')
-    javadoc.options.addStringOption('-Werror')
+    // implementation and documentation modules mute it in the root build file.
+    javadoc.options.addBooleanOption('Xdoclint:missing', true)
+    javadoc.options.addBooleanOption('Werror', true)
 }
 
 java {

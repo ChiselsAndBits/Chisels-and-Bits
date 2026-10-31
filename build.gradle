@@ -41,9 +41,10 @@ allprojects { Project project ->
     }
 
     tasks.withType(Javadoc.class).configureEach {
-        // Missing-javadoc doclint is muted everywhere by default; the api module
-        // opts back into enforcement in its own build file.
-        options.addStringOption('-Xdoclint:-missing')
+        // Keep missing-comment diagnostics enabled for the public API, but not implementation/docs modules.
+        if (project.name in ['core', 'neoforge', 'fabric', 'wiki']) {
+            options.addBooleanOption('Xdoclint:-missing', true)
+        }
         options.addStringOption('Xmaxerrs', '10000')
         options.addStringOption('Xmaxwarns', '10000')
     }
