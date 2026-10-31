@@ -51,19 +51,19 @@ public final class ClassUtils {
 
 							if (baseClass.isInstance(fieldValue)) {
 								T instance = (T) fieldValue;
-								LOGGER.debug("Found specified { } instance for: { }.Using it rather than creating a new instance.", baseClass.getSimpleName(),
+								LOGGER.debug("Found specified {} instance for: {}. Using it rather than creating a new instance.", baseClass.getSimpleName(),
 										nameFunction.apply(instance));
 								return instance;
 							} else {
-								LOGGER.error("{ } annotation found on non { } field: { }", instanceAnnotation.getSimpleName(), baseClass.getSimpleName(), field);
+								LOGGER.error("{} annotation found on non {} field: {}", instanceAnnotation.getSimpleName(), baseClass.getSimpleName(), field);
 								return null;
 							}
 						} catch (IllegalAccessException e) {
-							LOGGER.error("{ } annotation found on inaccessible field: { }", instanceAnnotation.getSimpleName(), field);
+							LOGGER.error("{} annotation found on inaccessible field: {}", instanceAnnotation.getSimpleName(), field);
 							return null;
 						}
 					} else {
-						LOGGER.error("{ } annotation found on non static field: { }", instanceAnnotation.getSimpleName(), field);
+						LOGGER.error("{} annotation found on non static field: {}", instanceAnnotation.getSimpleName(), field);
 						return null;
 					}
 				}
@@ -71,11 +71,11 @@ public final class ClassUtils {
 
 			return subClass.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
-			LOGGER.error("Failed to load: { }", className, e);
+			LOGGER.error("Failed to load: {}", className, e);
 		} catch (InvocationTargetException e) {
-			LOGGER.error("Failed to instantiate a new instance of the class: " + className + ".Its constructor threw an exception", e);
+			LOGGER.error("Failed to instantiate a new instance of the class: {}.Its constructor threw an exception", className, e);
 		} catch (NoSuchMethodException e) {
-			LOGGER.error("Failed to create a new instance of the class.Failed to find a parameterless constructor on: " + className);
+			LOGGER.error("Failed to create a new instance of the class.Failed to find a parameterless constructor on: {}", className);
 		}
 
 		return null;
