@@ -28,9 +28,9 @@ body:
     attributes:
       label: Crash Log File
       description: Upload your crash log — drag and drop or click to browse. Usually `crash-<Minecraft>.log`, `latest.log`, or `debug.log` from the `.minecraft/logs` folder.
-      accept: ".log,.txt,.zip"
     validations:
       required: true
+      accept: ".log,.txt"
   - type: textarea
     id: what_was_happening
     attributes:

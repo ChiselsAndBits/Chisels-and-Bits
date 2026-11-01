@@ -28,9 +28,9 @@ body:
     attributes:
       label: Screenshots
       description: Attach any relevant screenshots — drag and drop or click to browse. Images showing the rendering problem are very helpful.
-      accept: ".png,.jpg,.jpeg,.gif,.webp,.bmp"
     validations:
       required: true
+      accept: ".png,.jpg,.jpeg,.gif,.webp"
   - type: textarea
     id: what_was_happening
     attributes:
