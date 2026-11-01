@@ -16,7 +16,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup CUBED = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_cubed");
 		}
 
 		@Override
@@ -30,7 +30,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup CUBED_ALIGNED = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "snap4");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_cubed_aligned");
 		}
 
 		@Override
@@ -44,7 +44,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup LINE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_line");
 		}
 
 		@Override
@@ -58,7 +58,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup PLANE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_plane");
 		}
 
 		@Override
@@ -72,7 +72,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup SPHERE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_sphere");
 		}
 
 		@Override
@@ -86,7 +86,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup CONNECTED_PLANE = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_connected_plane");
 		}
 
 		@Override
@@ -98,7 +98,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup CONNECTED_MATERIAL = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_connected_material");
 		}
 
 		@Override
@@ -110,7 +110,7 @@ public final class ModChiselModeGroups {
 	public static IToolModeGroup DRAW = new IToolModeGroup() {
 		@Override
 		public Identifier getIcon() {
-			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_cube");
+			return Identifier.fromNamespaceAndPath(Constants.MOD_ID, "group_draw");
 		}
 
 		@Override

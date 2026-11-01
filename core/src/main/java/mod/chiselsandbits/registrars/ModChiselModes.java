@@ -32,7 +32,7 @@ public final class ModChiselModes {
 			() -> new CubedChiselModeBuilder().setBitsPerSide(1)
 			.setDisplayName(LocalStrings.ChiselModeSingle.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSingle.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bit"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "single_bit"))
 			.createCubedChiselMode()
 	);
 
@@ -59,7 +59,7 @@ public final class ModChiselModes {
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallThin.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineDrawnWallThin.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_1"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_thin"))
 			.setWidth(1)
 			.createDrawnWallChiselMode()
 	);
@@ -69,7 +69,7 @@ public final class ModChiselModes {
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallMedium.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineDrawnWallMedium.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_medium"))
 			.setWidth(2)
 			.createDrawnWallChiselMode()
 	);
@@ -79,7 +79,7 @@ public final class ModChiselModes {
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallFat.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineDrawnWallFat.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_3"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "drawn_wall_fat"))
 			.setWidth(3)
 			.createDrawnWallChiselMode()
 	);
@@ -89,7 +89,7 @@ public final class ModChiselModes {
 			() -> new CubedChiselModeBuilder().setBitsPerSide(2)
 			.setDisplayName(LocalStrings.ChiselModeCubeSmall.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineCubeSmall.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cube_small"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "small_bit"))
 			.createCubedChiselMode()
 	);
 
@@ -98,7 +98,7 @@ public final class ModChiselModes {
 			() -> new CubedChiselModeBuilder().setBitsPerSide(4)
 			.setDisplayName(LocalStrings.ChiselModeCubeMedium.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineCubeMedium.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cube_medium"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "medium_bit"))
 			.createCubedChiselMode()
 	);
 
@@ -107,7 +107,7 @@ public final class ModChiselModes {
 			() -> new CubedChiselModeBuilder().setBitsPerSide(8)
 			.setDisplayName(LocalStrings.ChiselModeCubeLarge.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineCubeLarge.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cube_large"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "large_bit"))
 			.createCubedChiselMode()
 	);
 
@@ -117,7 +117,7 @@ public final class ModChiselModes {
 			.setAligned(true)
 			.setDisplayName(LocalStrings.ChiselModeSnap2.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSnap2.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "snap2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "small_bit_aligned"))
 			.createCubedChiselMode()
 	);
 
@@ -127,7 +127,7 @@ public final class ModChiselModes {
 			.setAligned(true)
 			.setDisplayName(LocalStrings.ChiselModeSnap4.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSnap4.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "snap4"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "medium_bit_aligned"))
 			.createCubedChiselMode()
 	);
 	public static final IRegistryObject<IChiselMode> LARGE_BIT_ALIGNED = MODE_REGISTRAR.register(
@@ -136,7 +136,7 @@ public final class ModChiselModes {
 			.setAligned(true)
 			.setDisplayName(LocalStrings.ChiselModeSnap8.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSnap8.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "snap8"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "large_bit_aligned"))
 			.createCubedChiselMode()
 	);
 
@@ -146,7 +146,7 @@ public final class ModChiselModes {
 			.setAligned(true)
 			.setDisplayName(LocalStrings.ChiselModeCubeFull.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeCubeFull.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "same_material"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "full_cube"))
 			.createCubedChiselMode()
 	);
 
@@ -156,7 +156,7 @@ public final class ModChiselModes {
 			.setBitsPerSide(1)
 			.setDisplayName(LocalStrings.ChiselModeLine.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineLine.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line_1"))
 			.createLinedChiselMode()
 	);
 
@@ -166,7 +166,7 @@ public final class ModChiselModes {
 			.setBitsPerSide(2)
 			.setDisplayName(LocalStrings.ChiselModeLine2.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineLine2.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line_2"))
 			.createLinedChiselMode()
 	);
 
@@ -176,7 +176,7 @@ public final class ModChiselModes {
 			.setBitsPerSide(4)
 			.setDisplayName(LocalStrings.ChiselModeLine4.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineLine4.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line4"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line_4"))
 			.createLinedChiselMode()
 	);
 
@@ -186,7 +186,7 @@ public final class ModChiselModes {
 			.setBitsPerSide(8)
 			.setDisplayName(LocalStrings.ChiselModeLine8.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineLine8.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line8"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "line_8"))
 			.createLinedChiselMode()
 	);
 
@@ -196,7 +196,7 @@ public final class ModChiselModes {
 			.setDepth(1)
 			.setDisplayName(LocalStrings.ChiselModePlane.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane_1"))
 			.createPlaneChiselMode()
 	);
 
@@ -206,7 +206,7 @@ public final class ModChiselModes {
 			.setDepth(2)
 			.setDisplayName(LocalStrings.ChiselModePlane2.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane2.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane_2"))
 			.createPlaneChiselMode()
 	);
 
@@ -216,7 +216,7 @@ public final class ModChiselModes {
 			.setDepth(4)
 			.setDisplayName(LocalStrings.ChiselModePlane4.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane4.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane4"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane_4"))
 			.createPlaneChiselMode()
 	);
 
@@ -226,7 +226,7 @@ public final class ModChiselModes {
 			.setDepth(8)
 			.setDisplayName(LocalStrings.ChiselModePlane8.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane8.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane8"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane_8"))
 			.createPlaneChiselMode()
 	);
 
@@ -236,7 +236,7 @@ public final class ModChiselModes {
 			.setDepth(1)
 			.setDisplayName(LocalStrings.ChiselModePlane.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material_1"))
 			.createConnectedMaterialChiselingMode()
 	);
 
@@ -246,7 +246,7 @@ public final class ModChiselModes {
 			.setDepth(2)
 			.setDisplayName(LocalStrings.ChiselModePlane2.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane2.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material_2"))
 			.createConnectedMaterialChiselingMode()
 	);
 
@@ -256,7 +256,7 @@ public final class ModChiselModes {
 			.setDepth(4)
 			.setDisplayName(LocalStrings.ChiselModePlane4.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane4.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane4"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material_4"))
 			.createConnectedMaterialChiselingMode()
 	);
 
@@ -266,7 +266,7 @@ public final class ModChiselModes {
 			.setDepth(8)
 			.setDisplayName(LocalStrings.ChiselModePlane8.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane8.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane8"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_material_8"))
 			.createConnectedMaterialChiselingMode()
 	);
 
@@ -275,7 +275,7 @@ public final class ModChiselModes {
 			() -> new SphereChiselModeBuilder().setDiameter(4)
 			.setDisplayName(LocalStrings.ChiselModeSphereSmall.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSphereSmall.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sphere_small"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "small_sphere"))
 			.createSphereChiselMode()
 	);
 
@@ -284,7 +284,7 @@ public final class ModChiselModes {
 			() -> new SphereChiselModeBuilder().setDiameter(8)
 			.setDisplayName(LocalStrings.ChiselModeSphereMedium.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSphereMedium.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sphere_medium"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "medium_sphere"))
 			.createSphereChiselMode()
 	);
 
@@ -293,7 +293,7 @@ public final class ModChiselModes {
 			() -> new SphereChiselModeBuilder().setDiameter(16)
 			.setDisplayName(LocalStrings.ChiselModeSphereLarge.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLineSphereLarge.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "sphere_large"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "large_sphere"))
 			.createSphereChiselMode()
 	);
 
@@ -303,7 +303,7 @@ public final class ModChiselModes {
 			.setDepth(1)
 			.setDisplayName(LocalStrings.ChiselModePlane.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane_1"))
 			.createConnectedPlaneChiselingMode()
 	);
 
@@ -313,7 +313,7 @@ public final class ModChiselModes {
 			.setDepth(2)
 			.setDisplayName(LocalStrings.ChiselModePlane2.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane2.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane2"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane_2"))
 			.createConnectedPlaneChiselingMode()
 	);
 
@@ -323,7 +323,7 @@ public final class ModChiselModes {
 			.setDepth(4)
 			.setDisplayName(LocalStrings.ChiselModePlane4.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane4.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane4"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane_4"))
 			.createConnectedPlaneChiselingMode()
 	);
 
@@ -333,7 +333,7 @@ public final class ModChiselModes {
 			.setDepth(8)
 			.setDisplayName(LocalStrings.ChiselModePlane8.getText())
 			.setMultiLineDisplayName(LocalStrings.ChiselModeMultiLinePlane8.getText())
-			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "plane8"))
+			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "connected_plane_8"))
 			.createConnectedPlaneChiselingMode()
 	);
 
