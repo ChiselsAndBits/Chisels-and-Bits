@@ -1,0 +1,60 @@
+name: 🔌 Mod Compatibility
+description: Report an incompatibility between Chisels & Bits and another mod.
+title: "🔌 Mod Compatibility"
+labels: ["Mod Compatibility"]
+type: bug-in-mod
+body:
+  - type: markdown
+    attributes:
+      value: "⚠️ **Version information is required.** Provide the *exact* Minecraft and Chisels & Bits versions (for example `1.20.1` and `2.1.0`). If you enter Latest, Release, or similar wording, the issue will be closed automatically and cannot be reopened — we need exact versions to investigate."
+  - type: input
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      description: The exact client/server Minecraft version (for example `1.20.1`).
+      placeholder: "Example: 1.20.1"
+    validations:
+      required: true
+  - type: input
+    id: candsb_version
+    attributes:
+      label: Chisels & Bits Version
+      description: The exact Chisels & Bits version (for example `2.1.0`).
+      placeholder: "Example: 2.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mod_name
+    attributes:
+      label: Mod Name
+      description: The name of the other mod in question.
+      placeholder: "Example: Create"
+    validations:
+      required: true
+  - type: input
+    id: mod_version
+    attributes:
+      label: Mod Version
+      description: The exact version of that mod (for example `5.1.1`).
+      placeholder: "Example: 5.1.1"
+    validations:
+      required: true
+  - type: input
+    id: download_link
+    attributes:
+      label: Mod Download Link
+      description: Optional — link to where the mod can be downloaded (CurseForge, Modrinth, etc.).
+      placeholder: "Example: https://modrinth.com/mod/create"
+    validations:
+      required: false
+  - type: textarea
+    id: incompatibility_description
+    attributes:
+      label: Description of the Incompatibility
+      description: Describe the conflict — what breaks, and under what conditions.
+      placeholder: |
+        What happens when these two mods are used together?
+
+        Expected vs actual behavior: ...
+    validations:
+      required: true

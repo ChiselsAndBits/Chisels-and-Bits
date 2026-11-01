@@ -1,0 +1,22 @@
+name: Remove Label - Waiting On Response
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  remove-label:
+    # Run only for issues (not pull requests) and only when the commenter is
+    # not a member/owner of the organization that owns this repository.
+    if: ${{ github.event.issue.pull_request == null && github.event.comment.author_association != 'MEMBER' && github.event.comment.author_association != 'OWNER' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Remove "Waiting On Response" label
+        uses: actions-ecosystem/action-remove-labels@v1.3.0
+        with:
+          labels: 'Waiting On Response'

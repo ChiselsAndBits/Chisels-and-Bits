@@ -1,0 +1,89 @@
+name: Stale Check - Waiting On Response
+
+# Runs daily (09:00 UTC) and closes issues labeled "Waiting On Response" whose
+# last comment is older than 31 days, replacing the label with "No Response".
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  close-stale-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Close stale "Waiting On Response" issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const LABEL = 'Waiting On Response';
+            const STALE_DAYS = 31;
+            const now = Date.now();
+            const threshold = new Date(now - STALE_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
+            async function api(method, params) {
+              try {
+                return await github.rest[method](params);
+              } catch (err) {
+                core.warning(`${method} failed: ${err.message}`);
+                return [];
+              }
+            }
+
+            const repo = context.repo;
+            const issues = await api('issues.listForRepo', {
+              owner: repo.owner,
+              repo: repo.repo,
+              labels: LABEL,
+              state: 'open',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 100,
+            }, { paginate: true });
+
+            if (!issues.length) {
+              console.log(`No open issues labeled "${LABEL}".`);
+              return;
+            }
+
+            const message = `This issue has been closed as **Not Planned** because there has been no response for over ${STALE_DAYS} days.\n\nIf you're still interested, feel free to reopen this issue (or comment to let us know) — we'll be happy to pick it back up at any time. Thank you!`;
+
+            for (const issue of issues) {
+              const comments = await api('issues.listComments', {
+                owner: repo.owner,
+                repo: repo.repo,
+                issue_number: issue.number,
+                per_page: 100,
+              }, { paginate: true });
+
+              if (!comments.length) {
+                console.log(`Issue #${issue.number}: no comments found, skipping.`);
+                continue;
+              }
+
+              const lastComment = comments.reduce((a, b) =>
+                new Date(b.created_at) > new Date(a.created_at) ? b : a);
+
+              if (lastComment.created_at < threshold) {
+                console.log(`Closing stale Issue #${issue.number}.`);
+                await github.rest.issues.update({
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'not_planned',
+                  labels: issue.labels.filter(l => l.name !== LABEL).map(l => l.name).concat('No Response'),
+                });
+                await github.rest.issues.createComment({
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  issue_number: issue.number,
+                  body: message,
+                });
+              } else {
+                console.log(`Issue #${issue.number}: last comment is recent, skipping.`);
+              }
+            }

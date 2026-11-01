@@ -1,0 +1,41 @@
+name: 🎨 Rendering / Shader Issues
+description: Report a graphical or rendering issue with screenshots.
+title: "🎨 Rendering / Shader Issue"
+labels: ["Rendering"]
+type: bug-in-mod
+body:
+  - type: markdown
+    attributes:
+      value: "⚠️ **Version information is required.** Provide the *exact* Minecraft and Chisels & Bits versions (for example `1.20.1` and `2.1.0`). If you enter Latest, Release, or similar wording, the issue will be closed automatically and cannot be reopened — we need exact versions to investigate."
+  - type: input
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      description: The exact client/server Minecraft version (for example `1.20.1`).
+      placeholder: "Example: 1.20.1"
+    validations:
+      required: true
+  - type: input
+    id: candsb_version
+    attributes:
+      label: Chisels & Bits Version
+      description: The exact Chisels & Bits version (for example `2.1.0`).
+      placeholder: "Example: 2.1.0"
+    validations:
+      required: true
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Attach any relevant screenshots — drag and drop or click to browse. Images showing the rendering problem are very helpful.
+      accept: ".png,.jpg,.jpeg,.gif,.webp,.bmp"
+    validations:
+      required: true
+  - type: textarea
+    id: what_was_happening
+    attributes:
+      label: What were you doing when the issue occurred?
+      description: Describe the actions leading up to the rendering problem.
+      placeholder: "For example: I was looking at a carved chisel block from an angle with shaders enabled..."
+    validations:
+      required: true

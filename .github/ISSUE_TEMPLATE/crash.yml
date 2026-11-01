@@ -1,0 +1,41 @@
+name: 💥 Crash
+description: Report a game crash and attach your log file.
+title: "💥 Crash"
+labels: ["Crash"]
+type: bug-in-mod
+body:
+  - type: markdown
+    attributes:
+      value: "⚠️ **Version information is required.** Provide the *exact* Minecraft and Chisels & Bits versions (for example `1.20.1` and `2.1.0`). If you enter Latest, Release, or similar wording, the issue will be closed automatically and cannot be reopened — we need exact versions to investigate."
+  - type: input
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      description: The exact client/server Minecraft version (for example `1.20.1`).
+      placeholder: "Example: 1.20.1"
+    validations:
+      required: true
+  - type: input
+    id: candsb_version
+    attributes:
+      label: Chisels & Bits Version
+      description: The exact Chisels & Bits version (for example `2.1.0`).
+      placeholder: "Example: 2.1.0"
+    validations:
+      required: true
+  - type: upload
+    id: crash_log
+    attributes:
+      label: Crash Log File
+      description: Upload your crash log — drag and drop or click to browse. Usually `crash-<Minecraft>.log`, `latest.log`, or `debug.log` from the `.minecraft/logs` folder.
+      accept: ".log,.txt,.zip"
+    validations:
+      required: true
+  - type: textarea
+    id: what_was_happening
+    attributes:
+      label: What were you doing when it crashed?
+      description: Describe the actions that led up to the crash.
+      placeholder: "For example: I was carving a pattern into a marble block using the chisel..."
+    validations:
+      required: true

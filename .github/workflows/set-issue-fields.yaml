@@ -1,0 +1,100 @@
+name: Set Issue Fields - Form Inputs
+
+# When an issue is created from one of our issue form templates, mirror the
+# version inputs into the org-level issue fields "Minecraft Version" and
+# "Mod Version".
+#
+# Form inputs are rendered into the issue body as "### <Label>" sections, so
+# the values are parsed out of the body. The values are posted through the
+# repository-scoped issue-field-values endpoint, so the only permission
+# needed is "issues: write" (no org-level access).
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  set-issue-fields:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set issue field values from form inputs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Org-level issue field IDs (ChiselsAndBits org, Settings > Planning > Issue fields).
+            // If a field is deleted and re-created, fetch the new IDs and update these:
+            //   gh api /orgs/ChiselsAndBits/issue-fields -H "X-GitHub-Api-Version: 2026-03-10"
+            const FIELD_IDS = {
+              'Minecraft Version': 49328165,
+              'Mod Version': 49328178,
+            };
+
+            const body = context.payload.issue.body || '';
+
+            // GitHub renders each form element as a "### <Label>" heading
+            // followed by the submitted value. A "**<Label>**" paragraph is
+            // accepted as a fallback in case the rendering ever changes.
+            function escapeRegExp(s) {
+              return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            function formValue(label) {
+              const re = new RegExp(
+                `(?:^\\s*###\\s*|^\\s*\\*\\*)${escapeRegExp(label)}(?:\\*\\*)?\\s*$`,
+                'm'
+              );
+              const match = re.exec(body);
+              if (!match) return null;
+              const section = body.slice(match.index + match[0].length).split(/\n### /)[0];
+              return section.split('\n').map((l) => l.trim()).find(Boolean) || null;
+            }
+
+            // Form input label -> org issue field.
+            // "Chisels & Bits Version" is the mod's own version, i.e. "Mod Version".
+            // (The mod-compatibility form's separate "Mod Version" input refers
+            // to the *other* mod and intentionally has no field.)
+            const wanted = [
+              { field: 'Minecraft Version', value: formValue('Minecraft Version') },
+              { field: 'Mod Version', value: formValue('Chisels & Bits Version') },
+            ].filter((e) => e.value !== null);
+
+            if (!wanted.length) {
+              core.info('No version inputs found in the issue body; nothing to do.');
+              return;
+            }
+
+            // The issue fields API is newer than the API version bundled with
+            // actions/github-script, so pin it explicitly.
+            const apiVersion = { 'X-GitHub-Api-Version': '2026-03-10' };
+            const { owner, repo } = context.repo;
+            const issueNumber = context.payload.issue.number;
+
+            let set = 0;
+            for (const { field, value } of wanted) {
+              // One request per field, so an invalid value for one field
+              // (e.g. a single-select option that does not exist) does not
+              // reject the other.
+              try {
+                await github.request(
+                  'POST /repos/{owner}/{repo}/issues/{issue_number}/issue-field-values',
+                  {
+                    owner,
+                    repo,
+                    issue_number: issueNumber,
+                    issue_field_values: [{ field_id: FIELD_IDS[field], value }],
+                    headers: apiVersion,
+                  }
+                );
+                set++;
+                core.info(`Set "${field}" = ${JSON.stringify(value)}`);
+              } catch (err) {
+                core.warning(
+                  `Failed to set "${field}" = ${JSON.stringify(value)}: ${err.message}. ` +
+                    'The value stays in the issue body; set the field from the issue sidebar if needed.'
+                );
+              }
+            }
+            core.info(`Done: ${set}/${wanted.length} field value(s) set.`);

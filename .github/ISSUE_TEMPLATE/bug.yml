@@ -1,0 +1,40 @@
+name: 🐞 Bug
+description: Report something that is broken or not working as expected.
+title: "🐞 Bug"
+labels: ["Bug"]
+type: bug-in-mod
+body:
+  - type: markdown
+    attributes:
+      value: "⚠️ **Version information is required.** Provide the *exact* Minecraft and Chisels & Bits versions (for example `1.20.1` and `2.1.0`). If you enter Latest, Release, or similar wording, the issue will be closed automatically and cannot be reopened — we need exact versions to investigate."
+  - type: input
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      description: The exact client/server Minecraft version (for example `1.20.1`).
+      placeholder: "Example: 1.20.1"
+    validations:
+      required: true
+  - type: input
+    id: candsb_version
+    attributes:
+      label: Chisels & Bits Version
+      description: The exact Chisels & Bits version (for example `2.1.0`).
+      placeholder: "Example: 2.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Bug Description
+      description: Describe what happened and what you expected to happen. Include steps to reproduce if it happens reliably.
+      placeholder: |
+        What happened?
+
+        What did you expect?
+
+        Steps to reproduce (if any):
+        1. ...
+        2. ...
+    validations:
+      required: true
