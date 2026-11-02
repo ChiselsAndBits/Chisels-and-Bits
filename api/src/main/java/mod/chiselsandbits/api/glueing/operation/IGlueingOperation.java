@@ -42,4 +42,9 @@ public interface IGlueingOperation extends ICustomRegistryEntry, IToolMode<IGlue
 	 * @return An accessor which was created by the operation.
 	 */
 	IAreaAccessor apply(Collection<IAreaAccessor> sources);
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return false;
+	}
 }

@@ -7,4 +7,8 @@ import mod.chiselsandbits.api.item.withmode.group.IToolModeGroup;
  */
 
 public interface IModificationOperationGroup extends IToolModeGroup {
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return false;
+	}
 }

@@ -35,4 +35,9 @@ public interface IModificationOperation extends ICustomRegistryEntry, IToolMode<
 	 * @param source The mutator to modify.
 	 */
 	void apply(IGenerallyModifiableAreaMutator source);
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return false;
+	}
 }

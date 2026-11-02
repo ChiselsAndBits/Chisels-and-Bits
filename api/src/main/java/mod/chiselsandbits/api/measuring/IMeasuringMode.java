@@ -23,4 +23,9 @@ public interface IMeasuringMode extends IToolMode<IMeasuringType> {
 	 */
 
 	IMeasuringType getType();
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return true;
+	}
 }

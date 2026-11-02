@@ -194,7 +194,10 @@ public class DrawnWallChiselMode extends AbstractCustomRegistryEntry implements 
 		final HitResult rayTraceResult = RayTracingUtils.rayTracePlayer(playerEntity);
 
 		if (rayTraceResult.getType() != HitResult.Type.BLOCK || !(rayTraceResult instanceof final BlockHitResult blockRayTraceResult)) {
-			context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
+			if (!context.isSimulation()) {
+				context.setError(LocalStrings.ChiselAttemptFailedNoBlock.getText());
+			}
+
 			return ClickProcessingState.DEFAULT;
 		}
 

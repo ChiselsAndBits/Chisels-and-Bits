@@ -7,4 +7,8 @@ import mod.chiselsandbits.api.util.IWithDisplayName;
  * Groups the tool modes available to an item.
  */
 public interface IToolModeGroup extends IWithDisplayName, IRenderableMode {
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return true;
+	}
 }

@@ -53,6 +53,11 @@ public interface IMeasuringType extends IToolModeGroup {
 	 */
 	boolean isNeedsNormalization();
 
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return true;
+	}
+
 	/**
 	 * Adapts a pair of measurement endpoints using the clicked face.
 	 */

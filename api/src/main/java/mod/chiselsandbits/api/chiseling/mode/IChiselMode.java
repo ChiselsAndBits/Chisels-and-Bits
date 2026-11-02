@@ -169,4 +169,9 @@ public interface IChiselMode extends ICustomRegistryEntry, IToolMode<IToolModeGr
 	default boolean isSingleClickUse() {
 		return true;
 	}
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return true;
+	}
 }

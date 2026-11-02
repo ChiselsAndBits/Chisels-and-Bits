@@ -32,6 +32,10 @@ public class RootGroupTopLeftSelectedToolModeIconRenderer implements ISelectedTo
 		final IToolMode<?> mode = modeItem.getMode(stack);
 		final IRenderableMode renderableMode = getRootRenderableMode(mode);
 
+		if (!renderableMode.shouldRenderOnHotBar()) {
+			return;
+		}
+
 		final Vec2 positionVector = renderableMode.getPositionVector();
 		final Vec2 scaleVector = renderableMode.getScaleVector();
 

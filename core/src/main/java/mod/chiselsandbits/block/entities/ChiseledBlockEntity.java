@@ -1217,7 +1217,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 		@Override
 		public float getLightBlockingFactor() {
-			return this.totalLightBlockLevel / (float) StateEntrySize.current().getBitsPerBlock();
+			return this.totalLightBlockLevel / (float) StateEntrySize.current().getBitsPerBlock() / LightEngine.MAX_LEVEL;
 		}
 
 		@Override

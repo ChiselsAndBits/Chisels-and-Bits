@@ -56,4 +56,9 @@ public interface IPatternPlacementType extends ICustomRegistryEntry, IToolMode<I
 	 * @return The position of the potential placement.
 	 */
 	Vec3 getTargetedPosition(ItemStack heldStack, Player player, BlockHitResult blockRayTraceResult);
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return true;
+	}
 }

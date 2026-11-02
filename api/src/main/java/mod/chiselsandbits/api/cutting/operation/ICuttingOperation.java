@@ -45,4 +45,9 @@ public interface ICuttingOperation extends ICustomRegistryEntry, IToolMode<ICutt
 	 * @return A collection of accessors that were created by the operation.
 	 */
 	Collection<IAreaAccessor> apply(IAreaAccessor source);
+
+	@Override
+	default boolean shouldRenderOnHotBar() {
+		return false;
+	}
 }
