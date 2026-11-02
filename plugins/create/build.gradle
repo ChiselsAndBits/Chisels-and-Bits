@@ -35,8 +35,8 @@ tableau {
 }
 
 dependencies {
-    implementation("com.simibubi.create:create-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.version')}:slim") { transitive = false }
-    implementation("net.createmod.ponder:Ponder-NeoForge-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.ponder.version')}")
+    implementation("com.simibubi.create:create-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.version.main')}-${rootProject.property('compat.create.version.build')}:slim") { transitive = false }
+    implementation("net.createmod.ponder:ponder-neoforge:${rootProject.property('compat.create.ponder.version')}+mc${rootProject.property('minecraft.version')}")
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.flywheel.version')}")
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${rootProject.property('minecraft.version')}:${rootProject.property('compat.create.flywheel.version')}")
     implementation("com.tterrag.registrate:Registrate:${rootProject.property('compat.create.registrate.version')}")

@@ -14,19 +14,25 @@ $project.description
 updateJSONURL="https://curseupdate.com/$project.curse.id.neoforge/$project.mod.id?ml=neoforge" #optional
 [[dependencies.$project.mod.id]]
 modId = "neoforge" #mandatory
-required = true #mandatory
+type = "required" #mandatory
 versionRange = "$dependencies.net.neoforged.neoforge.maven"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.$project.mod.id]]
 modId = "minecraft" #mandatory
-required = true #mandatory
+type = "required" #mandatory
 versionRange = "${minecraft.range.neoforge.get()}"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.$project.mod.id]]
 modId = "scena" #mandatory
-required = true #mandatory
+type = "required" #mandatory
 versionRange = "$dependencies.com.communi_suggestu.scena.neoforge.maven"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies.$project.mod.id]]
+modId = "create" #mandatory
+type = "optional" #optional
+versionRange = "[$project.compat.create.version.main, )"
 ordering = "AFTER"
 side = "BOTH"
