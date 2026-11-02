@@ -1,7 +1,7 @@
 name: 🔌 Mod Compatibility
 description: Report an incompatibility between Chisels & Bits and another mod.
 title: "🔌 Mod Compatibility"
-labels: ["Mod Compatibility"]
+labels: ["Mod Compatibility", "Bug"]
 type: bug-in-mod
 body:
   - type: markdown
