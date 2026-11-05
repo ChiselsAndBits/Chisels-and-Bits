@@ -50,6 +50,7 @@ import java.util.BitSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -134,24 +135,25 @@ public class SphereChiselMode extends AbstractCustomRegistryEntry implements ICh
                         .map(factory -> factory.apply(mutator))
                         .orElse((s) -> true);
 
-                final int totalModifiedStates = mutator.inWorldMutableStream()
-                        .filter(filter)
-                        .mapToInt(state -> {
-                            final BlockInformation currentState = state.getBlockInformation();
+                final AtomicInteger totalModifiedStates = new AtomicInteger(0);
+                  mutator.inWorldMutableStream()
+                    .filter(filter)
+                    .forEach(state -> {
+                        final BlockInformation currentState = state.getBlockInformation();
 
-                            return context.tryDamageItemAndDoOrSetBrokenError(
-                                    () -> {
-                                        resultingBitCount.putIfAbsent(currentState, 0);
-                                        resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
+                        context.tryDamageItemAndDoOrSetBrokenError(
+                          () -> {
+                              resultingBitCount.putIfAbsent(currentState, 0);
+                              resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
-                                        state.clear();
-                                    });
-                        })
-                        .sum();
+                              state.clear();
+                              totalModifiedStates.incrementAndGet();
+                          });
+                    });
 
-                if (totalModifiedStates == 0) {
-                    context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
-                }
+                  if (totalModifiedStates.get() == 0) {
+                      context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
+                  }
 
                 resultingBitCount.forEach((blockState, count) -> BitInventoryUtils.insertIntoOrSpawn(
                         playerEntity,

@@ -41,6 +41,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -98,22 +99,23 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
                     .map(builder -> builder.apply(mutator))
                     .orElse((state) -> true);
 
-                  final int totalModifiedStates = mutator.inWorldMutableStream()
+                  final AtomicInteger totalModifiedStates = new AtomicInteger(0);
+                  mutator.inWorldMutableStream()
                     .filter(filter)
-                    .mapToInt(state -> {
+                    .forEach(state -> {
                         final BlockInformation currentState = state.getBlockInformation();
 
-                        return context.tryDamageItemAndDoOrSetBrokenError(
+                        context.tryDamageItemAndDoOrSetBrokenError(
                           () -> {
                               resultingBitCount.putIfAbsent(currentState, 0);
                               resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
                               state.clear();
+                              totalModifiedStates.incrementAndGet();
                           });
-                    })
-                    .sum();
+                    });
 
-                  if (totalModifiedStates == 0) {
+                  if (totalModifiedStates.get() == 0) {
                       context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
                   }
 
@@ -449,8 +451,13 @@ public class ConnectedMaterialChiselingMode extends AbstractCustomRegistryEntry 
             }
         }
 
-        context.include(hitPos, Vec3.ZERO);
-        context.include(hitPos, new Vec3(0.9999, 0.9999, 0.9999));
+        validPositions.forEach(inBlockBitSizedVector -> {
+            context.include(hitPos, new Vec3(
+                    (double) inBlockBitSizedVector.getX() * StateEntrySize.current().getSizePerBit(),
+                    (double) inBlockBitSizedVector.getY() * StateEntrySize.current().getSizePerBit(),
+                    (double) inBlockBitSizedVector.getZ() * StateEntrySize.current().getSizePerBit()
+            ));
+        });
         context.setStateFilter(accessor -> new SelectedBitStateFilter(filterOffsetProducer.apply(blockHitResult.getDirection()), validPositions));
 
         context.setMetadata(ModMetadataKeys.VALID_POSITIONS.get(), validPositions);
