@@ -21,3 +21,11 @@ allprojects {Project project ->
         }
     }
 }
+
+idea {
+    project {
+        runs {
+            runWithIdea = true
+        }
+    }
+}
