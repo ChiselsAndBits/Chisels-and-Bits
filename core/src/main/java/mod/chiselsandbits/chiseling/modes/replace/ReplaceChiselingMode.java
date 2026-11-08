@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -102,22 +103,23 @@ public class ReplaceChiselingMode extends AbstractCustomRegistryEntry implements
 					return ClickProcessingState.DEFAULT;
 				}
 
-				final int totalModifiedStates = mutator.inWorldMutableStream()
+				final AtomicInteger totalModifiedStates = new AtomicInteger();
+				mutator.inWorldMutableStream()
 						.filter(filter)
-						.mapToInt(LambdaExceptionUtils.rethrowToIntFunction(state -> {
+						.forEach(state -> {
 							final BlockInformation currentState = state.getBlockInformation();
 
-							return context.tryDamageItemAndDoOrSetBrokenError(
+							 context.tryDamageItemAndDoOrSetBrokenError(
 									() -> {
 										resultingBitCount.putIfAbsent(currentState, 0);
 										resultingBitCount.computeIfPresent(currentState, (s, currentCount) -> currentCount + 1);
 
+										totalModifiedStates.incrementAndGet();
 										state.overrideState(heldBlockState);
 									});
-						}))
-						.sum();
+						});
 
-				if (totalModifiedStates == 0) {
+				if (totalModifiedStates.get() == 0) {
 					context.setError(LocalStrings.ChiselAttemptFailedNoValidStateFound.getText());
 				}
 
