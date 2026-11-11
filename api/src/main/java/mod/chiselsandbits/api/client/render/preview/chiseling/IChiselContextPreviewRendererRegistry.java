@@ -21,7 +21,7 @@ public interface IChiselContextPreviewRendererRegistry {
 	 *
 	 * @return The renderer.
 	 */
-	IChiselContextPreviewRenderer getCurrent();
+	IChiselContextPreviewRenderer<?> getCurrent();
 
 	/**
 	 * Adds the passed in renderer instances as possible candidates.
@@ -29,5 +29,5 @@ public interface IChiselContextPreviewRendererRegistry {
 	 * @param renderers The candidates.
 	 * @return The registry.
 	 */
-	IChiselContextPreviewRendererRegistry register(IChiselContextPreviewRenderer... renderers);
+	IChiselContextPreviewRendererRegistry register(IChiselContextPreviewRenderer<?>... renderers);
 }

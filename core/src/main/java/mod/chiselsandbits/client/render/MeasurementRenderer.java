@@ -1,224 +1,220 @@
 package mod.chiselsandbits.client.render;
 
 import java.text.DecimalFormat;
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
-import com.communi.suggestu.scena.core.util.TransformationUtils;
+import com.communi.suggestu.scena.core.client.event.IExtractLevelRenderStateEvent;
+import com.communi.suggestu.scena.core.client.event.ISubmitCustomGeometryEvent;
+import com.google.common.collect.Streams;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import mod.chiselsandbits.api.measuring.IMeasurement;
+import mod.chiselsandbits.api.measuring.IMeasuringManager;
 import mod.chiselsandbits.api.measuring.IMeasuringMode;
 import mod.chiselsandbits.api.measuring.IMeasuringType;
-import mod.chiselsandbits.api.util.VectorUtils;
+import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.util.constants.Constants;
-import mod.chiselsandbits.measures.MeasuringManager;
 import mod.chiselsandbits.measures.MeasuringType;
-import org.joml.Vector3f;
-
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.ShapeRenderer;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.gizmos.DrawableGizmoPrimitives;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
+import net.minecraft.gizmos.TextGizmo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.scores.PlayerTeam;
+import org.jspecify.annotations.Nullable;
 
 public final class MeasurementRenderer {
-	private static final MeasurementRenderer INSTANCE = new MeasurementRenderer();
+    private static final MeasurementRenderer INSTANCE = new MeasurementRenderer();
+	private static final Identifier RENDERSTATE_ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_render_state");
 
-	private MeasurementRenderer() {
-	}
+    private MeasurementRenderer() {
+    }
 
-	public static MeasurementRenderer getInstance() {
-		return INSTANCE;
-	}
+    public static MeasurementRenderer getInstance() {
+        return INSTANCE;
+    }
 
-	public void renderMeasurements(
-			final PoseStack poseStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final float partialTickTime) {
-		if (Minecraft.getInstance().level == null) {
-			return;
-		}
+    public record MeasurementsRenderState(Iterable<MeasurementRenderState> measurements) {
+        public static final Identifier ID = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "measurements_render_state");
+    }
 
-		final Collection<? extends IMeasurement> measurements = MeasuringManager.getInstance().getInWorld(Minecraft.getInstance().level);
+    public record MeasurementRenderState(
+            @Nullable DirectRenderState directDistance,
+            @Nullable CubicRenderState cubicDistance,
+            Component owner
+    ) {
 
-		Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().position();
-		double xView = vector3d.x();
-		double yView = vector3d.y();
-		double zView = vector3d.z();
+        public boolean isDirectDistance() {
+            return directDistance != null;
+        }
 
-		measurements.forEach(measurement -> {
-			renderMeasurement(poseStack, bufferSource, measurement, xView, yView, zView, partialTickTime);
-		});
-	}
+        public boolean isCubicDistance() {
+            return cubicDistance != null;
+        }
+    }
 
-	private void renderMeasurement(
-			final PoseStack poseStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final IMeasurement measurement,
-			final double xView,
-			final double yView,
-			final double zView,
-			final float partialTickTime) {
-		final Vec3 startPos = measurement.getFrom();
+    public record DirectRenderState(
+            int color,
+            Vec3 start,
+            Vec3 end,
+            Component length
+    ) {
 
-		final AABB measurementBB = new AABB(
-				Vec3.ZERO, measurement.getSize().add(0.0001d, 0.0001d, 0.0001d)
-		);
-		final VoxelShape boundingShape = Shapes.create(measurementBB);
+        public Vec3 center() {
+            return start.add(end).multiply(0.5, 0.5, 0.5);
+        }
+    }
 
-		if (measurement.getMode().getGroup().map(g -> g != MeasuringType.DISTANCE).orElse(false)) {
-			ShapeRenderer.renderShape(
-					poseStack,
-					bufferSource.getBuffer(RenderTypes.LINES),
-					boundingShape,
-					startPos.x() - xView,
-					startPos.y() - yView,
-					startPos.z() - zView,
-					ARGB.colorFromFloat(
-							(float) measurement.getMode().getAlphaChannel(),
-							(float) measurement.getMode().getColorVector().x(),
-							(float) measurement.getMode().getColorVector().y(),
-							(float) measurement.getMode().getColorVector().z()
-					),
-					2.5f
+    public record CubicRenderState(
+            int color,
+            CubicBoxRenderState box,
+            CubicLengthRenderState length
+    ) {
+    }
+
+    public record CubicBoxRenderState(
+            AABB boundingBox
+    ) {
+
+        public Vec3 start() {
+            return boundingBox().getMinPosition();
+        }
+
+        public Vec3 end() {
+            return boundingBox().getMaxPosition();
+        }
+
+        public Vec3 center() {
+            return boundingBox().getCenter();
+        }
+
+        public Stream<Vec3> corners() {
+            return Stream.of(
+                    new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.minZ),
+                    new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.maxZ),
+                    new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.minZ),
+                    new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ),
+                    new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.minZ),
+                    new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ),
+                    new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ),
+                    new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ)
+            );
+        }
+
+        public Stream<Vec3> primaryPlaneCenters() {
+            return Stream.of(
+                    new Vec3(boundingBox().minX, center().y(), boundingBox().minZ),
+                    new Vec3(center().x, boundingBox().minY, boundingBox().minZ),
+                    new Vec3(boundingBox().minX, boundingBox().minY, center().z())
+            );
+        }
+
+        public Stream<CubicEdgeRenderState> edges() {
+            return Stream.of(
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.minZ), new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.minZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.maxZ), new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.minZ), new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ), new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ)),
+
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.minZ), new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.minZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.minZ), new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.maxZ), new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ), new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ)),
+
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.minZ), new Vec3(boundingBox.minX, boundingBox.minY, boundingBox.maxZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.minZ), new Vec3(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.minZ), new Vec3(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ)),
+                    new CubicEdgeRenderState(new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ), new Vec3(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ))
+            );
+        }
+
+    }
+
+    public record CubicEdgeRenderState(
+            Vec3 from,
+            Vec3 to
+    ) {
+    }
+
+    public record CubicLengthRenderState(
+            Component x,
+            Component y,
+            Component z
+    ) {
+
+        public Stream<Component> primaryPlaneLengths() {
+            return Stream.of(y(), x(), z());
+        }
+    }
+
+    public void extract(LevelRenderState levelRenderState, ClientLevel clientLevel, Camera camera, DeltaTracker deltaTracker, IExtractLevelRenderStateEvent.IRenderStateStore store) {
+		final IMeasuringManager measuringManager = IMeasuringManager.getInstance();
+		final List<MeasurementRenderState> renderStates = measuringManager.getInWorld(clientLevel)
+				.stream()
+				.map(this::extractMeasurementRenderState)
+				.toList();
+
+		store.write(RENDERSTATE_ID, new MeasurementsRenderState(renderStates));
+    }
+
+    private MeasurementRenderState extractMeasurementRenderState(IMeasurement measurement) {
+		if (measurement.getMode().getType() == MeasuringType.DISTANCE) {
+			return new MeasurementRenderState(
+					extractDirectRenderState(measurement),
+					null,
+					Component.literal(measurement.getOwner().toString())
 			);
-
-			final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
-			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
-
-			if (lengths.y() > 1 / 16d) {
-				renderMeasurementSize(
-						poseStack,
-						bufferSource,
-						measurement,
-						lengths.y(),
-						new Vec3(measurement.getFrom().x(), centerPos.y(), measurement.getFrom().z()), partialTickTime);
-			}
-
-			if (lengths.x() > 1 / 16d) {
-				renderMeasurementSize(
-						poseStack,
-						bufferSource,
-						measurement,
-						lengths.x(),
-						new Vec3(centerPos.x(), measurement.getFrom().y(), measurement.getFrom().z()), partialTickTime);
-			}
-
-			if (lengths.z() > 1 / 16d) {
-				renderMeasurementSize(
-						poseStack,
-						bufferSource,
-						measurement,
-						lengths.z(),
-						new Vec3(measurement.getFrom().x(), measurement.getFrom().y(), centerPos.z()), partialTickTime);
-			}
-		} else if (measurement.getMode().getGroup().map(g -> g == MeasuringType.DISTANCE).orElse(false)) {
-			final VertexConsumer bufferIn = bufferSource.getBuffer(RenderTypes.LINES);
-			bufferIn.addVertex(poseStack.last().pose(),
-							(float) (measurement.getFrom().x() - xView),
-							(float) (measurement.getFrom().y() - yView),
-							(float) (measurement.getFrom().z() - zView))
-					.setColor(
-							(float) measurement.getMode().getColorVector().x(),
-							(float) measurement.getMode().getColorVector().y(),
-							(float) measurement.getMode().getColorVector().z(),
-							(float) measurement.getMode().getAlphaChannel()
-					)
-					.setNormal(poseStack.last(), 0, 1, 0)
-					.setLineWidth(2.5f);
-
-			bufferIn.addVertex(poseStack.last().pose(),
-							(float) (measurement.getTo().x() - xView),
-							(float) (measurement.getTo().y() - yView),
-							(float) (measurement.getTo().z() - zView))
-					.setColor(
-							(float) measurement.getMode().getColorVector().x(),
-							(float) measurement.getMode().getColorVector().y(),
-							(float) measurement.getMode().getColorVector().z(),
-							(float) measurement.getMode().getAlphaChannel()
-					)
-					.setNormal(poseStack.last(), 0, 1, 0)
-					.setLineWidth(2.5f);
-
-			final Vec3 lengths = VectorUtils.absolute(measurement.getTo().subtract(measurement.getFrom()));
-			final double totalLength = lengths.length();
-			final Vec3 centerPos = measurement.getFrom().add(measurement.getTo()).multiply(0.5, 0.5, 0.5);
-
-			if (totalLength > 1 / 16d) {
-				renderMeasurementSize(
-						poseStack,
-						bufferSource,
-						measurement,
-						totalLength,
-						centerPos, partialTickTime);
-			}
+		} else {
+			return new MeasurementRenderState(
+					null,
+					extractCubicRenderState(measurement),
+					formatOwner(measurement.getOwner())
+			);
 		}
+    }
 
-		bufferSource.endBatch(RenderTypes.LINES);
-	}
+    private DirectRenderState extractDirectRenderState(IMeasurement measurement) {
+        return new DirectRenderState(
+                ARGB.colorFromFloat(
+                        (float) measurement.getMode().getAlphaChannel(),
+                        (float) measurement.getMode().getColorVector().x(),
+                        (float) measurement.getMode().getColorVector().y(),
+                        (float) measurement.getMode().getColorVector().z()
+                ),
+                measurement.getFrom(),
+                measurement.getTo(),
+				formatLength(measurement.getMode(), measurement.getFrom().distanceTo(measurement.getTo()))
+			);
+    }
 
-	private void renderMeasurementSize(
-			final PoseStack matrixStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final IMeasurement measurement,
-			final double length,
-			final Vec3 position,
-			final float partialTickTime) {
-		final double letterSize = 5.0;
-		final double zScale = 0.001;
-
-		final Font fontRenderer = Minecraft.getInstance().font;
-		final Component size = formatLength(measurement.getMode(), length);
-		final Component owner = getOwnerName(measurement.getOwner());
-
-		final float scale = getScale(length);
-
-		Vec3 vector3d = Minecraft.getInstance().gameRenderer.getMainCamera().position();
-		double xView = vector3d.x();
-		double yView = vector3d.y();
-		double zView = vector3d.z();
-
-		matrixStack.pushPose();
-		matrixStack.translate(position.x() - xView, position.y() + scale * letterSize - yView, position.z() - zView);
-		performBillboardRotations(matrixStack, partialTickTime);
-		matrixStack.scale(scale, -scale, (float) zScale);
-		matrixStack.translate(-fontRenderer.width(size) * 0.5, 0, 0);
-		fontRenderer.drawInBatch(size.getString(),
-				0,
-				0,
-				measurement.getMode().getColor().getTextColor(),
-				false,
-				matrixStack.last().pose(),
-				bufferSource,
-				Font.DisplayMode.SEE_THROUGH,
-				0,
-				15728880);
-		matrixStack.translate(-fontRenderer.width(owner) * 0.5, -fontRenderer.lineHeight, 0);
-		fontRenderer.drawInBatch(owner.getString(),
-				0,
-				0,
-				measurement.getMode().getColor().getTextColor(),
-				false,
-				matrixStack.last().pose(),
-				bufferSource,
-				Font.DisplayMode.SEE_THROUGH,
-				0,
-				15728880);
-		bufferSource.endBatch();
-		matrixStack.popPose();
+	private CubicRenderState extractCubicRenderState(IMeasurement measurement) {
+		return new CubicRenderState(
+				ARGB.colorFromFloat(
+						(float) measurement.getMode().getAlphaChannel(),
+						(float) measurement.getMode().getColorVector().x(),
+						(float) measurement.getMode().getColorVector().y(),
+						(float) measurement.getMode().getColorVector().z()
+				),
+				new CubicBoxRenderState(new AABB(measurement.getFrom(), measurement.getTo())),
+				new CubicLengthRenderState(
+						formatLength(measurement.getMode(), Math.abs(measurement.getTo().x() - measurement.getFrom().x())),
+						formatLength(measurement.getMode(), Math.abs(measurement.getTo().y() - measurement.getFrom().y())),
+						formatLength(measurement.getMode(), Math.abs(measurement.getTo().z() - measurement.getFrom().z()))
+				)
+		);
 	}
 
 	private Component formatLength(
@@ -230,59 +226,134 @@ public final class MeasurementRenderer {
 		if (type == MeasuringType.DISTANCE) {
 			return Component.literal(new DecimalFormat("#.0#").format(length));
 		} else if (type == MeasuringType.BLOCK) {
-			return Component.translatable(Constants.MOD_ID + ".measurements.lengths.block", new DecimalFormat("#").format(Math.floor(length + 1)));
+			return LocalStrings.MeasurementLengthBlock.getText(new DecimalFormat("#").format(Math.floor(length + 1)));
+
 		}
 
-		return Component.translatable(Constants.MOD_ID + ".measurements.lengths.bit", new DecimalFormat("#").format(Math.floor((length) * 16)));
+		return LocalStrings.MeasurementLengthBit.getText(new DecimalFormat("#").format(Math.floor((length) * 16)));
 	}
 
-	private float getScale(
-			final double maxLen) {
-		final double maxFontSize = 0.04;
-		final double minFontSize = 0.004;
-
-		final double delta = Math.min(1.0, maxLen / 4.0);
-		double scale = maxFontSize * delta + minFontSize * (1.0 - delta);
-
-		if (maxLen < 0.25) {
-			scale = minFontSize;
-		}
-
-		return (float) Math.min(maxFontSize, scale);
-	}
-
-	private void performBillboardRotations(
-			final PoseStack matrixStack,
-			final float partialTickTime) {
-		final Entity view = Minecraft.getInstance().getCameraEntity() != null ? Minecraft.getInstance().getCameraEntity() : Minecraft.getInstance().player;
-
-		if (view != null) {
-			final float yaw = view.yRotO + (view.getYRot() - view.yRotO) * partialTickTime;
-			matrixStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(0, 180 - yaw, 0), true));
-
-			final float pitch = view.xRotO + (view.getXRot() - view.xRotO) * partialTickTime;
-			matrixStack.mulPose(TransformationUtils.quatFromXYZ(new Vector3f(-pitch, 0, 0), true));
-		}
-	}
-
-	private Component getOwnerName(final UUID id) {
+	private Component formatOwner(final UUID id) {
 		if (id == (Minecraft.getInstance().player != null ? Minecraft.getInstance().player.getUUID() : UUID.randomUUID())) {
-			return Component.translatable(Constants.MOD_ID + ".measurements.owners.you");
+			return LocalStrings.MeasurementOwnedByYou.getText();
 		}
 
 		final PlayerInfo playerInfo = Minecraft.getInstance().getConnection() != null ? Minecraft.getInstance().getConnection().getPlayerInfo(id) : null;
 
 		if (playerInfo == null) {
-			return Component.translatable(Constants.MOD_ID + ".measurements.owners.unknown");
+			return LocalStrings.MeasurementOwnedByUnknown.getText();
 		}
 
-		return Component.translatable(Constants.MOD_ID + ".measurements.owners.by",
+		return LocalStrings.MeasurementOwnedByPlayer.getText(
 				playerInfo.getTabListDisplayName() != null
 				? this.formatPlayerDisplayName(playerInfo, playerInfo.getTabListDisplayName().copy())
-				: this.formatPlayerDisplayName(playerInfo, PlayerTeam.formatNameForTeam(playerInfo.getTeam(), Component.literal(playerInfo.getProfile().name()))));
+				: this.formatPlayerDisplayName(playerInfo, PlayerTeam.formatNameForTeam(playerInfo.getTeam(), Component.literal(playerInfo.getProfile().name())))
+		);
 	}
 
-	private Component formatPlayerDisplayName(PlayerInfo p_238524_1_, MutableComponent p_238524_2_) {
-		return p_238524_1_.getGameMode() == GameType.SPECTATOR ? p_238524_2_.withStyle(ChatFormatting.ITALIC) : p_238524_2_;
+	private Component formatPlayerDisplayName(PlayerInfo playerInfo, MutableComponent component) {
+		return playerInfo.getGameMode() == GameType.SPECTATOR ? component.withStyle(ChatFormatting.ITALIC) : component;
 	}
+
+    public void submit(SubmitNodeCollector submitNodeCollector, PoseStack poseStack, LevelRenderState levelRenderState, ISubmitCustomGeometryEvent.IRenderStateStore store) {
+        final MeasurementsRenderState renderState = store.read(MeasurementsRenderState.ID);
+        if (renderState == null) {
+            return;
+        }
+
+        renderState.measurements().forEach(state -> submit(submitNodeCollector, poseStack, levelRenderState, state));
+    }
+
+    public void submit(SubmitNodeCollector submitNodeCollector, PoseStack poseStack, LevelRenderState levelRenderState, MeasurementRenderState renderState) {
+        if (renderState.isDirectDistance()) {
+            submitDirectDistance(submitNodeCollector, poseStack, levelRenderState, renderState.directDistance(), renderState.owner());
+        } else if (renderState.isCubicDistance()) {
+            submitCubicDistance(submitNodeCollector, poseStack, levelRenderState, renderState.cubicDistance(), renderState.owner());
+        }
+    }
+
+    public void submitDirectDistance(SubmitNodeCollector submitNodeCollector, PoseStack poseStack, LevelRenderState levelRenderState, DirectRenderState renderState, Component owner) {
+        poseStack.pushPose();
+        submitNodeCollector.submitGizmoPrimitives(
+                createDirectDistanceGizmoGroup(renderState, owner),
+                levelRenderState.cameraRenderState,
+                true
+        );
+        poseStack.popPose();
+    }
+
+    public DrawableGizmoPrimitives.Group createDirectDistanceGizmoGroup(DirectRenderState renderState, Component owner) {
+        return new DrawableGizmoPrimitives.Group(
+                false,
+                List.of(new DrawableGizmoPrimitives.Line(
+                        renderState.start(),
+                        renderState.end(),
+                        renderState.color(),
+                        2.5f
+                )),
+                List.of(),
+                List.of(),
+                List.of(
+                        new DrawableGizmoPrimitives.Text(
+                                renderState.center(),
+                                renderState.length().getString(),
+                                TextGizmo.Style.forColorAndCentered(renderState.color())
+                        ),
+                        new DrawableGizmoPrimitives.Text(
+                                renderState.center().add(0, 0.25, 0),
+                                owner.getString(),
+                                TextGizmo.Style.forColorAndCentered(renderState.color())
+                        )
+                ),
+                List.of(
+                        new DrawableGizmoPrimitives.Point(
+                                renderState.start(),
+                                renderState.color(),
+                                5f
+                        ),
+                        new DrawableGizmoPrimitives.Point(
+                                renderState.end(),
+                                renderState.color(),
+                                5f
+                        )
+                )
+        );
+    }
+
+    public void submitCubicDistance(SubmitNodeCollector submitNodeCollector, PoseStack poseStack, LevelRenderState levelRenderState, CubicRenderState renderState, Component owner) {
+        poseStack.pushPose();
+        submitNodeCollector.submitGizmoPrimitives(
+                createCubicDistanceGizmoGroup(renderState, owner),
+                levelRenderState.cameraRenderState,
+                true
+        );
+        poseStack.popPose();
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    public DrawableGizmoPrimitives.Group createCubicDistanceGizmoGroup(CubicRenderState renderState, Component owner) {
+        return new DrawableGizmoPrimitives.Group(
+                false,
+                renderState.box().edges().map(edge -> new DrawableGizmoPrimitives.Line(edge.from(), edge.to(), renderState.color(), 2.5f)).toList(),
+                List.of(),
+                List.of(),
+                Streams.concat(
+                        Streams.zip(
+                                renderState.box().primaryPlaneCenters(),
+                                renderState.length().primaryPlaneLengths(),
+                                (center, length) -> new DrawableGizmoPrimitives.Text(
+                                        center,
+                                        length.getString(),
+                                        TextGizmo.Style.forColorAndCentered(renderState.color())
+                                )
+                        ),
+						Stream.of(new DrawableGizmoPrimitives.Text(
+								renderState.box().center(),
+								owner.getString(),
+								TextGizmo.Style.forColorAndCentered(renderState.color())
+						))
+				).toList(),
+                renderState.box().corners().map(corner -> new DrawableGizmoPrimitives.Point(corner, renderState.color(), 5f)).toList()
+        );
+    }
 }

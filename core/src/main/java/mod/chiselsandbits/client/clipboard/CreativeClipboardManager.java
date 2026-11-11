@@ -127,7 +127,7 @@ public final class CreativeClipboardManager implements ICreativeClipboardManager
 					.displayItems.add(stack.toBlockStack());
 		});
 
-		if (Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen screen) {
+		if (Minecraft.getInstance().gui.screen() instanceof CreativeModeInventoryScreen screen) {
 			screen.refreshCurrentTabContents(this.cache.stream().map(IMultiStateItemStack::toBlockStack).toList());
 		}
 	}

@@ -16,7 +16,7 @@ public class ChiselContextPreviewRendererRegistry implements IChiselContextPrevi
 		return INSTANCE;
 	}
 
-	private final Map<Identifier, IChiselContextPreviewRenderer> rendererMap = Maps.newConcurrentMap();
+	private final Map<Identifier, IChiselContextPreviewRenderer<?>> rendererMap = Maps.newConcurrentMap();
 
 	private ChiselContextPreviewRendererRegistry() {
 		this.register(
@@ -26,14 +26,14 @@ public class ChiselContextPreviewRendererRegistry implements IChiselContextPrevi
 	}
 
 	@Override
-	public IChiselContextPreviewRenderer getCurrent() {
+	public IChiselContextPreviewRenderer<?> getCurrent() {
 		return rendererMap.getOrDefault(Identifier.parse(IClientConfiguration.getInstance().getPreviewRenderer().get()),
 				rendererMap.get(ConfigurableColoredVoxelShapeChiselContextPreviewRenderer.ID));
 	}
 
 	@Override
-	public IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer... renderers) {
-		for (final IChiselContextPreviewRenderer renderer : renderers) {
+	public IChiselContextPreviewRendererRegistry register(final IChiselContextPreviewRenderer<?>... renderers) {
+		for (final IChiselContextPreviewRenderer<?> renderer : renderers) {
 			if (rendererMap.put(renderer.getId(), renderer) != null) {
 				throw new IllegalArgumentException("The renderer id: " + renderer.getId() + " is already in use!");
 			}

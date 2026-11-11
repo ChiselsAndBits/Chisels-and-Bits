@@ -29,7 +29,7 @@ public class ModDataComponentTypes {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final IRegistrar<DataComponentType<?>> REGISTRAR = IRegistrar.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
 
-	public static IRegistryObject<DataComponentType<SlottedBitInventoryData>> SLOTTED_BIT_INVENTORY_DATA = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<SlottedBitInventoryData>> SLOTTED_BIT_INVENTORY_DATA = REGISTRAR.register(
 			NbtConstants.SLOTTED_BIT_INVENTORY_DATA,
 			() -> DataComponentType.<SlottedBitInventoryData>builder()
 			.persistent(SlottedBitInventoryData.CODEC)
@@ -37,7 +37,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<BlockInformation>> BLOCK_INFORMATION = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<BlockInformation>> BLOCK_INFORMATION = REGISTRAR.register(
 			NbtConstants.BLOCK_INFORMATION,
 			() -> DataComponentType.<BlockInformation>builder()
 			.persistent(BlockInformation.CODEC)
@@ -45,7 +45,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<IChiselMode>> CHISEL_MODE = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<IChiselMode>> CHISEL_MODE = REGISTRAR.register(
 			NbtConstants.CHISEL_MODE,
 			() -> DataComponentType.<IChiselMode>builder()
 			.persistent(RegistryManager.getInstance().getChiselModeRegistry().byNameCodec())
@@ -53,7 +53,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<MultiStateItemStackData>> MULTI_STATE_ITEM_STACK_DATA = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<MultiStateItemStackData>> MULTI_STATE_ITEM_STACK_DATA = REGISTRAR.register(
 			NbtConstants.MULTI_STATE_ITEM_STACK_DATA,
 			() -> DataComponentType.<MultiStateItemStackData>builder()
 			.persistent(MultiStateItemStackData.CODEC)
@@ -61,7 +61,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Integer>> COUNT = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Integer>> COUNT = REGISTRAR.register(
 			NbtConstants.COUNT,
 			() -> DataComponentType.<Integer>builder()
 			.persistent(Codec.INT)
@@ -69,7 +69,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Long>> HIGHLIGHT_START_TIME = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Long>> HIGHLIGHT_START_TIME = REGISTRAR.register(
 			NbtConstants.HIGHLIGHT_START_TIME,
 			() -> DataComponentType.<Long>builder()
 			.persistent(Codec.LONG)
@@ -77,7 +77,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Component>> HIGHLIGHT = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Component>> HIGHLIGHT = REGISTRAR.register(
 			NbtConstants.HIGHLIGHT,
 			() -> DataComponentType.<Component>builder()
 			.persistent(ComponentSerialization.CODEC)
@@ -85,7 +85,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Component>> CHISEL_ERROR = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Component>> CHISEL_ERROR = REGISTRAR.register(
 			NbtConstants.CHISEL_ERROR,
 			() -> DataComponentType.<Component>builder()
 			.persistent(ComponentSerialization.CODEC)
@@ -93,7 +93,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Boolean>> IS_DEFAULT_INSTANCE = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Boolean>> IS_DEFAULT_INSTANCE = REGISTRAR.register(
 			NbtConstants.DEFAULT_INSTANCE_INDICATOR,
 			() -> DataComponentType.<Boolean>builder()
 			.persistent(Codec.BOOL)
@@ -101,7 +101,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<MeasuringMode>> MEASURING_MODE = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<MeasuringMode>> MEASURING_MODE = REGISTRAR.register(
 			NbtConstants.MEASURING_MODE,
 			() -> DataComponentType.<MeasuringMode>builder()
 			.persistent(MeasuringMode.CODEC)
@@ -109,7 +109,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Vec3>> START = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Vec3>> START = REGISTRAR.register(
 			NbtConstants.START,
 			() -> DataComponentType.<Vec3>builder()
 			.persistent(Vec3.CODEC)
@@ -117,7 +117,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Vec3>> END = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Vec3>> END = REGISTRAR.register(
 			NbtConstants.END,
 			() -> DataComponentType.<Vec3>builder()
 			.persistent(Vec3.CODEC)
@@ -125,7 +125,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<IPatternPlacementType>> PATTERN_PLACEMENT_TYPE = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<IPatternPlacementType>> PATTERN_PLACEMENT_TYPE = REGISTRAR.register(
 			NbtConstants.PATTERN_PLACEMENT_TYPE,
 			() -> DataComponentType.<IPatternPlacementType>builder()
 			.persistent(RegistryManager.getInstance().getPatternPlacementTypeRegistry().byNameCodec())
@@ -133,7 +133,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<InteractionData>> INTERACTION_TARGET = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<InteractionData>> INTERACTION_TARGET = REGISTRAR.register(
 			NbtConstants.INTERACTION_TARGET,
 			() -> DataComponentType.<InteractionData>builder()
 			.persistent(InteractionData.CODEC)
@@ -141,7 +141,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Boolean>> IS_SIMULATING = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Boolean>> IS_SIMULATING = REGISTRAR.register(
 			NbtConstants.IS_SIMULATING,
 			() -> DataComponentType.<Boolean>builder()
 			.persistent(Codec.BOOL)
@@ -149,7 +149,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<IModificationOperation>> MODIFICATION_OPERATION = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<IModificationOperation>> MODIFICATION_OPERATION = REGISTRAR.register(
 			NbtConstants.MODIFICATION_OPERATION,
 			() -> DataComponentType.<IModificationOperation>builder()
 			.persistent(RegistryManager.getInstance().getModificationOperationRegistry().byNameCodec())
@@ -157,7 +157,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Boolean>> BAG_PREFERRED_PICK_UP = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Boolean>> BAG_PREFERRED_PICK_UP = REGISTRAR.register(
 			NbtConstants.IS_PREFERRED_PICKUP,
 			() -> DataComponentType.<Boolean>builder()
 			.persistent(Codec.BOOL)
@@ -165,7 +165,7 @@ public class ModDataComponentTypes {
 			.build()
 	);
 
-	public static IRegistryObject<DataComponentType<Boolean>> BAG_FILTERED_PICK_UP = REGISTRAR.register(
+	public static IRegistryObject<DataComponentType<?>, DataComponentType<Boolean>> BAG_FILTERED_PICK_UP = REGISTRAR.register(
 			NbtConstants.IS_FILTERED_PICKUP,
 			() -> DataComponentType.<Boolean>builder()
 			.persistent(Codec.BOOL)

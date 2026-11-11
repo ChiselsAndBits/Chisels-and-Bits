@@ -10,6 +10,7 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.forge.utils.CollectorUtils;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModTags;
+import mod.chiselsandbits.utils.StringUtils;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
@@ -43,7 +44,10 @@ public class SimpleItemsRecipeGenerator extends AbstractRecipeGenerator {
 	) {
 		super(registries, output, itemProvider);
 		this.shapeless = false;
-		this.pattern = Arrays.asList(pattern.split("; "));
+		this.pattern = Arrays.stream(pattern.split("; "))
+				.map(String::trim)
+				.map(s -> StringUtils.pad(s, 3, ' '))
+				.toList();
 		this.tagMap = tagMap;
 		this.itemMap = itemMap;
 	}

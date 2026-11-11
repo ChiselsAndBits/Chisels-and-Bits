@@ -51,7 +51,7 @@ public class GreedyMeshBuilder {
 		final MaterialProcessor materialProcessor = new MaterialProcessor();
 
 		for (int dimension = 0; dimension < DIMENSIONS; dimension++) {
-			int currentFirstDimensionIter, currentSecondDimensionIter; // The current iteration position in the x, y, and z dimensions, also known as i, j, and k.
+			int currentFirstDimensionIter, currentSecondDimensionIter; // The current iteration renderOffset in the x, y, and z dimensions, also known as i, j, and k.
 			int width, height; //The current iteration dimensions in the x, y, and z dimensions, also known as l, w, and h.
 
 			//We need to iterate over the other two dimensions.
@@ -91,7 +91,7 @@ public class GreedyMeshBuilder {
 					}
 				}
 
-				//Increment the computed position in the current dimension
+				//Increment the computed renderOffset in the current dimension
 				dimensionalIterator[dimension]++;
 
 				//Compute the mesh

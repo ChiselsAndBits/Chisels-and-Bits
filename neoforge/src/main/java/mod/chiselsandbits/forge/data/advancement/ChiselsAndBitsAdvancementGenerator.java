@@ -8,6 +8,9 @@ import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModItems;
 import mod.chiselsandbits.registrars.ModTags;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -15,9 +18,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -26,6 +26,7 @@ import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import org.jspecify.annotations.NonNull;
 
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider {
@@ -40,7 +41,7 @@ public class ChiselsAndBitsAdvancementGenerator extends AdvancementProvider {
 
 	private static final class Provider implements AdvancementSubProvider {
 		@Override
-		public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
+		public void generate(HolderLookup.Provider provider, @NonNull Consumer<AdvancementHolder> consumer) {
 			HolderLookup<Item> itemRegistry = provider.lookupOrThrow(Registries.ITEM);
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(ModItems.ITEM_CHISEL_DIAMOND.get(),

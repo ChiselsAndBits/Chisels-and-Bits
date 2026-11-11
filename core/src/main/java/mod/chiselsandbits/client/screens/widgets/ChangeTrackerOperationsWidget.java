@@ -30,8 +30,8 @@ public class ChangeTrackerOperationsWidget extends AbstractChiselsAndBitsWidget 
 	/**
 	 * Creates a new widget.
 	 *
-	 * @param x The x position.
-	 * @param y The y position.
+	 * @param x The x renderOffset.
+	 * @param y The y renderOffset.
 	 * @param owner The screen to display this operator on.
 	 */
 	public ChangeTrackerOperationsWidget(

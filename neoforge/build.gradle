@@ -42,6 +42,6 @@ dependencies {
 
 
 bonorum {
-    sinytraExporterVersion = '2.3.0+26.1.2'
+    sinytraExporterVersion = "${project.property('wiki.exporter.version')}+${project.property('wiki.exporter.minecraft.version')}"
     configFile = rootProject.file('website/exporter/config.json')
 }

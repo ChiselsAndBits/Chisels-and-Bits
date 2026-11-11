@@ -2,6 +2,8 @@ package mod.chiselsandbits.client.logic;
 
 import static mod.chiselsandbits.block.entities.ChiseledBlockEntity.ONE_THOUSANDS;
 
+import com.communi.suggestu.scena.core.client.event.IExtractLevelRenderStateEvent;
+import com.communi.suggestu.scena.core.client.event.ISubmitCustomGeometryEvent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mod.chiselsandbits.api.client.render.preview.placement.PlacementPreviewRenderMode;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -11,13 +13,16 @@ import mod.chiselsandbits.api.item.wireframe.IWireframeProvidingItem;
 import mod.chiselsandbits.api.multistate.StateEntrySize;
 import mod.chiselsandbits.api.placement.IPlacementPreviewProvidingItem;
 import mod.chiselsandbits.api.placement.PlacementResult;
-import mod.chiselsandbits.client.render.ChiseledBlockGhostRenderer;
-import mod.chiselsandbits.client.render.ChiseledBlockWireframeRenderer;
+import mod.chiselsandbits.client.render.ChiseledBlockPreviewRenderer;
 import mod.chiselsandbits.utils.ItemStackUtils;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import org.joml.Vector4f;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,9 +31,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MultiStateBlockPreviewRenderHandler {
-	public static void renderMultiStateBlockPreview(
-			final PoseStack poseStack,
-			final MultiBufferSource.BufferSource bufferSource) {
+
+	public static void extractMultiStateBlockPreviewRenderState(LevelRenderState levelRenderState, ClientLevel clientLevel, Camera camera, DeltaTracker deltaTracker, IExtractLevelRenderStateEvent.IRenderStateStore store) {
 		final HitResult rayTraceResult = Minecraft.getInstance().hitResult;
 
 		if (!(rayTraceResult instanceof final BlockHitResult blockRayTraceResult) || blockRayTraceResult.getType() == HitResult.Type.MISS) {
@@ -46,7 +50,6 @@ public class MultiStateBlockPreviewRenderHandler {
 		if (!(heldStack.getItem() instanceof IWireframeProvidingItem wireframeItem)) {
 			return;
 		}
-
 		Vec3 targetedRenderPos = wireframeItem.getTargetedPosition(heldStack, playerEntity, blockRayTraceResult).add(ONE_THOUSANDS, ONE_THOUSANDS, ONE_THOUSANDS);
 		// Snap to bit grid
 		final float bitSize = StateEntrySize.current().getSizePerBit();
@@ -72,67 +75,26 @@ public class MultiStateBlockPreviewRenderHandler {
 		final IClientConfiguration clientConfig = IClientConfiguration.getInstance();
 		final PlacementPreviewRenderMode success = clientConfig.getSuccessfulPlacementRenderMode().get();
 		final PlacementPreviewRenderMode failure = clientConfig.getFailedPlacementRenderMode().get();
-		if (forceWireframe
+
+		final boolean asWireframe = forceWireframe
 				|| (placementResult.isSuccess() && success.isWireframe())
 				|| (!placementResult.isSuccess() && failure.isWireframe())
-				|| !renderGhost(poseStack, bufferSource, heldStack, targetedRenderPos, placementResult, success, failure, ignoreDepth)) {
-			renderWireFrame(poseStack, bufferSource, playerEntity, heldStack, wireframeItem, blockRayTraceResult, targetedRenderPos, placementResult.getColor(), ignoreDepth);
-		}
-	}
+				|| (heldStack.getItem() instanceof IPatternItem patternItem && patternItem.createItemStack(heldStack).toBlockStack().isEmpty());
 
-	private static void renderWireFrame(
-			final PoseStack poseStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final Player playerEntity,
-			final ItemStack heldStack,
-			final IWireframeProvidingItem wireframeItem,
-			final BlockHitResult blockRayTraceResult,
-			final Vec3 targetedRenderPos,
-			final Vector4f color,
-			final boolean ignoreDepth) {
-		final VoxelShape wireFrame = wireframeItem.getWireFrame(heldStack, playerEntity, blockRayTraceResult);
-
-		ChiseledBlockWireframeRenderer.getInstance().renderShape(
-						poseStack,
-						wireFrame,
-						targetedRenderPos,
-						color,
-						ignoreDepth
+		ChiseledBlockPreviewRenderer.getInstance().extract(
+				camera,
+				store,
+				targetedRenderPos,
+				heldStack,
+				placementResult,
+				success,
+				failure,
+				ignoreDepth,
+				asWireframe
 		);
 	}
 
-	private static boolean renderGhost(
-			final PoseStack poseStack,
-			final MultiBufferSource.BufferSource bufferSource,
-			final ItemStack heldStack,
-			final Vec3 targetedRenderPos,
-			final PlacementResult placementResult,
-			final PlacementPreviewRenderMode success,
-			final PlacementPreviewRenderMode failure,
-			final boolean ignoreDepth) {
-		final ItemStack renderStack;
-
-		if (heldStack.getItem() instanceof final IPatternItem patternItem) {
-			final IMultiStateItemStack multiSate = patternItem.createItemStack(heldStack);
-			renderStack = multiSate.toBlockStack();
-
-			if (renderStack.isEmpty()) {
-				return false;
-			}
-		} else {
-			renderStack = heldStack;
-		}
-
-		ChiseledBlockGhostRenderer.getInstance().renderGhost(
-						poseStack,
-						bufferSource,
-						renderStack,
-						targetedRenderPos,
-						placementResult,
-						success,
-						failure,
-						ignoreDepth
-		);
-		return true;
+	public static void submitMultiStateBlockPreviewRenderGeometry(SubmitNodeCollector submitNodeCollector, PoseStack poseStack, LevelRenderState levelRenderState, ISubmitCustomGeometryEvent.IRenderStateStore iRenderStateStore) {
+		ChiseledBlockPreviewRenderer.getInstance().submit(submitNodeCollector, poseStack, iRenderStateStore);
 	}
 }

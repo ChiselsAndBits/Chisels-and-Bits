@@ -264,7 +264,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-	 * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Gets the target state in the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -325,7 +325,7 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 	}
 
 	/**
-	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Clears the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.

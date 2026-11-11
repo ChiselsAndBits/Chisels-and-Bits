@@ -22,19 +22,19 @@ public final class ModPatternPlacementTypes {
 	public static final Supplier<ICustomRegistry<IPatternPlacementType>
 			> REGISTRY_SUPPLIER = TYPE_REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
-	public static final IRegistryObject<IPatternPlacementType> PLACEMENT = TYPE_REGISTRAR.register(
+	public static final IRegistryObject<IPatternPlacementType, IPatternPlacementType> PLACEMENT = TYPE_REGISTRAR.register(
 			"placement", PlacePatternPlacementType::new
 	);
-	public static final IRegistryObject<IPatternPlacementType> REMOVAL = TYPE_REGISTRAR.register(
+	public static final IRegistryObject<IPatternPlacementType, IPatternPlacementType> REMOVAL = TYPE_REGISTRAR.register(
 			"removal", RemovalPatternPlacementType::new
 	);
-	public static final IRegistryObject<IPatternPlacementType> IMPOSEMENT = TYPE_REGISTRAR.register(
+	public static final IRegistryObject<IPatternPlacementType, IPatternPlacementType> IMPOSEMENT = TYPE_REGISTRAR.register(
 			"imposement", ImposePatternPlacementType::new
 	);
-	public static final IRegistryObject<IPatternPlacementType> MERGE = TYPE_REGISTRAR.register(
+	public static final IRegistryObject<IPatternPlacementType, IPatternPlacementType> MERGE = TYPE_REGISTRAR.register(
 			"merge", MergePatternPlacementType::new
 	);
-	public static final IRegistryObject<IPatternPlacementType> CARVING = TYPE_REGISTRAR.register(
+	public static final IRegistryObject<IPatternPlacementType, IPatternPlacementType> CARVING = TYPE_REGISTRAR.register(
 			"carving", CarvePatternPlacementType::new
 	);
 

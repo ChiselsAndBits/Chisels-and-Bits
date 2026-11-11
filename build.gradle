@@ -49,3 +49,11 @@ allprojects { Project project ->
         options.addStringOption('Xmaxwarns', '10000')
     }
 }
+
+idea {
+    project {
+        runs {
+            runWithIdea = true
+        }
+    }
+}

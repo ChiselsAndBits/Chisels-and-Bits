@@ -3,16 +3,16 @@ package mod.chiselsandbits.api.item.bit;
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
 import mod.chiselsandbits.api.item.change.IChangeTrackingItem;
+import mod.chiselsandbits.api.item.chisel.IChiselingItem;
 import mod.chiselsandbits.api.item.click.IRightClickControllingItem;
-import mod.chiselsandbits.api.item.withhighlight.IWithHighlightItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
-
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 /**
  * Represents an item which is a single bit.
  */
-public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem, IWithModeItem<IChiselMode>, IChangeTrackingItem {
+public interface IBitItem extends IRightClickControllingItem, IWithModeItem<IChiselMode>, IChangeTrackingItem, IChiselingItem {
 	/**
 	 * Returns the block information which is contained in a stack with the
 	 * given bit item.
@@ -33,4 +33,7 @@ public interface IBitItem extends IRightClickControllingItem, IWithHighlightItem
 	 * in the bit bag UI.
 	 */
 	void onMergeOperationWithBagEnding();
+
+	@Override
+	boolean canUse(final Player playerEntity, final ItemStack stack);
 }

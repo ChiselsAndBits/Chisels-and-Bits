@@ -9,6 +9,7 @@ import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityManager;
 import mod.chiselsandbits.api.chiseling.eligibility.IEligibilityOptions;
 import mod.chiselsandbits.api.chiseling.mode.IChiselMode;
 import mod.chiselsandbits.api.client.clipboard.ICreativeClipboardManager;
+import mod.chiselsandbits.api.client.highlight.IItemBasedHighlightRendererRegistry;
 import mod.chiselsandbits.api.client.icon.IIconManager;
 import mod.chiselsandbits.api.client.render.preview.chiseling.IChiselContextPreviewRendererRegistry;
 import mod.chiselsandbits.api.client.sharing.IPatternSharingManager;
@@ -307,21 +308,21 @@ public interface IChiselsAndBitsAPI {
 	 *
 	 * @return the requested value.
 	 */
-	IEligibilityOptions getEligibilityOptions();
+	IEligibilityOptions eligibilityOptions();
 
 	/**
 	 * Returns the manager that adapts ordinary inventories to bit inventories.
 	 *
 	 * @return the requested value.
 	 */
-	IAdaptingBitInventoryManager getAdaptingBitInventoryManager();
+	IAdaptingBitInventoryManager adaptingBitInventoryManager();
 
 	/**
 	 * Returns the service that discovers platform plugins.
 	 *
 	 * @return the requested value.
 	 */
-	IPluginDiscoverer getPluginDiscoverer();
+	IPluginDiscoverer pluginDiscoverer();
 
 	/**
 	 * Returns the client manager for state variants.
@@ -345,6 +346,13 @@ public interface IChiselsAndBitsAPI {
 	IIconManager getIconManager();
 
 	/**
+	 * Returns the registry for item based highlight renderers.
+	 *
+	 * @return the requested value.
+	 */
+    IItemBasedHighlightRendererRegistry getItemBasedHighlightRendererRegistry();
+
+    /**
 	 * Holds the API instance installed by the platform bootstrap.
 	 */
 	class Holder {

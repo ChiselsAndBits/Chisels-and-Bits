@@ -11,8 +11,7 @@ import mod.chiselsandbits.client.logic.MeasurementTapeTickHandler;
 import mod.chiselsandbits.client.logic.MeasurementsRenderHandler;
 import mod.chiselsandbits.client.logic.MultiStateBlockPreviewRenderHandler;
 import mod.chiselsandbits.client.logic.ScrollBasedModeChangeHandler;
-import mod.chiselsandbits.client.logic.SelectedObjectHighlightHandler;
-import mod.chiselsandbits.client.logic.SelectedObjectRenderHandler;
+import mod.chiselsandbits.client.logic.ItemBasedHighlightRenderHandler;
 import mod.chiselsandbits.client.logic.SlotOverlayRenderHandler;
 import mod.chiselsandbits.client.logic.ToolNameHighlightTickHandler;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModel;
@@ -25,7 +24,6 @@ import mod.chiselsandbits.client.screens.pips.Torus;
 import mod.chiselsandbits.client.time.TickHandler;
 import mod.chiselsandbits.keys.KeyBindingManager;
 import mod.chiselsandbits.logic.MagnifyingGlassTooltipHandler;
-
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.chunk.LevelChunk;
 
@@ -49,29 +47,17 @@ public final class ModClientEventHandlers {
 		});
 		IClientEvents.getInstance().getScrollEvent().register(ScrollBasedModeChangeHandler::onScroll);
 		IClientEvents.getInstance().getHUDRenderEvent().register(SlotOverlayRenderHandler::renderSlotOverlays);
-		IClientEvents.getInstance().getDrawHighlightEvent().register(SelectedObjectHighlightHandler::onDrawHighlight);
-		IClientEvents.getInstance().getPostRenderWorldEvent().register((levelRenderer, poseStack, bufferSource, levelRenderState, partialTickTime) -> {
-			SelectedObjectRenderHandler.renderCustomWorldHighlight(
-					levelRenderer,
-					poseStack,
-					bufferSource,
-					levelRenderState,
-					partialTickTime
-			);
 
-			MeasurementsRenderHandler.renderMeasurements(
-					poseStack,
-					bufferSource,
-					partialTickTime
-			);
+		IClientEvents.getInstance().getExtractLevelRenderStateEvent().register(ItemBasedHighlightRenderHandler::extractCustomWorldHighlightState);
+		IClientEvents.getInstance().getSubmitCustomGeometryEvent().register(ItemBasedHighlightRenderHandler::submitCustomHighlightGeometry);
 
-			MultiStateBlockPreviewRenderHandler.renderMultiStateBlockPreview(
-					poseStack,
-					bufferSource
-			);
+		IClientEvents.getInstance().getExtractLevelRenderStateEvent().register(MeasurementsRenderHandler::extractMeasurementsRenderState);
+		IClientEvents.getInstance().getSubmitCustomGeometryEvent().register(MeasurementsRenderHandler::submitMeasurementsRenderGeometry);
 
-			FrameBasedInputTracker.getInstance().onRenderFrame();
-		});
+		IClientEvents.getInstance().getExtractLevelRenderStateEvent().register(MultiStateBlockPreviewRenderHandler::extractMultiStateBlockPreviewRenderState);
+		IClientEvents.getInstance().getSubmitCustomGeometryEvent().register(MultiStateBlockPreviewRenderHandler::submitMultiStateBlockPreviewRenderGeometry);
+
+		IClientEvents.getInstance().getPostRenderLevelEvent().register(() -> FrameBasedInputTracker.getInstance().onRenderFrame());
 		IClientEvents.getInstance().getGatherTooltipEvent().register((itemStack, _, _, list) -> {
 			MagnifyingGlassTooltipHandler.onItemTooltip(itemStack, list);
 		});

@@ -882,7 +882,32 @@ public enum LocalStrings {
 	/**
 	 * Translation key for help text for BagPickupMode; resource id {@code mod.chiselsandbits.help.bit_bag.pickup-mode}.
 	 */
-	HelpBagPickupMode("help.bit_bag.pickup-mode");
+	HelpBagPickupMode("help.bit_bag.pickup-mode"),
+	/**
+	 * Translation key for the measurement unit for lengths in bits; resource id {@code mod.chiselsandbits.measurement.lengths.bit}.
+	 */
+	MeasurementLengthBit("measurement.length.bit"),
+	/**
+	 * Translation key for the measurement unit for lengths in blocks; resource id {@code mod.chiselsandbits.measurement.lengths.block}.
+	 */
+	MeasurementLengthBlock("measurement.length.block"),
+	/**
+	 * Translation key for the display of measurements owned by you; resource id {@code mod.chiselsandbits.measurement.owned.by.you}.
+	 */
+	MeasurementOwnedByYou("measurement.owned.by.you"),
+	/**
+	 * Translation key for the display of measurements owned by another player; resource id {@code mod.chiselsandbits.measurement.owned.by.player}.
+	 */
+	MeasurementOwnedByPlayer("measurement.owned.by.player"),
+	/**
+	 * Translation key for the display of measurements owned by an unknown player; resource id {@code mod.chiselsandbits.measurement.owned.by.unknown}.
+	 */
+	MeasurementOwnedByUnknown("measurement.owned.by.unknown"),
+	/**
+	 * Translation key for the error which is displayed if the block that the player wants to export is not a multistate block; resource id {@code mod.chiselsandbits.patterns.export.failed.none-multistate-block}.
+	 */
+	CanNotExportNoneMultiStateBlock("patterns.export.failed.none-multistate-block")
+	;
 
 	private final String string;
 

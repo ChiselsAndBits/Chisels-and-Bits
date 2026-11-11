@@ -25,7 +25,7 @@ public class ChiselsAndBitsNotificationToast<T extends IWithColor & IWithIcon & 
 	private Toast.Visibility wantedVisibility = Toast.Visibility.HIDE;
 
 	public static <G extends IWithColor & IWithIcon & IWithText> void notifyOf(G contents) {
-		Minecraft.getInstance().getToastManager().addToast(new ChiselsAndBitsNotificationToast<>(contents));
+		Minecraft.getInstance().gui.toastManager().addToast(new ChiselsAndBitsNotificationToast<>(contents));
 	}
 
 	private ChiselsAndBitsNotificationToast(final T contents) {

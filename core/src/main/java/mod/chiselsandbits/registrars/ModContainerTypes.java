@@ -23,22 +23,22 @@ public final class ModContainerTypes {
 		throw new IllegalStateException("Can not instantiate an instance of: ModContainers.This is a utility class");
 	}
 
-	public static final IRegistryObject<MenuType<BagContainer>> BIT_BAG = CONTAINER_TYPE_REGISTRAR.register(
+	public static final IRegistryObject<MenuType<?>, MenuType<BagContainer>> BIT_BAG = CONTAINER_TYPE_REGISTRAR.register(
 			"bag",
 			() -> new MenuType<>(BagContainer::new, FeatureFlagSet.of())
 	);
 
-	public static final IRegistryObject<MenuType<ModificationTableContainer>> MODIFICATION_TABLE = CONTAINER_TYPE_REGISTRAR.register(
+	public static final IRegistryObject<MenuType<?>, MenuType<ModificationTableContainer>> MODIFICATION_TABLE = CONTAINER_TYPE_REGISTRAR.register(
 			"modification_table",
 			() -> new MenuType<>(ModificationTableContainer::new, FeatureFlagSet.of())
 	);
 
-	public static final IRegistryObject<MenuType<ChiseledPrinterContainer>> CHISELED_PRINTER_CONTAINER = CONTAINER_TYPE_REGISTRAR.register(
+	public static final IRegistryObject<MenuType<?>, MenuType<ChiseledPrinterContainer>> CHISELED_PRINTER_CONTAINER = CONTAINER_TYPE_REGISTRAR.register(
 			"chiseled_printer",
 			() -> new MenuType<>(ChiseledPrinterContainer::new, FeatureFlagSet.of())
 	);
 
-	public static final IRegistryObject<MenuType<ScannerMenu>> PATTERN_SCANNER_CONTAINER = CONTAINER_TYPE_REGISTRAR.register(
+	public static final IRegistryObject<MenuType<?>, MenuType<ScannerMenu>> PATTERN_SCANNER_CONTAINER = CONTAINER_TYPE_REGISTRAR.register(
 			"pattern_scanner",
 			() -> new MenuType<>(ScannerMenu::new, FeatureFlagSet.of())
 	);

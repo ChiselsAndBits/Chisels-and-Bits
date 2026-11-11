@@ -15,7 +15,7 @@ public interface IAdaptingBitInventoryManager {
 	 * @return the manager provided by the active Chisels &amp; Bits API instance
 	 */
 	static IAdaptingBitInventoryManager getInstance() {
-		return IChiselsAndBitsAPI.getInstance().getAdaptingBitInventoryManager();
+		return IChiselsAndBitsAPI.getInstance().adaptingBitInventoryManager();
 	}
 
 	/**

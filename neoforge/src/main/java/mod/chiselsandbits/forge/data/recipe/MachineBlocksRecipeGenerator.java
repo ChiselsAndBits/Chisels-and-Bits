@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import mod.chiselsandbits.api.util.constants.Constants;
 import mod.chiselsandbits.registrars.ModBlocks;
 import mod.chiselsandbits.registrars.ModTags;
+import mod.chiselsandbits.utils.StringUtils;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
@@ -108,7 +109,10 @@ public class MachineBlocksRecipeGenerator extends AbstractRecipeGenerator {
 			final Map<Character, TagKey<Item>> tagMap,
 			final Map<Character, ItemLike> itemMap) {
 		super(registries, output, itemProvider);
-		this.pattern = Arrays.asList(pattern.split("; "));
+		this.pattern = Arrays.stream(pattern.split("; "))
+				.map(String::trim)
+				.map(s -> StringUtils.pad(s, 3, ' '))
+				.toList();
 		this.tagMap = tagMap;
 		this.itemMap = itemMap;
 	}

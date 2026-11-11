@@ -14,7 +14,7 @@ public interface IEligibilityOptions {
 	 * @return The platform's eligibility manager.
 	 */
 	static IEligibilityOptions getInstance() {
-		return IChiselsAndBitsAPI.getInstance().getEligibilityOptions();
+		return IChiselsAndBitsAPI.getInstance().eligibilityOptions();
 	}
 
 	/**

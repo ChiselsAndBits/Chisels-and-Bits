@@ -35,7 +35,7 @@ public final class ModCreativeTabs {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final IRegistrar<CreativeModeTab> REGISTRAR = IRegistrar.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
 
-	public static IRegistryObject<CreativeModeTab> MAIN = REGISTRAR.register("main", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
+	public static IRegistryObject<CreativeModeTab, CreativeModeTab> MAIN = REGISTRAR.register("main", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.ITEM_CHISEL_NETHERITE.get()))
 			.title(LocalStrings.ChiselsAndBitsName.getText())
 			.displayItems((parameters, output) -> {
@@ -63,7 +63,7 @@ public final class ModCreativeTabs {
 			})
 			.build());
 
-	public static IRegistryObject<CreativeModeTab> BITS = REGISTRAR.register("bits", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
+	public static IRegistryObject<CreativeModeTab, CreativeModeTab> BITS = REGISTRAR.register("bits", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.ITEM_BLOCK_BIT.get()))
 			.title(LocalStrings.CreativeTabBits.getText())
 			.displayItems((parameters, output) -> {
@@ -113,7 +113,7 @@ public final class ModCreativeTabs {
 		}
 	}
 
-	public static IRegistryObject<CreativeModeTab> CLIPBOARD = REGISTRAR.register("clipboard", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
+	public static IRegistryObject<CreativeModeTab, CreativeModeTab> CLIPBOARD = REGISTRAR.register("clipboard", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
 			.icon(() -> new ItemStack(ModItems.PATTERN_SCANNER.get()))
 			.title(LocalStrings.CreativeTabClipboard.getText())
 			.displayItems((parameters, output) -> {

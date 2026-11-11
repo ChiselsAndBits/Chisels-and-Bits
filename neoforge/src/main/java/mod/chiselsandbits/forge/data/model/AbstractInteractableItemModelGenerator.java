@@ -22,11 +22,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public abstract class AbstractInteractableItemModelGenerator extends ModelProvider {
-	private final IRegistryObject<? extends Item> targetRegistryObject;
+	private final IRegistryObject<Item, ? extends Item> targetRegistryObject;
 
 	protected AbstractInteractableItemModelGenerator(
 			final DataGenerator generator,
-			final IRegistryObject<? extends Item> targetRegistryObject) {
+			final IRegistryObject<Item, ? extends Item> targetRegistryObject) {
 		super(generator.getPackOutput(), Constants.MOD_ID);
 		this.targetRegistryObject = targetRegistryObject;
 	}

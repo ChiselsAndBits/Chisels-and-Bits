@@ -14,7 +14,7 @@ public final class ModRecipeTypes {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final IRegistrar<RecipeType<?>> REGISTRAR = IRegistrar.create(Registries.RECIPE_TYPE, Constants.MOD_ID);
 
-	public static IRegistryObject<RecipeType<ModificationTableRecipe>> MODIFICATION_TABLE = REGISTRAR.register("modification_table", () -> new RecipeType<>() {
+	public static IRegistryObject<RecipeType<?>, RecipeType<ModificationTableRecipe>> MODIFICATION_TABLE = REGISTRAR.register("modification_table", () -> new RecipeType<>() {
 		@Override
 		public String toString() {
 			return Constants.MOD_ID + ":modification_table";

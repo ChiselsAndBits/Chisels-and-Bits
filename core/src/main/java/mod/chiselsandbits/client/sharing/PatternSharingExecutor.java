@@ -58,7 +58,7 @@ public final class PatternSharingExecutor {
 		try {
 			savePattern(multiStateItemStack, patternName, provider);
 		} catch (PatternIOException e) {
-			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
+			Minecraft.getInstance().showDebugChat(e.getErrorMessage());
 		}
 	}
 

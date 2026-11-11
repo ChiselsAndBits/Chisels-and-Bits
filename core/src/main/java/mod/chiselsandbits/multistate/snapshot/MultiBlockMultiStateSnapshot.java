@@ -205,7 +205,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-	 * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Gets the target state in the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -216,7 +216,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 		final BlockPos targetPos = VectorUtils.toBlockPos(startPoint).offset(inAreaBlockPosOffset);
 
 		if (!snapshots.containsKey(targetPos)) {
-			throw new IllegalArgumentException("The given position is not in the current snapshot!");
+			throw new IllegalArgumentException("The given renderOffset is not in the current snapshot!");
 		}
 
 		return snapshots.get(targetPos).getInBlockTarget(BlockPos.ZERO, inBlockTarget);
@@ -298,7 +298,7 @@ public class MultiBlockMultiStateSnapshot implements IMultiStateSnapshot {
 	}
 
 	/**
-	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Clears the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.

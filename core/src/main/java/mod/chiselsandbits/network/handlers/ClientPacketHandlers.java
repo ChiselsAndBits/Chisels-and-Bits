@@ -13,6 +13,7 @@ import mod.chiselsandbits.api.client.sharing.IPatternSharingManager;
 import mod.chiselsandbits.api.client.sharing.PatternIOException;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItemStack;
 import mod.chiselsandbits.api.profiling.IProfilerSection;
+import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.client.screens.widgets.ChangeTrackerOperationsWidget;
 import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
@@ -65,8 +66,8 @@ public final class ClientPacketHandlers {
 	public static void handleChangeTrackerUpdated(final Deque<IChange> tag) {
 		IChangeTrackerManager.getInstance().getChangeTracker(Minecraft.getInstance().player).setChanges(tag);
 
-		if (Minecraft.getInstance().screen instanceof AbstractChiselsAndBitsScreen) {
-			((AbstractChiselsAndBitsScreen) Minecraft.getInstance().screen).getWidgets()
+		if (Minecraft.getInstance().gui.screen() instanceof AbstractChiselsAndBitsScreen) {
+			((AbstractChiselsAndBitsScreen) Minecraft.getInstance().gui.screen()).getWidgets()
 					.stream()
 					.filter(ChangeTrackerOperationsWidget.class::isInstance)
 					.map(ChangeTrackerOperationsWidget.class::cast)
@@ -94,7 +95,7 @@ public final class ClientPacketHandlers {
 		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(target);
 
 		if (!(blockEntity instanceof IMultiStateBlockEntity multiStateBlockEntity)) {
-			Minecraft.getInstance().getChatListener().handleSystemMessage(Component.literal("Failed to export pattern: " + name + " - Not a multistate block."), false);
+			Minecraft.getInstance().showDebugChat(LocalStrings.CanNotExportNoneMultiStateBlock.getText(name));
 			return;
 		}
 
@@ -103,15 +104,13 @@ public final class ClientPacketHandlers {
 	}
 
 	public static void handleImportPatternCommandMessage(final String name) {
-		;
-
 		final Either<IMultiStateItemStack, PatternIOException> importResult = IPatternSharingManager.getInstance().importPattern(name);
 		importResult.ifLeft(stack -> {
 			ChiselsAndBits.getInstance().getNetworkChannel()
 					.sendToServer(new GivePlayerPatternCommandPacket(stack.createSnapshot()));
 		});
 		importResult.ifRight(e -> {
-			Minecraft.getInstance().getChatListener().handleSystemMessage(e.getErrorMessage(), false);
+			Minecraft.getInstance().showDebugChat(e.getErrorMessage());
 		});
 	}
 }

@@ -2,13 +2,14 @@ package mod.chiselsandbits.utils;
 
 import mod.chiselsandbits.api.blockinformation.BlockInformation;
 import mod.chiselsandbits.api.item.bit.IBitItem;
+import mod.chiselsandbits.api.item.chisel.IChiselingItem;
 import mod.chiselsandbits.api.item.click.ILeftClickControllingItem;
 import mod.chiselsandbits.api.item.click.IRightClickControllingItem;
 import mod.chiselsandbits.api.item.multistate.IMultiStateItem;
 import mod.chiselsandbits.api.item.pattern.IPatternItem;
-import mod.chiselsandbits.api.item.withhighlight.IWithHighlightItem;
 import mod.chiselsandbits.api.item.withmode.IWithModeItem;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.world.InteractionHand;
@@ -32,22 +33,6 @@ public class ItemStackUtils {
 		}
 
 		if (playerEntity.getOffhandItem().getItem() instanceof IWithModeItem) {
-			return playerEntity.getOffhandItem();
-		}
-
-		return ItemStack.EMPTY;
-	}
-
-	public static ItemStack getHighlightItemStackFromPlayer(@Nullable final Player playerEntity) {
-		if (playerEntity == null) {
-			return ItemStack.EMPTY;
-		}
-
-		if (playerEntity.getMainHandItem().getItem() instanceof IWithHighlightItem) {
-			return playerEntity.getMainHandItem();
-		}
-
-		if (playerEntity.getOffhandItem().getItem() instanceof IWithHighlightItem) {
 			return playerEntity.getOffhandItem();
 		}
 
@@ -177,4 +162,20 @@ public class ItemStackUtils {
 
 		return BlockInformation.AIR;
 	}
+
+    public static ItemStack getChiselingHeldItem(Player player) {
+		if (player == null) {
+			return ItemStack.EMPTY;
+		}
+
+		if (player.getMainHandItem().getItem() instanceof IChiselingItem) {
+			return player.getMainHandItem();
+		}
+
+		if (player.getOffhandItem().getItem() instanceof IChiselingItem) {
+			return player.getOffhandItem();
+		}
+
+		return ItemStack.EMPTY;
+    }
 }

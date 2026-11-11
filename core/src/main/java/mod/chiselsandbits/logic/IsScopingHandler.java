@@ -15,7 +15,7 @@ public class IsScopingHandler {
 
 	public static boolean isScoping(Player player) {
 		return DistExecutor.unsafeRunForDist(
-				() -> () -> !ItemStackUtils.getHighlightItemStackFromPlayer(player).isEmpty()
+				() -> () -> !ItemStackUtils.getChiselingHeldItem(player).isEmpty()
 				&& player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof MonocleItem
 				&& KeyBindingManager.getInstance().isScopingKeyPressed(),
 				() -> () -> false

@@ -4,12 +4,12 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import org.joml.Quaternionf;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableItemRenderer.RenderState> {
 	@Nullable
@@ -25,19 +26,17 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	@Nullable
 	private Quaternionf lastRotY = null;
 
-	public RotatableItemRenderer(MultiBufferSource.BufferSource bufferSource) {
-		super(bufferSource);
+	public RotatableItemRenderer() {
+		super();
 	}
 
-	@Override
-	protected void renderToTexture(RenderState state, PoseStack poseStack) {
-		final SubmitNodeStorage submitNodeCollector = Minecraft.getInstance().gameRenderer.getSubmitNodeStorage();
-		final FeatureRenderDispatcher featureRenderDispatcher = Minecraft.getInstance().gameRenderer.getFeatureRenderDispatcher();
 
+	@Override
+	protected void renderToTexture(@NonNull RenderState state, PoseStack poseStack, @NonNull SubmitNodeCollector submitNodeCollector) {
 		poseStack.scale(1, -1, -1);
 		poseStack.mulPose(state.rotation);
 
-		Minecraft.getInstance().gameRenderer.getLighting().setupFor(Lighting.Entry.ITEMS_FLAT);
+		Minecraft.getInstance().gameRenderer.lighting().setupFor(Lighting.Entry.ITEMS_FLAT);
 
 		final ItemStackRenderState renderState = new ItemStackRenderState();
 		Minecraft.getInstance().getItemModelResolver().updateForTopItem(
@@ -56,8 +55,6 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 				OverlayTexture.NO_OVERLAY,
 				0
 		);
-
-		featureRenderDispatcher.renderAllFeatures();
 
 		lastModelIdentity = state.stack;
 		lastRotY = state.rotation;
@@ -78,12 +75,12 @@ public class RotatableItemRenderer extends PictureInPictureRenderer<RotatableIte
 	}
 
 	@Override
-	protected String getTextureLabel() {
-		return "c&B rotatable item renderer";
+	protected @NonNull String getTextureLabel() {
+		return "C&B rotatable item renderer";
 	}
 
 	@Override
-	public Class<RenderState> getRenderStateClass() {
+	public @NonNull Class<RenderState> getRenderStateClass() {
 		return RenderState.class;
 	}
 

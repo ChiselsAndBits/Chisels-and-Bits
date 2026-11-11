@@ -29,19 +29,19 @@ public final class ModBlockEntityTypes {
 		LOGGER.info("Loaded block entity configuration.");
 	}
 
-	public static IRegistryObject<BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> new BlockEntityTypeBuilder<>(
+	public static IRegistryObject<BlockEntityType<?>, BlockEntityType<ChiseledBlockEntity>> CHISELED = REGISTRAR.register("chiseled_block", () -> new BlockEntityTypeBuilder<>(
 			ChiseledBlockEntity::new,
 			ModBlocks.CHISELED_BLOCK.get()
 	).build()
 	);
 
-	public static IRegistryObject<BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> new BlockEntityTypeBuilder<>(
+	public static IRegistryObject<BlockEntityType<?>, BlockEntityType<BitStorageBlockEntity>> BIT_STORAGE = REGISTRAR.register("bit_storage", () -> new BlockEntityTypeBuilder<>(
 			BitStorageBlockEntity::new,
 			ModBlocks.BIT_STORAGE.get()
 	).build()
 	);
 
-	public static final IRegistryObject<BlockEntityType<ChiseledPrinterBlockEntity>> CHISELED_PRINTER = REGISTRAR.register(
+	public static final IRegistryObject<BlockEntityType<?>, BlockEntityType<ChiseledPrinterBlockEntity>> CHISELED_PRINTER = REGISTRAR.register(
 			"chiseled_printer",
 			() -> new BlockEntityTypeBuilder<>(
 					ChiseledPrinterBlockEntity::new,

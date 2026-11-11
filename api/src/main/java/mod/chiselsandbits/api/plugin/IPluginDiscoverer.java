@@ -20,7 +20,7 @@ public interface IPluginDiscoverer {
 	 * @return The platform's plugin manager.
 	 */
 	static IPluginDiscoverer getInstance() {
-		return IChiselsAndBitsAPI.getInstance().getPluginDiscoverer();
+		return IChiselsAndBitsAPI.getInstance().pluginDiscoverer();
 	}
 
 	/**

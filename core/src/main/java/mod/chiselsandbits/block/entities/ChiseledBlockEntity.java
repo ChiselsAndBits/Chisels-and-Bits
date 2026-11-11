@@ -272,7 +272,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 	}
 
 	/**
-	 * Indicates if the given target (with the given block position offset) is inside the current accessor.
+	 * Indicates if the given target (with the given block renderOffset offset) is inside the current accessor.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -679,7 +679,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 	}
 
 	/**
-	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Clears the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -1630,7 +1630,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 		private Integer getLightBlockInto(
 				final BlockInformation blockInformation) {
-			return LightEngine.getLightBlockInto(
+			return LightEngine.getLightDampeningInto(
 					Blocks.GRASS_BLOCK.defaultBlockState(),
 					blockInformation.blockState(),
 					Direction.UP,

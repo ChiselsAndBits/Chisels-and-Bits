@@ -38,7 +38,6 @@ public enum ModRenderTypes {
 		private static RenderType chiselPreviewInsideBlocks() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_IN_BLOCKS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-					.bufferSize(256)
 					.sortOnUpload()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.createRenderSetup();
@@ -50,7 +49,6 @@ public enum ModRenderTypes {
 		private static RenderType chiselPreviewOutsideBlocks() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.CHISEL_PREVIEW_OUTSIDE_BLOCKS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-					.bufferSize(256)
 					.sortOnUpload()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.createRenderSetup();
@@ -62,7 +60,6 @@ public enum ModRenderTypes {
 		private static RenderType wireframe() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.WIREFRAME.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-					.bufferSize(256)
 					.sortOnUpload()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.createRenderSetup();
@@ -74,7 +71,6 @@ public enum ModRenderTypes {
 		private static RenderType wireframeAlways() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.WIREFRAME_ALWAYS.pipeline())
 					.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-					.bufferSize(256)
 					.sortOnUpload()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 					.createRenderSetup();
@@ -89,7 +85,6 @@ public enum ModRenderTypes {
 					.useLightmap()
 					.useOverlay()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-					.bufferSize(256)
 					.affectsCrumbling()
 					.sortOnUpload()
 					.createRenderSetup();
@@ -105,7 +100,6 @@ public enum ModRenderTypes {
 					.useLightmap()
 					.useOverlay()
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-					.bufferSize(256)
 					.affectsCrumbling()
 					.sortOnUpload()
 					.createRenderSetup();
@@ -118,7 +112,6 @@ public enum ModRenderTypes {
 		private static RenderType ghostBlockColored() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED.pipeline())
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-					.bufferSize(256)
 					.affectsCrumbling()
 					.sortOnUpload()
 					.createRenderSetup();
@@ -131,7 +124,6 @@ public enum ModRenderTypes {
 		private static RenderType ghostBlockColoredAlways() {
 			RenderSetup state = RenderSetup.builder(ModRenderPipelines.GHOST_BLOCK_COLORED_ALWAYS.pipeline())
 					.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-					.bufferSize(256)
 					.affectsCrumbling()
 					.sortOnUpload()
 					.createRenderSetup();

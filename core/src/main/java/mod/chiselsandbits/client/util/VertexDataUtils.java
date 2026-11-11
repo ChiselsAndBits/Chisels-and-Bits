@@ -60,7 +60,7 @@ public final class VertexDataUtils {
 			final Vector3f position = VectorUtils.unprojectFromPlaneOf(newPosition, from, cullDirection);
 
 			if (!closestCorners.containsKey(newPosition) || closestCorners.get(newPosition) == null) {
-				throw new IllegalStateException("Could not find a vertex for the given position: %s".formatted(newPosition));
+				throw new IllegalStateException("Could not find a vertex for the given renderOffset: %s".formatted(newPosition));
 			}
 
 			final VertexData vertex = new VertexData(position, new Vector2f(u, v), closestCorners.get(newPosition).vertexIndex());

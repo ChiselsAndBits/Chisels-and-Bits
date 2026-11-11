@@ -21,7 +21,7 @@ public class SlotOverlayRenderManager {
 		graphics.pose().translate(xOffset, yOffSet);
 		graphics.pose().pushMatrix();
 
-		if (!Minecraft.getInstance().options.hideGui) {
+		if (!Minecraft.getInstance().gui.hud.isHidden()) {
 			SelectedToolModeRendererRegistry.getInstance().getCurrent()
 					.extractGraphics(graphics, stack);
 		}

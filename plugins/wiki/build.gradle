@@ -42,5 +42,5 @@ tableau {
 }
 
 dependencies {
-    implementation "org.sinytra:wiki-exporter-neoforge:2.3.0+26.1.2"
+    implementation "org.sinytra:wiki-exporter-neoforge:${project.property('wiki.exporter.version')}+${project.property('wiki.exporter.minecraft.version')}"
 }

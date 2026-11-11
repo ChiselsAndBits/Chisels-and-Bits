@@ -18,9 +18,9 @@ public class ModMultiStateSnapshotTypes {
 	public static final Supplier<ICustomRegistry<IMultiStateSnapshotType>
 			> REGISTRY_SUPPLIER = REGISTRAR.makeRegistry(ICustomRegistry.Builder::simple);
 
-	public static final IRegistryObject<MultiStateSnapshotTypes> EMPTY = REGISTRAR.register("empty", () -> MultiStateSnapshotTypes.EMPTY);
-	public static final IRegistryObject<MultiStateSnapshotTypes> MULTI_BLOCK = REGISTRAR.register("multi_block", () -> MultiStateSnapshotTypes.MULTI_BLOCK);
-	public static final IRegistryObject<MultiStateSnapshotTypes> SIMPLE = REGISTRAR.register("simple", () -> MultiStateSnapshotTypes.SIMPLE);
+	public static final IRegistryObject<IMultiStateSnapshotType, MultiStateSnapshotTypes> EMPTY = REGISTRAR.register("empty", () -> MultiStateSnapshotTypes.EMPTY);
+	public static final IRegistryObject<IMultiStateSnapshotType, MultiStateSnapshotTypes> MULTI_BLOCK = REGISTRAR.register("multi_block", () -> MultiStateSnapshotTypes.MULTI_BLOCK);
+	public static final IRegistryObject<IMultiStateSnapshotType, MultiStateSnapshotTypes> SIMPLE = REGISTRAR.register("simple", () -> MultiStateSnapshotTypes.SIMPLE);
 
 	private ModMultiStateSnapshotTypes() {
 		throw new IllegalStateException("Can not instantiate an instance of: ModMultiStateSnapshotTypes.This is a utility class");

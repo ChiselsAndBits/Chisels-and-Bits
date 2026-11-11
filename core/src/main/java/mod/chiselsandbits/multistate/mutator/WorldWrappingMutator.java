@@ -112,7 +112,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	/**
-	 * Gets the target state in the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Gets the target state in the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -140,7 +140,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	/**
-	 * Indicates if the given target (with the given block position offset) is inside of the current accessor.
+	 * Indicates if the given target (with the given block renderOffset offset) is inside of the current accessor.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.
@@ -321,7 +321,7 @@ public class WorldWrappingMutator implements IWorldAreaMutator, IAreaAccessorWit
 	}
 
 	/**
-	 * Clears the current area, using the in area block position offset as well as the in block target offset to calculate the in area offset for setting.
+	 * Clears the current area, using the in area block renderOffset offset as well as the in block target offset to calculate the in area offset for setting.
 	 *
 	 * @param inAreaBlockPosOffset The offset of blocks in the current area.
 	 * @param inBlockTarget The offset in the targeted block.

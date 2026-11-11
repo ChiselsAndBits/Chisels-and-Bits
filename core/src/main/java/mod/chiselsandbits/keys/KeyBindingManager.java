@@ -140,12 +140,12 @@ public class KeyBindingManager {
 	public void handleKeyPresses() {
 		Minecraft mc = Minecraft.getInstance();
 
-		if (mc.screen == null) {
+		if (mc.gui.screen() == null) {
 			boolean toolMenuKeyIsDown = isOpenToolMenuKeyPressed();
 
 			if (toolMenuKeyIsDown && !toolMenuKeyWasDown) {
 				if (isOpenToolMenuKeyPressed()) {
-					if (mc.screen == null) {
+					if (mc.gui.screen() == null) {
 						openModeScreen(mc);
 					}
 				}
@@ -211,7 +211,7 @@ public class KeyBindingManager {
 			ClientResourceReloadingManager.getInstance().clearCaches();
 		}
 
-		if (mc.screen instanceof CreativeModeInventoryScreen creativeModeInventoryScreen) {
+		if (mc.gui.screen() instanceof CreativeModeInventoryScreen creativeModeInventoryScreen) {
 			if (isDeleteFromClipboardPressed()) {
 				CreativeClipboardUtils.deleteHoveredClipboardEntry(mc, creativeModeInventoryScreen);
 			}
@@ -227,7 +227,7 @@ public class KeyBindingManager {
 
 		if (!inHand.isEmpty() && inHand.getItem() instanceof IWithModeItem) {
 			try {
-				mc.setScreen(ToolModeSelectionScreen.create(inHand));
+				mc.gui.setScreen(ToolModeSelectionScreen.create(inHand));
 			} catch (ClassCastException ignored) {
 			}
 		}

@@ -6,8 +6,8 @@
     "p": "#minecraft:planks"
   },
   "pattern": [
-    " pb",
-    " pp",
+    "pb ",
+    "pp ",
     "p  "
   ],
   "result": {

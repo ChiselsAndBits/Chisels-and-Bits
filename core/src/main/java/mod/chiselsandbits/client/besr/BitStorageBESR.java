@@ -150,7 +150,7 @@ public class BitStorageBESR implements BlockEntityRenderer<BitStorageBlockEntity
 
 		nodeCollector.submitBlockModel(
 				poseStack,
-				Sheets.translucentBlockSheet(),
+				Sheets.translucentBlockItemSheet(),
 				parts,
 				new int[] {tintColor},
 				renderState.lightCoords,

@@ -137,7 +137,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 		final BlockState currentState = blockEntity.getWorld().getBlockState(blockEntity.getInWorldStartBlockPoint());
 
 		if (!(currentState.getBlock() instanceof ChiseledBlock)) {
-			throw new IllegalArgumentException("The state at the given position is not a Chiseled Block!");
+			throw new IllegalArgumentException("The state at the given renderOffset is not a Chiseled Block!");
 		}
 
 		blockEntity.getWorld().setBlock(
@@ -613,7 +613,7 @@ public class ChiseledBlock extends Block implements IMultiStateBlock, SimpleWate
 					.orElse(InteractionResult.PASS);
 		}
 
-		if (itemStack.is(Items.BLACK_DYE)) {
+		if (itemStack.is(Items.DYE.black())) {
 			return getBlockEntity(level, blockPos)
 					.map(blockEntity -> {
 						if (!blockEntity.isEmitsLightBasedOnFullBlock()) {

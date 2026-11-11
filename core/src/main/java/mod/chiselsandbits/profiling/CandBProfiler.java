@@ -30,7 +30,7 @@ public class CandBProfiler implements IProfiler {
 		return profiler -> profiler.endStartSection(name);
 	}
 
-	private final ActiveProfiler inner = new ActiveProfiler(Util.timeSource, () -> 0, () -> false);
+	private final ActiveProfiler inner = new ActiveProfiler(System::nanoTime, () -> 0, () -> false);
 
 	public CandBProfiler() {
 		inner.startTick();

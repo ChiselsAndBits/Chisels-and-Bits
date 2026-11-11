@@ -36,8 +36,9 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
 
 		final BlockEntityRenderState state = Minecraft.getInstance().getBlockEntityRenderDispatcher().tryExtractRenderState(
 				Objects.requireNonNull(argument).entity(),
-				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), //TODO: Figure out true or false......
-				null
+				Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false),
+				null,
+				false
 		);
 
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().submit(
@@ -51,12 +52,12 @@ public class BitStorageISTER implements SpecialModelRenderer<BitStorageISTER.Ren
 	}
 
 	@Override
-	public void getExtents(final Consumer<Vector3fc> output) {
+	public void getExtents(final @NonNull Consumer<Vector3fc> output) {
 		//Noop., for now.Figure out later
 	}
 
 	@Override
-	public @Nullable RenderState extractArgument(final ItemStack stack) {
+	public @Nullable RenderState extractArgument(final @NonNull ItemStack stack) {
 		return new RenderState(BitStorageBlock.createEntityFromStack(stack));
 	}
 }

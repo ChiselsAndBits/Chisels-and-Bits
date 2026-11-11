@@ -13,11 +13,11 @@ public class ToolNameHighlightTickHandler {
 		if (Minecraft.getInstance().player != null && Minecraft.getInstance().level != null) {
 			if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof IPermanentlyHighlightedNameItem
 					|| Minecraft.getInstance().player.getOffhandItem().getItem() instanceof IPermanentlyHighlightedNameItem) {
-				Minecraft.getInstance().gui.toolHighlightTimer = 40;
+				Minecraft.getInstance().gui.hud.toolHighlightTimer = 40;
 			}
 
 			if (!ItemStackUtils.getPatternItemStackFromPlayer(Minecraft.getInstance().player).isEmpty()) {
-				if (Minecraft.getInstance().gui.toolHighlightTimer == 0) {
+				if (Minecraft.getInstance().gui.hud.toolHighlightTimer == 0) {
 					final ItemStack stack = ItemStackUtils.getPatternItemStackFromPlayer(Minecraft.getInstance().player);
 
 					if (stack.has(ModDataComponentTypes.HIGHLIGHT_START_TIME.get())) {
@@ -30,8 +30,8 @@ public class ToolNameHighlightTickHandler {
 				}
 			}
 
-			if (!Minecraft.getInstance().gui.lastToolHighlight.isEmpty() && Minecraft.getInstance().gui.lastToolHighlight.getItem() instanceof IDynamicallyHighlightedNameItem dynamicallyHighlightedNameItem) {
-				Minecraft.getInstance().gui.lastToolHighlight = dynamicallyHighlightedNameItem.adaptItemStack(Minecraft.getInstance().gui.lastToolHighlight);
+			if (!Minecraft.getInstance().gui.hud.lastToolHighlight.isEmpty() && Minecraft.getInstance().gui.hud.lastToolHighlight.getItem() instanceof IDynamicallyHighlightedNameItem dynamicallyHighlightedNameItem) {
+				Minecraft.getInstance().gui.hud.lastToolHighlight = dynamicallyHighlightedNameItem.adaptItemStack(Minecraft.getInstance().gui.hud.lastToolHighlight);
 			}
 		}
 	}

@@ -84,7 +84,7 @@ public class FluidCuboidUtils {
 		final FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet()
 				.get(fluid.fluid().defaultFluidState());
 
-		renderFluidCuboid(model.stillMaterial(), model.flowingMaterial(), color, matrices, Sheets.translucentBlockSheet(), nodeCollector, combinedOverlay, combinedLight, x1, y1, z1, x2, y2, z2);
+		renderFluidCuboid(model.stillMaterial(), model.flowingMaterial(), color, matrices, Sheets.translucentBlockItemSheet(), nodeCollector, combinedOverlay, combinedLight, x1, y1, z1, x2, y2, z2);
 	}
 
 	public static void renderFluidCuboid(
@@ -236,7 +236,6 @@ public class FluidCuboidUtils {
 		}
 
 		final Matrix4f worldMatrix = matrices.pose();
-		final Matrix3f normalMatrix = matrices.normal();
 
 		switch (face) {
 		case DOWN -> {

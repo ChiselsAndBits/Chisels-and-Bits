@@ -20,4 +20,16 @@ public class StringUtils {
 
 		return sb.toString();
 	}
+
+    public static String pad(String s, int i, char c) {
+        if (s.length() >= i) {
+			return s;
+		}
+
+		StringBuilder sb = new StringBuilder(s);
+		while (sb.length() < i) {
+			sb.append(c);
+		}
+		return sb.toString();
+    }
 }

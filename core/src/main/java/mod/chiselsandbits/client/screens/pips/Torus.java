@@ -1,13 +1,13 @@
 package mod.chiselsandbits.client.screens.pips;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import org.joml.Matrix4f;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 
@@ -77,8 +77,8 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 		}
 	}
 
-	public Torus(final MultiBufferSource.BufferSource bufferSource) {
-		super(bufferSource);
+	public Torus() {
+		super();
 	}
 
 	@Override
@@ -87,36 +87,39 @@ public class Torus extends PictureInPictureRenderer<Torus.RenderState> {
 	}
 
 	@Override
-	protected void renderToTexture(final RenderState renderState, final PoseStack poseStack) {
-		VertexConsumer vertexBuffer = this.bufferSource.getBuffer(RenderTypes.debugFilledBox());
+	protected void renderToTexture(RenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		poseStack.pushPose();
-		Matrix4f matrix4f = poseStack.last().pose();
-		float draws = DRAWS * (renderState.sizeAngle() / 360F);
+		submitNodeCollector.submitCustomGeometry(
+				poseStack,
+				RenderTypes.debugFilledBox(),
+                (pose, vertexBuffer) -> {
+                    Matrix4f matrix4f = pose.pose();
+                    float draws = DRAWS * (renderState.sizeAngle() / 360F);
 
-		for (int i = 0; i < draws; i++) {
-			float angle = (float) Math.toRadians(renderState.startAngle() + (i / DRAWS) * 360);
-			float endAngle = ((float) Math.toRadians(renderState.startAngle() + ((i + 1) / DRAWS) * 360));
-			final float outer = renderState.outer();
-			final float inner = renderState.inner();
-			vertexBuffer
-					.addVertex(matrix4f, (float) ((outer) * Math.cos(angle)), (float) (outer * Math.sin(angle)), 0)
-					.setColor(renderState.color());
-			vertexBuffer
-					.addVertex(matrix4f, (float) (inner * Math.cos(angle)), (float) (inner * Math.sin(angle)), 0)
-					.setColor(renderState.color());
-			vertexBuffer
-					.addVertex(matrix4f, (float) (inner * Math.cos(endAngle)), (float) (inner * Math.sin(endAngle)), 0)
-					.setColor(renderState.color());
-			vertexBuffer
-					.addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
-					.setColor(renderState.color());
-		}
-
-		poseStack.popPose();
+                    for (int i = 0; i < draws; i++) {
+                        float angle = (float) Math.toRadians(renderState.startAngle() + (i / DRAWS) * 360);
+                        float endAngle = ((float) Math.toRadians(renderState.startAngle() + ((i + 1) / DRAWS) * 360));
+                        final float outer = renderState.outer();
+                        final float inner = renderState.inner();
+                        vertexBuffer
+                                .addVertex(matrix4f, (float) ((outer) * Math.cos(angle)), (float) (outer * Math.sin(angle)), 0)
+                                .setColor(renderState.color());
+                        vertexBuffer
+                                .addVertex(matrix4f, (float) (inner * Math.cos(angle)), (float) (inner * Math.sin(angle)), 0)
+                                .setColor(renderState.color());
+                        vertexBuffer
+                                .addVertex(matrix4f, (float) (inner * Math.cos(endAngle)), (float) (inner * Math.sin(endAngle)), 0)
+                                .setColor(renderState.color());
+                        vertexBuffer
+                                .addVertex(matrix4f, (float) ((outer) * Math.cos(endAngle)), (float) (outer * Math.sin(endAngle)), 0)
+                                .setColor(renderState.color());
+                    }
+                }
+        );
 	}
 
 	@Override
-	protected String getTextureLabel() {
+	protected @NonNull String getTextureLabel() {
 		return "C&B Torus";
 	}
 

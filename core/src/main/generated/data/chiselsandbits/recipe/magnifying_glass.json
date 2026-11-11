@@ -8,8 +8,7 @@
   },
   "pattern": [
     "cg ",
-    "s  ",
-    "   "
+    "s  "
   ],
   "result": {
     "id": "chiselsandbits:magnifying_glass"

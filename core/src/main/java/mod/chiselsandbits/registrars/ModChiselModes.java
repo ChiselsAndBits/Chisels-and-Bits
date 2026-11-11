@@ -27,7 +27,7 @@ import net.minecraft.resources.Identifier;
 public final class ModChiselModes {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ICustomRegistrar<IChiselMode> MODE_REGISTRAR = ICustomRegistrar.create(IChiselMode.class, Constants.MOD_ID);
-	public static final IRegistryObject<IChiselMode> SINGLE_BIT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> SINGLE_BIT = MODE_REGISTRAR.register(
 			"single_bit",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(1)
 			.setDisplayName(LocalStrings.ChiselModeSingle.getText())
@@ -36,7 +36,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> DRAWN_CUBE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> DRAWN_CUBE = MODE_REGISTRAR.register(
 			"drawn_cube",
 			() -> new DrawnCubeChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnCube.getText())
@@ -45,7 +45,7 @@ public final class ModChiselModes {
 			.createDrawnCubeChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> DRAWN_LINE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> DRAWN_LINE = MODE_REGISTRAR.register(
 			"drawn_line",
 			() -> new DrawnLineChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnLine.getText())
@@ -54,7 +54,7 @@ public final class ModChiselModes {
 			.createDrawnLineChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> DRAWN_WALL_THIN = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> DRAWN_WALL_THIN = MODE_REGISTRAR.register(
 			"drawn_wall_thin",
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallThin.getText())
@@ -64,7 +64,7 @@ public final class ModChiselModes {
 			.createDrawnWallChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> DRAWN_WALL_MEDIUM = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> DRAWN_WALL_MEDIUM = MODE_REGISTRAR.register(
 			"drawn_wall_medium",
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallMedium.getText())
@@ -74,7 +74,7 @@ public final class ModChiselModes {
 			.createDrawnWallChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> DRAWN_WALL_FAT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> DRAWN_WALL_FAT = MODE_REGISTRAR.register(
 			"drawn_wall_fat",
 			() -> new DrawnWallChiselModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeDrawnWallFat.getText())
@@ -84,7 +84,7 @@ public final class ModChiselModes {
 			.createDrawnWallChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> SMALL_BIT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> SMALL_BIT = MODE_REGISTRAR.register(
 			"small_bit",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(2)
 			.setDisplayName(LocalStrings.ChiselModeCubeSmall.getText())
@@ -93,7 +93,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> MEDIUM_BIT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> MEDIUM_BIT = MODE_REGISTRAR.register(
 			"medium_bit",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(4)
 			.setDisplayName(LocalStrings.ChiselModeCubeMedium.getText())
@@ -102,7 +102,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LARGE_BIT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LARGE_BIT = MODE_REGISTRAR.register(
 			"large_bit",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(8)
 			.setDisplayName(LocalStrings.ChiselModeCubeLarge.getText())
@@ -111,7 +111,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> SMALL_BIT_ALIGNED = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> SMALL_BIT_ALIGNED = MODE_REGISTRAR.register(
 			"small_bit_aligned",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(2)
 			.setAligned(true)
@@ -121,7 +121,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> MEDIUM_BIT_ALIGNED = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> MEDIUM_BIT_ALIGNED = MODE_REGISTRAR.register(
 			"medium_bit_aligned",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(4)
 			.setAligned(true)
@@ -130,7 +130,7 @@ public final class ModChiselModes {
 			.setIconName(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "medium_bit_aligned"))
 			.createCubedChiselMode()
 	);
-	public static final IRegistryObject<IChiselMode> LARGE_BIT_ALIGNED = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LARGE_BIT_ALIGNED = MODE_REGISTRAR.register(
 			"large_bit_aligned",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(8)
 			.setAligned(true)
@@ -140,7 +140,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> FULL_BLOCK = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> FULL_BLOCK = MODE_REGISTRAR.register(
 			"full_cube",
 			() -> new CubedChiselModeBuilder().setBitsPerSide(16)
 			.setAligned(true)
@@ -150,7 +150,7 @@ public final class ModChiselModes {
 			.createCubedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LINE_ONE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LINE_ONE = MODE_REGISTRAR.register(
 			"line_1",
 			() -> new LinedChiselModeBuilder()
 			.setBitsPerSide(1)
@@ -160,7 +160,7 @@ public final class ModChiselModes {
 			.createLinedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LINE_TWO = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LINE_TWO = MODE_REGISTRAR.register(
 			"line_2",
 			() -> new LinedChiselModeBuilder()
 			.setBitsPerSide(2)
@@ -170,7 +170,7 @@ public final class ModChiselModes {
 			.createLinedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LINE_FOUR = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LINE_FOUR = MODE_REGISTRAR.register(
 			"line_4",
 			() -> new LinedChiselModeBuilder()
 			.setBitsPerSide(4)
@@ -180,7 +180,7 @@ public final class ModChiselModes {
 			.createLinedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LINE_EIGHT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LINE_EIGHT = MODE_REGISTRAR.register(
 			"line_8",
 			() -> new LinedChiselModeBuilder()
 			.setBitsPerSide(8)
@@ -190,7 +190,7 @@ public final class ModChiselModes {
 			.createLinedChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> PLANE_ONE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> PLANE_ONE = MODE_REGISTRAR.register(
 			"plane_1",
 			() -> new PlaneChiselModeBuilder()
 			.setDepth(1)
@@ -200,7 +200,7 @@ public final class ModChiselModes {
 			.createPlaneChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> PLANE_TWO = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> PLANE_TWO = MODE_REGISTRAR.register(
 			"plane_2",
 			() -> new PlaneChiselModeBuilder()
 			.setDepth(2)
@@ -210,7 +210,7 @@ public final class ModChiselModes {
 			.createPlaneChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> PLANE_FOUR = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> PLANE_FOUR = MODE_REGISTRAR.register(
 			"plane_4",
 			() -> new PlaneChiselModeBuilder()
 			.setDepth(4)
@@ -220,7 +220,7 @@ public final class ModChiselModes {
 			.createPlaneChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> PLANE_EIGHT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> PLANE_EIGHT = MODE_REGISTRAR.register(
 			"plane_8",
 			() -> new PlaneChiselModeBuilder()
 			.setDepth(8)
@@ -230,7 +230,7 @@ public final class ModChiselModes {
 			.createPlaneChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_MATERIAL_ONE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_MATERIAL_ONE = MODE_REGISTRAR.register(
 			"connected_material_1",
 			() -> new ConnectedMaterialChiselingModeBuilder()
 			.setDepth(1)
@@ -240,7 +240,7 @@ public final class ModChiselModes {
 			.createConnectedMaterialChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_MATERIAL_TWO = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_MATERIAL_TWO = MODE_REGISTRAR.register(
 			"connected_material_2",
 			() -> new ConnectedMaterialChiselingModeBuilder()
 			.setDepth(2)
@@ -250,7 +250,7 @@ public final class ModChiselModes {
 			.createConnectedMaterialChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_MATERIAL_FOUR = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_MATERIAL_FOUR = MODE_REGISTRAR.register(
 			"connected_material_4",
 			() -> new ConnectedMaterialChiselingModeBuilder()
 			.setDepth(4)
@@ -260,7 +260,7 @@ public final class ModChiselModes {
 			.createConnectedMaterialChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_MATERIAL_EIGHT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_MATERIAL_EIGHT = MODE_REGISTRAR.register(
 			"connected_material_8",
 			() -> new ConnectedMaterialChiselingModeBuilder()
 			.setDepth(8)
@@ -270,7 +270,7 @@ public final class ModChiselModes {
 			.createConnectedMaterialChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> SMALL_SPHERE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> SMALL_SPHERE = MODE_REGISTRAR.register(
 			"small_sphere",
 			() -> new SphereChiselModeBuilder().setDiameter(4)
 			.setDisplayName(LocalStrings.ChiselModeSphereSmall.getText())
@@ -279,7 +279,7 @@ public final class ModChiselModes {
 			.createSphereChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> MEDIUM_SPHERE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> MEDIUM_SPHERE = MODE_REGISTRAR.register(
 			"medium_sphere",
 			() -> new SphereChiselModeBuilder().setDiameter(8)
 			.setDisplayName(LocalStrings.ChiselModeSphereMedium.getText())
@@ -288,7 +288,7 @@ public final class ModChiselModes {
 			.createSphereChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> LARGE_SPHERE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> LARGE_SPHERE = MODE_REGISTRAR.register(
 			"large_sphere",
 			() -> new SphereChiselModeBuilder().setDiameter(16)
 			.setDisplayName(LocalStrings.ChiselModeSphereLarge.getText())
@@ -297,7 +297,7 @@ public final class ModChiselModes {
 			.createSphereChiselMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_PLANE_ONE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_PLANE_ONE = MODE_REGISTRAR.register(
 			"connected_plane_1",
 			() -> new ConnectedPlaneChiselingModeBuilder()
 			.setDepth(1)
@@ -307,7 +307,7 @@ public final class ModChiselModes {
 			.createConnectedPlaneChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_PLANE_TWO = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_PLANE_TWO = MODE_REGISTRAR.register(
 			"connected_plane_2",
 			() -> new ConnectedPlaneChiselingModeBuilder()
 			.setDepth(2)
@@ -317,7 +317,7 @@ public final class ModChiselModes {
 			.createConnectedPlaneChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_PLANE_FOUR = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_PLANE_FOUR = MODE_REGISTRAR.register(
 			"connected_plane_4",
 			() -> new ConnectedPlaneChiselingModeBuilder()
 			.setDepth(4)
@@ -327,7 +327,7 @@ public final class ModChiselModes {
 			.createConnectedPlaneChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> CONNECTED_PLANE_EIGHT = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> CONNECTED_PLANE_EIGHT = MODE_REGISTRAR.register(
 			"connected_plane_8",
 			() -> new ConnectedPlaneChiselingModeBuilder()
 			.setDepth(8)
@@ -337,7 +337,7 @@ public final class ModChiselModes {
 			.createConnectedPlaneChiselingMode()
 	);
 
-	public static final IRegistryObject<IChiselMode> REPLACE = MODE_REGISTRAR.register(
+	public static final IRegistryObject<IChiselMode, IChiselMode> REPLACE = MODE_REGISTRAR.register(
 			"replace",
 			() -> new ReplaceChiselingModeBuilder()
 			.setDisplayName(LocalStrings.ChiselModeReplace.getText())
