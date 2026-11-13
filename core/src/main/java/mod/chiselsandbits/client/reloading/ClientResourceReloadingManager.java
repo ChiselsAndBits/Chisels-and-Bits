@@ -1,6 +1,7 @@
 package mod.chiselsandbits.client.reloading;
 
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.communi.suggestu.scena.core.client.event.IRegisterClientReloadListenersEvent;
 import com.google.common.collect.Sets;
@@ -10,6 +11,7 @@ import mod.chiselsandbits.client.besr.BitStorageBESR;
 import mod.chiselsandbits.client.besr.ChiseledPrinterBESR;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModelManager;
 import mod.chiselsandbits.client.model.face.FaceManager;
+import mod.chiselsandbits.client.model.data.ChiseledBlockModelDataExecutor;
 import mod.chiselsandbits.client.model.item.BitBlockBakedModelManager;
 import mod.chiselsandbits.reloading.DataReloadingResourceManager;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +24,11 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 public class ClientResourceReloadingManager implements ResourceManagerReloadListener {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ClientResourceReloadingManager INSTANCE = new ClientResourceReloadingManager();
+	private static final AtomicLong GENERATION = new AtomicLong();
+
+	public static long generation() {
+		return GENERATION.get();
+	}
 
 	public static ClientResourceReloadingManager getInstance() {
 		return INSTANCE;
@@ -35,6 +42,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	@Override
 	public void onResourceManagerReload(final ResourceManager manager) {
 		clearCaches();
+		ChiseledBlockModelDataExecutor.requestReloadUpdates();
 	}
 
 	public ClientResourceReloadingManager registerCacheClearer(final ICacheClearingHandler cacheClearingHandler) {
@@ -61,6 +69,7 @@ public class ClientResourceReloadingManager implements ResourceManagerReloadList
 	}
 
 	public void clearCaches() {
+		GENERATION.incrementAndGet();
 		LOGGER.info("Resetting client caches");
 		cacheClearingHandlers.forEach(ICacheClearingHandler::clear);
 

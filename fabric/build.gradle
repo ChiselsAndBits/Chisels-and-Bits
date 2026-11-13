@@ -46,3 +46,88 @@ dependencies {
     implementation "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
     include "com.communi-suggestu.scena:fabric:${project.property('communi.suggestu.scena.version')}"
 }
+
+def terrainModelParityEnabled = providers.gradleProperty('candbTerrainModelParity').map { it.toBoolean() }.getOrElse(false)
+def terrainModelParityLog = layout.projectDirectory.file('runs/terrain-model-parity/logs/latest.log').asFile
+def terrainWorldCheckEnabled = providers.gradleProperty('candbTerrainWorldCheck').map { it.toBoolean() }.getOrElse(false)
+def terrainCompileBenchmarkEnabled = providers.gradleProperty('candbTerrainCompileBenchmark').map { it.toBoolean() }.getOrElse(false)
+def terrainWorldCheckLog = layout.projectDirectory.file('runs/terrain-world-check/logs/latest.log').asFile
+tasks.register('verifyTerrainWorld') {
+    group = 'verification'
+    description = 'Checks the real Indigo terrain subset path in a bounded, isolated, disposable world.'
+    if (terrainWorldCheckEnabled) {
+        dependsOn tasks.named('runClient')
+    }
+    doLast {
+        if (!terrainWorldCheckEnabled) {
+            throw new GradleException('Enable the isolated world check with -PcandbTerrainWorldCheck=true')
+        }
+        def contents = terrainWorldCheckLog.isFile() ? terrainWorldCheckLog.getText('UTF-8') : ''
+        def required = ['TERRAIN_WORLD_CHECK_PASS:', 'TERRAIN_WORLD_CHECK_HOOK_BYPASS:', 'TERRAIN_WORLD_CHECK_CAVITY:',
+                        'TERRAIN_WORLD_CHECK_MATERIALS:', 'TERRAIN_WORLD_CHECK_BOUNDARY_NEIGHBOURS:',
+                        'TERRAIN_WORLD_CHECK_FLUID_BOUNDARY:', 'TERRAIN_WORLD_CHECK_CHUNK_LIFECYCLE:',
+                        'TERRAIN_WORLD_CHECK_MIXED_FALLBACK:', 'TERRAIN_WORLD_CHECK_GLASS_BOUNDARY:',
+                        'TERRAIN_WORLD_CHECK_TRANSLUCENT_BUFFERS:',
+                        'native rectangle geometry emitted', 'native boundary rectangle geometry emitted']
+        if (terrainCompileBenchmarkEnabled) {
+            required.add('TERRAIN_SECTION_BENCHMARK loader=fabric')
+        }
+        def missing = required.findAll { !contents.contains(it) }
+        if (!missing.isEmpty()) {
+            throw new GradleException("Terrain world check did not pass or did not emit native geometry (missing ${missing}); inspect ${terrainWorldCheckLog}")
+        }
+    }
+}
+tasks.register('verifyTerrainModelParity') {
+    group = 'verification'
+    description = 'Runs the bounded client-side terrain output parity check in an isolated game directory.'
+    if (terrainModelParityEnabled) {
+        dependsOn tasks.named('runClient')
+    }
+    doLast {
+        if (!terrainModelParityEnabled) {
+            throw new GradleException('Enable the isolated parity client with -PcandbTerrainModelParity=true')
+        }
+        if (!terrainModelParityLog.isFile() || !terrainModelParityLog.getText('UTF-8').contains('TERRAIN_MODEL_PARITY_PASS:')
+                || !terrainModelParityLog.getText('UTF-8').contains('TERRAIN_MODEL_PARITY_EMISSIVE_SOURCE')
+                || !terrainModelParityLog.getText('UTF-8').contains('TERRAIN_MODEL_PARITY_FLUID_BOUNDARY:')
+                || !terrainModelParityLog.getText('UTF-8').contains('TERRAIN_MODEL_PARITY_GLASS_BOUNDARY:')) {
+            throw new GradleException("Terrain model parity check did not pass; inspect ${terrainModelParityLog}")
+        }
+    }
+}
+
+afterEvaluate {
+    if (terrainModelParityEnabled && terrainWorldCheckEnabled) {
+        throw new GradleException('Run the model parity and disposable world checks separately')
+    }
+    if (terrainModelParityEnabled || terrainWorldCheckEnabled) {
+        loom.runs.named('client') {
+            runDir terrainWorldCheckEnabled ? 'runs/terrain-world-check' : 'runs/terrain-model-parity'
+        }
+    }
+    tasks.named('runClient', JavaExec) {
+        systemProperty 'scena.experimentalTerrainSharding', providers.gradleProperty('scenaTerrainSharding').getOrElse('false')
+        systemProperty 'scena.experimentalNativeTerrainGeometry', providers.gradleProperty('scenaNativeTerrainGeometry').getOrElse('false')
+        systemProperty 'chiselsandbits.debugNativeTerrainGeometry', providers.gradleProperty('candbDebugTerrainGeometry').getOrElse('false')
+        systemProperty 'chiselsandbits.runTerrainModelParityCheck', terrainModelParityEnabled.toString()
+        if (terrainWorldCheckEnabled) {
+            systemProperty 'fabric.client.gametest', 'true'
+            systemProperty 'fabric.client.gametest.modid', 'chiselsandbits'
+            systemProperty 'chiselsandbits.runTerrainWorldCheck', 'true'
+            systemProperty 'chiselsandbits.terrainCompileBenchmark', terrainCompileBenchmarkEnabled.toString()
+            systemProperty 'scena.experimentalNativeTerrainGeometry', 'true'
+            systemProperty 'chiselsandbits.debugNativeTerrainGeometry', 'true'
+        }
+        if (terrainModelParityEnabled || terrainWorldCheckEnabled) {
+            workingDir = project.file(terrainWorldCheckEnabled ? 'runs/terrain-world-check' : 'runs/terrain-model-parity')
+            timeout = java.time.Duration.ofMinutes(5)
+            systemProperty 'java.io.tmpdir', new File(workingDir, 'scratch').absolutePath
+            doFirst {
+                workingDir.mkdirs()
+                new File(workingDir, 'scratch').mkdirs()
+                (terrainWorldCheckEnabled ? terrainWorldCheckLog : terrainModelParityLog).delete()
+            }
+        }
+    }
+}

@@ -7,6 +7,8 @@
     "common.CreativeModeTabMixin"
   ],
   "client": [
+    "client.ChiseledBlockEntityRenderDataMixin",
+    "client.SectionCompilerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

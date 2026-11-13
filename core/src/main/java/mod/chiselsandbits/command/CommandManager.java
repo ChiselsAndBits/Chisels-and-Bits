@@ -1,11 +1,13 @@
 package mod.chiselsandbits.command;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
@@ -26,6 +28,10 @@ import mod.chiselsandbits.api.util.BlockInformationUtils;
 import mod.chiselsandbits.api.util.IBatchMutation;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.api.variant.state.IStateVariantManager;
+import mod.chiselsandbits.debug.scenes.ChurnScene;
+import mod.chiselsandbits.debug.scenes.SceneGenerators;
+import mod.chiselsandbits.debug.scenes.SceneType;
+import mod.chiselsandbits.network.packets.BenchmarkCommandMessagePacket;
 import mod.chiselsandbits.network.packets.ExportPatternCommandMessagePacket;
 import mod.chiselsandbits.network.packets.ImportPatternCommandMessagePacket;
 import mod.chiselsandbits.profiling.ProfilingManager;
@@ -50,6 +56,8 @@ import net.minecraft.world.phys.Vec3;
 public class CommandManager {
 	private static final CommandManager INSTANCE = new CommandManager();
 	private static final Logger LOGGER = LogManager.getLogger();
+	private static final int DEFAULT_CHURN_TICKS = 200;
+	private static final int MAX_CHURN_TICKS = 100_000;
 
 	private CommandManager() {
 	}
@@ -131,7 +139,78 @@ public class CommandManager {
 								.executes(this::loadPatternOf)
 						)
 				)
+				.then(Commands.literal("scene")
+						.then(Commands.literal("stop")
+								.executes(this::stopScene)
+						)
+						.then(sceneType(SceneType.WORST_CASE))
+						.then(sceneType(SceneType.SHARDING))
+						.then(sceneType(SceneType.TERRAIN_SUBSET))
+						.then(sceneType(SceneType.BUILDER_DETAIL))
+						.then(sceneType(SceneType.TRANSLUCENCY))
+						.then(sceneType(SceneType.LIGHTING))
+						.then(sceneType(SceneType.CHURN))
+				)
+				.then(Commands.literal("bench")
+						.then(Commands.literal("start")
+								.executes(this::startBenchmark)
+						)
+						.then(Commands.literal("stop")
+								.executes(this::stopBenchmark)
+						)
+				)
 		);
+	}
+
+	private ArgumentBuilder<CommandSourceStack, ?> sceneType(final SceneType type) {
+		return Commands.literal(type.getCommandName())
+				.executes(context -> runSceneCommand(context, type, null, null))
+				.then(Commands.argument("pos", BlockPosArgument.blockPos())
+						.executes(context -> runSceneCommand(context, type, BlockPosArgument.getLoadedBlockPos(context, "pos"), null))
+						.then(Commands.argument("ticks", IntegerArgumentType.integer(1, MAX_CHURN_TICKS))
+								.executes(context -> runSceneCommand(context, type, BlockPosArgument.getLoadedBlockPos(context, "pos"), IntegerArgumentType.getInteger(context, "ticks")))
+						)
+				);
+	}
+
+	private int runSceneCommand(final CommandContext<CommandSourceStack> context, final SceneType type, final BlockPos pos, final Integer ticks) throws CommandSyntaxException {
+		final CommandSourceStack source = context.getSource();
+		final BlockPos origin = pos != null ? pos : BlockPos.containing(source.getPosition()).offset(2, 0, 0);
+		final int churnTicks = ticks != null ? ticks : DEFAULT_CHURN_TICKS;
+
+		final int blockCount = SceneGenerators.generate(type, source.getLevel(), origin, churnTicks);
+		source.sendSuccess(() -> Component.literal(String.format(Locale.ROOT, "Generated scene '%s' with %d chiseled blocks at %s",
+				type.getCommandName(), blockCount, origin.toShortString())), true);
+
+		return 0;
+	}
+
+	private int stopScene(final CommandContext<CommandSourceStack> context) {
+		if (!ChurnScene.getInstance().stop()) {
+			context.getSource().sendFailure(Component.literal("No churn scene is running"));
+			return 1;
+		}
+
+		context.getSource().sendSuccess(() -> Component.literal("Stopped the churn scene"), true);
+		return 0;
+	}
+
+	private int startBenchmark(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
+						new BenchmarkCommandMessagePacket(true),
+						context.getSource().getPlayerOrException()
+		);
+
+		return 0;
+	}
+
+	private int stopBenchmark(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+		ChiselsAndBits.getInstance().getNetworkChannel().sendToPlayer(
+						new BenchmarkCommandMessagePacket(false),
+						context.getSource().getPlayerOrException()
+		);
+
+		return 0;
 	}
 
 	private int runFillCommand(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

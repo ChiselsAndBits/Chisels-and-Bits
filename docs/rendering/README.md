@@ -11,6 +11,8 @@ Status: **brainstorm / design**. Nothing in here is implemented yet.
 | [05-lighting.md](05-lighting.md) | Lighting parity: vanilla/NeoForge/Sodium lighters, emission, Iris block ids |
 | [06-translucency.md](06-translucency.md) | Translucency per renderer, 26.4 OIT, shard sorting policy |
 | [07-poc-plan.md](07-poc-plan.md) | Phased proof-of-concept and rollout plan with exit criteria |
+| [08-scena-26.2-sharding.md](08-scena-26.2-sharding.md) | Opaque native sharding contract: ownership, uploads, cancellation and draws |
+| [benchmarks.md](benchmarks.md) | Phase 0 test scenes, how to capture render metrics, and the results table |
 
 ## Problem statement
 

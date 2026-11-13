@@ -76,6 +76,7 @@ import mod.chiselsandbits.serialization.CompressedDataFindingCodec;
 import mod.chiselsandbits.storage.IMultiThreadedStorageEngine;
 import mod.chiselsandbits.storage.StorageEngineBuilder;
 import mod.chiselsandbits.utils.BlockPosUtils;
+import mod.chiselsandbits.utils.ModelDataGeneration;
 import mod.chiselsandbits.utils.MultiStateSnapshotUtils;
 import mod.chiselsandbits.utils.SingleObjectCache;
 import mod.chiselsandbits.voxelshape.MultiStateBlockEntityDiscreteVoxelShape;
@@ -126,7 +127,8 @@ public class ChiseledBlockEntity extends BlockEntity implements
 	private final Object tagSyncHandle = new Object();
 	private StateEntryStorage storage;
 	private IMultiThreadedStorageEngine<Payload> storageEngine;
-	private IBlockModelData modelData = IModelDataBuilder.create().build();
+	private volatile IBlockModelData modelData = IModelDataBuilder.create().build();
+	private final ModelDataGeneration experimentalModelDataGeneration = new ModelDataGeneration();
 	private CopyableTagValueInput lastTag = null;
 	private CompletableFuture<Void> storageFuture = null;
 	private final List<ValueInput> deserializationQueue = Collections.synchronizedList(Lists.newArrayList());
@@ -178,6 +180,7 @@ public class ChiseledBlockEntity extends BlockEntity implements
 	private void updateModelDataIfInLoadedChunk() {
 		if (level != null && level.isClientSide() && level.isLoaded(getBlockPos())) {
 			updateModelData();
+			ChiseledBlockModelDataManager.getInstance().updateNeighbours(this);
 			level.getLightEngine().checkBlock(getBlockPos());
 		}
 	}
@@ -751,6 +754,24 @@ public class ChiseledBlockEntity extends BlockEntity implements
 		}
 	}
 
+	/**
+	 * Replaces the complete bit storage in one batch, and recalculates the statistics for it.
+	 *
+	 * @param newStorage The storage to use, must be of the current bit size.
+	 */
+	public void replaceStorage(final StateEntryStorage newStorage) {
+		if (getLevel() == null) {
+			return;
+		}
+
+		executeWhenLoaded(() -> {
+			try (IBatchMutation ignored = batch()) {
+				this.storage = newStorage;
+				this.mutableStatistics.recalculate(this.getLevel(), this.storage, this.getBlockPos());
+			}
+		});
+	}
+
 	@Override
 	public Stream<IInWorldMutableStateEntryInfo> inWorldMutableStream() {
 		return BlockPosStreamProvider.getForRange(StateEntrySize.current().getBitsPerBlockSide())
@@ -825,6 +846,18 @@ public class ChiseledBlockEntity extends BlockEntity implements
 
 	public void setModelData(final IBlockModelData modelData) {
 		this.modelData = modelData;
+	}
+
+	public long beginExperimentalModelDataUpdate() {
+		return experimentalModelDataGeneration.begin();
+	}
+
+	public boolean isExperimentalModelDataGenerationCurrent(final long generation) {
+		return experimentalModelDataGeneration.isCurrent(generation);
+	}
+
+	public boolean publishExperimentalModelData(final long generation, final IBlockModelData modelData) {
+		return !isRemoved() && experimentalModelDataGeneration.publishIfCurrent(generation, () -> this.modelData = modelData);
 	}
 
 	public IBlockModelData getBlockModelData() {

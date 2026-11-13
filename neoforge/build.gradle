@@ -40,6 +40,100 @@ dependencies {
     includedLibraries "com.communi-suggestu.scena:neoforge:${project.property('communi.suggestu.scena.version')}"
 }
 
+def terrainModelParityEnabled = providers.gradleProperty('candbTerrainModelParity').map { it.toBoolean() }.getOrElse(false)
+def terrainWorldCheckEnabled = providers.gradleProperty('candbTerrainWorldCheck').map { it.toBoolean() }.getOrElse(false)
+def terrainCompileBenchmarkEnabled = providers.gradleProperty('candbTerrainCompileBenchmark').map { it.toBoolean() }.getOrElse(false)
+runs.named('client') {
+    systemProperty 'scena.experimentalTerrainSharding', providers.gradleProperty('scenaTerrainSharding').getOrElse('false')
+    systemProperty 'scena.experimentalNativeTerrainGeometry', terrainWorldCheckEnabled ? 'true' : providers.gradleProperty('scenaNativeTerrainGeometry').getOrElse('false')
+    systemProperty 'chiselsandbits.debugNativeTerrainGeometry', terrainWorldCheckEnabled ? 'true' : providers.gradleProperty('candbDebugTerrainGeometry').getOrElse('false')
+    systemProperty 'chiselsandbits.runTerrainModelParityCheck', terrainModelParityEnabled.toString()
+    systemProperty 'chiselsandbits.runTerrainWorldCheck', terrainWorldCheckEnabled.toString()
+    systemProperty 'chiselsandbits.terrainCompileBenchmark', terrainCompileBenchmarkEnabled.toString()
+    if (terrainWorldCheckEnabled) {
+        workingDirectory = project.file('runs/terrain-world-check')
+    }
+    if (terrainModelParityEnabled) {
+        workingDirectory = project.file('runs/terrain-model-parity')
+    }
+}
+
+def terrainWorldCheckLog = layout.projectDirectory.file('runs/terrain-world-check/logs/latest.log').asFile
+tasks.register('verifyTerrainWorld') {
+    group = 'verification'
+    description = 'Checks the real NeoForge terrain path in a bounded disposable client world.'
+    if (terrainWorldCheckEnabled) {
+        dependsOn tasks.named('runClient')
+    }
+    doLast {
+        if (!terrainWorldCheckEnabled) {
+            throw new GradleException('Enable the isolated world check with -PcandbTerrainWorldCheck=true')
+        }
+        def contents = terrainWorldCheckLog.isFile() ? terrainWorldCheckLog.getText('UTF-8') : ''
+        def required = ['TERRAIN_NEO_WORLD_PASS:', 'TERRAIN_NEO_WORLD_LIGHT_SORT:', 'TERRAIN_NEO_WORLD_CHUNK_LIFECYCLE:',
+                        'TERRAIN_NEO_WORLD_MIXED_FALLBACK:',
+                        'TERRAIN_NEO_SPLIT_LIGHT_PROBE',
+                        'C&B terrain diagnostic: native boundary rectangle geometry emitted']
+        if (terrainCompileBenchmarkEnabled) {
+            required.add('TERRAIN_SECTION_BENCHMARK loader=neoforge')
+        }
+        def missing = required.findAll { !contents.contains(it) }
+        if (!missing.isEmpty() || contents.contains('TERRAIN_NEO_WORLD_FAIL')) {
+            throw new GradleException("NeoForge terrain world check failed (missing ${missing}); inspect ${terrainWorldCheckLog}")
+        }
+    }
+}
+
+def terrainModelParityLog = layout.projectDirectory.file('runs/terrain-model-parity/logs/latest.log').asFile
+tasks.register('verifyTerrainModelParity') {
+    group = 'verification'
+    description = 'Runs the bounded client-side legacy/rectangle BakedQuad parity check in an isolated game directory.'
+    if (terrainModelParityEnabled) {
+        dependsOn tasks.named('runClient')
+    }
+    doLast {
+        if (!terrainModelParityEnabled) {
+            throw new GradleException('Enable the isolated parity client with -PcandbTerrainModelParity=true')
+        }
+        if (!terrainModelParityLog.isFile()) {
+            throw new GradleException("Terrain model parity run did not produce ${terrainModelParityLog}")
+        }
+
+        def contents = terrainModelParityLog.getText('UTF-8')
+        if (!contents.contains('TERRAIN_MODEL_PARITY_PASS:')
+                || !contents.contains('TERRAIN_MODEL_PARITY_EMISSIVE_SOURCE')
+                || !contents.contains('TERRAIN_MODEL_PARITY_FLUID_BOUNDARY:')
+                || !contents.contains('TERRAIN_MODEL_PARITY_GLASS_BOUNDARY:')) {
+            throw new GradleException("Terrain model parity check did not pass; inspect ${terrainModelParityLog}")
+        }
+    }
+}
+
+afterEvaluate {
+    if (terrainModelParityEnabled && terrainWorldCheckEnabled) {
+        throw new GradleException('Run the model parity and disposable world checks separately')
+    }
+    def clientAssets = tasks.named("neoFormJoined${rootProject.property('common.neoform.version')}DownloadAssets")
+    def clientAssetIndex = clientAssets.flatMap { it.assetIndexFile }
+    tasks.named('runClient', JavaExec) {
+        if (terrainModelParityEnabled || terrainWorldCheckEnabled) {
+            timeout = java.time.Duration.ofMinutes(5)
+        }
+        doFirst {
+            if (terrainModelParityEnabled || terrainWorldCheckEnabled) {
+                (terrainWorldCheckEnabled ? terrainWorldCheckLog : terrainModelParityLog).delete()
+            }
+        }
+        dependsOn clientAssets
+        doFirst {
+            def index = clientAssetIndex.get().asFile
+            args = args.collect {
+                it == '{asset_index}' ? index.name.replaceFirst(/\.json$/, '') :
+                    it == '{assets_root}' ? index.parentFile.parentFile.absolutePath : it
+            }
+        }
+    }
+}
 
 bonorum {
     sinytraExporterVersion = "${project.property('wiki.exporter.version')}+${project.property('wiki.exporter.minecraft.version')}"

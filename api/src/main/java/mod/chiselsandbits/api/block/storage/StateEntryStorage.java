@@ -298,6 +298,54 @@ public final class StateEntryStorage implements IMirrorAndRotateble, IWithBatcha
 	}
 
 	/**
+	 * Captures an independent, read-only view of the packed entries and their palette.
+	 */
+	public PackedSnapshot copyPackedSnapshot() {
+		final BlockInformation[] values = palette.paletteEntries().stream()
+				.map(StateEntryPalette.Entry::blockInformation).toArray(BlockInformation[]::new);
+		return new PackedSnapshot(size, entryWidth, data.toLongArray(), values);
+	}
+
+	/**
+	 * Immutable packed storage for repeated random reads without per-bit {@link BitSet} lookups.
+	 */
+	public static final class PackedSnapshot {
+		private final int size;
+		private final int entryWidth;
+		private final long[] data;
+		private final BlockInformation[] palette;
+
+		private PackedSnapshot(final int size, final int entryWidth, final long[] data, final BlockInformation[] palette) {
+			this.size = size;
+			this.entryWidth = entryWidth;
+			this.data = data;
+			this.palette = palette;
+		}
+
+		public int getSize() {
+			return size;
+		}
+
+		public BlockInformation getBlockInformation(final int x, final int y, final int z) {
+			if (x < 0 || x >= size || y < 0 || y >= size || z < 0 || z >= size) {
+				throw new IndexOutOfBoundsException("Packed storage coordinates outside 0.." + (size - 1));
+			}
+			final int bitOffset = (x * size * size + y * size + z) * entryWidth;
+			final int word = bitOffset >>> 6;
+			final int shift = bitOffset & 63;
+			long bits = word < data.length ? data[word] >>> shift : 0;
+			if (shift + entryWidth > Long.SIZE && word + 1 < data.length) {
+				bits |= data[word + 1] << (Long.SIZE - shift);
+			}
+			final int index = (int) (bits & ((1L << entryWidth) - 1));
+			if (palette.length == 0) {
+				return BlockInformation.AIR;
+			}
+			return palette[index < 0 || index >= palette.length ? 0 : index];
+		}
+	}
+
+	/**
 	 * Creates an independent copy of the palette and packed state data.
 	 *
 	 * @return a snapshot with independent palette and bitset data

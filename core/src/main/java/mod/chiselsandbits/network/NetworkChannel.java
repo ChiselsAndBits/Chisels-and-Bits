@@ -4,6 +4,7 @@ import com.communi.suggestu.scena.core.network.INetworkChannel;
 import mod.chiselsandbits.network.packets.AddMultiStateItemStackToClipboardPacket;
 import mod.chiselsandbits.network.packets.BagGuiPacket;
 import mod.chiselsandbits.network.packets.BagGuiStackPacket;
+import mod.chiselsandbits.network.packets.BenchmarkCommandMessagePacket;
 import mod.chiselsandbits.network.packets.ChangeTrackerUpdatedPacket;
 import mod.chiselsandbits.network.packets.ClearBagGuiPacket;
 import mod.chiselsandbits.network.packets.ClearChangeTrackerPacket;
@@ -80,6 +81,7 @@ public class NetworkChannel {
 		register(ImportPatternCommandMessagePacket.TYPE, ImportPatternCommandMessagePacket.streamCodec(ImportPatternCommandMessagePacket::new));
 		register(GivePlayerPatternCommandPacket.TYPE, GivePlayerPatternCommandPacket.streamCodec(GivePlayerPatternCommandPacket::new));
 		register(ModificationRecipesUpdated.TYPE, ModificationRecipesUpdated.streamCodec(ModificationRecipesUpdated::new));
+		register(BenchmarkCommandMessagePacket.TYPE, BenchmarkCommandMessagePacket.streamCodec(BenchmarkCommandMessagePacket::new));
 	}
 
 	private <T extends ModPacket> void register(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec) {

@@ -1,6 +1,7 @@
 package mod.chiselsandbits.network.handlers;
 
 import java.util.Deque;
+import java.util.List;
 
 import com.mojang.datafixers.util.Either;
 import mod.chiselsandbits.ChiselsAndBits;
@@ -16,6 +17,7 @@ import mod.chiselsandbits.api.profiling.IProfilerSection;
 import mod.chiselsandbits.api.util.LocalStrings;
 import mod.chiselsandbits.client.clipboard.CreativeClipboardUtils;
 import mod.chiselsandbits.client.screens.widgets.ChangeTrackerOperationsWidget;
+import mod.chiselsandbits.debug.bench.BenchmarkCollector;
 import mod.chiselsandbits.item.multistate.SingleBlockMultiStateItemStack;
 import mod.chiselsandbits.network.packets.GivePlayerPatternCommandPacket;
 import mod.chiselsandbits.profiling.ProfilingManager;
@@ -101,6 +103,25 @@ public final class ClientPacketHandlers {
 
 		final IMultiStateItemStack multiStateItemStack = multiStateBlockEntity.createSnapshot().toItemStack();
 		IPatternSharingManager.getInstance().exportPattern(multiStateItemStack, name);
+	}
+
+	public static void handleBenchmarkCommandMessage(final boolean start) {
+		final BenchmarkCollector collector = BenchmarkCollector.getInstance();
+
+		if (start) {
+			collector.start();
+			Minecraft.getInstance().showDebugChat(Component.literal("Chisels & Bits benchmark started. Run '/candb bench stop' to finish."));
+			return;
+		}
+
+		final List<String> summary = collector.stop();
+
+		if (summary.isEmpty()) {
+			Minecraft.getInstance().showDebugChat(Component.literal("No Chisels & Bits benchmark is running."));
+			return;
+		}
+
+		summary.forEach(line -> Minecraft.getInstance().showDebugChat(Component.literal(line)));
 	}
 
 	public static void handleImportPatternCommandMessage(final String name) {

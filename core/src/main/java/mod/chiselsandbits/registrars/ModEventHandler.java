@@ -8,6 +8,7 @@ import com.communi.suggestu.scena.core.event.ProcessingResult;
 import mod.chiselsandbits.ChiselsAndBits;
 import mod.chiselsandbits.api.item.click.ClickProcessingState;
 import mod.chiselsandbits.block.entities.ChiseledBlockEntity;
+import mod.chiselsandbits.debug.scenes.ChurnScene;
 import mod.chiselsandbits.logic.BitStackPickupHandler;
 import mod.chiselsandbits.logic.ChiselingManagerCountDownResetHandler;
 import mod.chiselsandbits.logic.CommandRegistrationHandler;
@@ -123,7 +124,10 @@ public final class ModEventHandler {
 					}
 		});
 		IGameEvents.getInstance().getServerAboutToStartEvent().register(minecraftServer -> ServerStartHandler.onServerStart());
-		IGameEvents.getInstance().getServerPostTickEvent().register(minecraftServer -> ServerTickHandler.onPostServerTick());
+		IGameEvents.getInstance().getServerPostTickEvent().register(minecraftServer -> {
+			ServerTickHandler.onPostServerTick();
+			ChurnScene.getInstance().onServerTick();
+		});
 
 		IGameEvents.getInstance().getChunkSentEvent().register((serverPlayer, levelChunk, serverLevel) -> {
 			IBlockEntityPositionManager.getInstance().getPositions(ChiseledBlockEntity.class, serverLevel, levelChunk.getPos())

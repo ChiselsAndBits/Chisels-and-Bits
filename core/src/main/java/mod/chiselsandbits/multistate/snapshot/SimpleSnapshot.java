@@ -95,6 +95,20 @@ public class SimpleSnapshot implements IMultiStateSnapshot, ISingleBlockAxisAlig
 		return chunkSection;
 	}
 
+	/**
+	 * Returns an independent copy of the stored entries.
+	 */
+	public StateEntryStorage copyStorage() {
+		return chunkSection.createSnapshot();
+	}
+
+	/**
+	 * Returns an independent packed view of the stored entries.
+	 */
+	public StateEntryStorage.PackedSnapshot copyPackedStorage() {
+		return chunkSection.copyPackedSnapshot();
+	}
+
 	private SimpleStatistics getStateObjectStatistics() {
 		return stateObjectStatistics;
 	}

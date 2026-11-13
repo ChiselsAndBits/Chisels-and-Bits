@@ -26,6 +26,7 @@ import net.minecraft.util.TriState;
 import net.minecraft.world.level.material.Fluid;
 
 public class FaceManager {
+	public static final int FLUID_TINT_INDEX = 0xff;
 	private static final FaceManager INSTANCE = new FaceManager();
 
 	public static FaceManager getInstance() {
@@ -41,7 +42,34 @@ public class FaceManager {
 			@Nullable Direction direction,
 			@Nullable Object modelCacheKey) { }
 
+	private static final ThreadLocal<SourceTransform> SOURCE_TRANSFORM = new ThreadLocal<>();
+
 	private FaceManager() {
+	}
+
+	/**
+	 * Verification seam: runs {@code action} on the current thread with every extracted source component passed
+	 * through {@code transform}, bypassing the shared quad cache for both reads and writes. Used by the isolated
+	 * parity harness to supply source-model properties that no vanilla cube model declares (for example nonzero
+	 * per-quad light emission) while keeping the real loader extraction and every downstream C&B stage.
+	 */
+	public static void runWithSourceTransform(final SourceTransform transform, final Runnable action) {
+		final SourceTransform previous = SOURCE_TRANSFORM.get();
+		SOURCE_TRANSFORM.set(transform);
+		try {
+			action.run();
+		} finally {
+			if (previous == null) {
+				SOURCE_TRANSFORM.remove();
+			} else {
+				SOURCE_TRANSFORM.set(previous);
+			}
+		}
+	}
+
+	@FunctionalInterface
+	public interface SourceTransform {
+		DeconstructedModelPartComponent apply(BlockInformation source, DeconstructedModelPartComponent component);
 	}
 
 	public void extractQuads(
@@ -60,6 +88,14 @@ public class FaceManager {
 						pos
 				)
 		);
+
+		final SourceTransform transform = SOURCE_TRANSFORM.get();
+		if (transform != null) {
+			for (final DeconstructedModelPartComponent component : buildQuadCollection(key, blockAndTintGetter, pos)) {
+				pipeline.accept(transform.apply(blockInformation, component));
+			}
+			return;
+		}
 
 		for (final DeconstructedModelPartComponent component : quadCache.get(
 				key,
@@ -130,7 +166,7 @@ public class FaceManager {
 		builder.material(bakedMaterial);
 		injectFluidVertexDataForSide(builder, minU, maxU, minV, maxV, key.direction());
 
-		builder.tintIndex(0xff);
+		builder.tintIndex(FLUID_TINT_INDEX);
 
 		return Collections.singletonList(builder.build());
 	}
@@ -163,10 +199,10 @@ public class FaceManager {
 				v.withVertexIndex(1).withX(0).withY(0).withZ(0).withU(minU).withV(maxV);
 			});
 			builder.vertex(v -> {
-				v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(maxV);
+				v.withVertexIndex(3).withX(1).withY(0).withZ(1).withU(maxU).withV(minV);
 			});
 			builder.vertex(v -> {
-				v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(minV);
+				v.withVertexIndex(2).withX(1).withY(0).withZ(0).withU(maxU).withV(maxV);
 			});
 		}
 		case UP -> {

@@ -124,3 +124,18 @@ Worst cases for a single 16³ block:
 | Non-cuboid source models | **Restrict:** only models whose face layers are cuboid are allowed as bit materials. The `adaptVertices` fallback is dropped from the terrain path. |
 | Smaller bit sizes | Expanded into the 16-grid when the snapshot is built. |
 | Async executor | **Kept** (already proven fast and responsive). It now builds the snapshot plus the rectangle cache off-thread and publishes them atomically. Section compile then only reads cached rectangles and emits quads. If no snapshot is ready yet, compile builds one inline. |
+
+## 10. Phase 1 implementation status
+
+Phase 1 implements the standalone mesher only. It is not wired into the runtime path, and `ChiseledBlockModelDataExecutor` is unchanged. Code lives in `core/.../client/model/meshing/`. The sections above are hypotheses. This section records what was built and where it differs.
+
+- **Snapshot.** `ChiseledRenderSnapshot.of(StateEntryStorage)` copies the cells into a private `short[4096]` and builds per-material column occupancy. It accepts sizes 1/2/4/8/16 and expands smaller sizes into the 16 grid. It is not a `record` with array components: arrays are never exposed, so there is no mutable escape. A snapshot does not change when its source storage changes.
+- **Culling is material-aware, not a boolean.** `FaceCullingPolicy.hidesFace(source, neighbour, direction)` decides per face and per direction. `ANY_OCCUPIED` is the legacy semantics. `opaqueOrSameMaterial` keeps the identity-aware rule. Masks are not reduced to `boundaryOccluding`/`boundary` booleans.
+- **Neighbour boundaries.** `NeighbourBoundary` holds immutable 6×256 planes of `BlockInformation`, with the neighbour's outer layer selected by direction. Chiseled neighbours therefore keep per-material identity for self-culling.
+- **Cache keying.** Intrinsic results (no neighbour boundary) are cached per policy instance on the snapshot. Any result that depends on a boundary is computed fresh and never cached. The cache cannot go stale when a neighbour changes.
+- **Packed output.** Rectangles are `long` values (layout in `GreedyRectangles`): material index, direction, depth, row, column, width−1, height−1. There are no per-rectangle objects. Output has an immutable material list and the source snapshot version.
+- **Algorithm.** Visible mask per direction and material, then row-run extraction and greedy merge. Scratch is allocated per call. There is no shared mutable state, and no `BakedQuad`.
+- **Cost.** For each direction and source material, the mesher ANDs visible columns against each neighbour material that the policy hides. Work is about `6 · Ms · M · 256` column operations, where `Ms` is the source material count and `M` counts all materials including the boundary. The neighbour masks themselves are built from column bits (X/Y by column offset, Z by shift) plus the six boundary planes, not per cell.
+- **Speed.** The goal from `07-poc-plan.md` is at least 5× over the legacy mesher. On the equal-output comparison (`legacy` vs `full_snapshot_and_mesh`, both using `ANY_OCCUPIED` with an all-air boundary), the measured ratio is about 3.2–4.4× for solid, 4.5× for checkerboard, 3.6–4.0× for sparse_3 and 2.8–3.3× for multi_material_17 across three runs. The 5× goal is not met. Phase 1 is not complete on performance. Details and limits are in `benchmarks.md`.
+
+Not in Phase 1: UV orientation for sprites, the staging/byte-budget sharding (the 26.2 `worst_case` crash), `ITerrainLighter`/AO, and the `adaptVertices` fallback. Those belong to Phase 2.

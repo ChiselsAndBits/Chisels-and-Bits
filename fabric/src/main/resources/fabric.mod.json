@@ -19,6 +19,9 @@
     ],
     "client": [
       "${project.package}.client.FabricClient"
+    ],
+    "fabric-client-gametest": [
+      "${project.package}.gametest.TerrainSubsetClientGameTest"
     ]
   },
   "accessWidener" : "accesswidener.accesswidener",

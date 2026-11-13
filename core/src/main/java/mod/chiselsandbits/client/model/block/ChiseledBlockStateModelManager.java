@@ -2,6 +2,8 @@ package mod.chiselsandbits.client.model.block;
 
 import java.util.List;
 
+import mod.chiselsandbits.api.blockinformation.BlockInformation;
+
 import com.communi.suggestu.scena.core.client.models.IModelManager;
 import com.communi.suggestu.scena.core.util.SingleBlockBlockAndTintGetter;
 import mod.chiselsandbits.api.config.IClientConfiguration;
@@ -79,22 +81,7 @@ public class ChiseledBlockStateModelManager {
 				return ChiseledBlockModelInformation.EMPTY;
 			}
 
-			final List<@Nullable Object> cacheKeys = accessor.getStatistics().getContainedStates()
-					.stream()
-					.map(state -> IModelManager.getInstance().determineModelCacheKey(
-							state.blockState(),
-							() -> state.newBlockEntity(blockPos),
-							blockAndTintGetter,
-							blockPos
-					))
-					.toList();
-
-			final ChiseledBlockModelCacheKey key = new ChiseledBlockModelCacheKey(
-					accessor.createNewShapeIdentifier(),
-					accessor.getStatistics().getPrimaryState(),
-					blockNeighborhood,
-					cacheKeys
-			);
+			final ChiseledBlockModelCacheKey key = keyFor(blockAndTintGetter, blockPos, accessor, blockNeighborhood);
 
 			return cache.get(key,
 					() -> {
@@ -108,5 +95,31 @@ public class ChiseledBlockStateModelManager {
 						}
 					});
 		}
+	}
+
+	public ChiseledBlockModelCacheKey keyFor(
+			final BlockAndTintGetter blockAndTintGetter,
+			final BlockPos blockPos,
+			final ISingleBlockAxisAlignedAreaAccessor accessor,
+			final IBlockNeighborhood blockNeighborhood
+	) {
+		final List<BlockInformation> sourceStates = List.copyOf(accessor.getStatistics().getContainedStates());
+		final List<@Nullable Object> cacheKeys = sourceStates
+				.stream()
+				.map(state -> IModelManager.getInstance().determineModelCacheKey(
+						state.blockState(),
+						() -> state.newBlockEntity(blockPos),
+						blockAndTintGetter,
+						blockPos
+				))
+				.toList();
+
+		return new ChiseledBlockModelCacheKey(
+				accessor.createNewShapeIdentifier(),
+				accessor.getStatistics().getPrimaryState(),
+				blockNeighborhood,
+				cacheKeys,
+				sourceStates
+		);
 	}
 }

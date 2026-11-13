@@ -15,6 +15,8 @@ import mod.chiselsandbits.client.logic.ItemBasedHighlightRenderHandler;
 import mod.chiselsandbits.client.logic.SlotOverlayRenderHandler;
 import mod.chiselsandbits.client.logic.ToolNameHighlightTickHandler;
 import mod.chiselsandbits.client.model.block.ChiseledBlockStateModel;
+import mod.chiselsandbits.client.model.data.ChiseledBlockModelDataExecutor;
+import mod.chiselsandbits.client.model.meshing.TerrainModelParityCheck;
 import mod.chiselsandbits.client.model.item.BitBlockItemModel;
 import mod.chiselsandbits.client.model.item.ChiseledBlockItemModel;
 import mod.chiselsandbits.client.model.item.InteractableItemModel;
@@ -22,8 +24,10 @@ import mod.chiselsandbits.client.reloading.ClientResourceReloadingManager;
 import mod.chiselsandbits.client.screens.pips.RotatableItemRenderer;
 import mod.chiselsandbits.client.screens.pips.Torus;
 import mod.chiselsandbits.client.time.TickHandler;
+import mod.chiselsandbits.debug.bench.BenchmarkCollector;
 import mod.chiselsandbits.keys.KeyBindingManager;
 import mod.chiselsandbits.logic.MagnifyingGlassTooltipHandler;
+
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.chunk.LevelChunk;
 
@@ -39,11 +43,16 @@ public final class ModClientEventHandlers {
 			}
 		});
 		IGameEvents.getInstance().getPlayerJoinedWorldEvent().register((_, level) -> CreativeClipboardManager.getInstance().load(level.registryAccess()));
+		if (TerrainModelParityCheck.isEnabled()) {
+			IClientEvents.getInstance().getClientTickStartedEvent().register(TerrainModelParityCheck::onClientTick);
+		}
 		IClientEvents.getInstance().getClientTickStartedEvent().register(() -> {
+			ChiseledBlockModelDataExecutor.onClientTick();
 			ToolNameHighlightTickHandler.handleClientTickForMagnifyingGlass();
 			KeyBindingManager.getInstance().handleKeyPresses();
 			TickHandler.onClientTick();
 			MeasurementTapeTickHandler.tick();
+			BenchmarkCollector.getInstance().onClientTick();
 		});
 		IClientEvents.getInstance().getScrollEvent().register(ScrollBasedModeChangeHandler::onScroll);
 		IClientEvents.getInstance().getHUDRenderEvent().register(SlotOverlayRenderHandler::renderSlotOverlays);

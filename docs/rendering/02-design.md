@@ -22,7 +22,7 @@ that for free. This is the only approach that is compatible with shader packs.
       ▼                          ▼                           ▼
  Vanilla 26.4 sink         Vanilla 26.2 sink            Sodium sink
  SectionBufferBuilder      BufferBuilder (BLOCK)        Sodium ChunkMeshBufferBuilder
- + template sharding       no cap                       (Iris adds its attributes)
+ + template sharding       byte-budget sharding needed  (Iris adds its attributes)
 ```
 
 1. **Mesher (core).** Runs on the section-compile worker, using the region snapshot the renderer
@@ -52,8 +52,18 @@ that for free. This is the only approach that is compatible with shader packs.
 
 ## Vanilla 26.2 sink
 
-`BufferBuilder` in `DefaultVertexFormat.BLOCK` with no cap. The new mesher still replaces
-`BakedQuad` generation, so the performance gain applies here too.
+`BufferBuilder` in `DefaultVertexFormat.BLOCK` has no 16-bit template-index cap, but the
+upload path is not unbounded. The Phase 0 worst-case scene crashes on 26.2/NeoForge 26.2.0.93
+with a 379,545,600-byte allocation against a 102,760,448-byte staging buffer.
+`SectionRenderDispatcher` also creates fixed 134,217,728-byte vertex heaps and
+33,554,432-byte index heaps. The persistently mapped staging implementation uses half
+the requested staging capacity.
+
+The new mesher still replaces `BakedQuad` generation, but reducing CPU work does not
+remove these byte limits. Phase 2 needs bounded native mesh allocations and multiple native
+draws per section/layer (including upload, lifetime and sorting support). Merely splitting
+copies into staging-sized pieces would not address the destination heap limit. The exact
+Scena integration remains to be designed.
 
 ## Sodium sink
 

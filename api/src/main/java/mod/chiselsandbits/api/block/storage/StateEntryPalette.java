@@ -234,7 +234,7 @@ public record StateEntryPalette(
 	 * @return the indexed block information, or air when the index is invalid
 	 */
 	public BlockInformation getBlockState(final int blockStateId) {
-		if (this.paletteEntries().isEmpty()) {
+		if (this.paletteEntries.isEmpty()) {
 			return BlockInformation.AIR;
 		}
 

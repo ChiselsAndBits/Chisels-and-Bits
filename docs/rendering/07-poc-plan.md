@@ -34,6 +34,10 @@ In Scena:
 - `TerrainGeometryBlockStateModel`, `ITerrainGeometryContext`, `ITerrainQuadSink.axisAlignedQuad`.
 - The `@WrapOperation` hook on `SectionCompiler` → `tesselateBlock` for both loaders ([03](03-scena-api.md)).
 - `ITerrainLighter` V1: delegates to the live `BlockModelLighter` ([05](05-lighting.md)).
+- Byte-budgeted mesh allocations and native draw sharding: Phase 0 exposed staging-buffer
+  and destination-heap limits already on 26.2 ([02](02-design.md)). This requires additional
+  Scena design before Phase 2 can satisfy the worst-case scene; template sharding is not
+  the only reason to split section meshes.
 
 In C&B:
 - `ChiseledBlockStateModel` implements the interface.
@@ -88,6 +92,37 @@ In C&B:
 | Risk | Mitigation |
 |---|---|
 | Iris behaviour on 26.4 is unknown | Phase 4 is done on 26.2 first. Re-check when Iris supports 26.4. |
-| Fabric API / NeoForge already patch `SectionCompiler` | `@WrapOperation` (MixinExtras) composes with Fabric's `@Redirect`. Covered by a CI smoke test on both loaders. |
+| Fabric API / NeoForge already patch `SectionCompiler` | `@WrapOperation` (MixinExtras) is used to compose with Fabric's `@Redirect`; add/perform transformed-client smoke tests on both loaders before enabling by default. |
 | Sodium internals change | The Scena Sodium module is pinned to supported Sodium versions, and a version check disables it (falling back to the old path). |
 | Mojang changes the 26.4 format before release | Phase 5 waits for 26.4 pre-releases. The sharding code is isolated in Scena. |
+
+## Implementation status (2026-11-12)
+
+Scena has the gated opt-in model/context contract, fallback-first dispatcher, and Fabric/NeoForge `SectionCompiler`
+wrappers. C&B captures an immutable single-block accessor snapshot on the client thread and uses it for both regular
+model data and the optional rectangle candidate. Per-block generations reject stale async publications; the model
+data reference is volatile. The default-off path preserves the prior live-entity builder and does not capture a
+snapshot or defer execution.
+
+For eligible non-empty models, including faces on the block boundary, `RectangleMesher` (using the legacy
+`ANY_OCCUPIED` internal culling rule) produces candidate rectangles through existing `QuadGenerationUtils` and
+`FaceManager` clipping/model extraction. Preflight permits only non-fluid, occluding, solid-rendering source materials
+without block entities, static source model keys, and SOLID, non-animated, non-emissive source quads. Empty,
+translucent, cutout, animated, emissive, dynamic, or otherwise unsupported geometry keeps the existing baked-model
+fallback. Candidate quads still pass through `ModelBlockRenderer`; native `BlockQuadOutput` handles layer routing,
+light/AO, tint, culling, and translucent processing. This remains BakedQuad-assisted—not direct native rectangle
+emission—and is not a demonstrated performance win. This paragraph describes the earlier
+baked-model adapter; the current direct-geometry path and boundary slice are documented
+in [the Scena API implementation notes](03-scena-api.md).
+
+Focused NeoForge game tests compare expanded rectangle coverage to `GreedyMeshBuilder`, verify interior/boundary
+eligibility, material/source-face restrictions, selection fallback, and stale-generation rejection. They do not prove
+visual client/world parity or output-level UV/light/tint parity. To observe actual selection, launch with
+`-Dscena.experimentalNativeTerrainGeometry=true` and
+`-Dchiselsandbits.debugNativeTerrainGeometry=true`; the first rectangle and legacy-model selections each emit one
+chat/log diagnostic per process.
+
+Disposable client smoke runs on Fabric (Fabric API/Indigo present) and NeoForge loaded the transformed
+`SectionCompiler` with `-Dscena.experimentalNativeTerrainGeometry=true`, then exited before world selection. These
+verify mixin transformation/composition only—not C&B dispatch or rendered output. The Scena geometry gate remains off
+by default. Sodium detection disables this vanilla hook; no Sodium/Iris compatibility is claimed.
